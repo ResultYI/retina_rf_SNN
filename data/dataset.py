@@ -1,0 +1,289 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+from pathlib import Path
+from typing import NotRequired, Sequence, TypedDict
+
+import numpy as np
+import torch
+from torch.utils.data import Dataset
+
+from data.cone_response import (
+    ConeResponseExport,
+    DataContractError,
+    load_cone_response,
+    validate_response,
+)
+
+
+@dataclass(frozen=True, slots=True)
+class ISETBioDatasetConfig:
+    h5_path: str | Path
+    input_steps: int = 16
+    horizons: tuple[int, ...] = (1, 2, 4)
+    eps: float = 1e-6
+    clip: float = 5.0
+    allow_fit_stats: bool = False
+    target_fine_pool: torch.Tensor | None = None
+    target_coarse_pool: torch.Tensor | None = None
+
+
+class ISETBioSample(TypedDict):
+    x_cone: torch.Tensor
+    target_delta: torch.Tensor
+    target_fine: NotRequired[torch.Tensor]
+    target_coarse: NotRequired[torch.Tensor]
+    time_index: torch.Tensor
+
+
+def log_cone_response(response: np.ndarray, eps: float = 1e-6) -> np.ndarray:
+    if eps <= 0:
+        raise DataContractError("eps must be positive")
+    return np.log(validate_response(response) + np.float32(eps)).astype(np.float32)
+
+
+def fit_log_cone_stats(
+    paths: Sequence[str | Path],
+    eps: float = 1e-6,
+) -> tuple[np.ndarray, np.ndarray]:
+    if not paths:
+        raise DataContractError("At least one training export is required")
+
+    log_responses: list[np.ndarray] = []
+    reference_positions: np.ndarray | None = None
+    reference_cone_types: np.ndarray | None = None
+    for path in paths:
+        export = load_cone_response(Path(path))
+        if reference_positions is None:
+            reference_positions = export.positions_degs
+            reference_cone_types = export.cone_types
+        elif (
+            export.positions_degs.shape != reference_positions.shape
+            or not np.allclose(export.positions_degs, reference_positions, atol=1e-6)
+        ):
+            raise DataContractError("Training exports do not use the same cone positions")
+        elif not np.array_equal(export.cone_types, reference_cone_types):
+            raise DataContractError("Training exports use different cone type ordering")
+        log_responses.append(log_cone_response(export.response, eps))
+
+    stacked = np.concatenate(log_responses, axis=0)
+    mean = stacked.mean(axis=0).astype(np.float32)
+    scale = stacked.std(axis=0).astype(np.float32)
+    return mean, np.maximum(scale, np.float32(eps))
+
+
+def apply_log_cone_stats(
+    response: np.ndarray,
+    mean: np.ndarray,
+    scale: np.ndarray,
+    eps: float = 1e-6,
+    clip: float | None = None,
+) -> np.ndarray:
+    log_response = log_cone_response(response, eps)
+    mean, scale = _validate_stats(mean, scale, log_response.shape[1])
+    normalized = (log_response - mean) / scale
+    if clip is not None:
+        if clip <= 0:
+            raise DataContractError("clip must be positive")
+        normalized = np.clip(normalized, -clip, clip)
+    return normalized.astype(np.float32)
+
+
+def save_log_cone_stats(
+    path: str | Path,
+    mean: np.ndarray,
+    scale: np.ndarray,
+    eps: float = 1e-6,
+) -> None:
+    mean, scale = _validate_stats(mean, scale)
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    np.savez(path, mean=mean, scale=scale, eps=np.float32(eps))
+
+
+def load_log_cone_stats(path: str | Path) -> tuple[np.ndarray, np.ndarray, float]:
+    with np.load(Path(path)) as data:
+        mean = np.asarray(data["mean"], dtype=np.float32)
+        scale = np.asarray(data["scale"], dtype=np.float32)
+        eps = float(np.asarray(data["eps"]).reshape(()))
+    mean, scale = _validate_stats(mean, scale)
+    return mean, scale, eps
+
+
+class ISETBioDataset(Dataset[ISETBioSample]):
+    def __init__(
+        self,
+        config: ISETBioDatasetConfig,
+        mean: np.ndarray | None = None,
+        scale: np.ndarray | None = None,
+    ) -> None:
+        self._config = config
+        self._validate_config(config)
+
+        h5_path = Path(config.h5_path)
+        export = load_cone_response(h5_path)
+
+        if (mean is None) != (scale is None):
+            raise DataContractError("mean and scale must be provided together")
+        if mean is None and scale is None:
+            if not config.allow_fit_stats:
+                raise DataContractError(
+                    "Pass train-only normalization stats, or set "
+                    "allow_fit_stats=True explicitly for training/smoke tests"
+                )
+            mean, scale = fit_log_cone_stats([h5_path], config.eps)
+
+        mean, scale = _validate_stats(mean, scale, export.response.shape[1])
+        unclipped_contrast = apply_log_cone_stats(
+            export.response,
+            mean,
+            scale,
+            config.eps,
+            clip=None,
+        )
+        self._clip_fraction = float(np.mean(np.abs(unclipped_contrast) > config.clip))
+        self._contrast = np.clip(
+            unclipped_contrast,
+            -config.clip,
+            config.clip,
+        ).astype(np.float32)
+        self._target_fine_pool = _validate_target_pool(
+            "target_fine_pool",
+            config.target_fine_pool,
+            export.response.shape[1],
+        )
+        self._target_coarse_pool = _validate_target_pool(
+            "target_coarse_pool",
+            config.target_coarse_pool,
+            export.response.shape[1],
+        )
+        self._normalization_mean = mean
+        self._normalization_scale = scale
+        self._positions_degs = export.positions_degs
+        self._cone_types = export.cone_types
+        self._time_axis_seconds = export.time_axis_seconds
+        self._eye_trace_degs = export.eye_trace_degs
+        self._response_units = export.units
+        self._horizons = config.horizons
+        self._length = self._contrast.shape[0] - config.input_steps - max(self._horizons) + 1
+        if self._length <= 0:
+            raise DataContractError("Sequence is too short for inputs and horizons")
+
+    @property
+    def positions_degs(self) -> np.ndarray:
+        return self._positions_degs
+
+    @property
+    def cone_types(self) -> np.ndarray:
+        return self._cone_types
+
+    @property
+    def time_axis_seconds(self) -> np.ndarray:
+        return self._time_axis_seconds
+
+    @property
+    def eye_trace_degs(self) -> np.ndarray:
+        return self._eye_trace_degs
+
+    @property
+    def response_units(self) -> str:
+        return self._response_units
+
+    @property
+    def normalization_mean(self) -> np.ndarray:
+        return self._normalization_mean
+
+    @property
+    def normalization_scale(self) -> np.ndarray:
+        return self._normalization_scale
+
+    @property
+    def clip_fraction(self) -> float:
+        return self._clip_fraction
+
+    @property
+    def horizons(self) -> tuple[int, ...]:
+        return self._horizons
+
+    def __len__(self) -> int:
+        return self._length
+
+    def __getitem__(self, index: int) -> ISETBioSample:
+        if index < 0 or index >= self._length:
+            raise IndexError(index)
+
+        anchor = index + self._config.input_steps - 1
+        start = anchor - self._config.input_steps + 1
+        base = self._contrast[anchor]
+        target = np.stack(
+            [self._contrast[anchor + horizon] - base for horizon in self._horizons],
+            axis=0,
+        ).astype(np.float32)
+
+        target_tensor = torch.from_numpy(np.ascontiguousarray(target))
+        sample: ISETBioSample = {
+            "x_cone": torch.from_numpy(np.ascontiguousarray(self._contrast[start : anchor + 1])),
+            "target_delta": target_tensor,
+            "time_index": torch.tensor(anchor, dtype=torch.long),
+        }
+        if self._target_fine_pool is not None and self._target_coarse_pool is not None:
+            sample["target_fine"] = torch.sparse.mm(
+                self._target_fine_pool,
+                target_tensor.T,
+            ).T
+            sample["target_coarse"] = torch.sparse.mm(
+                self._target_coarse_pool,
+                target_tensor.T,
+            ).T
+        return sample
+
+    @staticmethod
+    def _validate_config(config: ISETBioDatasetConfig) -> None:
+        if config.input_steps < 1:
+            raise DataContractError("input_steps must be positive")
+        if not config.horizons or any(horizon < 1 for horizon in config.horizons):
+            raise DataContractError("horizons must contain positive future offsets")
+        if config.eps <= 0:
+            raise DataContractError("eps must be positive")
+        if config.clip <= 0:
+            raise DataContractError("clip must be positive")
+        if (config.target_fine_pool is None) != (config.target_coarse_pool is None):
+            raise DataContractError(
+                "fine and coarse target pools must be provided together"
+            )
+
+
+def _validate_stats(
+    mean: np.ndarray,
+    scale: np.ndarray,
+    cone_count: int | None = None,
+) -> tuple[np.ndarray, np.ndarray]:
+    mean = np.asarray(mean, dtype=np.float32)
+    scale = np.asarray(scale, dtype=np.float32)
+    if mean.ndim != 1 or scale.shape != mean.shape:
+        raise DataContractError("Expected per-cone mean and scale with shape [Ncone]")
+    if cone_count is not None and mean.shape != (cone_count,):
+        raise DataContractError("Normalization stats do not match cone count")
+    if not np.isfinite(mean).all() or not np.isfinite(scale).all() or np.any(scale <= 0):
+        raise DataContractError("Normalization stats must be finite with positive scale")
+    return mean, scale
+
+
+def _validate_target_pool(
+    name: str,
+    pool: torch.Tensor | None,
+    cone_count: int,
+) -> torch.Tensor | None:
+    if pool is None:
+        return None
+    if pool.layout != torch.sparse_coo or pool.ndim != 2:
+        raise DataContractError(f"{name} must be a sparse COO matrix")
+    pool = pool.coalesce().to(dtype=torch.float32, device="cpu")
+    if pool.shape[0] < 1 or pool.shape[1] != cone_count:
+        raise DataContractError(f"{name} must have shape [Ntarget,Ncone]")
+    if not torch.isfinite(pool.values()).all() or torch.any(pool.values() < 0):
+        raise DataContractError(f"{name} weights must be finite and non-negative")
+    row_sums = torch.sparse.sum(pool, dim=1).to_dense()
+    if not torch.allclose(row_sums, torch.ones_like(row_sums), atol=1e-5, rtol=1e-5):
+        raise DataContractError(f"{name} rows must sum to one")
+    return pool

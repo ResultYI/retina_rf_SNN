@@ -1,0 +1,227 @@
+% !TeX TXS-program:compile = txs:///latex
+% !TeX encoding = UTF-8
+% !TeX document-id = {db09d0ed-29b9-495c-a027-5848fc6b8b39}
+% !TeX spellcheck = <none>
+\documentclass[uplatex,dvipdfmx,a4paper,10pt]{jsarticle}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage[haranoaji,unicode]{pxchfon}
+\usepackage[dvipdfmx]{graphicx,color}
+\usepackage{url}
+
+\topmargin=-2.0cm
+\textheight=25.0cm
+\textwidth=17.0cm
+\oddsidemargin=-1.0cm
+\evensidemargin=-1.0cm
+\renewcommand{\baselinestretch}{0.95}
+\hbadness=10000 % Narrow bilingual columns produce harmless loose-line notices.
+\setlength{\columnsep}{0.75cm}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@dblfptop}{0pt}
+\makeatother
+
+\title{\textbf{進捗報告}}
+\author{M1 TANG YU}
+\date{\today}
+
+\begin{document}
+\twocolumn[
+\maketitle
+]
+
+\section{はじめに}
+\label{sec:introduction}
+
+上次の議論では，本研究における評価手法の不足点が明確でなかったが，現在はその問題に対する方向性が見えてきた。
+今回の進捗では，receptive field（RF）を共通の評価座標として用いる方針を整理する。
+\section{RGCの受容野（RF）とは何か}
+\label{sec:rf_definition}
+
+\subsection{生理学的な意味}
+\label{subsec:rf_physiology}
+
+網膜神経節細胞（retinal ganglion cell; RGC）は，視細胞，双極細胞，水平細胞，アマクリン細胞から形成される局所回路の出力を受け取り，その結果をスパイク列として視神経へ送る。各RGCが影響を受ける視野範囲には空間的な広がりがあり，その範囲内でも位置ごとに応答への寄与が異なる。この刺激位置と神経応答の対応関係を表す概念が受容野（receptive field; RF）である。
+
+典型的なRGCでは，RFの中心部と周辺部が拮抗する。ON中心型細胞では中心部の明るさ増加が発火を促し，周辺部の同方向変化が中心応答を弱める。OFF中心型細胞では明るさ減少に対して中心部が強く応答する。この中心--周辺構造により，一様な照明変化への応答が抑えられ，局所コントラスト，輪郭，細かな明暗差が強調される。RFの大きさは細胞が統合する空間尺度を表し，小さいRFは細部の変化，大きいRFは広い領域の変化や低い空間周波数に関係する。
+
+RFには時間方向の性質も含まれる。刺激変化から発火頂点までの潜時，応答の持続時間，正負の山を持つ時間カーネル，過去のスパイクによる不応期や順応が，RGCの時間応答を形作る。これらの性質により，RGCは現在の明るさ，明るさの変化速度，刺激の開始と終了，短時間の運動やちらつきに選択性を示す。
+
+同じ細胞型に属するRGCのRF中心は網膜上をモザイク状に覆い，視野を細胞集団として表現する。midget系とparasol系ではRFの大きさ，時間応答，空間的な入力統合が異なり，細胞型ごとに異なる情報が並列に出力される。したがってRFは，一つの細胞が受け持つ局所領域，刺激に対する極性，空間統合尺度，時間応答をまとめる機能的な記述となる。
+
+\subsection{入出力関数としての抽象化}
+\label{subsec:rf_abstraction}
+
+RFを抽象化する際には，刺激の時空間履歴からRGCの条件付き発火率を生成する関数として表せる。細胞\(i\)について，
+
+\begin{equation}
+\lambda_i(t)
+=
+\mathcal{F}_i
+\left(
+\{S(t-\tau,x,y)\}_{\tau,x,y},
+\{y_i(t-\tau)\}_{\tau>0}
+\right)
+\label{eq:rf_abstraction}
+\end{equation}
+
+と置く。\(S(t,x,y)\)は刺激，\(y_i(t)\)はスパイク数，\(\lambda_i(t)\)は時刻\(t\)の条件付き発火率である。Eq.~\eqref{eq:rf_abstraction}の\(\mathcal{F}_i\)には，刺激を受け取る空間範囲，時間遅延，ON/OFF極性，中心--周辺関係，出力の非線形性，スパイク履歴が含まれる。
+
+この抽象化では，RFを四つの階層で整理できる。第一は視野上の位置と大きさ，第二は各位置と時間遅延の感度，第三は刺激強度から発火率への非線形な変換，第四は細胞型内および細胞型間の分布である。本報告で扱う機能的RFは刺激とスパイクの関係から推定される。解剖学的な接続との対応は，推定された機能を解釈する際の生理学的根拠として用いる。
+
+
+\section{RFの代表的なモデル化手法}
+\label{sec:rf_methods}
+
+\subsection{刺激入力とspike出力の対応}
+\label{subsec:glm_blackbox}
+
+RF解析では，時空間刺激を入力，細胞のspike trainを出力として，両者の統計的な対応を推定する。以下では，\(t\)を離散時間bin，\(\Delta t\)をbin幅，\((x,y)\)を刺激上の位置，\(\tau>0\)をspike時刻から過去へ戻るlagとする。刺激movieを\(S(t,x,y)\)，unit \(i\)のbin内spike数を\(y_i(t)\)，条件付き発火率を\(\lambda_i(t)\)と表す。
+
+刺激とspikeの間にある入出力写像をblack-box modelとして表し，観測dataからmodel parameterを推定する。STAはspikeに先行した平均刺激を直接推定する。LN modelは刺激をlinear filterへ通し，その出力をstatic nonlinearityによって発火率へ変換する。GLMはLNの構造にspike historyとunit間couplingを加える。三手法を同じprobe dataへ適用すると，RFの可視化，入出力非線形性，response predictionを段階的に確認できる。
+
+\subsection{Spike-triggered average（STA）}
+\label{subsec:sta}
+
+Spike-triggered average（STA）は，unit \(i\)のspike時刻を基準として，その直前に提示された刺激を平均するreverse-correlation解析である。最初に，各位置の時間平均
+\(\mu_S(x,y)=\mathbb{E}_t[S(t,x,y)]\)を求め，中心化刺激を
+\(\widetilde{S}(t,x,y)=S(t,x,y)-\mu_S(x,y)\)と定義する。STAは
+
+\begin{equation}
+\begin{aligned}
+\mathrm{STA}_i(\tau,x,y)
+&=
+\mathbb{E}
+\Bigl[
+S(t-\tau,x,y)-\mu_S(x,y)
+\\
+&\qquad
+\mid \mathrm{spike}_i(t)
+\Bigr].
+\end{aligned}
+\label{eq:sta}
+\end{equation}
+
+ここで\(\mathrm{spike}_i(t)\)は，時間bin \(t\)でunit \(i\)のspikeが観測された条件を表す。有限長の記録では，unit \(i\)の総spike数を
+\(N_i=\sum_t y_i(t)\)として，
+
+\begin{equation}
+\widehat{\mathrm{STA}}_i(\tau,x,y)
+=
+\frac{1}{N_i}
+\sum_t
+y_i(t)
+\left[
+S(t-\tau,x,y)-\mu_S(x,y)
+\right]
+\label{eq:sta_sample}
+\end{equation}
+
+により計算できる。Eq.~\eqref{eq:sta}とEq.~\eqref{eq:sta_sample}に刺激平均を引く項を入れることで，定常的な背景輝度の寄与が除かれ，spikeに先行する平均からの変化が残る。STAが正の位置は平均より明るい刺激がspikeに先行した領域，負の位置は平均より暗い刺激が先行した領域を表す。
+
+各lagのSTAは一枚のspatial RF mapになる。絶対振幅が最大となるlagをpeak temporal lagとし，そのmapからRF center，RF size，ON/OFF polarityを推定する。固定した空間領域の値をlag方向へ並べると，peak latencyやbiphasic temporal profileを得られる。白色雑音では刺激間の相関が小さいため，STAをlinear RFの近似として解釈しやすい。自然画像では空間・時間相関がSTAへ反映されるため，stimulus covarianceによるwhitening，regularized estimation，shuffle baselineを併用する。
+
+\subsection{Linear--Nonlinear model（LN）}
+\label{subsec:ln}
+
+Linear--Nonlinear model（LN）は，中心化刺激の時空間履歴をlinear filterで一次元のgenerator signalへ射影し，static nonlinearityを通して発火率へ変換する。ここではunit indexを省略する。linear stageは
+
+\begin{equation}
+z(t)
+=
+\sum_{\tau,x,y}
+k(\tau,x,y)\widetilde{S}(t-\tau,x,y)
++
+b.
+\label{eq:ln_linear_filter}
+\end{equation}
+
+である。\(k(\tau,x,y)\)はspatiotemporal filterであり，位置\((x,y)\)に\(\tau\)だけ前に提示された刺激が現在のresponseへ与える重みを表す。\(b\)は刺激入力が平均値にあるときのbaseline generator levelである。
+\subsection{Generalized Linear Model}
+\label{subsec:glm}
+
+Generalized Linear Model（GLM）は，刺激と過去のspikeから，次の時間binにおける発火率を予測するmodelである\cite{pillow2008glm}。unit \(i\)の内部変数を
+
+\begin{equation}
+z_i(t)
+=
+(k_i * \widetilde{S})(t)
++
+(h_i * y_i)(t)
++
+\sum_{j\neq i}(c_{ij} * y_j)(t)
++
+b_i.
+\label{eq:glm_generator}
+\end{equation}
+
+とする。記号\(*\)は，現在までの入力履歴をfilterで重み付けして足し合わせる処理を表す。第一項は刺激の影響，第二項はunit \(i\)自身のspike history，第三項は他unitからのcoupling，\(b_i\)はbaselineである。本研究ではstimulus kernel \(k_i\)をfunctional RFとして読み取る。coupling項は同時記録されたpopulationを解析する場合に使用する。
+
+
+
+\section{Marmoset RGCデータセット}
+\label{sec:marmoset_dataset}
+
+``Marmoset retinal ganglion cell responses to naturalistic movies and spatiotemporal white noise''は，marmosetの摘出網膜2標本からmultielectrode arrayで記録したRGC spike timesと刺激情報を含む公開データセットである\cite{sridhar2025dataset}。刺激には，gaze-shift modelで移動させたnaturalistic movie，binary checkerboard型のspatiotemporal white noise，periodically reversing gratingsが含まれ，論文で解析されたcellのtype classificationも提供される。
+
+
+本データセットは評価用referenceとして使用する。Retina SNNの学習には自然画像を用いる。学習済みSNNとG-Node実RGCデータへ同じGLM解析を適用し，得られたfeature distributionを比較する。species，retinal eccentricity，stimulus scale，mean light level，refresh rate，recording noiseの差は比較条件として明記する。
+
+\section{Retina SNNに対する評価パイプライン}
+\label{sec:evaluation_pipeline}
+
+評価はmodel学習とRF解析の二段階で行う。最初に自然画像を用いてRetina SNNを学習し，学習段階ではRF指標を最適化対象に含めない。学習後にunit responseをSTA，LN，GLM，Jacobian-based RF analysisで解析し，G-Node実RGCデータから作成した参照modelと比較する。
+
+\subsection{自然画像によるRetina SNNの学習}
+\label{subsec:alignment}
+
+Retina SNNには自然画像movieを入力し，ISETBioで生成したcone responseを用いて予測学習を行う。学習目標は将来の局所cone-response変化の予測であり，RF size，ON/OFF polarity，temporal latencyなどのRF指標はlossへ加えない。これにより，RFに関する直接の教師信号を与えずに，model内部の配線と時間応答からどのような局所選択性が形成されるかを観察できる。
+
+学習中はprediction loss，発火率，学習安定性を確認する。RF解析は学習完了後に実施し，評価時にはSNN parameterを固定する。
+
+\subsection{Unit extraction and RF formation criteria}
+\label{subsec:unit_extraction}
+
+本研究では，RF解析に先立ち，Retina SNNのRGC-like output layerに含まれる各出力素子をcandidate unitとして定義する。midget-like，parasol-like，residualの各populationにおいて，mosaic position，ON/OFF polarity，population indexの組を持つ一つの出力を一つのcandidate unitとする。candidate unitの集合は学習結果を確認する前に固定し，解析対象の選択による偏りを抑える。
+
+学習後にはSNN parameterを固定し，probe stimulusを入力して，各candidate unitのresponse time series \(y_i(t)\)を保存する。その後，Eq.~\eqref{eq:sta}のSTA，Eq.~\eqref{eq:ln_linear_filter}のLN，Eq.~\eqref{eq:glm_generator}のGLM，および出力の入力微分を用いるJacobian-based RF analysisを適用する。Jacobianの計算対象には，membrane potentialまたは時間窓内のsurrogate firing rateを用いる。STAはspikeに先行する平均刺激，LNとGLMは刺激からresponseへの予測可能性，JacobianはSNN出力が局所的に感度を持つ入力領域を表す。
+\subsection{G-Node参照modelとの比較}
+\label{subsec:population_comparison}
+
+G-Nodeのstimulusとrecorded spikesから実RGC用GLMをfitし，参照modelを作成する。SNN側にも対応するstimulusを提示し，同じbin幅，lag範囲，regularization，data splitを適用する。
+
+\subsection{Ablationによる補助解析}
+\label{subsec:ablation}
+
+RF比較の後に，midget private-line，parasol pooling，delayed amacrine inhibition，H1 surround state，residual capacity constraintを個別に操作する。各条件でGLM featureの変化を測り，SNN内部機構と形成されたRF現象の対応を確認する。
+
+\begin{thebibliography}{99}
+\small
+
+\bibitem{pillow2008glm}
+J. W. Pillow, J. Shlens, L. Paninski, A. Sher, A. M. Litke,
+E. J. Chichilnisky, and E. P. Simoncelli,
+``Spatio-temporal correlations and visual signalling in a complete
+neuronal population,''
+\textit{Nature}, vol.~454, pp.~995--999, 2008.
+
+\bibitem{sridhar2025dataset}
+S. Sridhar and T. Gollisch,
+``Dataset --- Marmoset retinal ganglion cell responses to naturalistic
+movies and spatiotemporal white noise,''
+G-Node, 2025.
+\url{https://doi.org/10.12751/g-node.t43ph1}.
+
+\bibitem{sridhar2026modeling}
+S. Sridhar, M. Vystrčilová, M. H. Khani, D. Karamanlis,
+H. M. Schreyer, V. Ramakrishna, et al.,
+``Modeling spatial contrast sensitivity in responses of primate retinal
+ganglion cells to natural movies,''
+\textit{PLOS Computational Biology}, vol.~22, no.~4, e1014157, 2026.
+\url{https://doi.org/10.1371/journal.pcbi.1014157}.
+
+\end{thebibliography}
+
+\end{document}

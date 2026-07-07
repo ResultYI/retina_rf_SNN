@@ -1,0 +1,52 @@
+﻿# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest_tmp/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Virtual env
+.venv/
+venv/
+.env
+.env.*
+
+# Local data and generated artifacts
+data/*
+!data/
+!data/__init__.py
+!data/cone_response.py
+!data/dataset.py
+!data/geometry.py
+datasets/
+results/
+runs/
+checkpoints/
+*.h5
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.pkl
+*.joblib
+
+# Build / OS / editor
+build/
+dist/
+*.egg-info/
+tmp/
+.codegraph/
+.agents/
+.omo/
+*.aux
+*.dvi
+*.log
+*.synctex.gz
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/settings.example.json
+.idea/
