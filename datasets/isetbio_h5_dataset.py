@@ -82,6 +82,10 @@ class ISETBioH5Dataset(Dataset[RetinaTrainingSample]):
         return self._dataset.time_axis_seconds
 
     @property
+    def dt_ms(self) -> float:
+        return self._dataset.dt_ms
+
+    @property
     def clip_fraction(self) -> float:
         return self._dataset.clip_fraction
 

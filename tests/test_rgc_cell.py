@@ -120,6 +120,7 @@ def test_rgc_midget_and_parasol_use_sustained_and_transient_channels() -> None:
     # Then
     assert torch.all(output.spikes.midget == 1)
     assert torch.all(output.spikes.parasol == 0)
+    assert _config().routing_mode == "hard_v1_simplification"
 
 
 def test_rgc_a2_input_suppresses_population_spikes() -> None:

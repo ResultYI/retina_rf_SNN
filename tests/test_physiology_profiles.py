@@ -51,3 +51,11 @@ def test_human_macaque_profile_builds_current_model_configs() -> None:
     assert core.bipolar._dt_ms == 5.0
     assert core.a2._dt_ms == 5.0
     assert profile.decoder.horizon_count == 3
+
+
+def test_dt_ms_uses_median_frame_interval_for_stable_time_axis() -> None:
+    # Given
+    time_axis_seconds = np.asarray([0.0, 0.005, 0.010, 0.01501])
+
+    # When / Then
+    assert dt_ms_from_time_axis_seconds(time_axis_seconds) == 5.0

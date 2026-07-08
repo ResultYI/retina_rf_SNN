@@ -41,9 +41,12 @@ class RGCConfig:
     initial_g_ag_residual: float
     g_ag_residual_max: float
     residual_drive_scale: float
+    routing_mode: str = "hard_v1_simplification"
     debug_checks: bool = True
 
     def __post_init__(self) -> None:
+        if self.routing_mode not in {"hard_v1_simplification", "biased_mixed"}:
+            raise RGCConfigurationError("Unsupported RGC routing_mode")
         values = (
             self.parasol_radius_degs,
             self.parasol_sigma_degs,

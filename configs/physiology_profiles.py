@@ -39,11 +39,11 @@ def dt_ms_from_time_axis_seconds(time_axis_seconds: np.ndarray) -> float:
     intervals = np.diff(axis)
     if np.any(intervals <= 0):
         raise PhysiologyProfileError("time_axis_seconds must be strictly increasing")
-    interval_mean = float(intervals.mean())
-    interval_cv = float(intervals.std() / (interval_mean + 1e-12))
+    interval_median = float(np.median(intervals))
+    interval_cv = float(intervals.std() / (interval_median + 1e-12))
     if interval_cv > _TIME_AXIS_CV_MAX:
         raise PhysiologyProfileError("time_axis_seconds has unstable frame interval")
-    return interval_mean * 1000.0
+    return interval_median * 1000.0
 
 
 def human_macaque_v1(*, dt_ms: float, horizon_count: int) -> PhysiologyProfile:

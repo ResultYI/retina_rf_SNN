@@ -19,6 +19,7 @@ class ConeResponseExport:
     time_axis_seconds: np.ndarray
     eye_trace_degs: np.ndarray
     units: str
+    metadata_config: str | None = None
 
 
 def load_cone_response(path: str | Path) -> ConeResponseExport:
@@ -33,16 +34,28 @@ def load_cone_response(path: str | Path) -> ConeResponseExport:
         if len(shape) != 2:
             raise DataContractError(f"Expected [T,Ncone] shape metadata, got {shape}")
 
-        response = _logical_array(handle["cone_response"], shape).astype(np.float32)
-        positions = _logical_array(handle["cone_positions_degs"], (shape[1], 2)).astype(
+        response = _logical_array(
+            _first_dataset(handle, ("cone_response_achromatic", "cone_response")),
+            shape,
+        ).astype(np.float32)
+        positions = _logical_array(
+            _first_dataset(handle, ("cone_xy_deg", "cone_positions_degs")),
+            (shape[1], 2),
+        ).astype(
             np.float32
         )
-        cone_types = np.asarray(handle["cone_types"][()]).reshape(-1).astype(np.uint8)
+        cone_types = np.asarray(
+            _first_dataset(handle, ("cone_type", "cone_types"))[()]
+        ).reshape(-1).astype(np.uint8)
         time_axis = np.asarray(handle["time_axis_seconds"][()]).reshape(-1).astype(np.float64)
-        eye_trace = _logical_array(handle["eye_trace_degs"], (shape[0], 2)).astype(
+        eye_trace = _logical_array(
+            _first_dataset(handle, ("eye_movement_xy_deg", "eye_trace_degs")),
+            (shape[0], 2),
+        ).astype(
             np.float32
         )
         units = _decode_text(handle["response_units"])
+        metadata_config = _optional_text(handle, ("metadata/config", "config_json"))
 
     if response.shape != shape:
         raise DataContractError(f"Response shape mismatch: {response.shape} versus {shape}")
@@ -62,6 +75,7 @@ def load_cone_response(path: str | Path) -> ConeResponseExport:
         time_axis_seconds=_validate_time_axis(time_axis),
         eye_trace_degs=eye_trace,
         units=units,
+        metadata_config=metadata_config,
     )
 
 
@@ -89,6 +103,20 @@ def _validate_time_axis(time_axis: np.ndarray) -> np.ndarray:
 def _decode_text(dataset: h5py.Dataset) -> str:
     value = np.asarray(dataset[()]).astype(np.uint8, copy=False)
     return value.tobytes().decode("utf-8")
+
+
+def _optional_text(handle: h5py.File, names: tuple[str, ...]) -> str | None:
+    for name in names:
+        if name in handle:
+            return _decode_text(handle[name])
+    return None
+
+
+def _first_dataset(handle: h5py.File, names: tuple[str, ...]) -> h5py.Dataset:
+    for name in names:
+        if name in handle:
+            return handle[name]
+    raise DataContractError(f"Missing required dataset; expected one of {names}")
 
 
 def _logical_array(dataset: h5py.Dataset, expected_shape: tuple[int, int]) -> np.ndarray:

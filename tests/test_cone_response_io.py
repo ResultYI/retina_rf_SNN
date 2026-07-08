@@ -72,6 +72,35 @@ def test_load_dynamic_cone_response_contract(tmp_path) -> None:
     assert np.isclose(loaded_eps, 1e-6)
 
 
+def test_load_accepts_current_isetbio_h5_contract_names(tmp_path) -> None:
+    path = tmp_path / "current_contract.h5"
+    response = np.arange(20, dtype=np.float32).reshape(4, 5)
+    positions = np.column_stack(
+        [np.linspace(-0.5, 0.5, 5), np.zeros(5)]
+    ).astype(np.float32)
+
+    with h5py.File(path, "w") as handle:
+        handle.create_dataset("cone_response_achromatic", data=response)
+        handle.create_dataset("cone_xy_deg", data=positions)
+        handle.create_dataset("cone_type", data=np.arange(5, dtype=np.uint8))
+        handle.create_dataset("time_axis_seconds", data=np.arange(4) * 0.005)
+        handle.create_dataset("eye_movement_xy_deg", data=np.zeros((4, 2), np.float32))
+        handle.create_dataset(
+            "response_shape_time_cone",
+            data=np.asarray([4, 5], dtype=np.int64),
+        )
+        metadata = handle.create_group("metadata")
+        _write_text(metadata, "config", '{"source":"synthetic/test-only"}')
+        _write_text(handle, "format_version", "retina-snn-cone-response-v1")
+        _write_text(handle, "response_units", "isomerizations_per_integration_time")
+
+    sample = load_cone_response(path)
+
+    np.testing.assert_array_equal(sample.response, response)
+    np.testing.assert_array_equal(sample.positions_degs, positions)
+    assert sample.metadata_config == '{"source":"synthetic/test-only"}'
+
+
 def test_fit_stats_rejects_mismatched_mosaic_geometry(tmp_path) -> None:
     first_path = tmp_path / "first.h5"
     second_path = tmp_path / "second.h5"

@@ -182,6 +182,10 @@ class ISETBioDataset(Dataset[ISETBioSample]):
         return self._time_axis_seconds
 
     @property
+    def dt_ms(self) -> float:
+        return float(np.median(np.diff(self._time_axis_seconds)) * 1000.0)
+
+    @property
     def eye_trace_degs(self) -> np.ndarray:
         return self._eye_trace_degs
 
