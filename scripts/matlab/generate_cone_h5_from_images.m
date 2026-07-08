@@ -298,14 +298,32 @@ end
 end
 
 function write_numeric(path, datasetName, value)
-h5create(path, datasetName, size(value), 'Datatype', class(value));
-h5write(path, datasetName, value);
+storageValue = hdf5_storage_value(value);
+h5create(path, datasetName, hdf5_storage_size(storageValue), ...
+    'Datatype', class(value));
+h5write(path, datasetName, storageValue);
 end
 
 function write_text(path, datasetName, value)
 bytes = uint8(unicode2native(char(value), 'UTF-8'));
-h5create(path, datasetName, size(bytes), 'Datatype', 'uint8');
-h5write(path, datasetName, bytes);
+h5create(path, datasetName, numel(bytes), 'Datatype', 'uint8');
+h5write(path, datasetName, reshape(bytes, 1, []));
+end
+
+function value = hdf5_storage_value(value)
+if isvector(value)
+    value = reshape(value, 1, []);
+    return;
+end
+value = permute(value, ndims(value):-1:1);
+end
+
+function datasetSize = hdf5_storage_size(value)
+if isvector(value)
+    datasetSize = numel(value);
+    return;
+end
+datasetSize = size(value);
 end
 
 function write_metadata(path, cfg, dtMs, fieldOfViewDeg, eccentricityDegs, ...

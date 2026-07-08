@@ -1,6 +1,7 @@
 function check_isetbio_env()
 add_env_path('ISETCAM_ROOT');
 add_env_path('ISETBIO_ROOT');
+ensure_stage_minus1_fallbacks();
 
 fprintf('MATLAB version: %s\n', version);
 ver;
