@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import h5py
 import numpy as np
 import pytest
 import torch
@@ -13,6 +12,11 @@ from datasets.raw_stimulus_dataset import DownloadSpec, RawStimulusDatasetError
 from datasets.retina_training_batch import RetinaTrainingSample, collate_retina_training_batch
 from datasets.rgc_response_dataset import RGCResponseDataset
 from training.hybrid import RetinaTrainingBatch
+
+try:
+    import h5py
+except (ImportError, ValueError):
+    h5py = None
 
 
 def test_image_folder_stimulus_lists_sorted_image_paths(tmp_path: Path) -> None:
@@ -75,6 +79,8 @@ def test_rgc_response_dataset_is_analysis_only_path_index(tmp_path: Path) -> Non
 
 def test_isetbio_h5_dataset_derives_dt_ms_from_real_time_axis() -> None:
     # Given
+    if h5py is None:
+        pytest.skip("h5py is not available")
     path = Path("data/isetbio_h5_input_png_test/input_seed7.h5")
     if not path.exists():
         pytest.skip("real ISETBio smoke HDF5 is not present")

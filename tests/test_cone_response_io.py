@@ -4,9 +4,13 @@ from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory
 
-import h5py
 import numpy as np
 import pytest
+
+try:
+    import h5py
+except (ImportError, ValueError) as exc:
+    pytest.skip(f"h5py unavailable: {exc}", allow_module_level=True)
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 

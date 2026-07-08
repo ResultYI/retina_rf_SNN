@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from types import ModuleType
 
-import h5py
 import numpy as np
 
 
@@ -24,6 +24,7 @@ class ConeResponseExport:
 
 def load_cone_response(path: str | Path) -> ConeResponseExport:
     path = Path(path)
+    h5py = _import_h5py()
     with h5py.File(path, "r") as handle:
         version = _decode_text(handle["format_version"])
         if version != "retina-snn-cone-response-v1":
@@ -129,3 +130,11 @@ def _logical_array(dataset: h5py.Dataset, expected_shape: tuple[int, int]) -> np
         f"{dataset.name}: stored shape {raw.shape} does not match logical "
         f"shape {expected_shape} or its MATLAB/HDF5 reversal"
     )
+
+
+def _import_h5py() -> ModuleType:
+    try:
+        import h5py
+    except (ImportError, ValueError) as exc:
+        raise DataContractError(f"h5py unavailable: {exc}") from exc
+    return h5py
