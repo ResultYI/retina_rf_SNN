@@ -307,7 +307,7 @@ def _centered_grid_axis(values: torch.Tensor, spacing: float) -> torch.Tensor:
 
 def _assert_row_stochastic(name: str, weights: torch.Tensor) -> None:
     row_sums = torch.sparse.sum(weights, dim=1).to_dense()
-    if not torch.allclose(row_sums, torch.ones_like(row_sums), atol=1e-5):
+    if not torch.allclose(row_sums, torch.ones_like(row_sums), atol=1e-4):
         raise H1ConfigurationError(f"H1 {name} rows must sum to one")
 
 

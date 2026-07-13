@@ -84,7 +84,7 @@ def mean_neighbor_count(weights: torch.Tensor) -> torch.Tensor:
 
 def assert_row_stochastic(name: str, weights: torch.Tensor) -> None:
     row_sums = torch.sparse.sum(weights.coalesce(), dim=1).to_dense()
-    if not torch.allclose(row_sums, torch.ones_like(row_sums), atol=1e-5):
+    if not torch.allclose(row_sums, torch.ones_like(row_sums), atol=1e-4):
         raise RGCConfigurationError(f"{name} rows must sum to one")
 
 

@@ -80,6 +80,11 @@ def test_local_decoder_uses_sparse_local_masks_and_bounds_residual_weights() -> 
     # Then
     assert all(projection.local_mask.layout == torch.sparse_coo for projection in projections)
     assert all("local_mask" in dict(projection.named_buffers()) for projection in projections)
+    assert all(projection.raw_weight.shape == (3, 2) for projection in projections)
+    assert all(
+        projection.local_mask.shape[1] == projection.source_count
+        for projection in projections
+    )
     assert decoder.fine_residual.effective_weight.abs().max() <= 0.1
     assert decoder.coarse_residual.effective_weight.abs().max() <= 0.1
     assert decoder.residual_weight_penalty() > 0

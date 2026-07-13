@@ -19,6 +19,7 @@ def test_isetbio_dataset_returns_cone_windows_and_future_deltas(monkeypatch) -> 
             time_axis_seconds=np.arange(6, dtype=np.float64),
             eye_trace_degs=np.zeros((6, 2), dtype=np.float32),
             units="test_units",
+            eccentricity_deg=2.0,
         )
 
     monkeypatch.setattr(dataset_module, "load_cone_response", load_cone_response)
@@ -58,6 +59,7 @@ def test_dataset_requires_explicit_permission_to_fit_stats(monkeypatch) -> None:
             time_axis_seconds=np.arange(6, dtype=np.float64),
             eye_trace_degs=np.zeros((6, 2), dtype=np.float32),
             units="test_units",
+            eccentricity_deg=2.0,
         )
 
     monkeypatch.setattr(dataset_module, "load_cone_response", load_cone_response)
@@ -86,6 +88,7 @@ def test_dataset_reports_clipping_and_multiscale_targets(monkeypatch) -> None:
             time_axis_seconds=np.arange(6, dtype=np.float64),
             eye_trace_degs=np.zeros((6, 2), dtype=np.float32),
             units="test_units",
+            eccentricity_deg=2.0,
         )
 
     monkeypatch.setattr(dataset_module, "load_cone_response", load_cone_response)
@@ -131,6 +134,38 @@ def test_log_cone_stats_round_trip(tmp_path) -> None:
     assert np.isclose(loaded_eps, 1e-5)
 
 
+def test_compatible_exports_require_shared_mosaic_and_frame_interval(monkeypatch) -> None:
+    base = dataset_module.ConeResponseExport(
+        response=np.ones((4, 2), dtype=np.float32),
+        positions_degs=np.asarray([[0.0, 0.0], [0.1, 0.0]], dtype=np.float32),
+        cone_types=np.asarray([1, 2], dtype=np.uint8),
+        time_axis_seconds=np.asarray([0.0, 0.005, 0.010, 0.015]),
+        eye_trace_degs=np.zeros((4, 2), dtype=np.float32),
+        units="test_units",
+        eccentricity_deg=2.0,
+    )
+    mismatched_dt = dataset_module.ConeResponseExport(
+        response=base.response,
+        positions_degs=base.positions_degs,
+        cone_types=base.cone_types,
+        time_axis_seconds=np.asarray([0.0, 0.010, 0.020, 0.030]),
+        eye_trace_degs=base.eye_trace_degs,
+        units=base.units,
+        eccentricity_deg=base.eccentricity_deg,
+    )
+
+    monkeypatch.setattr(
+        dataset_module,
+        "load_cone_response",
+        lambda path: base if path.name == "first.h5" else mismatched_dt,
+    )
+
+    with pytest.raises(ValueError, match="temporal sampling"):
+        dataset_module.validate_compatible_cone_exports(
+            (Path("first.h5"), Path("second.h5"))
+        )
+
+
 def test_local_geometry_weights_are_sparse_and_row_normalized() -> None:
     source = torch.tensor([[0.0, 0.0], [0.1, 0.0], [1.0, 1.0]])
     target = torch.tensor([[0.0, 0.0], [1.0, 1.0]])
@@ -143,3 +178,17 @@ def test_local_geometry_weights_are_sparse_and_row_normalized() -> None:
     assert pooled[0, 0] > pooled[0, 1]
     assert private[0, 0] == 1
     assert private[1, 2] == 1
+
+
+def test_target_pool_accepts_float32_accumulation_error_for_large_rows() -> None:
+    count = 4401
+    indices = torch.arange(count)
+    pool = torch.sparse_coo_tensor(
+        torch.stack((torch.zeros(count, dtype=torch.long), indices)),
+        torch.full((count,), 1 / count),
+        (1, count),
+    ).coalesce()
+
+    validated = dataset_module._validate_target_pool("pool", pool, count)
+
+    assert validated is not None

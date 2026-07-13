@@ -40,7 +40,9 @@ order only after confirming the time axis and cone count agree.
 | Attribute | Unit / type | Meaning |
 |---|---|---|
 | `dt_ms` | ms | Median frame interval recorded from the generated time axis |
-| `field_of_view_deg` | degrees | Scene/cMosaic field of view |
+| `field_of_view_deg` | degrees | Effective exported cone-response field of view |
+| `source_mosaic_field_of_view_deg` | degrees | ISETBio cMosaic field used before export cropping |
+| `export_crop_fov_deg` | degrees | Centered crop applied to the computed ISETBio cone response |
 | `eccentricity_deg` | `[x, y]` degrees | Mosaic eccentricity |
 | `mosaic_type` | string | Expected `cMosaic` |
 | `mosaic_seed` | integer | Mosaic-generation seed or recorded deterministic seed |
@@ -51,6 +53,13 @@ order only after confirming the time axis and cone count agree.
 | `ISETCam_git_commit` | string | Source checkout commit, or `unknown` |
 | `MATLAB_version` | string | MATLAB version used for generation |
 | `generation_date` | string | MATLAB `datestr(now, 30)` timestamp |
+
+When `export_crop_fov_deg` is smaller than
+`source_mosaic_field_of_view_deg`, MATLAB first computes the full ISETBio
+cMosaic response, then keeps cones satisfying `abs(x) <= fov / 2` and
+`abs(y) <= fov / 2`. The selected response columns, positions, cone types,
+and LMS channels are written together. Python does not create or crop a cone
+mosaic for this path.
 
 ## Achromatic Projection
 
@@ -85,6 +94,15 @@ pooling matrices.
 The Dataset must never read future target frames into `x_cone`. `cone_xy_deg`,
 `cone_type`, and `eye_movement_xy_deg` are metadata for masks, diagnostics, and
 reproducibility; they are not model inputs.
+
+For frame-content motion, a Stage -1 source directory contains one ordered
+sequence of frames. The wrapper may treat every direct child directory of a
+split root as one source sequence via
+`treat_child_directories_as_sequences=true`. In this v0 path,
+`eye_movement_enabled=false` keeps the temporal signal attributable to the
+sequence rather than mixed with a second drift process. Every split must use
+the same `mosaic_seed` when downstream per-cone normalization and local masks
+assume a shared cone ordering.
 
 ## Stage -1 Gate
 

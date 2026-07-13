@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from enum import StrEnum
 from typing import assert_never
@@ -54,6 +55,17 @@ class WhiteNoiseSTAResult:
     response_std: torch.Tensor
 
 
+@dataclass(frozen=True, slots=True)
+class TemporalRFComparison:
+    reference_ttp_ms: float
+    condition_ttp_ms: float
+    ttp_shift_ms: float
+    peak_gain_ratio: float
+    reference_biphasic_index: float
+    condition_biphasic_index: float
+    waveform_cosine_similarity: float
+
+
 def gradient_rf(
     core: RetinaSNNCore,
     request: GradientRFRequest,
@@ -104,6 +116,49 @@ def white_noise_sta(
     )
 
 
+def compare_temporal_rfs(
+    reference_rf: torch.Tensor,
+    condition_rf: torch.Tensor,
+    *,
+    dt_ms: float,
+) -> TemporalRFComparison:
+    if reference_rf.shape != condition_rf.shape or reference_rf.ndim < 1:
+        raise RFProbeError("temporal RFs must have the same non-empty shape [time,...]")
+    if reference_rf.shape[0] < 1:
+        raise RFProbeError("temporal RFs must contain at least one time step")
+    if not torch.isfinite(reference_rf).all() or not torch.isfinite(condition_rf).all():
+        raise RFProbeError("temporal RFs must be finite")
+    if not math.isfinite(dt_ms) or dt_ms <= 0:
+        raise RFProbeError("dt_ms must be positive and finite")
+
+    reference = reference_rf.detach().to(dtype=torch.float32).reshape(reference_rf.shape[0], -1)
+    condition = condition_rf.detach().to(dtype=torch.float32).reshape(condition_rf.shape[0], -1)
+    spatial_index = int(reference.abs().amax(dim=0).argmax())
+    reference_trace = reference[:, spatial_index]
+    condition_trace = condition[:, spatial_index]
+    reference_peak = float(reference_trace.abs().max())
+    if reference_peak == 0.0:
+        raise RFProbeError("reference temporal RF must contain a non-zero response")
+    condition_peak = float(condition_trace.abs().max())
+    last_index = reference_trace.shape[0] - 1
+    reference_ttp = (last_index - int(reference_trace.abs().argmax())) * dt_ms
+    condition_ttp = (last_index - int(condition_trace.abs().argmax())) * dt_ms
+    similarity = torch.nn.functional.cosine_similarity(
+        reference_trace,
+        condition_trace,
+        dim=0,
+    )
+    return TemporalRFComparison(
+        reference_ttp_ms=reference_ttp,
+        condition_ttp_ms=condition_ttp,
+        ttp_shift_ms=condition_ttp - reference_ttp,
+        peak_gain_ratio=condition_peak / reference_peak,
+        reference_biphasic_index=_biphasic_index(reference_trace),
+        condition_biphasic_index=_biphasic_index(condition_trace),
+        waveform_cosine_similarity=float(similarity),
+    )
+
+
 def _select_final_response(
     output: RGCOutput,
     request: GradientRFRequest,
@@ -131,3 +186,10 @@ def _population_rates(
             return populations.residual
         case unreachable:
             assert_never(unreachable)
+
+
+def _biphasic_index(trace: torch.Tensor) -> float:
+    positive_peak = max(float(trace.max()), 0.0)
+    negative_peak = max(float(-trace.min()), 0.0)
+    main_peak = max(positive_peak, negative_peak)
+    return 0.0 if main_peak == 0.0 else min(positive_peak, negative_peak) / main_peak

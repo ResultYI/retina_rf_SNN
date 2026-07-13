@@ -6,7 +6,6 @@ arguments
     randomSeed (1, 1) double {mustBeInteger, mustBeNonnegative}
 end
 
-rng(randomSeed, 'twister');
 check_isetbio_env();
 cfg = read_flat_yaml(configPath);
 
@@ -14,6 +13,12 @@ timeSteps = cfg_int(cfg, 'time_steps', 16);
 dtMs = cfg_number(cfg, 'dt_ms', 5.0);
 integrationTimeSeconds = dtMs / 1000.0;
 fieldOfViewDeg = cfg_number(cfg, 'field_of_view_deg', 0.5);
+exportCropFovDeg = cfg_number(cfg, 'export_crop_fov_deg', fieldOfViewDeg);
+if exportCropFovDeg <= 0 || exportCropFovDeg > fieldOfViewDeg
+    error('retinaSNN:InvalidConfig', ...
+        'export_crop_fov_deg must lie in (0, field_of_view_deg].');
+end
+mosaicSeed = cfg_int(cfg, 'mosaic_seed', randomSeed);
 eccentricityDegs = [cfg_number(cfg, 'eccentricity_x_deg', 0.0) ...
     cfg_number(cfg, 'eccentricity_y_deg', 0.0)];
 meanLuminanceCdM2 = cfg_number(cfg, 'mean_luminance_cd_m2', 100.0);
@@ -33,7 +38,9 @@ end
 
 oi = compute_optical_image(frames{1}, inputPath, waveNm, displayFile, ...
     fieldOfViewDeg, meanLuminanceCdM2, viewingDistanceMeters);
+rng(mosaicSeed, 'twister');
 cm = build_mosaic(oi, integrationTimeSeconds, fieldOfViewDeg, eccentricityDegs);
+rng(randomSeed, 'twister');
 
 if eyeMovementEnabled
     [coneResponse, timeAxisSeconds, eyeTraceDegs] = compute_with_eye_movement( ...
@@ -51,6 +58,8 @@ end
 
 conePositionsDegs = single(cm.coneRFpositionsDegs);
 coneTypes = uint8(cm.coneTypes(:));
+[coneResponse, conePositionsDegs, coneTypes] = crop_cone_export( ...
+    coneResponse, conePositionsDegs, coneTypes, exportCropFovDeg);
 validate_response(coneResponse, conePositionsDegs, coneTypes, timeAxisSeconds);
 lmsResponse = build_lms_response(single(coneResponse), coneTypes);
 achromaticResponse = single(sum(lmsResponse, 3));
@@ -79,8 +88,8 @@ write_text(outputPath, '/response_units', 'isomerizations_per_integration_time')
 write_text(outputPath, '/input_path', inputPath);
 write_text(outputPath, '/input_kind', inputKind);
 
-write_metadata(outputPath, cfg, dtMs, fieldOfViewDeg, eccentricityDegs, ...
-    randomSeed, achromaticStimulus);
+write_metadata(outputPath, cfg, dtMs, fieldOfViewDeg, exportCropFovDeg, ...
+    eccentricityDegs, randomSeed, achromaticStimulus);
 fprintf('Generated Stage -1 cone HDF5: %s\n', outputPath);
 fprintf('  logical cone_response_lms [T,Ncone,3] = [%d,%d,3]\n', ...
     size(lmsResponse, 1), size(lmsResponse, 2));
@@ -94,6 +103,19 @@ params.sizeDegs = [fieldOfViewDeg fieldOfViewDeg];
 params.micronsPerDegree = oiGet(oi, 'distance per degree', 'um');
 cm = cMosaic(params);
 cm.noiseFlag = 'none';
+end
+
+function [response, positions, coneTypes] = crop_cone_export( ...
+    response, positions, coneTypes, cropFovDeg)
+halfWidth = cropFovDeg / 2;
+selected = abs(positions(:, 1)) <= halfWidth & abs(positions(:, 2)) <= halfWidth;
+if nnz(selected) < 2
+    error('retinaSNN:ExportCropEmpty', ...
+        'export_crop_fov_deg selected fewer than two cones.');
+end
+response = response(:, selected);
+positions = positions(selected, :);
+coneTypes = coneTypes(selected);
 end
 
 function [response, timeAxis, eyeTrace] = compute_with_eye_movement( ...
@@ -326,10 +348,12 @@ end
 datasetSize = size(value);
 end
 
-function write_metadata(path, cfg, dtMs, fieldOfViewDeg, eccentricityDegs, ...
-    randomSeed, achromaticStimulus)
+function write_metadata(path, cfg, dtMs, mosaicFieldOfViewDeg, ...
+    exportCropFovDeg, eccentricityDegs, randomSeed, achromaticStimulus)
 h5writeatt(path, '/', 'dt_ms', dtMs);
-h5writeatt(path, '/', 'field_of_view_deg', fieldOfViewDeg);
+h5writeatt(path, '/', 'field_of_view_deg', exportCropFovDeg);
+h5writeatt(path, '/', 'source_mosaic_field_of_view_deg', mosaicFieldOfViewDeg);
+h5writeatt(path, '/', 'export_crop_fov_deg', exportCropFovDeg);
 h5writeatt(path, '/', 'eccentricity_deg', eccentricityDegs);
 h5writeatt(path, '/', 'mosaic_type', 'cMosaic');
 h5writeatt(path, '/', 'mosaic_seed', cfg_int(cfg, 'mosaic_seed', randomSeed));

@@ -123,6 +123,11 @@ def test_rgc_midget_and_parasol_use_sustained_and_transient_channels() -> None:
     assert _config().routing_mode == "hard_v1_simplification"
 
 
+def test_rgc_rejects_unimplemented_mixed_routing() -> None:
+    with pytest.raises(RGCConfigurationError, match="Unsupported RGC routing_mode"):
+        replace(_config(), routing_mode="biased_mixed")
+
+
 def test_rgc_a2_input_suppresses_population_spikes() -> None:
     # Given
     layer = RGCPopulationLayer(_mosaic(), _config())

@@ -31,6 +31,8 @@ def _objective() -> RetinaObjective:
         RetinaLossConfig(
             fine_weight=1.0,
             coarse_weight=0.5,
+            fine_prediction_scale=4.0,
+            coarse_prediction_scale=0.25,
             rate_weight=0.01,
             homeostasis_weight=0.02,
             decorrelation_weight=0.001,
@@ -80,8 +82,12 @@ def test_retina_objective_combines_only_declared_prediction_and_regularizers() -
     # Then
     config = trainer.objective.config
     expected = (
-        config.fine_weight * losses.prediction_fine
-        + config.coarse_weight * losses.prediction_coarse
+        config.fine_weight
+        * losses.prediction_fine
+        / config.fine_prediction_scale
+        + config.coarse_weight
+        * losses.prediction_coarse
+        / config.coarse_prediction_scale
         + config.rate_weight * losses.rate_regularization
         + config.homeostasis_weight * losses.homeostasis
         + config.decorrelation_weight * losses.decorrelation
@@ -141,3 +147,19 @@ def test_core_finetune_updates_core_through_only_last_truncated_window() -> None
     )
     assert torch.isfinite(result.losses.total)
     assert all(not tensor.requires_grad for tensor in _state_tensors(result.state))
+
+
+def test_evaluate_batch_preserves_parameters_and_reports_diagnostics() -> None:
+    trainer = _trainer()
+    before = tuple(
+        parameter.detach().clone()
+        for parameter in (*trainer.core.parameters(), *trainer.decoder.parameters())
+    )
+
+    result = trainer.evaluate_batch(_batch())
+
+    after = (*trainer.core.parameters(), *trainer.decoder.parameters())
+    assert all(torch.equal(first, second) for first, second in zip(before, after))
+    assert torch.isfinite(result.losses.total)
+    assert "h1" in result.core_diagnostics
+    assert "rgc_midget_rate_mean" in result.core_diagnostics["rgc"]

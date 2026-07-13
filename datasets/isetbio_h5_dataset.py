@@ -86,6 +86,10 @@ class ISETBioH5Dataset(Dataset[RetinaTrainingSample]):
         return self._dataset.dt_ms
 
     @property
+    def eccentricity_deg(self) -> float:
+        return self._dataset.eccentricity_deg
+
+    @property
     def clip_fraction(self) -> float:
         return self._dataset.clip_fraction
 

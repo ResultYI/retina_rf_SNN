@@ -32,10 +32,12 @@ class GenerationConfig:
     time_steps: int
     dt_ms: float
     field_of_view_deg: float
+    export_crop_fov_deg: float
     seed: int
     matlab_bin: str
     achromatic_stimulus_enabled: bool
     sequence_directory: bool
+    sequence_root: bool
     reproducibility_check: bool
 
 
@@ -55,6 +57,32 @@ def load_generation_config(config_path: Path) -> GenerationConfig:
     base = config_path.resolve().parent
     input_path = _path_value(values, "input_path", base)
     output_dir = _path_value(values, "output_dir", base)
+    field_of_view_deg = _float_value(values, "field_of_view_deg", 0.5)
+    export_crop_fov_deg = _float_value(
+        values,
+        "export_crop_fov_deg",
+        field_of_view_deg,
+    )
+    if export_crop_fov_deg > field_of_view_deg:
+        raise StageMinusOneError(
+            "config",
+            "export_crop_fov_deg must not exceed field_of_view_deg",
+        )
+    sequence_directory = _bool_value(
+        values,
+        "treat_input_directory_as_sequence",
+        False,
+    )
+    sequence_root = _bool_value(
+        values,
+        "treat_child_directories_as_sequences",
+        False,
+    )
+    if sequence_directory and sequence_root:
+        raise StageMinusOneError(
+            "config",
+            "Only one sequence input mode may be enabled",
+        )
     return GenerationConfig(
         input_path=input_path,
         output_dir=output_dir,
@@ -62,22 +90,37 @@ def load_generation_config(config_path: Path) -> GenerationConfig:
         max_items=_int_value(values, "max_items", 3),
         time_steps=_int_value(values, "time_steps", 16),
         dt_ms=_float_value(values, "dt_ms", 5.0),
-        field_of_view_deg=_float_value(values, "field_of_view_deg", 0.5),
+        field_of_view_deg=field_of_view_deg,
+        export_crop_fov_deg=export_crop_fov_deg,
         seed=_int_value(values, "seed", 7),
         matlab_bin=values.get("matlab_bin", "matlab"),
         achromatic_stimulus_enabled=_bool_value(values, "achromatic_stimulus_enabled", True),
-        sequence_directory=_bool_value(values, "treat_input_directory_as_sequence", False),
+        sequence_directory=sequence_directory,
+        sequence_root=sequence_root,
         reproducibility_check=_bool_value(values, "reproducibility_check", True),
     )
 
 
 def collect_sources(
-    input_path: Path, *, max_items: int, sequence_directory: bool
+    input_path: Path,
+    *,
+    max_items: int,
+    sequence_directory: bool,
+    sequence_root: bool = False,
 ) -> list[Path]:
-    if input_path.is_file() or sequence_directory:
+    if input_path.is_file():
+        return [input_path]
+    if sequence_directory:
+        if not input_path.is_dir():
+            raise StageMinusOneError("input", f"sequence directory does not exist: {input_path}")
         return [input_path]
     if not input_path.is_dir():
         raise StageMinusOneError("input", f"input_path does not exist: {input_path}")
+    if sequence_root:
+        sources = sorted(path for path in input_path.iterdir() if path.is_dir())
+        if not sources:
+            raise StageMinusOneError("input", f"no sequence directories found in: {input_path}")
+        return sources[:max_items]
     sources = sorted(
         path
         for path in input_path.iterdir()
@@ -117,6 +160,7 @@ def generate_all(
         config.input_path,
         max_items=config.max_items,
         sequence_directory=config.sequence_directory,
+        sequence_root=config.sequence_root,
     )
     summaries: list[H5Summary] = []
     rows: list[ManifestRow] = []

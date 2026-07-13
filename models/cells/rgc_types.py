@@ -45,7 +45,7 @@ class RGCConfig:
     debug_checks: bool = True
 
     def __post_init__(self) -> None:
-        if self.routing_mode not in {"hard_v1_simplification", "biased_mixed"}:
+        if self.routing_mode != "hard_v1_simplification":
             raise RGCConfigurationError("Unsupported RGC routing_mode")
         values = (
             self.parasol_radius_degs,

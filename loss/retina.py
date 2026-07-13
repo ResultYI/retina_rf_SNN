@@ -23,6 +23,8 @@ class RetinaLossError(ValueError):
 class RetinaLossConfig:
     fine_weight: float = 1.0
     coarse_weight: float = 1.0
+    fine_prediction_scale: float = 1.0
+    coarse_prediction_scale: float = 1.0
     rate_weight: float = 1e-3
     homeostasis_weight: float = 1e-3
     decorrelation_weight: float = 1e-4
@@ -42,6 +44,9 @@ class RetinaLossConfig:
         )
         if not all(math.isfinite(weight) and weight >= 0 for weight in weights):
             raise RetinaLossError("Loss weights must be finite and non-negative")
+        scales = (self.fine_prediction_scale, self.coarse_prediction_scale)
+        if not all(math.isfinite(scale) and scale > 0 for scale in scales):
+            raise RetinaLossError("Prediction scales must be finite and positive")
         if not math.isfinite(self.target_rate) or not 0 <= self.target_rate <= 1:
             raise RetinaLossError("target_rate must lie in [0,1]")
 
@@ -109,8 +114,12 @@ class RetinaObjective(nn.Module):
         )
         residual_activity = rates.residual.abs().mean()
         total = (
-            self.config.fine_weight * prediction_fine
-            + self.config.coarse_weight * prediction_coarse
+            self.config.fine_weight
+            * prediction_fine
+            / self.config.fine_prediction_scale
+            + self.config.coarse_weight
+            * prediction_coarse
+            / self.config.coarse_prediction_scale
             + self.config.rate_weight * rate_regularization
             + self.config.homeostasis_weight * homeostasis
             + self.config.decorrelation_weight * decorrelation

@@ -194,18 +194,15 @@ class _LocalProjection(nn.Module):
     ) -> None:
         super().__init__()
         source = torch.as_tensor(source_positions, dtype=torch.float32)
-        polarized_source = torch.cat((source, source), dim=0)
         local_mask = local_gaussian_weights(
-            polarized_source,
+            source,
             target_positions,
             radius_degs,
             sigma_degs,
             allow_empty_rows=True,
         ).coalesce()
         self.register_buffer("local_mask", local_mask)
-        self.raw_weight = nn.Parameter(
-            torch.zeros(horizon_count, local_mask._nnz())
-        )
+        self.raw_weight = nn.Parameter(torch.zeros(horizon_count, 2))
         self.source_count = source.shape[0]
         self._weight_max = weight_max
 
@@ -217,24 +214,13 @@ class _LocalProjection(nn.Module):
 
     def forward(self, source: torch.Tensor) -> torch.Tensor:
         prefix = source.shape[:-2]
-        flat_source = source.reshape(-1, 2 * self.source_count)
-        predictions = tuple(
-            torch.sparse.mm(
-                torch.sparse_coo_tensor(
-                    self.local_mask.indices(),
-                    weight,
-                    self.local_mask.shape,
-                ),
-                flat_source.T,
-            ).T
-            for weight in self.effective_weight
-        )
-        stacked = torch.stack(predictions, dim=1)
-        return stacked.reshape(
+        flat_source = source.reshape(-1, self.source_count)
+        pooled = torch.sparse.mm(self.local_mask, flat_source.T).T.reshape(
             *prefix,
-            self.raw_weight.shape[0],
+            2,
             self.local_mask.shape[0],
         )
+        return torch.einsum("...pn,hp->...hn", pooled, self.effective_weight)
 
 
 def _validate_population(

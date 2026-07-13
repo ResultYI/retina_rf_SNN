@@ -23,6 +23,8 @@ class PhysiologyProfileError(ValueError):
 class PhysiologyProfile:
     name: str
     species_priority: tuple[str, ...]
+    cone_spacing_deg: float
+    eccentricity_deg: float
     h1: H1HorizontalConfig
     bipolar: BipolarConfig
     a2: A2AmacrineConfig
@@ -46,20 +48,32 @@ def dt_ms_from_time_axis_seconds(time_axis_seconds: np.ndarray) -> float:
     return interval_median * 1000.0
 
 
-def human_macaque_v1(*, dt_ms: float, horizon_count: int) -> PhysiologyProfile:
+def human_macaque_v1(
+    *,
+    dt_ms: float,
+    horizon_count: int,
+    cone_spacing_deg: float,
+    eccentricity_deg: float,
+) -> PhysiologyProfile:
     if not math.isfinite(dt_ms) or dt_ms <= 0:
         raise PhysiologyProfileError("dt_ms must be positive and finite")
     if horizon_count < 1:
         raise PhysiologyProfileError("horizon_count must be positive")
+    if not math.isfinite(cone_spacing_deg) or cone_spacing_deg <= 0:
+        raise PhysiologyProfileError("cone_spacing_deg must be positive and finite")
+    if not math.isfinite(eccentricity_deg) or eccentricity_deg < 0:
+        raise PhysiologyProfileError("eccentricity_deg must be finite and non-negative")
     return PhysiologyProfile(
         name="human_macaque_v1",
         species_priority=("human", "macaque", "marmoset"),
+        cone_spacing_deg=cone_spacing_deg,
+        eccentricity_deg=eccentricity_deg,
         h1=H1HorizontalConfig(
-            radius_degs=0.16,
-            sigma_degs=0.10,
-            feedback_radius_degs=0.21,
-            feedback_sigma_degs=0.12,
-            h1_spacing_degs=0.20,
+            radius_degs=1.75 * cone_spacing_deg,
+            sigma_degs=0.90 * cone_spacing_deg,
+            feedback_radius_degs=1.75 * cone_spacing_deg,
+            feedback_sigma_degs=0.90 * cone_spacing_deg,
+            h1_spacing_degs=1.45 * cone_spacing_deg,
             dt_ms=dt_ms,
             initial_tau_ms=50.0,
             tau_min_ms=10.0,
@@ -81,8 +95,8 @@ def human_macaque_v1(*, dt_ms: float, horizon_count: int) -> PhysiologyProfile:
             g_ab_transient_max=0.30,
         ),
         a2=A2AmacrineConfig(
-            radius_degs=0.16,
-            sigma_degs=0.10,
+            radius_degs=3.60 * cone_spacing_deg,
+            sigma_degs=1.80 * cone_spacing_deg,
             dt_ms=dt_ms,
             initial_tau_sustained_ms=100.0,
             tau_sustained_min_ms=40.0,
@@ -96,10 +110,10 @@ def human_macaque_v1(*, dt_ms: float, horizon_count: int) -> PhysiologyProfile:
             g_ba_transient_max=0.50,
         ),
         rgc=RGCConfig(
-            parasol_radius_degs=0.16,
-            parasol_sigma_degs=0.10,
-            residual_radius_degs=0.25,
-            residual_sigma_degs=0.12,
+            parasol_radius_degs=3.60 * cone_spacing_deg,
+            parasol_sigma_degs=1.80 * cone_spacing_deg,
+            residual_radius_degs=5.80 * cone_spacing_deg,
+            residual_sigma_degs=2.90 * cone_spacing_deg,
             dt_ms=dt_ms,
             membrane_tau_ms=20.0,
             adaptation_tau_ms=80.0,
@@ -117,10 +131,10 @@ def human_macaque_v1(*, dt_ms: float, horizon_count: int) -> PhysiologyProfile:
         ),
         decoder=LocalDecoderConfig(
             horizon_count=horizon_count,
-            fine_radius_degs=0.16,
-            fine_sigma_degs=0.08,
-            coarse_radius_degs=0.21,
-            coarse_sigma_degs=0.12,
+            fine_radius_degs=1.50 * cone_spacing_deg,
+            fine_sigma_degs=0.75 * cone_spacing_deg,
+            coarse_radius_degs=3.60 * cone_spacing_deg,
+            coarse_sigma_degs=1.80 * cone_spacing_deg,
             residual_weight_max=0.10,
         ),
     )

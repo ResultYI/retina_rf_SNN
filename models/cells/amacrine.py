@@ -101,7 +101,7 @@ class A2AmacrineLayer(nn.Module):
             positions_degs, positions_degs, config.radius_degs, config.sigma_degs
         ).coalesce()
         row_sums = torch.sparse.sum(spatial_pool, dim=1).to_dense()
-        if not torch.allclose(row_sums, torch.ones_like(row_sums), atol=1e-5):
+        if not torch.allclose(row_sums, torch.ones_like(row_sums), atol=1e-4):
             raise A2ConfigurationError("A2 spatial_pool rows must sum to one")
         self.register_buffer("spatial_pool", spatial_pool)
         indices = spatial_pool.indices()

@@ -37,6 +37,7 @@ def _write_sample(path: Path) -> tuple[np.ndarray, np.ndarray]:
     ).astype(np.float32)
 
     with h5py.File(path, "w") as handle:
+        handle.attrs["eccentricity_deg"] = np.asarray([2.0, 0.0])
         # MATLAB/HDF5 presents 2-D datasets to h5py with reversed axes.
         handle.create_dataset("cone_response", data=response.T)
         handle.create_dataset("cone_positions_degs", data=positions.T)
@@ -63,6 +64,7 @@ def test_load_dynamic_cone_response_contract(tmp_path) -> None:
     assert sample.response.shape == response.shape
     assert np.any(np.diff(sample.response, axis=0) != 0)
     np.testing.assert_array_equal(sample.positions_degs, positions)
+    assert sample.eccentricity_deg == 2.0
     mean, scale = fit_log_cone_stats([path])
     normalized = apply_log_cone_stats(sample.response, mean, scale)
     np.testing.assert_allclose(normalized.mean(axis=0), 0.0, atol=1e-6)
@@ -84,6 +86,7 @@ def test_load_accepts_current_isetbio_h5_contract_names(tmp_path) -> None:
     ).astype(np.float32)
 
     with h5py.File(path, "w") as handle:
+        handle.attrs["eccentricity_deg"] = 2.0
         handle.create_dataset("cone_response_achromatic", data=response)
         handle.create_dataset("cone_xy_deg", data=positions)
         handle.create_dataset("cone_type", data=np.arange(5, dtype=np.uint8))
@@ -102,6 +105,7 @@ def test_load_accepts_current_isetbio_h5_contract_names(tmp_path) -> None:
 
     np.testing.assert_array_equal(sample.response, response)
     np.testing.assert_array_equal(sample.positions_degs, positions)
+    assert sample.eccentricity_deg == 2.0
     assert sample.metadata_config == '{"source":"synthetic/test-only"}'
 
 

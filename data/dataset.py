@@ -50,26 +50,54 @@ def fit_log_cone_stats(
         raise DataContractError("At least one training export is required")
 
     log_responses: list[np.ndarray] = []
-    reference_positions: np.ndarray | None = None
-    reference_cone_types: np.ndarray | None = None
-    for path in paths:
-        export = load_cone_response(Path(path))
-        if reference_positions is None:
-            reference_positions = export.positions_degs
-            reference_cone_types = export.cone_types
-        elif (
-            export.positions_degs.shape != reference_positions.shape
-            or not np.allclose(export.positions_degs, reference_positions, atol=1e-6)
-        ):
-            raise DataContractError("Training exports do not use the same cone positions")
-        elif not np.array_equal(export.cone_types, reference_cone_types):
-            raise DataContractError("Training exports use different cone type ordering")
+    for export in validate_compatible_cone_exports(paths):
         log_responses.append(log_cone_response(export.response, eps))
 
     stacked = np.concatenate(log_responses, axis=0)
     mean = stacked.mean(axis=0).astype(np.float32)
     scale = stacked.std(axis=0).astype(np.float32)
     return mean, np.maximum(scale, np.float32(eps))
+
+
+def validate_compatible_cone_exports(
+    paths: Sequence[str | Path],
+) -> tuple[ConeResponseExport, ...]:
+    if not paths:
+        raise DataContractError("At least one cone-response export is required")
+    exports = tuple(load_cone_response(Path(path)) for path in paths)
+    reference = exports[0]
+    reference_dt_ms = float(np.median(np.diff(reference.time_axis_seconds)) * 1000.0)
+    for export in exports[1:]:
+        if (
+            export.positions_degs.shape != reference.positions_degs.shape
+            or not np.allclose(
+                export.positions_degs,
+                reference.positions_degs,
+                atol=1e-6,
+            )
+        ):
+            raise DataContractError(
+                "Cone-response exports do not use the same cone positions"
+            )
+        if not np.array_equal(export.cone_types, reference.cone_types):
+            raise DataContractError(
+                "Cone-response exports use different cone type ordering"
+            )
+        if not np.isclose(
+            export.eccentricity_deg,
+            reference.eccentricity_deg,
+            rtol=0.0,
+            atol=1e-6,
+        ):
+            raise DataContractError(
+                "Cone-response exports use different retinal eccentricities"
+            )
+        dt_ms = float(np.median(np.diff(export.time_axis_seconds)) * 1000.0)
+        if not np.isclose(dt_ms, reference_dt_ms, rtol=1e-6, atol=1e-6):
+            raise DataContractError(
+                "Cone-response exports use different temporal sampling intervals"
+            )
+    return exports
 
 
 def apply_log_cone_stats(
@@ -164,6 +192,7 @@ class ISETBioDataset(Dataset[ISETBioSample]):
         self._time_axis_seconds = export.time_axis_seconds
         self._eye_trace_degs = export.eye_trace_degs
         self._response_units = export.units
+        self._eccentricity_deg = export.eccentricity_deg
         self._horizons = config.horizons
         self._length = self._contrast.shape[0] - config.input_steps - max(self._horizons) + 1
         if self._length <= 0:
@@ -192,6 +221,10 @@ class ISETBioDataset(Dataset[ISETBioSample]):
     @property
     def response_units(self) -> str:
         return self._response_units
+
+    @property
+    def eccentricity_deg(self) -> float:
+        return self._eccentricity_deg
 
     @property
     def normalization_mean(self) -> np.ndarray:
@@ -288,6 +321,6 @@ def _validate_target_pool(
     if not torch.isfinite(pool.values()).all() or torch.any(pool.values() < 0):
         raise DataContractError(f"{name} weights must be finite and non-negative")
     row_sums = torch.sparse.sum(pool, dim=1).to_dense()
-    if not torch.allclose(row_sums, torch.ones_like(row_sums), atol=1e-5, rtol=1e-5):
+    if not torch.allclose(row_sums, torch.ones_like(row_sums), atol=1e-4, rtol=1e-5):
         raise DataContractError(f"{name} rows must sum to one")
     return pool

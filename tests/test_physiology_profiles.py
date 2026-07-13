@@ -30,7 +30,12 @@ def test_human_macaque_profile_builds_current_model_configs() -> None:
 
     # When
     dt_ms = dt_ms_from_time_axis_seconds(time_axis_seconds)
-    profile = human_macaque_v1(dt_ms=dt_ms, horizon_count=3)
+    profile = human_macaque_v1(
+        dt_ms=dt_ms,
+        horizon_count=3,
+        cone_spacing_deg=0.1,
+        eccentricity_deg=2.5,
+    )
     core = RetinaSNNCore(
         H1HorizontalNetwork(positions, profile.h1),
         BipolarLayer(positions, profile.bipolar),
@@ -47,6 +52,7 @@ def test_human_macaque_profile_builds_current_model_configs() -> None:
     assert dt_ms == 5.0
     assert profile.name == "human_macaque_v1"
     assert profile.species_priority == ("human", "macaque", "marmoset")
+    assert profile.eccentricity_deg == 2.5
     assert core.h1._dt_ms == 5.0
     assert core.bipolar._dt_ms == 5.0
     assert core.a2._dt_ms == 5.0

@@ -19,6 +19,7 @@ class ConeResponseExport:
     time_axis_seconds: np.ndarray
     eye_trace_degs: np.ndarray
     units: str
+    eccentricity_deg: float
     metadata_config: str | None = None
 
 
@@ -56,6 +57,23 @@ def load_cone_response(path: str | Path) -> ConeResponseExport:
             np.float32
         )
         units = _decode_text(handle["response_units"])
+        if "eccentricity_deg" not in handle.attrs:
+            raise DataContractError("Missing required eccentricity_deg attribute")
+        eccentricity_values = np.asarray(
+            handle.attrs["eccentricity_deg"], dtype=np.float64
+        ).reshape(-1)
+        if eccentricity_values.size not in {1, 2} or not np.isfinite(
+            eccentricity_values
+        ).all():
+            raise DataContractError(
+                "eccentricity_deg must be a finite scalar or [x_deg,y_deg]"
+            )
+        if eccentricity_values.size == 1:
+            eccentricity_deg = float(eccentricity_values[0])
+            if eccentricity_deg < 0:
+                raise DataContractError("scalar eccentricity_deg must be non-negative")
+        else:
+            eccentricity_deg = float(np.linalg.norm(eccentricity_values))
         metadata_config = _optional_text(handle, ("metadata/config", "config_json"))
 
     if response.shape != shape:
@@ -76,6 +94,7 @@ def load_cone_response(path: str | Path) -> ConeResponseExport:
         time_axis_seconds=_validate_time_axis(time_axis),
         eye_trace_degs=eye_trace,
         units=units,
+        eccentricity_deg=eccentricity_deg,
         metadata_config=metadata_config,
     )
 

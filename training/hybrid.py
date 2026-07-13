@@ -84,6 +84,8 @@ class HybridRetinaTrainer:
         stage: TrainingStage,
         state: RetinaSNNState | None = None,
     ) -> TrainingStepResult:
+        self.core.train()
+        self.decoder.train()
         x_cone = batch.x_cone
         if x_cone.ndim != 3 or x_cone.shape[1] < 1:
             raise HybridTrainingError("x_cone must have shape [batch,time,Ncone]")
@@ -137,6 +139,43 @@ class HybridRetinaTrainer:
                 self.config.grad_clip_norm,
             )
         self.optimizer.step()
+        return TrainingStepResult(
+            losses=losses.detached(),
+            state=detach_state(state),
+            core_diagnostics=diagnostics[-1],
+            decoder_diagnostics=decoder_diagnostics,
+        )
+
+    @torch.no_grad()
+    def evaluate_batch(
+        self,
+        batch: RetinaTrainingBatch,
+    ) -> TrainingStepResult:
+        self.core.eval()
+        self.decoder.eval()
+        x_cone = batch.x_cone
+        if x_cone.ndim != 3 or x_cone.shape[1] < 1:
+            raise HybridTrainingError("x_cone must have shape [batch,time,Ncone]")
+        state = self.core.initial_state(
+            x_cone.shape[0],
+            x_cone.device,
+            x_cone.dtype,
+        )
+        rgc_history, state, diagnostics = self.core.forward_sequence(
+            x_cone,
+            state,
+            return_diagnostics=True,
+        )
+        prediction, decoder_diagnostics = self.decoder(
+            _last_rgc_output(rgc_history),
+            return_diagnostics=True,
+        )
+        losses = self.objective(
+            prediction,
+            batch.targets,
+            rgc_history,
+            self.decoder.residual_weight_penalty(),
+        )
         return TrainingStepResult(
             losses=losses.detached(),
             state=detach_state(state),

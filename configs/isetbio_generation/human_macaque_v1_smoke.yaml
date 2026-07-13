@@ -5,9 +5,10 @@ max_items: 3
 time_steps: 16
 dt_ms: 5.0
 field_of_view_deg: 0.5
+export_crop_fov_deg: 0.2
 eccentricity_x_deg: 0.0
 eccentricity_y_deg: 0.0
-image_size_px: 128
+image_size_px: 256
 seed: 7
 mosaic_seed: 7
 mean_luminance_cd_m2: 100.0
