@@ -8,7 +8,6 @@ from data.geometry import (
     local_gaussian_weights,
     nearest_one_to_one_weights,
 )
-from models.cells.bipolar_types import BipolarKinetics
 from models.cells.rgc_runtime import (
     RGCAdaptiveLIF,
     assert_row_stochastic,
@@ -20,6 +19,7 @@ from models.cells.rgc_runtime import (
     raw_gain,
     state_is_finite,
     state_shapes_are_valid,
+    step_populations,
 )
 from models.cells.rgc_types import (
     RGCConfig,
@@ -51,13 +51,6 @@ class RGCPopulationLayer(nn.Module):
             "residual_positions_degs",
             mosaic.residual_positions_degs,
         )
-        if (
-            midget_positions.shape != bipolar_positions.shape
-            or not torch.allclose(midget_positions, bipolar_positions, atol=1e-6)
-        ):
-            raise RGCConfigurationError(
-                "Midget mosaic must align one-to-one with bipolar positions"
-            )
         if not (
             residual_positions.shape[0]
             <= parasol_positions.shape[0]
@@ -70,9 +63,19 @@ class RGCPopulationLayer(nn.Module):
         self.register_buffer("parasol_positions_degs", parasol_positions)
         self.register_buffer("residual_positions_degs", residual_positions)
 
-        midget_pool = nearest_one_to_one_weights(
-            bipolar_positions,
-            midget_positions,
+        private_line = (
+            midget_positions.shape == bipolar_positions.shape
+            and torch.allclose(midget_positions, bipolar_positions, atol=1e-6)
+        )
+        midget_pool = (
+            nearest_one_to_one_weights(bipolar_positions, midget_positions)
+            if private_line
+            else local_gaussian_weights(
+                bipolar_positions,
+                midget_positions,
+                config.midget_radius_degs,
+                config.midget_sigma_degs,
+            )
         )
         parasol_pool = local_gaussian_weights(
             bipolar_positions,
@@ -117,6 +120,7 @@ class RGCPopulationLayer(nn.Module):
             config.initial_g_ag_residual,
             config.g_ag_residual_max,
         )
+        self.raw_kinetic_mix = nn.Parameter(torch.zeros(2, 2))
         self.dynamics = RGCAdaptiveLIF(config)
         self._g_ag_max = (
             config.g_ag_midget_max,
@@ -132,6 +136,10 @@ class RGCPopulationLayer(nn.Module):
             (self.raw_g_ag_midget, self.raw_g_ag_parasol, self.raw_g_ag_residual)
         )
         return raw.new_tensor(self._g_ag_max) * torch.sigmoid(raw)
+
+    @property
+    def kinetic_mix(self) -> torch.Tensor:
+        return torch.softmax(self.raw_kinetic_mix, dim=1)
 
     def initial_state(
         self,
@@ -186,16 +194,17 @@ class RGCPopulationLayer(nn.Module):
         if self._debug_checks and not state_is_finite(rgc_prev):
             raise RGCConfigurationError("RGC previous state contains NaN or inf")
 
-        sustained = bipolar_output[:, :, BipolarKinetics.SUSTAINED]
-        transient = bipolar_output[:, :, BipolarKinetics.TRANSIENT]
-        a2_sustained = amacrine_output[:, :, BipolarKinetics.SUSTAINED]
-        a2_transient = amacrine_output[:, :, BipolarKinetics.TRANSIENT]
+        kinetic_mix = self.kinetic_mix
+        midget_bipolar = _mix_kinetics(bipolar_output, kinetic_mix[0])
+        parasol_bipolar = _mix_kinetics(bipolar_output, kinetic_mix[1])
+        midget_amacrine = _mix_kinetics(amacrine_output, kinetic_mix[0])
+        parasol_amacrine = _mix_kinetics(amacrine_output, kinetic_mix[1])
         g_ag = self.g_ag
         currents = RGCPopulationTensors(
-            midget=pool_spatial(self.midget_pool, sustained)
-            - g_ag[0] * pool_spatial(self.midget_pool, a2_sustained),
-            parasol=pool_spatial(self.parasol_pool, transient)
-            - g_ag[1] * pool_spatial(self.parasol_pool, a2_transient),
+            midget=pool_spatial(self.midget_pool, midget_bipolar)
+            - g_ag[0] * pool_spatial(self.midget_pool, midget_amacrine),
+            parasol=pool_spatial(self.parasol_pool, parasol_bipolar)
+            - g_ag[1] * pool_spatial(self.parasol_pool, parasol_amacrine),
             residual=self._residual_drive_scale
             * (
                 pool_spatial(self.residual_pool, bipolar_output.mean(dim=2))
@@ -203,49 +212,7 @@ class RGCPopulationLayer(nn.Module):
                 * pool_spatial(self.residual_pool, amacrine_output.mean(dim=2))
             ),
         )
-        midget_step = self.dynamics(
-            currents.midget,
-            rgc_prev.membrane.midget,
-            rgc_prev.adaptation.midget,
-            rgc_prev.rate.midget,
-        )
-        parasol_step = self.dynamics(
-            currents.parasol,
-            rgc_prev.membrane.parasol,
-            rgc_prev.adaptation.parasol,
-            rgc_prev.rate.parasol,
-        )
-        residual_step = self.dynamics(
-            currents.residual,
-            rgc_prev.membrane.residual,
-            rgc_prev.adaptation.residual,
-            rgc_prev.rate.residual,
-        )
-        next_state = RGCState(
-            membrane=RGCPopulationTensors(
-                midget_step[0],
-                parasol_step[0],
-                residual_step[0],
-            ),
-            adaptation=RGCPopulationTensors(
-                midget_step[1],
-                parasol_step[1],
-                residual_step[1],
-            ),
-            rate=RGCPopulationTensors(
-                midget_step[2],
-                parasol_step[2],
-                residual_step[2],
-            ),
-        )
-        output = RGCOutput(
-            spikes=RGCPopulationTensors(
-                midget_step[3],
-                parasol_step[3],
-                residual_step[3],
-            ),
-            rates=next_state.rate,
-        )
+        output, next_state = step_populations(self.dynamics, currents, rgc_prev)
         if not return_diagnostics:
             return output, next_state
         diagnostics = build_diagnostics(
@@ -256,4 +223,13 @@ class RGCPopulationLayer(nn.Module):
             self.parasol_mean_neighbor_count,
             self.residual_mean_neighbor_count,
         )
+        diagnostics["rgc_kinetic_mix"] = kinetic_mix.detach()
+        diagnostics["rgc_tau_ms"] = self.dynamics.tau_ms.detach()
+        diagnostics["rgc_readout_rate_tau_ms"] = (
+            self.dynamics.readout_rate_tau_ms.detach()
+        )
         return output, next_state, diagnostics
+
+
+def _mix_kinetics(source: torch.Tensor, weights: torch.Tensor) -> torch.Tensor:
+    return torch.einsum("k,bpkn->bpn", weights, source)

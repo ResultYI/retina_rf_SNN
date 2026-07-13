@@ -1,4 +1,5 @@
 input_path: ../../data/stage_minus1_smoke_images
+stimulus_source_kind: parametric_image_sequence
 output_dir: ../../data/isetbio_h5_smoke
 manifest_csv: ../../data/isetbio_h5_smoke/manifest.csv
 max_items: 3

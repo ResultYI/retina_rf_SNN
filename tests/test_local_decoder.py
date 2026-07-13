@@ -10,6 +10,7 @@ from models.decoder.local_decoder import (
     DecoderTargets,
     LocalDecoder,
     LocalDecoderConfig,
+    LocalDecoderError,
 )
 
 
@@ -78,8 +79,14 @@ def test_local_decoder_uses_sparse_local_masks_and_bounds_residual_weights() -> 
         decoder.coarse_residual.raw_weight.fill_(-100.0)
 
     # Then
-    assert all(projection.local_mask.layout == torch.sparse_coo for projection in projections)
-    assert all("local_mask" in dict(projection.named_buffers()) for projection in projections)
+    assert all(
+        projection.local_mask.layout == torch.sparse_coo
+        for projection in projections
+    )
+    assert all(
+        "local_mask" in dict(projection.named_buffers())
+        for projection in projections
+    )
     assert all(projection.raw_weight.shape == (3, 2) for projection in projections)
     assert all(
         projection.local_mask.shape[1] == projection.source_count
@@ -90,7 +97,8 @@ def test_local_decoder_uses_sparse_local_masks_and_bounds_residual_weights() -> 
     assert decoder.residual_weight_penalty() > 0
 
 
-def test_local_decoder_outputs_fine_and_coarse_predictions_for_step_and_sequence() -> None:
+def test_local_decoder_outputs_fine_and_coarse_predictions_for_step_and_sequence(
+) -> None:
     # Given
     decoder = _decoder()
 
@@ -139,3 +147,24 @@ def test_local_decoder_rejects_population_shape_mismatch() -> None:
     # When / Then
     with pytest.raises(ValueError, match="midget"):
         decoder(bad_output)
+
+
+def test_local_decoder_rejects_target_without_any_local_population_source() -> None:
+    # Given
+    mosaic = _mosaic()
+    far_target = torch.tensor([[10.0, 10.0]])
+
+    # When / Then
+    with pytest.raises(LocalDecoderError, match="coverage"):
+        LocalDecoder(
+            mosaic,
+            DecoderTargets(far_target, far_target),
+            LocalDecoderConfig(
+                horizon_count=1,
+                fine_radius_degs=0.1,
+                fine_sigma_degs=0.05,
+                coarse_radius_degs=0.1,
+                coarse_sigma_degs=0.05,
+                residual_weight_max=0.1,
+            ),
+        )

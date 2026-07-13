@@ -7,6 +7,7 @@ from typing import assert_never
 
 import torch
 
+from evaluation.rf_agreement import compare_rf_maps as compare_rf_maps
 from models.cells.rgc import RGCOutput, RGCPopulationTensors
 from models.retina_snn import RetinaSNNCore
 
@@ -64,6 +65,22 @@ class TemporalRFComparison:
     reference_biphasic_index: float
     condition_biphasic_index: float
     waveform_cosine_similarity: float
+
+
+@dataclass(frozen=True, slots=True)
+class LocalPoissonGLMRequest:
+    stimulus: torch.Tensor
+    spike_counts: torch.Tensor
+    source_indices: torch.Tensor
+    l2_weight: float = 1e-3
+    max_steps: int = 50
+
+
+@dataclass(frozen=True, slots=True)
+class LocalPoissonGLMResult:
+    rf: torch.Tensor
+    bias: torch.Tensor
+    nll: torch.Tensor
 
 
 def gradient_rf(
@@ -131,8 +148,12 @@ def compare_temporal_rfs(
     if not math.isfinite(dt_ms) or dt_ms <= 0:
         raise RFProbeError("dt_ms must be positive and finite")
 
-    reference = reference_rf.detach().to(dtype=torch.float32).reshape(reference_rf.shape[0], -1)
-    condition = condition_rf.detach().to(dtype=torch.float32).reshape(condition_rf.shape[0], -1)
+    reference = reference_rf.detach().to(dtype=torch.float32).reshape(
+        reference_rf.shape[0], -1
+    )
+    condition = condition_rf.detach().to(dtype=torch.float32).reshape(
+        condition_rf.shape[0], -1
+    )
     spatial_index = int(reference.abs().amax(dim=0).argmax())
     reference_trace = reference[:, spatial_index]
     condition_trace = condition[:, spatial_index]
@@ -157,6 +178,69 @@ def compare_temporal_rfs(
         condition_biphasic_index=_biphasic_index(condition_trace),
         waveform_cosine_similarity=float(similarity),
     )
+
+
+def fit_local_poisson_glm(
+    request: LocalPoissonGLMRequest,
+) -> LocalPoissonGLMResult:
+    stimulus = request.stimulus.detach().to(dtype=torch.float32)
+    counts = request.spike_counts.detach().to(
+        device=stimulus.device,
+        dtype=torch.float32,
+    )
+    source_indices = request.source_indices.detach().to(
+        device=stimulus.device,
+        dtype=torch.long,
+    )
+    if stimulus.ndim != 3 or counts.shape != (stimulus.shape[0],):
+        raise RFProbeError("Poisson GLM expects stimulus [sample,time,cone] and counts")
+    if not torch.isfinite(stimulus).all() or not torch.isfinite(counts).all():
+        raise RFProbeError("Poisson GLM inputs must be finite")
+    if torch.any(counts < 0):
+        raise RFProbeError("Poisson GLM counts must be non-negative")
+    if (
+        source_indices.ndim != 1
+        or source_indices.numel() < 1
+        or torch.any(source_indices < 0)
+        or torch.any(source_indices >= stimulus.shape[2])
+        or torch.unique(source_indices).numel() != source_indices.numel()
+    ):
+        raise RFProbeError("Poisson GLM source_indices are invalid")
+    if not math.isfinite(request.l2_weight) or request.l2_weight < 0:
+        raise RFProbeError("Poisson GLM l2_weight must be finite and non-negative")
+    if request.max_steps < 1:
+        raise RFProbeError("Poisson GLM max_steps must be positive")
+    design = stimulus.index_select(2, source_indices).flatten(start_dim=1)
+    weights = torch.nn.Parameter(design.new_zeros(design.shape[1]))
+    bias = torch.nn.Parameter(design.new_zeros(()))
+    optimizer = torch.optim.LBFGS(
+        (weights, bias),
+        max_iter=request.max_steps,
+        line_search_fn="strong_wolfe",
+    )
+
+    def closure() -> torch.Tensor:
+        optimizer.zero_grad()
+        log_rate = design @ weights + bias
+        loss = torch.nn.functional.poisson_nll_loss(
+            log_rate,
+            counts,
+            log_input=True,
+        ) + request.l2_weight * weights.square().mean()
+        loss.backward()
+        return loss
+
+    optimizer.step(closure)
+    with torch.no_grad():
+        log_rate = design @ weights + bias
+        nll = torch.nn.functional.poisson_nll_loss(
+            log_rate,
+            counts,
+            log_input=True,
+        )
+        rf = stimulus.new_zeros(stimulus.shape[1], stimulus.shape[2])
+        rf[:, source_indices] = weights.reshape(stimulus.shape[1], -1)
+    return LocalPoissonGLMResult(rf, bias.detach(), nll.detach())
 
 
 def _select_final_response(

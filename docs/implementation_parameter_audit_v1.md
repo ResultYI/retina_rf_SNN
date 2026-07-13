@@ -55,7 +55,7 @@ Implementation mismatch: `PhysiologyProfile` still contains `decoder: LocalDecod
 
 Current mode: `hard_v1_simplification`.
 
-| Population | Bipolar channel read | A2 channel read | Spatial mask |
+| Population | Bipolar channel read | Local amacrine channel read | Spatial mask |
 |---|---|---|---|
 | midget-like | sustained only | sustained only | `midget_pool` |
 | parasol-like | transient only | transient only | `parasol_pool` |
@@ -79,12 +79,12 @@ Risk: hard-exclusive routing may make learned RF differences partly architectura
 
 No high-risk scalar-H1 simplification found.
 
-## 6. A2 Audit
+## 6. Local Recurrent Amacrine Audit
 
 | Item | Current implementation |
 |---|---|
 | Input source | current bipolar output `[B,2,2,Ncone]` |
-| Output target | previous A2 inhibits bipolar in next step; current A2 also inhibits RGC in current step |
+| Output target | previous local amacrine state inhibits bipolar in the next step; current state also inhibits RGC in the current step |
 | State shape | `[B,2,2,Ncone]`; smoke fixture was `[2,2,2,4]` |
 | Radius/sigma | profile: `0.16/0.10 deg` |
 | Delay/tau | causal recurrent leak; sustained `100 ms`, transient `40 ms` initial |
@@ -92,7 +92,7 @@ No high-risk scalar-H1 simplification found.
 | Future frame access | none |
 | Temporal kernel | causal first-order recurrence |
 
-Risk: A2 is computed from current bipolar output before current RGC update. This is causal within a frame but is not a strict one-frame delayed inhibition onto RGC.
+Risk: the local amacrine state is computed from current bipolar output before the current RGC update. This is causal within a frame but does not assert a biological transmission delay onto RGC.
 
 ## 7. Residual Constraint Audit
 
@@ -112,7 +112,7 @@ High-risk: residual can still absorb task signal if penalties are too weak. This
 
 Detailed output: `results/stage0_audit/decoder_leakage_audit.md`.
 
-Current decoder reads only `RGCOutput` rates. It does not receive H1, bipolar, A2, future cone frames, or target tensors. Existing static test covers the public decoder signature.
+Current decoder reads only `RGCOutput` rates. It does not receive H1, bipolar, local amacrine state, future cone frames, or target tensors. Existing static test covers the public decoder signature.
 
 ## 9. Bounded Learnable Parameters
 
@@ -122,7 +122,7 @@ Compliant bounded learnable parameters:
 
 - H1 `raw_tau`, `raw_gain`
 - bipolar `raw_tau_sustained`, `raw_tau_transient`, `raw_g_ab_sustained`, `raw_g_ab_transient`
-- A2 `raw_tau_sustained`, `raw_tau_transient`, `raw_g_ba_sustained`, `raw_g_ba_transient`
+- Local amacrine `raw_tau_sustained`, `raw_tau_transient`, `raw_g_ba_sustained`, `raw_g_ba_transient`
 - RGC `raw_g_ag_midget`, `raw_g_ag_parasol`, `raw_g_ag_residual`
 - residual decoder raw weights through tanh
 

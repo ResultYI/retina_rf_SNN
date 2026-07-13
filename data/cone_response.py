@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from types import ModuleType
@@ -20,6 +21,9 @@ class ConeResponseExport:
     eye_trace_degs: np.ndarray
     units: str
     eccentricity_deg: float
+    source_id: str | None = None
+    source_movie_id: str | None = None
+    stimulus_source_kind: str | None = None
     metadata_config: str | None = None
 
 
@@ -49,7 +53,11 @@ def load_cone_response(path: str | Path) -> ConeResponseExport:
         cone_types = np.asarray(
             _first_dataset(handle, ("cone_type", "cone_types"))[()]
         ).reshape(-1).astype(np.uint8)
-        time_axis = np.asarray(handle["time_axis_seconds"][()]).reshape(-1).astype(np.float64)
+        time_axis = (
+            np.asarray(handle["time_axis_seconds"][()])
+            .reshape(-1)
+            .astype(np.float64)
+        )
         eye_trace = _logical_array(
             _first_dataset(handle, ("eye_movement_xy_deg", "eye_trace_degs")),
             (shape[0], 2),
@@ -75,9 +83,20 @@ def load_cone_response(path: str | Path) -> ConeResponseExport:
         else:
             eccentricity_deg = float(np.linalg.norm(eccentricity_values))
         metadata_config = _optional_text(handle, ("metadata/config", "config_json"))
+        source_movie_id = _optional_text(handle, ("source_movie_id",))
+        source_id = source_movie_id or _optional_text(
+            handle,
+            ("source_image_id", "source_id"),
+        )
+        stimulus_source_kind = _optional_attribute_text(
+            handle,
+            "stimulus_source_kind",
+        )
 
     if response.shape != shape:
-        raise DataContractError(f"Response shape mismatch: {response.shape} versus {shape}")
+        raise DataContractError(
+            f"Response shape mismatch: {response.shape} versus {shape}"
+        )
     if positions.shape != (shape[1], 2):
         raise DataContractError(f"Position shape mismatch: {positions.shape}")
     if cone_types.shape != (shape[1],):
@@ -95,8 +114,29 @@ def load_cone_response(path: str | Path) -> ConeResponseExport:
         eye_trace_degs=eye_trace,
         units=units,
         eccentricity_deg=eccentricity_deg,
+        source_id=source_id,
+        source_movie_id=source_movie_id,
+        stimulus_source_kind=stimulus_source_kind,
         metadata_config=metadata_config,
     )
+
+
+def validate_natural_video_splits(
+    train: Sequence[ConeResponseExport],
+    validation: Sequence[ConeResponseExport],
+    test: Sequence[ConeResponseExport] = (),
+) -> None:
+    split_ids = (
+        _natural_video_source_ids("train", train),
+        _natural_video_source_ids("validation", validation),
+        _natural_video_source_ids("test", test),
+    )
+    if (
+        split_ids[0] & split_ids[1]
+        or split_ids[0] & split_ids[2]
+        or split_ids[1] & split_ids[2]
+    ):
+        raise DataContractError("Natural-video splits must be source-disjoint")
 
 
 def validate_response(response: np.ndarray) -> np.ndarray:
@@ -132,14 +172,45 @@ def _optional_text(handle: h5py.File, names: tuple[str, ...]) -> str | None:
     return None
 
 
-def _first_dataset(handle: h5py.File, names: tuple[str, ...]) -> h5py.Dataset:
+def _optional_attribute_text(handle: h5py.File, name: str) -> str | None:
+    if name not in handle.attrs:
+        return None
+    value = np.asarray(handle.attrs[name]).astype(str).reshape(-1)
+    return None if value.size == 0 else str(value[0])
+
+
+def _natural_video_source_ids(
+    split_name: str,
+    exports: Sequence[ConeResponseExport],
+) -> set[str]:
+    source_ids: set[str] = set()
+    for export in exports:
+        if export.stimulus_source_kind != "natural_video":
+            raise DataContractError(
+                f"{split_name} export must declare stimulus_source_kind=natural_video"
+            )
+        if not export.source_movie_id:
+            raise DataContractError(
+                f"{split_name} natural_video export needs source_movie_id"
+            )
+        source_ids.add(export.source_movie_id)
+    return source_ids
+
+
+def _first_dataset(
+    handle: h5py.File,
+    names: tuple[str, ...],
+) -> h5py.Dataset:
     for name in names:
         if name in handle:
             return handle[name]
     raise DataContractError(f"Missing required dataset; expected one of {names}")
 
 
-def _logical_array(dataset: h5py.Dataset, expected_shape: tuple[int, int]) -> np.ndarray:
+def _logical_array(
+    dataset: h5py.Dataset,
+    expected_shape: tuple[int, int],
+) -> np.ndarray:
     raw = np.asarray(dataset[()])
     if raw.shape == expected_shape:
         return raw

@@ -16,11 +16,11 @@ def _config() -> BipolarConfig:
     return BipolarConfig(
         dt_ms=5.0,
         initial_tau_sustained_ms=80.0,
-        tau_sustained_min_ms=60.0,
+        tau_sustained_min_ms=20.0,
         tau_sustained_max_ms=200.0,
         initial_tau_transient_ms=20.0,
         tau_transient_min_ms=5.0,
-        tau_transient_max_ms=40.0,
+        tau_transient_max_ms=120.0,
         initial_g_ab_sustained=0.01,
         g_ab_sustained_max=0.1,
         initial_g_ab_transient=0.01,
@@ -150,17 +150,31 @@ def test_transient_bipolar_adapts_to_constant_drive() -> None:
     assert final_transient < 0.05 * final_sustained
 
 
-def test_bipolar_config_requires_separated_temporal_ranges() -> None:
+def test_bipolar_overlapping_bounds_preserve_within_model_tau_order() -> None:
+    # Given
+    layer = BipolarLayer(torch.tensor([[0.0, 0.0]]), _config())
+    with torch.no_grad():
+        layer.raw_tau_sustained.fill_(-20.0)
+        layer.raw_tau_transient.fill_(20.0)
+
+    # When
+    tau = layer.tau_ms
+
+    # Then
+    assert tau[BipolarKinetics.TRANSIENT] < tau[BipolarKinetics.SUSTAINED]
+
+
+def test_bipolar_config_rejects_reversed_initial_tau_order() -> None:
     # Given / When / Then
-    with pytest.raises(BipolarConfigurationError, match="temporal ranges"):
+    with pytest.raises(BipolarConfigurationError, match="Transient tau"):
         BipolarConfig(
             dt_ms=5.0,
-            initial_tau_sustained_ms=80.0,
-            tau_sustained_min_ms=30.0,
+            initial_tau_sustained_ms=40.0,
+            tau_sustained_min_ms=20.0,
             tau_sustained_max_ms=200.0,
-            initial_tau_transient_ms=20.0,
+            initial_tau_transient_ms=80.0,
             tau_transient_min_ms=5.0,
-            tau_transient_max_ms=40.0,
+            tau_transient_max_ms=120.0,
             initial_g_ab_sustained=0.01,
             g_ab_sustained_max=0.1,
             initial_g_ab_transient=0.01,

@@ -23,12 +23,12 @@ external/isetbio_pipeline/
   run_export.py     Python launcher for MATLAB/ISETBio export
   cone_response_io.py
   matlab/
-models/cells/       H1, bipolar, A2, and RGC circuit modules
-models/retina_snn.py  Causal H1 -> bipolar -> A2 -> RGC recurrent core
+models/cells/       H1, bipolar, local amacrine, and RGC circuit modules
+models/retina_snn.py  Causal H1 -> bipolar -> local amacrine -> RGC core
 models/decoder/     Fixed local RGC pooling with horizon/ON-OFF readout gains
-loss/               Prediction and weak activity/homeostasis/decorrelation criteria
+loss/               Prediction, rate, band-homeostasis, and residual criteria
 training/           Deterministic mosaic construction and truncated-BPTT training
-evaluation/         Gradient RF, white-noise STA, and residual ablation readouts
+evaluation/         Baselines, dynamics, STA/Jacobian/GLM RF, and feasibility readouts
 tests/              Data, cell, training, and evaluation smoke tests
 ```
 
@@ -60,9 +60,15 @@ Fine and coarse pooling matrices must be sparse, non-negative, row-normalized
 subtractive modulation. `BipolarLayer` is a cone-aligned private-line bank with
 ON/OFF and sustained/transient channels. Its transient drive subtracts a slow,
 causal baseline; spatial pooling for parasol-like populations remains downstream
-in the A2/RGC stages. `A2AmacrineLayer` supplies the local recurrent inhibitory
+in the amacrine/RGC stages. `LocalAmacrineLayer` supplies a physiologically
+motivated local recurrent inhibitory
 state. `RGCPopulationLayer` exposes midget-like, parasol-like, and constrained
 residual spikes/rates while keeping membrane and adaptation state internal.
+All internal `tau` values are filtering parameters, not asserted biological
+transmission delays. Response latency, time-to-peak, crossover, recovery, and
+transience are measured at the RGC output. No explicit delay is enabled in the
+frozen architecture; an integer delay is considered only if bounded filtering
+cannot resolve a reproducible output-latency mismatch.
 
 The Stage-1 decoder is deliberately not a second learned RF bank. Each
 population is pooled through a fixed normalized local Gaussian mask, followed
@@ -70,10 +76,12 @@ only by a learned ON/OFF coefficient for each prediction horizon. Residual
 coefficients remain bounded. This makes post-training RF readout attributable
 to the retina core rather than a high-capacity decoder.
 
-`build_stage1_components` keeps the midget mosaic cone-aligned, selects
-parasol positions from spatial cells rather than cone-array order, and derives
-the residual mosaic from that lower-density population. Every train and
-validation export must share cone positions, cone ordering, and `dt_ms`.
+`build_stage1_components` uses a cone-aligned midget private line only in the
+explicit foveal mode. The convergent mode uses a lower-density midget mosaic
+with local normalized pooling. Parasol positions are selected from spatial
+cells rather than cone-array order, and the residual mosaic is derived from
+that lower-density population. Every train and validation export must share
+cone positions, cone ordering, and `dt_ms`.
 
 ## Stage-1 Entry Point
 
@@ -84,7 +92,7 @@ python scripts/train_stage1.py `
   --train-h5 data/train_a.h5 data/train_b.h5 `
   --val-h5 data/val_a.h5 `
   --output-dir runs/stage1_warmup `
-  --stage decoder_warmup --device cuda
+  --stage decoder_warmup --device cuda --formal-evidence
 ```
 
 Then fine-tune the core with the same data contract:
@@ -100,7 +108,8 @@ python scripts/train_stage1.py `
 
 Each run writes per-batch train rows plus full-dataset `train_eval` and
 validation epoch summaries, normalization statistics, per-export clipping
-summaries, train-fit zero/global-change baselines, and `checkpoint.pt`.
+summaries, train-fit zero/global/local-AR baselines, bounded-parameter audit,
+and `checkpoint.pt`.
 `best_checkpoint.pt` is updated only when the validation aggregate loss
 improves, or the training aggregate loss when no validation export is given.
 A decoder warm-up checkpoint can initialize core fine-tuning; otherwise resume
@@ -109,10 +118,12 @@ requires a matching training stage, for example
 RF losses are not part of this entry point; use the post-training probes only
 after the prediction and population-usage gates pass.
 
-## Natural Sequence Input
+## Smoke Sequence Input
 
-Raw natural images are only Stage -1 stimulus sources. Build source-disjoint
-short sequences before ISETBio generation:
+The image-motion builder below is smoke-test infrastructure. It creates
+parametric sequences from still images and labels them
+`parametric_image_sequence`; it is not valid evidence for natural-video
+prediction. Build source-disjoint short smoke sequences with:
 
 ```powershell
 python scripts/build_natural_motion_sequences.py `
@@ -139,6 +150,19 @@ wrapper invokes MATLAB/ISETBio once per child sequence directory; Python does
 not synthesize cone responses. Temporal motion comes from frame content in
 this v0 path, so eye movement is disabled to keep the source of motion
 identifiable.
+
+For the formal evidence run, use frames extracted from genuine source videos,
+keep each source movie in one split only, and set:
+
+```yaml
+stimulus_source_kind: natural_video
+source_movie_id: stable_original_movie_id
+```
+
+Use the same `source_movie_id` for every clip derived from one original movie;
+the natural-video exporter rejects a missing explicit movie ID. Training with
+`--formal-evidence` rejects non-video exports, missing source IDs, and overlap
+between training and validation source movies.
 
 `train_stage1.py` writes `data_summary.json` before enforcing its default
 `--max-clip-fraction 0.01` gate. A higher value is only suitable for a

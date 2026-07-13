@@ -14,26 +14,52 @@ from models.cells.rgc_types import (
     RGCPopulationTensors,
     RGCState,
 )
+from models.cells.temporal import ordered_taus, raw_ordered_taus
 
 
 class RGCAdaptiveLIF(nn.Module):
     def __init__(self, config: RGCConfig) -> None:
         super().__init__()
-        self.register_buffer(
-            "membrane_leak",
-            torch.tensor(math.exp(-config.dt_ms / config.membrane_tau_ms)),
+        tau_bounds = torch.tensor(
+            (
+                (config.adaptation_tau_min_ms, config.adaptation_tau_max_ms),
+                (config.membrane_tau_min_ms, config.membrane_tau_max_ms),
+            ),
+            dtype=torch.float32,
         )
-        self.register_buffer(
-            "adaptation_leak",
-            torch.tensor(math.exp(-config.dt_ms / config.adaptation_tau_ms)),
+        self.register_buffer("tau_bounds_ms", tau_bounds)
+        self.raw_adaptation_tau, self.raw_membrane_tau = raw_ordered_taus(
+            torch.tensor((config.adaptation_tau_ms, config.membrane_tau_ms)),
+            tau_bounds,
         )
         self.register_buffer(
             "rate_leak",
-            torch.tensor(math.exp(-config.dt_ms / config.rate_tau_ms)),
+            torch.tensor(math.exp(-config.dt_ms / config.readout_rate_tau_ms)),
         )
+        self.register_buffer(
+            "readout_rate_tau_ms",
+            torch.tensor(config.readout_rate_tau_ms),
+        )
+        self._dt_ms = config.dt_ms
         self._threshold = config.threshold
         self._surrogate_slope = config.surrogate_slope
         self._adaptation_strength = config.adaptation_strength
+
+    @property
+    def tau_ms(self) -> torch.Tensor:
+        return ordered_taus(
+            self.raw_adaptation_tau,
+            self.raw_membrane_tau,
+            self.tau_bounds_ms,
+        )
+
+    @property
+    def membrane_leak(self) -> torch.Tensor:
+        return torch.exp(-self._dt_ms / self.tau_ms[1])
+
+    @property
+    def adaptation_leak(self) -> torch.Tensor:
+        return torch.exp(-self._dt_ms / self.tau_ms[0])
 
     def forward(
         self,
@@ -104,6 +130,42 @@ def population_zeros(
         torch.zeros(batch_size, 2, parasol_count, device=device, dtype=dtype),
         torch.zeros(batch_size, 2, residual_count, device=device, dtype=dtype),
     )
+
+
+def step_populations(
+    dynamics: RGCAdaptiveLIF,
+    currents: RGCPopulationTensors,
+    previous: RGCState,
+) -> tuple[RGCOutput, RGCState]:
+    steps = tuple(
+        dynamics(current, membrane, adaptation, rate)
+        for current, membrane, adaptation, rate in zip(
+            (currents.midget, currents.parasol, currents.residual),
+            (
+                previous.membrane.midget,
+                previous.membrane.parasol,
+                previous.membrane.residual,
+            ),
+            (
+                previous.adaptation.midget,
+                previous.adaptation.parasol,
+                previous.adaptation.residual,
+            ),
+            (previous.rate.midget, previous.rate.parasol, previous.rate.residual),
+            strict=True,
+        )
+    )
+    midget, parasol, residual = steps
+    next_state = RGCState(
+        membrane=RGCPopulationTensors(midget[0], parasol[0], residual[0]),
+        adaptation=RGCPopulationTensors(midget[1], parasol[1], residual[1]),
+        rate=RGCPopulationTensors(midget[2], parasol[2], residual[2]),
+    )
+    output = RGCOutput(
+        spikes=RGCPopulationTensors(midget[3], parasol[3], residual[3]),
+        rates=next_state.rate,
+    )
+    return output, next_state
 
 
 def state_shapes_are_valid(

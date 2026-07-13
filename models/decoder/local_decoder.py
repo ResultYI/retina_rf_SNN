@@ -112,6 +112,14 @@ class LocalDecoder(nn.Module):
             config.horizon_count,
             config.residual_weight_max,
         )
+        _assert_combined_coverage(
+            "fine",
+            (self.fine_midget, self.fine_parasol, self.fine_residual),
+        )
+        _assert_combined_coverage(
+            "coarse",
+            (self.coarse_midget, self.coarse_parasol, self.coarse_residual),
+        )
 
     def forward(
         self,
@@ -245,3 +253,15 @@ def _combined_norm(
         first.effective_weight.square().sum()
         + second.effective_weight.square().sum()
     )
+
+
+def _assert_combined_coverage(
+    name: str,
+    projections: tuple[_LocalProjection, ...],
+) -> None:
+    covered = torch.zeros(projections[0].local_mask.shape[0], dtype=torch.bool)
+    for projection in projections:
+        row_sums = torch.sparse.sum(projection.local_mask, dim=1).to_dense()
+        covered |= row_sums > 0
+    if not torch.all(covered):
+        raise LocalDecoderError(f"{name} decoder coverage has empty target rows")

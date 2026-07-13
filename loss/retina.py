@@ -27,10 +27,10 @@ class RetinaLossConfig:
     coarse_prediction_scale: float = 1.0
     rate_weight: float = 1e-3
     homeostasis_weight: float = 1e-3
-    decorrelation_weight: float = 1e-4
     residual_activity_weight: float = 1e-3
     residual_decoder_weight: float = 1e-3
-    target_rate: float = 0.05
+    homeostasis_rate_min: float = 0.01
+    homeostasis_rate_max: float = 0.20
 
     def __post_init__(self) -> None:
         weights = (
@@ -38,7 +38,6 @@ class RetinaLossConfig:
             self.coarse_weight,
             self.rate_weight,
             self.homeostasis_weight,
-            self.decorrelation_weight,
             self.residual_activity_weight,
             self.residual_decoder_weight,
         )
@@ -47,8 +46,12 @@ class RetinaLossConfig:
         scales = (self.fine_prediction_scale, self.coarse_prediction_scale)
         if not all(math.isfinite(scale) and scale > 0 for scale in scales):
             raise RetinaLossError("Prediction scales must be finite and positive")
-        if not math.isfinite(self.target_rate) or not 0 <= self.target_rate <= 1:
-            raise RetinaLossError("target_rate must lie in [0,1]")
+        if not (
+            math.isfinite(self.homeostasis_rate_min)
+            and math.isfinite(self.homeostasis_rate_max)
+            and 0 <= self.homeostasis_rate_min < self.homeostasis_rate_max <= 1
+        ):
+            raise RetinaLossError("Homeostasis rate band must lie inside [0,1]")
 
 
 @dataclass(frozen=True, slots=True)
@@ -58,7 +61,6 @@ class RetinaLosses:
     prediction_coarse: torch.Tensor
     rate_regularization: torch.Tensor
     homeostasis: torch.Tensor
-    decorrelation: torch.Tensor
     residual_activity: torch.Tensor
     residual_decoder_weight: torch.Tensor
 
@@ -69,7 +71,6 @@ class RetinaLosses:
             prediction_coarse=self.prediction_coarse.detach(),
             rate_regularization=self.rate_regularization.detach(),
             homeostasis=self.homeostasis.detach(),
-            decorrelation=self.decorrelation.detach(),
             residual_activity=self.residual_activity.detach(),
             residual_decoder_weight=self.residual_decoder_weight.detach(),
         )
@@ -104,14 +105,11 @@ class RetinaObjective(nn.Module):
             + rates.parasol.square().mean()
             + rates.residual.square().mean()
         ) / 3
+        population_rates = torch.stack((rates.midget.mean(), rates.parasol.mean()))
         homeostasis = (
-            (rates.midget.mean() - self.config.target_rate).square()
-            + (rates.parasol.mean() - self.config.target_rate).square()
-        ) / 2
-        decorrelation = _squared_trace_correlation(
-            rates.midget,
-            rates.parasol,
-        )
+            torch.relu(self.config.homeostasis_rate_min - population_rates).square()
+            + torch.relu(population_rates - self.config.homeostasis_rate_max).square()
+        ).mean()
         residual_activity = rates.residual.abs().mean()
         total = (
             self.config.fine_weight
@@ -122,7 +120,6 @@ class RetinaObjective(nn.Module):
             / self.config.coarse_prediction_scale
             + self.config.rate_weight * rate_regularization
             + self.config.homeostasis_weight * homeostasis
-            + self.config.decorrelation_weight * decorrelation
             + self.config.residual_activity_weight * residual_activity
             + self.config.residual_decoder_weight * residual_decoder_penalty
         )
@@ -132,23 +129,6 @@ class RetinaObjective(nn.Module):
             prediction_coarse=prediction_coarse,
             rate_regularization=rate_regularization,
             homeostasis=homeostasis,
-            decorrelation=decorrelation,
             residual_activity=residual_activity,
             residual_decoder_weight=residual_decoder_penalty,
         )
-
-
-def _squared_trace_correlation(
-    first: torch.Tensor,
-    second: torch.Tensor,
-) -> torch.Tensor:
-    first_trace = first.mean(dim=(-2, -1)).flatten()
-    second_trace = second.mean(dim=(-2, -1)).flatten()
-    first_centered = first_trace - first_trace.mean()
-    second_centered = second_trace - second_trace.mean()
-    denominator = (
-        torch.linalg.vector_norm(first_centered)
-        * torch.linalg.vector_norm(second_centered)
-    ).clamp_min(torch.finfo(first.dtype).eps)
-    correlation = torch.dot(first_centered, second_centered) / denominator
-    return correlation.square()

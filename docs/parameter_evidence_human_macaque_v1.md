@@ -9,7 +9,7 @@ Because the model uses a human cone mosaic, human retinal evidence is prioritize
 结论很直接：
 
 - **应使用现有结论固定或数据派生的参数**：`dt_ms`、cone/RGC positions、normalization stats、ON/OFF 符号结构、midget/parasol/residual 的相对空间层级、local mask 的单位和拓扑约束、target pooling 的 row-stochastic 约束。
-- **应使用现有结论给初值和 bounds，但让训练学习的参数**：H1 tau/gain，bipolar sustained/transient tau，A2 tau，RGC rate/adaptation/membrane-like dynamics，所有跨层抑制增益 `g_AB/g_BA/g_AG`，residual drive scale。
+- **应使用现有结论给初值和 bounds，但让训练学习的参数**：H1 tau/gain，bipolar sustained/transient tau，local recurrent amacrine tau，RGC rate/adaptation/membrane-like dynamics，所有跨层抑制增益 `g_AB/g_BA/g_AG`，residual drive scale。
 - **应主要通过学习得到的参数**：decoder projection weights，residual decoder weights，跨 population readout 权重。
 - **不建议从文献硬拷贝的参数**：所有 gain、threshold、surrogate slope、loss weights、grad clip、BPTT、clip range、smoke gate thresholds。它们要么是归一化模型内部量，要么依赖训练目标与数据分布。
 
@@ -37,9 +37,9 @@ Because the model uses a human cone mosaic, human retinal evidence is prioritize
 | bipolar sustained/transient tau | **bounded learnable** | sustained > transient, non-overlap bounds | yes | B/D | Primate pathway literature gives relative timing better than exact tau for this abstraction. |
 | transient baseline tau | **do not add for current V1; if added later, bounded learnable** | baseline slower than transient drive | yes if implemented | D | Current code ties baseline to sustained tau; no direct evidence justifies a separate fixed value. |
 | `g_AB` bipolar inhibition | **bounded learnable** | inhibitory sign and plausible max | yes | D | Inhibitory strength depends on model normalization and training objective. |
-| A2 radius/sigma | **fixed local mask prior** | local amacrine pooling and self/neighbor diagnostic | no in V1 | B/D | Spatial support can be constrained; exact radius should be validated, not learned first. |
-| A2 sustained/transient tau | **bounded learnable** | delayed/local inhibition time range | yes | B/D | Direct primate A2/AII numeric transfer to this model is weak. |
-| `g_BA` A2 drive gain | **bounded learnable** | positive drive/inhibition pathway only | yes | D | Normalized gain is not a literature-measurable conductance. |
+| Local amacrine radius/sigma | **fixed local mask prior** | local amacrine pooling and self/neighbor diagnostic | no in V1 | B/D | Spatial support can be constrained; exact radius should be validated, not learned first. |
+| Local amacrine sustained/transient tau | **bounded learnable** | relative filtering timescale and RGC output dynamics | yes | B/D | Direct primate cell-type numeric transfer to this model is weak. |
+| `g_BA` local amacrine drive gain | **bounded learnable** | positive drive/inhibition pathway only | yes | D | Normalized gain is not a literature-measurable conductance. |
 | RGC membrane tau | **bounded learnable or fixed engineering prior** | rough LIF timescale range | preferably yes | D | This is not a direct biological membrane constant after normalized upstream drive. |
 | RGC rate tau | **bounded learnable** | spike precision/correlation time range | yes | B | Macaque spike timing evidence can constrain smoothing, but exact readout tau is objective-dependent. |
 | RGC adaptation tau | **bounded learnable** | adaptation/history timescale range | yes | B/D | Adaptation is stimulus/context dependent and should be learned within physiologic bounds. |
@@ -81,14 +81,14 @@ These should not be hard constants. Literature should give ordering, plausible b
 | `H1.raw_gain` | test init `0.01`, max `0.2` | bounded learnable | subtractive surround sign, avoid gain large enough to erase local contrast |
 | `Bipolar.raw_tau_sustained` | test init `80 ms`, bounds `60-200 ms` | bounded learnable | sustained tau > transient tau |
 | `Bipolar.raw_tau_transient` | test init `20 ms`, bounds `5-40 ms` | bounded learnable | transient tau < sustained tau |
-| `Bipolar.raw_g_ab_*` | test init `0.01` | bounded learnable | non-negative A2-to-bipolar inhibition |
-| `A2.raw_tau_sustained` | test init `100 ms`, bounds `40-250 ms` | bounded learnable | sustained A2 slower than transient A2 |
-| `A2.raw_tau_transient` | test init `40 ms`, bounds `15-100 ms` | bounded learnable | delayed inhibition, not instantaneous |
-| `A2.raw_g_ba_*` | test init `0.03/0.05` | bounded learnable | positive A2 drive from bipolar activity |
+| `Bipolar.raw_g_ab_*` | test init `0.01` | bounded learnable | non-negative local amacrine-to-bipolar inhibition |
+| `LocalAmacrine.raw_tau_sustained` | test init `100 ms`, bounds `40-250 ms` | bounded learnable | sustained filtering slower than transient filtering |
+| `LocalAmacrine.raw_tau_transient` | test init `40 ms`, bounds `15-100 ms` | bounded learnable | faster filtering component; not a transmission delay |
+| `LocalAmacrine.raw_g_ba_*` | test init `0.03/0.05` | bounded learnable | positive bipolar drive into the local amacrine state |
 | `RGC membrane_tau_ms` | test fixed `20 ms` | make bounded learnable if implementation later allows | stable spike dynamics |
 | `RGC rate_tau_ms` | test fixed `50 ms` | bounded learnable recommended | should not erase parasol timing |
 | `RGC adaptation_tau_ms` | test fixed `80 ms` | bounded learnable recommended | adaptation slower than membrane response |
-| `RGC.raw_g_ag_*` | test init `0.01/0.03/0.01` | bounded learnable | non-negative A2-to-RGC inhibition |
+| `RGC.raw_g_ag_*` | test init `0.01/0.03/0.01` | bounded learnable | non-negative local amacrine-to-RGC inhibition |
 | `residual_drive_scale` | test fixed `0.25` | bounded learnable or validation-tuned | residual remains auxiliary |
 
 ## 6. Parameters To Learn Directly
@@ -133,8 +133,8 @@ Residual decoder weights should remain bounded with `tanh`, because otherwise re
 For the current codebase, the cleanest V1 policy is:
 
 1. **Fix data and geometry**: `dt_ms`, `positions_degs`, target pools, local masks.
-2. **Use literature for ordering and bounds**: transient faster than sustained; parasol faster/larger than midget; inhibition delayed/non-negative.
-3. **Learn bounded time constants and gains**: H1, bipolar, A2, RGC dynamics and inhibition gains.
+2. **Use literature for ordering and bounds**: transient filtering faster than sustained; parasol faster/larger than midget; inhibitory signs non-negative.
+3. **Learn bounded time constants and gains**: H1, bipolar, local recurrent amacrine, RGC dynamics and inhibition gains.
 4. **Learn decoder weights**: keep locality fixed, learn readout weights.
 5. **Use smoke statistics for engineering thresholds**: clip, loss weights, residual penalties, BPTT, grad clipping, smoke gates.
 

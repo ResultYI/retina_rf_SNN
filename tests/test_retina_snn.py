@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import torch
 
-from models.cells.amacrine import A2AmacrineConfig, A2AmacrineLayer
+from models.cells.amacrine import LocalAmacrineConfig, LocalAmacrineLayer
 from models.cells.bipolar import BipolarConfig, BipolarLayer
 from models.cells.horizontal import H1HorizontalConfig, H1HorizontalNetwork
 from models.cells.rgc import RGCConfig, RGCMosaic, RGCPopulationLayer
@@ -54,9 +54,9 @@ def _core() -> RetinaSNNCore:
             0.3,
         ),
     )
-    a2 = A2AmacrineLayer(
+    amacrine = LocalAmacrineLayer(
         positions,
-        A2AmacrineConfig(
+        LocalAmacrineConfig(
             0.16,
             0.1,
             5.0,
@@ -80,14 +80,20 @@ def _core() -> RetinaSNNCore:
             residual_positions_degs=torch.tensor([[0.15, 0.0]]),
         ),
         RGCConfig(
+            midget_radius_degs=0.11,
+            midget_sigma_degs=0.08,
             parasol_radius_degs=0.16,
             parasol_sigma_degs=0.1,
             residual_radius_degs=0.25,
             residual_sigma_degs=0.12,
             dt_ms=5.0,
             membrane_tau_ms=20.0,
+            membrane_tau_min_ms=5.0,
+            membrane_tau_max_ms=80.0,
             adaptation_tau_ms=80.0,
-            rate_tau_ms=50.0,
+            adaptation_tau_min_ms=20.0,
+            adaptation_tau_max_ms=250.0,
+            readout_rate_tau_ms=50.0,
             threshold=0.2,
             surrogate_slope=5.0,
             adaptation_strength=0.1,
@@ -100,7 +106,7 @@ def _core() -> RetinaSNNCore:
             residual_drive_scale=0.25,
         ),
     )
-    return RetinaSNNCore(h1, bipolar, a2, rgc)
+    return RetinaSNNCore(h1, bipolar, amacrine, rgc)
 
 
 def test_retina_core_step_matches_explicit_b_a_r_update_order() -> None:
@@ -119,12 +125,12 @@ def test_retina_core_step_matches_explicit_b_a_r_update_order() -> None:
     bipolar_state = core.bipolar(
         cone_mod,
         state.bipolar,
-        amacrine_prev=state.a2,
+        amacrine_prev=state.amacrine,
     )
-    a2_state = core.a2(bipolar_state.output, state.a2)
+    amacrine_state = core.amacrine(bipolar_state.output, state.amacrine)
     expected_output, rgc_state = core.rgc(
         bipolar_state.output,
-        a2_state,
+        amacrine_state,
         state.rgc,
     )
 
@@ -134,9 +140,9 @@ def test_retina_core_step_matches_explicit_b_a_r_update_order() -> None:
     torch.testing.assert_close(output.rates.residual, expected_output.rates.residual)
     torch.testing.assert_close(next_state.h1, h1_state)
     torch.testing.assert_close(next_state.bipolar.output, bipolar_state.output)
-    torch.testing.assert_close(next_state.a2, a2_state)
+    torch.testing.assert_close(next_state.amacrine, amacrine_state)
     torch.testing.assert_close(next_state.rgc.rate.midget, rgc_state.rate.midget)
-    assert set(diagnostics) == {"h1", "bipolar", "a2", "rgc"}
+    assert set(diagnostics) == {"h1", "bipolar", "amacrine", "rgc"}
 
 
 def test_retina_core_rollout_has_population_histories_without_future_leakage() -> None:
@@ -239,7 +245,7 @@ def _state_tensors(state: RetinaSNNState) -> tuple[torch.Tensor, ...]:
         state.h1,
         state.bipolar.output,
         state.bipolar.transient_baseline,
-        state.a2,
+        state.amacrine,
         rgc.membrane.midget,
         rgc.membrane.parasol,
         rgc.membrane.residual,

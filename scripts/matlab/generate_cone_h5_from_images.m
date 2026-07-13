@@ -27,6 +27,12 @@ imageSizePx = cfg_int(cfg, 'image_size_px', 128);
 achromaticStimulus = cfg_bool(cfg, 'achromatic_stimulus_enabled', true);
 eyeMovementEnabled = cfg_bool(cfg, 'eye_movement_enabled', true);
 displayFile = cfg_text(cfg, 'display_file', 'LCD-Apple.mat');
+stimulusSourceKind = cfg_text(cfg, 'stimulus_source_kind', 'unspecified');
+sourceMovieId = cfg_text(cfg, 'source_movie_id', '');
+if strcmp(stimulusSourceKind, 'natural_video') && isempty(strtrim(sourceMovieId))
+    error('retinaSNN:MissingSourceMovieId', ...
+        'natural_video export requires an explicit source_movie_id.');
+end
 waveNm = 400:5:700;
 
 [frames, inputKind] = load_input_frames(inputPath, timeSteps, imageSizePx, ...
@@ -75,6 +81,9 @@ write_numeric(outputPath, '/eye_movement_xy_deg', eyeTraceDegs);
 write_text(outputPath, '/config_json', jsonencode(cfg));
 write_text(outputPath, '/source_image_path', inputPath);
 write_text(outputPath, '/source_image_id', source_id(inputPath));
+if ~isempty(sourceMovieId)
+    write_text(outputPath, '/source_movie_id', sourceMovieId);
+end
 
 write_numeric(outputPath, '/cone_response', achromaticResponse);
 write_numeric(outputPath, '/cone_positions_degs', conePositionsDegs);
@@ -359,6 +368,8 @@ h5writeatt(path, '/', 'mosaic_type', 'cMosaic');
 h5writeatt(path, '/', 'mosaic_seed', cfg_int(cfg, 'mosaic_seed', randomSeed));
 h5writeatt(path, '/', 'stimulus_seed', randomSeed);
 h5writeatt(path, '/', 'is_achromatic_stimulus', uint8(achromaticStimulus));
+h5writeatt(path, '/', 'stimulus_source_kind', ...
+    cfg_text(cfg, 'stimulus_source_kind', 'unspecified'));
 h5writeatt(path, '/', 'achromatic_projection_method', 'type_routed_lms_sum');
 h5writeatt(path, '/', 'ISETBio_git_commit', git_commit(getenv('ISETBIO_ROOT')));
 h5writeatt(path, '/', 'ISETCam_git_commit', git_commit(getenv('ISETCAM_ROOT')));

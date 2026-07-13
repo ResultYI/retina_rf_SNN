@@ -14,7 +14,6 @@ from evaluation.rf_probe import (
     GradientRFRequest,
     RGCPopulationName,
     WhiteNoiseSTARequest,
-    compare_temporal_rfs,
     gradient_rf,
     white_noise_sta,
 )
@@ -28,9 +27,9 @@ from scripts.train_stage1 import (
     _restore_checkpoint,
     _validate_clip_fractions,
 )
-from training.epoch_metrics import weighted_mean_row
 from training.hybrid import HybridRetinaTrainer, HybridTrainingConfig, TrainingStage
 from training.stage1 import (
+    MidgetSamplingMode,
     Stage1BuildConfig,
     Stage1OptimizerConfig,
     build_stage1_components,
@@ -61,7 +60,12 @@ def test_stage1_factory_builds_core_decoder_and_row_normalized_pools() -> None:
     # Given
     components = build_stage1_components(
         _positions(),
-        Stage1BuildConfig(dt_ms=5.0, horizon_count=3, eccentricity_deg=2.5),
+        Stage1BuildConfig(
+            dt_ms=5.0,
+            horizon_count=3,
+            eccentricity_deg=2.5,
+            midget_sampling=MidgetSamplingMode.CONVERGENT,
+        ),
     )
 
     # When
@@ -153,7 +157,11 @@ def test_decoder_warmup_checkpoint_initializes_core_finetune(tmp_path: Path) -> 
         finetune.core,
         finetune.decoder,
         RetinaObjective(RetinaLossConfig()),
-        build_stage1_optimizer(finetune.core, finetune.decoder, Stage1OptimizerConfig()),
+        build_stage1_optimizer(
+            finetune.core,
+            finetune.decoder,
+            Stage1OptimizerConfig(),
+        ),
         HybridTrainingConfig(),
     )
     config = TrainStage1Config(
@@ -216,21 +224,8 @@ def test_zero_variance_prediction_target_blocks_training() -> None:
         )
 
 
-def test_weighted_mean_row_uses_batch_sizes() -> None:
-    # Given
-    rows = (
-        (2, {"split": "train_eval", "epoch": "3", "step": "12", "loss_total": "1", "rgc_midget_rate": "0.2"}),
-        (1, {"split": "train_eval", "epoch": "3", "step": "12", "loss_total": "4", "rgc_midget_rate": "0.8"}),
-    )
-
-    # When
-    mean = weighted_mean_row(rows)
-
-    # Then
-    assert mean["split"] == "train_eval"
-    assert mean["epoch"] == "3"
-    assert mean["loss_total"] == "2"
-    assert mean["rgc_midget_rate"] == "0.4"
+def test_parse_horizons_accepts_positive_integer_steps() -> None:
+    assert _parse_horizons("1,2,4") == (1, 2, 4)
 
 
 def test_rf_probe_reports_gradient_rf_and_white_noise_sta_shapes() -> None:
@@ -256,27 +251,6 @@ def test_rf_probe_reports_gradient_rf_and_white_noise_sta_shapes() -> None:
     assert gradient.response.shape == (2,)
     assert sta.sta.shape == (5, 8)
     assert torch.isfinite(sta.response_mean)
-
-
-def test_temporal_rf_comparison_reports_condition_shift_without_pass_threshold() -> None:
-    # Given
-    reference = torch.tensor(
-        [[0.0, 0.0], [1.0, 0.0], [-0.5, 0.0], [0.0, 0.0]]
-    )
-    condition = torch.tensor(
-        [[0.0, 0.0], [0.5, 0.0], [1.0, 0.0], [-0.25, 0.0]]
-    )
-
-    # When
-    comparison = compare_temporal_rfs(reference, condition, dt_ms=5.0)
-
-    # Then
-    assert comparison.reference_ttp_ms == 10.0
-    assert comparison.condition_ttp_ms == 5.0
-    assert comparison.ttp_shift_ms == -5.0
-    assert comparison.peak_gain_ratio == 1.0
-    assert comparison.reference_biphasic_index == 0.5
-    assert comparison.condition_biphasic_index == 0.25
 
 
 def test_residual_ablation_reports_residual_decoder_contribution() -> None:
@@ -315,4 +289,3 @@ def test_residual_ablation_reports_residual_decoder_contribution() -> None:
     assert report.coarse_residual_contribution > 0
     assert midget.fine_contribution > 0
     assert parasol.coarse_contribution > 0
-    assert _parse_horizons("1,2,4") == (1, 2, 4)

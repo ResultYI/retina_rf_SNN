@@ -5,15 +5,21 @@ import torch
 
 import models.cells.amacrine as amacrine_module
 from models.cells.amacrine import (
-    A2AmacrineConfig,
-    A2AmacrineLayer,
-    A2ConfigurationError,
+    LocalAmacrineConfig,
+    LocalAmacrineConfigurationError,
+    LocalAmacrineLayer,
 )
 from models.cells.bipolar import BipolarConfig, BipolarLayer
 
 
-def _a2_config() -> A2AmacrineConfig:
-    return A2AmacrineConfig(
+def test_public_amacrine_name_describes_generic_local_microcircuit() -> None:
+    # Given / When / Then
+    assert hasattr(amacrine_module, "LocalAmacrineLayer")
+    assert not hasattr(amacrine_module, "A2AmacrineLayer")
+
+
+def _amacrine_config() -> LocalAmacrineConfig:
+    return LocalAmacrineConfig(
         radius_degs=0.15,
         sigma_degs=0.1,
         dt_ms=5.0,
@@ -46,10 +52,10 @@ def _bipolar_config() -> BipolarConfig:
     )
 
 
-def test_a2_uses_normalized_local_pool_and_bounded_dynamics() -> None:
+def test_local_amacrine_uses_normalized_pool_and_bounded_dynamics() -> None:
     # Given
     positions = torch.tensor([[0.0, 0.0], [0.1, 0.0], [0.2, 0.0]])
-    layer = A2AmacrineLayer(positions, _a2_config())
+    layer = LocalAmacrineLayer(positions, _amacrine_config())
     bipolar_output = torch.zeros((1, 2, 2, 3))
     bipolar_output[..., 1] = 1.0
 
@@ -70,31 +76,37 @@ def test_a2_uses_normalized_local_pool_and_bounded_dynamics() -> None:
     assert layer.raw_tau_transient.grad is not None
     assert layer.raw_g_ba_sustained.grad is not None
     assert layer.raw_g_ba_transient.grad is not None
-    assert diagnostics["a2_pooled_mean_abs"] >= diagnostics["a2_pooled_mean"]
-    assert diagnostics["a2_state_mean_abs"] >= diagnostics["a2_state_mean"]
-    assert 0 < diagnostics["a2_self_weight_mean"] <= 1
-    assert diagnostics["a2_self_weight_mean"] <= diagnostics["a2_self_weight_max"]
-    assert diagnostics["a2_mean_neighbor_count"] > 1
+    assert (
+        diagnostics["amacrine_pooled_mean_abs"]
+        >= diagnostics["amacrine_pooled_mean"]
+    )
+    assert diagnostics["amacrine_state_mean_abs"] >= diagnostics["amacrine_state_mean"]
+    assert 0 < diagnostics["amacrine_self_weight_mean"] <= 1
+    assert (
+        diagnostics["amacrine_self_weight_mean"]
+        <= diagnostics["amacrine_self_weight_max"]
+    )
+    assert diagnostics["amacrine_mean_neighbor_count"] > 1
     assert all(not value.requires_grad for value in diagnostics.values())
 
 
-def test_a2_debug_checks_reject_nonfinite_input_and_previous_state() -> None:
+def test_local_amacrine_rejects_nonfinite_input_and_previous_state() -> None:
     # Given
     positions = torch.tensor([[0.0, 0.0]])
-    layer = A2AmacrineLayer(positions, _a2_config())
+    layer = LocalAmacrineLayer(positions, _amacrine_config())
     valid = torch.zeros((1, 2, 2, 1))
 
     # When / Then
-    with pytest.raises(A2ConfigurationError, match="bipolar_output"):
+    with pytest.raises(LocalAmacrineConfigurationError, match="bipolar_output"):
         layer(torch.full_like(valid, torch.nan))
-    with pytest.raises(A2ConfigurationError, match="previous state"):
-        layer(valid, a2_prev=torch.full_like(valid, torch.inf))
+    with pytest.raises(LocalAmacrineConfigurationError, match="previous state"):
+        layer(valid, amacrine_prev=torch.full_like(valid, torch.inf))
 
 
-def test_a2_state_recovers_after_a_pulse() -> None:
+def test_local_amacrine_state_recovers_after_a_pulse() -> None:
     # Given
     positions = torch.tensor([[0.0, 0.0]])
-    layer = A2AmacrineLayer(positions, _a2_config())
+    layer = LocalAmacrineLayer(positions, _amacrine_config())
     pulse = torch.ones((1, 2, 2, 1))
 
     # When
@@ -109,11 +121,11 @@ def test_a2_state_recovers_after_a_pulse() -> None:
     assert torch.all(state < 0.01 * peak)
 
 
-def test_a2_state_inhibits_the_next_bipolar_step() -> None:
+def test_local_amacrine_state_inhibits_the_next_bipolar_step() -> None:
     # Given
     positions = torch.tensor([[0.0, 0.0], [0.1, 0.0]])
     bipolar = BipolarLayer(positions, _bipolar_config())
-    amacrine = A2AmacrineLayer(positions, _a2_config())
+    amacrine = LocalAmacrineLayer(positions, _amacrine_config())
     cone_drive = torch.tensor([[1.0, -1.0]])
     bipolar_state = bipolar(cone_drive)
     amacrine_state = amacrine(bipolar_state.output)
@@ -135,7 +147,7 @@ def test_a2_state_inhibits_the_next_bipolar_step() -> None:
     assert torch.any(inhibited.output < uninhibited.output)
 
 
-def test_a2_handles_pool_without_diagonal_weights(
+def test_local_amacrine_handles_pool_without_diagonal_weights(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     # Given
@@ -151,7 +163,7 @@ def test_a2_handles_pool_without_diagonal_weights(
     )
 
     # When
-    layer = A2AmacrineLayer(torch.zeros(2, 2), _a2_config())
+    layer = LocalAmacrineLayer(torch.zeros(2, 2), _amacrine_config())
 
     # Then
     assert layer.self_weight_mean.item() == 0.0

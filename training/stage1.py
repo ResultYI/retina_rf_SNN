@@ -2,12 +2,18 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
+from enum import StrEnum
+from typing import assert_never
 
 import torch
 
 from configs.physiology_profiles import PhysiologyProfile, human_macaque_v1
-from data.geometry import PositionArray, local_gaussian_weights, nearest_one_to_one_weights
-from models.cells.amacrine import A2AmacrineLayer
+from data.geometry import (
+    PositionArray,
+    local_gaussian_weights,
+    nearest_one_to_one_weights,
+)
+from models.cells.amacrine import LocalAmacrineLayer
 from models.cells.bipolar import BipolarLayer
 from models.cells.horizontal import H1HorizontalNetwork
 from models.cells.rgc import RGCMosaic, RGCPopulationLayer
@@ -19,23 +25,39 @@ class Stage1BuildError(ValueError):
     pass
 
 
+class MidgetSamplingMode(StrEnum):
+    FOVEAL_PRIVATE_LINE = "foveal_private_line"
+    CONVERGENT = "convergent"
+
+
 @dataclass(frozen=True, slots=True)
 class Stage1BuildConfig:
     dt_ms: float
     horizon_count: int
     eccentricity_deg: float = 0.0
+    midget_sampling: MidgetSamplingMode = MidgetSamplingMode.FOVEAL_PRIVATE_LINE
+    midget_stride: int = 2
     parasol_stride: int = 4
     residual_stride: int = 8
 
     def __post_init__(self) -> None:
-        if self.dt_ms <= 0:
-            raise Stage1BuildError("dt_ms must be positive")
+        if not math.isfinite(self.dt_ms) or self.dt_ms <= 0:
+            raise Stage1BuildError("dt_ms must be positive and finite")
         if self.horizon_count < 1:
             raise Stage1BuildError("horizon_count must be positive")
         if not math.isfinite(self.eccentricity_deg) or self.eccentricity_deg < 0:
             raise Stage1BuildError(
                 "eccentricity_deg must be finite and non-negative"
             )
+        if (
+            self.midget_sampling is MidgetSamplingMode.FOVEAL_PRIVATE_LINE
+            and self.eccentricity_deg > 0
+        ):
+            raise Stage1BuildError(
+                "Foveal private-line sampling requires zero nominal eccentricity"
+            )
+        if self.midget_stride < 2:
+            raise Stage1BuildError("midget_stride must be at least 2")
         if self.parasol_stride < 2:
             raise Stage1BuildError("parasol_stride must be at least 2")
         if self.residual_stride < self.parasol_stride:
@@ -49,6 +71,13 @@ class Stage1OptimizerConfig:
     core_lr: float = 1e-4
     decoder_lr: float = 1e-3
     weight_decay: float = 0.0
+
+    def __post_init__(self) -> None:
+        rates = (self.core_lr, self.decoder_lr)
+        if not all(math.isfinite(rate) and rate > 0 for rate in rates):
+            raise Stage1BuildError("Optimizer learning rates must be positive and finite")
+        if not math.isfinite(self.weight_decay) or self.weight_decay < 0:
+            raise Stage1BuildError("weight_decay must be finite and non-negative")
 
 
 @dataclass(frozen=True, slots=True)
@@ -86,10 +115,20 @@ def build_stage1_components(
         parasol_positions,
         math.ceil(config.residual_stride / config.parasol_stride),
     )
+    match config.midget_sampling:
+        case MidgetSamplingMode.FOVEAL_PRIVATE_LINE:
+            midget_positions = positions
+        case MidgetSamplingMode.CONVERGENT:
+            midget_positions = _spatial_subsample_positions(
+                positions,
+                config.midget_stride,
+            )
+        case unreachable:
+            assert_never(unreachable)
 
     mosaic = RGCMosaic(
         bipolar_positions_degs=positions,
-        midget_positions_degs=positions,
+        midget_positions_degs=midget_positions,
         parasol_positions_degs=parasol_positions,
         residual_positions_degs=residual_positions,
     )
@@ -109,7 +148,7 @@ def build_stage1_components(
     core = RetinaSNNCore(
         H1HorizontalNetwork(positions, profile.h1),
         BipolarLayer(positions, profile.bipolar),
-        A2AmacrineLayer(positions, profile.a2),
+        LocalAmacrineLayer(positions, profile.amacrine),
         RGCPopulationLayer(mosaic, profile.rgc),
     )
     return Stage1Components(

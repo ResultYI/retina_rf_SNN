@@ -35,10 +35,10 @@ def _objective() -> RetinaObjective:
             coarse_prediction_scale=0.25,
             rate_weight=0.01,
             homeostasis_weight=0.02,
-            decorrelation_weight=0.001,
             residual_activity_weight=0.03,
             residual_decoder_weight=0.04,
-            target_rate=0.1,
+            homeostasis_rate_min=0.01,
+            homeostasis_rate_max=0.2,
         )
     )
 
@@ -57,6 +57,15 @@ def _trainer() -> HybridRetinaTrainer:
         optimizer,
         HybridTrainingConfig(t_bptt=2, grad_clip_norm=1.0),
     )
+
+
+def test_primary_loss_excludes_decorrelation_and_uses_homeostasis_band() -> None:
+    # Given
+    config = RetinaLossConfig()
+
+    # When / Then
+    assert not hasattr(config, "decorrelation_weight")
+    assert config.homeostasis_rate_min < config.homeostasis_rate_max
 
 
 def test_retina_objective_combines_only_declared_prediction_and_regularizers() -> None:
@@ -90,7 +99,6 @@ def test_retina_objective_combines_only_declared_prediction_and_regularizers() -
         / config.coarse_prediction_scale
         + config.rate_weight * losses.rate_regularization
         + config.homeostasis_weight * losses.homeostasis
-        + config.decorrelation_weight * losses.decorrelation
         + config.residual_activity_weight * losses.residual_activity
         + config.residual_decoder_weight * losses.residual_decoder_weight
     )
@@ -104,7 +112,9 @@ def test_retina_objective_combines_only_declared_prediction_and_regularizers() -
 def test_decoder_warmup_updates_decoder_without_changing_core() -> None:
     # Given
     trainer = _trainer()
-    core_before = tuple(parameter.detach().clone() for parameter in trainer.core.parameters())
+    core_before = tuple(
+        parameter.detach().clone() for parameter in trainer.core.parameters()
+    )
     decoder_before = tuple(
         parameter.detach().clone() for parameter in trainer.decoder.parameters()
     )
@@ -135,7 +145,9 @@ def test_core_finetune_updates_core_through_only_last_truncated_window() -> None
     with torch.no_grad():
         trainer.decoder.fine_midget.raw_weight.fill_(0.05)
         trainer.decoder.coarse_parasol.raw_weight.fill_(0.05)
-    core_before = tuple(parameter.detach().clone() for parameter in trainer.core.parameters())
+    core_before = tuple(
+        parameter.detach().clone() for parameter in trainer.core.parameters()
+    )
 
     # When
     result = trainer.train_batch(_batch(), TrainingStage.CORE_FINETUNE)
@@ -162,4 +174,5 @@ def test_evaluate_batch_preserves_parameters_and_reports_diagnostics() -> None:
     assert all(torch.equal(first, second) for first, second in zip(before, after))
     assert torch.isfinite(result.losses.total)
     assert "h1" in result.core_diagnostics
+    assert "amacrine" in result.core_diagnostics
     assert "rgc_midget_rate_mean" in result.core_diagnostics["rgc"]

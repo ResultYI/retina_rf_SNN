@@ -7,7 +7,7 @@ from configs.physiology_profiles import (
     dt_ms_from_time_axis_seconds,
     human_macaque_v1,
 )
-from models.cells.amacrine import A2AmacrineLayer
+from models.cells.amacrine import LocalAmacrineLayer
 from models.cells.bipolar import BipolarLayer
 from models.cells.horizontal import H1HorizontalNetwork
 from models.cells.rgc import RGCMosaic, RGCPopulationLayer
@@ -39,7 +39,7 @@ def test_human_macaque_profile_builds_current_model_configs() -> None:
     core = RetinaSNNCore(
         H1HorizontalNetwork(positions, profile.h1),
         BipolarLayer(positions, profile.bipolar),
-        A2AmacrineLayer(positions, profile.a2),
+        LocalAmacrineLayer(positions, profile.amacrine),
         RGCPopulationLayer(mosaic, profile.rgc),
     )
     LocalDecoder(
@@ -55,7 +55,7 @@ def test_human_macaque_profile_builds_current_model_configs() -> None:
     assert profile.eccentricity_deg == 2.5
     assert core.h1._dt_ms == 5.0
     assert core.bipolar._dt_ms == 5.0
-    assert core.a2._dt_ms == 5.0
+    assert core.amacrine._dt_ms == 5.0
     assert profile.decoder.horizon_count == 3
 
 

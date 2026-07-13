@@ -1,7 +1,7 @@
 from models.cells.amacrine import (
-    A2AmacrineConfig,
-    A2AmacrineLayer,
-    A2Diagnostics,
+    LocalAmacrineConfig,
+    LocalAmacrineDiagnostics,
+    LocalAmacrineLayer,
 )
 from models.cells.bipolar import (
     BipolarConfig,
@@ -27,9 +27,9 @@ from models.cells.rgc_types import (
 )
 
 __all__ = [
-    "A2AmacrineConfig",
-    "A2AmacrineLayer",
-    "A2Diagnostics",
+    "LocalAmacrineConfig",
+    "LocalAmacrineDiagnostics",
+    "LocalAmacrineLayer",
     "BipolarConfig",
     "BipolarDiagnostics",
     "BipolarKinetics",

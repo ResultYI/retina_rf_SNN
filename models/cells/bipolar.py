@@ -12,6 +12,7 @@ from models.cells.bipolar_types import (
     BipolarPolarity,
     BipolarState,
 )
+from models.cells.temporal import ordered_taus, raw_ordered_taus
 
 
 class BipolarLayer(nn.Module):
@@ -32,15 +33,22 @@ class BipolarLayer(nn.Module):
             "private_source_index",
             torch.arange(positions.shape[0], device=positions.device),
         )
-        self.raw_tau_sustained = _raw_parameter(
-            config.initial_tau_sustained_ms,
-            config.tau_sustained_min_ms,
-            config.tau_sustained_max_ms,
+        tau_bounds = torch.tensor(
+            (
+                (config.tau_sustained_min_ms, config.tau_sustained_max_ms),
+                (config.tau_transient_min_ms, config.tau_transient_max_ms),
+            ),
+            dtype=torch.float32,
         )
-        self.raw_tau_transient = _raw_parameter(
-            config.initial_tau_transient_ms,
-            config.tau_transient_min_ms,
-            config.tau_transient_max_ms,
+        self.register_buffer("tau_bounds_ms", tau_bounds)
+        self.raw_tau_sustained, self.raw_tau_transient = raw_ordered_taus(
+            torch.tensor(
+                (
+                    config.initial_tau_sustained_ms,
+                    config.initial_tau_transient_ms,
+                )
+            ),
+            tau_bounds,
         )
         self.raw_g_ab_sustained = _raw_parameter(
             config.initial_g_ab_sustained,
@@ -53,14 +61,6 @@ class BipolarLayer(nn.Module):
             config.g_ab_transient_max,
         )
         self._dt_ms = config.dt_ms
-        self._tau_sustained_bounds = (
-            config.tau_sustained_min_ms,
-            config.tau_sustained_max_ms,
-        )
-        self._tau_transient_bounds = (
-            config.tau_transient_min_ms,
-            config.tau_transient_max_ms,
-        )
         self._g_ab_max = (
             config.g_ab_sustained_max,
             config.g_ab_transient_max,
@@ -68,11 +68,10 @@ class BipolarLayer(nn.Module):
 
     @property
     def tau_ms(self) -> torch.Tensor:
-        return torch.stack(
-            (
-                _bounded(self.raw_tau_sustained, self._tau_sustained_bounds),
-                _bounded(self.raw_tau_transient, self._tau_transient_bounds),
-            )
+        return ordered_taus(
+            self.raw_tau_sustained,
+            self.raw_tau_transient,
+            self.tau_bounds_ms,
         )
 
     @property
@@ -194,8 +193,12 @@ class BipolarLayer(nn.Module):
             bipolar_silent_fraction=(state_detached <= 0).float().mean(),
             bipolar_on_mean=state_detached[:, BipolarPolarity.ON].mean(),
             bipolar_off_mean=state_detached[:, BipolarPolarity.OFF].mean(),
-            bipolar_sustained_mean=state_detached[:, :, BipolarKinetics.SUSTAINED].mean(),
-            bipolar_transient_mean=state_detached[:, :, BipolarKinetics.TRANSIENT].mean(),
+            bipolar_sustained_mean=state_detached[
+                :, :, BipolarKinetics.SUSTAINED
+            ].mean(),
+            bipolar_transient_mean=state_detached[
+                :, :, BipolarKinetics.TRANSIENT
+            ].mean(),
             bipolar_transient_baseline_mean=next_baseline.detach().mean(),
             bipolar_transient_drive_mean=transient_drive.detach().mean(),
         )
@@ -205,11 +208,3 @@ class BipolarLayer(nn.Module):
 def _raw_parameter(initial: float, minimum: float, maximum: float) -> nn.Parameter:
     fraction = (initial - minimum) / (maximum - minimum)
     return nn.Parameter(torch.logit(torch.tensor(fraction)))
-
-
-def _bounded(
-    raw: torch.Tensor,
-    bounds: tuple[float, float],
-) -> torch.Tensor:
-    minimum, maximum = bounds
-    return minimum + (maximum - minimum) * torch.sigmoid(raw)

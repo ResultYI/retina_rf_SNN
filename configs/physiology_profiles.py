@@ -6,7 +6,7 @@ from typing import Final
 
 import numpy as np
 
-from models.cells.amacrine import A2AmacrineConfig
+from models.cells.amacrine import LocalAmacrineConfig
 from models.cells.bipolar import BipolarConfig
 from models.cells.horizontal import H1HorizontalConfig
 from models.cells.rgc import RGCConfig
@@ -27,7 +27,7 @@ class PhysiologyProfile:
     eccentricity_deg: float
     h1: H1HorizontalConfig
     bipolar: BipolarConfig
-    a2: A2AmacrineConfig
+    amacrine: LocalAmacrineConfig
     rgc: RGCConfig
     decoder: LocalDecoderConfig
 
@@ -84,40 +84,46 @@ def human_macaque_v1(
         bipolar=BipolarConfig(
             dt_ms=dt_ms,
             initial_tau_sustained_ms=80.0,
-            tau_sustained_min_ms=60.0,
+            tau_sustained_min_ms=20.0,
             tau_sustained_max_ms=200.0,
             initial_tau_transient_ms=20.0,
             tau_transient_min_ms=5.0,
-            tau_transient_max_ms=40.0,
+            tau_transient_max_ms=120.0,
             initial_g_ab_sustained=0.01,
             g_ab_sustained_max=0.10,
             initial_g_ab_transient=0.01,
             g_ab_transient_max=0.30,
         ),
-        a2=A2AmacrineConfig(
+        amacrine=LocalAmacrineConfig(
             radius_degs=3.60 * cone_spacing_deg,
             sigma_degs=1.80 * cone_spacing_deg,
             dt_ms=dt_ms,
             initial_tau_sustained_ms=100.0,
-            tau_sustained_min_ms=40.0,
+            tau_sustained_min_ms=20.0,
             tau_sustained_max_ms=250.0,
             initial_tau_transient_ms=40.0,
             tau_transient_min_ms=15.0,
-            tau_transient_max_ms=100.0,
+            tau_transient_max_ms=180.0,
             initial_g_ba_sustained=0.03,
             g_ba_sustained_max=0.30,
             initial_g_ba_transient=0.05,
             g_ba_transient_max=0.50,
         ),
         rgc=RGCConfig(
+            midget_radius_degs=1.50 * cone_spacing_deg,
+            midget_sigma_degs=0.75 * cone_spacing_deg,
             parasol_radius_degs=3.60 * cone_spacing_deg,
             parasol_sigma_degs=1.80 * cone_spacing_deg,
             residual_radius_degs=5.80 * cone_spacing_deg,
             residual_sigma_degs=2.90 * cone_spacing_deg,
             dt_ms=dt_ms,
             membrane_tau_ms=20.0,
+            membrane_tau_min_ms=5.0,
+            membrane_tau_max_ms=80.0,
             adaptation_tau_ms=80.0,
-            rate_tau_ms=50.0,
+            adaptation_tau_min_ms=20.0,
+            adaptation_tau_max_ms=250.0,
+            readout_rate_tau_ms=50.0,
             threshold=0.20,
             surrogate_slope=5.0,
             adaptation_strength=0.10,

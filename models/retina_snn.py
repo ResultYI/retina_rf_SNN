@@ -6,7 +6,7 @@ from typing import TypedDict
 import torch
 from torch import nn
 
-from models.cells.amacrine import A2AmacrineLayer, A2Diagnostics
+from models.cells.amacrine import LocalAmacrineDiagnostics, LocalAmacrineLayer
 from models.cells.bipolar import (
     BipolarDiagnostics,
     BipolarLayer,
@@ -32,7 +32,7 @@ class RetinaSNNError(ValueError):
 class RetinaStepDiagnostics(TypedDict):
     h1: H1Diagnostics
     bipolar: BipolarDiagnostics
-    a2: A2Diagnostics
+    amacrine: LocalAmacrineDiagnostics
     rgc: RGCDiagnostics
 
 
@@ -40,7 +40,7 @@ class RetinaStepDiagnostics(TypedDict):
 class RetinaSNNState:
     h1: torch.Tensor
     bipolar: BipolarState
-    a2: torch.Tensor
+    amacrine: torch.Tensor
     rgc: RGCState
 
 
@@ -49,13 +49,13 @@ class RetinaSNNCore(nn.Module):
         self,
         h1: H1HorizontalNetwork,
         bipolar: BipolarLayer,
-        a2: A2AmacrineLayer,
+        amacrine: LocalAmacrineLayer,
         rgc: RGCPopulationLayer,
     ) -> None:
         super().__init__()
         self.h1 = h1
         self.bipolar = bipolar
-        self.a2 = a2
+        self.amacrine = amacrine
         self.rgc = rgc
 
     def initial_state(
@@ -67,7 +67,7 @@ class RetinaSNNCore(nn.Module):
         return RetinaSNNState(
             h1=self.h1.initial_state(batch_size, device, dtype),
             bipolar=self.bipolar.initial_state(batch_size, device, dtype),
-            a2=self.a2.initial_state(batch_size, device, dtype),
+            amacrine=self.amacrine.initial_state(batch_size, device, dtype),
             rgc=self.rgc.initial_state(batch_size, device, dtype),
         )
 
@@ -85,18 +85,21 @@ class RetinaSNNCore(nn.Module):
             bipolar_state = self.bipolar(
                 cone_mod,
                 state.bipolar,
-                amacrine_prev=state.a2,
+                amacrine_prev=state.amacrine,
             )
-            a2_state = self.a2(bipolar_state.output, state.a2)
+            amacrine_state = self.amacrine(
+                bipolar_state.output,
+                state.amacrine,
+            )
             rgc_output, rgc_state = self.rgc(
                 bipolar_state.output,
-                a2_state,
+                amacrine_state,
                 state.rgc,
             )
             return rgc_output, RetinaSNNState(
                 h1_state,
                 bipolar_state,
-                a2_state,
+                amacrine_state,
                 rgc_state,
             )
 
@@ -108,30 +111,30 @@ class RetinaSNNCore(nn.Module):
         bipolar_state, bipolar_diagnostics = self.bipolar(
             cone_mod,
             state.bipolar,
-            amacrine_prev=state.a2,
+            amacrine_prev=state.amacrine,
             return_diagnostics=True,
         )
-        a2_state, a2_diagnostics = self.a2(
+        amacrine_state, amacrine_diagnostics = self.amacrine(
             bipolar_state.output,
-            state.a2,
+            state.amacrine,
             return_diagnostics=True,
         )
         rgc_output, rgc_state, rgc_diagnostics = self.rgc(
             bipolar_state.output,
-            a2_state,
+            amacrine_state,
             state.rgc,
             return_diagnostics=True,
         )
         next_state = RetinaSNNState(
             h1_state,
             bipolar_state,
-            a2_state,
+            amacrine_state,
             rgc_state,
         )
         diagnostics = RetinaStepDiagnostics(
             h1=h1_diagnostics,
             bipolar=bipolar_diagnostics,
-            a2=a2_diagnostics,
+            amacrine=amacrine_diagnostics,
             rgc=rgc_diagnostics,
         )
         return rgc_output, next_state, diagnostics
@@ -211,7 +214,7 @@ def detach_state(state: RetinaSNNState) -> RetinaSNNState:
             state.bipolar.output.detach(),
             state.bipolar.transient_baseline.detach(),
         ),
-        a2=state.a2.detach(),
+        amacrine=state.amacrine.detach(),
         rgc=RGCState(
             membrane=_detach_populations(rgc.membrane),
             adaptation=_detach_populations(rgc.adaptation),

@@ -29,14 +29,20 @@ def _mosaic() -> RGCMosaic:
 
 def _config() -> RGCConfig:
     return RGCConfig(
+        midget_radius_degs=0.11,
+        midget_sigma_degs=0.08,
         parasol_radius_degs=0.16,
         parasol_sigma_degs=0.1,
         residual_radius_degs=0.25,
         residual_sigma_degs=0.12,
         dt_ms=5.0,
         membrane_tau_ms=20.0,
+        membrane_tau_min_ms=5.0,
+        membrane_tau_max_ms=80.0,
         adaptation_tau_ms=80.0,
-        rate_tau_ms=50.0,
+        adaptation_tau_min_ms=20.0,
+        adaptation_tau_max_ms=250.0,
+        readout_rate_tau_ms=50.0,
         threshold=0.2,
         surrogate_slope=5.0,
         adaptation_strength=0.1,
@@ -107,7 +113,7 @@ def test_rgc_debug_checks_reject_nonfinite_previous_state() -> None:
         )
 
 
-def test_rgc_midget_and_parasol_use_sustained_and_transient_channels() -> None:
+def test_rgc_midget_and_parasol_learn_nonexclusive_kinetic_mixtures() -> None:
     # Given
     layer = RGCPopulationLayer(_mosaic(), _config())
     bipolar_output = torch.zeros((1, 2, 2, 4))
@@ -118,17 +124,14 @@ def test_rgc_midget_and_parasol_use_sustained_and_transient_channels() -> None:
     output, _state = layer(bipolar_output, amacrine_output)
 
     # Then
+    output.rates.midget.sum().add(output.rates.parasol.sum()).backward()
     assert torch.all(output.spikes.midget == 1)
-    assert torch.all(output.spikes.parasol == 0)
-    assert _config().routing_mode == "hard_v1_simplification"
+    assert torch.all(output.spikes.parasol == 1)
+    torch.testing.assert_close(layer.kinetic_mix.sum(dim=1), torch.ones(2))
+    assert layer.raw_kinetic_mix.grad is not None
 
 
-def test_rgc_rejects_unimplemented_mixed_routing() -> None:
-    with pytest.raises(RGCConfigurationError, match="Unsupported RGC routing_mode"):
-        replace(_config(), routing_mode="biased_mixed")
-
-
-def test_rgc_a2_input_suppresses_population_spikes() -> None:
+def test_rgc_amacrine_input_suppresses_population_spikes() -> None:
     # Given
     layer = RGCPopulationLayer(_mosaic(), _config())
     bipolar_output = torch.ones((1, 2, 2, 4))
@@ -178,7 +181,7 @@ def test_rgc_rate_history_and_adaptation_recover_after_pulse() -> None:
     assert torch.all(state.adaptation.midget < pulse_adaptation)
 
 
-def test_rgc_preserves_signed_a2_current() -> None:
+def test_rgc_preserves_signed_amacrine_current() -> None:
     # Given
     layer = RGCPopulationLayer(_mosaic(), _config())
     bipolar_output = torch.zeros((1, 2, 2, 4))

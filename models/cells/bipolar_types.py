@@ -90,9 +90,9 @@ class BipolarConfig:
             < self.tau_transient_max_ms
         ):
             raise BipolarConfigurationError("Transient tau must lie inside its bounds")
-        if self.tau_transient_max_ms >= self.tau_sustained_min_ms:
+        if self.initial_tau_transient_ms >= self.initial_tau_sustained_ms:
             raise BipolarConfigurationError(
-                "Sustained and transient temporal ranges must not overlap"
+                "Transient tau must be less than sustained tau"
             )
         if not 0 < self.initial_g_ab_sustained < self.g_ab_sustained_max:
             raise BipolarConfigurationError("Sustained g_AB must lie inside its bounds")
