@@ -142,5 +142,6 @@ def human_macaque_v1(
             coarse_radius_degs=3.60 * cone_spacing_deg,
             coarse_sigma_degs=1.80 * cone_spacing_deg,
             residual_weight_max=0.10,
+            residual_initial_weight_fraction=0.05,
         ),
     )

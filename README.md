@@ -73,8 +73,11 @@ cannot resolve a reproducible output-latency mismatch.
 The Stage-1 decoder is deliberately not a second learned RF bank. Each
 population is pooled through a fixed normalized local Gaussian mask, followed
 only by a learned ON/OFF coefficient for each prediction horizon. Residual
-coefficients remain bounded. This makes post-training RF readout attributable
-to the retina core rather than a high-capacity decoder.
+coefficients remain bounded and use a small ON/OFF-antisymmetric engineering
+initialization to avoid a zero-rate/zero-readout gradient deadlock. This
+initialization is not a physiological parameter. The limited readout keeps
+post-training RF attribution centered on the retina core rather than a
+high-capacity decoder.
 
 `build_stage1_components` uses a cone-aligned midget private line only in the
 explicit foveal mode. The convergent mode uses a lower-density midget mosaic

@@ -97,6 +97,39 @@ def test_local_decoder_uses_sparse_local_masks_and_bounds_residual_weights() -> 
     assert decoder.residual_weight_penalty() > 0
 
 
+def test_silent_residual_population_keeps_prediction_gradient() -> None:
+    # Given
+    decoder = _decoder()
+    residual_rates = torch.zeros((2, 2, 1), requires_grad=True)
+    rates = RGCPopulationTensors(
+        midget=torch.zeros((2, 2, 4)),
+        parasol=torch.zeros((2, 2, 2)),
+        residual=residual_rates,
+    )
+    rgc_output = RGCOutput(
+        spikes=RGCPopulationTensors(
+            midget=torch.zeros_like(rates.midget),
+            parasol=torch.zeros_like(rates.parasol),
+            residual=torch.zeros_like(rates.residual),
+        ),
+        rates=rates,
+    )
+
+    # When
+    prediction = decoder(rgc_output)
+    (prediction.target_fine.sum() + prediction.target_coarse.sum()).backward()
+
+    # Then
+    assert torch.count_nonzero(prediction.target_fine) == 0
+    assert torch.count_nonzero(prediction.target_coarse) == 0
+    assert residual_rates.grad is not None
+    assert torch.count_nonzero(residual_rates.grad) > 0
+    assert torch.count_nonzero(decoder.fine_midget.raw_weight) == 0
+    assert torch.count_nonzero(decoder.coarse_midget.raw_weight) == 0
+    assert torch.count_nonzero(decoder.fine_residual.effective_weight) > 0
+    assert torch.count_nonzero(decoder.coarse_residual.effective_weight) > 0
+
+
 def test_local_decoder_outputs_fine_and_coarse_predictions_for_step_and_sequence(
 ) -> None:
     # Given

@@ -29,6 +29,7 @@ class LocalDecoderConfig:
     coarse_radius_degs: float
     coarse_sigma_degs: float
     residual_weight_max: float
+    residual_initial_weight_fraction: float = 0.05
 
     def __post_init__(self) -> None:
         scales = (
@@ -42,6 +43,11 @@ class LocalDecoderConfig:
             raise LocalDecoderError("horizon_count must be positive")
         if not all(math.isfinite(value) and value > 0 for value in scales):
             raise LocalDecoderError("Decoder scales and weight bound must be positive")
+        fraction = self.residual_initial_weight_fraction
+        if not math.isfinite(fraction) or not 0 < fraction < 1:
+            raise LocalDecoderError(
+                "residual_initial_weight_fraction must be between zero and one"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -112,6 +118,13 @@ class LocalDecoder(nn.Module):
             config.horizon_count,
             config.residual_weight_max,
         )
+        residual_raw_initial = math.atanh(
+            config.residual_initial_weight_fraction
+        )
+        with torch.no_grad():
+            for projection in (self.fine_residual, self.coarse_residual):
+                projection.raw_weight[:, 0].fill_(residual_raw_initial)
+                projection.raw_weight[:, 1].fill_(-residual_raw_initial)
         _assert_combined_coverage(
             "fine",
             (self.fine_midget, self.fine_parasol, self.fine_residual),
