@@ -131,7 +131,7 @@ def test_functional_summary_and_go_no_go_report_use_frozen_outputs() -> None:
         structural_pass=True,
         dynamics_pass=True,
         fine_skill=0.06,
-        coarse_skill=0.01,
+        coarse_skill=0.06,
         trained_core_skill=0.02,
         residual_gain_fraction=0.2,
         rf_agreement_fraction=0.85,

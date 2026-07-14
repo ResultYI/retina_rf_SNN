@@ -83,6 +83,41 @@ cells rather than cone-array order, and the residual mosaic is derived from
 that lower-density population. Every train and validation export must share
 cone positions, cone ordering, and `dt_ms`.
 
+## Primary Human RGC Evaluation Contract
+
+The primary external physiology anchor is the human ex-vivo RGC dataset from
+[Reinhard and Münch (2021)](https://doi.org/10.1371/journal.pone.0246952), using
+the authors' [HumRet repository](https://github.com/katjaReinhard/HumRet) or
+[OSF archive](https://osf.io/zf9rd/). Macaque evidence remains secondary support
+for anatomy, connection sign, and relative timing when direct human evidence is
+unavailable; it is not pooled with HumRet as equivalent ground truth.
+
+`evaluation.humret` freezes the human-comparison interface:
+
+- 24 drifting-grating conditions: spatial periods 100, 200, 500, 1000, 2000,
+  and 4000 micrometers crossed with 1, 2, 4, and 8 Hz, with F1 response compared
+  as a population tuning distribution;
+- the published 8-second frequency chirp, 2 Hz contrast chirp with an 8-second
+  contrast ramp, and grey-black-grey-white-grey 2-second flash phases;
+- lazy loading of `h_normPeaks.mat` and `h_chirp.mat`, without copying HumRet
+  into this repository;
+- explicit conversion of the internal smoothed spike probability per time bin
+  to spikes/s only at the evaluation boundary.
+
+The `build_humret_*` tensors are centered achromatic contrast templates, not
+ISETBio cone responses. A formal HumRet run must render the matching photometric
+stimuli through the same human optics/cone front end and reuse the training
+normalization contract; direct tensor injection is allowed only as a circuit
+diagnostic and cannot count as the human comparison.
+
+HumRet provides human functional response distributions, not morphologically
+identified midget/parasol labels. Model populations therefore remain
+`midget-like` and `parasol-like`; agreement is assessed at population and
+response-property level. STA, Jacobian, and local GLM remain internal RF
+consistency tests because HumRet does not provide a matching white-noise RF map
+for every recorded unit. No internal model `tau` is fitted directly to a HumRet
+latency or described as a transmission delay.
+
 ## Stage-1 Entry Point
 
 After the Stage -1 ISETBio HDF5 gate has passed, run decoder warm-up first:
@@ -117,6 +152,34 @@ requires a matching training stage, for example
 `--resume runs/stage1_finetune/checkpoint.pt`.
 RF losses are not part of this entry point; use the post-training probes only
 after the prediction and population-usage gates pass.
+
+## Checkpoint Evaluation Entry Point
+
+One read-only command now collects held-out prediction skill, population usage
+and single-population ablations, generic temporal diagnostics, STA/Jacobian/local
+GLM RF agreement, and bounded-parameter audit into one evidence bundle:
+
+```powershell
+python scripts/evaluate_checkpoint.py `
+  --checkpoint runs/stage1_finetune/best_checkpoint.pt `
+  --normalization-stats runs/stage1_finetune/normalization_stats.npz `
+  --train-h5 data/train_a.h5 data/train_b.h5 `
+  --eval-h5 data/test_a.h5 `
+  --output-dir runs/stage1_finetune/test_evaluation `
+  --input-steps 16 --horizons 1,2,4 --device cuda --formal-evidence
+```
+
+The runner fits global-change and local-AR baselines only on `--train-h5` and
+evaluates the checkpoint only on `--eval-h5`; it never refits normalization or
+updates model parameters. It writes `evaluation_summary.json` and
+`rf_probes.npz`. The generic temporal probes are explicitly labeled direct
+normalized-contrast circuit diagnostics, not ISETBio/HumRet evidence.
+
+Formal HumRet grating comparison is enabled only when both `--humret-root` and
+`--humret-model-grating` are supplied. The latter must be an externally
+generated ISETBio-front-end F1 array with shape `[Nmodel,6,4]`; without it the
+JSON records `humret.status="not_run"`. The runner does not inject the contrast
+templates directly or fabricate midget/parasol ground-truth labels.
 
 ## Smoke Sequence Input
 

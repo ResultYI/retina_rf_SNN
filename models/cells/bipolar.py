@@ -166,8 +166,7 @@ class BipolarLayer(nn.Module):
         g_ab = g_ab_values.view(1, 1, 2, 1)
         pre_activation = (
             leak * state.output
-            + (1.0 - leak) * channel_drive
-            - g_ab * amacrine_prev
+            + (1.0 - leak) * (channel_drive - g_ab * amacrine_prev)
         )
         next_output = torch.relu(pre_activation)
         baseline_leak = leak_values[BipolarKinetics.SUSTAINED]

@@ -1,22 +1,23 @@
 # Parameter Evidence: Human and Macaque Retina V1
 
-检索日期：2026-07-06。本文以 `docs/parameter_audit_current_v1.md` 为参数清单，只做参数证据与“固定/学习”处置建议，不修改模型代码、不改默认参数、不新增机制、不运行训练。
+更新日期：2026-07-14。本文以 `docs/parameter_audit_current_v1.md` 为参数清单，并将 Reinhard & Münch (2021) HumRet 人类 RGC 数据确定为主要输出级生理评价锚点；不以该数据反推不可识别的内部参数，不新增机制，不运行正式训练。
 
 ## 1. Executive Summary
 
-Because the model uses a human cone mosaic, human retinal evidence is prioritized. Macaque evidence is used as the main non-human primate reference when human data are unavailable or less precise. Marmoset evidence should be summarized separately and is not treated as human-equivalent ground truth.
+Because the model uses a human cone mosaic and is evaluated against HumRet, direct human retinal evidence is primary. Macaque evidence is secondary support for structure, sign, and relative timing where human evidence is unavailable. Marmoset evidence is reported separately and is never pooled with human recordings as equivalent ground truth.
 
 结论很直接：
 
 - **应使用现有结论固定或数据派生的参数**：`dt_ms`、cone/RGC positions、normalization stats、ON/OFF 符号结构、midget/parasol/residual 的相对空间层级、local mask 的单位和拓扑约束、target pooling 的 row-stochastic 约束。
-- **应使用现有结论给初值和 bounds，但让训练学习的参数**：H1 tau/gain，bipolar sustained/transient tau，local recurrent amacrine tau，RGC rate/adaptation/membrane-like dynamics，所有跨层抑制增益 `g_AB/g_BA/g_AG`，residual drive scale。
+- **应使用现有结论给初值和 bounds，但让训练学习的参数**：H1 tau/gain，bipolar sustained/transient tau，local recurrent amacrine tau，RGC adaptation/membrane-like dynamics，所有跨层抑制增益 `g_AB/g_BA/g_AG`，residual drive scale。RGC rate smoother 在冻结架构中保持 fixed，并作为输出校准量审计。
 - **应主要通过学习得到的参数**：decoder projection weights，residual decoder weights，跨 population readout 权重。
 - **不建议从文献硬拷贝的参数**：所有 gain、threshold、surrogate slope、loss weights、grad clip、BPTT、clip range、smoke gate thresholds。它们要么是归一化模型内部量，要么依赖训练目标与数据分布。
+- **HumRet 直接约束的是输出而不是内部状态**：优先比较 flash、frequency/contrast chirp、24 条件 drifting-grating、spikes/s 与群体响应分布；不能把一个人类 latency 数值直接赋给 H1/BC/AC/RGC 的某个 `tau`。
 
 ## 2. Evidence Grades
 
-- **A**: direct human retina / human cone / human RGC measurement.
-- **B**: macaque retina measurement; strong non-human primate reference.
+- **A**: direct human retina / human cone / human RGC measurement, including HumRet observable response distributions.
+- **B**: macaque retina measurement; secondary non-human primate support when direct human evidence is absent.
 - **C**: marmoset retina measurement; useful external primate benchmark, not mixed into the main human/macaque table.
 - **D**: modeling prior, indirect evidence, or engineering initialization.
 
@@ -34,15 +35,15 @@ Because the model uses a human cone mosaic, human retinal evidence is prioritize
 | H1 radius/sigma/spacing | **fixed engineering-biological prior** | surround is broader/slower than center | no in V1 | B/D | Direct human H1 numeric scale is weak; use as constrained prior, not free learned geometry. |
 | H1 tau | **bounded learnable** | initial range and “slower surround” constraint | yes | B/D | Horizontal feedback timing is indirect and circuit/context dependent. |
 | H1 gain | **bounded learnable** | sign and range only | yes | D | Gain is normalized-model specific and should not be hard-copied from physiology. |
-| bipolar sustained/transient tau | **bounded learnable** | sustained > transient, non-overlap bounds | yes | B/D | Primate pathway literature gives relative timing better than exact tau for this abstraction. |
+| bipolar sustained/transient tau | **bounded learnable** | sustained > transient within each fitted model; bounds may overlap | yes | B/D | Primate pathway literature supports relative timing better than exact tau or artificially disjoint latent-parameter intervals. |
 | transient baseline tau | **do not add for current V1; if added later, bounded learnable** | baseline slower than transient drive | yes if implemented | D | Current code ties baseline to sustained tau; no direct evidence justifies a separate fixed value. |
 | `g_AB` bipolar inhibition | **bounded learnable** | inhibitory sign and plausible max | yes | D | Inhibitory strength depends on model normalization and training objective. |
 | Local amacrine radius/sigma | **fixed local mask prior** | local amacrine pooling and self/neighbor diagnostic | no in V1 | B/D | Spatial support can be constrained; exact radius should be validated, not learned first. |
 | Local amacrine sustained/transient tau | **bounded learnable** | relative filtering timescale and RGC output dynamics | yes | B/D | Direct primate cell-type numeric transfer to this model is weak. |
 | `g_BA` local amacrine drive gain | **bounded learnable** | positive drive/inhibition pathway only | yes | D | Normalized gain is not a literature-measurable conductance. |
 | RGC membrane tau | **bounded learnable or fixed engineering prior** | rough LIF timescale range | preferably yes | D | This is not a direct biological membrane constant after normalized upstream drive. |
-| RGC rate tau | **bounded learnable** | spike precision/correlation time range | yes | B | Macaque spike timing evidence can constrain smoothing, but exact readout tau is objective-dependent. |
-| RGC adaptation tau | **bounded learnable** | adaptation/history timescale range | yes | B/D | Adaptation is stimulus/context dependent and should be learned within physiologic bounds. |
+| RGC rate tau | **fixed in frozen V1; reconsider only after a specific output-bandwidth failure** | HumRet firing-rate waveform is the calibration target | no in V1 | A/B/D | Human data constrain observable response bandwidth; the internal smoother remains an engineering/latent quantity and is not a measured human membrane constant. |
+| RGC adaptation tau | **bounded learnable** | HumRet flash/chirp recovery and transiency are calibration targets | yes | A/B/D | Human output dynamics constrain the combined circuit, not a uniquely identifiable internal adaptation constant. |
 | RGC threshold | **fixed calibration parameter initially** | positive threshold only | no in V1 | D | Threshold, gains, and input scale are not identifiable if all are learned at once. |
 | surrogate slope | **fixed engineering parameter** | training stability | no | D | This is an optimization surrogate, not physiology. |
 | `g_AG` RGC inhibition | **bounded learnable** | inhibitory sign; parasol can tolerate larger transient inhibition | yes | D | Exact strength is not directly transferable from literature. |
@@ -65,7 +66,7 @@ Because the model uses a human cone mosaic, human retinal evidence is prioritize
 
 - Keep ON/OFF split fixed.
 - Keep sustained/transient split fixed.
-- Keep midget path driven by sustained channel and parasol path by transient channel.
+- Keep sustained and transient channels available to both RGC populations; test whether non-exclusive kinetic mixtures differentiate after training rather than imposing hard routing.
 - Keep midget spatial scale smaller than parasol; residual should not become the main readout.
 - Keep spatial units in degrees from `positions_degs`; do not mix micrometers and degrees.
 
@@ -79,15 +80,15 @@ These should not be hard constants. Literature should give ordering, plausible b
 |---|---:|---|---|
 | `H1.raw_tau` | test init `50 ms`, bounds `10-200 ms` | bounded learnable | H1/surround slower than feedforward cone input |
 | `H1.raw_gain` | test init `0.01`, max `0.2` | bounded learnable | subtractive surround sign, avoid gain large enough to erase local contrast |
-| `Bipolar.raw_tau_sustained` | test init `80 ms`, bounds `60-200 ms` | bounded learnable | sustained tau > transient tau |
-| `Bipolar.raw_tau_transient` | test init `20 ms`, bounds `5-40 ms` | bounded learnable | transient tau < sustained tau |
+| `Bipolar.raw_tau_sustained` | profile init `80 ms`, bounds `20-200 ms` | bounded learnable | sustained tau > transient tau within the fitted model |
+| `Bipolar.raw_tau_transient` | profile init `20 ms`, bounds `5-120 ms` | bounded learnable | transient tau < sustained tau; overlapping bounds are allowed |
 | `Bipolar.raw_g_ab_*` | test init `0.01` | bounded learnable | non-negative local amacrine-to-bipolar inhibition |
-| `LocalAmacrine.raw_tau_sustained` | test init `100 ms`, bounds `40-250 ms` | bounded learnable | sustained filtering slower than transient filtering |
-| `LocalAmacrine.raw_tau_transient` | test init `40 ms`, bounds `15-100 ms` | bounded learnable | faster filtering component; not a transmission delay |
+| `LocalAmacrine.raw_tau_sustained` | profile init `100 ms`, bounds `20-250 ms` | bounded learnable | sustained filtering slower than transient filtering |
+| `LocalAmacrine.raw_tau_transient` | profile init `40 ms`, bounds `15-180 ms` | bounded learnable | faster filtering component; not a transmission delay |
 | `LocalAmacrine.raw_g_ba_*` | test init `0.03/0.05` | bounded learnable | positive bipolar drive into the local amacrine state |
-| `RGC membrane_tau_ms` | test fixed `20 ms` | make bounded learnable if implementation later allows | stable spike dynamics |
-| `RGC rate_tau_ms` | test fixed `50 ms` | bounded learnable recommended | should not erase parasol timing |
-| `RGC adaptation_tau_ms` | test fixed `80 ms` | bounded learnable recommended | adaptation slower than membrane response |
+| `RGC membrane_tau_ms` | profile init `20 ms`, bounds `5-80 ms` | bounded learnable in current code | stable spike dynamics; interpret as latent filtering |
+| `RGC rate_tau_ms` | profile fixed `50 ms` | keep fixed for the frozen architecture; calibrate output bandwidth | should not erase human transient timing; this smoother is not membrane physiology |
+| `RGC adaptation_tau_ms` | profile init `80 ms`, bounds `20-250 ms` | bounded learnable in current code | adaptation slower than membrane response |
 | `RGC.raw_g_ag_*` | test init `0.01/0.03/0.01` | bounded learnable | non-negative local amacrine-to-RGC inhibition |
 | `residual_drive_scale` | test fixed `0.25` | bounded learnable or validation-tuned | residual remains auxiliary |
 
@@ -116,16 +117,18 @@ Residual decoder weights should remain bounded with `tanh`, because otherwise re
 
 ## 8. Evidence Notes By Source Type
 
-### Human evidence: best for geometry and topology
+### Human evidence: primary for geometry and observable RGC function
 
 - Human photoreceptor topography supports cone mosaic density/eccentricity priors and reinforces using `positions_degs` as a fixed data source.
 - Human ganglion cell topography and midget/parasol morphology support the relative spatial ordering: midget smaller/denser, parasol larger/sparser.
-- Human evidence should be used for spatial priors first, especially because this model uses a human ISETBio cone mosaic.
+- HumRet directly supports output-level comparison of flash polarity/transiency, frequency and contrast chirps, drifting-grating F1 tuning, preferred spatial/temporal conditions, and firing rates in spikes/s.
+- HumRet units were not morphologically identified. Its functional templates/clusters are secondary analyses, not hard midget/parasol labels; primary comparison is therefore population-level and response-property-level.
+- The HumRet recordings are mid/non-foveal ex-vivo samples. They do not justify applying a foveal one-cone private line to all eccentricities.
 
-### Macaque evidence: best for temporal dynamics
+### Macaque evidence: secondary for missing circuit-level constraints
 
-- Macaque cone transduction and macaque RGC recordings are the main practical sources for temporal response and spike timing constraints.
-- Macaque parasol/M-cell dynamics support using faster transient/parasol constraints, but exact tau values should still be learned because the model state variables are abstractions.
+- Macaque cone transduction and RGC recordings remain useful for connection sign, relative timing, and phenomena HumRet does not resolve at the interneuron or identified-cell level.
+- Macaque parasol/M-cell dynamics may support a faster transient ordering, but direct human output comparisons take priority and exact tau values remain latent model parameters.
 - Macaque horizontal/bipolar/amacrine evidence is useful for sign and relative timing, but not enough to hard-code gains.
 
 ## 9. Direct V1 Recommendation
@@ -133,12 +136,12 @@ Residual decoder weights should remain bounded with `tanh`, because otherwise re
 For the current codebase, the cleanest V1 policy is:
 
 1. **Fix data and geometry**: `dt_ms`, `positions_degs`, target pools, local masks.
-2. **Use literature for ordering and bounds**: transient filtering faster than sustained; parasol faster/larger than midget; inhibitory signs non-negative.
-3. **Learn bounded time constants and gains**: H1, bipolar, local recurrent amacrine, RGC dynamics and inhibition gains.
+2. **Use literature for ordering and bounds**: transient filtering faster than sustained within a model; midget-like spatial support smaller than parasol-like; inhibitory signs non-negative. Bounds need not be disjoint when evidence only fixes order.
+3. **Learn bounded time constants and gains**: H1, bipolar, local recurrent amacrine, RGC dynamics and inhibition gains; calibrate the combined output to HumRet rather than fitting internal tau directly.
 4. **Learn decoder weights**: keep locality fixed, learn readout weights.
 5. **Use smoke statistics for engineering thresholds**: clip, loss weights, residual penalties, BPTT, grad clipping, smoke gates.
 
-This gives the paper a defensible story: human/macaque evidence constrains the model, but data decides the ambiguous normalized parameters.
+This gives the paper a defensible story: human anatomy constrains geometry, human functional data judge the output, macaque data fill specific structure/sign gaps, and training decides ambiguous normalized latent parameters.
 
 ## 10. Caution Notes
 
@@ -149,23 +152,24 @@ This gives the paper a defensible story: human/macaque evidence constrains the m
 - If a parameter is only indirectly supported, keep it as bounded learnable.
 - Human evidence has priority over macaque; macaque is used when human data are sparse.
 - Gains in normalized SNN layers are not directly equal to synaptic conductances or current amplitudes.
+- Do not convert HumRet functional clusters into morphologically verified midget/parasol labels.
+- Convert internal smoothed spike probability per bin to spikes/s at the evaluation boundary; do not compare raw per-bin values with human Hz.
+- Formal HumRet stimuli must pass through the same ISETBio human optics/cone-response and train-only normalization path; direct contrast-template injection is diagnostic only.
 
 ## 11. P0 Evidence Gaps
 
 - `dt_ms`
-  - Current status: manually passed as `5.0 ms` in tests.
-  - Needed: code-level confirmation that it comes from ISETBio `time_axis_seconds`.
-  - Search/data target: ISETBio export contract and sample H5 metadata.
+  - Current status: `dt_ms_from_time_axis_seconds` derives it from each ISETBio export and split validation requires agreement.
+  - Remaining need: preserve the source time axis and reject irregular sampling; literature must not override it.
 - bipolar tau bounds
-  - Current status: test-only `80 ms` sustained, `20 ms` transient.
-  - Needed: human/macaque bipolar or RGC temporal filter evidence to justify range.
-  - Search keywords: `macaque bipolar cell temporal response`, `primate midget parasol temporal receptive field`.
+  - Current status: profile init `80/20 ms`, overlapping bounds `20-200/5-120 ms`, with `tau_transient < tau_sustained` enforced per model.
+  - Remaining need: calibrate the combined output to HumRet and audit boundary accumulation; do not make ranges disjoint without direct evidence.
 - RGC temporal parameters
-  - Current status: test-only membrane `20 ms`, adaptation `80 ms`, rate `50 ms`.
-  - Needed: macaque spike precision / temporal filter / response correlation evidence.
-  - Search keywords: `macaque parasol ganglion cell spike timing precision`, `primate retinal ganglion cell temporal filter`.
+  - Current status: profile membrane/adaptation initial values `20/80 ms` are bounded learnable; rate smoother is fixed at `50 ms` in the frozen architecture.
+  - Human observable target: HumRet flash/chirp/grating response waveforms and spikes/s distributions.
+  - Remaining gap: infer defensible bounds for non-identifiable internal tau without equating them to response latency; use macaque evidence only where it resolves an otherwise missing ordering.
 - spatial radius/sigma in degrees
-  - Current status: test-only radii/sigmas.
+  - Current status: profile derives radii/sigmas as fixed multiples of cone spacing.
   - Needed: human midget/parasol RF scale by eccentricity and conversion to the model's `positions_degs`.
   - Search keywords: `human midget parasol receptive field size`, `primate retina receptive field structure`.
 - smoke gate thresholds
@@ -174,6 +178,7 @@ This gives the paper a defensible story: human/macaque evidence constrains the m
 
 ## References
 
+- [Reinhard and Münch 2021] Visual properties of human retinal ganglion cells. PLOS ONE. DOI: https://doi.org/10.1371/journal.pone.0246952. Data/code: https://github.com/katjaReinhard/HumRet and https://osf.io/zf9rd/
 - [Dacey and Petersen 1992] Dendritic field size and morphology of midget and parasol ganglion cells of the human retina. PNAS. DOI: https://doi.org/10.1073/pnas.89.20.9666
 - [Perry and Cowey 1985] Parasol and midget ganglion cells of the human retina. Journal of Comparative Neurology. DOI: https://doi.org/10.1002/cne.902330107
 - [Dacey 1993] The mosaic of midget ganglion cells in the human retina. Journal of Neuroscience. DOI: https://doi.org/10.1523/jneurosci.13-12-05334.1993

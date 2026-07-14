@@ -70,8 +70,7 @@ class RGCAdaptiveLIF(nn.Module):
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
         pre_reset = (
             self.membrane_leak * membrane_prev
-            + current
-            - adaptation_prev
+            + (1.0 - self.membrane_leak) * (current - adaptation_prev)
         )
         hard = (pre_reset >= self._threshold).to(pre_reset.dtype)
         soft = torch.sigmoid(

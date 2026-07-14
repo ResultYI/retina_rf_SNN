@@ -12,7 +12,7 @@ from models.cells.rgc import (
     RGCMosaic,
     RGCPopulationLayer,
 )
-from models.cells.rgc_runtime import assert_row_stochastic
+from models.cells.rgc_runtime import RGCAdaptiveLIF, assert_row_stochastic
 
 
 def _mosaic() -> RGCMosaic:
@@ -117,7 +117,7 @@ def test_rgc_midget_and_parasol_learn_nonexclusive_kinetic_mixtures() -> None:
     # Given
     layer = RGCPopulationLayer(_mosaic(), _config())
     bipolar_output = torch.zeros((1, 2, 2, 4))
-    bipolar_output[:, :, BipolarKinetics.SUSTAINED] = 1.0
+    bipolar_output[:, :, BipolarKinetics.SUSTAINED] = 2.0
     amacrine_output = torch.zeros_like(bipolar_output)
 
     # When
@@ -179,6 +179,30 @@ def test_rgc_rate_history_and_adaptation_recover_after_pulse() -> None:
     assert torch.all(post_pulse_rate > 0)
     assert torch.all(output.rates.midget < 0.01 * post_pulse_rate)
     assert torch.all(state.adaptation.midget < pulse_adaptation)
+
+
+def test_rgc_current_uses_exact_leaky_integrator_discretization() -> None:
+    # Given
+    dynamics = RGCAdaptiveLIF(replace(_config(), threshold=10.0))
+    membrane_prev = torch.tensor([0.3])
+    adaptation_prev = torch.tensor([0.02])
+    current = torch.tensor([0.1])
+
+    # When
+    membrane, _adaptation, _rate, spikes = dynamics(
+        current,
+        membrane_prev,
+        adaptation_prev,
+        torch.zeros(1),
+    )
+
+    # Then
+    expected = (
+        dynamics.membrane_leak * membrane_prev
+        + (1.0 - dynamics.membrane_leak) * (current - adaptation_prev)
+    )
+    torch.testing.assert_close(membrane, expected)
+    torch.testing.assert_close(spikes, torch.zeros(1))
 
 
 def test_rgc_preserves_signed_amacrine_current() -> None:

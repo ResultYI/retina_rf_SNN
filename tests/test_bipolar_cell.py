@@ -77,6 +77,23 @@ def test_bipolar_layer_accepts_bounded_amacrine_feedback() -> None:
     assert layer.g_ab[BipolarKinetics.TRANSIENT] < _config().g_ab_transient_max
 
 
+def test_bipolar_feedback_uses_the_same_exact_discretization_as_drive() -> None:
+    # Given
+    layer = BipolarLayer(torch.tensor([[0.0, 0.0]]), _config())
+    drive = torch.ones((1, 1))
+    feedback = torch.ones((1, 2, 2, 1))
+
+    # When
+    state = layer(drive, amacrine_prev=feedback)
+
+    # Then
+    expected = (1.0 - layer.temporal_leak) * (1.0 - layer.g_ab)
+    torch.testing.assert_close(
+        state.output[0, BipolarPolarity.ON, :, 0],
+        expected,
+    )
+
+
 def test_bipolar_layer_initializes_state_and_returns_diagnostics() -> None:
     # Given
     positions = torch.tensor([[0.0, 0.0], [0.1, 0.0]])
