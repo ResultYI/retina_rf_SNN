@@ -10,7 +10,7 @@ Because the model uses a human cone mosaic and is evaluated against HumRet, dire
 
 - **应使用现有结论固定或数据派生的参数**：`dt_ms`、cone/RGC positions、normalization stats、ON/OFF 符号结构、midget/parasol/residual 的相对空间层级、local mask 的单位和拓扑约束、target pooling 的 row-stochastic 约束。
 - **应使用现有结论给初值和 bounds，但让训练学习的参数**：H1 tau/gain，bipolar sustained/transient tau，local recurrent amacrine tau，RGC adaptation/membrane-like dynamics，所有跨层抑制增益 `g_AB/g_BA/g_AG`，residual drive scale。RGC rate smoother 在冻结架构中保持 fixed，并作为输出校准量审计。
-- **应主要通过学习得到的参数**：decoder projection weights，residual decoder weights，跨 population readout 权重。
+- **应主要通过学习得到的参数**：midget/parasol 的 bounded ON/OFF readout、跨位置共享的三值径向基混合与 population-level causal temporal decay。decoder 不再保留逐边 spatial logits，主架构也不含 residual readout。
 - **不建议从文献硬拷贝的参数**：所有 gain、threshold、surrogate slope、loss weights、grad clip、BPTT、clip range、smoke gate thresholds。它们要么是归一化模型内部量，要么依赖训练目标与数据分布。
 - **HumRet 直接约束的是输出而不是内部状态**：优先比较 flash、frequency/contrast chirp、24 条件 drifting-grating、spikes/s 与群体响应分布；不能把一个人类 latency 数值直接赋给 H1/BC/AC/RGC 的某个 `tau`。
 
@@ -26,7 +26,7 @@ Because the model uses a human cone mosaic and is evaluated against HumRet, dire
 | Parameter group | Recommendation | Use existing conclusion for | Learn? | Evidence grade | Rationale |
 |---|---|---|---|---|---|
 | `dt_ms` | **fixed, data-derived** | derive from ISETBio `time_axis_seconds` | no | A/D | The clock comes from the export. Literature should not override the actual sampling interval. |
-| `prediction_horizons_frames` | **fixed task hyperparameter** | short retinal prediction horizon only | no, tune by validation | D | This is an objective design choice, not a biological cell parameter. |
+| `mask_fraction` | **fixed task hyperparameter** | masked current-contrast reconstruction corruption rate | no, freeze before formal comparison | E | This is an engineering objective choice, not a biological parameter. |
 | normalization mean/scale | **fixed, data-derived** | train-set statistics | no | D | Must be computed from training data to avoid leakage. |
 | clipping range | **fixed/tuned by data stats** | clip fraction target | no, tune by smoke stats | D | No human/macaque physiology maps to normalized log-contrast clipping. |
 | cone positions / cone types | **fixed, data-derived** | human cone mosaic/topography | no | A | Human cone topology is relevant because the model uses human ISETBio cone mosaic. |
@@ -47,9 +47,9 @@ Because the model uses a human cone mosaic and is evaluated against HumRet, dire
 | RGC threshold | **fixed calibration parameter initially** | positive threshold only | no in V1 | D | Threshold, gains, and input scale are not identifiable if all are learned at once. |
 | surrogate slope | **fixed engineering parameter** | training stability | no | D | This is an optimization surrogate, not physiology. |
 | `g_AG` RGC inhibition | **bounded learnable** | inhibitory sign; parasol can tolerate larger transient inhibition | yes | D | Exact strength is not directly transferable from literature. |
-| decoder local radius | **fixed support mask** | local readout constraint | no in V1 | D | Prevents leakage; exact radius should be validated by smoke/held-out data. |
-| decoder weights | **learned** | none except locality and residual bound | yes | D | These are readout parameters by definition. |
-| residual drive scale | **bounded learnable or validation-tuned** | residual should stay auxiliary | yes preferred | D | Current fixed `0.25` is engineering; learning under penalty is safer. |
+| decoder local radius | **fixed support mask** | local readout constraint | no in V1 | D/E | Prevents leakage; exact radius is an engineering support bound informed by geometry. |
+| decoder weights | **bounded/shared learnable** | fixed support; two population-shared ON/OFF weights, one three-basis radial mixture and one temporal decay per population | midget/parasol yes | D/E | Readout parameters are model inference/engineering, not physiology. |
+| residual branch | **absent from the frozen main architecture** | no current parameter | no | E | Reintroduction requires a specific, reproducible failure that midget/parasol cannot explain; it is not the default response to poor optimization. |
 | loss weights | **validation/smoke tuned** | objective priorities | not gradient-learned | D | Not biological parameters. |
 | smoke gate thresholds | **fixed after internal smoke stats** | empirical pass/fail distribution | no | D | Must come from project data, not physiology. |
 
@@ -66,7 +66,7 @@ Because the model uses a human cone mosaic and is evaluated against HumRet, dire
 
 - Keep ON/OFF split fixed.
 - Keep sustained/transient split fixed.
-- Keep sustained and transient channels available to both RGC populations; test whether non-exclusive kinetic mixtures differentiate after training rather than imposing hard routing.
+- Keep sustained and transient channels available to both RGC populations; impose only the primate-supported relative order midget sustained>transient and parasol transient>sustained. The 0.75/0.25 start is a mathematical midpoint, not a measured physiological value.
 - Keep midget spatial scale smaller than parasol; residual should not become the main readout.
 - Keep spatial units in degrees from `positions_degs`; do not mix micrometers and degrees.
 
@@ -94,16 +94,12 @@ These should not be hard constants. Literature should give ordering, plausible b
 
 ## 6. Parameters To Learn Directly
 
-- `LocalDecoder.fine_midget.raw_weight`
-- `LocalDecoder.fine_parasol.raw_weight`
-- `LocalDecoder.coarse_midget.raw_weight`
-- `LocalDecoder.coarse_parasol.raw_weight`
-- `LocalDecoder.fine_residual.raw_weight`
-- `LocalDecoder.coarse_residual.raw_weight`
-
+- `LocalDecoder.current_midget.raw_weight`
+- `LocalDecoder.current_parasol.raw_weight`
+- each enabled projection's three-value `raw_basis_mix`, softmax-normalized across
+  fixed radial bases shared by every target position
+- the two population-level causal temporal-decay parameters
 Decoder weights are task readout parameters. Existing literature should constrain locality and population interpretation, not assign numeric decoder weights.
-
-Residual decoder weights should remain bounded with `tanh`, because otherwise residual units can become a shortcut and weaken midget/parasol interpretability.
 
 ## 7. Parameters Not To Learn In V1
 
@@ -111,7 +107,8 @@ Residual decoder weights should remain bounded with `tanh`, because otherwise re
 - `positions_degs`: cell geometry should remain human/ISETBio-derived.
 - `cone_types`: categorical metadata.
 - ON/OFF and sustained/transient channel indices.
-- row-stochastic target pools and local masks.
+- row-stochastic radial decoder bases and fixed local support indices; only the
+  population-shared mixture over three bases may learn.
 - `surrogate_slope`: optimizer surrogate.
 - loss weights, `grad_clip_norm`, `t_bptt`, smoke thresholds: tune by validation/smoke statistics, not by model gradient.
 
@@ -138,8 +135,8 @@ For the current codebase, the cleanest V1 policy is:
 1. **Fix data and geometry**: `dt_ms`, `positions_degs`, target pools, local masks.
 2. **Use literature for ordering and bounds**: transient filtering faster than sustained within a model; midget-like spatial support smaller than parasol-like; inhibitory signs non-negative. Bounds need not be disjoint when evidence only fixes order.
 3. **Learn bounded time constants and gains**: H1, bipolar, local recurrent amacrine, RGC dynamics and inhibition gains; calibrate the combined output to HumRet rather than fitting internal tau directly.
-4. **Learn decoder weights**: keep locality fixed, learn readout weights.
-5. **Use smoke statistics for engineering thresholds**: clip, loss weights, residual penalties, BPTT, grad clipping, smoke gates.
+4. **Learn decoder weights**: keep locality/support fixed, learn row-normalized spatial values and low-capacity polarity readout weights.
+5. **Use smoke statistics for engineering thresholds**: clip, loss weights, residual penalties, BPTT, grad clipping, smoke gates; a 1% clip gate is an engineering threshold.
 
 This gives the paper a defensible story: human anatomy constrains geometry, human functional data judge the output, macaque data fill specific structure/sign gaps, and training decides ambiguous normalized latent parameters.
 
@@ -148,7 +145,7 @@ This gives the paper a defensible story: human anatomy constrains geometry, huma
 - Do not use cortical/V1 or behavioral reaction time as retinal delay.
 - Do not directly copy marmoset spatial values into human degree coordinates.
 - Do not mix micrometers and degrees without conversion.
-- If evidence only says “parasol faster than midget,” do not invent exact tau.
+- If evidence only supports relative timing, do not invent exact tau or treat the 0.75 kinetic midpoint as physiology.
 - If a parameter is only indirectly supported, keep it as bounded learnable.
 - Human evidence has priority over macaque; macaque is used when human data are sparse.
 - Gains in normalized SNN layers are not directly equal to synaptic conductances or current amplitudes.

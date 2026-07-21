@@ -102,6 +102,20 @@ def pool_spatial(weights: torch.Tensor, source: torch.Tensor) -> torch.Tensor:
     return pooled.reshape(source.shape[0], source.shape[1], weights.shape[0])
 
 
+def normalized_sparse_pool(
+    support: torch.Tensor,
+    raw_values: torch.Tensor,
+) -> torch.Tensor:
+    logits = torch.sparse_coo_tensor(
+        support.indices(),
+        raw_values,
+        support.shape,
+        dtype=raw_values.dtype,
+        device=raw_values.device,
+    ).coalesce()
+    return torch.sparse.softmax(logits, dim=1).coalesce()
+
+
 def mean_neighbor_count(weights: torch.Tensor) -> torch.Tensor:
     rows = weights.coalesce().indices()[0]
     return torch.bincount(rows, minlength=weights.shape[0]).float().mean()
@@ -119,49 +133,49 @@ def raw_gain(initial: float, maximum: float) -> nn.Parameter:
 
 def population_zeros(
     batch_size: int,
-    population_counts: tuple[int, int, int],
+    population_counts: tuple[int, int],
     device: torch.device,
     dtype: torch.dtype,
 ) -> RGCPopulationTensors:
-    midget_count, parasol_count, residual_count = population_counts
+    midget_count, parasol_count = population_counts
     return RGCPopulationTensors(
         torch.zeros(batch_size, 2, midget_count, device=device, dtype=dtype),
         torch.zeros(batch_size, 2, parasol_count, device=device, dtype=dtype),
-        torch.zeros(batch_size, 2, residual_count, device=device, dtype=dtype),
     )
 
 
 def step_populations(
-    dynamics: RGCAdaptiveLIF,
+    dynamics: tuple[RGCAdaptiveLIF, RGCAdaptiveLIF],
     currents: RGCPopulationTensors,
     previous: RGCState,
+    subunit_energy: torch.Tensor,
 ) -> tuple[RGCOutput, RGCState]:
     steps = tuple(
-        dynamics(current, membrane, adaptation, rate)
-        for current, membrane, adaptation, rate in zip(
-            (currents.midget, currents.parasol, currents.residual),
+        population_dynamics(current, membrane, adaptation, rate)
+        for population_dynamics, current, membrane, adaptation, rate in zip(
+            dynamics,
+            (currents.midget, currents.parasol),
             (
                 previous.membrane.midget,
                 previous.membrane.parasol,
-                previous.membrane.residual,
             ),
             (
                 previous.adaptation.midget,
                 previous.adaptation.parasol,
-                previous.adaptation.residual,
             ),
-            (previous.rate.midget, previous.rate.parasol, previous.rate.residual),
+            (previous.rate.midget, previous.rate.parasol),
             strict=True,
         )
     )
-    midget, parasol, residual = steps
+    midget, parasol = steps
     next_state = RGCState(
-        membrane=RGCPopulationTensors(midget[0], parasol[0], residual[0]),
-        adaptation=RGCPopulationTensors(midget[1], parasol[1], residual[1]),
-        rate=RGCPopulationTensors(midget[2], parasol[2], residual[2]),
+        membrane=RGCPopulationTensors(midget[0], parasol[0]),
+        adaptation=RGCPopulationTensors(midget[1], parasol[1]),
+        rate=RGCPopulationTensors(midget[2], parasol[2]),
+        subunit_energy=subunit_energy,
     )
     output = RGCOutput(
-        spikes=RGCPopulationTensors(midget[3], parasol[3], residual[3]),
+        spikes=RGCPopulationTensors(midget[3], parasol[3]),
         rates=next_state.rate,
     )
     return output, next_state
@@ -170,25 +184,26 @@ def step_populations(
 def state_shapes_are_valid(
     state: RGCState,
     batch_size: int,
-    population_counts: tuple[int, int, int],
+    population_counts: tuple[int, int],
+    source_count: int,
 ) -> bool:
     expected = tuple(
         (batch_size, 2, population_count)
         for population_count in population_counts
     )
     groups = (state.membrane, state.adaptation, state.rate)
-    return all(
-        (group.midget.shape, group.parasol.shape, group.residual.shape) == expected
+    return state.subunit_energy.shape == (batch_size, 2, 2, source_count) and all(
+        (group.midget.shape, group.parasol.shape) == expected
         for group in groups
     )
 
 
 def state_is_finite(state: RGCState) -> bool:
     groups = (state.membrane, state.adaptation, state.rate)
-    return all(
+    return torch.isfinite(state.subunit_energy).all() and all(
         torch.isfinite(tensor).all()
         for group in groups
-        for tensor in (group.midget, group.parasol, group.residual)
+        for tensor in (group.midget, group.parasol)
     )
 
 
@@ -198,7 +213,8 @@ def build_diagnostics(
     currents: RGCPopulationTensors,
     g_ag: torch.Tensor,
     parasol_neighbor_count: torch.Tensor,
-    residual_neighbor_count: torch.Tensor,
+    subunit_gain: torch.Tensor,
+    subunit_energy: torch.Tensor,
 ) -> RGCDiagnostics:
     spikes = output.spikes
     rates = output.rates
@@ -211,11 +227,13 @@ def build_diagnostics(
             current.detach().max(),
             (current.detach() < 0).float().mean(),
         )
-        for current in (currents.midget, currents.parasol, currents.residual)
+        for current in (currents.midget, currents.parasol)
     )
-    midget_current, parasol_current, residual_current = current_stats
+    midget_current, parasol_current = current_stats
     return RGCDiagnostics(
         rgc_g_ag=g_ag.detach(),
+        rgc_subunit_gain=subunit_gain.detach(),
+        rgc_subunit_energy_mean=subunit_energy.detach().mean(),
         rgc_midget_current_mean=midget_current[0],
         rgc_midget_current_min=midget_current[1],
         rgc_midget_current_max=midget_current[2],
@@ -224,22 +242,13 @@ def build_diagnostics(
         rgc_parasol_current_min=parasol_current[1],
         rgc_parasol_current_max=parasol_current[2],
         rgc_parasol_current_negative_fraction=parasol_current[3],
-        rgc_residual_current_mean=residual_current[0],
-        rgc_residual_current_min=residual_current[1],
-        rgc_residual_current_max=residual_current[2],
-        rgc_residual_current_negative_fraction=residual_current[3],
         rgc_midget_spike_mean=spikes.midget.detach().mean(),
         rgc_parasol_spike_mean=spikes.parasol.detach().mean(),
-        rgc_residual_spike_mean=spikes.residual.detach().mean(),
         rgc_midget_rate_mean=rates.midget.detach().mean(),
         rgc_parasol_rate_mean=rates.parasol.detach().mean(),
-        rgc_residual_rate_mean=rates.residual.detach().mean(),
         rgc_midget_adaptation_mean=adaptation.midget.detach().mean(),
         rgc_parasol_adaptation_mean=adaptation.parasol.detach().mean(),
-        rgc_residual_adaptation_mean=adaptation.residual.detach().mean(),
         rgc_midget_membrane_max_abs=membrane.midget.detach().abs().max(),
         rgc_parasol_membrane_max_abs=membrane.parasol.detach().abs().max(),
-        rgc_residual_membrane_max_abs=membrane.residual.detach().abs().max(),
         rgc_parasol_mean_neighbor_count=parasol_neighbor_count.detach(),
-        rgc_residual_mean_neighbor_count=residual_neighbor_count.detach(),
     )

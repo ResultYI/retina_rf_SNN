@@ -38,7 +38,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     if not h5_path.is_file():
         raise PipelineAuditError(f"HDF5 file does not exist: {h5_path}")
 
-    horizons = _parse_horizons(args.horizons)
     device = torch.device(args.device)
     torch.manual_seed(7)
     export = load_cone_response(h5_path)
@@ -46,7 +45,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         export.positions_degs,
         Stage1BuildConfig(
             dt_ms=dt_ms_from_time_axis_seconds(export.time_axis_seconds),
-            horizon_count=len(horizons),
             eccentricity_deg=export.eccentricity_deg,
             midget_sampling=(
                 MidgetSamplingMode.FOVEAL_PRIVATE_LINE
@@ -60,9 +58,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         ISETBioH5DatasetConfig(
             h5_path=h5_path,
             input_steps=args.input_steps,
-            horizons=horizons,
-            target_fine_pool=components.target_pools.fine,
-            target_coarse_pool=components.target_pools.coarse,
         ),
         ConeNormalizationStats(mean, scale),
     )
@@ -75,9 +70,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             batch.x_cone.to(device),
             return_diagnostics=True,
         )
-        prediction = decoder(_last_rgc_output(history))
+        reconstruction = decoder(_last_rgc_output(history))
 
-    print("Retina Predictive SNN one-batch shape audit")
+    print("Retina SNN current-reconstruction one-batch shape audit")
     print(f"h5={h5_path}")
     print(
         "metadata="
@@ -85,14 +80,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         f"dt_ms={dataset.dt_ms:g} eccentricity_deg={dataset.eccentricity_deg:g} "
         f"source_kind={export.stimulus_source_kind!r} source_id={export.source_id!r}"
     )
-    print(f"windows={len(dataset)} horizons={dataset.horizons} device={device}")
+    print(f"windows={len(dataset)} device={device}")
     _print_tensor("raw cone_response_achromatic", torch.from_numpy(export.response))
     _print_tensor("cone_xy_deg", torch.from_numpy(export.positions_degs))
-    _print_tensor("target fine pool", components.target_pools.fine)
-    _print_tensor("target coarse pool", components.target_pools.coarse)
     _print_tensor("batch.x_cone", batch.x_cone)
-    _print_tensor("batch.targets.fine", batch.targets.fine)
-    _print_tensor("batch.targets.coarse", batch.targets.coarse)
+    _print_tensor("batch.targets.current", batch.targets.target_current)
     _print_tensor("H1 state (final)", state.h1)
     _print_tensor("BC output (final)", state.bipolar.output)
     _print_tensor("BC transient baseline (final)", state.bipolar.transient_baseline)
@@ -102,8 +94,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     _print_populations("RGC membrane (final)", state.rgc.membrane)
     _print_populations("RGC adaptation (final)", state.rgc.adaptation)
     _print_populations("RGC rate state (final)", state.rgc.rate)
-    _print_tensor("decoder prediction fine", prediction.target_fine)
-    _print_tensor("decoder prediction coarse", prediction.target_coarse)
+    _print_tensor("RGC subunit energy (final)", state.rgc.subunit_energy)
+    _print_tensor("decoder reconstruction current", reconstruction.target_current)
     _print_final_dynamics(diagnostics[-1])
     return 0
 
@@ -112,22 +104,11 @@ def _parse_args(argv: Sequence[str] | None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=AUDIT_DESCRIPTION)
     parser.add_argument("--h5", type=Path, default=DEFAULT_H5)
     parser.add_argument("--input-steps", type=int, default=8)
-    parser.add_argument("--horizons", default="1,2,4")
     parser.add_argument("--device", default="cpu")
     args = parser.parse_args(argv)
     if args.input_steps < 1:
         parser.error("--input-steps must be positive")
     return args
-
-
-def _parse_horizons(raw: str) -> tuple[int, ...]:
-    try:
-        horizons = tuple(int(value) for value in raw.split(",") if value)
-    except ValueError as exc:
-        raise PipelineAuditError("--horizons must contain integers") from exc
-    if not horizons or any(horizon < 1 for horizon in horizons):
-        raise PipelineAuditError("--horizons must contain positive offsets")
-    return horizons
 
 
 def _last_rgc_output(history: RGCOutput) -> RGCOutput:
@@ -141,7 +122,6 @@ def _last_populations(populations: RGCPopulationTensors) -> RGCPopulationTensors
     return RGCPopulationTensors(
         midget=populations.midget[:, -1],
         parasol=populations.parasol[:, -1],
-        residual=populations.residual[:, -1],
     )
 
 
@@ -157,7 +137,6 @@ def _print_tensor(name: str, tensor: torch.Tensor) -> None:
 def _print_populations(prefix: str, populations: RGCPopulationTensors) -> None:
     _print_tensor(f"{prefix}.midget", populations.midget)
     _print_tensor(f"{prefix}.parasol", populations.parasol)
-    _print_tensor(f"{prefix}.residual", populations.residual)
 
 
 def _print_final_dynamics(diagnostics: RetinaStepDiagnostics) -> None:

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import NotRequired, Sequence, TypedDict
+from typing import Sequence, TypedDict
 
 import numpy as np
 import torch
@@ -20,19 +20,14 @@ from data.cone_response import (
 class ISETBioDatasetConfig:
     h5_path: str | Path
     input_steps: int = 16
-    horizons: tuple[int, ...] = (1, 2, 4)
     eps: float = 1e-6
     clip: float = 5.0
     allow_fit_stats: bool = False
-    target_fine_pool: torch.Tensor | None = None
-    target_coarse_pool: torch.Tensor | None = None
 
 
 class ISETBioSample(TypedDict):
     x_cone: torch.Tensor
-    target_delta: torch.Tensor
-    target_fine: NotRequired[torch.Tensor]
-    target_coarse: NotRequired[torch.Tensor]
+    target_current: torch.Tensor
     time_index: torch.Tensor
 
 
@@ -175,16 +170,6 @@ class ISETBioDataset(Dataset[ISETBioSample]):
             -config.clip,
             config.clip,
         ).astype(np.float32)
-        self._target_fine_pool = _validate_target_pool(
-            "target_fine_pool",
-            config.target_fine_pool,
-            export.response.shape[1],
-        )
-        self._target_coarse_pool = _validate_target_pool(
-            "target_coarse_pool",
-            config.target_coarse_pool,
-            export.response.shape[1],
-        )
         self._normalization_mean = mean
         self._normalization_scale = scale
         self._positions_degs = export.positions_degs
@@ -193,10 +178,9 @@ class ISETBioDataset(Dataset[ISETBioSample]):
         self._eye_trace_degs = export.eye_trace_degs
         self._response_units = export.units
         self._eccentricity_deg = export.eccentricity_deg
-        self._horizons = config.horizons
-        self._length = self._contrast.shape[0] - config.input_steps - max(self._horizons) + 1
+        self._length = self._contrast.shape[0] - config.input_steps + 1
         if self._length <= 0:
-            raise DataContractError("Sequence is too short for inputs and horizons")
+            raise DataContractError("Sequence is too short for the requested input window")
 
     @property
     def positions_degs(self) -> np.ndarray:
@@ -238,10 +222,6 @@ class ISETBioDataset(Dataset[ISETBioSample]):
     def clip_fraction(self) -> float:
         return self._clip_fraction
 
-    @property
-    def horizons(self) -> tuple[int, ...]:
-        return self._horizons
-
     def __len__(self) -> int:
         return self._length
 
@@ -251,43 +231,27 @@ class ISETBioDataset(Dataset[ISETBioSample]):
 
         anchor = index + self._config.input_steps - 1
         start = anchor - self._config.input_steps + 1
-        base = self._contrast[anchor]
-        target = np.stack(
-            [self._contrast[anchor + horizon] - base for horizon in self._horizons],
-            axis=0,
-        ).astype(np.float32)
-
-        target_tensor = torch.from_numpy(np.ascontiguousarray(target))
+        target_tensor = torch.from_numpy(
+            np.ascontiguousarray(self._contrast[anchor]).copy()
+        )
+        x_cone = torch.from_numpy(
+            np.ascontiguousarray(self._contrast[start : anchor + 1]).copy()
+        )
         sample: ISETBioSample = {
-            "x_cone": torch.from_numpy(np.ascontiguousarray(self._contrast[start : anchor + 1])),
-            "target_delta": target_tensor,
+            "x_cone": x_cone,
+            "target_current": target_tensor,
             "time_index": torch.tensor(anchor, dtype=torch.long),
         }
-        if self._target_fine_pool is not None and self._target_coarse_pool is not None:
-            sample["target_fine"] = torch.sparse.mm(
-                self._target_fine_pool,
-                target_tensor.T,
-            ).T
-            sample["target_coarse"] = torch.sparse.mm(
-                self._target_coarse_pool,
-                target_tensor.T,
-            ).T
         return sample
 
     @staticmethod
     def _validate_config(config: ISETBioDatasetConfig) -> None:
         if config.input_steps < 1:
             raise DataContractError("input_steps must be positive")
-        if not config.horizons or any(horizon < 1 for horizon in config.horizons):
-            raise DataContractError("horizons must contain positive future offsets")
         if config.eps <= 0:
             raise DataContractError("eps must be positive")
         if config.clip <= 0:
             raise DataContractError("clip must be positive")
-        if (config.target_fine_pool is None) != (config.target_coarse_pool is None):
-            raise DataContractError(
-                "fine and coarse target pools must be provided together"
-            )
 
 
 def _validate_stats(
@@ -304,23 +268,3 @@ def _validate_stats(
     if not np.isfinite(mean).all() or not np.isfinite(scale).all() or np.any(scale <= 0):
         raise DataContractError("Normalization stats must be finite with positive scale")
     return mean, scale
-
-
-def _validate_target_pool(
-    name: str,
-    pool: torch.Tensor | None,
-    cone_count: int,
-) -> torch.Tensor | None:
-    if pool is None:
-        return None
-    if pool.layout != torch.sparse_coo or pool.ndim != 2:
-        raise DataContractError(f"{name} must be a sparse COO matrix")
-    pool = pool.coalesce().to(dtype=torch.float32, device="cpu")
-    if pool.shape[0] < 1 or pool.shape[1] != cone_count:
-        raise DataContractError(f"{name} must have shape [Ntarget,Ncone]")
-    if not torch.isfinite(pool.values()).all() or torch.any(pool.values() < 0):
-        raise DataContractError(f"{name} weights must be finite and non-negative")
-    row_sums = torch.sparse.sum(pool, dim=1).to_dense()
-    if not torch.allclose(row_sums, torch.ones_like(row_sums), atol=1e-4, rtol=1e-5):
-        raise DataContractError(f"{name} rows must sum to one")
-    return pool

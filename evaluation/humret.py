@@ -8,6 +8,14 @@ from typing import Final
 import numpy as np
 import torch
 
+from evaluation.humret_population import (
+    HumRetDataError,
+    HumRetFunctionalAgreement,
+    compare_functional_populations,
+    grating_population_distances,
+    parse_functional_population,
+)
+
 
 HUMRET_MICRONS_PER_DEGREE: Final = 266.0
 HUMRET_SPATIAL_PERIODS_UM: Final = (
@@ -23,14 +31,6 @@ HUMRET_FREQUENCY_CHIRP_DURATION_S: Final = 8.0
 HUMRET_CONTRAST_CHIRP_DURATION_S: Final = 8.0
 HUMRET_GRATING_DURATION_S: Final = 12.0
 HUMRET_FLASH_PHASE_DURATION_S: Final = 2.0
-
-
-@dataclass(frozen=True, slots=True)
-class HumRetDataError(RuntimeError):
-    detail: str
-
-    def __str__(self) -> str:
-        return self.detail
 
 
 @dataclass(frozen=True, slots=True)
@@ -172,25 +172,37 @@ def compare_humret_grating_population(
     model_tuning: torch.Tensor,
     reference: HumRetReference,
 ) -> HumRetPopulationAgreement:
-    model = _normalized_tuning(model_tuning, "model_tuning")
-    human = _normalized_tuning(
+    distances = grating_population_distances(
+        model_tuning,
         reference.grating_f1_normalized,
-        "reference.grating_f1_normalized",
-    ).to(model.device)
-    model_mean = model.mean(dim=0).flatten()
-    human_mean = human.mean(dim=0).flatten()
-    cosine = torch.nn.functional.cosine_similarity(model_mean, human_mean, dim=0)
-    model_spatial, model_temporal = _preference_histograms(model)
-    human_spatial, human_temporal = _preference_histograms(human)
-    return HumRetPopulationAgreement(
-        mean_tuning_cosine_similarity=cosine.detach().item(),
-        spatial_preference_total_variation=(
-            0.5 * torch.abs(model_spatial - human_spatial).sum()
-        ).detach().item(),
-        temporal_preference_total_variation=(
-            0.5 * torch.abs(model_temporal - human_temporal).sum()
-        ).detach().item(),
     )
+    return HumRetPopulationAgreement(
+        mean_tuning_cosine_similarity=1.0 - distances.mean_tuning_cosine_distance,
+        spatial_preference_total_variation=(
+            distances.spatial_preference_total_variation
+        ),
+        temporal_preference_total_variation=(
+            distances.temporal_preference_total_variation
+        ),
+    )
+
+
+def compare_humret_functional_populations(
+    model_grating_f1: torch.Tensor,
+    model_chirp_modulation: torch.Tensor,
+    reference: HumRetReference,
+) -> HumRetFunctionalAgreement:
+    model = parse_functional_population(
+        model_grating_f1,
+        model_chirp_modulation,
+        "model",
+    )
+    human = parse_functional_population(
+        reference.grating_f1_normalized,
+        reference.chirp_modulation_normalized,
+        "human",
+    )
+    return compare_functional_populations(model, human)
 
 
 def smoothed_spike_probability_to_hz(
@@ -257,40 +269,8 @@ def _parse_chirp_mod(chirp_mod: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     return frequency_hz, np.stack(modulations)
 
 
-def _object_vector(value: object) -> np.ndarray:
+def _object_vector(value: np.ndarray) -> np.ndarray:
     array = np.asarray(value)
     while array.dtype == object and array.size == 1:
         array = np.asarray(array.item())
     return np.asarray(array, dtype=np.float32).reshape(-1)
-
-
-def _normalized_tuning(tuning: torch.Tensor, name: str) -> torch.Tensor:
-    value = torch.as_tensor(tuning, dtype=torch.float32)
-    expected_shape = (
-        len(HUMRET_SPATIAL_PERIODS_UM),
-        len(HUMRET_TEMPORAL_FREQUENCIES_HZ),
-    )
-    if value.ndim != 3 or tuple(value.shape[1:]) != expected_shape:
-        raise HumRetDataError(f"{name} must have shape [cell,6,4]")
-    if not torch.isfinite(value).all() or torch.any(value < 0):
-        raise HumRetDataError(f"{name} must be finite and non-negative")
-    maximum = value.flatten(1).amax(dim=1)
-    if torch.any(maximum <= 0):
-        raise HumRetDataError(f"{name} contains a cell without grating response")
-    return value / maximum[:, None, None]
-
-
-def _preference_histograms(
-    tuning: torch.Tensor,
-) -> tuple[torch.Tensor, torch.Tensor]:
-    preferred = tuning.flatten(1).argmax(dim=1)
-    temporal_count = len(HUMRET_TEMPORAL_FREQUENCIES_HZ)
-    spatial = torch.bincount(
-        preferred // temporal_count,
-        minlength=len(HUMRET_SPATIAL_PERIODS_UM),
-    ).float()
-    temporal = torch.bincount(
-        preferred % temporal_count,
-        minlength=temporal_count,
-    ).float()
-    return spatial / spatial.sum(), temporal / temporal.sum()

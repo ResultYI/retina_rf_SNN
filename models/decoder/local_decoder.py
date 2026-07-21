@@ -8,7 +8,7 @@ import torch
 from torch import nn
 
 from data.geometry import PositionArray, local_gaussian_weights
-from models.cells.rgc import RGCOutput, RGCMosaic, RGCPopulationTensors
+from models.cells.rgc import RGCOutput, RGCMosaic
 
 
 class LocalDecoderError(ValueError):
@@ -17,51 +17,34 @@ class LocalDecoderError(ValueError):
 
 @dataclass(frozen=True, slots=True)
 class DecoderTargets:
-    fine_positions_degs: PositionArray
-    coarse_positions_degs: PositionArray
+    current_positions_degs: PositionArray
 
 
 @dataclass(frozen=True, slots=True)
 class LocalDecoderConfig:
-    horizon_count: int
-    fine_radius_degs: float
-    fine_sigma_degs: float
-    coarse_radius_degs: float
-    coarse_sigma_degs: float
-    residual_weight_max: float
-    residual_initial_weight_fraction: float = 0.05
+    current_radius_degs: float
+    current_sigma_degs: float
+    current_weight_max: float
 
     def __post_init__(self) -> None:
         scales = (
-            self.fine_radius_degs,
-            self.fine_sigma_degs,
-            self.coarse_radius_degs,
-            self.coarse_sigma_degs,
-            self.residual_weight_max,
+            self.current_radius_degs,
+            self.current_sigma_degs,
+            self.current_weight_max,
         )
-        if self.horizon_count < 1:
-            raise LocalDecoderError("horizon_count must be positive")
         if not all(math.isfinite(value) and value > 0 for value in scales):
             raise LocalDecoderError("Decoder scales and weight bound must be positive")
-        fraction = self.residual_initial_weight_fraction
-        if not math.isfinite(fraction) or not 0 < fraction < 1:
-            raise LocalDecoderError(
-                "residual_initial_weight_fraction must be between zero and one"
-            )
 
 
 @dataclass(frozen=True, slots=True)
 class LocalDecoderOutput:
-    target_fine: torch.Tensor
-    target_coarse: torch.Tensor
+    target_current: torch.Tensor
 
 
 class LocalDecoderDiagnostics(TypedDict):
     decoder_midget_weight_norm: torch.Tensor
     decoder_parasol_weight_norm: torch.Tensor
-    decoder_residual_weight_norm: torch.Tensor
-    decoder_prediction_fine_std: torch.Tensor
-    decoder_prediction_coarse_std: torch.Tensor
+    decoder_reconstruction_current_std: torch.Tensor
 
 
 class LocalDecoder(nn.Module):
@@ -72,135 +55,79 @@ class LocalDecoder(nn.Module):
         config: LocalDecoderConfig,
     ) -> None:
         super().__init__()
-        fine = targets.fine_positions_degs
-        coarse = targets.coarse_positions_degs
-        self.fine_midget = _LocalProjection(
+        current = targets.current_positions_degs
+        self.current_midget = _LocalProjection(
             mosaic.midget_positions_degs,
-            fine,
-            config.fine_radius_degs,
-            config.fine_sigma_degs,
-            config.horizon_count,
+            current,
+            config.current_radius_degs,
+            config.current_sigma_degs,
+            config.current_weight_max,
         )
-        self.fine_parasol = _LocalProjection(
+        self.current_parasol = _LocalProjection(
             mosaic.parasol_positions_degs,
-            fine,
-            config.fine_radius_degs,
-            config.fine_sigma_degs,
-            config.horizon_count,
-        )
-        self.fine_residual = _LocalProjection(
-            mosaic.residual_positions_degs,
-            fine,
-            config.fine_radius_degs,
-            config.fine_sigma_degs,
-            config.horizon_count,
-            config.residual_weight_max,
-        )
-        self.coarse_midget = _LocalProjection(
-            mosaic.midget_positions_degs,
-            coarse,
-            config.coarse_radius_degs,
-            config.coarse_sigma_degs,
-            config.horizon_count,
-        )
-        self.coarse_parasol = _LocalProjection(
-            mosaic.parasol_positions_degs,
-            coarse,
-            config.coarse_radius_degs,
-            config.coarse_sigma_degs,
-            config.horizon_count,
-        )
-        self.coarse_residual = _LocalProjection(
-            mosaic.residual_positions_degs,
-            coarse,
-            config.coarse_radius_degs,
-            config.coarse_sigma_degs,
-            config.horizon_count,
-            config.residual_weight_max,
-        )
-        residual_raw_initial = math.atanh(
-            config.residual_initial_weight_fraction
-        )
-        with torch.no_grad():
-            for projection in (self.fine_residual, self.coarse_residual):
-                projection.raw_weight[:, 0].fill_(residual_raw_initial)
-                projection.raw_weight[:, 1].fill_(-residual_raw_initial)
-        _assert_combined_coverage(
-            "fine",
-            (self.fine_midget, self.fine_parasol, self.fine_residual),
+            current,
+            config.current_radius_degs,
+            config.current_sigma_degs,
+            config.current_weight_max,
         )
         _assert_combined_coverage(
-            "coarse",
-            (self.coarse_midget, self.coarse_parasol, self.coarse_residual),
+            (self.current_midget, self.current_parasol),
         )
+
+    def set_spatial_calibration_trainable(self) -> None:
+        for projection in (self.current_midget, self.current_parasol):
+            projection.raw_spatial_values.requires_grad_(True)
+            projection.raw_weight.requires_grad_(False)
 
     def forward(
         self,
         rgc_output: RGCOutput,
         return_diagnostics: bool = False,
-    ) -> (
-        LocalDecoderOutput
-        | tuple[LocalDecoderOutput, LocalDecoderDiagnostics]
-    ):
+    ) -> LocalDecoderOutput | tuple[LocalDecoderOutput, LocalDecoderDiagnostics]:
         rates = rgc_output.rates
         prefix = _validate_population(
             "midget",
             rates.midget,
-            self.fine_midget.source_count,
+            self.current_midget.source_count,
         )
         if _validate_population(
             "parasol",
             rates.parasol,
-            self.fine_parasol.source_count,
-        ) != prefix:
-            raise LocalDecoderError("RGC population batch/time dimensions must match")
-        if _validate_population(
-            "residual",
-            rates.residual,
-            self.fine_residual.source_count,
+            self.current_parasol.source_count,
         ) != prefix:
             raise LocalDecoderError("RGC population batch/time dimensions must match")
 
-        fine_midget = self.fine_midget(rates.midget)
-        fine_parasol = self.fine_parasol(rates.parasol)
-        fine_residual = self.fine_residual(rates.residual)
-        coarse_midget = self.coarse_midget(rates.midget)
-        coarse_parasol = self.coarse_parasol(rates.parasol)
-        coarse_residual = self.coarse_residual(rates.residual)
-        output = LocalDecoderOutput(
-            target_fine=fine_midget + fine_parasol + fine_residual,
-            target_coarse=coarse_midget + coarse_parasol + coarse_residual,
+        if len(prefix) == 1:
+            midget_rates = rates.midget
+            parasol_rates = rates.parasol
+        elif len(prefix) == 2:
+            midget_rates = rates.midget[:, -1]
+            parasol_rates = rates.parasol[:, -1]
+        else:
+            raise LocalDecoderError(
+                "RGC rates must have batch or batch/time leading dimensions"
+            )
+        target_current = self.current_midget(midget_rates) + self.current_parasol(
+            parasol_rates
         )
+        output = LocalDecoderOutput(target_current=target_current)
         if not return_diagnostics:
             return output
 
         diagnostics = LocalDecoderDiagnostics(
-            decoder_midget_weight_norm=_combined_norm(
-                self.fine_midget,
-                self.coarse_midget,
-            ).detach(),
-            decoder_parasol_weight_norm=_combined_norm(
-                self.fine_parasol,
-                self.coarse_parasol,
-            ).detach(),
-            decoder_residual_weight_norm=_combined_norm(
-                self.fine_residual,
-                self.coarse_residual,
-            ).detach(),
-            decoder_prediction_fine_std=output.target_fine.detach().std(
-                unbiased=False
-            ),
-            decoder_prediction_coarse_std=output.target_coarse.detach().std(
+            decoder_midget_weight_norm=self.current_midget.effective_weight.detach()
+            .square()
+            .sum()
+            .sqrt(),
+            decoder_parasol_weight_norm=self.current_parasol.effective_weight.detach()
+            .square()
+            .sum()
+            .sqrt(),
+            decoder_reconstruction_current_std=output.target_current.detach().std(
                 unbiased=False
             ),
         )
         return output, diagnostics
-
-    def residual_weight_penalty(self) -> torch.Tensor:
-        return (
-            self.fine_residual.effective_weight.square().sum()
-            + self.coarse_residual.effective_weight.square().sum()
-        )
 
 
 class _LocalProjection(nn.Module):
@@ -210,8 +137,7 @@ class _LocalProjection(nn.Module):
         target_positions: PositionArray,
         radius_degs: float,
         sigma_degs: float,
-        horizon_count: int,
-        weight_max: float | None = None,
+        weight_max: float,
     ) -> None:
         super().__init__()
         source = torch.as_tensor(source_positions, dtype=torch.float32)
@@ -223,25 +149,35 @@ class _LocalProjection(nn.Module):
             allow_empty_rows=True,
         ).coalesce()
         self.register_buffer("local_mask", local_mask)
-        self.raw_weight = nn.Parameter(torch.zeros(horizon_count, 2))
+        self.raw_spatial_values = nn.Parameter(local_mask.values().log())
+        self.raw_weight = nn.Parameter(torch.atanh(torch.tensor((0.1, -0.1))))
         self.source_count = source.shape[0]
+        self.target_count = local_mask.shape[0]
         self._weight_max = weight_max
 
     @property
     def effective_weight(self) -> torch.Tensor:
-        if self._weight_max is None:
-            return self.raw_weight
         return self._weight_max * torch.tanh(self.raw_weight)
+
+    @property
+    def effective_spatial_pool(self) -> torch.Tensor:
+        logits = torch.sparse_coo_tensor(
+            self.local_mask.indices(),
+            self.raw_spatial_values,
+            self.local_mask.shape,
+            device=self.raw_spatial_values.device,
+        ).coalesce()
+        return torch.sparse.softmax(logits, dim=1).coalesce()
 
     def forward(self, source: torch.Tensor) -> torch.Tensor:
         prefix = source.shape[:-2]
         flat_source = source.reshape(-1, self.source_count)
-        pooled = torch.sparse.mm(self.local_mask, flat_source.T).T.reshape(
+        pooled = torch.sparse.mm(self.effective_spatial_pool, flat_source.T).T.reshape(
             *prefix,
             2,
-            self.local_mask.shape[0],
+            self.target_count,
         )
-        return torch.einsum("...pn,hp->...hn", pooled, self.effective_weight)
+        return torch.einsum("...pn,p->...n", pooled, self.effective_weight)
 
 
 def _validate_population(
@@ -250,26 +186,13 @@ def _validate_population(
     source_count: int,
 ) -> tuple[int, ...]:
     if population.ndim < 3 or population.shape[-2:] != (2, source_count):
-        raise LocalDecoderError(
-            f"{name} rates must end with shape [2,{source_count}]"
-        )
+        raise LocalDecoderError(f"{name} rates must end with shape [2,{source_count}]")
     if not torch.isfinite(population).all():
         raise LocalDecoderError(f"{name} rates contain NaN or inf")
     return population.shape[:-2]
 
 
-def _combined_norm(
-    first: _LocalProjection,
-    second: _LocalProjection,
-) -> torch.Tensor:
-    return torch.sqrt(
-        first.effective_weight.square().sum()
-        + second.effective_weight.square().sum()
-    )
-
-
 def _assert_combined_coverage(
-    name: str,
     projections: tuple[_LocalProjection, ...],
 ) -> None:
     covered = torch.zeros(projections[0].local_mask.shape[0], dtype=torch.bool)
@@ -277,4 +200,4 @@ def _assert_combined_coverage(
         row_sums = torch.sparse.sum(projection.local_mask, dim=1).to_dense()
         covered |= row_sums > 0
     if not torch.all(covered):
-        raise LocalDecoderError(f"{name} decoder coverage has empty target rows")
+        raise LocalDecoderError("current decoder coverage has empty target rows")

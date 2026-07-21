@@ -1,21 +1,15 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
-from pathlib import Path
 
 import numpy as np
 import torch
-from torch.utils.data import ConcatDataset, DataLoader
 
 from configs.physiology_profiles import dt_ms_from_time_axis_seconds
-from data.cone_response import validate_natural_video_splits
+from data.cone_response import validate_formal_stimulus_splits
 from data.dataset import load_log_cone_stats, validate_compatible_cone_exports
 from datasets.isetbio_h5_dataset import (
     ConeNormalizationStats,
-    ISETBioH5Dataset,
-    ISETBioH5DatasetConfig,
-    collate_isetbio_h5_batch,
 )
 from evaluation.checkpoint_contracts import (
     CheckpointEvaluationConfig,
@@ -23,43 +17,47 @@ from evaluation.checkpoint_contracts import (
     CheckpointMetadata,
     EvaluationArtifacts,
     EvaluationDataMetadata,
-    HumRetPayload,
-    ParameterAuditPayload,
+    RFProbeStatusPayload,
 )
+from evaluation.checkpoint_context import (
+    EmpiricalContextRequest,
+    architecture_compliance_payload,
+    context_audit_payload,
+    evaluate_empirical_context,
+    extended_filtering_steps,
+    rf_probe_gate,
+    RFGateRequest,
+)
+from evaluation.checkpoint_loaders import DatasetLoaderRequest, checkpoint_loader
 from evaluation.checkpoint_metrics import (
     HeldOutEvaluationRequest,
     evaluate_held_out,
     fit_evaluation_baselines,
 )
 from evaluation.checkpoint_probes import (
+    RFProbeBundle,
     RFProbeRequest,
     run_rf_probes,
-    run_temporal_probes,
 )
-from evaluation.humret import (
-    compare_humret_grating_population,
-    load_humret_reference,
+from evaluation.checkpoint_payloads import humret_payload, parameter_payload
+from evaluation.reconstruction_baselines import LocalLinearSupport
+from evaluation.rf_identifiability import (
+    RFGLMIdentifiabilityRequest,
+    rf_glm_identifiability,
 )
-from evaluation.parameter_audit import audit_stage1_parameters
-from evaluation.prediction_baselines import LocalARSupports
-from training.hybrid import RetinaTrainingBatch
+from evaluation.temporal_probes import run_temporal_probes
 from training.stage1 import (
     MidgetSamplingMode,
     Stage1BuildConfig,
     Stage1Components,
     build_stage1_components,
 )
-from training.stage1_runtime import load_checkpoint
-
-
-@dataclass(frozen=True, slots=True)
-class DatasetLoaderRequest:
-    paths: tuple[Path, ...]
-    config: CheckpointEvaluationConfig
-    components: Stage1Components
-    stats: ConeNormalizationStats
-    eps: float
-
+from training.stage1_runtime import (
+    batch_to_device,
+    filtering_context_requirement,
+    load_checkpoint,
+)
+from training.stage1_types import TrainStage1Error
 
 def run_checkpoint_evaluation(
     config: CheckpointEvaluationConfig,
@@ -68,14 +66,13 @@ def run_checkpoint_evaluation(
     train_exports = exports[: len(config.train_h5)]
     eval_exports = exports[len(config.train_h5) :]
     if config.formal_evidence:
-        validate_natural_video_splits(train_exports, eval_exports)
+        validate_formal_stimulus_splits(train_exports, eval_exports)
     reference = train_exports[0]
     dt_ms = dt_ms_from_time_axis_seconds(reference.time_axis_seconds)
     components = build_stage1_components(
         reference.positions_degs,
         Stage1BuildConfig(
             dt_ms=dt_ms,
-            horizon_count=len(config.horizons),
             eccentricity_deg=reference.eccentricity_deg,
             midget_sampling=(
                 MidgetSamplingMode.FOVEAL_PRIVATE_LINE
@@ -87,24 +84,53 @@ def run_checkpoint_evaluation(
     components.core.to(config.device)
     components.decoder.to(config.device)
     checkpoint = load_checkpoint(config.checkpoint, config.device)
+    if "rgc.raw_kinetic_mix" in checkpoint["core"]:
+        raise TrainStage1Error(
+            "Checkpoint is ordered-kinetics incompatible; fresh run required: "
+            "rgc.raw_kinetic_mix"
+        )
     components.core.load_state_dict(checkpoint["core"])
     components.decoder.load_state_dict(checkpoint["decoder"])
 
     mean, scale, eps = load_log_cone_stats(config.normalization_stats)
     stats = ConeNormalizationStats(mean, scale)
-    train_loader = _loader(
+    requirement = filtering_context_requirement(components.profile)
+    analytic_ok = config.input_steps >= requirement.required_steps
+    if config.formal_evidence and not analytic_ok:
+        raise TrainStage1Error(
+            "Formal evidence requires filtering context of at least "
+            f"{requirement.required_steps} input steps; got {config.input_steps}"
+        )
+    extended_steps = extended_filtering_steps(
+        requirement.required_steps,
+        requirement.tau_upper_ms,
+        requirement.dt_ms,
+    )
+    empirical = evaluate_empirical_context(
+        EmpiricalContextRequest(
+            config.eval_h5,
+            components,
+            stats,
+            eps,
+            requirement.required_steps,
+            extended_steps,
+            config.device,
+            requirement.residual_tolerance,
+        )
+    )
+    if config.formal_evidence and not empirical.sufficient:
+        reason = empirical.reason or "paired reconstruction filtering context exceeded tolerance"
+        raise TrainStage1Error(f"Formal evidence requires {reason}")
+    train_loader = checkpoint_loader(
         DatasetLoaderRequest(config.train_h5, config, components, stats, eps)
     )
-    eval_loader = _loader(
+    eval_loader = checkpoint_loader(
         DatasetLoaderRequest(config.eval_h5, config, components, stats, eps)
     )
     baselines = fit_evaluation_baselines(
         train_loader,
         eval_loader,
-        LocalARSupports(
-            components.target_pools.fine,
-            components.target_pools.coarse,
-        ),
+        LocalLinearSupport(components.current_reconstruction_support),
     )
     held_out = evaluate_held_out(
         HeldOutEvaluationRequest(
@@ -112,17 +138,42 @@ def run_checkpoint_evaluation(
             eval_loader,
             baselines,
             config.device,
-            config.rf_sample_count,
         )
     )
-    rf = run_rf_probes(
-        RFProbeRequest(
-            components,
-            held_out,
-            config.rf_sample_count,
-            config.glm_max_steps,
+    rf_gate = rf_probe_gate(
+        RFGateRequest(
+            analytic_ok,
+            empirical.sufficient,
+            held_out.population_usage,
         )
     )
+    rf_status = rf_gate
+    if rf_status.status == "run":
+        identifiability = rf_glm_identifiability(
+            RFGLMIdentifiabilityRequest(
+                sequence_count=len(eval_loader.dataset),
+                input_steps=config.input_steps,
+                source_counts=_rf_source_counts(components),
+            )
+        )
+        if not identifiability.sufficient:
+            rf_status = type(rf_gate)("not_identifiable", identifiability.reason)
+    if rf_status.status == "run":
+        probe_batch = batch_to_device(next(iter(eval_loader)), config.device)
+        with torch.no_grad():
+            probe_output, _ = components.core.forward_sequence(probe_batch.x_cone)
+        rf = run_rf_probes(
+            RFProbeRequest(
+                components,
+                held_out,
+                probe_batch.x_cone,
+                probe_output,
+                config.rf_sample_count,
+                config.glm_max_steps,
+            )
+        )
+    else:
+        rf = RFProbeBundle((), {})
     temporal = run_temporal_probes(
         components.core,
         reference.positions_degs.shape[0],
@@ -132,9 +183,21 @@ def run_checkpoint_evaluation(
     summary_path = config.output_dir / "evaluation_summary.json"
     rf_path = config.output_dir / "rf_probes.npz"
     payload = CheckpointEvaluationPayload(
+        evidence_class="formal_candidate" if config.formal_evidence else "non_formal_smoke",
+        context_audit=context_audit_payload(
+            config.input_steps,
+            requirement,
+            analytic_ok,
+            empirical,
+        ),
+        architecture_compliance=architecture_compliance_payload(components),
+        rf_probe_status=RFProbeStatusPayload(
+            status=rf_status.status,
+            reason=rf_status.reason,
+        ),
         checkpoint=CheckpointMetadata(
             path=str(config.checkpoint),
-            stage=str(checkpoint["stage"]),
+            stage=str(checkpoint["phase"]),
             epoch=int(checkpoint["epoch"]),
             step=int(checkpoint["step"]),
         ),
@@ -148,87 +211,34 @@ def run_checkpoint_evaluation(
             cone_count=reference.positions_degs.shape[0],
             dt_ms=dt_ms,
             input_steps=config.input_steps,
-            horizons=config.horizons,
         ),
-        prediction=held_out.prediction,
+        reconstruction=held_out.reconstruction,
         population_usage=held_out.population_usage,
         population_ablation=held_out.population_ablation,
         temporal_probe_interpretation="direct_normalized_contrast_diagnostic",
         temporal_probes=temporal,
         rf_probes=rf.metrics,
-        parameter_audit=_parameter_payload(components),
-        humret=_humret_payload(config),
+        parameter_audit=parameter_payload(components),
+        humret=humret_payload(config),
         artifacts=EvaluationArtifacts(
             summary=str(summary_path),
-            rf_probes=str(rf_path),
         ),
     )
-    np.savez_compressed(rf_path, **rf.arrays)
+    if rf_status.status == "run":
+        payload["artifacts"]["rf_probes"] = str(rf_path)
+        np.savez_compressed(rf_path, **rf.arrays)
+    elif rf_path.exists():
+        rf_path.unlink()
     summary_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     return payload
 
 
-def _loader(request: DatasetLoaderRequest) -> DataLoader[RetinaTrainingBatch]:
-    datasets = tuple(
-        ISETBioH5Dataset(
-            ISETBioH5DatasetConfig(
-                h5_path=path,
-                input_steps=request.config.input_steps,
-                horizons=request.config.horizons,
-                eps=request.eps,
-                target_fine_pool=request.components.target_pools.fine,
-                target_coarse_pool=request.components.target_pools.coarse,
-            ),
-            request.stats,
-        )
-        for path in request.paths
-    )
-    return DataLoader(
-        ConcatDataset(datasets),
-        batch_size=request.config.batch_size,
-        shuffle=False,
-        collate_fn=collate_isetbio_h5_batch,
-    )
+def _rf_source_counts(components: Stage1Components) -> dict[str, int]:
+    def count(pool: torch.Tensor) -> int:
+        indices = pool.coalesce().indices()
+        return int((indices[0] == 0).sum())
 
-
-def _parameter_payload(
-    components: Stage1Components,
-) -> tuple[ParameterAuditPayload, ...]:
-    return tuple(
-        ParameterAuditPayload(
-            name=item.name,
-            value=item.value,
-            lower=item.lower,
-            upper=item.upper,
-            boundary_fraction=item.boundary_fraction,
-            near_boundary=item.near_boundary,
-        )
-        for item in audit_stage1_parameters(components)
-    )
-
-
-def _humret_payload(config: CheckpointEvaluationConfig) -> HumRetPayload:
-    if config.humret_root is None or config.humret_model_grating is None:
-        return HumRetPayload(
-            status="not_run",
-            reason="requires ISETBio-derived model grating F1 artifact",
-        )
-    reference = load_humret_reference(config.humret_root)
-    model_tuning = torch.from_numpy(
-        np.asarray(np.load(config.humret_model_grating), dtype=np.float32)
-    )
-    agreement = compare_humret_grating_population(model_tuning, reference)
-    return HumRetPayload(
-        status="ok",
-        reference_root=str(config.humret_root),
-        model_grating_artifact=str(config.humret_model_grating),
-        human_cells=reference.grating_f1_normalized.shape[0],
-        model_units=model_tuning.shape[0],
-        mean_tuning_cosine_similarity=agreement.mean_tuning_cosine_similarity,
-        spatial_preference_total_variation=(
-            agreement.spatial_preference_total_variation
-        ),
-        temporal_preference_total_variation=(
-            agreement.temporal_preference_total_variation
-        ),
-    )
+    return {
+        "midget": count(components.core.rgc.midget_pool),
+        "parasol": count(components.core.rgc.parasol_pool),
+    }

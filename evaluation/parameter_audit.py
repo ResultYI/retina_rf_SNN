@@ -52,6 +52,34 @@ def audit_stage1_parameters(
             ),
         )
     )
+    statuses.extend(
+        _vector_statuses(
+            ("bipolar.polarity_gain_on", "bipolar.polarity_gain_off"),
+            core.bipolar.polarity_gain,
+            core.bipolar.polarity_gain.new_tensor(
+                (core.bipolar._polarity_gain_bounds,) * 2
+            ),
+        )
+    )
+    statuses.extend(
+        _vector_statuses(
+            (
+                "bipolar.polarity_threshold_on",
+                "bipolar.polarity_threshold_off",
+            ),
+            core.bipolar.polarity_threshold,
+            core.bipolar.polarity_threshold.new_tensor(
+                (core.bipolar._polarity_threshold_bounds,) * 2
+            ),
+        )
+    )
+    statuses.append(
+        _status(
+            "bipolar.rectifier_softness",
+            core.bipolar.rectifier_softness,
+            core.bipolar._rectifier_softness_bounds,
+        )
+    )
     statuses.append(
         _order_margin_status(
             "amacrine.tau_order_margin_ms",
@@ -68,9 +96,16 @@ def audit_stage1_parameters(
     )
     statuses.append(
         _order_margin_status(
-            "rgc.tau_order_margin_ms",
-            core.rgc.dynamics.tau_ms,
-            core.rgc.dynamics.tau_bounds_ms,
+            "rgc.midget_tau_order_margin_ms",
+            core.rgc.midget_dynamics.tau_ms,
+            core.rgc.midget_dynamics.tau_bounds_ms,
+        )
+    )
+    statuses.append(
+        _order_margin_status(
+            "rgc.parasol_tau_order_margin_ms",
+            core.rgc.parasol_dynamics.tau_ms,
+            core.rgc.parasol_dynamics.tau_bounds_ms,
         )
     )
     statuses.extend(
@@ -84,17 +119,40 @@ def audit_stage1_parameters(
     )
     statuses.extend(
         _vector_statuses(
-            ("rgc.adaptation_tau_ms", "rgc.membrane_tau_ms"),
-            core.rgc.dynamics.tau_ms,
-            core.rgc.dynamics.tau_bounds_ms,
+            ("rgc.midget_adaptation_tau_ms", "rgc.midget_membrane_tau_ms"),
+            core.rgc.midget_dynamics.tau_ms,
+            core.rgc.midget_dynamics.tau_bounds_ms,
         )
     )
     statuses.extend(
         _vector_statuses(
-            ("rgc.g_ag_midget", "rgc.g_ag_parasol", "rgc.g_ag_residual"),
+            ("rgc.parasol_adaptation_tau_ms", "rgc.parasol_membrane_tau_ms"),
+            core.rgc.parasol_dynamics.tau_ms,
+            core.rgc.parasol_dynamics.tau_bounds_ms,
+        )
+    )
+    statuses.extend(
+        _vector_statuses(
+            ("rgc.g_ag_midget", "rgc.g_ag_parasol"),
             core.rgc.g_ag,
             core.rgc.g_ag.new_tensor(
                 tuple((0.0, bound) for bound in core.rgc._g_ag_max)
+            ),
+        )
+    )
+    statuses.append(
+        _status(
+            "rgc.subunit_adaptation_tau_ms",
+            core.rgc.subunit_adaptation_tau_ms,
+            core.rgc._subunit_tau_bounds_ms,
+        )
+    )
+    statuses.extend(
+        _vector_statuses(
+            ("rgc.subunit_gain_midget", "rgc.subunit_gain_parasol"),
+            core.rgc.subunit_gain,
+            core.rgc.subunit_gain.new_tensor(
+                ((0.0, core.rgc._subunit_gain_max),) * 2
             ),
         )
     )
@@ -107,24 +165,34 @@ def audit_stage1_parameters(
                 "rgc.parasol_transient_mix",
             ),
             core.rgc.kinetic_mix.flatten(),
-            core.rgc.kinetic_mix.new_tensor(((0.0, 1.0),) * 4),
+            core.rgc.kinetic_mix.new_tensor(
+                (
+                    (0.5, 1.0),
+                    (0.0, 0.5),
+                    (0.0, 0.5),
+                    (0.5, 1.0),
+                )
+            ),
         )
     )
-    for prefix, projection in (
-        ("decoder.fine_residual", components.decoder.fine_residual),
-        ("decoder.coarse_residual", components.decoder.coarse_residual),
-    ):
-        maximum = projection._weight_max
-        if maximum is None:
-            continue
-        values = projection.effective_weight.flatten()
-        statuses.extend(
-            _vector_statuses(
-                tuple(f"{prefix}[{index}]" for index in range(values.numel())),
-                values,
-                values.new_tensor(((-maximum, maximum),) * values.numel()),
-            )
+    statuses.extend(
+        _vector_statuses(
+            ("decoder.current_midget[0]", "decoder.current_midget[1]"),
+            components.decoder.current_midget.effective_weight,
+            components.decoder.current_midget.effective_weight.new_tensor(
+                ((-components.profile.decoder.current_weight_max, components.profile.decoder.current_weight_max),) * 2
+            ),
         )
+    )
+    statuses.extend(
+        _vector_statuses(
+            ("decoder.current_parasol[0]", "decoder.current_parasol[1]"),
+            components.decoder.current_parasol.effective_weight,
+            components.decoder.current_parasol.effective_weight.new_tensor(
+                ((-components.profile.decoder.current_weight_max, components.profile.decoder.current_weight_max),) * 2
+            ),
+        )
+    )
     return tuple(statuses)
 
 

@@ -179,7 +179,7 @@ b_i.
 
 Retina SNNには自然画像movieを入力し，ISETBioで生成したcone responseを用いて予測学習を行う。学習目標は将来の局所cone-response変化の予測であり，RF size，ON/OFF polarity，temporal latencyなどのRF指標はlossへ加えない。これにより，RFに関する直接の教師信号を与えずに，model内部の配線と時間応答からどのような局所選択性が形成されるかを観察できる。
 
-学習中はprediction loss，発火率，学習安定性を確認する。RF解析は学習完了後に実施し，評価時にはSNN parameterを固定する。
+学習中はmasked current-contrast reconstruction loss，発火率，学習安定性を確認する。RF解析は学習完了後に実施し，評価時にはSNN parameterを固定する。
 
 \subsection{Unit extraction and RF formation criteria}
 \label{subsec:unit_extraction}

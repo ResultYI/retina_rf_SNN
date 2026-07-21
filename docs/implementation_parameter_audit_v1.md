@@ -10,8 +10,10 @@ Scope: implementation-relevant checks against `docs/parameter_evidence_human_mac
 | Dataset `dt_ms` | `ISETBioDataset` and `ISETBioH5Dataset` expose data-derived `dt_ms` | `data/dataset.py`, `datasets/isetbio_h5_dataset.py` |
 | HDF5 contract aliases | Loader prefers `/cone_response_achromatic`, `/cone_xy_deg`, `/cone_type`; keeps old names as compatibility fallback | `data/cone_response.py` |
 | HDF5 metadata | Loader reads `metadata/config` when present; falls back to `config_json` | `data/cone_response.py` |
-| RGC routing marker | Current hard-exclusive routing is explicit as `routing_mode="hard_v1_simplification"`; `biased_mixed` is reserved but not active | `models/cells/rgc_types.py` |
-| Tests | Added/updated tests for real-H5 `dt_ms`, current H5 names, median interval, and routing marker | `tests/test_dataset_interfaces.py`, `tests/test_cone_response_io.py`, `tests/test_physiology_profiles.py`, `tests/test_rgc_cell.py` |
+| RGC ordered kinetics | Legacy `raw_kinetic_mix` is rejected; current latents enforce only midget sustained>transient and parasol transient>sustained | `models/cells/rgc.py`, `training/stage1_runtime.py` |
+| Training objective | Removed future-ΔC horizons; dataset now masks deterministic cone columns across the input history and reconstructs the clean current fine/coarse contrast only on projected mask weights | `data/dataset.py`, `loss/retina.py` |
+| Decoder capacity | Fixed local support is retained, but support-internal spatial values are learnable and exactly row-normalized | `models/decoder/local_decoder.py` |
+| Tests | Added/updated tests for real-H5 `dt_ms`, current H5 names, median interval, and ordered kinetics | `tests/test_dataset_interfaces.py`, `tests/test_cone_response_io.py`, `tests/test_physiology_profiles.py`, `tests/test_rgc_cell.py` |
 
 ## 2. Dataset And HDF5 Contract
 
@@ -33,37 +35,36 @@ Current sample check:
 | Tensor | Shape |
 |---|---:|
 | `input_cone` / `x_cone` | `[3, 4401]` |
-| `target_fine` | `[2, 2]` |
-| `target_coarse` | `[2, 2]` |
-| `valid_mask` | not implemented |
+| `target_fine` | `[Nfine]` |
+| `target_coarse` | `[Ncoarse]` |
+| `loss_mask_fine` | `[Nfine]` |
+| `loss_mask_coarse` | `[Ncoarse]` |
 | `dt_ms` | `5.0` |
 
-Indexing is causal for model input: sample index 0 uses input frames `0..2`, anchor `2`, target frames `3,4`. Target deltas are computed after the input window.
+Indexing is causal: sample index 0 uses input frames `0..2`, anchor/clean target `2`, and no future frame. Masked cone columns are zeroed over the whole input window; zero is the train-normalized mean.
 
 ## 3. Config Separation
 
 | Parameter group | Current location | Status |
 |---|---|---|
 | Physiology/circuit params | `configs/physiology_profiles.py`, cell config dataclasses | mostly separated |
-| Objective/task params | `data/dataset.py` horizons and target pools; `loss/retina.py` loss weights | separated from cell configs |
+| Objective/task params | `data/dataset.py` mask fraction/seed and target pools; `loss/retina.py` loss weights | separated from cell configs |
 | Training/engineering params | `training/hybrid.py` | separated |
 | Analysis params | no central analysis config | not implemented |
 
-Implementation mismatch: `PhysiologyProfile` still contains `decoder: LocalDecoderConfig`, and `LocalDecoderConfig.horizon_count` is task-shaped. This does not leak RF, but it is a config taxonomy mismatch. No behavior change was made.
+`PhysiologyProfile` still contains decoder geometry because decoder support shares the same visual-degree coordinate system. Future-horizon task dimensions have been removed from the physiology profile.
 
-## 4. Midget/Parasol Routing
+## 4. Midget/Parasol Kinetics
 
-Current mode: `hard_v1_simplification`.
+Current mode: ordered non-exclusive kinetic mix.
 
-| Population | Bipolar channel read | Local amacrine channel read | Spatial mask |
+| Population | Bipolar channel mix | Local amacrine channel mix | Spatial mask |
 |---|---|---|---|
-| midget-like | sustained only | sustained only | `midget_pool` |
-| parasol-like | transient only | transient only | `parasol_pool` |
+| midget-like | sustained share > transient share; starts `[0.75,0.25]` | same mix | `midget_pool` |
+| parasol-like | transient share > sustained share; starts `[0.25,0.75]` | same mix | `parasol_pool` |
 | residual | mean over sustained/transient | mean over sustained/transient | `residual_pool` |
 
-Reserved interface: `routing_mode="biased_mixed"` is accepted by config validation but does not change behavior yet.
-
-Risk: hard-exclusive routing may make learned RF differences partly architectural rather than fully emergent.
+The 0.75 midpoint is mathematical/engineering, not a precise physiological value. HumRet has no midget/parasol truth labels, so learned differences must be reported as `-like` model outputs.
 
 ## 5. H1 Audit
 
@@ -87,7 +88,7 @@ No high-risk scalar-H1 simplification found.
 | Output target | previous local amacrine state inhibits bipolar in the next step; current state also inhibits RGC in the current step |
 | State shape | `[B,2,2,Ncone]`; smoke fixture was `[2,2,2,4]` |
 | Radius/sigma | profile: `0.16/0.10 deg` |
-| Delay/tau | causal recurrent leak; sustained `100 ms`, transient `40 ms` initial |
+| Delay/tau | causal recurrent filtering; sustained `100 ms`, transient `40 ms` initial |
 | Gain bounds | non-negative bounded via sigmoid |
 | Future frame access | none |
 | Temporal kernel | causal first-order recurrence |
@@ -100,8 +101,8 @@ Risk: the local amacrine state is computed from current bipolar output before th
 |---|---|
 | Residual unit count | smoke fixture: `1`; production mosaic factory not implemented |
 | Activity scale | `residual_drive_scale=0.25`, fixed |
-| Decoder residual weights | bounded by `residual_weight_max * tanh(raw_weight)` |
-| Decoder weight norm | initial penalty `0.0` |
+| Decoder residual weights | primary residual readout disabled; optional path bounded by `residual_weight_max * tanh(raw_weight)` |
+| Decoder weight norm | `0.0` while disabled |
 | Residual sparsity/activity loss | connected to total loss |
 | Residual decoder penalty | connected to total loss |
 | Residual ablation metric | not implemented |
@@ -112,7 +113,7 @@ High-risk: residual can still absorb task signal if penalties are too weak. This
 
 Detailed output: `results/stage0_audit/decoder_leakage_audit.md`.
 
-Current decoder reads only `RGCOutput` rates. It does not receive H1, bipolar, local amacrine state, future cone frames, or target tensors. Existing static test covers the public decoder signature.
+Current decoder reads only `RGCOutput` rates. It does not receive H1, bipolar, local amacrine state, cone input, clean target, or loss mask. Support indices are fixed; only support-internal row-normalized spatial values and polarity coefficients learn.
 
 ## 9. Bounded Learnable Parameters
 
@@ -147,9 +148,8 @@ All inspected sparse masks are row-stochastic. Dense support appears in small sm
 |---|---|---|
 | RGC taus fixed | evidence doc recommends bounded learning for temporal dynamics | immediate design decision before full experiments |
 | `residual_drive_scale` fixed | residual may be too weak or absorb shortcut behavior depending on data | ablation or bounded scalar later |
-| hard-exclusive routing | midget/parasol separation is partly imposed | report as V1 simplification; compare with mixed routing later |
+| ordered kinetic midpoint | midget/parasol temporal separation is partly imposed as relative order | report as primate-supported relative order plus engineering midpoint, not exact physiology |
 | no residual ablation metric | cannot prove residual is not absorbing main task | add evaluation metric before claims |
-| no `valid_mask` | no masked loss path for invalid target frames | only matters when variable-validity data is introduced |
 | `metadata/config` absent in current H5 | current export writes `config_json` instead | export contract should converge later |
 
 ## 12. Immediate Fix List
@@ -166,5 +166,5 @@ Still needed before full experiments:
 
 - Decide whether RGC taus remain fixed V1 engineering constants or become bounded learnable.
 - Add residual ablation metric/report.
-- Decide whether `valid_mask` is required for the actual training data.
-- Separate decoder/task horizon config from `PhysiologyProfile` if a central experiment config is introduced.
+- Freeze `mask_fraction` as an engineering protocol parameter before formal comparisons.
+- Quantify whether learned decoder spatial weights remain local and non-degenerate after training.

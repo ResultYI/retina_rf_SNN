@@ -1,14 +1,12 @@
-from evaluation.residual_ablation import (
+from evaluation.population_ablation import (
     PopulationAblationReport,
-    ResidualAblationReport,
     population_ablation_report,
-    residual_ablation_report,
 )
-from evaluation.prediction_baselines import (
+from evaluation.reconstruction_baselines import (
     BaselineMSE,
-    GlobalChangeBaseline,
+    GlobalMeanBaseline,
     baseline_mse,
-    fit_global_change_baseline,
+    fit_global_mean_baseline,
 )
 from evaluation.humret import (
     HumRetDataError,
@@ -38,14 +36,13 @@ __all__ = [
     "BaselineMSE",
     "GradientRFRequest",
     "GradientRFResult",
-    "GlobalChangeBaseline",
+    "GlobalMeanBaseline",
     "HumRetDataError",
     "HumRetGratingCondition",
     "HumRetPopulationAgreement",
     "HumRetReference",
     "PopulationAblationReport",
     "RGCPopulationName",
-    "ResidualAblationReport",
     "WhiteNoiseSTARequest",
     "WhiteNoiseSTAResult",
     "baseline_mse",
@@ -54,12 +51,11 @@ __all__ = [
     "build_humret_flash_steps",
     "build_humret_frequency_chirp",
     "compare_humret_grating_population",
-    "fit_global_change_baseline",
+    "fit_global_mean_baseline",
     "gradient_rf",
     "humret_grating_conditions",
     "load_humret_reference",
     "population_ablation_report",
-    "residual_ablation_report",
     "smoothed_spike_probability_to_hz",
     "white_noise_sta",
 ]

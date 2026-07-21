@@ -33,13 +33,12 @@ def _parse_args(argv: Sequence[str] | None) -> CheckpointEvaluationConfig:
     parser.add_argument("--eval-h5", nargs="+", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--input-steps", type=int, default=16)
-    parser.add_argument("--horizons", type=_parse_horizons, default=(1, 2, 4))
     parser.add_argument("--batch-size", type=int, default=2)
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--rf-sample-count", type=int, default=32)
     parser.add_argument("--glm-max-steps", type=int, default=20)
     parser.add_argument("--humret-root", type=Path)
-    parser.add_argument("--humret-model-grating", type=Path)
+    parser.add_argument("--humret-model-response", type=Path)
     parser.add_argument("--formal-evidence", action="store_true")
     args = parser.parse_args(argv)
     return CheckpointEvaluationConfig(
@@ -49,26 +48,14 @@ def _parse_args(argv: Sequence[str] | None) -> CheckpointEvaluationConfig:
         eval_h5=tuple(args.eval_h5),
         output_dir=args.output_dir,
         input_steps=args.input_steps,
-        horizons=args.horizons,
         batch_size=args.batch_size,
         device=torch.device(args.device),
         rf_sample_count=args.rf_sample_count,
         glm_max_steps=args.glm_max_steps,
         humret_root=args.humret_root,
-        humret_model_grating=args.humret_model_grating,
+        humret_model_response=args.humret_model_response,
         formal_evidence=args.formal_evidence,
     )
-
-
-def _parse_horizons(value: str) -> tuple[int, ...]:
-    try:
-        horizons = tuple(int(item) for item in value.split(",") if item)
-    except ValueError as exc:
-        raise argparse.ArgumentTypeError("horizons must be comma-separated integers") from exc
-    if not horizons:
-        raise argparse.ArgumentTypeError("at least one horizon is required")
-    return horizons
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -65,7 +65,8 @@ end
 conePositionsDegs = single(cm.coneRFpositionsDegs);
 coneTypes = uint8(cm.coneTypes(:));
 [coneResponse, conePositionsDegs, coneTypes] = crop_cone_export( ...
-    coneResponse, conePositionsDegs, coneTypes, exportCropFovDeg);
+    coneResponse, conePositionsDegs, coneTypes, exportCropFovDeg, ...
+    eccentricityDegs);
 validate_response(coneResponse, conePositionsDegs, coneTypes, timeAxisSeconds);
 lmsResponse = build_lms_response(single(coneResponse), coneTypes);
 achromaticResponse = single(sum(lmsResponse, 3));
@@ -115,9 +116,11 @@ cm.noiseFlag = 'none';
 end
 
 function [response, positions, coneTypes] = crop_cone_export( ...
-    response, positions, coneTypes, cropFovDeg)
+    response, positions, coneTypes, cropFovDeg, eccentricityDegs)
 halfWidth = cropFovDeg / 2;
-selected = abs(positions(:, 1)) <= halfWidth & abs(positions(:, 2)) <= halfWidth;
+centeredPositions = positions - eccentricityDegs;
+selected = abs(centeredPositions(:, 1)) <= halfWidth & ...
+    abs(centeredPositions(:, 2)) <= halfWidth;
 if nnz(selected) < 2
     error('retinaSNN:ExportCropEmpty', ...
         'export_crop_fov_deg selected fewer than two cones.');

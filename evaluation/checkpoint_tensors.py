@@ -30,7 +30,6 @@ def _last_populations(values: RGCPopulationTensors) -> RGCPopulationTensors:
     return RGCPopulationTensors(
         values.midget[:, -1],
         values.parasol[:, -1],
-        values.residual[:, -1],
     )
 
 
@@ -41,7 +40,6 @@ def _slice_populations(
     return RGCPopulationTensors(
         values.midget[:count].detach(),
         values.parasol[:count].detach(),
-        values.residual[:count].detach(),
     )
 
 
@@ -51,5 +49,4 @@ def _concat_populations(
     return RGCPopulationTensors(
         torch.cat(tuple(item.midget for item in values)),
         torch.cat(tuple(item.parasol for item in values)),
-        torch.cat(tuple(item.residual for item in values)),
     )

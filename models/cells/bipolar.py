@@ -4,6 +4,12 @@ import torch
 from torch import nn
 
 from data.geometry import PositionArray
+from models.cells.bipolar_nonlinearity import (
+    bounded,
+    raw_pair_parameter,
+    raw_parameter,
+    smooth_rectify,
+)
 from models.cells.bipolar_types import (
     BipolarConfig,
     BipolarConfigurationError,
@@ -50,20 +56,42 @@ class BipolarLayer(nn.Module):
             ),
             tau_bounds,
         )
-        self.raw_g_ab_sustained = _raw_parameter(
+        self.raw_g_ab_sustained = raw_parameter(
             config.initial_g_ab_sustained,
             0.0,
             config.g_ab_sustained_max,
         )
-        self.raw_g_ab_transient = _raw_parameter(
+        self.raw_g_ab_transient = raw_parameter(
             config.initial_g_ab_transient,
             0.0,
             config.g_ab_transient_max,
+        )
+        self.raw_polarity_gain = raw_pair_parameter(
+            config.initial_polarity_gain_on,
+            config.initial_polarity_gain_off,
+            config.polarity_gain_min,
+            config.polarity_gain_max,
+        )
+        self.raw_polarity_threshold = raw_pair_parameter(
+            config.initial_polarity_threshold_on,
+            config.initial_polarity_threshold_off,
+            config.polarity_threshold_min,
+            config.polarity_threshold_max,
+        )
+        self.raw_rectifier_softness = raw_parameter(
+            config.initial_rectifier_softness,
+            config.rectifier_softness_min,
+            config.rectifier_softness_max,
         )
         self._dt_ms = config.dt_ms
         self._g_ab_max = (
             config.g_ab_sustained_max,
             config.g_ab_transient_max,
+        )
+        self._polarity_gain_bounds = (config.polarity_gain_min, config.polarity_gain_max)
+        self._polarity_threshold_bounds = (config.polarity_threshold_min, config.polarity_threshold_max)
+        self._rectifier_softness_bounds = (
+            config.rectifier_softness_min, config.rectifier_softness_max
         )
 
     @property
@@ -89,6 +117,24 @@ class BipolarLayer(nn.Module):
             )
         )
 
+    @property
+    def polarity_gain(self) -> torch.Tensor:
+        return bounded(self.raw_polarity_gain, self._polarity_gain_bounds)
+
+    @property
+    def polarity_threshold(self) -> torch.Tensor:
+        return bounded(
+            self.raw_polarity_threshold,
+            self._polarity_threshold_bounds,
+        )
+
+    @property
+    def rectifier_softness(self) -> torch.Tensor:
+        return bounded(
+            self.raw_rectifier_softness,
+            self._rectifier_softness_bounds,
+        )
+
     def initial_state(
         self,
         batch_size: int,
@@ -96,23 +142,13 @@ class BipolarLayer(nn.Module):
         dtype: torch.dtype = torch.float32,
     ) -> BipolarState:
         cone_count = self.private_source_index.shape[0]
-        return BipolarState(
-            output=torch.zeros(
-                batch_size,
-                2,
-                2,
-                cone_count,
-                device=device,
-                dtype=dtype,
-            ),
-            transient_baseline=torch.zeros(
-                batch_size,
-                2,
-                cone_count,
-                device=device,
-                dtype=dtype,
-            ),
+        output = torch.zeros(
+            (batch_size, 2, 2, cone_count), device=device, dtype=dtype
         )
+        baseline = torch.zeros(
+            (batch_size, 2, cone_count), device=device, dtype=dtype
+        )
+        return BipolarState(output=output, transient_baseline=baseline)
 
     def forward(
         self,
@@ -127,9 +163,12 @@ class BipolarLayer(nn.Module):
                 "modulated_drive must have shape [batch,Ncone]"
             )
 
-        polarized_drive = torch.stack(
-            (torch.relu(modulated_drive), torch.relu(-modulated_drive)),
-            dim=1,
+        gain = self.polarity_gain
+        threshold = self.polarity_threshold
+        signed_drive = torch.stack((modulated_drive, -modulated_drive), dim=1)
+        polarized_drive = smooth_rectify(
+            gain.view(1, 2, 1) * signed_drive - threshold.view(1, 2, 1),
+            self.rectifier_softness,
         )
         private_drive = polarized_drive.index_select(
             -1,
@@ -150,7 +189,10 @@ class BipolarLayer(nn.Module):
             raise BipolarConfigurationError(
                 "Bipolar state output/baseline shapes are invalid"
             )
-        transient_drive = torch.relu(private_drive - state.transient_baseline)
+        transient_drive = smooth_rectify(
+            private_drive - state.transient_baseline,
+            self.rectifier_softness,
+        )
         channel_drive = torch.stack((private_drive, transient_drive), dim=2)
         if amacrine_prev is None:
             amacrine_prev = torch.zeros_like(channel_drive)
@@ -168,7 +210,7 @@ class BipolarLayer(nn.Module):
             leak * state.output
             + (1.0 - leak) * (channel_drive - g_ab * amacrine_prev)
         )
-        next_output = torch.relu(pre_activation)
+        next_output = smooth_rectify(pre_activation, self.rectifier_softness)
         baseline_leak = leak_values[BipolarKinetics.SUSTAINED]
         next_baseline = (
             baseline_leak * state.transient_baseline
@@ -200,10 +242,8 @@ class BipolarLayer(nn.Module):
             ].mean(),
             bipolar_transient_baseline_mean=next_baseline.detach().mean(),
             bipolar_transient_drive_mean=transient_drive.detach().mean(),
+            bipolar_polarity_gain=gain.detach(),
+            bipolar_polarity_threshold=threshold.detach(),
+            bipolar_rectifier_softness=self.rectifier_softness.detach(),
         )
         return next_state, diagnostics
-
-
-def _raw_parameter(initial: float, minimum: float, maximum: float) -> nn.Parameter:
-    fraction = (initial - minimum) / (maximum - minimum)
-    return nn.Parameter(torch.logit(torch.tensor(fraction)))

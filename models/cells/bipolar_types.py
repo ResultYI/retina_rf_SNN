@@ -38,6 +38,9 @@ class BipolarDiagnostics(TypedDict):
     bipolar_transient_mean: torch.Tensor
     bipolar_transient_baseline_mean: torch.Tensor
     bipolar_transient_drive_mean: torch.Tensor
+    bipolar_polarity_gain: torch.Tensor
+    bipolar_polarity_threshold: torch.Tensor
+    bipolar_rectifier_softness: torch.Tensor
 
 
 @dataclass(frozen=True, slots=True)
@@ -59,6 +62,17 @@ class BipolarConfig:
     g_ab_sustained_max: float
     initial_g_ab_transient: float
     g_ab_transient_max: float
+    initial_polarity_gain_on: float = 1.0
+    initial_polarity_gain_off: float = 1.0
+    polarity_gain_min: float = 0.25
+    polarity_gain_max: float = 4.0
+    initial_polarity_threshold_on: float = 0.0
+    initial_polarity_threshold_off: float = 0.0
+    polarity_threshold_min: float = -1.0
+    polarity_threshold_max: float = 1.0
+    initial_rectifier_softness: float = 0.05
+    rectifier_softness_min: float = 0.01
+    rectifier_softness_max: float = 0.50
 
     def __post_init__(self) -> None:
         values = (
@@ -73,6 +87,17 @@ class BipolarConfig:
             self.g_ab_sustained_max,
             self.initial_g_ab_transient,
             self.g_ab_transient_max,
+            self.initial_polarity_gain_on,
+            self.initial_polarity_gain_off,
+            self.polarity_gain_min,
+            self.polarity_gain_max,
+            self.initial_polarity_threshold_on,
+            self.initial_polarity_threshold_off,
+            self.polarity_threshold_min,
+            self.polarity_threshold_max,
+            self.initial_rectifier_softness,
+            self.rectifier_softness_min,
+            self.rectifier_softness_max,
         )
         if not all(math.isfinite(value) for value in values):
             raise BipolarConfigurationError("Bipolar parameters must be finite")
@@ -102,3 +127,29 @@ class BipolarConfig:
             raise BipolarConfigurationError(
                 "Transient g_AB upper bound must exceed sustained"
             )
+        if not (
+            0 < self.polarity_gain_min
+            < min(self.initial_polarity_gain_on, self.initial_polarity_gain_off)
+            <= max(self.initial_polarity_gain_on, self.initial_polarity_gain_off)
+            < self.polarity_gain_max
+        ):
+            raise BipolarConfigurationError("Polarity gains must lie inside bounds")
+        if not (
+            self.polarity_threshold_min
+            < min(
+                self.initial_polarity_threshold_on,
+                self.initial_polarity_threshold_off,
+            )
+            <= max(
+                self.initial_polarity_threshold_on,
+                self.initial_polarity_threshold_off,
+            )
+            < self.polarity_threshold_max
+        ):
+            raise BipolarConfigurationError("Polarity thresholds must lie inside bounds")
+        if not (
+            0 < self.rectifier_softness_min
+            < self.initial_rectifier_softness
+            < self.rectifier_softness_max
+        ):
+            raise BipolarConfigurationError("Rectifier softness must lie inside bounds")

@@ -15,9 +15,7 @@ class RetinaTrainingBatchError(ValueError):
 @dataclass(frozen=True, slots=True)
 class RetinaTrainingSample:
     x_cone: torch.Tensor
-    target_fine: torch.Tensor
-    target_coarse: torch.Tensor
-    target_delta: torch.Tensor | None
+    target_current: torch.Tensor
     time_index: torch.Tensor
 
 
@@ -29,8 +27,9 @@ def collate_retina_training_batch(
     return RetinaTrainingBatch(
         x_cone=torch.stack(tuple(sample.x_cone for sample in samples), dim=0),
         targets=RetinaTargets(
-            fine=torch.stack(tuple(sample.target_fine for sample in samples), dim=0),
-            coarse=torch.stack(tuple(sample.target_coarse for sample in samples), dim=0),
+            target_current=torch.stack(
+                tuple(sample.target_current for sample in samples), dim=0
+            ),
         ),
     )
 
@@ -38,14 +37,13 @@ def collate_retina_training_batch(
 def retina_training_sample_from_mapping(
     sample: Mapping[str, torch.Tensor],
 ) -> RetinaTrainingSample:
-    if "target_fine" not in sample or "target_coarse" not in sample:
+    required = {"target_current"}
+    if not required <= sample.keys():
         raise RetinaTrainingBatchError(
-            "ISETBio HDF5 training samples require target_fine and target_coarse"
+            "ISETBio HDF5 training samples require a current target"
         )
     return RetinaTrainingSample(
         x_cone=sample["x_cone"],
-        target_fine=sample["target_fine"],
-        target_coarse=sample["target_coarse"],
-        target_delta=sample.get("target_delta"),
+        target_current=sample["target_current"],
         time_index=sample["time_index"],
     )

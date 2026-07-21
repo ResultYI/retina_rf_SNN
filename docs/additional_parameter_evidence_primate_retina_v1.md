@@ -1,7 +1,7 @@
 # Additional Parameter Evidence for the Primate Retina V1
 
 检索日期：2026-07-10  
-适用范围：当前 human/macaque predictive retina-SNN V1，以及 Stage -1 ISETBio 刺激生成。  
+适用范围：当前 human/macaque-constrained retina-SNN V1，以及 Stage-1 ISETBio 刺激生成。
 与主文档的关系：本文件只补充 `parameter_evidence_human_macaque_v1.md` 尚未明确列出的实验量，不替代主文档中的参数分类与训练边界。
 
 ## 1. 结论先行
@@ -140,4 +140,3 @@ TTP = membrane_tau = bipolar_tau = rate_tau
 10. Uzzell VJ, Chichilnisky EJ. Precision of spike trains in primate retinal ganglion cells. *Journal of Neurophysiology*. 2004;92:780--789. https://doi.org/10.1152/jn.01171.2003
 11. Roberts JA, Wallis G, Breakspear M. Fixational eye movements during viewing of dynamic natural scenes. *Frontiers in Psychology*. 2013;4:797. https://doi.org/10.3389/fpsyg.2013.00797
 12. Clark AM, Intoy J, Rucci M, Poletti M. Eye drift during fixation predicts visual acuity. *PNAS*. 2022;119:e2200256119. https://doi.org/10.1073/pnas.2200256119
-

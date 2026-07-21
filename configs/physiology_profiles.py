@@ -51,14 +51,11 @@ def dt_ms_from_time_axis_seconds(time_axis_seconds: np.ndarray) -> float:
 def human_macaque_v1(
     *,
     dt_ms: float,
-    horizon_count: int,
     cone_spacing_deg: float,
     eccentricity_deg: float,
 ) -> PhysiologyProfile:
     if not math.isfinite(dt_ms) or dt_ms <= 0:
         raise PhysiologyProfileError("dt_ms must be positive and finite")
-    if horizon_count < 1:
-        raise PhysiologyProfileError("horizon_count must be positive")
     if not math.isfinite(cone_spacing_deg) or cone_spacing_deg <= 0:
         raise PhysiologyProfileError("cone_spacing_deg must be positive and finite")
     if not math.isfinite(eccentricity_deg) or eccentricity_deg < 0:
@@ -93,6 +90,17 @@ def human_macaque_v1(
             g_ab_sustained_max=0.10,
             initial_g_ab_transient=0.01,
             g_ab_transient_max=0.30,
+            initial_polarity_gain_on=1.0,
+            initial_polarity_gain_off=1.0,
+            polarity_gain_min=0.25,
+            polarity_gain_max=4.0,
+            initial_polarity_threshold_on=0.0,
+            initial_polarity_threshold_off=0.0,
+            polarity_threshold_min=-1.0,
+            polarity_threshold_max=1.0,
+            initial_rectifier_softness=0.05,
+            rectifier_softness_min=0.01,
+            rectifier_softness_max=0.50,
         ),
         amacrine=LocalAmacrineConfig(
             radius_degs=3.60 * cone_spacing_deg,
@@ -114,8 +122,6 @@ def human_macaque_v1(
             midget_sigma_degs=0.75 * cone_spacing_deg,
             parasol_radius_degs=3.60 * cone_spacing_deg,
             parasol_sigma_degs=1.80 * cone_spacing_deg,
-            residual_radius_degs=5.80 * cone_spacing_deg,
-            residual_sigma_degs=2.90 * cone_spacing_deg,
             dt_ms=dt_ms,
             membrane_tau_ms=20.0,
             membrane_tau_min_ms=5.0,
@@ -131,17 +137,15 @@ def human_macaque_v1(
             g_ag_midget_max=0.10,
             initial_g_ag_parasol=0.03,
             g_ag_parasol_max=0.30,
-            initial_g_ag_residual=0.01,
-            g_ag_residual_max=0.10,
-            residual_drive_scale=0.25,
+            subunit_adaptation_tau_ms=50.0,
+            subunit_adaptation_tau_min_ms=10.0,
+            subunit_adaptation_tau_max_ms=200.0,
+            initial_subunit_gain=0.50,
+            subunit_gain_max=3.00,
         ),
         decoder=LocalDecoderConfig(
-            horizon_count=horizon_count,
-            fine_radius_degs=1.50 * cone_spacing_deg,
-            fine_sigma_degs=0.75 * cone_spacing_deg,
-            coarse_radius_degs=3.60 * cone_spacing_deg,
-            coarse_sigma_degs=1.80 * cone_spacing_deg,
-            residual_weight_max=0.10,
-            residual_initial_weight_fraction=0.05,
+            current_radius_degs=3.60 * cone_spacing_deg,
+            current_sigma_degs=1.80 * cone_spacing_deg,
+            current_weight_max=5.00,
         ),
     )

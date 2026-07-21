@@ -1,22 +1,22 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Literal, TypedDict
+from typing import Literal, TypedDict, assert_never
 
 import torch
+from torch.nn import functional as F
 from torch.utils.data import DataLoader
 
-from evaluation.checkpoint_tensors import concat_outputs, last_output, slice_output
+from evaluation.checkpoint_tensors import last_output
 from evaluation.humret import smoothed_spike_probability_to_hz
-from evaluation.prediction_baselines import (
-    GlobalChangeBaseline,
-    LocalARBaseline,
-    LocalARSupports,
-    fit_global_change_baseline,
-    fit_local_ar_baseline,
+from evaluation.reconstruction_baselines import (
+    GlobalMeanBaseline,
+    LocalLinearBaseline,
+    LocalLinearSupport,
+    fit_global_mean_baseline,
+    fit_local_linear_baseline,
 )
-from evaluation.residual_ablation import population_ablation_report
-from models.cells.rgc import RGCOutput
+from models.cells.rgc import RGCOutput, RGCPopulationTensors
 from training.hybrid import RetinaTrainingBatch
 from training.stage1 import Stage1Components
 from training.stage1_reporting import baseline_metrics
@@ -27,28 +27,20 @@ class CheckpointMetricsError(RuntimeError):
     pass
 
 
-class PredictionMetrics(TypedDict):
-    model_mse_fine: float
-    model_mse_coarse: float
-    zero_change_mse_fine: float
-    zero_change_mse_coarse: float
-    global_change_mse_fine: float
-    global_change_mse_coarse: float
-    local_ar_mse_fine: float
-    local_ar_mse_coarse: float
-    best_baseline_mse_fine: float
-    best_baseline_mse_coarse: float
-    skill_fine: float
-    skill_coarse: float
+class ReconstructionMetrics(TypedDict):
+    model_mse_current: float
+    zero_contrast_mse_current: float
+    global_mean_mse_current: float
+    local_linear_mse_current: float
+    best_baseline_mse_current: float
+    skill_current: float
 
 
 class BaselineMetrics(TypedDict):
-    zero_change_mse_fine: float
-    zero_change_mse_coarse: float
-    global_change_mse_fine: float
-    global_change_mse_coarse: float
-    local_ar_mse_fine: float
-    local_ar_mse_coarse: float
+    zero_contrast_mse_current: float
+    global_mean_mse_current: float
+    local_linear_mse_current: float
+    best_baseline_mse_current: float
 
 
 class PopulationUsageMetrics(TypedDict):
@@ -60,20 +52,16 @@ class PopulationUsageMetrics(TypedDict):
 
 class PopulationAblationMetrics(TypedDict):
     population: str
-    fine_on_mse: float
-    fine_off_mse: float
-    fine_mse_delta: float
-    fine_contribution_abs: float
-    coarse_on_mse: float
-    coarse_off_mse: float
-    coarse_mse_delta: float
-    coarse_contribution_abs: float
+    current_on_mse: float
+    current_off_mse: float
+    current_mse_delta: float
+    current_contribution_abs: float
 
 
 @dataclass(frozen=True, slots=True)
 class FittedBaselines:
-    global_change: GlobalChangeBaseline
-    local_ar: LocalARBaseline
+    global_mean: GlobalMeanBaseline
+    local_linear: LocalLinearBaseline
     metrics: BaselineMetrics
 
 
@@ -83,29 +71,26 @@ class HeldOutEvaluationRequest:
     loader: DataLoader[RetinaTrainingBatch]
     baselines: FittedBaselines
     device: torch.device
-    probe_sample_count: int
 
 
 @dataclass(frozen=True, slots=True)
 class HeldOutEvaluation:
-    prediction: PredictionMetrics
+    reconstruction: ReconstructionMetrics
     population_usage: tuple[PopulationUsageMetrics, ...]
     population_ablation: tuple[PopulationAblationMetrics, ...]
-    probe_stimuli: torch.Tensor
-    probe_output: RGCOutput
 
 
 def fit_evaluation_baselines(
     train_loader: DataLoader[RetinaTrainingBatch],
     eval_loader: DataLoader[RetinaTrainingBatch],
-    supports: LocalARSupports,
+    support: LocalLinearSupport,
 ) -> FittedBaselines:
-    global_change = fit_global_change_baseline(train_loader)
-    local_ar = fit_local_ar_baseline(train_loader, supports)
-    metrics = baseline_metrics(eval_loader, global_change, local_ar)
+    global_mean = fit_global_mean_baseline(train_loader)
+    local_linear = fit_local_linear_baseline(train_loader, support)
+    metrics = baseline_metrics(eval_loader, global_mean, local_linear)
     return FittedBaselines(
-        global_change=global_change,
-        local_ar=local_ar,
+        global_mean=global_mean,
+        local_linear=local_linear,
         metrics=BaselineMetrics(**metrics),
     )
 
@@ -114,78 +99,59 @@ def evaluate_held_out(request: HeldOutEvaluationRequest) -> HeldOutEvaluation:
     components = request.components
     components.core.eval()
     components.decoder.eval()
-    model_sse = [0.0, 0.0]
-    target_counts = [0, 0]
+    model_sse = 0.0
+    target_weight = 0.0
     usage = {name: [0.0, 0, 0.0, 0] for name in _POPULATION_NAMES}
-    ablation = {name: [0.0] * 6 for name in _POPULATION_NAMES}
-    probe_stimuli: list[torch.Tensor] = []
-    probe_outputs: list[RGCOutput] = []
-    probe_count = 0
+    ablation = {name: [0.0] * 3 for name in _POPULATION_NAMES}
 
     with torch.no_grad():
         for batch in request.loader:
             device_batch = batch_to_device(batch, request.device)
             history, _ = components.core.forward_sequence(device_batch.x_cone)
             final = last_output(history)
-            prediction = components.decoder(final)
-            fine_error = prediction.target_fine - device_batch.targets.fine
-            coarse_error = prediction.target_coarse - device_batch.targets.coarse
-            model_sse[0] += fine_error.square().sum().item()
-            model_sse[1] += coarse_error.square().sum().item()
-            target_counts[0] += fine_error.numel()
-            target_counts[1] += coarse_error.numel()
+            reconstruction = components.decoder(final)
+            current_weight = float(device_batch.targets.target_current.numel())
+            model_sse += float(
+                F.mse_loss(
+                    reconstruction.target_current,
+                    device_batch.targets.target_current,
+                )
+            ) * current_weight
+            target_weight += current_weight
             _accumulate_usage(usage, history)
             _accumulate_ablation(ablation, components, final, device_batch)
-            remaining = request.probe_sample_count - probe_count
-            if remaining > 0:
-                take = min(remaining, device_batch.x_cone.shape[0])
-                probe_stimuli.append(device_batch.x_cone[:take].detach())
-                probe_outputs.append(slice_output(history, take))
-                probe_count += take
 
-    if min(target_counts) == 0 or probe_count == 0:
+    if target_weight <= 0:
         raise CheckpointMetricsError("Held-out loader contains no evaluation samples")
-    model_mse = (model_sse[0] / target_counts[0], model_sse[1] / target_counts[1])
-    prediction_metrics = _prediction_metrics(model_mse, request.baselines.metrics)
+    model_mse = model_sse / target_weight
+    reconstruction_metrics = _reconstruction_metrics(model_mse, request.baselines.metrics)
     return HeldOutEvaluation(
-        prediction=prediction_metrics,
+        reconstruction=reconstruction_metrics,
         population_usage=_usage_metrics(
             usage,
             components.profile.rgc.dt_ms,
         ),
         population_ablation=_ablation_metrics(
             ablation,
-            target_counts,
+            target_weight,
         ),
-        probe_stimuli=torch.cat(probe_stimuli, dim=0),
-        probe_output=concat_outputs(probe_outputs),
     )
 
 
-def _prediction_metrics(
-    model_mse: tuple[float, float],
+def _reconstruction_metrics(
+    model_mse: float,
     baseline: BaselineMetrics,
-) -> PredictionMetrics:
-    best_fine = min(
-        baseline["zero_change_mse_fine"],
-        baseline["global_change_mse_fine"],
-        baseline["local_ar_mse_fine"],
+) -> ReconstructionMetrics:
+    best = min(
+        baseline["zero_contrast_mse_current"],
+        baseline["global_mean_mse_current"],
     )
-    best_coarse = min(
-        baseline["zero_change_mse_coarse"],
-        baseline["global_change_mse_coarse"],
-        baseline["local_ar_mse_coarse"],
-    )
-    if min(best_fine, best_coarse) <= 0:
+    if best <= 0:
         raise CheckpointMetricsError("Best baseline MSE must be positive")
-    return PredictionMetrics(
+    return ReconstructionMetrics(
         **baseline,
-        model_mse_fine=model_mse[0],
-        model_mse_coarse=model_mse[1],
-        best_baseline_mse_fine=best_fine,
-        best_baseline_mse_coarse=best_coarse,
-        skill_fine=1.0 - model_mse[0] / best_fine,
-        skill_coarse=1.0 - model_mse[1] / best_coarse,
+        model_mse_current=model_mse,
+        skill_current=1.0 - model_mse / best,
     )
 
 
@@ -207,22 +173,32 @@ def _accumulate_ablation(
     final: RGCOutput,
     batch: RetinaTrainingBatch,
 ) -> None:
-    fine_count = batch.targets.fine.numel()
-    coarse_count = batch.targets.coarse.numel()
+    weight = float(batch.targets.target_current.numel())
+    on = components.decoder(final).target_current
     for name in _POPULATION_NAMES:
-        report = population_ablation_report(
-            components.decoder,
-            final,
-            name,
-            batch.targets,
-        )
+        off = components.decoder(_zero_population(final, name)).target_current
         values = totals[name]
-        values[0] += report.fine_on_mse * fine_count
-        values[1] += report.fine_off_mse * fine_count
-        values[2] += report.fine_contribution * fine_count
-        values[3] += report.coarse_on_mse * coarse_count
-        values[4] += report.coarse_off_mse * coarse_count
-        values[5] += report.coarse_contribution * coarse_count
+        values[0] += (
+            float(
+                F.mse_loss(
+                    on,
+                    batch.targets.target_current,
+                )
+            )
+            * weight
+        )
+        values[1] += (
+            float(
+                F.mse_loss(
+                    off,
+                    batch.targets.target_current,
+                )
+            )
+            * weight
+        )
+        values[2] += float(
+            (on - off).abs().sum()
+        )
 
 
 def _usage_metrics(
@@ -251,31 +227,26 @@ def _usage_metrics(
 
 def _ablation_metrics(
     totals: dict[str, list[float]],
-    counts: list[int],
+    weight: float,
 ) -> tuple[PopulationAblationMetrics, ...]:
     results = []
     for name in _POPULATION_NAMES:
         values = totals[name]
-        fine = tuple(value / counts[0] for value in values[:3])
-        coarse = tuple(value / counts[1] for value in values[3:])
+        current = tuple(value / weight for value in values)
         results.append(
             PopulationAblationMetrics(
                 population=name,
-                fine_on_mse=fine[0],
-                fine_off_mse=fine[1],
-                fine_mse_delta=fine[1] - fine[0],
-                fine_contribution_abs=fine[2],
-                coarse_on_mse=coarse[0],
-                coarse_off_mse=coarse[1],
-                coarse_mse_delta=coarse[1] - coarse[0],
-                coarse_contribution_abs=coarse[2],
+                current_on_mse=current[0],
+                current_off_mse=current[1],
+                current_mse_delta=current[1] - current[0],
+                current_contribution_abs=current[2],
             )
         )
     return tuple(results)
 
 
-PopulationName = Literal["midget", "parasol", "residual"]
-_POPULATION_NAMES: tuple[PopulationName, ...] = ("midget", "parasol", "residual")
+PopulationName = Literal["midget", "parasol"]
+_POPULATION_NAMES: tuple[PopulationName, ...] = ("midget", "parasol")
 
 
 def _population_tensors(output: RGCOutput) -> tuple[
@@ -284,5 +255,30 @@ def _population_tensors(output: RGCOutput) -> tuple[
     return (
         ("midget", output.spikes.midget, output.rates.midget),
         ("parasol", output.spikes.parasol, output.rates.parasol),
-        ("residual", output.spikes.residual, output.rates.residual),
     )
+
+
+def _zero_population(output: RGCOutput, population: PopulationName) -> RGCOutput:
+    return RGCOutput(
+        spikes=_zero_population_tensors(output.spikes, population),
+        rates=_zero_population_tensors(output.rates, population),
+    )
+
+
+def _zero_population_tensors(
+    tensors: RGCPopulationTensors,
+    population: PopulationName,
+) -> RGCPopulationTensors:
+    match population:
+        case "midget":
+            return RGCPopulationTensors(
+                midget=torch.zeros_like(tensors.midget),
+                parasol=tensors.parasol,
+            )
+        case "parasol":
+            return RGCPopulationTensors(
+                midget=tensors.midget,
+                parasol=torch.zeros_like(tensors.parasol),
+            )
+        case unreachable:
+            assert_never(unreachable)

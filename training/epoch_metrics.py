@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 
 MetricRow = dict[str, str]
-_METADATA_FIELDS = frozenset({"split", "epoch", "step"})
+_METADATA_FIELDS = frozenset({"split", "phase", "phase_epoch", "epoch", "step"})
 
 
 class EpochMetricsError(ValueError):

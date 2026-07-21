@@ -219,6 +219,7 @@ def detach_state(state: RetinaSNNState) -> RetinaSNNState:
             membrane=_detach_populations(rgc.membrane),
             adaptation=_detach_populations(rgc.adaptation),
             rate=_detach_populations(rgc.rate),
+            subunit_energy=rgc.subunit_energy.detach(),
         ),
     )
 
@@ -229,7 +230,6 @@ def _detach_populations(
     return RGCPopulationTensors(
         populations.midget.detach(),
         populations.parasol.detach(),
-        populations.residual.detach(),
     )
 
 
@@ -239,5 +239,4 @@ def _stack_populations(
     return RGCPopulationTensors(
         midget=torch.stack([step.midget for step in history], dim=1),
         parasol=torch.stack([step.parasol for step in history], dim=1),
-        residual=torch.stack([step.residual for step in history], dim=1),
     )

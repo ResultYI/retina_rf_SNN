@@ -121,22 +121,22 @@ def load_cone_response(path: str | Path) -> ConeResponseExport:
     )
 
 
-def validate_natural_video_splits(
+def validate_formal_stimulus_splits(
     train: Sequence[ConeResponseExport],
     validation: Sequence[ConeResponseExport],
     test: Sequence[ConeResponseExport] = (),
 ) -> None:
     split_ids = (
-        _natural_video_source_ids("train", train),
-        _natural_video_source_ids("validation", validation),
-        _natural_video_source_ids("test", test),
+        _formal_source_ids("train", train),
+        _formal_source_ids("validation", validation),
+        _formal_source_ids("test", test),
     )
     if (
         split_ids[0] & split_ids[1]
         or split_ids[0] & split_ids[2]
         or split_ids[1] & split_ids[2]
     ):
-        raise DataContractError("Natural-video splits must be source-disjoint")
+        raise DataContractError("Formal stimulus splits must be source-disjoint")
 
 
 def validate_response(response: np.ndarray) -> np.ndarray:
@@ -179,21 +179,33 @@ def _optional_attribute_text(handle: h5py.File, name: str) -> str | None:
     return None if value.size == 0 else str(value[0])
 
 
-def _natural_video_source_ids(
+def _formal_source_ids(
     split_name: str,
     exports: Sequence[ConeResponseExport],
 ) -> set[str]:
     source_ids: set[str] = set()
     for export in exports:
-        if export.stimulus_source_kind != "natural_video":
+        source_kind = export.stimulus_source_kind
+        if source_kind == "natural_video":
+            source_id = export.source_movie_id
+        elif source_kind in {
+            "natural_image_microdrift",
+            "natural_image_fixational_eye_movement",
+        }:
+            source_id = export.source_id
+            if np.all(np.ptp(export.eye_trace_degs, axis=0) <= 0):
+                raise DataContractError(
+                    f"{split_name} natural-image export needs a non-static eye trace"
+                )
+        else:
             raise DataContractError(
-                f"{split_name} export must declare stimulus_source_kind=natural_video"
+                f"{split_name} export must declare a supported natural stimulus kind"
             )
-        if not export.source_movie_id:
+        if not source_id:
             raise DataContractError(
-                f"{split_name} natural_video export needs source_movie_id"
+                f"{split_name} formal export needs a stable source id"
             )
-        source_ids.add(export.source_movie_id)
+        source_ids.add(source_id)
     return source_ids
 
 

@@ -5,14 +5,13 @@ from enum import StrEnum
 from typing import assert_never
 
 import torch
+from torch import nn
 from torch.nn.utils import clip_grad_norm_
 
 from loss.retina import RetinaLosses, RetinaObjective
-from models.cells.rgc import RGCOutput, RGCPopulationTensors
 from models.decoder.local_decoder import (
     LocalDecoder,
     LocalDecoderDiagnostics,
-    LocalDecoderOutput,
 )
 from models.retina_snn import (
     RetinaSNNCore,
@@ -33,8 +32,7 @@ class TrainingStage(StrEnum):
 
 @dataclass(frozen=True, slots=True)
 class RetinaTargets:
-    fine: torch.Tensor
-    coarse: torch.Tensor
+    target_current: torch.Tensor
 
 
 @dataclass(frozen=True, slots=True)
@@ -86,6 +84,7 @@ class HybridRetinaTrainer:
     ) -> TrainingStepResult:
         self.core.train()
         self.decoder.train()
+        _set_phase_requires_grad(self.core, self.decoder, self.optimizer, stage)
         x_cone = batch.x_cone
         if x_cone.ndim != 3 or x_cone.shape[1] < 1:
             raise HybridTrainingError("x_cone must have shape [batch,time,Ncone]")
@@ -121,16 +120,14 @@ class HybridRetinaTrainer:
             case unreachable:
                 assert_never(unreachable)
 
-        final_rgc = _last_rgc_output(rgc_history)
-        prediction, decoder_diagnostics = self.decoder(
-            final_rgc,
+        reconstruction, decoder_diagnostics = self.decoder(
+            rgc_history,
             return_diagnostics=True,
         )
         losses = self.objective(
-            prediction,
+            reconstruction,
             batch.targets,
             rgc_history,
-            self.decoder.residual_weight_penalty(),
         )
         losses.total.backward()
         if self.config.grad_clip_norm is not None:
@@ -166,15 +163,14 @@ class HybridRetinaTrainer:
             state,
             return_diagnostics=True,
         )
-        prediction, decoder_diagnostics = self.decoder(
-            _last_rgc_output(rgc_history),
+        reconstruction, decoder_diagnostics = self.decoder(
+            rgc_history,
             return_diagnostics=True,
         )
         losses = self.objective(
-            prediction,
+            reconstruction,
             batch.targets,
             rgc_history,
-            self.decoder.residual_weight_penalty(),
         )
         return TrainingStepResult(
             losses=losses.detached(),
@@ -184,18 +180,37 @@ class HybridRetinaTrainer:
         )
 
 
-def _last_rgc_output(history: RGCOutput) -> RGCOutput:
-    return RGCOutput(
-        spikes=_last_populations(history.spikes),
-        rates=_last_populations(history.rates),
-    )
+def _set_phase_requires_grad(
+    core: RetinaSNNCore,
+    decoder: LocalDecoder,
+    optimizer: torch.optim.Optimizer,
+    stage: TrainingStage,
+) -> None:
+    match stage:
+        case TrainingStage.DECODER_WARMUP:
+            _set_requires_grad(core, False)
+            _set_requires_grad(decoder, True)
+        case TrainingStage.CORE_FINETUNE:
+            _set_requires_grad(core, True)
+            decoder.set_spatial_calibration_trainable()
+            _set_decoder_calibration_lr(optimizer)
+        case unreachable:
+            assert_never(unreachable)
 
 
-def _last_populations(
-    populations: RGCPopulationTensors,
-) -> RGCPopulationTensors:
-    return RGCPopulationTensors(
-        midget=populations.midget[:, -1],
-        parasol=populations.parasol[:, -1],
-        residual=populations.residual[:, -1],
+def _set_requires_grad(module: nn.Module, enabled: bool) -> None:
+    for parameter in module.parameters():
+        parameter.requires_grad_(enabled)
+
+
+def _set_decoder_calibration_lr(optimizer: torch.optim.Optimizer) -> None:
+    core_group = next(
+        (group for group in optimizer.param_groups if group.get("name") == "core"),
+        None,
     )
+    decoder_group = next(
+        (group for group in optimizer.param_groups if group.get("name") == "decoder"),
+        None,
+    )
+    if core_group is not None and decoder_group is not None:
+        decoder_group["lr"] = min(core_group["lr"], decoder_group["lr"])
