@@ -47,6 +47,7 @@ def human_macaque(
     dt_ms: float,
     cone_spacing_deg: float,
     eccentricity_deg: float,
+    debug_checks: bool = True,
 ) -> PhysiologyProfile:
     if not math.isfinite(dt_ms) or dt_ms <= 0:
         raise PhysiologyProfileError("dt_ms must be positive and finite")
@@ -71,6 +72,7 @@ def human_macaque(
             tau_max_ms=200.0,
             initial_gain=0.01,
             gain_max=0.20,
+            debug_checks=debug_checks,
         ),
         bipolar=BipolarConfig(
             dt_ms=dt_ms,
@@ -95,6 +97,7 @@ def human_macaque(
             initial_rectifier_softness=0.05,
             rectifier_softness_min=0.01,
             rectifier_softness_max=0.50,
+            debug_checks=debug_checks,
         ),
         amacrine=LocalAmacrineConfig(
             radius_degs=3.60 * cone_spacing_deg,
@@ -110,6 +113,7 @@ def human_macaque(
             g_ba_sustained_max=0.30,
             initial_g_ba_transient=0.05,
             g_ba_transient_max=0.50,
+            debug_checks=debug_checks,
         ),
     )
 
@@ -120,4 +124,3 @@ __all__ = [
     "dt_ms_from_time_axis_seconds",
     "human_macaque",
 ]
-

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 import sys
 from dataclasses import asdict
 from pathlib import Path
@@ -16,24 +15,28 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from configs.physiology_profiles import human_macaque
-from evaluation.dynamic_rf import build_matched_context_pairs, evaluate_dynamic_rf
+from evaluation.dynamic_rf import (
+    build_matched_context_pairs,
+    evaluate_dynamic_rf,
+    select_dynamic_rf_units,
+)
+from evaluation.dynamic_rf_summary import (
+    compare_dynamic_rf,
+    not_run_dynamic_rf_summary,
+)
 from evaluation.parameter_audit import audit_parameters
 from evaluation.reconstruction import (
     ReconstructionMetrics,
-    fit_reconstruction_scale,
+    fit_augmented_reconstruction_scale,
     reconstruction_metrics,
 )
-from evaluation.reporting import (
-    classify_dynamic_rf,
-    summarize_evaluation,
-    write_evaluation_report,
-)
+from evaluation.reporting import summarize_evaluation, write_evaluation_report
 from evaluation.rgc_types import identify_rgc_types
 from evaluation.temporal_probes import run_temporal_probes
 from loss.retina import RetinaObjective
 from models.cells.rgc_types import RGCConfig, RGCOutput
 from models.decoder.local_decoder import TiedLocalDecoder
-from models.retina_snn import build_retina_model
+from models.retina_snn import RetinaModel, build_retina_model
 from training.checkpointing import load_checkpoint, save_checkpoint
 from training.config import ExperimentConfig, load_config
 from training.data import (
@@ -56,34 +59,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     _seed_everything(config.seed)
     device = torch.device(args.device)
     prepared = prepare_data(config.data)
-    spacing = _median_nearest_spacing(prepared.positions_degs)
-    profile = human_macaque(
-        dt_ms=prepared.dt_ms,
-        cone_spacing_deg=spacing,
-        eccentricity_deg=prepared.eccentricity_deg,
-    )
-    model_config = config.model
-    rgc_config = RGCConfig(
-        units_per_center=model_config.units_per_center,
-        support_radius_degs=model_config.support_radius_spacing_multiplier * spacing,
-        sigma_min_degs=model_config.sigma_min_spacing_multiplier * spacing,
-        sigma_initial_degs=model_config.sigma_initial_spacing_multiplier * spacing,
-        sigma_max_degs=model_config.sigma_max_spacing_multiplier * spacing,
-        dt_ms=prepared.dt_ms,
-        readout_rate_tau_ms=model_config.readout_rate_tau_ms,
-        max_tau_ms=model_config.max_tau_ms,
-        surrogate_slope=model_config.surrogate_slope,
-        adaptation_gain_max=model_config.adaptation_gain_max,
-        amacrine_gain_max=model_config.amacrine_gain_max,
-        subunit_gain_max=model_config.subunit_gain_max,
-        initialization_seed=config.seed,
-    )
-    model = build_retina_model(prepared.positions_degs, profile, rgc_config).to(device)
-    decoder = TiedLocalDecoder(
-        model.rgc.unit_count,
-        prepared.positions_degs.shape[0],
-        model_config.decoder_gain_max,
-    ).to(device)
+    model, decoder = _build_network(config, prepared, device)
+    output_dir = Path(args.output)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    initial_reference = _ensure_initial_reference(output_dir, model, config)
     objective = RetinaObjective(
         rho_energy=config.objective.rho_energy,
         variance_floor=config.objective.variance_floor,
@@ -95,7 +74,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         decoder,
         objective,
         config,
-        fit_reconstruction_scale(prepared.train),
+        fit_augmented_reconstruction_scale(
+            prepared.train,
+            config.data,
+            seed=config.seed + 3,
+        ),
     )
     sampling_generator = torch.Generator().manual_seed(config.seed + 1)
     augmentation_generator = torch.Generator().manual_seed(config.seed + 2)
@@ -105,8 +88,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             raise ExperimentError("Resume configuration does not match checkpoint")
         trainer.restore(payload, sampling_generator, augmentation_generator)
 
-    output_dir = Path(args.output)
-    output_dir.mkdir(parents=True, exist_ok=True)
     validation = fixed_validation_clips(
         prepared.validation, config.data, config.seed + 10_000, device
     )
@@ -129,17 +110,19 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
         result = trainer.train_optimizer_step(batch)
         if trainer.optimizer_step % config.training.validation_interval_steps == 0:
-            reconstruction, _, energy_ratio = _evaluate_validation(
+            reconstruction, _, target_energy_ratio = _evaluate_validation(
                 trainer, validation, prepared, config
             )
             best_reconstruction, best_feasible = trainer.record_validation(
-                reconstruction.mse, energy_ratio
+                trainer.optimizer_step,
+                reconstruction.mse,
+                target_energy_ratio,
             )
             metrics = {
                 **result.metrics,
                 "validation_mse": reconstruction.mse,
                 "validation_representation_skill": reconstruction.representation_skill,
-                "validation_energy_budget_ratio": energy_ratio,
+                "validation_target_energy_ratio": target_energy_ratio or 0.0,
             }
             _write_training_row(output_dir, trainer.optimizer_step, metrics)
             payload = trainer.checkpoint_payload(
@@ -166,7 +149,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         sampling_generator,
         augmentation_generator,
     )
-    reconstruction, output, energy_ratio = _evaluate_validation(
+    reconstruction, output, target_energy_ratio = _evaluate_validation(
         trainer, validation, prepared, config
     )
     representation_passed = (
@@ -174,44 +157,171 @@ def main(argv: Sequence[str] | None = None) -> int:
         >= config.evaluation.minimum_representation_skill
     )
     energy_passed = (
-        energy_ratio <= config.evaluation.maximum_energy_budget_ratio
+        trainer.optimizer_step >= config.training.budget_ramp_end_step
+        and target_energy_ratio is not None
+        and target_energy_ratio <= config.evaluation.maximum_energy_budget_ratio
     )
+    initialized_model, initialized_decoder = _build_network(config, prepared, device)
+    initialized_model.load_state_dict(initial_reference["model_state"])
     if representation_passed and energy_passed:
         pairs = build_matched_context_pairs(
             prepared.validation, config.data, config.evaluation
         )
-        dynamic_rf = evaluate_dynamic_rf(
-            model, pairs, config.evaluation, dt_ms=prepared.dt_ms
+        selection_plan = select_dynamic_rf_units(model, pairs, config.evaluation)
+        trained_dynamic_rf = evaluate_dynamic_rf(
+            model,
+            pairs,
+            config.evaluation,
+            dt_ms=prepared.dt_ms,
+            selection_plan=selection_plan,
+        )
+        initialized_dynamic_rf = evaluate_dynamic_rf(
+            initialized_model,
+            pairs,
+            config.evaluation,
+            dt_ms=prepared.dt_ms,
+            selection_plan=selection_plan,
         )
         probes = run_temporal_probes(
             model,
             _training_mean(prepared),
+            sequence_steps=config.data.sequence_steps,
+            onset_step=(
+                config.training.burn_in_steps + config.training.context_only_steps
+            ),
+            dt_ms=prepared.dt_ms,
+        )
+        initialized_probes = run_temporal_probes(
+            initialized_model,
+            _training_mean(prepared),
+            sequence_steps=config.data.sequence_steps,
+            onset_step=(
+                config.training.burn_in_steps + config.training.context_only_steps
+            ),
             dt_ms=prepared.dt_ms,
         )
         type_report = identify_rgc_types(
-            model.rgc, output, probes=probes, seed=config.seed
+            model.rgc,
+            output,
+            probes=probes,
+            initialized_rgc=initialized_model.rgc,
+            initialized_probes=initialized_probes,
+            config=config.evaluation,
+            seed=config.seed,
         )
-        dynamic_rf_status = classify_dynamic_rf(dynamic_rf)
-        rgc_type_status = type_report.status
+        dynamic_rf_summary, dynamic_rf_sources = compare_dynamic_rf(
+            trained_dynamic_rf,
+            initialized_dynamic_rf,
+            config.evaluation,
+            seed=config.seed,
+        )
     else:
-        dynamic_rf = ()
+        selection_plan = ()
+        trained_dynamic_rf = ()
+        initialized_dynamic_rf = ()
+        dynamic_rf_sources = ()
+        dynamic_rf_summary = not_run_dynamic_rf_summary()
         type_report = None
-        dynamic_rf_status = "not_run"
-        rgc_type_status = "not_run: representation or energy gate failed"
     summary = summarize_evaluation(
         reconstruction,
-        energy_ratio,
-        dynamic_rf,
+        target_energy_ratio,
+        trained_dynamic_rf,
         config,
-        dynamic_rf_status=dynamic_rf_status,
-        rgc_type_status=rgc_type_status,
+        dynamic_rf_status=dynamic_rf_summary.status,
+        rgc_type_status=type_report.status if type_report is not None else "not_run",
+        budget_ramp_complete=(
+            trainer.optimizer_step >= config.training.budget_ramp_end_step
+        ),
     )
-    write_evaluation_report(output_dir, summary, dynamic_rf, type_report, config)
-    audit = [asdict(entry) for entry in audit_parameters(model, decoder)]
+    write_evaluation_report(
+        output_dir,
+        summary,
+        trained_dynamic_rf,
+        initialized_dynamic_rf,
+        selection_plan,
+        dynamic_rf_summary,
+        dynamic_rf_sources,
+        type_report,
+        config,
+    )
+    audit = [
+        asdict(entry)
+        for entry in audit_parameters(
+            model,
+            decoder,
+            initialized_model=initialized_model,
+            initialized_decoder=initialized_decoder,
+        )
+    ]
     (output_dir / "parameter_audit.json").write_text(
         json.dumps(audit, indent=2), encoding="utf-8"
     )
     return 0
+
+
+def _build_network(
+    config: ExperimentConfig,
+    prepared: PreparedData,
+    device: torch.device,
+) -> tuple[RetinaModel, TiedLocalDecoder]:
+    spacing = _median_nearest_spacing(prepared.positions_degs)
+    model_config = config.model
+    profile = human_macaque(
+        dt_ms=prepared.dt_ms,
+        cone_spacing_deg=spacing,
+        eccentricity_deg=prepared.eccentricity_deg,
+        debug_checks=model_config.debug_checks,
+    )
+    rgc_config = RGCConfig(
+        units_per_center=model_config.units_per_center,
+        support_radius_degs=model_config.support_radius_spacing_multiplier * spacing,
+        sigma_min_degs=model_config.sigma_min_spacing_multiplier * spacing,
+        sigma_initial_degs=model_config.sigma_initial_spacing_multiplier * spacing,
+        sigma_max_degs=model_config.sigma_max_spacing_multiplier * spacing,
+        dt_ms=prepared.dt_ms,
+        readout_rate_tau_ms=model_config.readout_rate_tau_ms,
+        max_tau_ms=model_config.max_tau_ms,
+        surrogate_slope=model_config.surrogate_slope,
+        adaptation_gain_max=model_config.adaptation_gain_max,
+        amacrine_gain_max=model_config.amacrine_gain_max,
+        subunit_gain_max=model_config.subunit_gain_max,
+        initialization_seed=config.seed,
+        debug_checks=model_config.debug_checks,
+    )
+    model = build_retina_model(prepared.positions_degs, profile, rgc_config).to(device)
+    decoder = TiedLocalDecoder(
+        model.rgc.unit_count,
+        prepared.positions_degs.shape[0],
+        model_config.decoder_gain_max,
+    ).to(device)
+    return model, decoder
+
+
+def _ensure_initial_reference(
+    output_dir: Path,
+    model: RetinaModel,
+    config: ExperimentConfig,
+) -> dict[str, object]:
+    path = output_dir / "initial_reference.pt"
+    if path.exists():
+        payload = torch.load(path, map_location="cpu", weights_only=False)
+        if not isinstance(payload, dict) or payload.get("schema") != "retina_rf_snn_initial_reference":
+            raise ExperimentError("Initial reference schema is incompatible")
+        if payload.get("resolved_config") != config.resolved():
+            raise ExperimentError("Initial reference configuration does not match")
+        if not isinstance(payload.get("model_state"), dict):
+            raise ExperimentError("Initial reference model state is missing")
+        return payload
+    payload: dict[str, object] = {
+        "schema": "retina_rf_snn_initial_reference",
+        "resolved_config": config.resolved(),
+        "model_state": {
+            name: tensor.detach().cpu().clone()
+            for name, tensor in model.state_dict().items()
+        },
+    }
+    torch.save(payload, path)
+    return payload
 
 
 @torch.no_grad()
@@ -220,7 +330,7 @@ def _evaluate_validation(
     clips: Sequence[AugmentedClip],
     prepared: PreparedData,
     config: ExperimentConfig,
-) -> tuple[ReconstructionMetrics, RGCOutput, float]:
+) -> tuple[ReconstructionMetrics, RGCOutput, float | None]:
     trainer.model.eval()
     trainer.decoder.eval()
     predictions: list[torch.Tensor] = []
@@ -248,13 +358,13 @@ def _evaluate_validation(
         prediction.device, prediction.dtype
     )
     metrics = reconstruction_metrics(prediction, target, train_mean)
-    energy_budget = trainer.energy_state.budget
-    energy_ratio = (
-        float(np.mean(energies)) / energy_budget
-        if energy_budget is not None
-        else math.inf
+    target_budget = trainer.energy_state.target_budget
+    target_energy_ratio = (
+        float(np.mean(energies)) / target_budget
+        if target_budget is not None
+        else None
     )
-    return metrics, _concatenate_outputs(outputs), energy_ratio
+    return metrics, _concatenate_outputs(outputs), target_energy_ratio
 
 
 def _concatenate_outputs(outputs: Sequence[RGCOutput]) -> RGCOutput:

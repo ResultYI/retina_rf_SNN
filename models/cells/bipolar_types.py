@@ -73,6 +73,7 @@ class BipolarConfig:
     initial_rectifier_softness: float = 0.05
     rectifier_softness_min: float = 0.01
     rectifier_softness_max: float = 0.50
+    debug_checks: bool = True
 
     def __post_init__(self) -> None:
         values = (

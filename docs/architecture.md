@@ -33,4 +33,4 @@ The sole objective is defined in `loss/retina.py`. It supervises clean current c
 
 ## Post-training interpretation
 
-RGC typing is evaluation-only. Per-unit spatial, independent impulse/step/flicker temporal, adaptation, inhibition, rate, and activity features are standardized and clustered with a dependency-free two-cluster k-means. Candidate physiological names are emitted only after cluster-quality gates and preregistered between-cluster relationships both hold.
+RGC typing is evaluation-only. Its primary feature space contains only effective spatial radius, impulse time-to-peak, impulse width, step sustained index, and normalized flicker response. Hard activity is an eligibility and quality signal, not a clustering coordinate. The same probes and eligibility rules are applied to the saved initialization and trained model. Candidate physiological names require cluster-quality gates, preregistered radius/sustained/flicker relationships, and trained separation beyond initialization-level separation.

@@ -38,6 +38,7 @@ class ModelConfig:
     adaptation_gain_max: float
     amacrine_gain_max: float
     subunit_gain_max: float
+    debug_checks: bool
 
 
 @dataclass(frozen=True, slots=True)
@@ -79,6 +80,21 @@ class EvaluationConfig:
     minimum_representation_skill: float
     maximum_energy_budget_ratio: float
     local_linear_baseline: str
+    dynamic_rf_fd_max_relative_error: float
+    dynamic_rf_kernel_norm_min: float
+    dynamic_rf_reset_error_max: float
+    dynamic_rf_min_valid_sources: int
+    dynamic_rf_shape_distance_min: float
+    dynamic_rf_gain_log_shift_min: float
+    dynamic_rf_recovery_fraction_max: float
+    dynamic_rf_bootstrap_iterations: int
+    rgc_min_cluster_fraction: float
+    rgc_min_silhouette: float
+    rgc_min_relative_radius_difference: float
+    rgc_min_sustained_difference: float
+    rgc_min_flicker_difference: float
+    rgc_min_trained_to_initial_separation_ratio: float
+    rgc_min_absolute_separation_gain: float
 
 
 @dataclass(frozen=True, slots=True)
@@ -132,6 +148,21 @@ class ExperimentConfig:
             self.evaluation.dynamic_rf_max_sources,
             self.evaluation.dynamic_rf_units_per_polarity,
             self.evaluation.dynamic_rf_lag_steps,
+            self.evaluation.dynamic_rf_fd_max_relative_error,
+            self.evaluation.dynamic_rf_kernel_norm_min,
+            self.evaluation.dynamic_rf_reset_error_max,
+            self.evaluation.dynamic_rf_min_valid_sources,
+            self.evaluation.dynamic_rf_shape_distance_min,
+            self.evaluation.dynamic_rf_gain_log_shift_min,
+            self.evaluation.dynamic_rf_recovery_fraction_max,
+            self.evaluation.dynamic_rf_bootstrap_iterations,
+            self.evaluation.rgc_min_cluster_fraction,
+            self.evaluation.rgc_min_silhouette,
+            self.evaluation.rgc_min_relative_radius_difference,
+            self.evaluation.rgc_min_sustained_difference,
+            self.evaluation.rgc_min_flicker_difference,
+            self.evaluation.rgc_min_trained_to_initial_separation_ratio,
+            self.evaluation.rgc_min_absolute_separation_gain,
         )
         if not all(math.isfinite(float(value)) and value > 0 for value in positive_values):
             raise ConfigurationError("positive configuration values are invalid")

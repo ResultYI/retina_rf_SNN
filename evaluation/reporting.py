@@ -7,7 +7,11 @@ from typing import Any, Sequence
 
 import numpy as np
 
-from evaluation.dynamic_rf import DynamicRFUnitResult
+from evaluation.dynamic_rf import DynamicRFSelection, DynamicRFUnitResult
+from evaluation.dynamic_rf_summary import (
+    DynamicRFComparisonSummary,
+    DynamicRFSourceSummary,
+)
 from evaluation.reconstruction import ReconstructionMetrics
 from evaluation.rgc_types import FEATURE_NAMES, RGCTypeReport
 from training.config import ExperimentConfig
@@ -17,8 +21,9 @@ from training.config import ExperimentConfig
 class EvaluationSummary:
     representation_passed: bool
     energy_passed: bool
+    energy_status: str
     reconstruction: ReconstructionMetrics
-    energy_budget_ratio: float
+    target_energy_ratio: float | None
     dynamic_rf_units: int
     dynamic_rf_status: str
     rgc_type_status: str
@@ -26,23 +31,32 @@ class EvaluationSummary:
 
 def summarize_evaluation(
     reconstruction: ReconstructionMetrics,
-    energy_budget_ratio: float,
+    target_energy_ratio: float | None,
     dynamic_rf: Sequence[DynamicRFUnitResult],
     config: ExperimentConfig,
     *,
     dynamic_rf_status: str,
     rgc_type_status: str,
+    budget_ramp_complete: bool,
 ) -> EvaluationSummary:
+    energy_passed = bool(
+        budget_ramp_complete
+        and target_energy_ratio is not None
+        and target_energy_ratio <= config.evaluation.maximum_energy_budget_ratio
+    )
     return EvaluationSummary(
         representation_passed=(
             reconstruction.representation_skill
             >= config.evaluation.minimum_representation_skill
         ),
-        energy_passed=(
-            energy_budget_ratio <= config.evaluation.maximum_energy_budget_ratio
+        energy_passed=energy_passed,
+        energy_status=(
+            "not_identifiable"
+            if target_energy_ratio is None
+            else "passed" if energy_passed else "failed"
         ),
         reconstruction=reconstruction,
-        energy_budget_ratio=energy_budget_ratio,
+        target_energy_ratio=target_energy_ratio,
         dynamic_rf_units=len(dynamic_rf),
         dynamic_rf_status=dynamic_rf_status,
         rgc_type_status=rgc_type_status,
@@ -52,7 +66,11 @@ def summarize_evaluation(
 def write_evaluation_report(
     output_dir: str | Path,
     summary: EvaluationSummary,
-    dynamic_rf: Sequence[DynamicRFUnitResult],
+    trained_dynamic_rf: Sequence[DynamicRFUnitResult],
+    initialized_dynamic_rf: Sequence[DynamicRFUnitResult],
+    dynamic_rf_selection: Sequence[DynamicRFSelection],
+    dynamic_rf_comparison: DynamicRFComparisonSummary,
+    dynamic_rf_sources: Sequence[DynamicRFSourceSummary],
     rgc_types: RGCTypeReport | None,
     config: ExperimentConfig,
 ) -> None:
@@ -61,8 +79,11 @@ def write_evaluation_report(
     payload: dict[str, Any] = {
         "summary": asdict(summary),
         "dynamic_rf": {
-            "status": summary.dynamic_rf_status,
-            "units": [asdict(row) for row in dynamic_rf],
+            "selection": [asdict(selection) for selection in dynamic_rf_selection],
+            "comparison": asdict(dynamic_rf_comparison),
+            "sources": [asdict(source) for source in dynamic_rf_sources],
+            "trained_units": [asdict(row) for row in trained_dynamic_rf],
+            "initialized_units": [asdict(row) for row in initialized_dynamic_rf],
         },
         "rgc_types": (
             {"status": summary.rgc_type_status}
@@ -74,13 +95,18 @@ def write_evaluation_report(
     }
     with (destination / "evaluation.json").open("w", encoding="utf-8") as handle:
         json.dump(payload, handle, ensure_ascii=False, indent=2, default=_json_default)
+    ratio = (
+        "not_identifiable"
+        if summary.target_energy_ratio is None
+        else f"{summary.target_energy_ratio:.6f}"
+    )
     lines = [
         "# Retina RF SNN evaluation",
         "",
         f"- Representation skill: {summary.reconstruction.representation_skill:.6f}",
         f"- Representation gate: {summary.representation_passed}",
-        f"- Energy budget ratio: {summary.energy_budget_ratio:.6f}",
-        f"- Energy gate: {summary.energy_passed}",
+        f"- Target energy ratio: {ratio}",
+        f"- Energy gate: {summary.energy_status}",
         f"- Dynamic RF unit records: {summary.dynamic_rf_units}",
         f"- Dynamic RF status: {summary.dynamic_rf_status}",
         f"- RGC type status: {summary.rgc_type_status}",
@@ -96,34 +122,8 @@ def _json_default(value: Any) -> Any:
     raise TypeError(f"Unsupported JSON value: {type(value).__name__}")
 
 
-def classify_dynamic_rf(dynamic_rf: Sequence[DynamicRFUnitResult]) -> str:
-    if not dynamic_rf:
-        return "not_identifiable"
-    if all(
-        row.finite_difference.status == "threshold_crossing_not_local"
-        for row in dynamic_rf
-    ):
-        return "not_identifiable"
-    shape_shift = float(
-        np.median([row.gain_normalized_cosine_distance for row in dynamic_rf])
-    )
-    gain_shift = float(
-        np.median(
-            [abs(np.log(max(row.kernel_norm_ratio, 1e-12))) for row in dynamic_rf]
-        )
-    )
-    if not np.isfinite(shape_shift) or not np.isfinite(gain_shift):
-        return "not_identifiable"
-    if shape_shift >= 0.05:
-        return "supported"
-    if gain_shift >= 0.05:
-        return "gain_only"
-    return "not_supported"
-
-
 __all__ = [
     "EvaluationSummary",
-    "classify_dynamic_rf",
     "summarize_evaluation",
     "write_evaluation_report",
 ]

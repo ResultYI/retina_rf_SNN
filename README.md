@@ -30,17 +30,17 @@ The training contract uses 320 time steps: 64 no-gradient burn-in steps followed
 
 The objective combines current reconstruction, an augmented-Lagrangian spike-energy inequality, wiring cost, unit variance floor, same-center phenotype repulsion, and rate homeostasis. All components live in [`loss/retina.py`](loss/retina.py).
 
-Dynamic receptive fields use matched low/high contexts from the same source clip and an identical final probe. Jacobians and finite differences use the same continuous spike-probability readout. A finite-difference comparison is marked `threshold_crossing_not_local` only when the perturbation changes the target unit's hard events. Dynamic RF and temporal cell-type probes run only after reconstruction and energy gates pass.
+Dynamic receptive fields use matched low/high contexts from the same source clip and an identical final probe. The trained model selects one shared unit plan that is reused by the saved initialization reference. Evidence is aggregated within source before a paired source-level bootstrap comparison. Jacobians and finite differences use the same continuous spike-probability readout, and temporal RGC typing uses only effective radius plus impulse, step, and flicker responses. Dynamic RF and typing run only after reconstruction and the fixed target-energy gate pass.
 
 ## Checkpoints
 
 The active schema is:
 
 ```json
-{"schema": "retina_rf_snn", "schema_revision": 2}
+{"schema": "retina_rf_snn", "schema_revision": 3}
 ```
 
-Revision 2 checkpoints preserve independent source-sampling and augmentation RNG state, validation state, energy state, optimizer, and scheduler. Training writes `checkpoint_last.pt`, `checkpoint_best_reconstruction.pt`, and, once the energy constraint is active, `checkpoint_best_feasible.pt`. Final evaluation selects the best feasible checkpoint first.
+Revision 3 checkpoints preserve independent source-sampling and augmentation RNG state, validation state, the frozen reference and target energy budgets, optimizer, and scheduler. Revision 2 is intentionally incompatible. Training also writes one `initial_reference.pt` beside the checkpoints so final evidence can compare trained behavior with the exact deterministic initialization. A checkpoint becomes energy-feasible only after the budget ramp ends, and final evaluation uses hard validation energy divided by the fixed target budget.
 
 ## Static and runtime checks
 

@@ -25,6 +25,7 @@ class RGCConfig:
     amacrine_gain_max: float = 1.0
     subunit_gain_max: float = 3.0
     initialization_seed: int = 0
+    debug_checks: bool = True
 
     def __post_init__(self) -> None:
         values = (

@@ -93,6 +93,7 @@ class BipolarLayer(nn.Module):
         self._rectifier_softness_bounds = (
             config.rectifier_softness_min, config.rectifier_softness_max
         )
+        self._debug_checks = config.debug_checks
 
     @property
     def tau_ms(self) -> torch.Tensor:
@@ -162,6 +163,8 @@ class BipolarLayer(nn.Module):
             raise BipolarConfigurationError(
                 "modulated_drive must have shape [batch,Ncone]"
             )
+        if self._debug_checks and not torch.isfinite(modulated_drive).all():
+            raise BipolarConfigurationError("modulated_drive must be finite")
 
         gain = self.polarity_gain
         threshold = self.polarity_threshold
@@ -189,6 +192,11 @@ class BipolarLayer(nn.Module):
             raise BipolarConfigurationError(
                 "Bipolar state output/baseline shapes are invalid"
             )
+        if self._debug_checks and (
+            not torch.isfinite(state.output).all()
+            or not torch.isfinite(state.transient_baseline).all()
+        ):
+            raise BipolarConfigurationError("Bipolar state must be finite")
         transient_drive = smooth_rectify(
             private_drive - state.transient_baseline,
             self.rectifier_softness,
@@ -200,6 +208,8 @@ class BipolarLayer(nn.Module):
             raise BipolarConfigurationError(
                 "Amacrine previous state must have shape [batch,2,2,Ncone]"
             )
+        if self._debug_checks and not torch.isfinite(amacrine_prev).all():
+            raise BipolarConfigurationError("Amacrine previous state must be finite")
 
         tau_ms = self.tau_ms
         leak_values = torch.exp(-self._dt_ms / tau_ms)

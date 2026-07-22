@@ -122,6 +122,7 @@ class HeterogeneousRGCPool(nn.Module):
         self._subunit_gain_max = config.subunit_gain_max
         self._dt_ms = config.dt_ms
         self._surrogate_slope = config.surrogate_slope
+        self._debug_checks = config.debug_checks
         self.register_buffer(
             "initial_phenotype_features", self.phenotype_features().detach().clone()
         )
@@ -240,10 +241,26 @@ class HeterogeneousRGCPool(nn.Module):
             raise RGCConfigurationError("RGC inputs must have shape [batch,2,2,Ncone]")
         if spatial_weights.shape != (self.unit_count, self.cone_positions_degs.shape[0]):
             raise RGCConfigurationError("spatial_weights must have shape [unit,cone]")
+        if self._debug_checks and (
+            not torch.isfinite(bipolar_output).all()
+            or not torch.isfinite(amacrine_output).all()
+            or not torch.isfinite(spatial_weights).all()
+        ):
+            raise RGCConfigurationError("RGC inputs must be finite")
         if previous is None:
             previous = self.initial_state(
                 bipolar_output.shape[0], bipolar_output.device, bipolar_output.dtype
             )
+        if self._debug_checks and not all(
+            torch.isfinite(value).all()
+            for value in (
+                previous.membrane,
+                previous.adaptation,
+                previous.rate,
+                previous.subunit_energy,
+            )
+        ):
+            raise RGCConfigurationError("RGC state must be finite")
 
         pooled_bipolar = torch.einsum("uc,bpkc->bpku", spatial_weights, bipolar_output)
         pooled_amacrine = torch.einsum("uc,bpkc->bpku", spatial_weights, amacrine_output)

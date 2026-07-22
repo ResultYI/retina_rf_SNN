@@ -23,6 +23,7 @@ model:
   adaptation_gain_max: 1.0
   amacrine_gain_max: 1.0
   subunit_gain_max: 3.0
+  debug_checks: false
 
 training:
   burn_in_steps: 64
@@ -58,3 +59,18 @@ evaluation:
   minimum_representation_skill: 0.25
   maximum_energy_budget_ratio: 1.05
   local_linear_baseline: disabled
+  dynamic_rf_fd_max_relative_error: 0.20
+  dynamic_rf_kernel_norm_min: 0.000001
+  dynamic_rf_reset_error_max: 0.000001
+  dynamic_rf_min_valid_sources: 3
+  dynamic_rf_shape_distance_min: 0.05
+  dynamic_rf_gain_log_shift_min: 0.05
+  dynamic_rf_recovery_fraction_max: 0.25
+  dynamic_rf_bootstrap_iterations: 2000
+  rgc_min_cluster_fraction: 0.20
+  rgc_min_silhouette: 0.25
+  rgc_min_relative_radius_difference: 0.10
+  rgc_min_sustained_difference: 0.10
+  rgc_min_flicker_difference: 0.10
+  rgc_min_trained_to_initial_separation_ratio: 1.50
+  rgc_min_absolute_separation_gain: 0.05

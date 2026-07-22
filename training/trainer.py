@@ -33,7 +33,8 @@ class TrainingError(ValueError):
 class EnergyBudgetState:
     reference_energy: float | None = None
     ema_energy: float | None = None
-    budget: float | None = None
+    current_budget: float | None = None
+    target_budget: float | None = None
     dual: float = 0.0
 
     def observe(self, energy: float, optimizer_step: int, config: ExperimentConfig) -> None:
@@ -42,11 +43,17 @@ class EnergyBudgetState:
         self.ema_energy = energy if self.ema_energy is None else 0.95 * self.ema_energy + 0.05 * energy
         if optimizer_step <= training.reconstruction_bootstrap_steps:
             self.reference_energy = self.ema_energy
-            self.budget = None
+            self.current_budget = None
+            self.target_budget = None
             self.dual = 0.0
             return
         if self.reference_energy is None:
             self.reference_energy = self.ema_energy
+        if self.target_budget is None:
+            self.target_budget = max(
+                self.reference_energy * objective.energy_budget_ratio,
+                1e-12,
+            )
         ramp_width = max(
             1,
             training.budget_ramp_end_step - training.reconstruction_bootstrap_steps,
@@ -55,9 +62,12 @@ class EnergyBudgetState:
             1.0,
             (optimizer_step - training.reconstruction_bootstrap_steps) / ramp_width,
         )
-        ratio = 1.0 + ramp * (objective.energy_budget_ratio - 1.0)
-        self.budget = max(self.reference_energy * ratio, 1e-12)
-        violation = max(0.0, self.ema_energy / self.budget - 1.0)
+        self.current_budget = max(
+            self.reference_energy
+            + ramp * (self.target_budget - self.reference_energy),
+            1e-12,
+        )
+        violation = max(0.0, self.ema_energy / self.current_budget - 1.0)
         self.dual = min(objective.dual_max, max(0.0, self.dual + objective.dual_lr * violation))
 
 
@@ -160,7 +170,7 @@ class RetinaTrainer:
             self.model.rgc,
             spatial_weights,
             reconstruction_scale=self.reconstruction_scale,
-            energy_budget=self.energy_state.budget,
+            energy_budget=self.energy_state.current_budget,
             energy_dual=self.energy_state.dual,
             energy_weight=penalty_scale,
             wiring_weight=penalty_scale * self.config.objective.wiring_weight,
@@ -263,9 +273,19 @@ class RetinaTrainer:
         metrics = {
             key: float(np.mean([row[key] for row in rows])) for key in rows[0]
         }
+        current_budget = self.energy_state.current_budget
+        target_budget = self.energy_state.target_budget
+        hard_energy = metrics["hard_energy"]
         metrics.update(
             {
-                "energy_budget": self.energy_state.budget or 0.0,
+                "current_budget": current_budget or 0.0,
+                "target_budget": target_budget or 0.0,
+                "current_energy_ratio": (
+                    hard_energy / current_budget if current_budget is not None else 0.0
+                ),
+                "target_energy_ratio": (
+                    hard_energy / target_budget if target_budget is not None else 0.0
+                ),
                 "energy_ema": self.energy_state.ema_energy or 0.0,
                 "energy_dual": self.energy_state.dual,
                 "lr_model": float(self.optimizer.param_groups[0]["lr"]),
@@ -319,8 +339,9 @@ class RetinaTrainer:
 
     def record_validation(
         self,
+        optimizer_step: int,
         reconstruction_mse: float,
-        energy_budget_ratio: float,
+        target_energy_ratio: float | None,
     ) -> tuple[bool, bool]:
         state = self.validation_state
         state.count += 1
@@ -328,8 +349,10 @@ class RetinaTrainer:
         if best_reconstruction:
             state.best_reconstruction_mse = reconstruction_mse
         feasible = (
-            math.isfinite(energy_budget_ratio)
-            and energy_budget_ratio
+            optimizer_step >= self.config.training.budget_ramp_end_step
+            and target_energy_ratio is not None
+            and math.isfinite(target_energy_ratio)
+            and target_energy_ratio
             <= self.config.evaluation.maximum_energy_budget_ratio
         )
         best_feasible = feasible and reconstruction_mse < state.best_feasible_mse
@@ -381,8 +404,8 @@ def _loss_metrics(losses: RetinaLosses, output: RGCOutput) -> dict[str, float]:
         "loss_total": float(losses.total.detach()),
         "reconstruction": float(losses.reconstruction.detach()),
         "normalized_reconstruction": float(losses.normalized_reconstruction.detach()),
-        "energy": float(losses.energy.detach()),
-        "budget_energy": float(losses.budget_energy.detach()),
+        "hard_energy": float(losses.energy.detach()),
+        "surrogate_budget_energy": float(losses.budget_energy.detach()),
         "energy_penalty": float(losses.energy_penalty.detach()),
         "energy_violation": float(losses.energy_violation.detach()),
         "wiring": float(losses.wiring.detach()),
