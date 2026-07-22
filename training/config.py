@@ -19,7 +19,9 @@ class DataConfig:
     sequence_steps: int
     noise_std_min: float
     noise_std_max: float
+    noise_transition_probability: float
     context_transition_probability: float
+    context_transition_latest_step: int
     context_gain_min: float
     context_gain_max: float
 
@@ -84,6 +86,8 @@ class EvaluationConfig:
     dynamic_rf_kernel_norm_min: float
     dynamic_rf_reset_error_max: float
     dynamic_rf_min_valid_sources: int
+    dynamic_rf_min_valid_records_per_source: int
+    dynamic_rf_min_valid_record_fraction_per_source: float
     dynamic_rf_shape_distance_min: float
     dynamic_rf_gain_log_shift_min: float
     dynamic_rf_recovery_fraction_max: float
@@ -117,8 +121,25 @@ class ExperimentConfig:
             raise ConfigurationError("context-only plus supervised steps must equal differentiable steps")
         if self.training.differentiable_steps % self.training.checkpoint_block_steps:
             raise ConfigurationError("differentiable steps must divide into checkpoint blocks")
-        if not 0 <= self.data.context_transition_probability <= 1:
-            raise ConfigurationError("context transition probability must lie inside [0,1]")
+        probabilities = (
+            self.data.noise_transition_probability,
+            self.data.context_transition_probability,
+        )
+        if not all(0 <= value <= 1 for value in probabilities):
+            raise ConfigurationError("transition probabilities must lie inside [0,1]")
+        supervised_onset = (
+            self.training.burn_in_steps + self.training.context_only_steps
+        )
+        earliest_transition = max(1, self.data.sequence_steps // 3)
+        transition_width = max(2, self.data.sequence_steps // 64)
+        if not (
+            earliest_transition <= self.data.context_transition_latest_step
+            and self.data.context_transition_latest_step + transition_width
+            < supervised_onset
+        ):
+            raise ConfigurationError(
+                "context transitions must finish before supervised onset"
+            )
         if not 0 < self.data.noise_std_min <= self.data.noise_std_max:
             raise ConfigurationError("noise bounds are invalid")
         if not 0 < self.data.context_gain_min <= self.data.context_gain_max:
@@ -152,6 +173,7 @@ class ExperimentConfig:
             self.evaluation.dynamic_rf_kernel_norm_min,
             self.evaluation.dynamic_rf_reset_error_max,
             self.evaluation.dynamic_rf_min_valid_sources,
+            self.evaluation.dynamic_rf_min_valid_records_per_source,
             self.evaluation.dynamic_rf_shape_distance_min,
             self.evaluation.dynamic_rf_gain_log_shift_min,
             self.evaluation.dynamic_rf_recovery_fraction_max,
@@ -166,6 +188,11 @@ class ExperimentConfig:
         )
         if not all(math.isfinite(float(value)) and value > 0 for value in positive_values):
             raise ConfigurationError("positive configuration values are invalid")
+        valid_fraction = self.evaluation.dynamic_rf_min_valid_record_fraction_per_source
+        if not 0 < valid_fraction <= 1:
+            raise ConfigurationError(
+                "dynamic RF minimum valid record fraction must lie inside (0,1]"
+            )
 
     def resolved(self) -> dict[str, Any]:
         return asdict(self)

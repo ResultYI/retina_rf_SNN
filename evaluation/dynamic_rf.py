@@ -6,7 +6,19 @@ from typing import Literal, Sequence
 import torch
 from torch.nn import functional as F
 
-from models.retina_snn import RetinaModel, RetinaState, detach_state
+from evaluation.dynamic_rf_metrics import (
+    FiniteDifferenceResult,
+    continuous_kernel,
+    finite_difference_check,
+    spatial_metrics,
+    temporal_metrics,
+)
+from evaluation.dynamic_rf_state import (
+    MatchedContextPair,
+    PairStateCache,
+    build_state_cache,
+)
+from models.retina_snn import RetinaModel
 from training.config import DataConfig, EvaluationConfig
 from training.data import PreparedClip
 
@@ -16,25 +28,9 @@ class DynamicRFError(ValueError):
 
 
 @dataclass(frozen=True, slots=True)
-class MatchedContextPair:
-    low_context: torch.Tensor
-    high_context: torch.Tensor
-    final_probe: torch.Tensor
-    source_id: str
-
-
-@dataclass(frozen=True, slots=True)
 class DynamicRFSelection:
     polarity: int
     unit_indices: tuple[int, ...]
-
-
-@dataclass(frozen=True, slots=True)
-class FiniteDifferenceResult:
-    autodiff_directional: float
-    finite_difference_directional: float
-    relative_error: float | None
-    status: str
 
 
 @dataclass(frozen=True, slots=True)
@@ -61,15 +57,6 @@ class DynamicRFUnitResult:
     identical_reset_kernel_error: float
     recovery_curve: tuple[tuple[int, float], ...]
     finite_difference: FiniteDifferenceResult
-
-
-@dataclass(frozen=True, slots=True)
-class _PairStateCache:
-    low: RetinaState
-    high: RetinaState
-    reset_a: RetinaState
-    reset_b: RetinaState
-    delayed: tuple[tuple[int, RetinaState, RetinaState], ...]
 
 
 def build_matched_context_pairs(
@@ -158,7 +145,7 @@ def evaluate_dynamic_rf(
     try:
         for pair in pairs:
             probe = pair.final_probe.unsqueeze(0).to(device)
-            cache = _build_state_cache(
+            cache = build_state_cache(
                 model,
                 pair,
                 probe,
@@ -187,43 +174,11 @@ def evaluate_dynamic_rf(
     return tuple(results)
 
 
-def _build_state_cache(
-    model: RetinaModel,
-    pair: MatchedContextPair,
-    probe: torch.Tensor,
-    spatial_weights: torch.Tensor,
-    delays_ms: Sequence[int],
-    dt_ms: float,
-) -> _PairStateCache:
-    device = probe.device
-    low = _context_state(model, pair.low_context.unsqueeze(0).to(device), spatial_weights)
-    high = _context_state(model, pair.high_context.unsqueeze(0).to(device), spatial_weights)
-    reset_a = model.initial_state(1, device, probe.dtype)
-    reset_b = model.initial_state(1, device, probe.dtype)
-    delayed: list[tuple[int, RetinaState, RetinaState]] = []
-    for delay_ms in delays_ms:
-        delay_steps = max(0, round(delay_ms / dt_ms))
-        delayed_low, delayed_high = low, high
-        if delay_steps:
-            neutral = probe.new_zeros((1, delay_steps, probe.shape[-1]))
-            with torch.no_grad():
-                _, delayed_low = model.forward_sequence(
-                    neutral, delayed_low, spatial_weights=spatial_weights
-                )
-                _, delayed_high = model.forward_sequence(
-                    neutral, delayed_high, spatial_weights=spatial_weights
-                )
-            delayed_low = detach_state(delayed_low)
-            delayed_high = detach_state(delayed_high)
-        delayed.append((int(delay_ms), delayed_low, delayed_high))
-    return _PairStateCache(low, high, reset_a, reset_b, tuple(delayed))
-
-
 def _evaluate_unit(
     model: RetinaModel,
     source_id: str,
     probe: torch.Tensor,
-    cache: _PairStateCache,
+    cache: PairStateCache,
     spatial_weights: torch.Tensor,
     polarity: int,
     unit: int,
@@ -231,25 +186,25 @@ def _evaluate_unit(
     finite_difference_epsilons: Sequence[float],
     dt_ms: float,
 ) -> DynamicRFUnitResult:
-    low_kernel = _continuous_kernel(
+    low_kernel = continuous_kernel(
         model, probe, cache.low, spatial_weights, polarity, unit, readout
     )
-    high_kernel = _continuous_kernel(
+    high_kernel = continuous_kernel(
         model, probe, cache.high, spatial_weights, polarity, unit, readout
     )
-    reset_a = _continuous_kernel(
+    reset_a = continuous_kernel(
         model, probe, cache.reset_a, spatial_weights, polarity, unit, readout
     )
-    reset_b = _continuous_kernel(
+    reset_b = continuous_kernel(
         model, probe, cache.reset_b, spatial_weights, polarity, unit, readout
     )
-    low_peak_ms, low_width_ms = _temporal_metrics(low_kernel, dt_ms)
-    high_peak_ms, high_width_ms = _temporal_metrics(high_kernel, dt_ms)
+    low_peak_ms, low_width_ms = temporal_metrics(low_kernel, dt_ms)
+    high_peak_ms, high_width_ms = temporal_metrics(high_kernel, dt_ms)
     unit_center = model.rgc.unit_centers_degs[unit]
-    low_center, low_center_distance, low_moment = _spatial_metrics(
+    low_center, low_center_distance, low_moment = spatial_metrics(
         low_kernel, model.rgc.cone_positions_degs, unit_center
     )
-    high_center, high_center_distance, high_moment = _spatial_metrics(
+    high_center, high_center_distance, high_moment = spatial_metrics(
         high_kernel, model.rgc.cone_positions_degs, unit_center
     )
     low_norm = float(low_kernel.norm())
@@ -260,10 +215,10 @@ def _evaluate_unit(
             delayed_low_kernel = low_kernel
             delayed_high_kernel = high_kernel
         else:
-            delayed_low_kernel = _continuous_kernel(
+            delayed_low_kernel = continuous_kernel(
                 model, probe, delayed_low, spatial_weights, polarity, unit, readout
             )
-            delayed_high_kernel = _continuous_kernel(
+            delayed_high_kernel = continuous_kernel(
                 model, probe, delayed_high, spatial_weights, polarity, unit, readout
             )
         recovery.append(
@@ -293,7 +248,7 @@ def _evaluate_unit(
         spatial_second_moment_shift=high_moment - low_moment,
         identical_reset_kernel_error=float((reset_a - reset_b).norm()),
         recovery_curve=tuple(recovery),
-        finite_difference=_finite_difference_check(
+        finite_difference=finite_difference_check(
             model,
             probe,
             cache.high,
@@ -307,124 +262,7 @@ def _evaluate_unit(
     )
 
 
-def _context_state(
-    model: RetinaModel,
-    context: torch.Tensor,
-    spatial_weights: torch.Tensor,
-) -> RetinaState:
-    with torch.no_grad():
-        _, state = model.forward_sequence(
-            context,
-            spatial_weights=spatial_weights,
-            probe_continuous_output=True,
-        )
-    return detach_state(state)
-
-
-def _continuous_kernel(
-    model: RetinaModel,
-    probe: torch.Tensor,
-    state: RetinaState,
-    spatial_weights: torch.Tensor,
-    polarity: int,
-    unit: int,
-    readout: str,
-) -> torch.Tensor:
-    differentiable_probe = probe.detach().clone().requires_grad_(True)
-    output, _ = model.forward_sequence(
-        differentiable_probe,
-        state,
-        spatial_weights=spatial_weights,
-        probe_continuous_output=True,
-    )
-    continuous = getattr(output, readout)[0, -1, polarity, unit]
-    return torch.autograd.grad(continuous, differentiable_probe)[0][0].detach()
-
-
-def _finite_difference_check(
-    model: RetinaModel,
-    probe: torch.Tensor,
-    state: RetinaState,
-    spatial_weights: torch.Tensor,
-    polarity: int,
-    unit: int,
-    readout: str,
-    kernel: torch.Tensor,
-    epsilons: Sequence[float],
-) -> FiniteDifferenceResult:
-    generator = torch.Generator(device=probe.device).manual_seed(
-        polarity * model.rgc.unit_count + unit
-    )
-    direction = torch.randn(
-        probe.shape,
-        generator=generator,
-        device=probe.device,
-        dtype=probe.dtype,
-    )
-    direction = direction / direction.norm().clamp_min(1e-12)
-    autodiff = float((kernel * direction[0]).sum())
-    last_finite_difference = 0.0
-    with torch.no_grad():
-        for epsilon in sorted(epsilons, reverse=True):
-            outputs = []
-            events = []
-            for signed_epsilon in (epsilon, -epsilon):
-                output, _ = model.forward_sequence(
-                    probe + signed_epsilon * direction,
-                    state,
-                    spatial_weights=spatial_weights,
-                    probe_continuous_output=True,
-                )
-                outputs.append(getattr(output, readout)[0, -1, polarity, unit])
-                events.append(output.hard_spikes[0, :, polarity, unit])
-            last_finite_difference = float((outputs[0] - outputs[1]) / (2.0 * epsilon))
-            if torch.equal(events[0], events[1]):
-                relative_error = abs(autodiff - last_finite_difference) / max(
-                    abs(autodiff), abs(last_finite_difference), 1e-12
-                )
-                return FiniteDifferenceResult(
-                    autodiff,
-                    last_finite_difference,
-                    relative_error,
-                    "local_continuous_check",
-                )
-    return FiniteDifferenceResult(
-        autodiff,
-        last_finite_difference,
-        None,
-        "threshold_crossing_not_local",
-    )
-
-
-def _temporal_metrics(kernel: torch.Tensor, dt_ms: float) -> tuple[float, float]:
-    temporal = kernel.square().sum(dim=1).sqrt()
-    peak_index = int(temporal.argmax())
-    peak = temporal[peak_index].clamp_min(1e-12)
-    width = int((temporal >= 0.5 * peak).sum())
-    return (kernel.shape[0] - 1 - peak_index) * dt_ms, width * dt_ms
-
-
-def _spatial_metrics(
-    kernel: torch.Tensor,
-    cone_positions: torch.Tensor,
-    unit_center: torch.Tensor,
-) -> tuple[torch.Tensor, float, float]:
-    spatial = kernel.abs().sum(dim=0)
-    normalized = spatial / spatial.sum().clamp_min(1e-12)
-    center = (normalized[:, None] * cone_positions).sum(dim=0)
-    second_moment = (
-        normalized * (cone_positions - unit_center).square().sum(dim=1)
-    ).sum()
-    return center, float((center - unit_center).norm()), float(second_moment)
-
-
-__all__ = [
-    "DynamicRFError",
-    "DynamicRFSelection",
-    "DynamicRFUnitResult",
-    "FiniteDifferenceResult",
-    "MatchedContextPair",
-    "build_matched_context_pairs",
-    "evaluate_dynamic_rf",
-    "select_dynamic_rf_units",
-]
+__all__ = (
+    "DynamicRFError DynamicRFSelection DynamicRFUnitResult FiniteDifferenceResult "
+    "MatchedContextPair build_matched_context_pairs evaluate_dynamic_rf select_dynamic_rf_units"
+).split()

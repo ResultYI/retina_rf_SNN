@@ -6,7 +6,7 @@
 
 ## Data
 
-Training statistics are fitted only on training exports. Validation reuses those per-cone log-response statistics. Formal train and validation exports must be source-disjoint and must share cone geometry, eccentricity, sampling interval, and configured sequence length. Augmentation preserves a deterministic clean target and adds configuration-driven gain context and synthetic noise to the input. Reconstruction normalization is fitted from seeded augmented clean targets, so it matches the supervised target distribution without using noisy inputs.
+Training statistics are fitted only on training exports. Validation reuses those per-cone log-response statistics. Formal train and validation exports must be source-disjoint and must share cone geometry, eccentricity, sampling interval, and configured sequence length. Augmentation preserves a deterministic clean target and adds configuration-driven gain and noise context transitions to the input; every transition must finish before the supervised window. Reconstruction normalization is fitted from seeded augmented clean targets, so it matches the supervised target distribution without using noisy inputs.
 
 ## Credit assignment
 
@@ -35,9 +35,9 @@ Validation runs on a fixed clip set at the configured interval and scores only s
 
 ## Evaluation
 
-Reconstruction reports MSE relative to a train-only mean baseline. Before optimizer construction or resume restoration, the runner creates or validates `initial_reference.pt`. Only after reconstruction and energy gates pass, dynamic RF uses same-source low/high contexts, an identical final probe, one trained-model selection plan shared with the initialized model, continuous-readout Jacobians, local finite differences, cached recovery states, and reset reproducibility checks. Unit evidence is reduced within each source and then compared with a paired source bootstrap.
+Reconstruction reports MSE relative to a train-only mean baseline. Before optimizer construction or resume restoration, the runner creates or validates `initial_reference.pt`. Only after reconstruction and energy gates pass, dynamic RF uses same-source low/high contexts, an identical final probe, one trained-model selection plan shared with the initialized model, continuous-readout Jacobians, support-local finite differences, cached recovery states, and reset reproducibility checks. A source requires at least three valid paired records and a valid-record fraction of at least 0.50. Trained and initialized finite-difference validity are reported separately. Unit evidence is reduced within each source and then compared with a paired source bootstrap.
 
-Positive and negative impulse, step, and 4 Hz square-wave probes use the unit's center cone over the canonical 320-step sequence with onset at step 224. RGC clustering uses only effective spatial radius, impulse time-to-peak, impulse width, step sustained index, and normalized flicker response. Excluded units retain assignment `-1`. Trained separation must exceed initialization-level separation before a learned functional pairing candidate is reported.
+Positive and negative impulse and step probes use the unit's center cone over the canonical 320-step sequence with onset at step 224. The 4 Hz square-wave starts at step 128 and its signed baseline-subtracted response is summarized by first-harmonic amplitude. RGC clustering eligibility is determined by trained response quality; initialized response validity is reported separately. Clustering uses only encoder pooling radius, impulse time-to-peak, impulse width, step sustained index, and normalized flicker response. Excluded units retain assignment `-1`. A learned functional pairing candidate requires both the configured absolute separation gain and the trained-to-initial separation ratio when initialization is above the absolute floor; below that floor, the absolute gain is required.
 
 ## Compatibility
 

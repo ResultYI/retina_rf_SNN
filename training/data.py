@@ -114,19 +114,28 @@ def augment_clip(
         config.context_gain_min, config.context_gain_max, generator
     )
     gain_after = gain_before
-    has_transition = (
+    has_gain_transition = (
         torch.rand((), generator=generator).item()
         < config.context_transition_probability
     )
-    envelope = clean.new_full((config.sequence_steps,), gain_before)
+    noise_before = config.noise_std_min + (
+        config.noise_std_max - config.noise_std_min
+    ) * torch.rand((), generator=generator).item()
+    noise_after = noise_before
+    has_noise_transition = (
+        torch.rand((), generator=generator).item()
+        < config.noise_transition_probability
+    )
+    gain_envelope = clean.new_full((config.sequence_steps,), gain_before)
+    noise_envelope = clean.new_full((config.sequence_steps,), noise_before)
     transition_step = -1
     transition_width = 0
-    if has_transition:
-        gain_after = _log_uniform(
-            config.context_gain_min, config.context_gain_max, generator
-        )
+    if has_gain_transition or has_noise_transition:
         transition_low = max(1, config.sequence_steps // 3)
-        transition_high = max(transition_low + 1, 3 * config.sequence_steps // 4)
+        transition_high = max(
+            transition_low + 1,
+            min(config.context_transition_latest_step + 1, config.sequence_steps),
+        )
         transition_step = int(
             torch.randint(transition_low, transition_high, (), generator=generator).item()
         )
@@ -134,16 +143,25 @@ def augment_clip(
         start = max(0, transition_step - transition_width // 2)
         end = min(config.sequence_steps, start + transition_width)
         phase = torch.linspace(0.0, math.pi, end - start, dtype=clean.dtype)
-        envelope[:start] = gain_before
-        envelope[start:end] = gain_before + (gain_after - gain_before) * (
-            1.0 - torch.cos(phase)
-        ) / 2.0
-        envelope[end:] = gain_after
-    clean_target = clean * envelope[:, None]
-    noise_std = config.noise_std_min + (
-        config.noise_std_max - config.noise_std_min
-    ) * torch.rand((), generator=generator).item()
-    noisy_input = clean_target + noise_std * torch.randn(
+        blend = (1.0 - torch.cos(phase)) / 2.0
+        if has_gain_transition:
+            gain_after = _log_uniform(
+                config.context_gain_min, config.context_gain_max, generator
+            )
+            gain_envelope[start:end] = gain_before + (
+                gain_after - gain_before
+            ) * blend
+            gain_envelope[end:] = gain_after
+        if has_noise_transition:
+            noise_after = config.noise_std_min + (
+                config.noise_std_max - config.noise_std_min
+            ) * torch.rand((), generator=generator).item()
+            noise_envelope[start:end] = noise_before + (
+                noise_after - noise_before
+            ) * blend
+            noise_envelope[end:] = noise_after
+    clean_target = clean * gain_envelope[:, None]
+    noisy_input = clean_target + noise_envelope[:, None] * torch.randn(
         clean.shape, generator=generator, dtype=clean.dtype
     )
     return AugmentedClip(
@@ -151,12 +169,15 @@ def augment_clip(
         clean_target=clean_target,
         metadata={
             "source_id": clip.source_id,
-            "has_transition": has_transition,
+            "has_transition": has_gain_transition,
+            "has_noise_transition": has_noise_transition,
             "gain_before": gain_before,
             "gain_after": gain_after,
             "transition_step": transition_step,
             "transition_width_steps": transition_width,
-            "noise_std": noise_std,
+            "noise_std": noise_before,
+            "noise_std_before": noise_before,
+            "noise_std_after": noise_after,
         },
     )
 

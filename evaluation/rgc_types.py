@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-
 import numpy as np
 import torch
 
+from evaluation.rgc_type_report import RGCTypeReport, build_rgc_type_report
 from evaluation.temporal_probes import TemporalProbeFeatures
+from evaluation.two_cluster import cluster_two
 from models.cells.rgc import HeterogeneousRGCPool
 from models.cells.rgc_types import RGCOutput
 from training.config import EvaluationConfig
@@ -16,47 +16,12 @@ class RGCTypeError(ValueError):
 
 
 FEATURE_NAMES = (
-    "effective_spatial_radius",
+    "encoder_pooling_radius",
     "impulse_time_to_peak_ms",
     "impulse_width_ms",
     "step_sustained_index",
     "normalized_flicker_response",
 )
-
-
-@dataclass(frozen=True, slots=True)
-class RGCTypeReport:
-    trained_features: np.ndarray
-    initialized_features: np.ndarray
-    standardized_trained_features: np.ndarray
-    standardized_initialized_features: np.ndarray
-    eligibility_mask: np.ndarray
-    assignments: np.ndarray
-    initialized_assignments: np.ndarray
-    cluster_names: tuple[str, str]
-    candidate_labels: tuple[str | None, str | None]
-    status: str
-    trained_silhouette: float
-    initialized_silhouette: float
-    trained_minimum_cluster_fraction: float
-    initialized_minimum_cluster_fraction: float
-    relative_radius_difference: float
-    sustained_difference: float
-    flicker_difference: float
-    initialized_between_cluster_separation: float
-    trained_between_cluster_separation: float
-    trained_to_initial_separation_ratio: float | None
-    absolute_separation_gain: float
-    hard_active_fraction_by_polarity_unit: np.ndarray
-
-
-@dataclass(frozen=True, slots=True)
-class _ClusterResult:
-    assignments: np.ndarray
-    silhouette: float
-    minimum_fraction: float
-    means: np.ndarray
-    separation: float
 
 
 def identify_rgc_types(
@@ -76,22 +41,19 @@ def identify_rgc_types(
         raise RGCTypeError("RGC output must have shape [batch,time,polarity,unit]")
     trained_features = _functional_features(trained_rgc, probes)
     initialized_features = _functional_features(initialized_rgc, initialized_probes)
-    eligibility = (
-        _probe_eligibility(probes)
-        & _probe_eligibility(initialized_probes)
-        & np.isfinite(trained_features).all(axis=1)
-        & np.isfinite(initialized_features).all(axis=1)
-    )
+    initialized_valid_response_mask = _probe_eligibility(initialized_probes)
+    eligibility = eligible_rgc_units(probes, trained_features, initialized_features)
     assignments = np.full(unit_count, -1, dtype=np.int64)
     initialized_assignments = np.full(unit_count, -1, dtype=np.int64)
     eligible_count = int(eligibility.sum())
     if eligible_count < 2:
-        return _report(
+        return build_rgc_type_report(
             trained_features,
             initialized_features,
             trained_features.copy(),
             initialized_features.copy(),
             eligibility,
+            initialized_valid_response_mask,
             assignments,
             initialized_assignments,
             trained_output,
@@ -106,8 +68,8 @@ def identify_rgc_types(
     scale = np.maximum(stacked.std(axis=0, keepdims=True), 1e-8)
     standardized_trained = (trained_features - mean) / scale
     standardized_initialized = (initialized_features - mean) / scale
-    trained_cluster = _cluster_two(standardized_trained[eligibility], seed)
-    initialized_cluster = _cluster_two(standardized_initialized[eligibility], seed)
+    trained_cluster = cluster_two(standardized_trained[eligibility], seed)
+    initialized_cluster = cluster_two(standardized_initialized[eligibility], seed)
     assignments[eligibility] = trained_cluster.assignments
     initialized_assignments[eligibility] = initialized_cluster.assignments
     trained_means = np.stack(
@@ -140,14 +102,13 @@ def identify_rgc_types(
         else (None, None)
     )
     pairing = all(label is not None for label in labels)
-    learned = stable and pairing and (
-        (
-            ratio is not None
-            and ratio >= config.rgc_min_trained_to_initial_separation_ratio
-        )
-        or (
-            initial_separation < config.rgc_min_absolute_separation_gain
-            and absolute_gain >= config.rgc_min_absolute_separation_gain
+    learned = (
+        stable
+        and pairing
+        and separation_supports_learning(
+            initial_separation,
+            trained_separation,
+            config,
         )
     )
     if learned:
@@ -158,12 +119,13 @@ def identify_rgc_types(
         status = "continuous_heterogeneity_without_stable_clusters"
     else:
         status = "no_stable_two_cluster_structure"
-    return _report(
+    return build_rgc_type_report(
         trained_features,
         initialized_features,
         standardized_trained,
         standardized_initialized,
         eligibility,
+        initialized_valid_response_mask,
         assignments,
         initialized_assignments,
         trained_output,
@@ -184,11 +146,11 @@ def _functional_features(
     probes: TemporalProbeFeatures,
 ) -> np.ndarray:
     weights = rgc.compute_spatial_weights().detach()
-    effective_radius = torch.sqrt(
+    encoder_pooling_radius = torch.sqrt(
         (weights * rgc.distance_sq_degs).sum(dim=1).clamp_min(0.0)
     )
     tensors = (
-        effective_radius,
+        encoder_pooling_radius,
         probes.impulse_time_to_peak_ms,
         probes.impulse_width_ms,
         probes.step_sustained_index,
@@ -208,58 +170,32 @@ def _probe_eligibility(probes: TemporalProbeFeatures) -> np.ndarray:
     ).detach().cpu().numpy().astype(bool)
 
 
-def _cluster_two(features: np.ndarray, seed: int) -> _ClusterResult:
-    assignments = _kmeans_two(features, seed)
-    fractions = np.bincount(assignments, minlength=2) / assignments.size
-    if fractions.min() == 0.0:
-        return _ClusterResult(assignments, 0.0, 0.0, np.zeros((2, features.shape[1])), 0.0)
-    means = np.stack(
-        [features[assignments == cluster].mean(axis=0) for cluster in range(2)]
-    )
-    return _ClusterResult(
-        assignments=assignments,
-        silhouette=_silhouette(features, assignments),
-        minimum_fraction=float(fractions.min()),
-        means=means,
-        separation=float(np.linalg.norm(means[0] - means[1])),
+def eligible_rgc_units(
+    trained_probes: TemporalProbeFeatures,
+    trained_features: np.ndarray,
+    initialized_features: np.ndarray,
+) -> np.ndarray:
+    return (
+        _probe_eligibility(trained_probes)
+        & np.isfinite(trained_features).all(axis=1)
+        & np.isfinite(initialized_features).all(axis=1)
     )
 
 
-def _kmeans_two(features: np.ndarray, seed: int) -> np.ndarray:
-    if features.ndim != 2 or features.shape[0] < 2:
-        raise RGCTypeError("k-means requires at least two eligible units")
-    generator = np.random.default_rng(seed)
-    first = int(generator.integers(features.shape[0]))
-    distances = np.square(features - features[first]).sum(axis=1)
-    centers = features[[first, int(np.argmax(distances))]].copy()
-    assignments = np.zeros(features.shape[0], dtype=np.int64)
-    for iteration in range(100):
-        next_assignments = np.square(
-            features[:, None, :] - centers[None, :, :]
-        ).sum(axis=2).argmin(axis=1)
-        if iteration > 0 and np.array_equal(next_assignments, assignments):
-            break
-        assignments = next_assignments
-        for cluster in range(2):
-            members = features[assignments == cluster]
-            if members.size:
-                centers[cluster] = members.mean(axis=0)
-    return assignments
-
-
-def _silhouette(features: np.ndarray, assignments: np.ndarray) -> float:
-    values: list[float] = []
-    for index, row in enumerate(features):
-        own = assignments == assignments[index]
-        own[index] = False
-        other = assignments != assignments[index]
-        if not own.any() or not other.any():
-            values.append(0.0)
-            continue
-        within = np.linalg.norm(features[own] - row, axis=1).mean()
-        between = np.linalg.norm(features[other] - row, axis=1).mean()
-        values.append(float((between - within) / max(within, between, 1e-8)))
-    return float(np.mean(values))
+def separation_supports_learning(
+    initialized_separation: float,
+    trained_separation: float,
+    config: EvaluationConfig,
+) -> bool:
+    minimum_gain = config.rgc_min_absolute_separation_gain
+    absolute_gain = trained_separation - initialized_separation
+    if initialized_separation < minimum_gain:
+        return absolute_gain >= minimum_gain
+    return bool(
+        absolute_gain >= minimum_gain
+        and trained_separation / initialized_separation
+        >= config.rgc_min_trained_to_initial_separation_ratio
+    )
 
 
 def _candidate_labels(
@@ -290,67 +226,11 @@ def _relative_difference(values: np.ndarray) -> float:
     return float(abs(values[0] - values[1]) / max(abs(values.mean()), 1e-8))
 
 
-def _report(
-    trained_features: np.ndarray,
-    initialized_features: np.ndarray,
-    standardized_trained: np.ndarray,
-    standardized_initialized: np.ndarray,
-    eligibility: np.ndarray,
-    assignments: np.ndarray,
-    initialized_assignments: np.ndarray,
-    output: RGCOutput,
-    *,
-    status: str,
-    labels: tuple[str | None, str | None] = (None, None),
-    trained_cluster: _ClusterResult | None = None,
-    initialized_cluster: _ClusterResult | None = None,
-    relative_radius_difference: float = 0.0,
-    sustained_difference: float = 0.0,
-    flicker_difference: float = 0.0,
-    ratio: float | None = None,
-    absolute_gain: float = 0.0,
-) -> RGCTypeReport:
-    return RGCTypeReport(
-        trained_features=trained_features,
-        initialized_features=initialized_features,
-        standardized_trained_features=standardized_trained,
-        standardized_initialized_features=standardized_initialized,
-        eligibility_mask=eligibility,
-        assignments=assignments,
-        initialized_assignments=initialized_assignments,
-        cluster_names=("cluster 0", "cluster 1"),
-        candidate_labels=labels,
-        status=status,
-        trained_silhouette=trained_cluster.silhouette if trained_cluster else 0.0,
-        initialized_silhouette=(
-            initialized_cluster.silhouette if initialized_cluster else 0.0
-        ),
-        trained_minimum_cluster_fraction=(
-            trained_cluster.minimum_fraction if trained_cluster else 0.0
-        ),
-        initialized_minimum_cluster_fraction=(
-            initialized_cluster.minimum_fraction if initialized_cluster else 0.0
-        ),
-        relative_radius_difference=relative_radius_difference,
-        sustained_difference=sustained_difference,
-        flicker_difference=flicker_difference,
-        initialized_between_cluster_separation=(
-            initialized_cluster.separation if initialized_cluster else 0.0
-        ),
-        trained_between_cluster_separation=(
-            trained_cluster.separation if trained_cluster else 0.0
-        ),
-        trained_to_initial_separation_ratio=ratio,
-        absolute_separation_gain=absolute_gain,
-        hard_active_fraction_by_polarity_unit=(
-            (output.hard_spikes > 0).float().mean(dim=(0, 1)).cpu().numpy()
-        ),
-    )
-
-
 __all__ = [
     "FEATURE_NAMES",
     "RGCTypeError",
     "RGCTypeReport",
+    "eligible_rgc_units",
     "identify_rgc_types",
+    "separation_supports_learning",
 ]

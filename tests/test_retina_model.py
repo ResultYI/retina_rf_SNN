@@ -3,6 +3,8 @@ from __future__ import annotations
 import torch
 
 from configs.physiology_profiles import human_macaque
+from evaluation.dynamic_rf_metrics import local_probe_direction
+from evaluation.temporal_probes import run_temporal_probes
 from models.cells.rgc_types import RGCConfig
 from models.decoder.local_decoder import TiedLocalDecoder
 from models.retina_snn import RetinaModel, build_retina_model
@@ -57,3 +59,35 @@ def test_rgc_parameters_are_per_unit_and_readout_tau_is_fixed() -> None:
     )
     assert all(value.shape == (unit_count,) for value in values)
     assert "readout_rate_tau_ms" not in dict(model.rgc.named_parameters())
+
+
+def test_temporal_probes_execute_with_distinct_unit_and_time_dimensions() -> None:
+    model = _model()
+    features = run_temporal_probes(
+        model,
+        torch.zeros(4),
+        sequence_steps=31,
+        onset_step=16,
+        dt_ms=10.0,
+    )
+    for value in (
+        features.preferred_polarity,
+        features.valid_response_mask,
+        features.impulse_peak,
+        features.impulse_time_to_peak_ms,
+        features.impulse_width_ms,
+        features.step_sustained_index,
+        features.flicker_response,
+        features.hard_evoked_spike_count,
+    ):
+        assert value.shape == (8,)
+
+
+def test_finite_difference_direction_is_zero_outside_unit_support() -> None:
+    model = _model()
+    model.rgc.support_mask[0] = torch.tensor([True, True, False, False])
+    probe = torch.zeros(1, 9, 4)
+    direction = local_probe_direction(model, probe, polarity=0, unit=0)
+    outside_support = ~model.rgc.support_mask[0]
+    assert torch.count_nonzero(direction[..., outside_support]) == 0
+    assert torch.isclose(direction.norm(), torch.tensor(1.0))

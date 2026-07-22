@@ -49,6 +49,7 @@ def run_temporal_probes(
         1,
         round(500.0 / (flicker_frequency_hz * dt_ms)),
     )
+    flicker_onset_step = min(onset_step, 2 * sequence_steps // 5)
     baseline, impulse, step, flicker = _probe_sequences(
         baseline_cone,
         centers,
@@ -70,7 +71,9 @@ def run_temporal_probes(
 
     continuous = []
     hard_counts = []
-    for output in (impulse_output, step_output, flicker_output):
+    probe_outputs = (impulse_output, step_output, flicker_output)
+    response_onsets = (onset_step, onset_step, flicker_onset_step)
+    for output, response_onset in zip(probe_outputs, response_onsets, strict=True):
         continuous.append(
             _matched_unit_trace(
                 output.spike_probability,
@@ -83,11 +86,11 @@ def run_temporal_probes(
                 output.hard_spikes,
                 torch.zeros_like(baseline_output.hard_spikes),
                 unit_count,
-            )[:, onset_step:].sum(dim=1)
+            )[:, response_onset:].sum(dim=1)
         )
-    impulse_response, step_response, flicker_response = (
-        value[:, onset_step:] for value in continuous
-    )
+    impulse_response = continuous[0][:, :, onset_step:].relu()
+    step_response = continuous[1][:, :, onset_step:].relu()
+    flicker_response = continuous[2][:, :, flicker_onset_step:]
 
     impulse_peak_by_polarity = impulse_response.amax(dim=2)
     step_peak_by_polarity = step_response.amax(dim=2)
@@ -138,7 +141,12 @@ def run_temporal_probes(
         ),
         flicker_response=torch.where(
             valid_response_mask,
-            preferred_flicker.abs().mean(dim=1) / response_scale,
+            _f1_amplitude(
+                preferred_flicker,
+                dt_ms=dt_ms,
+                frequency_hz=flicker_frequency_hz,
+            )
+            / response_scale,
             zeros,
         ),
         hard_evoked_spike_count=hard_evoked_spike_count,
@@ -173,14 +181,19 @@ def _probe_sequences(
     )
     impulse[rows, onset_step, centers] += signs * amplitude
     step[rows[:, None], torch.arange(onset_step, sequence_steps, device=baseline_cone.device), centers[:, None]] += signs[:, None] * amplitude
+    flicker_onset_step = min(onset_step, 2 * sequence_steps // 5)
     phase = (
-        torch.arange(sequence_steps - onset_step, device=baseline_cone.device)
+        torch.arange(sequence_steps - flicker_onset_step, device=baseline_cone.device)
         .div(half_period_steps, rounding_mode="floor")
         .remainder(2)
         .mul(-2)
         .add(1)
     )
-    flicker[rows[:, None], torch.arange(onset_step, sequence_steps, device=baseline_cone.device), centers[:, None]] += signs[:, None] * phase[None, :] * amplitude
+    flicker[
+        rows[:, None],
+        torch.arange(flicker_onset_step, sequence_steps, device=baseline_cone.device),
+        centers[:, None],
+    ] += signs[:, None] * phase[None, :] * amplitude
     return baseline, impulse, step, flicker
 
 
@@ -190,12 +203,26 @@ def _matched_unit_trace(
     unit_count: int,
 ) -> torch.Tensor:
     units = torch.arange(unit_count, device=probe.device)
-    positive = (probe[units, :, 0, units] - baseline[0, :, 0, units]).relu()
+    positive = probe[units, :, 0, units] - baseline[0, :, 0, :].transpose(0, 1)
     negative_rows = units + unit_count
-    negative = (
-        probe[negative_rows, :, 1, units] - baseline[0, :, 1, units]
-    ).relu()
+    negative = probe[negative_rows, :, 1, units] - baseline[0, :, 1, :].transpose(0, 1)
     return torch.stack((positive, negative))
+
+
+def _f1_amplitude(
+    trace: torch.Tensor,
+    *,
+    dt_ms: float,
+    frequency_hz: float,
+) -> torch.Tensor:
+    sample_count = trace.shape[1]
+    time_seconds = (
+        torch.arange(sample_count, device=trace.device, dtype=trace.dtype) * dt_ms / 1000.0
+    )
+    phase = 2.0 * math.pi * frequency_hz * time_seconds
+    cosine = (trace * phase.cos()).sum(dim=1)
+    sine = (trace * phase.sin()).sum(dim=1)
+    return 2.0 * torch.sqrt(cosine.square() + sine.square()) / sample_count
 
 
 __all__ = ["TemporalProbeFeatures", "run_temporal_probes"]
