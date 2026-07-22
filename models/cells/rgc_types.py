@@ -2,11 +2,8 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import NotRequired, TypedDict
 
 import torch
-
-from data.geometry import PositionArray
 
 
 class RGCConfigurationError(ValueError):
@@ -14,149 +11,58 @@ class RGCConfigurationError(ValueError):
 
 
 @dataclass(frozen=True, slots=True)
-class RGCMosaic:
-    bipolar_positions_degs: PositionArray
-    midget_positions_degs: PositionArray
-    parasol_positions_degs: PositionArray
-
-
-@dataclass(frozen=True, slots=True)
 class RGCConfig:
-    midget_radius_degs: float
-    midget_sigma_degs: float
-    parasol_radius_degs: float
-    parasol_sigma_degs: float
+    units_per_center: int
+    support_radius_degs: float
+    sigma_min_degs: float
+    sigma_initial_degs: float
+    sigma_max_degs: float
     dt_ms: float
-    membrane_tau_ms: float
-    membrane_tau_min_ms: float
-    membrane_tau_max_ms: float
-    adaptation_tau_ms: float
-    adaptation_tau_min_ms: float
-    adaptation_tau_max_ms: float
     readout_rate_tau_ms: float
-    threshold: float
+    max_tau_ms: float
     surrogate_slope: float
-    adaptation_strength: float
-    initial_g_ag_midget: float
-    g_ag_midget_max: float
-    initial_g_ag_parasol: float
-    g_ag_parasol_max: float
-    subunit_adaptation_tau_ms: float
-    subunit_adaptation_tau_min_ms: float
-    subunit_adaptation_tau_max_ms: float
-    initial_subunit_gain: float
-    subunit_gain_max: float
-    debug_checks: bool = True
 
     def __post_init__(self) -> None:
         values = (
-            self.midget_radius_degs,
-            self.midget_sigma_degs,
-            self.parasol_radius_degs,
-            self.parasol_sigma_degs,
+            self.support_radius_degs,
+            self.sigma_min_degs,
+            self.sigma_initial_degs,
+            self.sigma_max_degs,
             self.dt_ms,
-            self.membrane_tau_ms,
-            self.membrane_tau_min_ms,
-            self.membrane_tau_max_ms,
-            self.adaptation_tau_ms,
-            self.adaptation_tau_min_ms,
-            self.adaptation_tau_max_ms,
             self.readout_rate_tau_ms,
-            self.threshold,
+            self.max_tau_ms,
             self.surrogate_slope,
-            self.adaptation_strength,
-            self.initial_g_ag_midget,
-            self.g_ag_midget_max,
-            self.initial_g_ag_parasol,
-            self.g_ag_parasol_max,
-            self.subunit_adaptation_tau_ms,
-            self.subunit_adaptation_tau_min_ms,
-            self.subunit_adaptation_tau_max_ms,
-            self.initial_subunit_gain,
-            self.subunit_gain_max,
         )
-        if not all(math.isfinite(value) for value in values):
-            raise RGCConfigurationError("RGC parameters must be finite")
-        if min(values) <= 0:
-            raise RGCConfigurationError(
-                "RGC spatial and temporal parameters must be positive"
-            )
-        if not (
-            self.membrane_tau_min_ms
-            < self.membrane_tau_ms
-            < self.membrane_tau_max_ms
-        ):
-            raise RGCConfigurationError("Membrane tau must lie inside its bounds")
-        if not (
-            self.adaptation_tau_min_ms
-            < self.adaptation_tau_ms
-            < self.adaptation_tau_max_ms
-        ):
-            raise RGCConfigurationError("Adaptation tau must lie inside its bounds")
-        if self.membrane_tau_ms >= self.adaptation_tau_ms:
-            raise RGCConfigurationError(
-                "Membrane tau must be less than adaptation tau"
-            )
-        if not 0 < self.initial_g_ag_midget < self.g_ag_midget_max:
-            raise RGCConfigurationError("Midget g_AG must lie inside its bounds")
-        if not 0 < self.initial_g_ag_parasol < self.g_ag_parasol_max:
-            raise RGCConfigurationError("Parasol g_AG must lie inside its bounds")
-        if self.g_ag_parasol_max <= self.g_ag_midget_max:
-            raise RGCConfigurationError("Parasol g_AG bound must exceed midget")
-        if not (
-            self.subunit_adaptation_tau_min_ms
-            < self.subunit_adaptation_tau_ms
-            < self.subunit_adaptation_tau_max_ms
-        ):
-            raise RGCConfigurationError(
-                "Subunit adaptation tau must lie inside its bounds"
-            )
-        if not 0 < self.initial_subunit_gain < self.subunit_gain_max:
-            raise RGCConfigurationError("Subunit gain must lie inside its bounds")
-
-
-@dataclass(frozen=True, slots=True)
-class RGCPopulationTensors:
-    midget: torch.Tensor
-    parasol: torch.Tensor
+        if self.units_per_center < 1:
+            raise RGCConfigurationError("units_per_center must be positive")
+        if not all(math.isfinite(value) and value > 0 for value in values):
+            raise RGCConfigurationError("RGC scales must be finite and positive")
+        if not self.sigma_min_degs < self.sigma_initial_degs < self.sigma_max_degs:
+            raise RGCConfigurationError("Initial sigma must lie inside its bounds")
+        if self.max_tau_ms <= self.dt_ms:
+            raise RGCConfigurationError("max_tau_ms must exceed dt_ms")
 
 
 @dataclass(frozen=True, slots=True)
 class RGCState:
-    membrane: RGCPopulationTensors
-    adaptation: RGCPopulationTensors
-    rate: RGCPopulationTensors
+    membrane: torch.Tensor
+    adaptation: torch.Tensor
+    rate: torch.Tensor
     subunit_energy: torch.Tensor
 
 
 @dataclass(frozen=True, slots=True)
+class RGCStepOutput:
+    hard_spikes: torch.Tensor
+    spike_probability: torch.Tensor
+    rates: torch.Tensor
+    generator_potential: torch.Tensor
+
+
+@dataclass(frozen=True, slots=True)
 class RGCOutput:
-    spikes: RGCPopulationTensors
-    rates: RGCPopulationTensors
+    hard_spikes: torch.Tensor
+    spike_probability: torch.Tensor
+    rates: torch.Tensor
+    generator_potential: torch.Tensor
 
-
-class RGCDiagnostics(TypedDict):
-    rgc_g_ag: torch.Tensor
-    rgc_kinetic_mix: NotRequired[torch.Tensor]
-    rgc_tau_ms: NotRequired[torch.Tensor]
-    rgc_readout_rate_tau_ms: NotRequired[torch.Tensor]
-    rgc_subunit_adaptation_tau_ms: NotRequired[torch.Tensor]
-    rgc_subunit_gain: NotRequired[torch.Tensor]
-    rgc_subunit_energy_mean: NotRequired[torch.Tensor]
-    rgc_midget_current_mean: torch.Tensor
-    rgc_midget_current_min: torch.Tensor
-    rgc_midget_current_max: torch.Tensor
-    rgc_midget_current_negative_fraction: torch.Tensor
-    rgc_parasol_current_mean: torch.Tensor
-    rgc_parasol_current_min: torch.Tensor
-    rgc_parasol_current_max: torch.Tensor
-    rgc_parasol_current_negative_fraction: torch.Tensor
-    rgc_midget_spike_mean: torch.Tensor
-    rgc_parasol_spike_mean: torch.Tensor
-    rgc_midget_rate_mean: torch.Tensor
-    rgc_parasol_rate_mean: torch.Tensor
-    rgc_midget_adaptation_mean: torch.Tensor
-    rgc_parasol_adaptation_mean: torch.Tensor
-    rgc_midget_membrane_max_abs: torch.Tensor
-    rgc_parasol_membrane_max_abs: torch.Tensor
-    rgc_parasol_mean_neighbor_count: torch.Tensor

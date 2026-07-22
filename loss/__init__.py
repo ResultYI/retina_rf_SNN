@@ -1,3 +1,3 @@
-from loss.retina import RetinaLossConfig, RetinaLosses, RetinaObjective
+from loss.retina import RetinaLossError, RetinaLosses, RetinaObjective
 
-__all__ = ["RetinaLossConfig", "RetinaLosses", "RetinaObjective"]
+__all__ = ["RetinaLossError", "RetinaLosses", "RetinaObjective"]

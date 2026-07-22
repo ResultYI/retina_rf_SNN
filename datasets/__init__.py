@@ -14,7 +14,6 @@ from datasets.retina_training_batch import (
     RetinaTrainingSample,
     collate_retina_training_batch,
 )
-from datasets.rgc_response_dataset import RGCResponseDataset, RGCResponseSample
 
 __all__ = [
     "ConeNormalizationStats",
@@ -23,8 +22,6 @@ __all__ = [
     "ISETBioH5DatasetConfig",
     "ImageFolderStimulusConfig",
     "ImageFolderStimulusDataset",
-    "RGCResponseDataset",
-    "RGCResponseSample",
     "RawStimulusDataset",
     "RawStimulusSample",
     "RetinaTrainingSample",

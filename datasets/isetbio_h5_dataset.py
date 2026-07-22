@@ -11,7 +11,7 @@ from datasets.retina_training_batch import (
     collate_retina_training_batch,
     retina_training_sample_from_mapping,
 )
-from training.hybrid import RetinaTrainingBatch
+from datasets.retina_training_batch import RetinaTrainingBatch
 
 
 @dataclass(frozen=True, slots=True)
@@ -39,7 +39,7 @@ class ISETBioH5Dataset(Dataset[RetinaTrainingSample]):
     ) -> None:
         from data.dataset import ISETBioDataset, ISETBioDatasetConfig
 
-        legacy_config = ISETBioDatasetConfig(
+        dataset_config = ISETBioDatasetConfig(
             h5_path=config.h5_path,
             input_steps=config.input_steps,
             eps=config.eps,
@@ -47,7 +47,7 @@ class ISETBioH5Dataset(Dataset[RetinaTrainingSample]):
             allow_fit_stats=config.allow_fit_stats,
         )
         self._dataset = ISETBioDataset(
-            legacy_config,
+            dataset_config,
             None if stats is None else stats.mean,
             None if stats is None else stats.scale,
         )

@@ -1,13 +1,4 @@
-from models.decoder.local_decoder import (
-    DecoderTargets,
-    LocalDecoder,
-    LocalDecoderConfig,
-    LocalDecoderOutput,
-)
+from models.decoder.local_decoder import LocalDecoderError, TiedLocalDecoder
 
-__all__ = [
-    "DecoderTargets",
-    "LocalDecoder",
-    "LocalDecoderConfig",
-    "LocalDecoderOutput",
-]
+__all__ = ["LocalDecoderError", "TiedLocalDecoder"]
+

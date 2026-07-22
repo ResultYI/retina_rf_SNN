@@ -16,20 +16,10 @@ from models.cells.horizontal import (
     H1HorizontalConfig,
     H1HorizontalNetwork,
 )
-from models.cells.rgc import RGCPopulationLayer
-from models.cells.rgc_types import (
-    RGCConfig,
-    RGCDiagnostics,
-    RGCMosaic,
-    RGCOutput,
-    RGCPopulationTensors,
-    RGCState,
-)
+from models.cells.rgc import HeterogeneousRGCPool
+from models.cells.rgc_types import RGCConfig, RGCOutput, RGCState, RGCStepOutput
 
 __all__ = [
-    "LocalAmacrineConfig",
-    "LocalAmacrineDiagnostics",
-    "LocalAmacrineLayer",
     "BipolarConfig",
     "BipolarDiagnostics",
     "BipolarKinetics",
@@ -39,11 +29,13 @@ __all__ = [
     "H1Diagnostics",
     "H1HorizontalConfig",
     "H1HorizontalNetwork",
+    "HeterogeneousRGCPool",
+    "LocalAmacrineConfig",
+    "LocalAmacrineDiagnostics",
+    "LocalAmacrineLayer",
     "RGCConfig",
-    "RGCDiagnostics",
-    "RGCMosaic",
     "RGCOutput",
-    "RGCPopulationLayer",
-    "RGCPopulationTensors",
     "RGCState",
+    "RGCStepOutput",
 ]
+

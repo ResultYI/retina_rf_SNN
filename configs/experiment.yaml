@@ -1,0 +1,56 @@
+seed: 19
+
+data:
+  train_glob: data/isetbio_bsds300_4deg/train/*.h5
+  validation_glob: data/isetbio_bsds300_4deg/val/*.h5
+  sequence_steps: 320
+  noise_std_min: 0.10
+  noise_std_max: 0.25
+  context_transition_probability: 0.75
+  context_gain_min: 0.30
+  context_gain_max: 1.00
+
+model:
+  units_per_center: 2
+  support_radius_spacing_multiplier: 3.60
+  sigma_min_spacing_multiplier: 0.25
+  sigma_initial_spacing_multiplier: 1.20
+  sigma_max_spacing_multiplier: 3.60
+  readout_rate_tau_ms: 50.0
+  max_tau_ms: 250.0
+  surrogate_slope: 5.0
+
+training:
+  burn_in_steps: 64
+  differentiable_steps: 256
+  context_only_steps: 160
+  supervised_steps: 96
+  checkpoint_block_steps: 32
+  gradient_accumulation_steps: 4
+  gradient_clip_norm: 1.0
+  max_optimizer_steps: 6000
+  reconstruction_bootstrap_steps: 1000
+  budget_ramp_end_step: 2500
+  core_lr: 0.0002
+  decoder_lr: 0.0001
+  validation_interval_steps: 100
+
+objective:
+  energy_budget_ratio: 0.90
+  rho_energy: 1.0
+  dual_lr: 0.01
+  dual_max: 10.0
+  wiring_target_gradient_ratio: 0.05
+  diversity_target_gradient_ratio: 0.075
+  variance_floor: 0.01
+  phenotype_temperature: 1.0
+  homeostasis_rate_min: 0.001
+
+evaluation:
+  dynamic_rf_context_pairs: 32
+  dynamic_rf_units_per_polarity: 4
+  dynamic_rf_lag_steps: 64
+  recovery_delays_ms: [0, 100, 200, 300, 500]
+  minimum_representation_skill: 0.25
+  maximum_energy_budget_ratio: 1.05
+  local_linear_baseline: disabled

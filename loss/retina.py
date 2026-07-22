@@ -1,18 +1,13 @@
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass
-from typing import TYPE_CHECKING
 
 import torch
 from torch import nn
 from torch.nn import functional as F
 
-from models.cells.rgc import RGCOutput, RGCPopulationTensors
-from models.decoder.local_decoder import LocalDecoderOutput
-
-if TYPE_CHECKING:
-    from training.hybrid import RetinaTargets
+from models.cells.rgc import HeterogeneousRGCPool
+from models.cells.rgc_types import RGCOutput
 
 
 class RetinaLossError(ValueError):
@@ -20,134 +15,133 @@ class RetinaLossError(ValueError):
 
 
 @dataclass(frozen=True, slots=True)
-class RetinaLossConfig:
-    reconstruction_mse_scale: float = 1.0
-    energy_weight: float = 0.10
-    homeostasis_weight: float = 1e-3
-    homeostasis_rate_min: float = 0.01
-    # Engineering spike/bin budget, not a fitted human RGC firing rate.
-    midget_spike_budget: float = 0.10
-    parasol_spike_budget: float = 0.10
-
-    def __post_init__(self) -> None:
-        weights = (self.energy_weight, self.homeostasis_weight)
-        if not all(math.isfinite(weight) and weight >= 0 for weight in weights):
-            raise RetinaLossError("Loss weights must be finite and non-negative")
-        if not (
-            math.isfinite(self.reconstruction_mse_scale)
-            and self.reconstruction_mse_scale > 0
-        ):
-            raise RetinaLossError(
-                "Reconstruction MSE scale must be finite and positive"
-            )
-        if not (
-            math.isfinite(self.homeostasis_rate_min)
-            and math.isfinite(self.midget_spike_budget)
-            and math.isfinite(self.parasol_spike_budget)
-            and 0 <= self.homeostasis_rate_min
-            < min(self.midget_spike_budget, self.parasol_spike_budget)
-            <= max(self.midget_spike_budget, self.parasol_spike_budget)
-            <= 1
-        ):
-            raise RetinaLossError("Rate floor and spike budget must lie inside [0,1]")
-
-
-@dataclass(frozen=True, slots=True)
 class RetinaLosses:
     total: torch.Tensor
-    reconstruction_current: torch.Tensor
-    spike_energy: torch.Tensor
-    energy_cost: torch.Tensor
+    reconstruction: torch.Tensor
+    normalized_reconstruction: torch.Tensor
+    energy: torch.Tensor
+    energy_penalty: torch.Tensor
+    energy_violation: torch.Tensor
+    wiring: torch.Tensor
+    variance_floor: torch.Tensor
+    phenotype_repulsion: torch.Tensor
     homeostasis: torch.Tensor
-
-    def detached(self) -> RetinaLosses:
-        return RetinaLosses(
-            total=self.total.detach(),
-            reconstruction_current=self.reconstruction_current.detach(),
-            spike_energy=self.spike_energy.detach(),
-            energy_cost=self.energy_cost.detach(),
-            homeostasis=self.homeostasis.detach(),
-        )
 
 
 class RetinaObjective(nn.Module):
-    def __init__(self, config: RetinaLossConfig) -> None:
+    def __init__(
+        self,
+        *,
+        rho_energy: float,
+        variance_floor: float,
+        phenotype_temperature: float,
+        homeostasis_rate_min: float,
+    ) -> None:
         super().__init__()
-        self.config = config
+        self.rho_energy = rho_energy
+        self.variance_floor_target = variance_floor
+        self.phenotype_temperature = phenotype_temperature
+        self.homeostasis_rate_min = homeostasis_rate_min
 
     def forward(
         self,
-        reconstruction: LocalDecoderOutput,
-        targets: RetinaTargets,
-        rgc_history: RGCOutput,
+        prediction: torch.Tensor,
+        clean_target: torch.Tensor,
+        rgc_output: RGCOutput,
+        rgc: HeterogeneousRGCPool,
+        spatial_weights: torch.Tensor,
+        *,
+        reconstruction_scale: float,
+        energy_budget: float | None,
+        energy_dual: float,
+        energy_weight: float,
+        wiring_weight: float,
+        diversity_weight: float,
+        supervised_steps: int,
     ) -> RetinaLosses:
-        if reconstruction.target_current.shape != targets.target_current.shape:
-            raise RetinaLossError("Current reconstruction and target shapes must match")
-        if not (
-            torch.isfinite(reconstruction.target_current).all()
-            and torch.isfinite(targets.target_current).all()
-        ):
-            raise RetinaLossError("Current reconstruction and targets must be finite")
-
-        rates = rgc_history.rates
-        spikes = rgc_history.spikes
-        reconstruction_current = F.mse_loss(
-            reconstruction.target_current,
-            targets.target_current,
+        if prediction.shape != clean_target.shape or prediction.ndim != 3:
+            raise RetinaLossError("prediction and clean_target must match [batch,time,cone]")
+        supervised_prediction = prediction[:, -supervised_steps:]
+        supervised_target = clean_target[:, -supervised_steps:]
+        reconstruction = F.mse_loss(supervised_prediction, supervised_target)
+        normalized_reconstruction = reconstruction / reconstruction_scale
+        energy = rgc_output.hard_spikes.sum() / (
+            rgc_output.hard_spikes.shape[0]
+            * rgc_output.hard_spikes.shape[1]
+            * clean_target.shape[-1]
         )
-        spike_energy, energy_cost = _shared_spike_energy(
-            spikes,
-            targets.target_current,
-            self.config,
+        if energy_budget is None:
+            energy_violation = energy.new_zeros(())
+        else:
+            energy_violation = torch.relu(energy / energy_budget - 1.0)
+        energy_penalty = (
+            energy_dual * energy_violation
+            + 0.5 * self.rho_energy * energy_violation.square()
         )
-        population_rates = torch.stack((rates.midget.mean(), rates.parasol.mean()))
-        homeostasis = torch.relu(
-            self.config.homeostasis_rate_min - population_rates
-        ).square().mean()
+        wiring = self.wiring_cost(rgc, spatial_weights)
+        continuous = rgc_output.spike_probability
+        unit_std = continuous.flatten(0, 2).std(dim=0, unbiased=False)
+        variance_floor = torch.relu(self.variance_floor_target - unit_std).square().mean()
+        phenotype_repulsion = self.phenotype_repulsion(rgc)
+        unit_rates = rgc_output.rates.mean(dim=(0, 1, 2))
+        homeostasis = torch.relu(self.homeostasis_rate_min - unit_rates).square().mean()
         total = (
-            reconstruction_current / self.config.reconstruction_mse_scale
-            + self.config.energy_weight * energy_cost
-            + self.config.homeostasis_weight * homeostasis
+            normalized_reconstruction
+            + energy_weight * energy_penalty
+            + wiring_weight * wiring
+            + diversity_weight * (variance_floor + phenotype_repulsion + homeostasis)
         )
         return RetinaLosses(
             total=total,
-            reconstruction_current=reconstruction_current,
-            spike_energy=spike_energy,
-            energy_cost=energy_cost,
+            reconstruction=reconstruction,
+            normalized_reconstruction=normalized_reconstruction,
+            energy=energy,
+            energy_penalty=energy_penalty,
+            energy_violation=energy_violation,
+            wiring=wiring,
+            variance_floor=variance_floor,
+            phenotype_repulsion=phenotype_repulsion,
             homeostasis=homeostasis,
         )
 
+    @staticmethod
+    def wiring_cost(
+        rgc: HeterogeneousRGCPool,
+        spatial_weights: torch.Tensor,
+    ) -> torch.Tensor:
+        radius_sq = rgc.distance_sq_degs.masked_select(rgc.support_mask).max().clamp_min(1e-12)
+        return (spatial_weights * rgc.distance_sq_degs / radius_sq).sum(dim=1).mean()
 
-def _shared_spike_energy(
-    spikes: RGCPopulationTensors,
-    target_current: torch.Tensor,
-    config: RetinaLossConfig,
-) -> tuple[torch.Tensor, torch.Tensor]:
-    if target_current.ndim != 2:
-        raise RetinaLossError("Current targets must have shape [batch,Ncone]")
-    if spikes.midget.ndim != 4 or spikes.parasol.ndim != 4:
-        raise RetinaLossError("Spike history must have shape [batch,time,2,N]")
-    batch_size, time_steps = spikes.midget.shape[:2]
-    if spikes.parasol.shape[:2] != (batch_size, time_steps):
-        raise RetinaLossError("Population spike histories must share batch/time axes")
-    if target_current.shape[0] != batch_size:
-        raise RetinaLossError("Targets and spike history must share batch size")
-    target_count = target_current.shape[1]
-    if target_count < 1 or spikes.midget.shape[2] != 2 or spikes.parasol.shape[2] != 2:
-        raise RetinaLossError("Spike history must include two ON/OFF polarities")
-
-    per_example_energy = (
-        spikes.midget.flatten(start_dim=1).sum(dim=1)
-        + spikes.parasol.flatten(start_dim=1).sum(dim=1)
-    ) / (time_steps * target_count)
-    shared_budget = target_current.new_tensor(
-        2.0
-        * (
-            config.midget_spike_budget * spikes.midget.shape[-1]
-            + config.parasol_spike_budget * spikes.parasol.shape[-1]
+    def phenotype_repulsion(self, rgc: HeterogeneousRGCPool) -> torch.Tensor:
+        eps = torch.finfo(rgc.spatial_sigma.dtype).eps
+        phenotype = torch.stack(
+            (
+                rgc.spatial_sigma.log(),
+                torch.logit(rgc.sustained_mix.clamp(eps, 1.0 - eps)),
+                rgc.membrane_tau_ms.log(),
+                rgc.adaptation_tau_ms.log(),
+                rgc.adaptation_gain,
+            ),
+            dim=1,
         )
-        / target_count
-    )
-    spike_energy = per_example_energy.mean()
-    energy_cost = (per_example_energy / shared_budget).square().mean()
-    return spike_energy, energy_cost
+        standardized = (phenotype - phenotype.mean(dim=0)) / phenotype.std(
+            dim=0, unbiased=False
+        ).clamp_min(eps)
+        centers = torch.unique(rgc.unit_center_indices)
+        penalties: list[torch.Tensor] = []
+        for center in centers:
+            members = standardized[rgc.unit_center_indices == center]
+            if members.shape[0] < 2:
+                continue
+            differences = members.unsqueeze(1) - members.unsqueeze(0)
+            distances = differences.square().sum(dim=-1)
+            pair_mask = torch.triu(
+                torch.ones_like(distances, dtype=torch.bool), diagonal=1
+            )
+            penalties.append(
+                torch.exp(-distances[pair_mask] / self.phenotype_temperature).mean()
+            )
+        return torch.stack(penalties).mean() if penalties else phenotype.new_zeros(())
+
+
+__all__ = ["RetinaLossError", "RetinaLosses", "RetinaObjective"]

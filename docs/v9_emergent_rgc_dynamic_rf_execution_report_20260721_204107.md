@@ -1,0 +1,63 @@
+# V9 FAILED_WITH_REPORT
+
+```json
+{
+  "status": "FAILED_WITH_REPORT",
+  "error_type": "V9ExecutionError",
+  "error": "Configured dt_ms does not match the HDF5 time axis",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\PythonProject\\retina_rf_SNN\\scripts\\run_v9_emergent_rgc_dynamic_rf.py\", line 74, in main\n    _run(args, raw_config, run_dir, stamp)\n  File \"D:\\PythonProject\\retina_rf_SNN\\scripts\\run_v9_emergent_rgc_dynamic_rf.py\", line 100, in _run\n    raise V9ExecutionError(\"Configured dt_ms does not match the HDF5 time axis\")\nV9ExecutionError: Configured dt_ms does not match the HDF5 time axis\n",
+  "last_successful_step": 0,
+  "missing_resource": "see error and traceback",
+  "resume_command": "D:\\anaconda\\envs\\snn_env\\python.exe D:\\PythonProject\\retina_rf_SNN\\scripts\\run_v9_emergent_rgc_dynamic_rf.py --config D:\\PythonProject\\retina_rf_SNN\\configs\\v9_emergent_rgc_dynamic_rf.yaml --device cuda --seed 19 --resume-run D:\\PythonProject\\retina_rf_SNN\\runs\\v9_emergent_rgc_dynamic_rf_seed19_20260721_204107",
+  "resolved_config": {
+    "seed": 19,
+    "train_glob": "data/isetbio_bsds300_4deg/train/*.h5",
+    "validation_glob": "data/isetbio_bsds300_4deg/val/*.h5",
+    "dt_ms": 5,
+    "sequence_steps": 320,
+    "burn_in_steps": 64,
+    "differentiable_steps": 256,
+    "context_only_steps": 160,
+    "supervised_steps": 96,
+    "checkpoint_block_steps": 32,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 4,
+    "gradient_clip_norm": 1.0,
+    "tau_max_ms": 250,
+    "noise_std_min": 0.1,
+    "noise_std_max": 0.25,
+    "context_transition_probability": 0.75,
+    "context_gain_min": 0.3,
+    "context_gain_max": 1.0,
+    "energy_bootstrap_fraction": 0.1,
+    "energy_budget_ratio": 0.9,
+    "rho_energy": 1.0,
+    "dual_lr": 0.01,
+    "dual_max": 10.0,
+    "lambda_wiring": 0.001,
+    "lambda_cross_bank_redundancy": 0.001,
+    "lambda_homeostasis": 0.001,
+    "lambda_unit_residual": 1e-05,
+    "core_and_bank_lr": 0.0002,
+    "decoder_scalar_lr": 0.0001,
+    "weight_decay": 0.0,
+    "lr_warmup_fraction": 0.05,
+    "lr_schedule": "cosine",
+    "max_optimizer_steps": 1000,
+    "min_optimizer_steps": 300,
+    "validation_interval_steps": 50,
+    "early_stopping_patience_validations": 8,
+    "dynamic_rf_context_pairs": 32,
+    "dynamic_rf_max_units_per_bank_polarity": 8,
+    "dynamic_rf_lag_steps": 8,
+    "dynamic_rf_recovery_delays_ms": [
+      0,
+      100,
+      200,
+      300,
+      500
+    ],
+    "local_linear_baseline": "not_run"
+  }
+}
+```

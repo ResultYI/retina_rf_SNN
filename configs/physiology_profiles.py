@@ -9,8 +9,6 @@ import numpy as np
 from models.cells.amacrine import LocalAmacrineConfig
 from models.cells.bipolar import BipolarConfig
 from models.cells.horizontal import H1HorizontalConfig
-from models.cells.rgc import RGCConfig
-from models.decoder.local_decoder import LocalDecoderConfig
 
 _TIME_AXIS_CV_MAX: Final[float] = 1e-3
 
@@ -28,16 +26,12 @@ class PhysiologyProfile:
     h1: H1HorizontalConfig
     bipolar: BipolarConfig
     amacrine: LocalAmacrineConfig
-    rgc: RGCConfig
-    decoder: LocalDecoderConfig
 
 
 def dt_ms_from_time_axis_seconds(time_axis_seconds: np.ndarray) -> float:
     axis = np.asarray(time_axis_seconds, dtype=np.float64).reshape(-1)
-    if axis.size < 2:
-        raise PhysiologyProfileError("time_axis_seconds needs at least two frames")
-    if not np.isfinite(axis).all():
-        raise PhysiologyProfileError("time_axis_seconds must be finite")
+    if axis.size < 2 or not np.isfinite(axis).all():
+        raise PhysiologyProfileError("time_axis_seconds needs finite frames")
     intervals = np.diff(axis)
     if np.any(intervals <= 0):
         raise PhysiologyProfileError("time_axis_seconds must be strictly increasing")
@@ -48,7 +42,7 @@ def dt_ms_from_time_axis_seconds(time_axis_seconds: np.ndarray) -> float:
     return interval_median * 1000.0
 
 
-def human_macaque_v1(
+def human_macaque(
     *,
     dt_ms: float,
     cone_spacing_deg: float,
@@ -61,7 +55,7 @@ def human_macaque_v1(
     if not math.isfinite(eccentricity_deg) or eccentricity_deg < 0:
         raise PhysiologyProfileError("eccentricity_deg must be finite and non-negative")
     return PhysiologyProfile(
-        name="human_macaque_v1",
+        name="human_macaque",
         species_priority=("human", "macaque", "marmoset"),
         cone_spacing_deg=cone_spacing_deg,
         eccentricity_deg=eccentricity_deg,
@@ -117,35 +111,13 @@ def human_macaque_v1(
             initial_g_ba_transient=0.05,
             g_ba_transient_max=0.50,
         ),
-        rgc=RGCConfig(
-            midget_radius_degs=1.50 * cone_spacing_deg,
-            midget_sigma_degs=0.75 * cone_spacing_deg,
-            parasol_radius_degs=3.60 * cone_spacing_deg,
-            parasol_sigma_degs=1.80 * cone_spacing_deg,
-            dt_ms=dt_ms,
-            membrane_tau_ms=20.0,
-            membrane_tau_min_ms=5.0,
-            membrane_tau_max_ms=80.0,
-            adaptation_tau_ms=80.0,
-            adaptation_tau_min_ms=20.0,
-            adaptation_tau_max_ms=250.0,
-            readout_rate_tau_ms=50.0,
-            threshold=0.20,
-            surrogate_slope=5.0,
-            adaptation_strength=0.10,
-            initial_g_ag_midget=0.01,
-            g_ag_midget_max=0.10,
-            initial_g_ag_parasol=0.03,
-            g_ag_parasol_max=0.30,
-            subunit_adaptation_tau_ms=50.0,
-            subunit_adaptation_tau_min_ms=10.0,
-            subunit_adaptation_tau_max_ms=200.0,
-            initial_subunit_gain=0.50,
-            subunit_gain_max=3.00,
-        ),
-        decoder=LocalDecoderConfig(
-            current_radius_degs=3.60 * cone_spacing_deg,
-            current_sigma_degs=1.80 * cone_spacing_deg,
-            current_weight_max=5.00,
-        ),
     )
+
+
+__all__ = [
+    "PhysiologyProfile",
+    "PhysiologyProfileError",
+    "dt_ms_from_time_axis_seconds",
+    "human_macaque",
+]
+
