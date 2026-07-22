@@ -31,11 +31,12 @@ All model and decoder parameters are jointly optimized from the first step.
 
 The energy penalty activates only above budget. Activity below budget receives no additional reward.
 
+Validation runs on a fixed clip set at the configured interval and scores only steps 224–319. Source sampling and augmentation use separate checkpointed PyTorch generators. Model selection records the best reconstruction checkpoint and the best reconstruction checkpoint satisfying the energy gate; final evaluation prefers the latter.
+
 ## Evaluation
 
-Reconstruction reports MSE relative to a train-only mean baseline. Dynamic RF uses same-source low/high contexts, an identical final probe, continuous-readout Jacobians, hard-event-aware finite differences, recovery delays, and a reset-state suppression control. RGC clusters are reported after training and are not training targets.
+Reconstruction reports MSE relative to a train-only mean baseline. Only after reconstruction and energy gates pass, dynamic RF uses same-source low/high contexts, an identical final probe, continuous-readout Jacobians, target-event-aware finite differences, recovery delays, and an identical-reset kernel error check. Independent impulse, step, and flicker probes supply temporal features for RGC clustering. Candidate clusters require minimum size, silhouette, spatial-radius difference, and sustained-response difference gates.
 
 ## Compatibility
 
-Only checkpoint schema `retina_rf_snn` revision 1 is accepted. Earlier checkpoints cannot be loaded because their state axes, population assumptions, decoder parameters, objective state, and optimizer groups do not match the canonical architecture.
-
+Only checkpoint schema `retina_rf_snn` revision 2 is accepted. Earlier checkpoints cannot be loaded because they do not contain the revised bounded parameters, surrogate energy output, dual RNG states, and validation-selection state.

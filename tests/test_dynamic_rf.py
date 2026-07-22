@@ -17,7 +17,7 @@ def test_matched_context_pair_keeps_identical_final_probe() -> None:
     config = load_config(ROOT / "configs" / "experiment.yaml")
     evaluation = replace(
         config.evaluation,
-        dynamic_rf_context_pairs=1,
+        dynamic_rf_max_sources=1,
         dynamic_rf_lag_steps=8,
     )
     clean = torch.arange(config.data.sequence_steps * 3, dtype=torch.float32).reshape(

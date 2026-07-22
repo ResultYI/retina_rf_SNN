@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import math
+
 import torch
 from torch import nn
 
@@ -41,44 +43,88 @@ class HeterogeneousRGCPool(nn.Module):
         )
 
         unit_count = center_indices.numel()
-        jitter = 0.08 * torch.randn(unit_count)
-        alternating = torch.where(
-            torch.arange(unit_count) % config.units_per_center == 0,
-            torch.full((unit_count,), -0.10),
-            torch.full((unit_count,), 0.10),
-        )
+        generator = torch.Generator().manual_seed(config.initialization_seed)
+
+        def centered_noise(scale: float) -> torch.Tensor:
+            noise = torch.randn(unit_count, generator=generator).reshape(
+                -1, config.units_per_center
+            )
+            noise = noise - noise.mean(dim=1, keepdim=True)
+            return scale * noise.flatten()
+
         self.raw_spatial_sigma = nn.Parameter(
             raw_from_bounded(
                 torch.full((unit_count,), config.sigma_initial_degs)
-                * (1.0 + alternating),
+                * (1.0 + centered_noise(0.03)),
                 config.sigma_min_degs,
                 config.sigma_max_degs,
             )
         )
-        self.raw_sustained_mix = nn.Parameter(jitter + alternating)
+        self.raw_sustained_mix = nn.Parameter(
+            raw_from_bounded(
+                torch.full((unit_count,), 0.5) + centered_noise(0.03), 0.0, 1.0
+            )
+        )
         self.raw_membrane_tau = nn.Parameter(
-            raw_from_bounded(torch.full((unit_count,), 20.0), config.dt_ms, config.max_tau_ms)
-            + jitter
+            raw_from_bounded(
+                torch.full((unit_count,), 20.0) * (1.0 + centered_noise(0.03)),
+                config.dt_ms,
+                config.max_tau_ms,
+            )
         )
         self.raw_adaptation_tau = nn.Parameter(
-            raw_from_bounded(torch.full((unit_count,), 80.0), config.dt_ms, config.max_tau_ms)
-            - jitter
+            raw_from_bounded(
+                torch.full((unit_count,), 80.0) * (1.0 + centered_noise(0.03)),
+                config.dt_ms,
+                config.max_tau_ms,
+            )
         )
-        self.raw_adaptation_gain = nn.Parameter(torch.full((unit_count,), -2.2) + jitter)
-        self.raw_amacrine_gain = nn.Parameter(torch.full((unit_count,), -2.8) - jitter)
+        self.raw_adaptation_gain = nn.Parameter(
+            raw_from_bounded(
+                torch.full((unit_count,), 0.10) * (1.0 + centered_noise(0.03)),
+                0.0,
+                config.adaptation_gain_max,
+            )
+        )
+        self.raw_amacrine_gain = nn.Parameter(
+            raw_from_bounded(
+                torch.full((unit_count,), 0.05) * (1.0 + centered_noise(0.03)),
+                0.0,
+                config.amacrine_gain_max,
+            )
+        )
         self.raw_threshold = nn.Parameter(
-            raw_from_bounded(torch.full((unit_count,), 0.20), 0.02, 2.0) + jitter
+            raw_from_bounded(
+                torch.full((unit_count,), 0.20) * (1.0 + centered_noise(0.03)),
+                0.02,
+                2.0,
+            )
         )
         self.raw_subunit_tau = nn.Parameter(
-            raw_from_bounded(torch.full((unit_count,), 50.0), config.dt_ms, config.max_tau_ms)
-            + alternating
+            raw_from_bounded(
+                torch.full((unit_count,), 50.0) * (1.0 + centered_noise(0.03)),
+                config.dt_ms,
+                config.max_tau_ms,
+            )
         )
-        self.raw_subunit_gain = nn.Parameter(torch.full((unit_count,), -0.5) - alternating)
+        self.raw_subunit_gain = nn.Parameter(
+            raw_from_bounded(
+                torch.full((unit_count,), 0.50) * (1.0 + centered_noise(0.03)),
+                0.0,
+                config.subunit_gain_max,
+            )
+        )
 
         self._sigma_bounds = (config.sigma_min_degs, config.sigma_max_degs)
         self._tau_bounds = (config.dt_ms, config.max_tau_ms)
+        self._adaptation_gain_max = config.adaptation_gain_max
+        self._amacrine_gain_max = config.amacrine_gain_max
+        self._subunit_gain_max = config.subunit_gain_max
         self._dt_ms = config.dt_ms
         self._surrogate_slope = config.surrogate_slope
+        self.register_buffer(
+            "initial_phenotype_features", self.phenotype_features().detach().clone()
+        )
 
     @property
     def unit_count(self) -> int:
@@ -102,11 +148,11 @@ class HeterogeneousRGCPool(nn.Module):
 
     @property
     def adaptation_gain(self) -> torch.Tensor:
-        return torch.nn.functional.softplus(self.raw_adaptation_gain)
+        return bounded(self.raw_adaptation_gain, 0.0, self._adaptation_gain_max)
 
     @property
     def amacrine_gain(self) -> torch.Tensor:
-        return torch.nn.functional.softplus(self.raw_amacrine_gain)
+        return bounded(self.raw_amacrine_gain, 0.0, self._amacrine_gain_max)
 
     @property
     def threshold(self) -> torch.Tensor:
@@ -118,7 +164,44 @@ class HeterogeneousRGCPool(nn.Module):
 
     @property
     def subunit_gain(self) -> torch.Tensor:
-        return torch.nn.functional.softplus(self.raw_subunit_gain)
+        return bounded(self.raw_subunit_gain, 0.0, self._subunit_gain_max)
+
+    @property
+    def sigma_bounds(self) -> tuple[float, float]:
+        return self._sigma_bounds
+
+    @property
+    def tau_bounds(self) -> tuple[float, float]:
+        return self._tau_bounds
+
+    @property
+    def adaptation_gain_max(self) -> float:
+        return self._adaptation_gain_max
+
+    @property
+    def amacrine_gain_max(self) -> float:
+        return self._amacrine_gain_max
+
+    @property
+    def subunit_gain_max(self) -> float:
+        return self._subunit_gain_max
+
+    def phenotype_features(self) -> torch.Tensor:
+        sigma_min, sigma_max = self._sigma_bounds
+        tau_min, tau_max = self._tau_bounds
+        return torch.stack(
+            (
+                (self.spatial_sigma.log() - math.log(sigma_min))
+                / (math.log(sigma_max) - math.log(sigma_min)),
+                self.sustained_mix,
+                (self.membrane_tau_ms.log() - math.log(tau_min))
+                / (math.log(tau_max) - math.log(tau_min)),
+                (self.adaptation_tau_ms.log() - math.log(tau_min))
+                / (math.log(tau_max) - math.log(tau_min)),
+                self.adaptation_gain / self._adaptation_gain_max,
+            ),
+            dim=1,
+        )
 
     def compute_spatial_weights(self) -> torch.Tensor:
         sigma_sq = self.spatial_sigma.square().unsqueeze(1)
@@ -198,6 +281,7 @@ class HeterogeneousRGCPool(nn.Module):
         rate = rate_leak * previous.rate + (1.0 - rate_leak) * spikes
         output = RGCStepOutput(
             hard_spikes=hard,
+            surrogate_spikes=spikes,
             spike_probability=probability,
             rates=rate,
             generator_potential=pre_reset,

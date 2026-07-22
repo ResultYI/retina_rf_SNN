@@ -21,6 +21,10 @@ class RGCConfig:
     readout_rate_tau_ms: float
     max_tau_ms: float
     surrogate_slope: float
+    adaptation_gain_max: float = 1.0
+    amacrine_gain_max: float = 1.0
+    subunit_gain_max: float = 3.0
+    initialization_seed: int = 0
 
     def __post_init__(self) -> None:
         values = (
@@ -32,6 +36,9 @@ class RGCConfig:
             self.readout_rate_tau_ms,
             self.max_tau_ms,
             self.surrogate_slope,
+            self.adaptation_gain_max,
+            self.amacrine_gain_max,
+            self.subunit_gain_max,
         )
         if self.units_per_center < 1:
             raise RGCConfigurationError("units_per_center must be positive")
@@ -41,6 +48,8 @@ class RGCConfig:
             raise RGCConfigurationError("Initial sigma must lie inside its bounds")
         if self.max_tau_ms <= self.dt_ms:
             raise RGCConfigurationError("max_tau_ms must exceed dt_ms")
+        if self.initialization_seed < 0:
+            raise RGCConfigurationError("initialization_seed must be non-negative")
 
 
 @dataclass(frozen=True, slots=True)
@@ -54,6 +63,7 @@ class RGCState:
 @dataclass(frozen=True, slots=True)
 class RGCStepOutput:
     hard_spikes: torch.Tensor
+    surrogate_spikes: torch.Tensor
     spike_probability: torch.Tensor
     rates: torch.Tensor
     generator_potential: torch.Tensor
@@ -62,7 +72,7 @@ class RGCStepOutput:
 @dataclass(frozen=True, slots=True)
 class RGCOutput:
     hard_spikes: torch.Tensor
+    surrogate_spikes: torch.Tensor
     spike_probability: torch.Tensor
     rates: torch.Tensor
     generator_potential: torch.Tensor
-

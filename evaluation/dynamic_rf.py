@@ -38,11 +38,21 @@ class DynamicRFUnitResult:
     unit: int
     low_kernel_norm: float
     high_kernel_norm: float
+    kernel_norm_ratio: float
     gain_normalized_cosine_distance: float
-    temporal_peak_ms: float
-    integration_width_ms: float
-    spatial_second_moment: float
-    state_reset_suppression: float
+    low_temporal_peak_ms: float
+    high_temporal_peak_ms: float
+    temporal_peak_shift_ms: float
+    low_integration_width_ms: float
+    high_integration_width_ms: float
+    integration_width_shift_ms: float
+    low_spatial_center_distance_degs: float
+    high_spatial_center_distance_degs: float
+    spatial_center_shift_degs: float
+    low_spatial_second_moment: float
+    high_spatial_second_moment: float
+    spatial_second_moment_shift: float
+    identical_reset_kernel_error: float
     recovery_curve: tuple[tuple[int, float], ...]
     finite_difference: FiniteDifferenceResult
 
@@ -55,7 +65,7 @@ def build_matched_context_pairs(
     if evaluation_config.dynamic_rf_lag_steps >= data_config.sequence_steps:
         raise DynamicRFError("dynamic RF lag must be shorter than the sequence")
     pairs: list[MatchedContextPair] = []
-    for clip in clips[: evaluation_config.dynamic_rf_context_pairs]:
+    for clip in clips[: evaluation_config.dynamic_rf_max_sources]:
         clean = clip.clean
         split = clean.shape[0] - evaluation_config.dynamic_rf_lag_steps
         context = clean[:split]
@@ -78,7 +88,7 @@ def evaluate_dynamic_rf(
     *,
     dt_ms: float,
     readout: Literal["spike_probability", "generator_potential"] = "spike_probability",
-    finite_difference_epsilon: float = 1e-3,
+    finite_difference_epsilons: Sequence[float] = (1e-4, 3e-4, 1e-3),
 ) -> tuple[DynamicRFUnitResult, ...]:
     if not pairs:
         raise DynamicRFError("At least one matched context pair is required")
@@ -112,7 +122,6 @@ def evaluate_dynamic_rf(
                 high_kernel = _continuous_kernel(
                     model, probe, high_state, spatial_weights, polarity, unit, readout
                 )
-                normal_distance = float((low_kernel - high_kernel).norm())
                 reset_kernel_a = _continuous_kernel(
                     model,
                     probe,
@@ -131,28 +140,45 @@ def evaluate_dynamic_rf(
                     unit,
                     readout,
                 )
-                reset_distance = float((reset_kernel_a - reset_kernel_b).norm())
-                suppression = 1.0 - reset_distance / (normal_distance + 1e-12)
-                peak_ms, width_ms = _temporal_metrics(high_kernel, dt_ms)
+                reset_error = float((reset_kernel_a - reset_kernel_b).norm())
+                low_peak_ms, low_width_ms = _temporal_metrics(low_kernel, dt_ms)
+                high_peak_ms, high_width_ms = _temporal_metrics(high_kernel, dt_ms)
+                unit_center = model.rgc.unit_centers_degs[unit]
+                low_center, low_center_distance, low_moment = _spatial_metrics(
+                    low_kernel, model.rgc.cone_positions_degs, unit_center
+                )
+                high_center, high_center_distance, high_moment = _spatial_metrics(
+                    high_kernel, model.rgc.cone_positions_degs, unit_center
+                )
+                low_norm = float(low_kernel.norm())
+                high_norm = float(high_kernel.norm())
                 results.append(
                     DynamicRFUnitResult(
                         source_id=pair.source_id,
                         polarity=polarity,
                         unit=unit,
-                        low_kernel_norm=float(low_kernel.norm()),
-                        high_kernel_norm=float(high_kernel.norm()),
+                        low_kernel_norm=low_norm,
+                        high_kernel_norm=high_norm,
+                        kernel_norm_ratio=high_norm / max(low_norm, 1e-12),
                         gain_normalized_cosine_distance=float(
                             1.0
                             - F.cosine_similarity(
                                 low_kernel.flatten(), high_kernel.flatten(), dim=0
                             )
                         ),
-                        temporal_peak_ms=peak_ms,
-                        integration_width_ms=width_ms,
-                        spatial_second_moment=_spatial_second_moment(
-                            high_kernel, model.rgc.cone_positions_degs
-                        ),
-                        state_reset_suppression=suppression,
+                        low_temporal_peak_ms=low_peak_ms,
+                        high_temporal_peak_ms=high_peak_ms,
+                        temporal_peak_shift_ms=high_peak_ms - low_peak_ms,
+                        low_integration_width_ms=low_width_ms,
+                        high_integration_width_ms=high_width_ms,
+                        integration_width_shift_ms=high_width_ms - low_width_ms,
+                        low_spatial_center_distance_degs=low_center_distance,
+                        high_spatial_center_distance_degs=high_center_distance,
+                        spatial_center_shift_degs=float((high_center - low_center).norm()),
+                        low_spatial_second_moment=low_moment,
+                        high_spatial_second_moment=high_moment,
+                        spatial_second_moment_shift=high_moment - low_moment,
+                        identical_reset_kernel_error=reset_error,
                         recovery_curve=_recovery_curve(
                             model,
                             probe,
@@ -174,7 +200,7 @@ def evaluate_dynamic_rf(
                             unit,
                             readout,
                             high_kernel,
-                            finite_difference_epsilon,
+                            finite_difference_epsilons,
                         ),
                     )
                 )
@@ -225,7 +251,7 @@ def _finite_difference_check(
     unit: int,
     readout: str,
     kernel: torch.Tensor,
-    epsilon: float,
+    epsilons: Sequence[float],
 ) -> FiniteDifferenceResult:
     generator = torch.Generator(device=probe.device).manual_seed(
         polarity * model.rgc.unit_count + unit
@@ -237,34 +263,38 @@ def _finite_difference_check(
         dtype=probe.dtype,
     )
     direction = direction / direction.norm().clamp_min(1e-12)
-    outputs = []
-    events = []
-    for signed_epsilon in (epsilon, -epsilon):
-        output, _ = model.forward_sequence(
-            probe + signed_epsilon * direction,
-            state,
-            spatial_weights=spatial_weights,
-            probe_continuous_output=True,
-        )
-        outputs.append(getattr(output, readout)[0, -1, polarity, unit])
-        events.append(output.hard_spikes.detach())
     autodiff = float((kernel * direction[0]).sum())
-    finite_difference = float((outputs[0] - outputs[1]) / (2.0 * epsilon))
-    if not torch.equal(events[0], events[1]):
-        return FiniteDifferenceResult(
-            autodiff,
-            finite_difference,
-            None,
-            "threshold_crossing_not_local",
+    last_finite_difference = 0.0
+    for epsilon in sorted(epsilons, reverse=True):
+        outputs = []
+        events = []
+        for signed_epsilon in (epsilon, -epsilon):
+            output, _ = model.forward_sequence(
+                probe + signed_epsilon * direction,
+                state,
+                spatial_weights=spatial_weights,
+                probe_continuous_output=True,
+            )
+            outputs.append(getattr(output, readout)[0, -1, polarity, unit])
+            events.append(output.hard_spikes[0, :, polarity, unit].detach())
+        last_finite_difference = float(
+            (outputs[0] - outputs[1]) / (2.0 * epsilon)
         )
-    relative_error = abs(autodiff - finite_difference) / max(
-        abs(autodiff), abs(finite_difference), 1e-12
-    )
+        if torch.equal(events[0], events[1]):
+            relative_error = abs(autodiff - last_finite_difference) / max(
+                abs(autodiff), abs(last_finite_difference), 1e-12
+            )
+            return FiniteDifferenceResult(
+                autodiff,
+                last_finite_difference,
+                relative_error,
+                "local_continuous_check",
+            )
     return FiniteDifferenceResult(
         autodiff,
-        finite_difference,
-        relative_error,
-        "local_continuous_check",
+        last_finite_difference,
+        None,
+        "threshold_crossing_not_local",
     )
 
 
@@ -277,16 +307,18 @@ def _temporal_metrics(kernel: torch.Tensor, dt_ms: float) -> tuple[float, float]
     return lag_to_peak * dt_ms, width * dt_ms
 
 
-def _spatial_second_moment(
+def _spatial_metrics(
     kernel: torch.Tensor,
     cone_positions: torch.Tensor,
-) -> float:
+    unit_center: torch.Tensor,
+) -> tuple[torch.Tensor, float, float]:
     spatial = kernel.abs().sum(dim=0)
     normalized = spatial / spatial.sum().clamp_min(1e-12)
     center = (normalized[:, None] * cone_positions).sum(dim=0)
-    return float(
-        (normalized * (cone_positions - center).square().sum(dim=1)).sum()
-    )
+    second_moment = (
+        normalized * (cone_positions - unit_center).square().sum(dim=1)
+    ).sum()
+    return center, float((center - unit_center).norm()), float(second_moment)
 
 
 def _recovery_curve(

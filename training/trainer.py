@@ -69,6 +69,13 @@ class OptimizerStepResult:
     peak_memory_bytes: int
 
 
+@dataclass(slots=True)
+class ValidationState:
+    count: int = 0
+    best_reconstruction_mse: float = math.inf
+    best_feasible_mse: float = math.inf
+
+
 class RetinaTrainer:
     def __init__(
         self,
@@ -101,6 +108,7 @@ class RetinaTrainer:
             self.optimizer, lr_multiplier
         )
         self.energy_state = EnergyBudgetState()
+        self.validation_state = ValidationState()
         self.optimizer_step = 0
 
     def forward_clip(
@@ -155,8 +163,8 @@ class RetinaTrainer:
             energy_budget=self.energy_state.budget,
             energy_dual=self.energy_state.dual,
             energy_weight=penalty_scale,
-            wiring_weight=penalty_scale * self.config.objective.wiring_target_gradient_ratio,
-            diversity_weight=penalty_scale * self.config.objective.diversity_target_gradient_ratio,
+            wiring_weight=penalty_scale * self.config.objective.wiring_weight,
+            diversity_weight=penalty_scale * self.config.objective.diversity_weight,
             supervised_steps=training.supervised_steps,
         )
         return losses, history, state
@@ -173,7 +181,7 @@ class RetinaTrainer:
                 region, state, spatial_weights=spatial_weights
             )
         flat_state = state_to_tensors(state)
-        histories: list[list[torch.Tensor]] = [[], [], [], []]
+        histories: list[list[torch.Tensor]] = [[], [], [], [], []]
         block_steps = self.config.training.checkpoint_block_steps
         for start in range(0, region.shape[1], block_steps):
             block = region[:, start : start + block_steps]
@@ -191,6 +199,7 @@ class RetinaTrainer:
                 return (
                     *state_to_tensors(next_state),
                     output.hard_spikes,
+                    output.surrogate_spikes,
                     output.spike_probability,
                     output.rates,
                     output.generator_potential,
@@ -271,7 +280,9 @@ class RetinaTrainer:
         )
 
     def checkpoint_payload(
-        self, augmentation_generator: torch.Generator
+        self,
+        sampling_generator: torch.Generator,
+        augmentation_generator: torch.Generator,
     ) -> dict[str, Any]:
         return checkpoint_payload(
             optimizer_step=self.optimizer_step,
@@ -280,6 +291,8 @@ class RetinaTrainer:
             optimizer=self.optimizer,
             scheduler=self.scheduler,
             energy_state=self.energy_state,
+            validation_state=self.validation_state,
+            sampling_generator=sampling_generator,
             augmentation_generator=augmentation_generator,
             config=self.config,
         )
@@ -287,6 +300,7 @@ class RetinaTrainer:
     def restore(
         self,
         payload: dict[str, Any],
+        sampling_generator: torch.Generator,
         augmentation_generator: torch.Generator,
     ) -> None:
         self.model.load_state_dict(payload["model"])
@@ -295,11 +309,33 @@ class RetinaTrainer:
         self.scheduler.load_state_dict(payload["scheduler"])
         self.optimizer_step = int(payload["optimizer_step"])
         self.energy_state = EnergyBudgetState(**payload["energy_state"])
+        self.validation_state = ValidationState(**payload["validation_state"])
         rng = payload["rng"]
         torch.set_rng_state(rng["torch"].cpu())
         if torch.cuda.is_available() and rng["cuda"]:
             torch.cuda.set_rng_state_all([state.cpu() for state in rng["cuda"]])
+        sampling_generator.set_state(rng["sampling"].cpu())
         augmentation_generator.set_state(rng["augmentation"].cpu())
+
+    def record_validation(
+        self,
+        reconstruction_mse: float,
+        energy_budget_ratio: float,
+    ) -> tuple[bool, bool]:
+        state = self.validation_state
+        state.count += 1
+        best_reconstruction = reconstruction_mse < state.best_reconstruction_mse
+        if best_reconstruction:
+            state.best_reconstruction_mse = reconstruction_mse
+        feasible = (
+            math.isfinite(energy_budget_ratio)
+            and energy_budget_ratio
+            <= self.config.evaluation.maximum_energy_budget_ratio
+        )
+        best_feasible = feasible and reconstruction_mse < state.best_feasible_mse
+        if best_feasible:
+            state.best_feasible_mse = reconstruction_mse
+        return best_reconstruction, best_feasible
 
 
 def temporal_gradient_audit(
@@ -346,6 +382,7 @@ def _loss_metrics(losses: RetinaLosses, output: RGCOutput) -> dict[str, float]:
         "reconstruction": float(losses.reconstruction.detach()),
         "normalized_reconstruction": float(losses.normalized_reconstruction.detach()),
         "energy": float(losses.energy.detach()),
+        "budget_energy": float(losses.budget_energy.detach()),
         "energy_penalty": float(losses.energy_penalty.detach()),
         "energy_violation": float(losses.energy_violation.detach()),
         "wiring": float(losses.wiring.detach()),
@@ -353,7 +390,12 @@ def _loss_metrics(losses: RetinaLosses, output: RGCOutput) -> dict[str, float]:
         "phenotype_repulsion": float(losses.phenotype_repulsion.detach()),
         "homeostasis": float(losses.homeostasis.detach()),
         "mean_rate": float(output.rates.mean().detach()),
-        "active_unit_fraction": float((output.rates.amax(dim=1) > 0).float().mean().detach()),
+        "hard_active_fraction_on": float(
+            (output.hard_spikes[:, :, 0] > 0).float().mean().detach()
+        ),
+        "hard_active_fraction_off": float(
+            (output.hard_spikes[:, :, 1] > 0).float().mean().detach()
+        ),
     }
 
 
@@ -371,5 +413,6 @@ __all__ = [
     "OptimizerStepResult",
     "RetinaTrainer",
     "TrainingError",
+    "ValidationState",
     "temporal_gradient_audit",
 ]

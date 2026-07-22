@@ -23,15 +23,14 @@ rate           [batch,polarity,unit]
 subunit_energy [batch,polarity,kinetics,unit]
 ```
 
-Sequence outputs are `[batch,time,polarity,unit]` for hard spikes, spike probability, filtered rate, and generator potential. Detached hard events drive reset and adaptation events. The surrogate spike carries reconstruction gradients into temporal and spatial parameters.
+Sequence outputs are `[batch,time,polarity,unit]` for hard spikes, straight-through surrogate spikes, spike probability, filtered rate, and generator potential. Detached hard events drive reset and adaptation events. The surrogate spike carries reconstruction and energy-constraint gradients into temporal and spatial parameters while hard spikes remain the reported energy measure.
 
 ## Tied decoder and objective
 
-The decoder applies positive per-unit gains with fixed ON/OFF signs, projects through the transpose of the encoder weights, and adds a per-cone bias. It does not learn another spatial or temporal kernel.
+The decoder applies bounded positive per-unit gains with fixed ON/OFF signs, projects through the transpose of the encoder weights, and adds a per-cone bias. It does not learn another spatial or temporal kernel. Adaptation, amacrine, and subunit gains are likewise bounded by the active model configuration.
 
 The sole objective is defined in `loss/retina.py`. It supervises clean current cone contrast over the final 96 steps and combines reconstruction with energy, wiring, variance-floor, phenotype-repulsion, and homeostasis terms.
 
 ## Post-training interpretation
 
-RGC typing is evaluation-only. Per-unit spatial, temporal, adaptation, inhibition, rate, and activity features are standardized and clustered with a dependency-free two-cluster k-means. Candidate physiological names are emitted only if preregistered between-cluster relationships hold.
-
+RGC typing is evaluation-only. Per-unit spatial, independent impulse/step/flicker temporal, adaptation, inhibition, rate, and activity features are standardized and clustered with a dependency-free two-cluster k-means. Candidate physiological names are emitted only after cluster-quality gates and preregistered between-cluster relationships both hold.

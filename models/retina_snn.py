@@ -103,6 +103,7 @@ class RetinaModel(nn.Module):
             spatial_weights = self.rgc.compute_spatial_weights()
 
         hard_spikes: list[torch.Tensor] = []
+        surrogate_spikes: list[torch.Tensor] = []
         probabilities: list[torch.Tensor] = []
         rates: list[torch.Tensor] = []
         generators: list[torch.Tensor] = []
@@ -114,11 +115,13 @@ class RetinaModel(nn.Module):
                 probe_continuous_output=probe_continuous_output,
             )
             hard_spikes.append(output.hard_spikes)
+            surrogate_spikes.append(output.surrogate_spikes)
             probabilities.append(output.spike_probability)
             rates.append(output.rates)
             generators.append(output.generator_potential)
         return RGCOutput(
             hard_spikes=torch.stack(hard_spikes, dim=1),
+            surrogate_spikes=torch.stack(surrogate_spikes, dim=1),
             spike_probability=torch.stack(probabilities, dim=1),
             rates=torch.stack(rates, dim=1),
             generator_potential=torch.stack(generators, dim=1),

@@ -34,6 +34,10 @@ class ModelConfig:
     readout_rate_tau_ms: float
     max_tau_ms: float
     surrogate_slope: float
+    decoder_gain_max: float
+    adaptation_gain_max: float
+    amacrine_gain_max: float
+    subunit_gain_max: float
 
 
 @dataclass(frozen=True, slots=True)
@@ -59,8 +63,8 @@ class ObjectiveConfig:
     rho_energy: float
     dual_lr: float
     dual_max: float
-    wiring_target_gradient_ratio: float
-    diversity_target_gradient_ratio: float
+    wiring_weight: float
+    diversity_weight: float
     variance_floor: float
     phenotype_temperature: float
     homeostasis_rate_min: float
@@ -68,7 +72,7 @@ class ObjectiveConfig:
 
 @dataclass(frozen=True, slots=True)
 class EvaluationConfig:
-    dynamic_rf_context_pairs: int
+    dynamic_rf_max_sources: int
     dynamic_rf_units_per_polarity: int
     dynamic_rf_lag_steps: int
     recovery_delays_ms: tuple[int, ...]
@@ -109,16 +113,23 @@ class ExperimentConfig:
             raise ConfigurationError("local_linear_baseline currently supports only disabled")
         positive_values = (
             self.model.units_per_center,
+            self.model.decoder_gain_max,
+            self.model.adaptation_gain_max,
+            self.model.amacrine_gain_max,
+            self.model.subunit_gain_max,
             self.training.gradient_accumulation_steps,
             self.training.gradient_clip_norm,
             self.training.max_optimizer_steps,
+            self.training.validation_interval_steps,
             self.training.core_lr,
             self.training.decoder_lr,
             self.objective.rho_energy,
             self.objective.dual_lr,
             self.objective.dual_max,
+            self.objective.wiring_weight,
+            self.objective.diversity_weight,
             self.objective.phenotype_temperature,
-            self.evaluation.dynamic_rf_context_pairs,
+            self.evaluation.dynamic_rf_max_sources,
             self.evaluation.dynamic_rf_units_per_polarity,
             self.evaluation.dynamic_rf_lag_steps,
         )
@@ -178,4 +189,3 @@ __all__ = [
     "TrainingConfig",
     "load_config",
 ]
-

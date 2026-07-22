@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
-import random
+import math
 import sys
 from dataclasses import asdict
 from pathlib import Path
@@ -23,8 +23,13 @@ from evaluation.reconstruction import (
     fit_reconstruction_scale,
     reconstruction_metrics,
 )
-from evaluation.reporting import summarize_evaluation, write_evaluation_report
+from evaluation.reporting import (
+    classify_dynamic_rf,
+    summarize_evaluation,
+    write_evaluation_report,
+)
 from evaluation.rgc_types import identify_rgc_types
+from evaluation.temporal_probes import run_temporal_probes
 from loss.retina import RetinaObjective
 from models.cells.rgc_types import RGCConfig, RGCOutput
 from models.decoder.local_decoder import TiedLocalDecoder
@@ -68,10 +73,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         readout_rate_tau_ms=model_config.readout_rate_tau_ms,
         max_tau_ms=model_config.max_tau_ms,
         surrogate_slope=model_config.surrogate_slope,
+        adaptation_gain_max=model_config.adaptation_gain_max,
+        amacrine_gain_max=model_config.amacrine_gain_max,
+        subunit_gain_max=model_config.subunit_gain_max,
+        initialization_seed=config.seed,
     )
     model = build_retina_model(prepared.positions_degs, profile, rgc_config).to(device)
     decoder = TiedLocalDecoder(
-        model.rgc.unit_count, prepared.positions_degs.shape[0]
+        model.rgc.unit_count,
+        prepared.positions_degs.shape[0],
+        model_config.decoder_gain_max,
     ).to(device)
     objective = RetinaObjective(
         rho_energy=config.objective.rho_energy,
@@ -86,19 +97,28 @@ def main(argv: Sequence[str] | None = None) -> int:
         config,
         fit_reconstruction_scale(prepared.train),
     )
-    augmentation_generator = torch.Generator().manual_seed(config.seed)
+    sampling_generator = torch.Generator().manual_seed(config.seed + 1)
+    augmentation_generator = torch.Generator().manual_seed(config.seed + 2)
     if args.resume is not None:
         payload = load_checkpoint(args.resume, device)
         if payload["resolved_config"] != config.resolved():
             raise ExperimentError("Resume configuration does not match checkpoint")
-        trainer.restore(payload, augmentation_generator)
+        trainer.restore(payload, sampling_generator, augmentation_generator)
 
     output_dir = Path(args.output)
     output_dir.mkdir(parents=True, exist_ok=True)
+    validation = fixed_validation_clips(
+        prepared.validation, config.data, config.seed + 10_000, device
+    )
     while trainer.optimizer_step < config.training.max_optimizer_steps:
         batch: list[AugmentedClip] = []
         for _ in range(config.training.gradient_accumulation_steps):
-            source = random.choice(prepared.train)
+            source_index = int(
+                torch.randint(
+                    len(prepared.train), (1,), generator=sampling_generator
+                ).item()
+            )
+            source = prepared.train[source_index]
             clip = augment_clip(source, config.data, augmentation_generator)
             batch.append(
                 AugmentedClip(
@@ -109,34 +129,87 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
         result = trainer.train_optimizer_step(batch)
         if trainer.optimizer_step % config.training.validation_interval_steps == 0:
-            _write_training_row(output_dir, trainer.optimizer_step, result.metrics)
+            reconstruction, _, energy_ratio = _evaluate_validation(
+                trainer, validation, prepared, config
+            )
+            best_reconstruction, best_feasible = trainer.record_validation(
+                reconstruction.mse, energy_ratio
+            )
+            metrics = {
+                **result.metrics,
+                "validation_mse": reconstruction.mse,
+                "validation_representation_skill": reconstruction.representation_skill,
+                "validation_energy_budget_ratio": energy_ratio,
+            }
+            _write_training_row(output_dir, trainer.optimizer_step, metrics)
+            payload = trainer.checkpoint_payload(
+                sampling_generator, augmentation_generator
+            )
             save_checkpoint(
                 output_dir / "checkpoint_last.pt",
-                trainer.checkpoint_payload(augmentation_generator),
+                payload,
             )
+            if best_reconstruction:
+                save_checkpoint(
+                    output_dir / "checkpoint_best_reconstruction.pt", payload
+                )
+            if best_feasible:
+                save_checkpoint(output_dir / "checkpoint_best_feasible.pt", payload)
 
-    validation = fixed_validation_clips(
-        prepared.validation, config.data, config.seed + 10_000, device
+    selected_checkpoint = output_dir / "checkpoint_best_feasible.pt"
+    if not selected_checkpoint.exists():
+        selected_checkpoint = output_dir / "checkpoint_best_reconstruction.pt"
+    if not selected_checkpoint.exists():
+        raise ExperimentError("Training produced no validation checkpoint")
+    trainer.restore(
+        load_checkpoint(selected_checkpoint, device),
+        sampling_generator,
+        augmentation_generator,
     )
     reconstruction, output, energy_ratio = _evaluate_validation(
         trainer, validation, prepared, config
     )
-    pairs = build_matched_context_pairs(
-        prepared.validation, config.data, config.evaluation
+    representation_passed = (
+        reconstruction.representation_skill
+        >= config.evaluation.minimum_representation_skill
     )
-    dynamic_rf = evaluate_dynamic_rf(
-        model, pairs, config.evaluation, dt_ms=prepared.dt_ms
+    energy_passed = (
+        energy_ratio <= config.evaluation.maximum_energy_budget_ratio
     )
-    type_report = identify_rgc_types(model.rgc, output, seed=config.seed)
-    summary = summarize_evaluation(reconstruction, energy_ratio, dynamic_rf, config)
+    if representation_passed and energy_passed:
+        pairs = build_matched_context_pairs(
+            prepared.validation, config.data, config.evaluation
+        )
+        dynamic_rf = evaluate_dynamic_rf(
+            model, pairs, config.evaluation, dt_ms=prepared.dt_ms
+        )
+        probes = run_temporal_probes(
+            model,
+            _training_mean(prepared),
+            dt_ms=prepared.dt_ms,
+        )
+        type_report = identify_rgc_types(
+            model.rgc, output, probes=probes, seed=config.seed
+        )
+        dynamic_rf_status = classify_dynamic_rf(dynamic_rf)
+        rgc_type_status = type_report.status
+    else:
+        dynamic_rf = ()
+        type_report = None
+        dynamic_rf_status = "not_run"
+        rgc_type_status = "not_run: representation or energy gate failed"
+    summary = summarize_evaluation(
+        reconstruction,
+        energy_ratio,
+        dynamic_rf,
+        config,
+        dynamic_rf_status=dynamic_rf_status,
+        rgc_type_status=rgc_type_status,
+    )
     write_evaluation_report(output_dir, summary, dynamic_rf, type_report, config)
     audit = [asdict(entry) for entry in audit_parameters(model, decoder)]
     (output_dir / "parameter_audit.json").write_text(
         json.dumps(audit, indent=2), encoding="utf-8"
-    )
-    save_checkpoint(
-        output_dir / "checkpoint_last.pt",
-        trainer.checkpoint_payload(augmentation_generator),
     )
     return 0
 
@@ -161,18 +234,26 @@ def _evaluate_validation(
             clip.clean_target,
             checkpointed=False,
         )
-        predictions.append(trainer.decoder(output.rates, spatial_weights))
-        targets.append(clip.clean_target[:, config.training.burn_in_steps :])
+        predictions.append(
+            trainer.decoder(output.rates, spatial_weights)[
+                :, -config.training.supervised_steps :
+            ]
+        )
+        targets.append(clip.clean_target[:, -config.training.supervised_steps :])
         outputs.append(output)
         energies.append(float(losses.energy))
     prediction = torch.cat(predictions)
     target = torch.cat(targets)
-    train_mean = torch.cat([clip.clean for clip in prepared.train]).mean(dim=0).to(
+    train_mean = _training_mean(prepared).to(
         prediction.device, prediction.dtype
     )
     metrics = reconstruction_metrics(prediction, target, train_mean)
     energy_budget = trainer.energy_state.budget
-    energy_ratio = float(np.mean(energies)) / max(energy_budget or 1e-12, 1e-12)
+    energy_ratio = (
+        float(np.mean(energies)) / energy_budget
+        if energy_budget is not None
+        else math.inf
+    )
     return metrics, _concatenate_outputs(outputs), energy_ratio
 
 
@@ -181,6 +262,7 @@ def _concatenate_outputs(outputs: Sequence[RGCOutput]) -> RGCOutput:
         raise ExperimentError("Validation requires at least one output")
     return RGCOutput(
         hard_spikes=torch.cat([output.hard_spikes for output in outputs]),
+        surrogate_spikes=torch.cat([output.surrogate_spikes for output in outputs]),
         spike_probability=torch.cat([output.spike_probability for output in outputs]),
         rates=torch.cat([output.rates for output in outputs]),
         generator_potential=torch.cat(
@@ -198,6 +280,10 @@ def _median_nearest_spacing(positions_degs: np.ndarray) -> float:
     return float(distances.min(dim=1).values.median())
 
 
+def _training_mean(prepared: PreparedData) -> torch.Tensor:
+    return torch.cat([clip.clean for clip in prepared.train]).mean(dim=0)
+
+
 def _write_training_row(
     output_dir: Path,
     optimizer_step: int,
@@ -209,7 +295,6 @@ def _write_training_row(
 
 
 def _seed_everything(seed: int) -> None:
-    random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     if torch.cuda.is_available():

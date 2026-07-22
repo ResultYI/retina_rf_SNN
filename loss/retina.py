@@ -20,6 +20,7 @@ class RetinaLosses:
     reconstruction: torch.Tensor
     normalized_reconstruction: torch.Tensor
     energy: torch.Tensor
+    budget_energy: torch.Tensor
     energy_penalty: torch.Tensor
     energy_violation: torch.Tensor
     wiring: torch.Tensor
@@ -70,20 +71,25 @@ class RetinaObjective(nn.Module):
             * rgc_output.hard_spikes.shape[1]
             * clean_target.shape[-1]
         )
+        budget_energy = rgc_output.surrogate_spikes.sum() / (
+            rgc_output.surrogate_spikes.shape[0]
+            * rgc_output.surrogate_spikes.shape[1]
+            * clean_target.shape[-1]
+        )
         if energy_budget is None:
-            energy_violation = energy.new_zeros(())
+            energy_violation = budget_energy.new_zeros(())
         else:
-            energy_violation = torch.relu(energy / energy_budget - 1.0)
+            energy_violation = torch.relu(budget_energy / energy_budget - 1.0)
         energy_penalty = (
             energy_dual * energy_violation
             + 0.5 * self.rho_energy * energy_violation.square()
         )
         wiring = self.wiring_cost(rgc, spatial_weights)
         continuous = rgc_output.spike_probability
-        unit_std = continuous.flatten(0, 2).std(dim=0, unbiased=False)
+        unit_std = continuous.std(dim=(0, 1), unbiased=False)
         variance_floor = torch.relu(self.variance_floor_target - unit_std).square().mean()
         phenotype_repulsion = self.phenotype_repulsion(rgc)
-        unit_rates = rgc_output.rates.mean(dim=(0, 1, 2))
+        unit_rates = rgc_output.rates.mean(dim=(0, 1))
         homeostasis = torch.relu(self.homeostasis_rate_min - unit_rates).square().mean()
         total = (
             normalized_reconstruction
@@ -96,6 +102,7 @@ class RetinaObjective(nn.Module):
             reconstruction=reconstruction,
             normalized_reconstruction=normalized_reconstruction,
             energy=energy,
+            budget_energy=budget_energy,
             energy_penalty=energy_penalty,
             energy_violation=energy_violation,
             wiring=wiring,
@@ -113,24 +120,11 @@ class RetinaObjective(nn.Module):
         return (spatial_weights * rgc.distance_sq_degs / radius_sq).sum(dim=1).mean()
 
     def phenotype_repulsion(self, rgc: HeterogeneousRGCPool) -> torch.Tensor:
-        eps = torch.finfo(rgc.spatial_sigma.dtype).eps
-        phenotype = torch.stack(
-            (
-                rgc.spatial_sigma.log(),
-                torch.logit(rgc.sustained_mix.clamp(eps, 1.0 - eps)),
-                rgc.membrane_tau_ms.log(),
-                rgc.adaptation_tau_ms.log(),
-                rgc.adaptation_gain,
-            ),
-            dim=1,
-        )
-        standardized = (phenotype - phenotype.mean(dim=0)) / phenotype.std(
-            dim=0, unbiased=False
-        ).clamp_min(eps)
+        phenotype = rgc.phenotype_features()
         centers = torch.unique(rgc.unit_center_indices)
         penalties: list[torch.Tensor] = []
         for center in centers:
-            members = standardized[rgc.unit_center_indices == center]
+            members = phenotype[rgc.unit_center_indices == center]
             if members.shape[0] < 2:
                 continue
             differences = members.unsqueeze(1) - members.unsqueeze(0)

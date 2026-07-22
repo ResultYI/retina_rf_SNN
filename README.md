@@ -14,7 +14,7 @@ ISETBio cone response
 
 Each cone center owns two anonymous RGC units by default. Spatial scale, kinetic mixture, membrane and adaptation dynamics, inhibition, threshold, and subunit adaptation are learned per unit. Functional cell-type names are assigned only after training when preregistered cluster relationships are satisfied.
 
-The decoder reuses the encoder's dense masked-softmax spatial weights. Its only learned parameters are positive per-unit ON/OFF gains and one bias per cone. It has no independent receptive field or temporal filter.
+The decoder reuses the encoder's dense masked-softmax spatial weights. Its only learned parameters are bounded positive per-unit ON/OFF gains and one bias per cone. It has no independent receptive field or temporal filter.
 
 ## Experiment
 
@@ -30,17 +30,17 @@ The training contract uses 320 time steps: 64 no-gradient burn-in steps followed
 
 The objective combines current reconstruction, an augmented-Lagrangian spike-energy inequality, wiring cost, unit variance floor, same-center phenotype repulsion, and rate homeostasis. All components live in [`loss/retina.py`](loss/retina.py).
 
-Dynamic receptive fields use matched low/high contexts from the same source clip and an identical final probe. Jacobians and finite differences use the same continuous spike-probability readout. A finite-difference comparison is marked `threshold_crossing_not_local` when the perturbation changes hard events.
+Dynamic receptive fields use matched low/high contexts from the same source clip and an identical final probe. Jacobians and finite differences use the same continuous spike-probability readout. A finite-difference comparison is marked `threshold_crossing_not_local` only when the perturbation changes the target unit's hard events. Dynamic RF and temporal cell-type probes run only after reconstruction and energy gates pass.
 
 ## Checkpoints
 
 The active schema is:
 
 ```json
-{"schema": "retina_rf_snn", "schema_revision": 1}
+{"schema": "retina_rf_snn", "schema_revision": 2}
 ```
 
-Checkpoints produced by earlier pipelines are intentionally incompatible because the RGC state axes, unit parameters, decoder, objective, and optimizer contract all changed. A new training run is required.
+Revision 2 checkpoints preserve independent source-sampling and augmentation RNG state, validation state, energy state, optimizer, and scheduler. Training writes `checkpoint_last.pt`, `checkpoint_best_reconstruction.pt`, and, once the energy constraint is active, `checkpoint_best_feasible.pt`. Final evaluation selects the best feasible checkpoint first.
 
 ## Static and runtime checks
 
@@ -51,4 +51,3 @@ python -m pytest -q
 ```
 
 ISETBio HDF5 generation utilities remain separate from the experiment runner. Existing HDF5 exports, run artifacts, and checkpoints are not rewritten by the source refactor.
-

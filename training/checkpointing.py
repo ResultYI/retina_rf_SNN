@@ -10,7 +10,7 @@ from training.config import ExperimentConfig
 
 
 CHECKPOINT_SCHEMA = "retina_rf_snn"
-CHECKPOINT_SCHEMA_REVISION = 1
+CHECKPOINT_SCHEMA_REVISION = 2
 
 
 class CheckpointError(ValueError):
@@ -25,6 +25,8 @@ def checkpoint_payload(
     optimizer: torch.optim.Optimizer,
     scheduler: torch.optim.lr_scheduler.LRScheduler,
     energy_state: Any,
+    validation_state: Any,
+    sampling_generator: torch.Generator,
     augmentation_generator: torch.Generator,
     config: ExperimentConfig,
 ) -> dict[str, Any]:
@@ -37,9 +39,11 @@ def checkpoint_payload(
         "optimizer": optimizer.state_dict(),
         "scheduler": scheduler.state_dict(),
         "energy_state": asdict(energy_state),
+        "validation_state": asdict(validation_state),
         "rng": {
             "torch": torch.get_rng_state(),
             "cuda": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else [],
+            "sampling": sampling_generator.get_state(),
             "augmentation": augmentation_generator.get_state(),
         },
         "resolved_config": config.resolved(),
@@ -71,4 +75,3 @@ __all__ = [
     "load_checkpoint",
     "save_checkpoint",
 ]
-

@@ -19,6 +19,10 @@ model:
   readout_rate_tau_ms: 50.0
   max_tau_ms: 250.0
   surrogate_slope: 5.0
+  decoder_gain_max: 5.0
+  adaptation_gain_max: 1.0
+  amacrine_gain_max: 1.0
+  subunit_gain_max: 3.0
 
 training:
   burn_in_steps: 64
@@ -40,14 +44,14 @@ objective:
   rho_energy: 1.0
   dual_lr: 0.01
   dual_max: 10.0
-  wiring_target_gradient_ratio: 0.05
-  diversity_target_gradient_ratio: 0.075
+  wiring_weight: 0.05
+  diversity_weight: 0.075
   variance_floor: 0.01
   phenotype_temperature: 1.0
   homeostasis_rate_min: 0.001
 
 evaluation:
-  dynamic_rf_context_pairs: 32
+  dynamic_rf_max_sources: 32
   dynamic_rf_units_per_polarity: 4
   dynamic_rf_lag_steps: 64
   recovery_delays_ms: [0, 100, 200, 300, 500]
