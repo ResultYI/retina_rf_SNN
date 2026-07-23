@@ -40,6 +40,7 @@ training:
   budget_ramp_end_step: 2500
   core_lr: 0.0002
   decoder_lr: 0.0001
+  decoder_freeze_steps: 0
   validation_interval_steps: 100
 
 objective:

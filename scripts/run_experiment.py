@@ -1,13 +1,11 @@
 from __future__ import annotations
 
-import argparse
 import json
 import sys
 from dataclasses import asdict
 from pathlib import Path
 from typing import Sequence
 
-import numpy as np
 import torch
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -41,12 +39,20 @@ from training.augmentation import (
 )
 from training.config import load_config
 from training.data import prepare_data
+from training.experiment_cli import (
+    apply_invocation_overrides as _apply_invocation_overrides,
+    diagnostic_should_stop as _diagnostic_should_stop,
+    execution_limit as _execution_limit,
+    parse_experiment_args as _parse_args,
+    seed_everything as _seed_everything,
+)
 from training.runtime import (
     ValidationContext,
     build_network,
     diagnostic_training_clips,
     ensure_initial_reference,
     evaluate_validation,
+    sample_unique_source_indices,
     training_mean,
 )
 from training.trainer import RetinaTrainer
@@ -58,12 +64,12 @@ class ExperimentError(RuntimeError):
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parse_args(argv)
-    config = load_config(args.config)
+    config = _apply_invocation_overrides(load_config(args.config), args)
     _seed_everything(config.seed)
     device = torch.device(args.device)
     prepared = prepare_data(config.data)
     model, decoder = build_network(config, prepared, device)
-    output_dir = Path(args.output)
+    output_dir = args.output
     output_dir.mkdir(parents=True, exist_ok=True)
     validation_clips = fixed_validation_clips(
         prepared.validation,
@@ -91,6 +97,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     train_mean = training_mean(prepared).to(device)
     initial_diagnostics = representation_diagnostics(
         decoder,
+        decoder,
         train_examples,
         validation_examples,
         spatial_weights,
@@ -113,7 +120,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         decoder,
         config,
     )
-    if args.diagnostics_only:
+    if args.diagnostics_only and args.resume is None:
         return 0
     objective = RetinaObjective(
         rho_energy=config.objective.rho_energy,
@@ -143,20 +150,37 @@ def main(argv: Sequence[str] | None = None) -> int:
     execution_limit = _execution_limit(
         config.training.max_optimizer_steps,
         args.stop_after_steps,
+        args.representation_diagnostic_steps,
     )
     validation = ValidationContext(
         clips=validation_clips,
         train_mean=train_mean,
         ema_alpha=ema_alpha,
     )
+    evaluation_request = FinalEvaluationRequest(
+        trainer=trainer,
+        prepared=prepared,
+        config=config,
+        validation=validation,
+        calibration_clips=calibration_clips,
+        initial_reference=initial_reference,
+        initial_diagnostics=initial_diagnostics,
+        output_dir=output_dir,
+        device=device,
+    )
+    if args.diagnostics_only:
+        run_final_evaluation(evaluation_request)
+        return 0
+    diagnostic_validation_mses: list[float] = []
     while trainer.optimizer_step < execution_limit:
         batch: list[AugmentedClip] = []
-        for _ in range(config.training.batch_size):
-            source_index = int(
-                torch.randint(
-                    len(prepared.train), (1,), generator=sampling_generator
-                ).item()
-            )
+        source_indices = sample_unique_source_indices(
+            len(prepared.train),
+            config.training.batch_size,
+            sampling_generator,
+        )
+        for source_index_tensor in source_indices:
+            source_index = int(source_index_tensor)
             source = prepared.train[source_index]
             clip = augment_clip(source, config.data, augmentation_generator)
             batch.append(
@@ -206,6 +230,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
             if best_feasible:
                 save_checkpoint(output_dir / "checkpoint_best_feasible.pt", payload)
+            diagnostic_validation_mses.append(reconstruction.mse)
+            if _diagnostic_should_stop(
+                initial_diagnostics.current_decoder.mse,
+                diagnostic_validation_mses,
+                args,
+            ):
+                break
 
     selected_checkpoint = output_dir / "checkpoint_best_feasible.pt"
     if not selected_checkpoint.exists():
@@ -218,49 +249,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         sampling_generator,
         augmentation_generator,
     )
-    run_final_evaluation(
-        FinalEvaluationRequest(
-            trainer=trainer,
-            prepared=prepared,
-            config=config,
-            validation=validation,
-            calibration_clips=calibration_clips,
-            initial_reference=initial_reference,
-            output_dir=output_dir,
-            device=device,
-        )
-    )
+    run_final_evaluation(evaluation_request)
     return 0
-
-
-def _seed_everything(seed: int) -> None:
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    if torch.cuda.is_available():
-        torch.cuda.manual_seed_all(seed)
-
-
-def _parse_args(argv: Sequence[str] | None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Train and evaluate the canonical retina model")
-    parser.add_argument("--config", type=Path, default=Path("configs/experiment.yaml"))
-    parser.add_argument("--device", default="cuda")
-    parser.add_argument("--resume", type=Path)
-    parser.add_argument("--output", type=Path, default=Path("runs/experiment"))
-    parser.add_argument("--stop-after-steps", type=_positive_int)
-    parser.add_argument("--diagnostics-only", action="store_true")
-    return parser.parse_args(argv)
-
-
-def _positive_int(value: str) -> int:
-    parsed = int(value)
-    if parsed <= 0:
-        raise argparse.ArgumentTypeError("value must be a positive integer")
-    return parsed
-
-
-def _execution_limit(configured_limit: int, stop_after_steps: int | None) -> int:
-    return min(configured_limit, stop_after_steps) if stop_after_steps is not None else configured_limit
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

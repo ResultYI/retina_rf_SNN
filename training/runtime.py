@@ -29,6 +29,12 @@ class ValidationContext:
     ema_alpha: float
 
 
+@dataclass(frozen=True, slots=True)
+class InitialReference:
+    model_state: dict[str, torch.Tensor]
+    decoder_state: dict[str, torch.Tensor]
+
+
 def build_network(
     config: ExperimentConfig,
     prepared: PreparedData,
@@ -94,12 +100,24 @@ def diagnostic_training_clips(
     return tuple(result)
 
 
+def sample_unique_source_indices(
+    source_count: int,
+    batch_size: int,
+    generator: torch.Generator,
+) -> torch.Tensor:
+    if source_count < batch_size:
+        raise ExperimentRuntimeError(
+            "Training requires at least one distinct source per batch row"
+        )
+    return torch.randperm(source_count, generator=generator)[:batch_size]
+
+
 def ensure_initial_reference(
     output_dir: Path,
     model: RetinaModel,
     decoder: TiedLocalDecoder,
     config: ExperimentConfig,
-) -> dict[str, object]:
+) -> InitialReference:
     path = output_dir / "initial_reference.pt"
     if path.exists():
         payload = torch.load(path, map_location="cpu", weights_only=False)
@@ -112,26 +130,46 @@ def ensure_initial_reference(
             raise ExperimentRuntimeError(
                 "Initial reference configuration does not match"
             )
-        if not isinstance(payload.get("model_state"), dict) or not isinstance(
-            payload.get("decoder_state"),
+        model_state = payload.get("model_state")
+        decoder_state = payload.get("decoder_state")
+        if not isinstance(model_state, dict) or not isinstance(
+            decoder_state,
             dict,
         ):
             raise ExperimentRuntimeError("Initial reference state is missing")
-        return payload
-    payload: dict[str, object] = {
-        "schema": "retina_rf_snn_initial_reference",
-        "resolved_config": config.resolved(),
-        "model_state": {
+        if not all(
+            isinstance(value, torch.Tensor)
+            for value in (*model_state.values(), *decoder_state.values())
+        ):
+            raise ExperimentRuntimeError(
+                "Initial reference state contains invalid tensors"
+            )
+        return InitialReference(
+            model_state={
+                str(name): value for name, value in model_state.items()
+            },
+            decoder_state={
+                str(name): value for name, value in decoder_state.items()
+            },
+        )
+    reference = InitialReference(
+        model_state={
             name: tensor.detach().cpu().clone()
             for name, tensor in model.state_dict().items()
         },
-        "decoder_state": {
+        decoder_state={
             name: tensor.detach().cpu().clone()
             for name, tensor in decoder.state_dict().items()
         },
+    )
+    payload = {
+        "schema": "retina_rf_snn_initial_reference",
+        "resolved_config": config.resolved(),
+        "model_state": reference.model_state,
+        "decoder_state": reference.decoder_state,
     }
     torch.save(payload, path)
-    return payload
+    return reference
 
 
 @torch.no_grad()
@@ -217,9 +255,11 @@ def median_nearest_spacing(positions_degs: np.ndarray) -> float:
 
 __all__ = [
     "ExperimentRuntimeError",
+    "InitialReference",
     "ValidationContext",
     "build_network",
     "diagnostic_training_clips",
+    "sample_unique_source_indices",
     "ensure_initial_reference",
     "evaluate_validation",
     "training_mean",

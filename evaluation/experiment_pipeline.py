@@ -3,8 +3,6 @@ from __future__ import annotations
 import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Mapping, cast
-
 import torch
 
 from evaluation.dynamic_rf import (
@@ -18,16 +16,24 @@ from evaluation.dynamic_rf_summary import (
 )
 from evaluation.parameter_audit import audit_parameters
 from evaluation.representation_diagnostics import (
+    RepresentationDiagnostics,
     collect_decoder_examples,
+    compare_representation_diagnostics,
     representation_diagnostics,
 )
 from evaluation.reporting import summarize_evaluation, write_evaluation_report
 from evaluation.rgc_types import identify_rgc_types
 from evaluation.temporal_probes import run_temporal_probes
+from models.decoder.local_decoder import TiedLocalDecoder
 from training.augmentation import AugmentedClip
 from training.config import ExperimentConfig
 from training.data import PreparedData
-from training.runtime import ValidationContext, build_network, evaluate_validation
+from training.runtime import (
+    InitialReference,
+    ValidationContext,
+    build_network,
+    evaluate_validation,
+)
 from training.trainer import RetinaTrainer
 
 
@@ -38,7 +44,8 @@ class FinalEvaluationRequest:
     config: ExperimentConfig
     validation: ValidationContext
     calibration_clips: tuple[AugmentedClip, ...]
-    initial_reference: Mapping[str, object]
+    initial_reference: InitialReference
+    initial_diagnostics: RepresentationDiagnostics
     output_dir: Path
     device: torch.device
 
@@ -53,18 +60,25 @@ def run_final_evaluation(request: FinalEvaluationRequest) -> None:
         request.validation,
         config,
     )
-    _write_selected_representation(request)
 
     initialized_model, initialized_decoder = build_network(
         config,
         request.prepared,
         request.device,
     )
-    initialized_model.load_state_dict(
-        cast(Mapping[str, torch.Tensor], request.initial_reference["model_state"])
+    initialized_model.load_state_dict(request.initial_reference.model_state)
+    initialized_decoder.load_state_dict(request.initial_reference.decoder_state)
+    selected_diagnostics = _write_selected_representation(
+        request,
+        initialized_decoder,
     )
-    initialized_decoder.load_state_dict(
-        cast(Mapping[str, torch.Tensor], request.initial_reference["decoder_state"])
+    comparison = compare_representation_diagnostics(
+        request.initial_diagnostics,
+        selected_diagnostics,
+    )
+    (request.output_dir / "representation_comparison.json").write_text(
+        json.dumps(asdict(comparison), indent=2),
+        encoding="utf-8",
     )
 
     representation_passed = (
@@ -174,11 +188,15 @@ def run_final_evaluation(request: FinalEvaluationRequest) -> None:
     )
 
 
-def _write_selected_representation(request: FinalEvaluationRequest) -> None:
+def _write_selected_representation(
+    request: FinalEvaluationRequest,
+    fixed_calibrated_decoder: TiedLocalDecoder,
+) -> RepresentationDiagnostics:
     trainer = request.trainer
     spatial_weights = trainer.model.rgc.compute_spatial_weights()
     diagnostics = representation_diagnostics(
         trainer.decoder,
+        fixed_calibrated_decoder,
         collect_decoder_examples(
             trainer.model,
             request.calibration_clips,
@@ -202,6 +220,7 @@ def _write_selected_representation(request: FinalEvaluationRequest) -> None:
         json.dumps(asdict(diagnostics), indent=2),
         encoding="utf-8",
     )
+    return diagnostics
 
 
 __all__ = ["FinalEvaluationRequest", "run_final_evaluation"]

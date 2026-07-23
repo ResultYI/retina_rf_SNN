@@ -6,8 +6,10 @@ from dataclasses import dataclass
 from training.config import ExperimentConfig
 
 
-@dataclass(slots=True)
+@dataclass(slots=True)  # noqa: MUTABLE_OK
 class EnergyBudgetState:
+    """Mutable accumulator for the online energy constraint."""
+
     reference_energy: float | None = None
     ema_energy: float | None = None
     current_budget: float | None = None
@@ -62,6 +64,22 @@ class EnergyBudgetState:
         )
 
 
+@dataclass(slots=True)  # noqa: MUTABLE_OK
+class BootstrapState:
+    """Mutable state persisted across bootstrap optimizer steps."""
+
+    generator_auxiliary_base_weight: float | None = None
+    generator_auxiliary_calibrated_step: int | None = None
+    persistent_reconstruction: float = 0.0
+    rate_reconstruction: float = 0.0
+    generator_reconstruction: float = 0.0
+    generator_auxiliary_weight: float = 0.0
+    rate_ridge_strength: float = 0.0
+    generator_ridge_strength: float = 0.0
+    rate_gain_clipped_fraction: float = 0.0
+    generator_gain_clipped_fraction: float = 0.0
+
+
 @dataclass(frozen=True, slots=True)
 class OptimizerStepResult:
     metrics: dict[str, float]
@@ -70,8 +88,10 @@ class OptimizerStepResult:
     peak_memory_bytes: int
 
 
-@dataclass(slots=True)
+@dataclass(slots=True)  # noqa: MUTABLE_OK
 class ValidationState:
+    """Mutable best-checkpoint statistics."""
+
     count: int = 0
     best_reconstruction_mse: float = math.inf
     best_feasible_mse: float = math.inf
@@ -104,4 +124,9 @@ class ValidationState:
         return best_reconstruction, best_feasible
 
 
-__all__ = ["EnergyBudgetState", "OptimizerStepResult", "ValidationState"]
+__all__ = [
+    "BootstrapState",
+    "EnergyBudgetState",
+    "OptimizerStepResult",
+    "ValidationState",
+]

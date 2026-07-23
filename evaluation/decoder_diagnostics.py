@@ -4,16 +4,17 @@ from dataclasses import dataclass
 
 import torch
 
+from models.decoder.local_decoder import (
+    DecoderFit,
+    LocalDecoderError,
+    TiedReadoutGeometry,
+    decode_with_fit as _decode_with_fit,
+    fit_regularized_tied_decoder_probe as _fit_regularized_tied_decoder_probe,
+)
+
 
 class DecoderDiagnosticError(ValueError):
     pass
-
-
-@dataclass(frozen=True, slots=True)
-class DecoderFit:
-    unit_gain: torch.Tensor
-    cone_bias: torch.Tensor
-    train_mse: float
 
 
 @dataclass(frozen=True, slots=True)
@@ -47,34 +48,26 @@ def fit_global_decoder(
 
 
 @torch.no_grad()
-def fit_tied_decoder_ceiling(
+def fit_regularized_tied_decoder_probe(
     rates: torch.Tensor,
     target: torch.Tensor,
     spatial_weights: torch.Tensor,
     *,
     gain_max: float,
+    prior_gain: torch.Tensor,
 ) -> DecoderFit:
-    _validate_inputs(rates, target, spatial_weights, gain_max)
-    on_features = torch.einsum(
-        "btu,uc->btcu",
-        rates[:, :, 0],
-        spatial_weights,
-    )
-    off_features = -torch.einsum(
-        "btu,uc->btcu",
-        rates[:, :, 1],
-        spatial_weights,
-    )
-    solution, bias, mse = _bounded_fit(
-        torch.cat((on_features, off_features), dim=-1),
-        target,
-        gain_max,
-    )
-    return DecoderFit(
-        solution.reshape(2, rates.shape[-1]),
-        bias,
-        mse,
-    )
+    try:
+        return _fit_regularized_tied_decoder_probe(
+            rates,
+            target,
+            TiedReadoutGeometry(
+                spatial_weights=spatial_weights,
+                prior_gain=prior_gain,
+                gain_max=gain_max,
+            ),
+        )
+    except LocalDecoderError as error:
+        raise DecoderDiagnosticError(str(error)) from error
 
 
 def decode_with_fit(
@@ -83,8 +76,12 @@ def decode_with_fit(
     unit_gain: torch.Tensor,
     cone_bias: torch.Tensor,
 ) -> torch.Tensor:
-    signed = unit_gain[0] * rates[:, :, 0] - unit_gain[1] * rates[:, :, 1]
-    return signed @ spatial_weights + cone_bias
+    return _decode_with_fit(
+        rates,
+        spatial_weights,
+        unit_gain,
+        cone_bias,
+    )
 
 
 def decoder_coverage(
@@ -163,5 +160,5 @@ __all__ = [
     "decode_with_fit",
     "decoder_coverage",
     "fit_global_decoder",
-    "fit_tied_decoder_ceiling",
+    "fit_regularized_tied_decoder_probe",
 ]

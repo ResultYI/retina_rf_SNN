@@ -57,6 +57,7 @@ class TrainingConfig:
     budget_ramp_end_step: int
     core_lr: float
     decoder_lr: float
+    decoder_freeze_steps: int
     validation_interval_steps: int
 
 
@@ -165,10 +166,6 @@ class ExperimentConfig:
             self.objective.rho_energy,
             self.objective.dual_lr,
             self.objective.dual_max,
-            self.objective.wiring_weight,
-            self.objective.variance_weight,
-            self.objective.phenotype_repulsion_weight,
-            self.objective.homeostasis_weight,
             self.objective.phenotype_temperature,
             self.evaluation.dynamic_rf_max_sources,
             self.evaluation.dynamic_rf_units_per_polarity,
@@ -192,6 +189,18 @@ class ExperimentConfig:
         )
         if not all(math.isfinite(float(value)) and value > 0 for value in positive_values):
             raise ConfigurationError("positive configuration values are invalid")
+        non_negative_values = (
+            self.training.decoder_freeze_steps,
+            self.objective.wiring_weight,
+            self.objective.variance_weight,
+            self.objective.phenotype_repulsion_weight,
+            self.objective.homeostasis_weight,
+        )
+        if not all(
+            math.isfinite(float(value)) and value >= 0
+            for value in non_negative_values
+        ):
+            raise ConfigurationError("non-negative configuration values are invalid")
         valid_fraction = self.evaluation.dynamic_rf_min_valid_record_fraction_per_source
         if not 0 < valid_fraction <= 1:
             raise ConfigurationError(

@@ -41,4 +41,4 @@ Positive and negative impulse and step probes use the unit's center cone over th
 
 ## Compatibility
 
-Only checkpoint schema `retina_rf_snn` revision 3 is accepted. Revision 2 has no converter because its moving budget semantics cannot establish the frozen target-energy contract required for final selection and reporting.
+Only checkpoint schema `retina_rf_snn` revision 4 is accepted. Earlier revisions have no converter because they do not preserve the calibrated cross-fitted bootstrap state required for deterministic resume.

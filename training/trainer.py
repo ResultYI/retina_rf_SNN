@@ -1,26 +1,32 @@
 from __future__ import annotations
 
 import math
+from dataclasses import asdict, replace
 from typing import Any, Sequence
 
 import torch
-from torch.nn.utils import clip_grad_norm_
 
 from loss.retina import RetinaLosses, RetinaObjective
 from models.cells.rgc_types import RGCOutput
-from models.decoder.local_decoder import TiedLocalDecoder
+from models.decoder.local_decoder import TiedLocalDecoder, TiedReadoutGeometry
 from models.retina_snn import (
     RetinaModel,
     RetinaState,
     detach_state,
 )
+from training.bootstrap import (
+    BootstrapContext,
+    BootstrapReadouts,
+    BootstrapRuntime,
+    apply_crossfit_bootstrap,
+)
 from training.checkpointing import checkpoint_payload
 from training.config import ExperimentConfig
-from training.gradient_audit import temporal_gradient_audit
-from training.metrics import gradient_norm, loss_metrics
 from training.augmentation import AugmentedClip
+from training.optimizer_step import run_optimizer_step
 from training.schedule import objective_weights
 from training.state import (
+    BootstrapState,
     EnergyBudgetState,
     OptimizerStepResult,
     ValidationState,
@@ -64,6 +70,7 @@ class RetinaTrainer:
             self.optimizer, lr_multiplier
         )
         self.energy_state = EnergyBudgetState()
+        self.bootstrap_state = BootstrapState()
         self.validation_state = ValidationState()
         self.optimizer_step = 0
 
@@ -111,11 +118,62 @@ class RetinaTrainer:
                     block_steps=training.checkpoint_block_steps,
                 )
             )
-        prediction = self.decoder(history.rates, spatial_weights)
+        target_region = (
+            clean_target.float()
+            if full_bptt
+            else clean_target[:, training.burn_in_steps :].float()
+        )
+        persistent_prediction = self.decoder(history.rates, spatial_weights)
         weights = objective_weights(self.optimizer_step, self.config)
+        prediction = persistent_prediction
+        generator_auxiliary = persistent_prediction.new_zeros(())
+        bootstrap_active = (
+            self.model.training
+            and torch.is_grad_enabled()
+            and not full_bptt
+            and self.optimizer_step
+            < training.reconstruction_bootstrap_steps
+        )
+        if bootstrap_active:
+            supervised = training.supervised_steps
+            application = apply_crossfit_bootstrap(
+                BootstrapReadouts(
+                    rate_readout=history.rates[:, -supervised:],
+                    generator_readout=history.generator_potential[
+                        :, -supervised:
+                    ],
+                    target=target_region[:, -supervised:],
+                    persistent_prediction=persistent_prediction[
+                        :, -supervised:
+                    ],
+                ),
+                BootstrapContext(
+                    geometry=TiedReadoutGeometry(
+                        spatial_weights=spatial_weights,
+                        prior_gain=self.decoder.unit_gain.detach(),
+                        gain_max=self.decoder.gain_max,
+                    ),
+                    reconstruction_scale=self.reconstruction_scale,
+                    generator_auxiliary_scale=(
+                        weights.generator_auxiliary_scale
+                    ),
+                ),
+                BootstrapRuntime(
+                    state=self.bootstrap_state,
+                    parameters=tuple(self.model.parameters()),
+                ),
+            )
+            prediction = torch.cat(
+                (
+                    persistent_prediction[:, :-supervised].detach(),
+                    application.prediction,
+                ),
+                dim=1,
+            )
+            generator_auxiliary = application.generator_auxiliary
         losses = self.objective(
             prediction,
-            clean_target.float() if full_bptt else clean_target[:, training.burn_in_steps :].float(),
+            target_region,
             history,
             self.model.rgc,
             spatial_weights,
@@ -129,81 +187,25 @@ class RetinaTrainer:
             homeostasis_weight=weights.homeostasis,
             supervised_steps=training.supervised_steps,
         )
+        if bootstrap_active:
+            losses = replace(
+                losses,
+                total=losses.total + generator_auxiliary,
+            )
         return losses, history, state
 
     def train_optimizer_step(
         self,
         clips: Sequence[AugmentedClip],
     ) -> OptimizerStepResult:
-        expected = self.config.training.batch_size
-        if len(clips) != expected:
-            raise TrainingError("Optimizer step received the wrong batch size")
-        self.model.train()
-        self.decoder.train()
-        self.optimizer.zero_grad(set_to_none=True)
-        if torch.cuda.is_available():
-            torch.cuda.reset_peak_memory_stats()
-        batch = AugmentedClip.stack(clips)
-        losses, history, _ = self.forward_clip(
-            batch.noisy_input,
-            batch.clean_target,
-            checkpointed=True,
-        )
-        if not torch.isfinite(losses.total):
-            raise TrainingError("Training produced a non-finite loss")
-        losses.total.backward()
-        temporal_gradient_norm = gradient_norm(
-            parameter
-            for name, parameter in self.model.named_parameters()
-            if any(token in name for token in ("tau", "gain", "mix"))
-        )
-        clipped_gradient_norm = float(
-            clip_grad_norm_(
-                (*self.model.parameters(), *self.decoder.parameters()),
-                self.config.training.gradient_clip_norm,
-            )
-        )
-        self.optimizer.step()
-        self.scheduler.step()
-        self.optimizer_step += 1
-        self.energy_state.observe(
-            float(losses.energy.detach()),
-            self.optimizer_step,
-            self.config,
-        )
-        metrics = loss_metrics(losses, history)
-        current_budget = self.energy_state.current_budget
-        target_budget = self.energy_state.target_budget
-        hard_energy = metrics["hard_energy"]
-        metrics.update(
-            {
-                "current_budget": current_budget or 0.0,
-                "target_budget": target_budget or 0.0,
-                "current_energy_ratio": (
-                    hard_energy / current_budget if current_budget is not None else 0.0
-                ),
-                "target_energy_ratio": (
-                    hard_energy / target_budget if target_budget is not None else 0.0
-                ),
-                "energy_ema": self.energy_state.ema_energy or 0.0,
-                "energy_dual": self.energy_state.dual,
-                "lr_model": float(self.optimizer.param_groups[0]["lr"]),
-                "lr_decoder": float(self.optimizer.param_groups[1]["lr"]),
-            }
-        )
-        return OptimizerStepResult(
-            metrics=metrics,
-            gradient_norm=clipped_gradient_norm,
-            temporal_gradient_norm=temporal_gradient_norm,
-            peak_memory_bytes=torch.cuda.max_memory_allocated() if torch.cuda.is_available() else 0,
-        )
+        return run_optimizer_step(self, clips)
 
     def checkpoint_payload(
         self,
         sampling_generator: torch.Generator,
         augmentation_generator: torch.Generator,
     ) -> dict[str, Any]:
-        return checkpoint_payload(
+        payload = checkpoint_payload(
             optimizer_step=self.optimizer_step,
             model=self.model,
             decoder=self.decoder,
@@ -215,6 +217,8 @@ class RetinaTrainer:
             augmentation_generator=augmentation_generator,
             config=self.config,
         )
+        payload["bootstrap_state"] = asdict(self.bootstrap_state)
+        return payload
 
     def restore(
         self,
@@ -228,6 +232,7 @@ class RetinaTrainer:
         self.scheduler.load_state_dict(payload["scheduler"])
         self.optimizer_step = int(payload["optimizer_step"])
         self.energy_state = EnergyBudgetState(**payload["energy_state"])
+        self.bootstrap_state = BootstrapState(**payload["bootstrap_state"])
         self.validation_state = ValidationState(**payload["validation_state"])
         rng = payload["rng"]
         torch.set_rng_state(rng["torch"].cpu())
