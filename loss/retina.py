@@ -57,7 +57,9 @@ class RetinaObjective(nn.Module):
         energy_dual: float,
         energy_weight: float,
         wiring_weight: float,
-        diversity_weight: float,
+        variance_weight: float,
+        phenotype_repulsion_weight: float,
+        homeostasis_weight: float,
         supervised_steps: int,
     ) -> RetinaLosses:
         if prediction.shape != clean_target.shape or prediction.ndim != 3:
@@ -95,7 +97,9 @@ class RetinaObjective(nn.Module):
             normalized_reconstruction
             + energy_weight * energy_penalty
             + wiring_weight * wiring
-            + diversity_weight * (variance_floor + phenotype_repulsion + homeostasis)
+            + variance_weight * variance_floor
+            + phenotype_repulsion_weight * phenotype_repulsion
+            + homeostasis_weight * homeostasis
         )
         return RetinaLosses(
             total=total,

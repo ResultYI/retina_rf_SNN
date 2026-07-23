@@ -1,14 +1,10 @@
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass
 from typing import Any, Sequence
 
-import numpy as np
 import torch
-from torch.nn import functional as F
 from torch.nn.utils import clip_grad_norm_
-from torch.utils.checkpoint import checkpoint
 
 from loss.retina import RetinaLosses, RetinaObjective
 from models.cells.rgc_types import RGCOutput
@@ -17,73 +13,23 @@ from models.retina_snn import (
     RetinaModel,
     RetinaState,
     detach_state,
-    state_from_tensors,
-    state_to_tensors,
 )
 from training.checkpointing import checkpoint_payload
 from training.config import ExperimentConfig
-from training.data import AugmentedClip
+from training.gradient_audit import temporal_gradient_audit
+from training.metrics import gradient_norm, loss_metrics
+from training.augmentation import AugmentedClip
+from training.schedule import objective_weights
+from training.state import (
+    EnergyBudgetState,
+    OptimizerStepResult,
+    ValidationState,
+)
+from training.unroll import ForwardRegionRequest, forward_region
 
 
 class TrainingError(ValueError):
     pass
-
-
-@dataclass(slots=True)
-class EnergyBudgetState:
-    reference_energy: float | None = None
-    ema_energy: float | None = None
-    current_budget: float | None = None
-    target_budget: float | None = None
-    dual: float = 0.0
-
-    def observe(self, energy: float, optimizer_step: int, config: ExperimentConfig) -> None:
-        objective = config.objective
-        training = config.training
-        self.ema_energy = energy if self.ema_energy is None else 0.95 * self.ema_energy + 0.05 * energy
-        if optimizer_step <= training.reconstruction_bootstrap_steps:
-            self.reference_energy = self.ema_energy
-            self.current_budget = None
-            self.target_budget = None
-            self.dual = 0.0
-            return
-        if self.reference_energy is None:
-            self.reference_energy = self.ema_energy
-        if self.target_budget is None:
-            self.target_budget = max(
-                self.reference_energy * objective.energy_budget_ratio,
-                1e-12,
-            )
-        ramp_width = max(
-            1,
-            training.budget_ramp_end_step - training.reconstruction_bootstrap_steps,
-        )
-        ramp = min(
-            1.0,
-            (optimizer_step - training.reconstruction_bootstrap_steps) / ramp_width,
-        )
-        self.current_budget = max(
-            self.reference_energy
-            + ramp * (self.target_budget - self.reference_energy),
-            1e-12,
-        )
-        violation = max(0.0, self.ema_energy / self.current_budget - 1.0)
-        self.dual = min(objective.dual_max, max(0.0, self.dual + objective.dual_lr * violation))
-
-
-@dataclass(frozen=True, slots=True)
-class OptimizerStepResult:
-    metrics: dict[str, float]
-    gradient_norm: float
-    temporal_gradient_norm: float
-    peak_memory_bytes: int
-
-
-@dataclass(slots=True)
-class ValidationState:
-    count: int = 0
-    best_reconstruction_mse: float = math.inf
-    best_feasible_mse: float = math.inf
 
 
 class RetinaTrainer:
@@ -155,14 +101,18 @@ class RetinaTrainer:
                 raise TrainingError("Differentiable region length is inconsistent")
             if training.context_only_steps + training.supervised_steps != region.shape[1]:
                 raise TrainingError("Context and supervised regions are inconsistent")
-            history, state = self._forward_region(
-                region, state, spatial_weights, checkpointed
+            history, state = forward_region(
+                ForwardRegionRequest(
+                    model=self.model,
+                    region=region,
+                    state=state,
+                    spatial_weights=spatial_weights,
+                    checkpointed=checkpointed,
+                    block_steps=training.checkpoint_block_steps,
+                )
             )
         prediction = self.decoder(history.rates, spatial_weights)
-        penalty_scale = min(
-            1.0,
-            self.optimizer_step / max(1, training.reconstruction_bootstrap_steps),
-        )
+        weights = objective_weights(self.optimizer_step, self.config)
         losses = self.objective(
             prediction,
             clean_target.float() if full_bptt else clean_target[:, training.burn_in_steps :].float(),
@@ -172,93 +122,42 @@ class RetinaTrainer:
             reconstruction_scale=self.reconstruction_scale,
             energy_budget=self.energy_state.current_budget,
             energy_dual=self.energy_state.dual,
-            energy_weight=penalty_scale,
-            wiring_weight=penalty_scale * self.config.objective.wiring_weight,
-            diversity_weight=penalty_scale * self.config.objective.diversity_weight,
+            energy_weight=weights.energy,
+            wiring_weight=weights.wiring,
+            variance_weight=weights.variance,
+            phenotype_repulsion_weight=weights.phenotype_repulsion,
+            homeostasis_weight=weights.homeostasis,
             supervised_steps=training.supervised_steps,
         )
         return losses, history, state
-
-    def _forward_region(
-        self,
-        region: torch.Tensor,
-        state: RetinaState,
-        spatial_weights: torch.Tensor,
-        checkpointed: bool,
-    ) -> tuple[RGCOutput, RetinaState]:
-        if not checkpointed:
-            return self.model.forward_sequence(
-                region, state, spatial_weights=spatial_weights
-            )
-        flat_state = state_to_tensors(state)
-        histories: list[list[torch.Tensor]] = [[], [], [], [], []]
-        block_steps = self.config.training.checkpoint_block_steps
-        for start in range(0, region.shape[1], block_steps):
-            block = region[:, start : start + block_steps]
-
-            def run_block(
-                block_input: torch.Tensor,
-                cached_weights: torch.Tensor,
-                *state_values: torch.Tensor,
-            ) -> tuple[torch.Tensor, ...]:
-                output, next_state = self.model.forward_sequence(
-                    block_input,
-                    state_from_tensors(tuple(state_values)),
-                    spatial_weights=cached_weights,
-                )
-                return (
-                    *state_to_tensors(next_state),
-                    output.hard_spikes,
-                    output.surrogate_spikes,
-                    output.spike_probability,
-                    output.rates,
-                    output.generator_potential,
-                )
-
-            values = checkpoint(
-                run_block,
-                block,
-                spatial_weights,
-                *flat_state,
-                use_reentrant=False,
-            )
-            flat_state = tuple(values[:8])
-            for target, value in zip(histories, values[8:], strict=True):
-                target.append(value)
-        output = RGCOutput(*(torch.cat(values, dim=1) for values in histories))
-        return output, state_from_tensors(flat_state)
 
     def train_optimizer_step(
         self,
         clips: Sequence[AugmentedClip],
     ) -> OptimizerStepResult:
-        expected = self.config.training.gradient_accumulation_steps
+        expected = self.config.training.batch_size
         if len(clips) != expected:
-            raise TrainingError("Optimizer step received the wrong accumulation count")
+            raise TrainingError("Optimizer step received the wrong batch size")
         self.model.train()
         self.decoder.train()
         self.optimizer.zero_grad(set_to_none=True)
-        rows: list[dict[str, float]] = []
-        energies: list[float] = []
         if torch.cuda.is_available():
             torch.cuda.reset_peak_memory_stats()
-        for clip in clips:
-            losses, history, _ = self.forward_clip(
-                clip.noisy_input,
-                clip.clean_target,
-                checkpointed=True,
-            )
-            if not torch.isfinite(losses.total):
-                raise TrainingError("Training produced a non-finite loss")
-            (losses.total / expected).backward()
-            energies.append(float(losses.energy.detach()))
-            rows.append(_loss_metrics(losses, history))
-        temporal_gradient_norm = _gradient_norm(
+        batch = AugmentedClip.stack(clips)
+        losses, history, _ = self.forward_clip(
+            batch.noisy_input,
+            batch.clean_target,
+            checkpointed=True,
+        )
+        if not torch.isfinite(losses.total):
+            raise TrainingError("Training produced a non-finite loss")
+        losses.total.backward()
+        temporal_gradient_norm = gradient_norm(
             parameter
             for name, parameter in self.model.named_parameters()
             if any(token in name for token in ("tau", "gain", "mix"))
         )
-        gradient_norm = float(
+        clipped_gradient_norm = float(
             clip_grad_norm_(
                 (*self.model.parameters(), *self.decoder.parameters()),
                 self.config.training.gradient_clip_norm,
@@ -268,11 +167,11 @@ class RetinaTrainer:
         self.scheduler.step()
         self.optimizer_step += 1
         self.energy_state.observe(
-            float(np.mean(energies)), self.optimizer_step, self.config
+            float(losses.energy.detach()),
+            self.optimizer_step,
+            self.config,
         )
-        metrics = {
-            key: float(np.mean([row[key] for row in rows])) for key in rows[0]
-        }
+        metrics = loss_metrics(losses, history)
         current_budget = self.energy_state.current_budget
         target_budget = self.energy_state.target_budget
         hard_energy = metrics["hard_energy"]
@@ -294,7 +193,7 @@ class RetinaTrainer:
         )
         return OptimizerStepResult(
             metrics=metrics,
-            gradient_norm=gradient_norm,
+            gradient_norm=clipped_gradient_norm,
             temporal_gradient_norm=temporal_gradient_norm,
             peak_memory_bytes=torch.cuda.max_memory_allocated() if torch.cuda.is_available() else 0,
         )
@@ -343,92 +242,12 @@ class RetinaTrainer:
         reconstruction_mse: float,
         target_energy_ratio: float | None,
     ) -> tuple[bool, bool]:
-        state = self.validation_state
-        state.count += 1
-        best_reconstruction = reconstruction_mse < state.best_reconstruction_mse
-        if best_reconstruction:
-            state.best_reconstruction_mse = reconstruction_mse
-        feasible = (
-            optimizer_step >= self.config.training.budget_ramp_end_step
-            and target_energy_ratio is not None
-            and math.isfinite(target_energy_ratio)
-            and target_energy_ratio
-            <= self.config.evaluation.maximum_energy_budget_ratio
+        return self.validation_state.observe(
+            optimizer_step,
+            reconstruction_mse,
+            target_energy_ratio,
+            self.config,
         )
-        best_feasible = feasible and reconstruction_mse < state.best_feasible_mse
-        if best_feasible:
-            state.best_feasible_mse = reconstruction_mse
-        return best_reconstruction, best_feasible
-
-
-def temporal_gradient_audit(
-    trainer: RetinaTrainer,
-    noisy_input: torch.Tensor,
-    clean_target: torch.Tensor,
-) -> dict[str, float | bool]:
-    gradients: list[torch.Tensor] = []
-    for full_bptt in (False, True):
-        trainer.optimizer.zero_grad(set_to_none=True)
-        losses, _, _ = trainer.forward_clip(
-            noisy_input,
-            clean_target,
-            checkpointed=False,
-            full_bptt=full_bptt,
-        )
-        losses.normalized_reconstruction.backward()
-        pieces = [
-            torch.zeros_like(parameter).flatten()
-            if parameter.grad is None
-            else parameter.grad.detach().flatten()
-            for name, parameter in trainer.model.named_parameters()
-            if any(token in name for token in ("tau", "gain", "mix"))
-        ]
-        gradients.append(torch.cat(pieces))
-    truncated, full = gradients
-    full_norm = float(full.norm())
-    truncated_norm = float(truncated.norm())
-    cosine = float(F.cosine_similarity(truncated, full, dim=0))
-    ratio = truncated_norm / max(full_norm, torch.finfo(full.dtype).eps)
-    trainer.optimizer.zero_grad(set_to_none=True)
-    return {
-        "cosine": cosine,
-        "norm_ratio": ratio,
-        "truncated_norm": truncated_norm,
-        "full_norm": full_norm,
-        "passed": cosine >= 0.95 and 0.8 <= ratio <= 1.2,
-    }
-
-
-def _loss_metrics(losses: RetinaLosses, output: RGCOutput) -> dict[str, float]:
-    return {
-        "loss_total": float(losses.total.detach()),
-        "reconstruction": float(losses.reconstruction.detach()),
-        "normalized_reconstruction": float(losses.normalized_reconstruction.detach()),
-        "hard_energy": float(losses.energy.detach()),
-        "surrogate_budget_energy": float(losses.budget_energy.detach()),
-        "energy_penalty": float(losses.energy_penalty.detach()),
-        "energy_violation": float(losses.energy_violation.detach()),
-        "wiring": float(losses.wiring.detach()),
-        "variance_floor": float(losses.variance_floor.detach()),
-        "phenotype_repulsion": float(losses.phenotype_repulsion.detach()),
-        "homeostasis": float(losses.homeostasis.detach()),
-        "mean_rate": float(output.rates.mean().detach()),
-        "hard_active_fraction_on": float(
-            (output.hard_spikes[:, :, 0] > 0).float().mean().detach()
-        ),
-        "hard_active_fraction_off": float(
-            (output.hard_spikes[:, :, 1] > 0).float().mean().detach()
-        ),
-    }
-
-
-def _gradient_norm(parameters: Any) -> float:
-    squares = [
-        parameter.grad.detach().float().square().sum()
-        for parameter in parameters
-        if parameter.grad is not None
-    ]
-    return float(torch.stack(squares).sum().sqrt()) if squares else 0.0
 
 
 __all__ = [

@@ -30,6 +30,25 @@ class TiedLocalDecoder(nn.Module):
     def gain_max(self) -> float:
         return self._gain_max
 
+    @torch.no_grad()
+    def initialize(
+        self,
+        unit_gain: torch.Tensor,
+        cone_bias: torch.Tensor,
+    ) -> None:
+        if unit_gain.shape != (2, self._unit_count):
+            raise LocalDecoderError("unit_gain must have shape [polarity,unit]")
+        if cone_bias.shape != (self._cone_count,):
+            raise LocalDecoderError("cone_bias must have shape [cone]")
+        bounded = unit_gain.to(self.raw_unit_gain).clamp(
+            torch.finfo(self.raw_unit_gain.dtype).eps,
+            self._gain_max - torch.finfo(self.raw_unit_gain.dtype).eps,
+        )
+        self.raw_unit_gain.copy_(
+            torch.logit(bounded / self._gain_max)
+        )
+        self.cone_bias.copy_(cone_bias.to(self.cone_bias))
+
     def forward(self, rates: torch.Tensor, spatial_weights: torch.Tensor) -> torch.Tensor:
         if rates.ndim != 4 or rates.shape[-2:] != (2, self._unit_count):
             raise LocalDecoderError("rates must have shape [batch,time,polarity,unit]")

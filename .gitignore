@@ -25,6 +25,7 @@ data/*
 datasets/
 results/
 runs/
+test_artifacts/
 checkpoints/
 *.h5
 *.pt

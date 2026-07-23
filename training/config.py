@@ -50,7 +50,7 @@ class TrainingConfig:
     context_only_steps: int
     supervised_steps: int
     checkpoint_block_steps: int
-    gradient_accumulation_steps: int
+    batch_size: int
     gradient_clip_norm: float
     max_optimizer_steps: int
     reconstruction_bootstrap_steps: int
@@ -67,7 +67,9 @@ class ObjectiveConfig:
     dual_lr: float
     dual_max: float
     wiring_weight: float
-    diversity_weight: float
+    variance_weight: float
+    phenotype_repulsion_weight: float
+    homeostasis_weight: float
     variance_floor: float
     phenotype_temperature: float
     homeostasis_rate_min: float
@@ -154,7 +156,7 @@ class ExperimentConfig:
             self.model.adaptation_gain_max,
             self.model.amacrine_gain_max,
             self.model.subunit_gain_max,
-            self.training.gradient_accumulation_steps,
+            self.training.batch_size,
             self.training.gradient_clip_norm,
             self.training.max_optimizer_steps,
             self.training.validation_interval_steps,
@@ -164,7 +166,9 @@ class ExperimentConfig:
             self.objective.dual_lr,
             self.objective.dual_max,
             self.objective.wiring_weight,
-            self.objective.diversity_weight,
+            self.objective.variance_weight,
+            self.objective.phenotype_repulsion_weight,
+            self.objective.homeostasis_weight,
             self.objective.phenotype_temperature,
             self.evaluation.dynamic_rf_max_sources,
             self.evaluation.dynamic_rf_units_per_polarity,

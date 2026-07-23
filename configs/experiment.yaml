@@ -33,7 +33,7 @@ training:
   context_only_steps: 160
   supervised_steps: 96
   checkpoint_block_steps: 32
-  gradient_accumulation_steps: 4
+  batch_size: 4
   gradient_clip_norm: 1.0
   max_optimizer_steps: 6000
   reconstruction_bootstrap_steps: 1000
@@ -48,7 +48,9 @@ objective:
   dual_lr: 0.01
   dual_max: 10.0
   wiring_weight: 0.05
-  diversity_weight: 0.075
+  variance_weight: 0.075
+  phenotype_repulsion_weight: 0.075
+  homeostasis_weight: 0.075
   variance_floor: 0.01
   phenotype_temperature: 1.0
   homeostasis_rate_min: 0.001

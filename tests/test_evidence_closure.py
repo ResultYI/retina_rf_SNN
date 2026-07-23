@@ -20,8 +20,9 @@ from evaluation.rgc_types import (
     separation_supports_learning,
 )
 from evaluation.temporal_probes import TemporalProbeFeatures
+from training.augmentation import augment_clip
 from training.config import load_config
-from training.data import PreparedClip, augment_clip
+from training.data import PreparedClip
 
 
 ROOT = Path(__file__).resolve().parents[1]

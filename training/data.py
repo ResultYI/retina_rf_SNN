@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import glob
-import math
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any
 
 import numpy as np
 import torch
@@ -42,13 +41,6 @@ class PreparedData:
     normalization_mean: np.ndarray
     normalization_scale: np.ndarray
     manifest: dict[str, Any]
-
-
-@dataclass(frozen=True, slots=True)
-class AugmentedClip:
-    noisy_input: torch.Tensor
-    clean_target: torch.Tensor
-    metadata: dict[str, float | int | bool | str]
 
 
 def prepare_data(config: DataConfig) -> PreparedData:
@@ -102,121 +94,9 @@ def prepare_data(config: DataConfig) -> PreparedData:
     )
 
 
-def augment_clip(
-    clip: PreparedClip,
-    config: DataConfig,
-    generator: torch.Generator,
-) -> AugmentedClip:
-    clean = clip.clean
-    if clean.ndim != 2 or clean.shape[0] != config.sequence_steps:
-        raise TrainingDataError("Clean clip shape does not match data.sequence_steps")
-    gain_before = _log_uniform(
-        config.context_gain_min, config.context_gain_max, generator
-    )
-    gain_after = gain_before
-    has_gain_transition = (
-        torch.rand((), generator=generator).item()
-        < config.context_transition_probability
-    )
-    noise_before = config.noise_std_min + (
-        config.noise_std_max - config.noise_std_min
-    ) * torch.rand((), generator=generator).item()
-    noise_after = noise_before
-    has_noise_transition = (
-        torch.rand((), generator=generator).item()
-        < config.noise_transition_probability
-    )
-    gain_envelope = clean.new_full((config.sequence_steps,), gain_before)
-    noise_envelope = clean.new_full((config.sequence_steps,), noise_before)
-    transition_step = -1
-    transition_width = 0
-    if has_gain_transition or has_noise_transition:
-        transition_low = max(1, config.sequence_steps // 3)
-        transition_high = max(
-            transition_low + 1,
-            min(config.context_transition_latest_step + 1, config.sequence_steps),
-        )
-        transition_step = int(
-            torch.randint(transition_low, transition_high, (), generator=generator).item()
-        )
-        transition_width = max(2, config.sequence_steps // 64)
-        start = max(0, transition_step - transition_width // 2)
-        end = min(config.sequence_steps, start + transition_width)
-        phase = torch.linspace(0.0, math.pi, end - start, dtype=clean.dtype)
-        blend = (1.0 - torch.cos(phase)) / 2.0
-        if has_gain_transition:
-            gain_after = _log_uniform(
-                config.context_gain_min, config.context_gain_max, generator
-            )
-            gain_envelope[start:end] = gain_before + (
-                gain_after - gain_before
-            ) * blend
-            gain_envelope[end:] = gain_after
-        if has_noise_transition:
-            noise_after = config.noise_std_min + (
-                config.noise_std_max - config.noise_std_min
-            ) * torch.rand((), generator=generator).item()
-            noise_envelope[start:end] = noise_before + (
-                noise_after - noise_before
-            ) * blend
-            noise_envelope[end:] = noise_after
-    clean_target = clean * gain_envelope[:, None]
-    noisy_input = clean_target + noise_envelope[:, None] * torch.randn(
-        clean.shape, generator=generator, dtype=clean.dtype
-    )
-    return AugmentedClip(
-        noisy_input=noisy_input,
-        clean_target=clean_target,
-        metadata={
-            "source_id": clip.source_id,
-            "has_transition": has_gain_transition,
-            "has_noise_transition": has_noise_transition,
-            "gain_before": gain_before,
-            "gain_after": gain_after,
-            "transition_step": transition_step,
-            "transition_width_steps": transition_width,
-            "noise_std": noise_before,
-            "noise_std_before": noise_before,
-            "noise_std_after": noise_after,
-        },
-    )
-
-
-def fixed_validation_clips(
-    clips: Sequence[PreparedClip],
-    config: DataConfig,
-    seed: int,
-    device: torch.device,
-) -> tuple[AugmentedClip, ...]:
-    result: list[AugmentedClip] = []
-    for index, clip in enumerate(clips):
-        augmented = augment_clip(
-            clip,
-            config,
-            torch.Generator().manual_seed(seed + index),
-        )
-        result.append(
-            AugmentedClip(
-                noisy_input=augmented.noisy_input.unsqueeze(0).to(device),
-                clean_target=augmented.clean_target.unsqueeze(0).to(device),
-                metadata=augmented.metadata,
-            )
-        )
-    return tuple(result)
-
-
-def _log_uniform(minimum: float, maximum: float, generator: torch.Generator) -> float:
-    lower = math.log(minimum)
-    upper = math.log(maximum)
-    return math.exp(lower + (upper - lower) * torch.rand((), generator=generator).item())
-
-
 __all__ = [
-    "AugmentedClip",
     "PreparedClip",
     "PreparedData",
     "TrainingDataError",
-    "augment_clip",
-    "fixed_validation_clips",
     "prepare_data",
 ]
