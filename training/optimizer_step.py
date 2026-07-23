@@ -7,6 +7,7 @@ import torch
 from torch.nn.utils import clip_grad_norm_
 
 from training.augmentation import AugmentedClip
+from training.bootstrap import bootstrap_metrics
 from training.component_gradients import component_gradient_norms
 from training.metrics import loss_metrics
 from training.state import OptimizerStepResult
@@ -23,7 +24,13 @@ def run_optimizer_step(
     trainer: RetinaTrainer,
     clips: Sequence[AugmentedClip],
 ) -> OptimizerStepResult:
-    expected = trainer.config.training.batch_size
+    bootstrap_active = (
+        trainer.optimizer_step
+        < trainer.config.training.reconstruction_bootstrap_steps
+    )
+    expected = trainer.config.training.batch_size * (
+        2 if bootstrap_active else 1
+    )
     if len(clips) != expected:
         raise OptimizerStepError(
             "Optimizer step received the wrong batch size"
@@ -70,15 +77,7 @@ def run_optimizer_step(
     )
     metrics = loss_metrics(losses, history)
     metrics.update(asdict(component_gradients))
-    bootstrap_metrics = asdict(trainer.bootstrap_state)
-    metrics.update(
-        {
-            f"bootstrap_{name}": (
-                float(value) if value is not None else 0.0
-            )
-            for name, value in bootstrap_metrics.items()
-        }
-    )
+    metrics.update(bootstrap_metrics(trainer.bootstrap_state))
     current_budget = trainer.energy_state.current_budget
     target_budget = trainer.energy_state.target_budget
     hard_energy = metrics["hard_energy"]

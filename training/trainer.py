@@ -8,17 +8,17 @@ import torch
 
 from loss.retina import RetinaLosses, RetinaObjective
 from models.cells.rgc_types import RGCOutput
-from models.decoder.local_decoder import TiedLocalDecoder, TiedReadoutGeometry
+from models.decoder.local_decoder import TiedLocalDecoder
 from models.retina_snn import (
     RetinaModel,
     RetinaState,
     detach_state,
 )
 from training.bootstrap import (
-    BootstrapContext,
-    BootstrapReadouts,
-    BootstrapRuntime,
-    apply_crossfit_bootstrap,
+    MultiViewBootstrapContext,
+    MultiViewBootstrapRuntime,
+    MultiViewReadouts,
+    apply_multiview_bootstrap,
 )
 from training.checkpointing import checkpoint_payload
 from training.config import ExperimentConfig
@@ -29,6 +29,7 @@ from training.state import (
     BootstrapState,
     EnergyBudgetState,
     OptimizerStepResult,
+    RepresentationSelectionMetrics,
     ValidationState,
 )
 from training.unroll import ForwardRegionRequest, forward_region
@@ -126,7 +127,7 @@ class RetinaTrainer:
         persistent_prediction = self.decoder(history.rates, spatial_weights)
         weights = objective_weights(self.optimizer_step, self.config)
         prediction = persistent_prediction
-        generator_auxiliary = persistent_prediction.new_zeros(())
+        bootstrap_auxiliary = persistent_prediction.new_zeros(())
         bootstrap_active = (
             self.model.training
             and torch.is_grad_enabled()
@@ -136,9 +137,8 @@ class RetinaTrainer:
         )
         if bootstrap_active:
             supervised = training.supervised_steps
-            application = apply_crossfit_bootstrap(
-                BootstrapReadouts(
-                    rate_readout=history.rates[:, -supervised:],
+            application = apply_multiview_bootstrap(
+                MultiViewReadouts(
                     generator_readout=history.generator_potential[
                         :, -supervised:
                     ],
@@ -147,20 +147,15 @@ class RetinaTrainer:
                         :, -supervised:
                     ],
                 ),
-                BootstrapContext(
-                    geometry=TiedReadoutGeometry(
-                        spatial_weights=spatial_weights,
-                        prior_gain=self.decoder.unit_gain.detach(),
-                        gain_max=self.decoder.gain_max,
-                    ),
+                MultiViewBootstrapContext(
                     reconstruction_scale=self.reconstruction_scale,
-                    generator_auxiliary_scale=(
-                        weights.generator_auxiliary_scale
-                    ),
+                    view_consistency_scale=weights.view_consistency_scale,
+                    generator_variance_weight=weights.variance,
                 ),
-                BootstrapRuntime(
+                MultiViewBootstrapRuntime(
                     state=self.bootstrap_state,
                     parameters=tuple(self.model.parameters()),
+                    optimizer_step=self.optimizer_step,
                 ),
             )
             prediction = torch.cat(
@@ -170,7 +165,7 @@ class RetinaTrainer:
                 ),
                 dim=1,
             )
-            generator_auxiliary = application.generator_auxiliary
+            bootstrap_auxiliary = application.auxiliary_loss
         losses = self.objective(
             prediction,
             target_region,
@@ -190,7 +185,7 @@ class RetinaTrainer:
         if bootstrap_active:
             losses = replace(
                 losses,
-                total=losses.total + generator_auxiliary,
+                total=losses.total + bootstrap_auxiliary,
             )
         return losses, history, state
 
@@ -253,6 +248,12 @@ class RetinaTrainer:
             target_energy_ratio,
             self.config,
         )
+
+    def record_representation(
+        self,
+        metrics: RepresentationSelectionMetrics,
+    ) -> bool:
+        return self.validation_state.observe_representation(metrics)
 
 
 __all__ = [

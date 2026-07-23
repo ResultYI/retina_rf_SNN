@@ -10,7 +10,7 @@ from training.config import ExperimentConfig
 
 
 CHECKPOINT_SCHEMA = "retina_rf_snn"
-CHECKPOINT_SCHEMA_REVISION = 4
+CHECKPOINT_SCHEMA_REVISION = 5
 
 
 class CheckpointError(ValueError):

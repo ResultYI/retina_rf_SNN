@@ -9,6 +9,10 @@ import torch
 from training.checkpointing import load_checkpoint
 
 
+class CheckpointReportingError(RuntimeError):
+    pass
+
+
 @dataclass(frozen=True, slots=True)
 class CheckpointSummary:
     filename: str
@@ -18,6 +22,7 @@ class CheckpointSummary:
     target_budget: float | None
     best_reconstruction_mse: float | None
     best_feasible_mse: float | None
+    best_representation_rate_ratio: float | None
 
 
 def write_checkpoint_summaries(
@@ -29,6 +34,7 @@ def write_checkpoint_summaries(
         "checkpoint_last.pt",
         "checkpoint_best_reconstruction.pt",
         "checkpoint_best_feasible.pt",
+        "checkpoint_best_representation.pt",
     )
     for name in names:
         summary = checkpoint_summary(output_dir / name, device)
@@ -41,11 +47,11 @@ def write_checkpoint_summaries(
         json.dumps(
             {
                 "filename": selected_checkpoint.name,
-                "reason": (
-                    "best_feasible"
-                    if selected_checkpoint.name == "checkpoint_best_feasible.pt"
-                    else "best_reconstruction"
-                ),
+                "reason": {
+                    "checkpoint_best_feasible.pt": "best_feasible",
+                    "checkpoint_best_representation.pt": "best_representation",
+                    "checkpoint_best_reconstruction.pt": "best_reconstruction",
+                }[selected_checkpoint.name],
                 "optimizer_step": int(selected_payload["optimizer_step"]),
             },
             indent=2,
@@ -59,7 +65,16 @@ def checkpoint_summary(
     device: torch.device,
 ) -> CheckpointSummary:
     if not path.exists():
-        return CheckpointSummary(path.name, False, None, None, None, None, None)
+        return CheckpointSummary(
+            path.name,
+            False,
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
+        )
     payload = load_checkpoint(path, device)
     energy = payload["energy_state"]
     validation = payload["validation_state"]
@@ -71,6 +86,23 @@ def checkpoint_summary(
         target_budget=energy["target_budget"],
         best_reconstruction_mse=validation["best_reconstruction_mse"],
         best_feasible_mse=validation["best_feasible_mse"],
+        best_representation_rate_ratio=validation[
+            "best_representation_rate_ratio"
+        ],
+    )
+
+
+def select_checkpoint(output_dir: Path) -> Path:
+    candidates = (
+        output_dir / "checkpoint_best_feasible.pt",
+        output_dir / "checkpoint_best_representation.pt",
+        output_dir / "checkpoint_best_reconstruction.pt",
+    )
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    raise CheckpointReportingError(
+        "Training produced no validation checkpoint"
     )
 
 
@@ -86,7 +118,9 @@ def write_training_row(
 
 __all__ = [
     "CheckpointSummary",
+    "CheckpointReportingError",
     "checkpoint_summary",
+    "select_checkpoint",
     "write_checkpoint_summaries",
     "write_training_row",
 ]

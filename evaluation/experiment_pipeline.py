@@ -81,7 +81,7 @@ def run_final_evaluation(request: FinalEvaluationRequest) -> None:
         encoding="utf-8",
     )
 
-    representation_passed = (
+    minimum_skill_passed = (
         reconstruction.representation_skill
         >= config.evaluation.minimum_representation_skill
     )
@@ -90,7 +90,7 @@ def run_final_evaluation(request: FinalEvaluationRequest) -> None:
         and target_energy_ratio is not None
         and target_energy_ratio <= config.evaluation.maximum_energy_budget_ratio
     )
-    if representation_passed and energy_passed:
+    if minimum_skill_passed and energy_passed:
         pairs = build_matched_context_pairs(
             request.prepared.validation,
             config.data,

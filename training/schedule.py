@@ -12,7 +12,7 @@ class ObjectiveWeights:
     variance: float
     phenotype_repulsion: float
     homeostasis: float
-    generator_auxiliary_scale: float
+    view_consistency_scale: float
 
 
 def objective_weights(
@@ -28,11 +28,11 @@ def objective_weights(
     )
     auxiliary_progress = optimizer_step / auxiliary_horizon
     if auxiliary_progress < 0.6:
-        generator_auxiliary_scale = 1.0
+        view_consistency_scale = 1.0
     elif auxiliary_progress < 0.8:
-        generator_auxiliary_scale = (0.8 - auxiliary_progress) / 0.2
+        view_consistency_scale = (0.8 - auxiliary_progress) / 0.2
     else:
-        generator_auxiliary_scale = 0.0
+        view_consistency_scale = 0.0
     ramp_width = max(
         1,
         training.budget_ramp_end_step - training.reconstruction_bootstrap_steps,
@@ -51,7 +51,7 @@ def objective_weights(
         variance=objective.variance_weight,
         phenotype_repulsion=0.0,
         homeostasis=objective.homeostasis_weight,
-        generator_auxiliary_scale=generator_auxiliary_scale,
+        view_consistency_scale=view_consistency_scale,
     )
 
 

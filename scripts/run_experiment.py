@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import sys
 from dataclasses import asdict
 from pathlib import Path
@@ -17,44 +16,19 @@ from evaluation.experiment_pipeline import (
     run_final_evaluation,
 )
 from evaluation.reconstruction import (
-    fit_causal_ema_alpha,
     fit_augmented_reconstruction_scale,
 )
-from evaluation.representation_diagnostics import (
-    calibrate_decoder,
-    collect_decoder_examples,
-    representation_diagnostics,
-    write_decoder_calibration,
-)
 from loss.retina import RetinaObjective
+from training import (
+    checkpoint_reporting,
+    experiment_cli,
+    experiment_setup,
+    runtime,
+    training_batch,
+)
 from training.checkpointing import load_checkpoint, save_checkpoint
-from training.checkpoint_reporting import (
-    write_checkpoint_summaries,
-    write_training_row,
-)
-from training.augmentation import (
-    AugmentedClip,
-    augment_clip,
-    fixed_validation_clips,
-)
 from training.config import load_config
 from training.data import prepare_data
-from training.experiment_cli import (
-    apply_invocation_overrides as _apply_invocation_overrides,
-    diagnostic_should_stop as _diagnostic_should_stop,
-    execution_limit as _execution_limit,
-    parse_experiment_args as _parse_args,
-    seed_everything as _seed_everything,
-)
-from training.runtime import (
-    ValidationContext,
-    build_network,
-    diagnostic_training_clips,
-    ensure_initial_reference,
-    evaluate_validation,
-    sample_unique_source_indices,
-    training_mean,
-)
 from training.trainer import RetinaTrainer
 
 
@@ -63,62 +37,25 @@ class ExperimentError(RuntimeError):
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    args = _parse_args(argv)
-    config = _apply_invocation_overrides(load_config(args.config), args)
-    _seed_everything(config.seed)
+    args = experiment_cli.parse_experiment_args(argv)
+    config = experiment_cli.apply_invocation_overrides(
+        load_config(args.config),
+        args,
+    )
+    experiment_cli.seed_everything(config.seed)
     device = torch.device(args.device)
     prepared = prepare_data(config.data)
-    model, decoder = build_network(config, prepared, device)
+    model, decoder = runtime.build_network(config, prepared, device)
     output_dir = args.output
-    output_dir.mkdir(parents=True, exist_ok=True)
-    validation_clips = fixed_validation_clips(
-        prepared.validation,
-        config.data,
-        config.seed + 10_000,
-        device,
-    )
-    calibration_clips = diagnostic_training_clips(prepared, config, device)
-    train_examples = collect_decoder_examples(
-        model,
-        calibration_clips,
-        config.training.supervised_steps,
-    )
-    validation_examples = collect_decoder_examples(
-        model,
-        validation_clips,
-        config.training.supervised_steps,
-    )
-    spatial_weights = model.rgc.compute_spatial_weights()
-    calibration = calibrate_decoder(decoder, train_examples, spatial_weights)
-    ema_alpha = fit_causal_ema_alpha(
-        train_examples.noisy_input,
-        train_examples.target,
-    )
-    train_mean = training_mean(prepared).to(device)
-    initial_diagnostics = representation_diagnostics(
-        decoder,
-        decoder,
-        train_examples,
-        validation_examples,
-        spatial_weights,
-        torch.as_tensor(
-            prepared.positions_degs,
+    setup = experiment_setup.initialize_experiment(
+        experiment_setup.ExperimentSetupRequest(
+            model=model,
+            decoder=decoder,
+            prepared=prepared,
+            config=config,
             device=device,
-            dtype=spatial_weights.dtype,
-        ),
-        train_mean,
-        ema_alpha,
-    )
-    write_decoder_calibration(output_dir, calibration)
-    (output_dir / "representation_initial.json").write_text(
-        json.dumps(asdict(initial_diagnostics), indent=2),
-        encoding="utf-8",
-    )
-    initial_reference = ensure_initial_reference(
-        output_dir,
-        model,
-        decoder,
-        config,
+            output_dir=output_dir,
+        )
     )
     if args.diagnostics_only and args.resume is None:
         return 0
@@ -139,32 +76,34 @@ def main(argv: Sequence[str] | None = None) -> int:
             seed=config.seed + 3,
         ),
     )
-    sampling_generator = torch.Generator().manual_seed(config.seed + 1)
-    augmentation_generator = torch.Generator().manual_seed(config.seed + 2)
+    generators = training_batch.TrainingGenerators(
+        sampling=torch.Generator().manual_seed(config.seed + 1),
+        augmentation=torch.Generator().manual_seed(config.seed + 2),
+    )
     if args.resume is not None:
         payload = load_checkpoint(args.resume, device)
         if payload["resolved_config"] != config.resolved():
             raise ExperimentError("Resume configuration does not match checkpoint")
-        trainer.restore(payload, sampling_generator, augmentation_generator)
+        trainer.restore(payload, generators.sampling, generators.augmentation)
 
-    execution_limit = _execution_limit(
+    execution_limit = experiment_cli.execution_limit(
         config.training.max_optimizer_steps,
         args.stop_after_steps,
         args.representation_diagnostic_steps,
     )
-    validation = ValidationContext(
-        clips=validation_clips,
-        train_mean=train_mean,
-        ema_alpha=ema_alpha,
+    validation = runtime.ValidationContext(
+        clips=setup.validation_clips,
+        train_mean=setup.train_mean,
+        ema_alpha=setup.ema_alpha,
     )
     evaluation_request = FinalEvaluationRequest(
         trainer=trainer,
         prepared=prepared,
         config=config,
         validation=validation,
-        calibration_clips=calibration_clips,
-        initial_reference=initial_reference,
-        initial_diagnostics=initial_diagnostics,
+        calibration_clips=setup.calibration_clips,
+        initial_reference=setup.initial_reference,
+        initial_diagnostics=setup.initial_diagnostics,
         output_dir=output_dir,
         device=device,
     )
@@ -173,26 +112,18 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     diagnostic_validation_mses: list[float] = []
     while trainer.optimizer_step < execution_limit:
-        batch: list[AugmentedClip] = []
-        source_indices = sample_unique_source_indices(
-            len(prepared.train),
-            config.training.batch_size,
-            sampling_generator,
-        )
-        for source_index_tensor in source_indices:
-            source_index = int(source_index_tensor)
-            source = prepared.train[source_index]
-            clip = augment_clip(source, config.data, augmentation_generator)
-            batch.append(
-                AugmentedClip(
-                    noisy_input=clip.noisy_input.unsqueeze(0).to(device),
-                    clean_target=clip.clean_target.unsqueeze(0).to(device),
-                    metadata=clip.metadata,
-                )
+        batch = training_batch.build_training_batch(
+            training_batch.TrainingBatchRequest(
+                sources=prepared.train,
+                config=config,
+                device=device,
+                generators=generators,
+                optimizer_step=trainer.optimizer_step,
             )
+        )
         result = trainer.train_optimizer_step(batch)
         if trainer.optimizer_step % config.training.validation_interval_steps == 0:
-            reconstruction, _, target_energy_ratio = evaluate_validation(
+            reconstruction, _, target_energy_ratio = runtime.evaluate_validation(
                 trainer,
                 validation,
                 config,
@@ -202,6 +133,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                 reconstruction.mse,
                 target_energy_ratio,
             )
+            best_representation = False
+            selection_metrics = None
+            if trainer.optimizer_step <= config.training.reconstruction_bootstrap_steps:
+                best_representation, selection_metrics = setup.selector.observe(
+                    trainer.validation_state,
+                    reconstruction.mse,
+                )
             metrics = {
                 **result.metrics,
                 "gradient_norm": result.gradient_norm,
@@ -216,9 +154,16 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "best_reconstruction_event": best_reconstruction,
                 "best_feasible_event": best_feasible,
             }
-            write_training_row(output_dir, trainer.optimizer_step, metrics)
+            if selection_metrics is not None:
+                metrics.update(asdict(selection_metrics))
+            checkpoint_reporting.write_training_row(
+                output_dir,
+                trainer.optimizer_step,
+                metrics,
+            )
             payload = trainer.checkpoint_payload(
-                sampling_generator, augmentation_generator
+                generators.sampling,
+                generators.augmentation,
             )
             save_checkpoint(
                 output_dir / "checkpoint_last.pt",
@@ -230,24 +175,29 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
             if best_feasible:
                 save_checkpoint(output_dir / "checkpoint_best_feasible.pt", payload)
+            if best_representation:
+                save_checkpoint(
+                    output_dir / "checkpoint_best_representation.pt",
+                    payload,
+                )
             diagnostic_validation_mses.append(reconstruction.mse)
-            if _diagnostic_should_stop(
-                initial_diagnostics.current_decoder.mse,
+            if experiment_cli.diagnostic_should_stop(
+                setup.initial_diagnostics.current_decoder.mse,
                 diagnostic_validation_mses,
                 args,
             ):
                 break
 
-    selected_checkpoint = output_dir / "checkpoint_best_feasible.pt"
-    if not selected_checkpoint.exists():
-        selected_checkpoint = output_dir / "checkpoint_best_reconstruction.pt"
-    if not selected_checkpoint.exists():
-        raise ExperimentError("Training produced no validation checkpoint")
-    write_checkpoint_summaries(output_dir, selected_checkpoint, device)
+    selected_checkpoint = checkpoint_reporting.select_checkpoint(output_dir)
+    checkpoint_reporting.write_checkpoint_summaries(
+        output_dir,
+        selected_checkpoint,
+        device,
+    )
     trainer.restore(
         load_checkpoint(selected_checkpoint, device),
-        sampling_generator,
-        augmentation_generator,
+        generators.sampling,
+        generators.augmentation,
     )
     run_final_evaluation(evaluation_request)
     return 0

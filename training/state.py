@@ -3,6 +3,8 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
+import torch
+
 from training.config import ExperimentConfig
 
 
@@ -68,16 +70,14 @@ class EnergyBudgetState:
 class BootstrapState:
     """Mutable state persisted across bootstrap optimizer steps."""
 
-    generator_auxiliary_base_weight: float | None = None
-    generator_auxiliary_calibrated_step: int | None = None
+    view_consistency_base_weight: float | None = None
+    view_consistency_calibrated_step: int | None = None
+    initial_generator_variance_reference: torch.Tensor | None = None
     persistent_reconstruction: float = 0.0
-    rate_reconstruction: float = 0.0
-    generator_reconstruction: float = 0.0
-    generator_auxiliary_weight: float = 0.0
-    rate_ridge_strength: float = 0.0
-    generator_ridge_strength: float = 0.0
-    rate_gain_clipped_fraction: float = 0.0
-    generator_gain_clipped_fraction: float = 0.0
+    view_consistency: float = 0.0
+    view_consistency_weight: float = 0.0
+    generator_variance_guard: float = 0.0
+    generator_variance_retention: float = 1.0
 
 
 @dataclass(frozen=True, slots=True)
@@ -88,6 +88,13 @@ class OptimizerStepResult:
     peak_memory_bytes: int
 
 
+@dataclass(frozen=True, slots=True)
+class RepresentationSelectionMetrics:
+    rate_source_cv_ratio: float
+    generator_source_cv_ratio: float
+    fixed_validation_ratio: float
+
+
 @dataclass(slots=True)  # noqa: MUTABLE_OK
 class ValidationState:
     """Mutable best-checkpoint statistics."""
@@ -95,6 +102,7 @@ class ValidationState:
     count: int = 0
     best_reconstruction_mse: float = math.inf
     best_feasible_mse: float = math.inf
+    best_representation_rate_ratio: float = 1.0
 
     def observe(
         self,
@@ -123,10 +131,30 @@ class ValidationState:
             self.best_feasible_mse = reconstruction_mse
         return best_reconstruction, best_feasible
 
+    def observe_representation(
+        self,
+        metrics: RepresentationSelectionMetrics,
+    ) -> bool:
+        guarded = (
+            metrics.generator_source_cv_ratio <= 1.01
+            and metrics.fixed_validation_ratio <= 1.02
+        )
+        improved = (
+            guarded
+            and metrics.rate_source_cv_ratio
+            < self.best_representation_rate_ratio
+        )
+        if improved:
+            self.best_representation_rate_ratio = (
+                metrics.rate_source_cv_ratio
+            )
+        return improved
+
 
 __all__ = [
     "BootstrapState",
     "EnergyBudgetState",
     "OptimizerStepResult",
+    "RepresentationSelectionMetrics",
     "ValidationState",
 ]

@@ -84,7 +84,7 @@ def test_trainer_constructs_with_true_batch_configuration() -> None:
 def test_optimizer_step_uses_one_true_batch(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    # Given: a bootstrap trainer and four augmented clips.
+    # Given: a bootstrap trainer and four paired-source views.
     config = load_config(ROOT / "configs" / "experiment.yaml")
     model = TinyModel()
     decoder = torch.nn.Linear(1, 1, bias=False)
@@ -105,11 +105,11 @@ def test_optimizer_step_uses_one_true_batch(
 
     # When: one optimizer step is executed.
     result = trainer.train_optimizer_step(
-        (_clip(),) * config.training.batch_size
+        (_clip(),) * (2 * config.training.batch_size)
     )
 
-    # Then: the core sees one true batch while the persistent decoder is frozen.
-    assert observed_batch_sizes == [config.training.batch_size]
+    # Then: the core sees both views in one batch while the decoder is frozen.
+    assert observed_batch_sizes == [2 * config.training.batch_size]
     assert result.gradient_norm > 0
     assert result.temporal_gradient_norm > 0
     assert result.metrics["model_gradient_norm"] > 0

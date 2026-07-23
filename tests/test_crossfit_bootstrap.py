@@ -9,7 +9,7 @@ import torch
 import models.decoder.local_decoder as decoder_module
 import training.runtime as runtime
 from loss.retina import RetinaObjective
-from training.bootstrap import calibrate_generator_auxiliary_weight
+from training.bootstrap import calibrate_view_consistency_weight
 from training.config import load_config
 from training.schedule import objective_weights
 from training.trainer import RetinaTrainer
@@ -55,7 +55,7 @@ def test_training_source_sampling_is_without_replacement() -> None:
     assert torch.unique(indices).numel() == 4
 
 
-def test_generator_auxiliary_anneals_before_diagnostic_end() -> None:
+def test_view_consistency_anneals_before_diagnostic_end() -> None:
     # Given: a 50-step representation diagnostic.
     config = load_config(ROOT / "configs" / "experiment.yaml")
     config = replace(
@@ -69,30 +69,30 @@ def test_generator_auxiliary_anneals_before_diagnostic_end() -> None:
     auxiliary_off = objective_weights(40, config)
 
     # Then: generator deep supervision is gone for the final ten steps.
-    assert start.generator_auxiliary_scale == 1.0
-    assert decay_midpoint.generator_auxiliary_scale == pytest.approx(0.5)
-    assert auxiliary_off.generator_auxiliary_scale == 0.0
+    assert start.view_consistency_scale == 1.0
+    assert decay_midpoint.view_consistency_scale == pytest.approx(0.5)
+    assert auxiliary_off.view_consistency_scale == 0.0
 
 
-def test_generator_auxiliary_weight_matches_core_gradient_ratio() -> None:
+def test_view_consistency_weight_matches_core_gradient_ratio() -> None:
     # Given: rate and generator losses with a known four-to-one gradient ratio.
     parameter = torch.nn.Parameter(torch.tensor(1.0))
     rate_loss = (2.0 * parameter).square()
     generator_loss = parameter.square()
 
     # When: the generator auxiliary is calibrated once.
-    weight = calibrate_generator_auxiliary_weight(
+    weight = calibrate_view_consistency_weight(
         rate_loss,
         generator_loss,
         (parameter,),
     )
 
-    # Then: its weighted gradient is half the rate gradient.
-    assert weight == pytest.approx(2.0)
+    # Then: its weighted gradient is one quarter of the rate gradient.
+    assert weight == pytest.approx(1.0)
 
 
 def test_bootstrap_calibration_state_round_trips_in_checkpoint() -> None:
-    # Given: a trainer with a calibrated generator auxiliary.
+    # Given: a trainer with calibrated view consistency.
     config = load_config(ROOT / "configs" / "experiment.yaml")
     model = torch.nn.Linear(1, 1)
     decoder = torch.nn.Linear(1, 1)
@@ -103,8 +103,12 @@ def test_bootstrap_calibration_state_round_trips_in_checkpoint() -> None:
         homeostasis_rate_min=0.001,
     )
     trainer = RetinaTrainer(model, decoder, objective, config, 1.0)
-    trainer.bootstrap_state.generator_auxiliary_base_weight = 2.5
-    trainer.bootstrap_state.generator_auxiliary_calibrated_step = 0
+    trainer.bootstrap_state.view_consistency_base_weight = 2.5
+    trainer.bootstrap_state.view_consistency_calibrated_step = 0
+    trainer.bootstrap_state.initial_generator_variance_reference = torch.ones(
+        2,
+        1,
+    )
     sampling = torch.Generator().manual_seed(1)
     augmentation = torch.Generator().manual_seed(2)
 
@@ -124,5 +128,9 @@ def test_bootstrap_calibration_state_round_trips_in_checkpoint() -> None:
     )
 
     # Then: one-time calibration is not repeated after resume.
-    assert restored.bootstrap_state.generator_auxiliary_base_weight == 2.5
-    assert restored.bootstrap_state.generator_auxiliary_calibrated_step == 0
+    assert restored.bootstrap_state.view_consistency_base_weight == 2.5
+    assert restored.bootstrap_state.view_consistency_calibrated_step == 0
+    assert torch.equal(
+        restored.bootstrap_state.initial_generator_variance_reference,
+        torch.ones(2, 1),
+    )

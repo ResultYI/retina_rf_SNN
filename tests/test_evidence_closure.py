@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import math
-from dataclasses import fields
+from dataclasses import asdict, fields
 from pathlib import Path
 
 import numpy as np
@@ -14,6 +14,8 @@ from evaluation.dynamic_rf import (
 )
 from evaluation.dynamic_rf_summary import compare_dynamic_rf
 from evaluation.reconstruction import fit_augmented_reconstruction_scale
+from evaluation.reconstruction import ReconstructionMetrics
+from evaluation.reporting import summarize_evaluation
 from evaluation.rgc_types import (
     FEATURE_NAMES,
     eligible_rgc_units,
@@ -151,6 +153,26 @@ def test_dynamic_rf_source_requires_multiple_valid_records() -> None:
 def test_dynamic_rf_selection_is_immutable_and_shared() -> None:
     selection = DynamicRFSelection(polarity=1, unit_indices=(2, 4))
     assert selection.unit_indices == (2, 4)
+
+
+def test_evaluation_names_the_legacy_skill_gate_precisely() -> None:
+    config = load_config(ROOT / "configs" / "experiment.yaml")
+    summary = summarize_evaluation(
+        ReconstructionMetrics(0.3, 0.7, 0.04, 0.03, 0.5),
+        None,
+        (),
+        config,
+        dynamic_rf_status="not_run",
+        rgc_type_status="not_run",
+        budget_ramp_complete=False,
+    )
+
+    # Given the scalar mean-baseline skill threshold is not the scientific
+    # source-generalization gate, When the summary is serialized, Then its
+    # field name must state the narrower contract and avoid a false PASS.
+    payload = asdict(summary)
+    assert payload["minimum_skill_passed"] is True
+    assert "representation_passed" not in payload
 
 
 def _dynamic_row(

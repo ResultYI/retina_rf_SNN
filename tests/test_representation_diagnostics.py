@@ -21,10 +21,11 @@ from evaluation.representation_diagnostics import (
     representation_diagnostics,
 )
 from models.decoder.local_decoder import TiedLocalDecoder
-from training.augmentation import AugmentedClip, fixed_validation_clips
+from training.augmentation import AugmentedClip
 from training.config import load_config
 from training.data import PreparedClip
 from training.schedule import objective_weights
+from training.validation_clips import fixed_validation_clips
 
 
 ROOT = Path(__file__).resolve().parents[1]

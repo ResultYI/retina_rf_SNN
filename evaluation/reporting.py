@@ -19,7 +19,7 @@ from training.config import ExperimentConfig
 
 @dataclass(frozen=True, slots=True)
 class EvaluationSummary:
-    representation_passed: bool
+    minimum_skill_passed: bool
     energy_passed: bool
     energy_status: str
     reconstruction: ReconstructionMetrics
@@ -45,7 +45,7 @@ def summarize_evaluation(
         and target_energy_ratio <= config.evaluation.maximum_energy_budget_ratio
     )
     return EvaluationSummary(
-        representation_passed=(
+        minimum_skill_passed=(
             reconstruction.representation_skill
             >= config.evaluation.minimum_representation_skill
         ),
@@ -104,7 +104,7 @@ def write_evaluation_report(
         "# Retina RF SNN evaluation",
         "",
         f"- Representation skill: {summary.reconstruction.representation_skill:.6f}",
-        f"- Representation gate: {summary.representation_passed}",
+        f"- Minimum skill gate: {summary.minimum_skill_passed}",
         f"- Target energy ratio: {ratio}",
         f"- Energy gate: {summary.energy_status}",
         f"- Dynamic RF unit records: {summary.dynamic_rf_units}",

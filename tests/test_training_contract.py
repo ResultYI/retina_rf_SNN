@@ -6,6 +6,7 @@ import pytest
 import torch
 import yaml
 
+from training import experiment_cli
 from training.checkpointing import (
     CHECKPOINT_SCHEMA,
     CHECKPOINT_SCHEMA_REVISION,
@@ -32,7 +33,7 @@ def test_canonical_time_and_checkpoint_contract() -> None:
     assert config.objective.homeostasis_weight > 0
     assert config.objective.phenotype_repulsion_weight > 0
     assert CHECKPOINT_SCHEMA == "retina_rf_snn"
-    assert CHECKPOINT_SCHEMA_REVISION == 4
+    assert CHECKPOINT_SCHEMA_REVISION == 5
 
 
 def test_unknown_configuration_key_is_rejected(tmp_path: Path) -> None:
@@ -103,11 +104,11 @@ def test_experiment_runner_imports_without_evaluation_side_effects() -> None:
 
 
 def test_runner_stop_after_steps_preserves_configured_horizon() -> None:
-    from scripts import run_experiment
-
     config = load_config(ROOT / "configs" / "experiment.yaml")
-    args = run_experiment._parse_args(["--stop-after-steps", "160"])
-    execution_limit = run_experiment._execution_limit(
+    args = experiment_cli.parse_experiment_args(
+        ["--stop-after-steps", "160"]
+    )
+    execution_limit = experiment_cli.execution_limit(
         config.training.max_optimizer_steps,
         args.stop_after_steps,
     )
@@ -118,10 +119,8 @@ def test_runner_stop_after_steps_preserves_configured_horizon() -> None:
 
 
 def test_representation_diagnostic_mode_applies_one_canonical_policy() -> None:
-    from scripts import run_experiment
-
     config = load_config(ROOT / "configs" / "experiment.yaml")
-    args = run_experiment._parse_args(
+    args = experiment_cli.parse_experiment_args(
         [
             "--representation-diagnostic-steps",
             "50",
@@ -130,14 +129,14 @@ def test_representation_diagnostic_mode_applies_one_canonical_policy() -> None:
         ]
     )
 
-    diagnostic = run_experiment._apply_invocation_overrides(config, args)
+    diagnostic = experiment_cli.apply_invocation_overrides(config, args)
 
     assert diagnostic.training.core_lr == pytest.approx(4e-4)
     assert diagnostic.training.decoder_freeze_steps == 50
     assert diagnostic.training.validation_interval_steps == 10
     assert diagnostic.training.max_optimizer_steps == 6000
     assert diagnostic.objective.phenotype_repulsion_weight == 0.0
-    assert run_experiment._execution_limit(
+    assert experiment_cli.execution_limit(
         diagnostic.training.max_optimizer_steps,
         args.stop_after_steps,
         args.representation_diagnostic_steps,
@@ -145,20 +144,17 @@ def test_representation_diagnostic_mode_applies_one_canonical_policy() -> None:
 
 
 def test_representation_diagnostic_stops_after_three_material_regressions() -> None:
-    from scripts import run_experiment
-
-    args = run_experiment._parse_args(
+    args = experiment_cli.parse_experiment_args(
         ["--representation-diagnostic-steps", "50"]
     )
 
-    assert run_experiment._diagnostic_should_stop(
+    assert experiment_cli.diagnostic_should_stop(
         0.35,
         [0.354, 0.355, 0.356],
         args,
     )
-    assert not run_experiment._diagnostic_should_stop(
+    assert not experiment_cli.diagnostic_should_stop(
         0.35,
         [0.354, 0.349, 0.356],
         args,
     )
-
