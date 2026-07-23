@@ -1,0 +1,8 @@
+{
+  "python": "3.12.7",
+  "executable": "D:\\anaconda\\python.exe",
+  "pytorch": "2.6.0+cpu",
+  "cuda_runtime": null,
+  "cuda_available": false,
+  "pytest": "7.4.4"
+}

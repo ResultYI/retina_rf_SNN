@@ -77,3 +77,18 @@ def test_experiment_runner_imports_without_evaluation_side_effects() -> None:
     from scripts import run_experiment
 
     assert callable(run_experiment.main)
+
+
+def test_runner_stop_after_steps_preserves_configured_horizon() -> None:
+    from scripts import run_experiment
+
+    config = load_config(ROOT / "configs" / "experiment.yaml")
+    args = run_experiment._parse_args(["--stop-after-steps", "160"])
+    execution_limit = run_experiment._execution_limit(
+        config.training.max_optimizer_steps,
+        args.stop_after_steps,
+    )
+
+    assert args.stop_after_steps == 160
+    assert execution_limit == 160
+    assert config.training.max_optimizer_steps == 6000

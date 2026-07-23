@@ -1,0 +1,20 @@
+{
+  "stage": 1,
+  "status": "STAGE_1_PASS",
+  "initial": {
+    "passed": 20,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "final": {
+    "passed": 20,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "files_modified": [],
+  "training_executed": false,
+  "git_executed": false,
+  "stage_2_smoke_training": "GO"
+}

@@ -1,0 +1,131 @@
+{
+  "summary": {
+    "representation_passed": false,
+    "energy_passed": false,
+    "energy_status": "not_identifiable",
+    "reconstruction": {
+      "mse": 0.611298680305481,
+      "mean_baseline_mse": 0.659888505935669,
+      "representation_skill": 0.07363338684205678
+    },
+    "target_energy_ratio": null,
+    "dynamic_rf_units": 0,
+    "dynamic_rf_status": "not_run",
+    "rgc_type_status": "not_run"
+  },
+  "dynamic_rf": {
+    "selection": [],
+    "comparison": {
+      "status": "not_run",
+      "valid_source_count": 0,
+      "total_source_count": 0,
+      "trained_shape_median": null,
+      "initialized_shape_median": null,
+      "shape_delta_median": null,
+      "shape_delta_bootstrap_ci": null,
+      "trained_gain_median": null,
+      "initialized_gain_median": null,
+      "gain_delta_median": null,
+      "gain_delta_bootstrap_ci": null,
+      "trained_recovery_fraction_median": null,
+      "initialized_recovery_fraction_median": null,
+      "trained_finite_difference_valid_fraction": 0.0,
+      "initialized_finite_difference_valid_fraction": 0.0
+    },
+    "sources": [],
+    "trained_units": [],
+    "initialized_units": []
+  },
+  "rgc_types": {
+    "status": "not_run"
+  },
+  "resolved_config": {
+    "seed": 19,
+    "data": {
+      "train_glob": "data/isetbio_bsds300_4deg/train/*.h5",
+      "validation_glob": "data/isetbio_bsds300_4deg/val/*.h5",
+      "sequence_steps": 320,
+      "noise_std_min": 0.1,
+      "noise_std_max": 0.25,
+      "noise_transition_probability": 0.75,
+      "context_transition_probability": 0.75,
+      "context_transition_latest_step": 192,
+      "context_gain_min": 0.3,
+      "context_gain_max": 1.0
+    },
+    "model": {
+      "units_per_center": 2,
+      "support_radius_spacing_multiplier": 3.6,
+      "sigma_min_spacing_multiplier": 0.25,
+      "sigma_initial_spacing_multiplier": 1.2,
+      "sigma_max_spacing_multiplier": 3.6,
+      "readout_rate_tau_ms": 50.0,
+      "max_tau_ms": 250.0,
+      "surrogate_slope": 5.0,
+      "decoder_gain_max": 5.0,
+      "adaptation_gain_max": 1.0,
+      "amacrine_gain_max": 1.0,
+      "subunit_gain_max": 3.0,
+      "debug_checks": false
+    },
+    "training": {
+      "burn_in_steps": 64,
+      "differentiable_steps": 256,
+      "context_only_steps": 160,
+      "supervised_steps": 96,
+      "checkpoint_block_steps": 32,
+      "gradient_accumulation_steps": 4,
+      "gradient_clip_norm": 1.0,
+      "max_optimizer_steps": 6000,
+      "reconstruction_bootstrap_steps": 40,
+      "budget_ramp_end_step": 100,
+      "core_lr": 0.0002,
+      "decoder_lr": 0.0001,
+      "validation_interval_steps": 20
+    },
+    "objective": {
+      "energy_budget_ratio": 0.9,
+      "rho_energy": 1.0,
+      "dual_lr": 0.01,
+      "dual_max": 10.0,
+      "wiring_weight": 0.05,
+      "diversity_weight": 0.075,
+      "variance_floor": 0.01,
+      "phenotype_temperature": 1.0,
+      "homeostasis_rate_min": 0.001
+    },
+    "evaluation": {
+      "dynamic_rf_max_sources": 32,
+      "dynamic_rf_units_per_polarity": 4,
+      "dynamic_rf_lag_steps": 64,
+      "recovery_delays_ms": [
+        0,
+        100,
+        200,
+        300,
+        500
+      ],
+      "minimum_representation_skill": 2.0,
+      "maximum_energy_budget_ratio": 1.05,
+      "local_linear_baseline": "disabled",
+      "dynamic_rf_fd_max_relative_error": 0.2,
+      "dynamic_rf_kernel_norm_min": 1e-06,
+      "dynamic_rf_reset_error_max": 1e-06,
+      "dynamic_rf_min_valid_sources": 3,
+      "dynamic_rf_min_valid_records_per_source": 3,
+      "dynamic_rf_min_valid_record_fraction_per_source": 0.5,
+      "dynamic_rf_shape_distance_min": 0.05,
+      "dynamic_rf_gain_log_shift_min": 0.05,
+      "dynamic_rf_recovery_fraction_max": 0.25,
+      "dynamic_rf_bootstrap_iterations": 2000,
+      "rgc_min_cluster_fraction": 0.2,
+      "rgc_min_silhouette": 0.25,
+      "rgc_min_relative_radius_difference": 0.1,
+      "rgc_min_sustained_difference": 0.1,
+      "rgc_min_flicker_difference": 0.1,
+      "rgc_min_trained_to_initial_separation_ratio": 1.5,
+      "rgc_min_absolute_separation_gain": 0.05
+    }
+  },
+  "local_linear_baseline": "disabled"
+}

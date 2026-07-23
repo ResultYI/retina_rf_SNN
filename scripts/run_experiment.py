@@ -88,10 +88,14 @@ def main(argv: Sequence[str] | None = None) -> int:
             raise ExperimentError("Resume configuration does not match checkpoint")
         trainer.restore(payload, sampling_generator, augmentation_generator)
 
+    execution_limit = _execution_limit(
+        config.training.max_optimizer_steps,
+        args.stop_after_steps,
+    )
     validation = fixed_validation_clips(
         prepared.validation, config.data, config.seed + 10_000, device
     )
-    while trainer.optimizer_step < config.training.max_optimizer_steps:
+    while trainer.optimizer_step < execution_limit:
         batch: list[AugmentedClip] = []
         for _ in range(config.training.gradient_accumulation_steps):
             source_index = int(
@@ -120,9 +124,17 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
             metrics = {
                 **result.metrics,
+                "gradient_norm": result.gradient_norm,
+                "temporal_gradient_norm": result.temporal_gradient_norm,
+                "peak_memory_bytes": result.peak_memory_bytes,
+                "reference_energy": trainer.energy_state.reference_energy,
+                "current_budget": trainer.energy_state.current_budget,
+                "target_budget": trainer.energy_state.target_budget,
                 "validation_mse": reconstruction.mse,
                 "validation_representation_skill": reconstruction.representation_skill,
-                "validation_target_energy_ratio": target_energy_ratio or 0.0,
+                "validation_target_energy_ratio": target_energy_ratio,
+                "best_reconstruction_event": best_reconstruction,
+                "best_feasible_event": best_feasible,
             }
             _write_training_row(output_dir, trainer.optimizer_step, metrics)
             payload = trainer.checkpoint_payload(
@@ -397,7 +409,7 @@ def _training_mean(prepared: PreparedData) -> torch.Tensor:
 def _write_training_row(
     output_dir: Path,
     optimizer_step: int,
-    metrics: dict[str, float],
+    metrics: dict[str, float | int | bool | None],
 ) -> None:
     row = {"optimizer_step": optimizer_step, **metrics}
     with (output_dir / "training.jsonl").open("a", encoding="utf-8") as handle:
@@ -417,7 +429,19 @@ def _parse_args(argv: Sequence[str] | None) -> argparse.Namespace:
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--resume", type=Path)
     parser.add_argument("--output", type=Path, default=Path("runs/experiment"))
+    parser.add_argument("--stop-after-steps", type=_positive_int)
     return parser.parse_args(argv)
+
+
+def _positive_int(value: str) -> int:
+    parsed = int(value)
+    if parsed <= 0:
+        raise argparse.ArgumentTypeError("value must be a positive integer")
+    return parsed
+
+
+def _execution_limit(configured_limit: int, stop_after_steps: int | None) -> int:
+    return min(configured_limit, stop_after_steps) if stop_after_steps is not None else configured_limit
 
 
 if __name__ == "__main__":

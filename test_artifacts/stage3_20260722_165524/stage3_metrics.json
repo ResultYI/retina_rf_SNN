@@ -1,0 +1,109 @@
+{
+  "optimizer_steps": 160,
+  "validation_count": 8,
+  "runtime_seconds": 3534.151,
+  "scheduler_horizon_steps": 6000,
+  "final_lr_model": 0.00019964928592495045,
+  "expected_final_lr_model": 0.00019964928592495045,
+  "peak_memory_bytes": 20330496,
+  "peak_memory_ratio": 0.0023680820610687023,
+  "reference_energy": 0.2465886000676684,
+  "target_budget": 0.22192974006090155,
+  "target_to_reference_ratio": 0.9,
+  "bootstrap_correct": true,
+  "reference_frozen": true,
+  "target_frozen": true,
+  "budget_ramp_correct": true,
+  "budget_ramp_max_relative_error": 0.0,
+  "hard_surrogate_max_abs_difference": 0.0,
+  "energy_violation_max": 0.5422694981098175,
+  "energy_penalty_max": 0.3642512522637844,
+  "dual_final": 0.019653823798492894,
+  "dual_max_observed": 0.019653823798492894,
+  "aggregate_violation_rows": [
+    80,
+    100,
+    140
+  ],
+  "aggregate_violation_note": "energy and violation are separately averaged across four accumulation clips; a positive mean per-clip ReLU can coexist with mean energy below budget",
+  "first_validation_mse": 0.611298680305481,
+  "last_validation_mse": 0.6183733940124512,
+  "first_representation_skill": 0.07363338684205678,
+  "last_representation_skill": 0.06291231253430107,
+  "gradient_norm_min": 0.15966063737869263,
+  "gradient_norm_max": 0.7764072418212891,
+  "temporal_gradient_norm_min": 0.016651593148708344,
+  "temporal_gradient_norm_max": 0.3388592600822449,
+  "mean_rate_min": 0.02632712945342064,
+  "post_ramp_on_activity_min": 0.02773100797639927,
+  "post_ramp_off_activity_min": 0.016921470776651404,
+  "post_ramp_validation_target_energy_ratios": [
+    1.7922970052732803,
+    1.758308278231618,
+    1.730085541217931,
+    1.699890209232053
+  ],
+  "best_reconstruction_event_steps": [
+    20
+  ],
+  "best_feasible_event_steps": [],
+  "best_feasible_behavior_correct": true,
+  "checkpoint": {
+    "checkpoint_last_exists": true,
+    "checkpoint_best_reconstruction_exists": true,
+    "checkpoint_best_feasible_exists": false,
+    "initial_reference_exists": true
+  },
+  "resume_passed": true,
+  "gradient_audit": {
+    "source_id": "100075.jpg",
+    "augmentation_seed": 20019,
+    "optimizer_step": 160,
+    "component_values": {
+      "reconstruction": 0.21230438351631165,
+      "weighted_wiring": 0.007812549360096455,
+      "weighted_diversity": 0.07488581538200378,
+      "energy": 0.0
+    },
+    "component_group_grad_norms": {
+      "all": {
+        "reconstruction": 0.22393342852592468,
+        "weighted_wiring": 0.0008783607045188546,
+        "weighted_diversity": 0.00035704931360669434,
+        "energy": 0.0
+      },
+      "rgc_phenotype": {
+        "reconstruction": 0.0014013169566169381,
+        "weighted_wiring": 0.0008783607045188546,
+        "weighted_diversity": 0.0003570032131392509,
+        "energy": 0.0
+      },
+      "temporal": {
+        "reconstruction": 0.014761736616492271,
+        "weighted_wiring": 0.0,
+        "weighted_diversity": 0.00034455396234989166,
+        "energy": 0.0
+      },
+      "decoder": {
+        "reconstruction": 0.22177806496620178,
+        "weighted_wiring": 0.0,
+        "weighted_diversity": 0.0,
+        "energy": 0.0
+      }
+    },
+    "reconstruction_grad_norm": 0.22393342852592468,
+    "weighted_wiring_grad_norm": 0.0008783607045188546,
+    "weighted_diversity_grad_norm": 0.00035704931360669434,
+    "energy_grad_norm": 0.0,
+    "wiring_to_reconstruction_ratio": 0.003922418864842089,
+    "diversity_to_reconstruction_ratio": 0.0015944440093514616,
+    "energy_to_reconstruction_ratio": 0.0,
+    "energy_violation": 0.0,
+    "finite": true
+  },
+  "dynamic_rf_status": "not_run",
+  "rgc_type_status": "not_run",
+  "energy_status": "not_identifiable",
+  "selected_checkpoint_reason": "best_reconstruction",
+  "stage_4_pilot": "GO"
+}

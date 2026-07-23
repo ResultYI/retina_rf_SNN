@@ -1,0 +1,46 @@
+{
+  "source_id": "100075.jpg",
+  "augmentation_seed": 20019,
+  "optimizer_step": 160,
+  "component_values": {
+    "reconstruction": 0.21230438351631165,
+    "weighted_wiring": 0.007812549360096455,
+    "weighted_diversity": 0.07488581538200378,
+    "energy": 0.0
+  },
+  "component_group_grad_norms": {
+    "all": {
+      "reconstruction": 0.22393342852592468,
+      "weighted_wiring": 0.0008783607045188546,
+      "weighted_diversity": 0.00035704931360669434,
+      "energy": 0.0
+    },
+    "rgc_phenotype": {
+      "reconstruction": 0.0014013169566169381,
+      "weighted_wiring": 0.0008783607045188546,
+      "weighted_diversity": 0.0003570032131392509,
+      "energy": 0.0
+    },
+    "temporal": {
+      "reconstruction": 0.014761736616492271,
+      "weighted_wiring": 0.0,
+      "weighted_diversity": 0.00034455396234989166,
+      "energy": 0.0
+    },
+    "decoder": {
+      "reconstruction": 0.22177806496620178,
+      "weighted_wiring": 0.0,
+      "weighted_diversity": 0.0,
+      "energy": 0.0
+    }
+  },
+  "reconstruction_grad_norm": 0.22393342852592468,
+  "weighted_wiring_grad_norm": 0.0008783607045188546,
+  "weighted_diversity_grad_norm": 0.00035704931360669434,
+  "energy_grad_norm": 0.0,
+  "wiring_to_reconstruction_ratio": 0.003922418864842089,
+  "diversity_to_reconstruction_ratio": 0.0015944440093514616,
+  "energy_to_reconstruction_ratio": 0.0,
+  "energy_violation": 0.0,
+  "finite": true
+}

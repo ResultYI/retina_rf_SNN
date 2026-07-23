@@ -1,0 +1,20 @@
+{
+  "python": "3.11.15",
+  "python_executable": "D:\\anaconda\\envs\\snn_env\\python.exe",
+  "pytorch": "2.10.0+cu126",
+  "torch_cuda_runtime": "12.6",
+  "torch_cuda_available": true,
+  "gpu_name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+  "gpu_total_memory_bytes": 8585216000,
+  "gpu_free_memory_bytes_before_smoke": 7398752256,
+  "pytest": null,
+  "pyyaml_source": "D:\\anaconda\\Lib\\site-packages\\yaml\\__init__.py (pure Python fallback)",
+  "project_path": "D:\\PythonProject\\retina_rf_SNN",
+  "formal_config_path": "D:\\PythonProject\\retina_rf_SNN\\configs\\experiment.yaml",
+  "train_hdf5_count": 12,
+  "validation_hdf5_count": 4,
+  "sequence_steps": 320,
+  "cone_geometry_shape": [29, 2],
+  "source_disjoint": true,
+  "dt_ms": 5.000000000000004
+}

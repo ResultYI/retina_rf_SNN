@@ -1,0 +1,18 @@
+{
+  "sys_executable": "D:\\anaconda\\envs\\snn_env\\python.exe",
+  "torch_file": "D:\\anaconda\\envs\\snn_env\\Lib\\site-packages\\torch\\__init__.py",
+  "torch_version": "2.10.0+cu126",
+  "torch_cuda_version": "12.6",
+  "cuda_available": true,
+  "numpy_file": "D:\\anaconda\\envs\\snn_env\\Lib\\site-packages\\numpy\\__init__.py",
+  "numpy_version": "1.26.4",
+  "h5py_file": "D:\\anaconda\\envs\\snn_env\\Lib\\site-packages\\h5py\\__init__.py",
+  "h5py_version": "3.16.0",
+  "yaml_file": "D:\\anaconda\\Lib\\site-packages\\yaml\\__init__.py",
+  "yaml_version": "6.0.1",
+  "yaml_with_libyaml": false,
+  "gpu_name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+  "gpu_total_memory_bytes": 8585216000,
+  "gpu_free_memory_bytes": 7398752256,
+  "run_existed_before_smoke": false
+}
