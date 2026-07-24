@@ -6,6 +6,7 @@ from pathlib import Path
 import numpy as np
 
 from data.rgc_response import CellMetadata, RGCResponseSession, ResponseTargetKind
+from data.synthetic_teacher import TeacherInputNormalization
 
 
 class SyntheticTeacherError(ValueError):
@@ -17,6 +18,7 @@ class SyntheticTeacherResult:
     session: RGCResponseSession
     kernels: dict[str, np.ndarray]
     expected_probabilities: np.ndarray
+    teacher_normalization: TeacherInputNormalization
 
 
 def generate_teacher_responses(
@@ -28,6 +30,7 @@ def generate_teacher_responses(
     trials: int,
     seed: int,
     adaptive: bool,
+    teacher_normalization: TeacherInputNormalization,
 ) -> SyntheticTeacherResult:
     if cone_sequences.ndim != 3 or trials < 1:
         raise SyntheticTeacherError(
@@ -57,7 +60,7 @@ def generate_teacher_responses(
         cone_sequences,
         source_ids,
     )
-    logits = _causal_logits(paired_cones, kernels)
+    logits = _causal_logits(paired_cones, kernels, teacher_normalization)
     low_scale = np.ones(cell_count, dtype=np.float32)
     high_scale = (
         np.linspace(0.7, 1.3, cell_count, dtype=np.float32)
@@ -101,6 +104,7 @@ def generate_teacher_responses(
             "context_gain_envelope": envelope,
         },
         expected_probabilities=probabilities,
+        teacher_normalization=teacher_normalization,
     )
 
 
@@ -121,11 +125,14 @@ def _teacher_kernels(
     return polarity[:, None, :] * temporal[None, :, None] * spatial[:, None, :]
 
 
-def _causal_logits(cones: np.ndarray, kernels: np.ndarray) -> np.ndarray:
+def _causal_logits(
+    cones: np.ndarray,
+    kernels: np.ndarray,
+    normalization: TeacherInputNormalization,
+) -> np.ndarray:
     stimulus_count, time_count, _ = cones.shape
     logits = np.zeros((stimulus_count, time_count, kernels.shape[0]), dtype=np.float32)
-    centered = cones - cones.mean(axis=(0, 1), keepdims=True)
-    centered /= cones.std(axis=(0, 1), keepdims=True) + 1e-6
+    centered = normalization.normalize(cones)
     for lag in range(kernels.shape[1]):
         if lag >= time_count:
             break

@@ -15,6 +15,10 @@ from data.rgc_response import (
     load_rgc_response,
     validate_response_splits,
 )
+from data.synthetic_teacher import (
+    TeacherInputNormalization,
+    load_teacher_input_normalization,
+)
 from training.response_config import ResponseDataConfig
 
 
@@ -62,12 +66,20 @@ def prepare_response_data(config: ResponseDataConfig) -> PreparedResponseData:
             raise RGCResponseContractError(
                 f"{session.path} has fewer than {config.sequence_steps} time bins"
             )
-    train_cones = np.concatenate(
-        [session.cone_response[:, : config.sequence_steps] for session in sessions[0]]
-    )
-    mean = train_cones.mean(axis=(0, 1), dtype=np.float64).astype(np.float32)
-    std = train_cones.std(axis=(0, 1), dtype=np.float64).astype(np.float32)
-    std = np.maximum(std, 1e-6)
+    teacher_normalization = _shared_teacher_normalization(sessions)
+    if teacher_normalization is None:
+        train_cones = np.concatenate(
+            [
+                session.cone_response[:, : config.sequence_steps]
+                for session in sessions[0]
+            ]
+        )
+        mean = train_cones.mean(axis=(0, 1), dtype=np.float64).astype(np.float32)
+        std = train_cones.std(axis=(0, 1), dtype=np.float64).astype(np.float32)
+        std = np.maximum(std, 1e-6)
+    else:
+        mean = teacher_normalization.input_mean
+        std = teacher_normalization.input_std
     split_values = tuple(
         _stack_split(split, config.sequence_steps, mean, std) for split in sessions
     )
@@ -137,6 +149,38 @@ def _stack_split(
             context_id for session in sessions for context_id in session.context_ids
         ),
     )
+
+
+def _shared_teacher_normalization(
+    splits: tuple[
+        tuple[RGCResponseSession, ...],
+        tuple[RGCResponseSession, ...],
+        tuple[RGCResponseSession, ...],
+    ],
+) -> TeacherInputNormalization | None:
+    normalizations: list[TeacherInputNormalization] = []
+    missing = False
+    for session in (session for split in splits for session in split):
+        normalization = load_teacher_input_normalization(
+            session.path,
+            session.cone_response.shape[2],
+        )
+        if normalization is None:
+            missing = True
+        else:
+            normalizations.append(normalization)
+    if not normalizations:
+        return None
+    if missing:
+        raise RGCResponseContractError(
+            "teacher normalization must be present in every synthetic split"
+        )
+    reference = normalizations[0]
+    if not all(normalization.matches(reference) for normalization in normalizations):
+        raise RGCResponseContractError(
+            "teacher normalization must match across synthetic splits"
+        )
+    return reference
 
 
 def _fingerprint(

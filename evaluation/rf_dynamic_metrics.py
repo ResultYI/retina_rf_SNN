@@ -3,7 +3,8 @@ from __future__ import annotations
 import torch
 from torch.nn import functional as F
 
-from evaluation.rf_static import extract_static_rf
+from evaluation.rf_dynamic_conditioning import conditioned_rf
+from evaluation.rf_static import StaticRFResult
 from models.response_snn import ResponseRetinaModel
 from training.response_data import ResponseSplit
 
@@ -68,72 +69,32 @@ def context_pairs(split: ResponseSplit) -> tuple[tuple[int, int], ...]:
     )
 
 
-def reset_distance(
+def trial_conditioned_rf(
     model: ResponseRetinaModel,
-    pair: tuple[torch.Tensor, torch.Tensor],
+    split: ResponseSplit,
+    index: int,
     lag_steps: int,
-) -> float:
-    low_probe = pair[0][:, -lag_steps:]
-    high_probe = pair[1][:, -lag_steps:]
-    low_rf = extract_static_rf(
+    *,
+    condition_on_observed: bool = True,
+) -> StaticRFResult:
+    device = next(model.parameters()).device
+    sequence = split.cone_response[index : index + 1].to(device)
+    counts = split.spike_counts[index].to(device)
+    mask = split.valid_mask[index].to(device)
+    return conditioned_rf(
         model,
-        low_probe,
-        lag_steps=lag_steps,
-        finite_difference_tolerance=None,
+        sequence,
+        counts,
+        mask,
+        lag_steps,
+        condition_on_observed=condition_on_observed,
     )
-    high_rf = extract_static_rf(
-        model,
-        high_probe,
-        lag_steps=lag_steps,
-        finite_difference_tolerance=None,
-    )
-    return kernel_metrics(low_rf.kernels, high_rf.kernels)[0]
-
-
-def recovery_distance(
-    model: ResponseRetinaModel,
-    pairs: list[tuple[torch.Tensor, torch.Tensor]],
-    lag_steps: int,
-    delay_ms: int,
-    dt_ms: float,
-) -> float:
-    delay_steps = max(0, round(delay_ms / dt_ms))
-    distances = []
-    for low, high in pairs:
-        if delay_steps:
-            recovery = torch.zeros(
-                low.shape[0],
-                delay_steps,
-                low.shape[2],
-                device=low.device,
-                dtype=low.dtype,
-            )
-            low = torch.cat((low[:, :-lag_steps], recovery, low[:, -lag_steps:]), dim=1)
-            high = torch.cat(
-                (high[:, :-lag_steps], recovery, high[:, -lag_steps:]),
-                dim=1,
-            )
-        low_rf = extract_static_rf(
-            model,
-            low,
-            lag_steps=lag_steps,
-            finite_difference_tolerance=None,
-        )
-        high_rf = extract_static_rf(
-            model,
-            high,
-            lag_steps=lag_steps,
-            finite_difference_tolerance=None,
-        )
-        distances.append(kernel_metrics(low_rf.kernels, high_rf.kernels)[0])
-    return sum(distances) / len(distances)
 
 
 __all__ = [
     "bootstrap_ci",
     "context_pairs",
     "kernel_metrics",
-    "recovery_distance",
-    "reset_distance",
     "teacher_errors",
+    "trial_conditioned_rf",
 ]

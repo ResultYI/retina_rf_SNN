@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import asdict
 from pathlib import Path
 import subprocess
 import sys
@@ -12,6 +13,7 @@ import yaml
 from training.response_checkpointing import (
     CHECKPOINT_SCHEMA,
     CHECKPOINT_SCHEMA_REVISION,
+    ResponseCheckpointError,
     load_response_checkpoint,
     save_response_checkpoint,
 )
@@ -22,6 +24,15 @@ from training.response_config import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+class _ReducerProbe:
+    executed = False
+
+
+class _MaliciousCheckpoint:
+    def __reduce__(self):
+        return (setattr, (_ReducerProbe, "executed", True))
 
 
 def test_canonical_response_training_contract() -> None:
@@ -84,6 +95,61 @@ def test_checkpoint_restores_optimizer_step_rng_and_config(tmp_path: Path) -> No
     assert step == 3
     assert best == 0.4
     assert torch.equal(torch.rand(3, generator=restored_generator), expected_random)
+
+
+def test_checkpoint_rejects_pickle_payload_without_executing_reducer(
+    tmp_path: Path,
+) -> None:
+    config = load_response_config(ROOT / "configs" / "synthetic_smoke.yaml")
+    model = nn.Linear(2, 1)
+    path = tmp_path / "malicious.pt"
+    torch.save(_MaliciousCheckpoint(), path)
+    _ReducerProbe.executed = False
+
+    with pytest.raises(ResponseCheckpointError):
+        load_response_checkpoint(
+            path,
+            model=model,
+            optimizer=None,
+            generator=None,
+            fingerprint="dataset",
+            target_kind="bernoulli",
+            config=config,
+        )
+
+    assert _ReducerProbe.executed is False
+
+
+def test_checkpoint_rejects_malformed_safe_payload(tmp_path: Path) -> None:
+    config = load_response_config(ROOT / "configs" / "synthetic_smoke.yaml")
+    model = nn.Linear(2, 1)
+    path = tmp_path / "malformed.pt"
+    torch.save(
+        {
+            "schema": CHECKPOINT_SCHEMA,
+            "schema_revision": CHECKPOINT_SCHEMA_REVISION,
+            "model": [],
+            "optimizer": {},
+            "optimizer_step": 3,
+            "best_nll": 0.4,
+            "sampling_rng": torch.Generator().manual_seed(7).get_state(),
+            "dataset_fingerprint": "dataset",
+            "target_kind": "bernoulli",
+            "config": asdict(config),
+        },
+        path,
+    )
+
+    with pytest.raises(ResponseCheckpointError, match="invalid"):
+        load_response_checkpoint(
+            path,
+            model=model,
+            optimizer=None,
+            generator=None,
+            fingerprint="dataset",
+            target_kind="bernoulli",
+            config=config,
+        )
 
 
 @pytest.mark.parametrize(

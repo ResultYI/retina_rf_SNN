@@ -20,13 +20,21 @@ def _text(value: str) -> np.ndarray:
     return np.frombuffer(value.encode("utf-8"), dtype=np.uint8)
 
 
-def _write_response(path: Path, *, source: str, kind: str = "bernoulli") -> None:
+def _write_response(
+    path: Path,
+    *,
+    source: str,
+    kind: str = "bernoulli",
+    cone_value: float = 1.0,
+    teacher_mean: np.ndarray | None = None,
+    teacher_std: np.ndarray | None = None,
+) -> None:
     with h5py.File(path, "w") as handle:
         handle.create_dataset("format_version", data=_text("retina-rgc-response-v1"))
         handle.attrs["response_target_kind"] = kind
         handle.create_dataset(
             "cone_response",
-            data=np.ones((2, 6, 3), dtype=np.float32),
+            data=np.full((2, 6, 3), cone_value, dtype=np.float32),
         )
         spikes = np.zeros((2, 2, 6, 2), dtype=np.float32)
         spikes[:, :, 2, 0] = 1
@@ -47,6 +55,12 @@ def _write_response(path: Path, *, source: str, kind: str = "bernoulli") -> None
             "stimulus/context_id",
             data=np.asarray([b"low", b"high"]),
         )
+        if teacher_mean is not None or teacher_std is not None:
+            group = handle.create_group("teacher")
+            if teacher_mean is not None:
+                group.create_dataset("input_mean", data=teacher_mean)
+            if teacher_std is not None:
+                group.create_dataset("input_std", data=teacher_std)
 
 
 def test_loads_strict_response_contract(tmp_path: Path) -> None:
@@ -104,6 +118,85 @@ def test_dataset_fingerprint_includes_response_content(tmp_path: Path) -> None:
     second_data = prepare_response_data(_data_config(second))
 
     assert first_data.fingerprint != second_data.fingerprint
+
+
+def test_prepare_response_data_keeps_real_train_fitted_normalization(
+    tmp_path: Path,
+) -> None:
+    train_path = tmp_path / "train.h5"
+    validation_path = tmp_path / "validation.h5"
+    test_path = tmp_path / "test.h5"
+    _write_response(train_path, source="train", cone_value=2.0)
+    _write_response(validation_path, source="validation", cone_value=7.0)
+    _write_response(test_path, source="test", cone_value=11.0)
+
+    data = prepare_response_data(_data_config(tmp_path))
+
+    assert np.array_equal(data.normalization_mean, np.full(3, 2.0, dtype=np.float32))
+    assert np.array_equal(data.normalization_std, np.full(3, 1e-6, dtype=np.float32))
+
+
+def test_prepare_response_data_uses_synthetic_teacher_normalization(
+    tmp_path: Path,
+) -> None:
+    teacher_mean = np.asarray([10.0, 20.0, 30.0], dtype=np.float32)
+    teacher_std = np.asarray([2.0, 4.0, 8.0], dtype=np.float32)
+    for split in ("train", "validation", "test"):
+        _write_response(
+            tmp_path / f"{split}.h5",
+            source=split,
+            cone_value=1.0,
+            teacher_mean=teacher_mean,
+            teacher_std=teacher_std,
+        )
+
+    data = prepare_response_data(_data_config(tmp_path))
+
+    assert np.array_equal(data.normalization_mean, teacher_mean)
+    assert np.array_equal(data.normalization_std, teacher_std)
+    assert np.allclose(data.train.cone_response.numpy(), (1.0 - teacher_mean) / teacher_std)
+
+
+def test_prepare_response_data_rejects_mismatched_synthetic_normalization(
+    tmp_path: Path,
+) -> None:
+    teacher_std = np.ones(3, dtype=np.float32)
+    _write_response(
+        tmp_path / "train.h5",
+        source="train",
+        teacher_mean=np.zeros(3, dtype=np.float32),
+        teacher_std=teacher_std,
+    )
+    _write_response(
+        tmp_path / "validation.h5",
+        source="validation",
+        teacher_mean=np.ones(3, dtype=np.float32),
+        teacher_std=teacher_std,
+    )
+    _write_response(
+        tmp_path / "test.h5",
+        source="test",
+        teacher_mean=np.zeros(3, dtype=np.float32),
+        teacher_std=teacher_std,
+    )
+
+    with pytest.raises(RGCResponseContractError, match="teacher normalization"):
+        prepare_response_data(_data_config(tmp_path))
+
+
+def test_prepare_response_data_rejects_malformed_synthetic_normalization(
+    tmp_path: Path,
+) -> None:
+    _write_response(
+        tmp_path / "train.h5",
+        source="train",
+        teacher_mean=np.zeros(3, dtype=np.float32),
+    )
+    _write_response(tmp_path / "validation.h5", source="validation")
+    _write_response(tmp_path / "test.h5", source="test")
+
+    with pytest.raises(RGCResponseContractError, match="teacher normalization"):
+        prepare_response_data(_data_config(tmp_path))
 
 
 def _write_split_files(root: Path, *, kind: str = "bernoulli") -> None:

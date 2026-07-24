@@ -14,8 +14,12 @@ from benchmarks.point_process_teacher import (
     SyntheticTeacherResult,
     generate_teacher_responses,
 )
-from data.cone_response import load_cone_response
+from data.cone_response import ConeResponseExport, load_cone_response
 from data.rgc_response_export import write_rgc_response
+from data.synthetic_teacher import (
+    TeacherInputNormalization,
+    fit_teacher_input_normalization,
+)
 
 
 class SyntheticBenchmarkError(ValueError):
@@ -50,33 +54,43 @@ def main() -> None:
         )
     test_paths = train_paths[-args.test_count :]
     train_paths = train_paths[: -args.test_count]
+    train_exports = _load_exports(train_paths)
+    teacher_normalization = fit_teacher_input_normalization(
+        np.stack([export.response for export in train_exports])
+    )
+    validation_exports = _load_exports(validation_paths)
+    test_exports = _load_exports(test_paths)
     output = Path(args.output_dir)
-    for split, paths, offset in (
-        ("train", train_paths, 0),
-        ("validation", validation_paths, 1000),
-        ("test", test_paths, 2000),
+    for split, exports, paths, offset in (
+        ("train", train_exports, train_paths, 0),
+        ("validation", validation_exports, validation_paths, 1000),
+        ("test", test_exports, test_paths, 2000),
     ):
         result = _generate_split(
+            exports,
             paths,
             trials=args.trials,
             seed=args.seed + offset,
             adaptive=args.teacher == "adaptive",
+            teacher_normalization=teacher_normalization,
         )
         write_rgc_response(
             output / f"{split}.h5",
             result.session,
             teacher_kernels=result.kernels,
+            teacher_normalization=result.teacher_normalization,
         )
 
 
 def _generate_split(
+    exports: tuple[ConeResponseExport, ...],
     paths: tuple[Path, ...],
     *,
     trials: int,
     seed: int,
     adaptive: bool,
+    teacher_normalization: TeacherInputNormalization,
 ) -> SyntheticTeacherResult:
-    exports = tuple(load_cone_response(path) for path in paths)
     shape = exports[0].response.shape
     if any(export.response.shape != shape for export in exports):
         raise SyntheticBenchmarkError("Synthetic source cone shapes must match")
@@ -88,7 +102,12 @@ def _generate_split(
         trials=trials,
         seed=seed,
         adaptive=adaptive,
+        teacher_normalization=teacher_normalization,
     )
+
+
+def _load_exports(paths: tuple[Path, ...]) -> tuple[ConeResponseExport, ...]:
+    return tuple(load_cone_response(path) for path in paths)
 
 
 if __name__ == "__main__":

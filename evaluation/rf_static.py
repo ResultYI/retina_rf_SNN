@@ -23,6 +23,7 @@ def extract_static_rf(
     sequence: torch.Tensor,
     *,
     lag_steps: int,
+    observed_counts: torch.Tensor | None = None,
     epsilon: float = 1e-3,
     finite_difference_tolerance: float | None = 0.05,
 ) -> StaticRFResult:
@@ -30,8 +31,22 @@ def extract_static_rf(
         raise StaticRFError(
             "Static RF sequence must be [1,time,cone] with enough lags"
         )
+    if observed_counts is not None and (
+        observed_counts.ndim != 3
+        or observed_counts.shape[:2] != sequence.shape[:2]
+        or observed_counts.shape[2] != model.rgc.support_mask.shape[0]
+    ):
+        raise StaticRFError(
+            "Static RF observed counts must have shape [1,time,cell]"
+        )
     stimulus = sequence.detach().clone().requires_grad_(True)
-    output, _ = model.forward_sequence(stimulus)
+    if observed_counts is None:
+        output, _ = model.forward_sequence(stimulus)
+    else:
+        output, _ = model.forward_sequence(
+            stimulus,
+            observed_counts=observed_counts.to(stimulus.device),
+        )
     kernels = []
     for cell in range(output.spike_logits.shape[-1]):
         gradient = torch.autograd.grad(
@@ -49,6 +64,7 @@ def extract_static_rf(
             sequence,
             stacked,
             epsilon,
+            observed_counts,
         )
     )
     identifiable = bool(
@@ -82,6 +98,7 @@ def _finite_difference_check(
     sequence: torch.Tensor,
     kernel: torch.Tensor,
     epsilon: float,
+    observed_counts: torch.Tensor | None,
 ) -> float:
     lag_index = sequence.shape[1] - 1
     errors = []
@@ -92,8 +109,19 @@ def _finite_difference_check(
         plus[0, lag_index, cone] += epsilon
         minus[0, lag_index, cone] -= epsilon
         with torch.no_grad():
-            plus_output, _ = model.forward_sequence(plus)
-            minus_output, _ = model.forward_sequence(minus)
+            if observed_counts is None:
+                plus_output, _ = model.forward_sequence(plus)
+                minus_output, _ = model.forward_sequence(minus)
+            else:
+                history = observed_counts.to(sequence.device)
+                plus_output, _ = model.forward_sequence(
+                    plus,
+                    observed_counts=history,
+                )
+                minus_output, _ = model.forward_sequence(
+                    minus,
+                    observed_counts=history,
+                )
         finite = (
             plus_output.spike_logits[0, -1, cell]
             - minus_output.spike_logits[0, -1, cell]

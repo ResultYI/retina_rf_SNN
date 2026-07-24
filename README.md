@@ -18,10 +18,11 @@ and eccentricity are observed metadata. Type information supplies overlapping
 soft priors; it is not treated as an emergent discovery. Cell-specific residuals
 remain learnable.
 
-The canonical objective is Bernoulli or Poisson response likelihood. During
-conditional training, the response for time `t` is predicted before the observed
-event at `t` updates reset and adaptation state for `t+1`. Evaluation reports
-both conditional likelihood and deterministic free-running predictions.
+The canonical objective is Bernoulli response likelihood. During conditional
+training, the response for time `t` is predicted before the observed event at
+`t` updates reset and adaptation state for `t+1`. Conditional spike-logit RF is
+the primary RF. Deterministic free-running RF is reported only as an auxiliary
+diagnostic. Poisson free-running is not enabled in the canonical pipeline.
 
 ## Data contract
 
@@ -44,11 +45,11 @@ python scripts/run_experiment.py `
 The best checkpoint is selected by held-out response NLL and uses:
 
 ```json
-{"schema": "retina_rgc_response_snn", "schema_revision": 1}
+{"schema": "retina_rgc_response_snn", "schema_revision": 2}
 ```
 
 The final report contains response prediction, a static point-process GLM
-baseline, spike-logit static RFs, and matched-context dynamic RFs.
+baseline, conditional spike-logit static RFs, and matched-context dynamic RFs.
 
 ## Synthetic method validation
 
@@ -59,8 +60,13 @@ python scripts/generate_synthetic_response_benchmark.py `
   --output-dir runs/synthetic_response_smoke `
   --teacher adaptive `
   --trials 2 `
-  --test-count 1
+  --test-count 3
 ```
+
+Use `--test-count 1` only for an engineering smoke check. A formal adaptive
+method benchmark needs at least three independent held-out context pairs, and a
+two-step experiment run only verifies the CLI/reporting contract; it is not
+scientific support.
 
 The former cone-reconstruction, anonymous-population, bootstrap, and readout
 diagnostic pipelines have been removed. Git history remains the source for

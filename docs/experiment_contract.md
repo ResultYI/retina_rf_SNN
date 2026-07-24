@@ -16,7 +16,7 @@
 /cell/eccentricity_deg          [cell]
 /stimulus/source_id             [stimulus]
 /stimulus/context_id            [stimulus]
-attribute response_target_kind  "bernoulli" or "poisson"
+attribute response_target_kind  "bernoulli"
 ```
 
 Train, validation, and test source IDs must be disjoint. Geometry, cell order,
@@ -33,20 +33,25 @@ training stimuli only and reused unchanged.
 ```
 
 The 256 differentiable bins use 32-bin activation-checkpoint blocks without
-additional detach boundaries. Bernoulli targets must be binary. Poisson targets
-must be non-negative integer counts.
+additional detach boundaries. Bernoulli targets must be binary. Poisson
+free-running is not enabled in the canonical pipeline.
 
 ## Selection and evidence
 
 `checkpoint_best_nll.pt` is selected only by held-out response NLL. The
-canonical checkpoint schema is `retina_rgc_response_snn` revision 1 and rejects
+canonical checkpoint schema is `retina_rgc_response_snn` revision 2 and rejects
 legacy cone-reconstruction checkpoints.
 
 Response prediction is reported on held-out stimuli/trials and compared with a
 static point-process GLM. Static RF uses spike-logit Jacobians plus finite
-differences. Dynamic RF uses same-source low/high contexts with an identical
-final probe.
+differences. Conditional RF is primary; deterministic free-running RF is an
+auxiliary diagnostic. Dynamic RF uses same-source low/high contexts with an
+identical final probe.
 
 Synthetic static/adaptive teachers are method validation. A real-retina claim
 requires an aligned recording that passes this contract and a held-out test
 evaluation.
+
+Formal adaptive validation requires at least three independent held-out context
+pairs. A one-pair synthetic example is only an engineering smoke check, and a
+two-step CLI run cannot be reported as scientific support.

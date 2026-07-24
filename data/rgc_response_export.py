@@ -6,6 +6,7 @@ import h5py
 import numpy as np
 
 from data.rgc_response import RGCResponseSession
+from data.synthetic_teacher import TeacherInputNormalization
 
 
 def write_rgc_response(
@@ -13,6 +14,7 @@ def write_rgc_response(
     session: RGCResponseSession,
     *,
     teacher_kernels: dict[str, np.ndarray] | None = None,
+    teacher_normalization: TeacherInputNormalization | None = None,
 ) -> None:
     destination = Path(path)
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -54,8 +56,16 @@ def write_rgc_response(
             "stimulus/context_id",
             data=np.asarray(session.context_ids, dtype=string_dtype),
         )
-        if teacher_kernels:
+        if teacher_kernels or teacher_normalization is not None:
             group = handle.create_group("teacher")
+            if teacher_normalization is not None:
+                group.create_dataset(
+                    "input_mean", data=teacher_normalization.input_mean
+                )
+                group.create_dataset(
+                    "input_std", data=teacher_normalization.input_std
+                )
+        if teacher_kernels:
             for name, values in teacher_kernels.items():
                 group.create_dataset(name, data=values)
 

@@ -68,6 +68,8 @@ class _StatefulModel(nn.Module):
     def forward_sequence(
         self,
         sequence: torch.Tensor,
+        *,
+        observed_counts: torch.Tensor | None = None,
     ) -> tuple[_FakeOutput, torch.Tensor]:
         state = torch.zeros(sequence.shape[0], 1, device=sequence.device)
         logits = []
@@ -115,6 +117,87 @@ def test_dynamic_rf_measures_reset_recovery_and_numerical_quality() -> None:
 
     assert comparison.learned_shape_delta > 0
     assert comparison.status == "supported"
+
+
+def test_dynamic_rf_teacher_comparison_requires_error_reduction() -> None:
+    trained = _teacher_result("supported", (0.1,) * 3, (0.05,) * 3)
+    initialized = _teacher_result("supported", (0.4,) * 3, (0.2,) * 3)
+
+    comparison = rf_dynamic.compare_dynamic_rf(
+        trained,
+        initialized,
+        bootstrap_iterations=100,
+        seed=7,
+    )
+
+    assert comparison.status == "supported"
+    assert comparison.teacher_primary_error_delta_ci[0] > 0
+    assert comparison.teacher_recovery_error_delta_ci[0] > 0
+
+
+def test_dynamic_rf_teacher_comparison_hardens_teacher_gate_samples() -> None:
+    initialized = _teacher_result(
+        "supported",
+        (0.4,) * 3,
+        (0.2,) * 3,
+    )
+    cases = (
+        (
+            _teacher_result(
+                "supported",
+                (0.1,) * 2,
+                (0.05,) * 2,
+                pair_count=2,
+            ),
+            _teacher_result(
+                "supported",
+                (0.4,) * 2,
+                (0.2,) * 2,
+                pair_count=2,
+            ),
+            "not_identifiable",
+        ),
+        (
+            _teacher_result(
+                "supported",
+                (0.1,) * 3,
+                (0.05,) * 3,
+                direction_agreement=(True, False),
+                model_signed_gains=(0.2, -0.1),
+                reference_signed_gains=(0.3, 0.1),
+            ),
+            initialized,
+            "teacher_mismatch",
+        ),
+        (
+            _teacher_result(
+                "supported",
+                (0.1, float("nan"), 0.1),
+                (0.05,) * 3,
+            ),
+            initialized,
+            "not_supported",
+        ),
+        (
+            _teacher_result("supported", (0.1,) * 3, (0.05,) * 2),
+            initialized,
+            "not_supported",
+        ),
+        (
+            _teacher_result("not_supported", (0.1,) * 3, (0.05,) * 3),
+            _teacher_result("not_supported", (0.4,) * 3, (0.2,) * 3),
+            "supported",
+        ),
+    )
+
+    for trained, initial, expected in cases:
+        comparison = rf_dynamic.compare_dynamic_rf(
+            trained,
+            initial,
+            bootstrap_iterations=100,
+            seed=7,
+        )
+        assert comparison.status == expected
 
 
 def _prepared_response_data() -> PreparedResponseData:
@@ -171,4 +254,35 @@ def _context_split() -> ResponseSplit:
         valid_mask=torch.ones_like(counts, dtype=torch.bool),
         source_ids=tuple(sources),
         context_ids=tuple(contexts),
+    )
+
+
+def _teacher_result(
+    status: str,
+    primary_errors: tuple[float, ...],
+    recovery_errors: tuple[float, ...],
+    pair_count: int = 3,
+    direction_agreement: tuple[bool, ...] = (True,),
+    model_signed_gains: tuple[float, ...] = (0.2,),
+    reference_signed_gains: tuple[float, ...] = (0.3,),
+) -> rf_dynamic.DynamicRFResult:
+    return rf_dynamic.DynamicRFResult(
+        pair_count,
+        0.2,
+        0.2,
+        (0.2, 0.2),
+        (0.2, 0.2),
+        0.0,
+        (0.1,),
+        0.0,
+        0.0,
+        0.0,
+        (0.2,) * pair_count,
+        (0.2,) * pair_count,
+        status,
+        primary_errors,
+        recovery_errors,
+        direction_agreement,
+        model_signed_gains,
+        reference_signed_gains,
     )
