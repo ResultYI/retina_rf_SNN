@@ -24,6 +24,7 @@ def extract_static_rf(
     *,
     lag_steps: int,
     epsilon: float = 1e-3,
+    finite_difference_tolerance: float | None = 0.05,
 ) -> StaticRFResult:
     if sequence.shape[0] != 1 or sequence.shape[1] < lag_steps:
         raise StaticRFError(
@@ -40,13 +41,24 @@ def extract_static_rf(
         )[0]
         kernels.append(gradient[0, -lag_steps:])
     stacked = torch.stack(kernels)
-    relative_error = _finite_difference_check(
-        model,
-        sequence,
-        stacked,
-        epsilon,
+    relative_error = (
+        0.0
+        if finite_difference_tolerance is None
+        else _finite_difference_check(
+            model,
+            sequence,
+            stacked,
+            epsilon,
+        )
     )
-    identifiable = bool(torch.isfinite(stacked).all() and stacked.norm() > 1e-8)
+    identifiable = bool(
+        torch.isfinite(stacked).all()
+        and stacked.norm() > 1e-8
+        and (
+            finite_difference_tolerance is None
+            or relative_error <= finite_difference_tolerance
+        )
+    )
     return StaticRFResult(stacked.detach(), relative_error, identifiable)
 
 
@@ -71,24 +83,27 @@ def _finite_difference_check(
     kernel: torch.Tensor,
     epsilon: float,
 ) -> float:
-    cone = int(model.rgc.support_mask[0].nonzero()[0])
     lag_index = sequence.shape[1] - 1
-    plus = sequence.detach().clone()
-    minus = sequence.detach().clone()
-    plus[0, lag_index, cone] += epsilon
-    minus[0, lag_index, cone] -= epsilon
-    with torch.no_grad():
-        plus_output, _ = model.forward_sequence(plus)
-        minus_output, _ = model.forward_sequence(minus)
-    finite = (
-        plus_output.spike_logits[0, -1, 0]
-        - minus_output.spike_logits[0, -1, 0]
-    ) / (2 * epsilon)
-    automatic = kernel[0, -1, cone]
-    return float(
-        (finite - automatic).abs()
-        / torch.maximum(finite.abs(), automatic.abs()).clamp_min(1e-8)
-    )
+    errors = []
+    for cell in range(kernel.shape[0]):
+        cone = int(model.rgc.support_mask[cell].nonzero()[0])
+        plus = sequence.detach().clone()
+        minus = sequence.detach().clone()
+        plus[0, lag_index, cone] += epsilon
+        minus[0, lag_index, cone] -= epsilon
+        with torch.no_grad():
+            plus_output, _ = model.forward_sequence(plus)
+            minus_output, _ = model.forward_sequence(minus)
+        finite = (
+            plus_output.spike_logits[0, -1, cell]
+            - minus_output.spike_logits[0, -1, cell]
+        ) / (2 * epsilon)
+        automatic = kernel[cell, -1, cone]
+        errors.append(
+            (finite - automatic).abs()
+            / torch.maximum(finite.abs(), automatic.abs()).clamp_min(1e-8)
+        )
+    return float(torch.stack(errors).max())
 
 
 __all__ = [

@@ -4,13 +4,13 @@ from dataclasses import asdict
 from pathlib import Path
 
 import torch
+from torch import nn
 
-from models.response_snn import ResponseRetinaModel
 from training.response_config import ResponseExperimentConfig
 
 
 CHECKPOINT_SCHEMA = "retina_rgc_response_snn"
-CHECKPOINT_SCHEMA_REVISION = 1
+CHECKPOINT_SCHEMA_REVISION = 2
 
 
 class ResponseCheckpointError(ValueError):
@@ -20,7 +20,7 @@ class ResponseCheckpointError(ValueError):
 def save_response_checkpoint(
     path: str | Path,
     *,
-    model: ResponseRetinaModel,
+    model: nn.Module,
     optimizer: torch.optim.Optimizer,
     optimizer_step: int,
     best_nll: float,
@@ -49,11 +49,12 @@ def save_response_checkpoint(
 def load_response_checkpoint(
     path: str | Path,
     *,
-    model: ResponseRetinaModel,
+    model: nn.Module,
     optimizer: torch.optim.Optimizer | None,
     generator: torch.Generator | None,
     fingerprint: str,
     target_kind: str,
+    config: ResponseExperimentConfig,
 ) -> tuple[int, float]:
     payload = torch.load(Path(path), map_location="cpu", weights_only=False)
     if not isinstance(payload, dict):
@@ -63,13 +64,15 @@ def load_response_checkpoint(
         or payload.get("schema_revision") != CHECKPOINT_SCHEMA_REVISION
     ):
         raise ResponseCheckpointError(
-            "Checkpoint is not a response-fitting revision-1 checkpoint; "
+            "Checkpoint is not a response-fitting revision-2 checkpoint; "
             "start a fresh response run"
         )
     if payload.get("dataset_fingerprint") != fingerprint:
         raise ResponseCheckpointError("Response checkpoint dataset fingerprint mismatch")
     if payload.get("target_kind") != target_kind:
         raise ResponseCheckpointError("Response checkpoint target kind mismatch")
+    if payload.get("config") != asdict(config):
+        raise ResponseCheckpointError("Response checkpoint configuration mismatch")
     model.load_state_dict(payload["model"])
     if optimizer is not None:
         optimizer.load_state_dict(payload["optimizer"])

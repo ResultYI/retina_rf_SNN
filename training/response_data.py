@@ -53,6 +53,10 @@ def prepare_response_data(config: ResponseDataConfig) -> PreparedResponseData:
     )
     validate_response_splits(*sessions)
     reference = sessions[0][0]
+    if reference.target_kind is not ResponseTargetKind.BERNOULLI:
+        raise RGCResponseContractError(
+            "Canonical response fitting requires Bernoulli spike targets"
+        )
     for session in (*sessions[0], *sessions[1], *sessions[2]):
         if session.cone_response.shape[1] < config.sequence_steps:
             raise RGCResponseContractError(
@@ -67,7 +71,7 @@ def prepare_response_data(config: ResponseDataConfig) -> PreparedResponseData:
     split_values = tuple(
         _stack_split(split, config.sequence_steps, mean, std) for split in sessions
     )
-    fingerprint = _fingerprint(reference)
+    fingerprint = _fingerprint(sessions, config.sequence_steps)
     return PreparedResponseData(
         train=split_values[0],
         validation=split_values[1],
@@ -135,12 +139,36 @@ def _stack_split(
     )
 
 
-def _fingerprint(session: RGCResponseSession) -> str:
+def _fingerprint(
+    splits: tuple[
+        tuple[RGCResponseSession, ...],
+        tuple[RGCResponseSession, ...],
+        tuple[RGCResponseSession, ...],
+    ],
+    sequence_steps: int,
+) -> str:
     digest = hashlib.sha256()
-    digest.update("\0".join(session.cells.ids).encode())
-    digest.update("\0".join(session.cells.type_ids).encode())
-    digest.update(session.cells.polarities.tobytes())
-    digest.update(session.cone_positions_degs.tobytes())
+    digest.update(str(sequence_steps).encode())
+    for split_name, sessions in zip(
+        ("train", "validation", "test"),
+        splits,
+        strict=True,
+    ):
+        digest.update(split_name.encode())
+        for session in sessions:
+            digest.update("\0".join(session.cells.ids).encode())
+            digest.update("\0".join(session.cells.type_ids).encode())
+            digest.update(session.cells.polarities.tobytes())
+            digest.update(session.cells.positions_degs.tobytes())
+            digest.update(session.cells.eccentricities_deg.tobytes())
+            digest.update(session.cone_positions_degs.tobytes())
+            digest.update(session.time_axis_seconds[:sequence_steps].tobytes())
+            digest.update(session.cone_response[:, :sequence_steps].tobytes())
+            digest.update(session.spike_counts[:, :, :sequence_steps].tobytes())
+            digest.update(session.valid_mask[:, :, :sequence_steps].tobytes())
+            digest.update("\0".join(session.source_ids).encode())
+            digest.update("\0".join(session.context_ids).encode())
+            digest.update(session.target_kind.value.encode())
     return digest.hexdigest()
 
 

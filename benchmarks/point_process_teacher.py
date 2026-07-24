@@ -16,6 +16,7 @@ class SyntheticTeacherError(ValueError):
 class SyntheticTeacherResult:
     session: RGCResponseSession
     kernels: dict[str, np.ndarray]
+    expected_probabilities: np.ndarray
 
 
 def generate_teacher_responses(
@@ -66,11 +67,9 @@ def generate_teacher_responses(
     context_scale = np.stack(
         [low_scale if context == "low" else high_scale for context in contexts]
     )
+    envelope = _adaptation_envelope(context_scale, time_count)
     if adaptive:
-        logits = logits * _adaptation_envelope(
-            context_scale,
-            time_count,
-        )[:, :, None]
+        logits = logits * envelope
     probabilities = 1 / (1 + np.exp(-np.clip(logits - 2.0, -20.0, 20.0)))
     spikes = rng.binomial(
         1,
@@ -89,15 +88,19 @@ def generate_teacher_responses(
         target_kind=ResponseTargetKind.BERNOULLI,
         path=Path("<synthetic-memory>"),
     )
-    kernel_low = kernels.copy()
-    kernel_high = kernels * high_scale[:, None, None]
+    low_index = contexts.index("low")
+    high_index = contexts.index("high")
+    kernel_low = kernels * envelope[low_index, -1, :, None, None]
+    kernel_high = kernels * envelope[high_index, -1, :, None, None]
     return SyntheticTeacherResult(
         session=session,
         kernels={
             "static_kernel": kernels,
             "context_kernel_low": kernel_low,
             "context_kernel_high": kernel_high,
+            "context_gain_envelope": envelope,
         },
+        expected_probabilities=probabilities,
     )
 
 
@@ -153,11 +156,14 @@ def _matched_context_pairs(
 
 
 def _adaptation_envelope(scales: np.ndarray, time_count: int) -> np.ndarray:
-    envelope = np.ones((scales.shape[0], time_count), dtype=np.float32)
+    envelope = np.ones(
+        (scales.shape[0], time_count, scales.shape[1]),
+        dtype=np.float32,
+    )
     start = max(1, time_count - min(64, time_count // 2))
     for time in range(start, time_count):
         recovery = np.exp(-(time - start) / 30.0)
-        envelope[:, time] = 1 + (scales.mean(axis=1) - 1) * recovery
+        envelope[:, time] = 1 + (scales - 1) * recovery
     return envelope
 
 

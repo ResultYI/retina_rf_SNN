@@ -6,7 +6,7 @@ from pathlib import Path
 
 from baselines.point_process_glm import GLMFitResult
 from evaluation.response_metrics import ResponseMetrics
-from evaluation.rf_dynamic import DynamicRFResult
+from evaluation.rf_dynamic import DynamicRFComparison, DynamicRFResult
 from evaluation.rf_static import StaticRFResult
 
 
@@ -20,6 +20,7 @@ def write_response_report(
     static_reference: dict[str, float] | None,
     dynamic_rf: DynamicRFResult,
     initialized_dynamic_rf: DynamicRFResult,
+    dynamic_comparison: DynamicRFComparison,
     synthetic: bool,
     checkpoint: str,
 ) -> None:
@@ -30,7 +31,9 @@ def write_response_report(
         "response_prediction": {
             "conditional": asdict(conditional),
             "free_running": asdict(free_running),
-            "glm": asdict(glm.metrics),
+            "glm_validation": asdict(glm.validation_metrics),
+            "glm_test": asdict(glm.test_metrics),
+            "glm_best_step": glm.best_step,
         },
         "static_rf": {
             "identifiable": static_rf.identifiable,
@@ -41,6 +44,7 @@ def write_response_report(
         "dynamic_rf": {
             "trained": asdict(dynamic_rf),
             "initialized": asdict(initialized_dynamic_rf),
+            "trained_minus_initialized": asdict(dynamic_comparison),
         },
     }
     (output / "final_metrics.json").write_text(
@@ -57,9 +61,9 @@ def write_response_report(
         f"证据类型：{title}\n\n"
         f"- 条件测试 NLL：{conditional.nll:.6f}\n"
         f"- 自由运行测试 NLL：{free_running.nll:.6f}\n"
-        f"- 静态 GLM 测试 NLL：{glm.metrics.nll:.6f}\n"
+        f"- 静态 GLM 测试 NLL：{glm.test_metrics.nll:.6f}\n"
         f"- Static RF：{'可辨识' if static_rf.identifiable else '不可辨识'}\n"
-        f"- Dynamic RF：{dynamic_rf.status}\n"
+        f"- Dynamic RF：{dynamic_comparison.status}\n"
         f"- Dynamic RF context pairs：{dynamic_rf.pair_count}\n\n"
         "RF 由训练后 spike logit 的局部输入导数提取，不作为训练标签。"
     )

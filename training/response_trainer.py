@@ -22,7 +22,7 @@ from training.response_unroll import ResponseUnrollRequest, unroll_response
 class ResponseStepResult:
     loss: float
     likelihood: float
-    residual_prior: float
+    physiology_prior: float
     gradient_norm: float
 
 
@@ -78,8 +78,8 @@ class ResponseTrainer:
             supervised_mask,
             self.data.target_kind,
         )
-        residual_prior = self.model.rgc.residual_penalty()
-        loss = likelihood + residual_prior
+        physiology_prior = self.model.rgc.physiology_prior_penalty()
+        loss = likelihood + physiology_prior
         loss.backward()
         gradient = torch.nn.utils.clip_grad_norm_(
             self.model.parameters(),
@@ -90,7 +90,7 @@ class ResponseTrainer:
         return ResponseStepResult(
             loss=float(loss.detach()),
             likelihood=float(likelihood.detach()),
-            residual_prior=float(residual_prior.detach()),
+            physiology_prior=float(physiology_prior.detach()),
             gradient_norm=float(gradient.detach()),
         )
 
@@ -106,6 +106,9 @@ class ResponseTrainer:
         targets: list[torch.Tensor] = []
         masks: list[torch.Tensor] = []
         for stimulus in range(split.cone_response.shape[0]):
+            stimulus_logits: list[torch.Tensor] = []
+            stimulus_targets: list[torch.Tensor] = []
+            stimulus_masks: list[torch.Tensor] = []
             cones = split.cone_response[stimulus : stimulus + 1].to(self.device)
             for trial in range(split.spike_counts.shape[1]):
                 counts = split.spike_counts[
@@ -131,13 +134,20 @@ class ResponseTrainer:
                         )
                     )
                     output_logits = output.spike_logits
-                logits.append(output_logits)
-                targets.append(counts[:, self.config.training.burn_in_steps :])
-                masks.append(mask[:, self.config.training.burn_in_steps :])
+                stimulus_logits.append(output_logits.squeeze(0))
+                stimulus_targets.append(
+                    counts[:, self.config.training.burn_in_steps :].squeeze(0)
+                )
+                stimulus_masks.append(
+                    mask[:, self.config.training.burn_in_steps :].squeeze(0)
+                )
+            logits.append(torch.stack(stimulus_logits))
+            targets.append(torch.stack(stimulus_targets))
+            masks.append(torch.stack(stimulus_masks))
         return compute_response_metrics(
-            torch.cat(logits),
-            torch.cat(targets),
-            torch.cat(masks),
+            torch.stack(logits),
+            torch.stack(targets),
+            torch.stack(masks),
             self.data.target_kind,
             self.baseline_rates,
         )

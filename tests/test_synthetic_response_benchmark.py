@@ -38,4 +38,19 @@ def test_static_and_adaptive_teachers_declare_distinct_context_behavior() -> Non
         adaptive.kernels["context_kernel_low"],
         adaptive.kernels["context_kernel_high"],
     )
+    assert np.allclose(
+        static.expected_probabilities[0, -16:],
+        static.expected_probabilities[1, -16:],
+    )
+    final_difference = (
+        adaptive.expected_probabilities[1, -1]
+        - adaptive.expected_probabilities[0, -1]
+    )
+    assert np.all(np.abs(final_difference) > 1e-5)
+    envelope = adaptive.kernels["context_gain_envelope"]
+    transition = envelope.shape[1] - min(64, envelope.shape[1] // 2)
+    assert np.all(
+        np.abs(envelope[1, transition] - 1)
+        > np.abs(envelope[1, -1] - 1)
+    )
     assert adaptive.session.spike_counts.shape == (4, 2, 80, 4)

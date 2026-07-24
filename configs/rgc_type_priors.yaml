@@ -1,5 +1,6 @@
 cell_residual_scale: 0.25
 cell_residual_weight: 0.01
+type_prior_weight: 0.01
 
 types:
   midget:

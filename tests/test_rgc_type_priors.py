@@ -8,7 +8,7 @@ import yaml
 from configs.rgc_type_priors import TypePriorConfigurationError, load_type_priors
 
 
-def _prior() -> dict[str, object]:
+def _prior() -> dict[str, dict[str, float]]:
     parameter = {"mean": 0.5, "lower": 0.1, "upper": 1.0}
     return {
         "spatial_sigma": parameter,
@@ -30,6 +30,7 @@ def test_loads_overlapping_soft_type_priors(tmp_path: Path) -> None:
             {
                 "cell_residual_scale": 0.25,
                 "cell_residual_weight": 0.01,
+                "type_prior_weight": 0.02,
                 "types": {"midget": _prior(), "parasol": _prior()},
             }
         ),
@@ -39,6 +40,7 @@ def test_loads_overlapping_soft_type_priors(tmp_path: Path) -> None:
     priors = load_type_priors(path, required_type_ids=("midget", "parasol"))
 
     assert priors.cell_residual_scale == 0.25
+    assert priors.type_prior_weight == 0.02
     assert set(priors.type_ids) == {"midget", "parasol"}
 
 
@@ -49,6 +51,7 @@ def test_rejects_missing_type_coverage(tmp_path: Path) -> None:
             {
                 "cell_residual_scale": 0.25,
                 "cell_residual_weight": 0.01,
+                "type_prior_weight": 0.02,
                 "types": {"midget": _prior()},
             }
         ),

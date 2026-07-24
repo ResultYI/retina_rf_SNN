@@ -20,22 +20,37 @@ def response_nll(
 ) -> torch.Tensor:
     if logits.shape != targets.shape or valid_mask.shape != targets.shape:
         raise ResponseLossError("logits, targets, and valid_mask must share a shape")
-    if logits.ndim != 3:
-        raise ResponseLossError("response tensors must have shape [batch,time,cell]")
+    if logits.ndim not in (3, 4):
+        raise ResponseLossError(
+            "response tensors must be [batch,time,cell] or "
+            "[stimulus,trial,time,cell]"
+        )
     if not torch.isfinite(logits).all() or not torch.isfinite(targets).all():
         raise ResponseLossError("response tensors must be finite")
     mask = valid_mask.to(dtype=logits.dtype)
-    denominator = mask.sum(dim=(0, 1))
+    reduction_dims = tuple(range(logits.ndim - 1))
+    denominator = mask.sum(dim=reduction_dims)
     if torch.any(denominator <= 0):
         raise ResponseLossError("Every cell needs at least one valid likelihood target")
+    raw = response_nll_elements(logits, targets, target_kind)
+    return ((raw * mask).sum(dim=reduction_dims) / denominator).mean()
+
+
+def response_nll_elements(
+    logits: torch.Tensor,
+    targets: torch.Tensor,
+    target_kind: ResponseTargetKind,
+) -> torch.Tensor:
     match target_kind:
         case ResponseTargetKind.BERNOULLI:
-            raw = F.binary_cross_entropy_with_logits(
-                logits, targets, reduction="none"
+            return F.binary_cross_entropy_with_logits(
+                logits,
+                targets,
+                reduction="none",
             )
         case ResponseTargetKind.POISSON:
             expected_count = F.softplus(logits).clamp_min(1e-8)
-            raw = F.poisson_nll_loss(
+            return F.poisson_nll_loss(
                 expected_count,
                 targets,
                 log_input=False,
@@ -44,7 +59,6 @@ def response_nll(
             )
         case _ as unreachable:
             assert_never(unreachable)
-    return ((raw * mask).sum(dim=(0, 1)) / denominator).mean()
 
 
 def expected_response(
@@ -60,4 +74,9 @@ def expected_response(
             assert_never(unreachable)
 
 
-__all__ = ["ResponseLossError", "expected_response", "response_nll"]
+__all__ = [
+    "ResponseLossError",
+    "expected_response",
+    "response_nll",
+    "response_nll_elements",
+]

@@ -5,11 +5,15 @@ import subprocess
 import sys
 
 import pytest
+import torch
+from torch import nn
 import yaml
 
 from training.response_checkpointing import (
     CHECKPOINT_SCHEMA,
     CHECKPOINT_SCHEMA_REVISION,
+    load_response_checkpoint,
+    save_response_checkpoint,
 )
 from training.response_config import (
     ResponseConfigurationError,
@@ -27,7 +31,7 @@ def test_canonical_response_training_contract() -> None:
     assert config.training.differentiable_steps == 256
     assert config.training.checkpoint_block_steps == 32
     assert CHECKPOINT_SCHEMA == "retina_rgc_response_snn"
-    assert CHECKPOINT_SCHEMA_REVISION == 1
+    assert CHECKPOINT_SCHEMA_REVISION == 2
 
 
 def test_response_config_rejects_reconstruction_keys(tmp_path: Path) -> None:
@@ -45,6 +49,41 @@ def test_canonical_runner_imports() -> None:
     from scripts import run_experiment
 
     assert callable(run_experiment.main)
+
+
+def test_checkpoint_restores_optimizer_step_rng_and_config(tmp_path: Path) -> None:
+    config = load_response_config(ROOT / "configs" / "synthetic_smoke.yaml")
+    model = nn.Linear(2, 1)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=0.01)
+    generator = torch.Generator().manual_seed(7)
+    path = tmp_path / "checkpoint.pt"
+    save_response_checkpoint(
+        path,
+        model=model,
+        optimizer=optimizer,
+        optimizer_step=3,
+        best_nll=0.4,
+        generator=generator,
+        fingerprint="dataset",
+        target_kind="bernoulli",
+        config=config,
+    )
+    expected_random = torch.rand(3, generator=generator)
+    restored_generator = torch.Generator().manual_seed(99)
+
+    step, best = load_response_checkpoint(
+        path,
+        model=model,
+        optimizer=optimizer,
+        generator=restored_generator,
+        fingerprint="dataset",
+        target_kind="bernoulli",
+        config=config,
+    )
+
+    assert step == 3
+    assert best == 0.4
+    assert torch.equal(torch.rand(3, generator=restored_generator), expected_random)
 
 
 @pytest.mark.parametrize(

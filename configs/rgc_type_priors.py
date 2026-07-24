@@ -69,6 +69,7 @@ class RGCTypePrior:
 class RGCTypePriors:
     cell_residual_scale: float
     cell_residual_weight: float
+    type_prior_weight: float
     types: tuple[RGCTypePrior, ...]
 
     @property
@@ -91,7 +92,12 @@ def load_type_priors(
         raw = yaml.safe_load(handle)
     if not isinstance(raw, dict):
         raise TypePriorConfigurationError("Type prior root must be a mapping")
-    expected = {"cell_residual_scale", "cell_residual_weight", "types"}
+    expected = {
+        "cell_residual_scale",
+        "cell_residual_weight",
+        "type_prior_weight",
+        "types",
+    }
     _require_keys(raw, expected, "type priors")
     raw_types = raw["types"]
     if not isinstance(raw_types, dict) or not raw_types:
@@ -108,11 +114,19 @@ def load_type_priors(
     )
     residual_scale = float(raw["cell_residual_scale"])
     residual_weight = float(raw["cell_residual_weight"])
+    type_prior_weight = float(raw["type_prior_weight"])
     if not math.isfinite(residual_scale) or residual_scale <= 0:
         raise TypePriorConfigurationError("cell_residual_scale must be positive")
     if not math.isfinite(residual_weight) or residual_weight < 0:
         raise TypePriorConfigurationError("cell_residual_weight must be non-negative")
-    return RGCTypePriors(residual_scale, residual_weight, priors)
+    if not math.isfinite(type_prior_weight) or type_prior_weight < 0:
+        raise TypePriorConfigurationError("type_prior_weight must be non-negative")
+    return RGCTypePriors(
+        residual_scale,
+        residual_weight,
+        type_prior_weight,
+        priors,
+    )
 
 
 def _parse_type(type_id: str, raw: YamlValue) -> RGCTypePrior:

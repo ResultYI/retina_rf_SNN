@@ -12,6 +12,8 @@ from data.rgc_response import (
     load_rgc_response,
     validate_response_splits,
 )
+from training.response_config import ResponseDataConfig
+from training.response_data import prepare_response_data
 
 
 def _text(value: str) -> np.ndarray:
@@ -82,3 +84,38 @@ def test_rejects_source_leakage(tmp_path: Path) -> None:
             (load_rgc_response(validation_path),),
         )
 
+
+def test_canonical_training_rejects_poisson_targets(tmp_path: Path) -> None:
+    _write_split_files(tmp_path, kind="poisson")
+
+    with pytest.raises(RGCResponseContractError, match="Bernoulli"):
+        prepare_response_data(_data_config(tmp_path))
+
+
+def test_dataset_fingerprint_includes_response_content(tmp_path: Path) -> None:
+    first = tmp_path / "first"
+    second = tmp_path / "second"
+    _write_split_files(first)
+    _write_split_files(second)
+    with h5py.File(second / "test.h5", "r+") as handle:
+        handle["spike_counts"][0, 0, 3, 1] = 1
+
+    first_data = prepare_response_data(_data_config(first))
+    second_data = prepare_response_data(_data_config(second))
+
+    assert first_data.fingerprint != second_data.fingerprint
+
+
+def _write_split_files(root: Path, *, kind: str = "bernoulli") -> None:
+    root.mkdir(exist_ok=True)
+    for split in ("train", "validation", "test"):
+        _write_response(root / f"{split}.h5", source=split, kind=kind)
+
+
+def _data_config(root: Path) -> ResponseDataConfig:
+    return ResponseDataConfig(
+        train_glob=str(root / "train.h5"),
+        validation_glob=str(root / "validation.h5"),
+        test_glob=str(root / "test.h5"),
+        sequence_steps=6,
+    )

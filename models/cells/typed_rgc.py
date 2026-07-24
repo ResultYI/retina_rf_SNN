@@ -52,6 +52,10 @@ class TypeConditionedParameter(nn.Module):
         upper = torch.tensor([prior.upper for prior in priors], dtype=torch.float32)
         fraction = ((means - lower) / (upper - lower)).clamp(1e-5, 1 - 1e-5)
         self.type_base_raw = nn.Parameter(torch.logit(fraction))
+        self.register_buffer(
+            "prior_type_base_raw",
+            self.type_base_raw.detach().clone(),
+        )
         self.cell_residual_raw = nn.Parameter(
             torch.zeros(cell_type_indices.numel(), dtype=torch.float32)
         )
@@ -70,6 +74,9 @@ class TypeConditionedParameter(nn.Module):
 
     def residual_penalty(self) -> torch.Tensor:
         return self.cell_residual_raw.square().mean()
+
+    def type_prior_penalty(self) -> torch.Tensor:
+        return (self.type_base_raw - self.prior_type_base_raw).square().mean()
 
 
 class TypedRGCPopulation(nn.Module):
@@ -127,6 +134,7 @@ class TypedRGCPopulation(nn.Module):
         self._rate_tau_ms = float(readout_rate_tau_ms)
         self._surrogate_slope = float(surrogate_slope)
         self._residual_weight = priors.cell_residual_weight
+        self._type_prior_weight = priors.type_prior_weight
         for name in self.parameter_names:
             values = tuple(prior.parameter(name) for prior in priors.types)
             setattr(
@@ -169,6 +177,14 @@ class TypedRGCPopulation(nn.Module):
             getattr(self, name).residual_penalty() for name in self.parameter_names
         ]
         return self._residual_weight * torch.stack(penalties).mean()
+
+    def physiology_prior_penalty(self) -> torch.Tensor:
+        type_penalties = [
+            getattr(self, name).type_prior_penalty() for name in self.parameter_names
+        ]
+        return self.residual_penalty() + self._type_prior_weight * torch.stack(
+            type_penalties
+        ).mean()
 
     def forward(
         self,

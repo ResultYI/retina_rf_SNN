@@ -33,6 +33,7 @@ def _priors() -> RGCTypePriors:
     return RGCTypePriors(
         0.25,
         0.01,
+        0.02,
         (
             RGCTypePrior("midget", **parameters),
             RGCTypePrior("parasol", **parameters),
@@ -71,6 +72,34 @@ def test_recorded_cells_have_one_output_and_causal_observed_history() -> None:
     assert torch.equal(baseline.spike_logits[:, :2], changed.spike_logits[:, :2])
     assert not torch.equal(baseline.spike_logits[:, 2:], changed.spike_logits[:, 2:])
     assert torch.allclose(model.rgc.compute_spatial_weights().sum(dim=1), torch.ones(2))
+
+
+def test_type_prior_penalty_tracks_type_base_drift() -> None:
+    positions = np.asarray([[0.0, 0.0], [0.05, 0.0]], dtype=np.float32)
+    cells = CellMetadata(
+        ids=("on", "off"),
+        type_ids=("midget", "parasol"),
+        polarities=np.asarray([0, 1]),
+        positions_degs=positions,
+        eccentricities_deg=np.asarray([4.0, 4.0]),
+    )
+    profile = human_macaque(dt_ms=5.0, cone_spacing_deg=0.05, eccentricity_deg=4.0)
+    model = build_response_retina_model(
+        torch.as_tensor(positions),
+        cells,
+        profile,
+        _priors(),
+        support_radius_degs=0.2,
+        readout_rate_tau_ms=50.0,
+        surrogate_slope=5.0,
+    )
+
+    baseline = model.rgc.physiology_prior_penalty()
+    with torch.no_grad():
+        model.rgc.threshold.type_base_raw.add_(0.5)
+
+    assert baseline == 0
+    assert model.rgc.physiology_prior_penalty() > 0
 
 
 def test_checkpointed_response_unroll_matches_plain_unroll() -> None:

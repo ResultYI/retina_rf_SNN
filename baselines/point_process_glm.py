@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import copy
 
 import torch
 from torch import nn
@@ -18,7 +19,9 @@ class GLMError(ValueError):
 @dataclass(frozen=True, slots=True)
 class GLMFitResult:
     model: PointProcessGLM
-    metrics: ResponseMetrics
+    validation_metrics: ResponseMetrics
+    test_metrics: ResponseMetrics
+    best_step: int
 
 
 class PointProcessGLM(nn.Module):
@@ -63,8 +66,8 @@ def fit_point_process_glm(
     data: PreparedResponseData,
     *,
     device: torch.device,
-    steps: int = 25,
-    temporal_lags: int = 8,
+    steps: int = 100,
+    temporal_lags: int = 16,
 ) -> GLMFitResult:
     model = PointProcessGLM(
         data.train.cone_response.shape[-1],
@@ -73,7 +76,11 @@ def fit_point_process_glm(
     ).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.03)
     cones, counts, mask = _all_trials(data.train, device)
-    for _ in range(steps):
+    baseline_rates = _baseline_rates(data.train, device)
+    best_state = copy.deepcopy(model.state_dict())
+    best_step = 0
+    best_nll = float("inf")
+    for step in range(1, steps + 1):
         optimizer.zero_grad(set_to_none=True)
         loss = response_nll(
             model(cones, counts),
@@ -83,20 +90,53 @@ def fit_point_process_glm(
         )
         loss.backward()
         optimizer.step()
-    validation_cones, validation_counts, validation_mask = _all_trials(
-        data.validation, device
-    )
-    with torch.no_grad():
-        logits = model(validation_cones, validation_counts)
-    baseline_rates = _baseline_rates(data.train, device)
-    metrics = compute_response_metrics(
-        logits,
-        validation_counts,
-        validation_mask,
+        validation = _evaluate_split(
+            model,
+            data.validation,
+            data.target_kind,
+            baseline_rates,
+            device,
+        )
+        if validation.nll < best_nll:
+            best_nll = validation.nll
+            best_step = step
+            best_state = copy.deepcopy(model.state_dict())
+    model.load_state_dict(best_state)
+    validation = _evaluate_split(
+        model,
+        data.validation,
         data.target_kind,
         baseline_rates,
+        device,
     )
-    return GLMFitResult(model, metrics)
+    test = _evaluate_split(
+        model,
+        data.test,
+        data.target_kind,
+        baseline_rates,
+        device,
+    )
+    return GLMFitResult(model, validation, test, best_step)
+
+
+def _evaluate_split(
+    model: PointProcessGLM,
+    split: ResponseSplit,
+    target_kind: ResponseTargetKind,
+    baseline_rates: torch.Tensor,
+    device: torch.device,
+) -> ResponseMetrics:
+    cones, counts, mask = _all_trials(split, device)
+    with torch.no_grad():
+        logits = model(cones, counts)
+    shape = split.spike_counts.shape
+    return compute_response_metrics(
+        logits.reshape(shape),
+        counts.reshape(shape),
+        mask.reshape(shape),
+        target_kind,
+        baseline_rates,
+    )
 
 
 def _all_trials(
