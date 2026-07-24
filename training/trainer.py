@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import math
-from dataclasses import asdict, replace
+from dataclasses import asdict
 from typing import Any, Sequence
 
 import torch
@@ -9,22 +9,12 @@ import torch
 from loss.retina import RetinaLosses, RetinaObjective
 from models.cells.rgc_types import RGCOutput
 from models.decoder.local_decoder import TiedLocalDecoder
-from models.retina_snn import (
-    RetinaModel,
-    RetinaState,
-    detach_state,
-)
-from training.bootstrap import (
-    MultiViewBootstrapContext,
-    MultiViewBootstrapRuntime,
-    MultiViewReadouts,
-    apply_multiview_bootstrap,
-)
+from models.retina_snn import RetinaModel, RetinaState
 from training.checkpointing import checkpoint_payload
 from training.config import ExperimentConfig
 from training.augmentation import AugmentedClip
+from training.forward_clip import ForwardClipRequest, forward_training_clip
 from training.optimizer_step import run_optimizer_step
-from training.schedule import objective_weights
 from training.state import (
     BootstrapState,
     EnergyBudgetState,
@@ -32,7 +22,6 @@ from training.state import (
     RepresentationSelectionMetrics,
     ValidationState,
 )
-from training.unroll import ForwardRegionRequest, forward_region
 
 
 class TrainingError(ValueError):
@@ -83,111 +72,22 @@ class RetinaTrainer:
         checkpointed: bool,
         full_bptt: bool = False,
     ) -> tuple[RetinaLosses, RGCOutput, RetinaState]:
-        if noisy_input.shape != clean_target.shape or noisy_input.ndim != 3:
-            raise TrainingError("Input and target must match [batch,time,cone]")
-        training = self.config.training
-        if noisy_input.shape[1] != self.config.data.sequence_steps:
-            raise TrainingError("Clip length does not match data.sequence_steps")
-        state = self.model.initial_state(
-            noisy_input.shape[0], noisy_input.device, torch.float32
+        return forward_training_clip(
+            ForwardClipRequest(
+                model=self.model,
+                decoder=self.decoder,
+                objective=self.objective,
+                config=self.config,
+                reconstruction_scale=self.reconstruction_scale,
+                optimizer_step=self.optimizer_step,
+                energy_state=self.energy_state,
+                bootstrap_state=self.bootstrap_state,
+                noisy_input=noisy_input,
+                clean_target=clean_target,
+                checkpointed=checkpointed,
+                full_bptt=full_bptt,
+            )
         )
-        spatial_weights = self.model.rgc.compute_spatial_weights()
-        if full_bptt:
-            history, state = self.model.forward_sequence(
-                noisy_input.float(), state, spatial_weights=spatial_weights
-            )
-        else:
-            with torch.no_grad():
-                _, state = self.model.forward_sequence(
-                    noisy_input[:, : training.burn_in_steps].float(),
-                    state,
-                    spatial_weights=spatial_weights,
-                )
-            state = detach_state(state)
-            region = noisy_input[:, training.burn_in_steps :].float()
-            if region.shape[1] != training.differentiable_steps:
-                raise TrainingError("Differentiable region length is inconsistent")
-            if training.context_only_steps + training.supervised_steps != region.shape[1]:
-                raise TrainingError("Context and supervised regions are inconsistent")
-            history, state = forward_region(
-                ForwardRegionRequest(
-                    model=self.model,
-                    region=region,
-                    state=state,
-                    spatial_weights=spatial_weights,
-                    checkpointed=checkpointed,
-                    block_steps=training.checkpoint_block_steps,
-                )
-            )
-        target_region = (
-            clean_target.float()
-            if full_bptt
-            else clean_target[:, training.burn_in_steps :].float()
-        )
-        persistent_prediction = self.decoder(history.rates, spatial_weights)
-        weights = objective_weights(self.optimizer_step, self.config)
-        prediction = persistent_prediction
-        bootstrap_auxiliary = persistent_prediction.new_zeros(())
-        bootstrap_active = (
-            self.model.training
-            and torch.is_grad_enabled()
-            and not full_bptt
-            and self.optimizer_step
-            < training.reconstruction_bootstrap_steps
-        )
-        if bootstrap_active:
-            supervised = training.supervised_steps
-            application = apply_multiview_bootstrap(
-                MultiViewReadouts(
-                    generator_readout=history.generator_potential[
-                        :, -supervised:
-                    ],
-                    target=target_region[:, -supervised:],
-                    persistent_prediction=persistent_prediction[
-                        :, -supervised:
-                    ],
-                ),
-                MultiViewBootstrapContext(
-                    reconstruction_scale=self.reconstruction_scale,
-                    view_consistency_scale=weights.view_consistency_scale,
-                    generator_variance_weight=weights.variance,
-                ),
-                MultiViewBootstrapRuntime(
-                    state=self.bootstrap_state,
-                    parameters=tuple(self.model.parameters()),
-                    optimizer_step=self.optimizer_step,
-                ),
-            )
-            prediction = torch.cat(
-                (
-                    persistent_prediction[:, :-supervised].detach(),
-                    application.prediction,
-                ),
-                dim=1,
-            )
-            bootstrap_auxiliary = application.auxiliary_loss
-        losses = self.objective(
-            prediction,
-            target_region,
-            history,
-            self.model.rgc,
-            spatial_weights,
-            reconstruction_scale=self.reconstruction_scale,
-            energy_budget=self.energy_state.current_budget,
-            energy_dual=self.energy_state.dual,
-            energy_weight=weights.energy,
-            wiring_weight=weights.wiring,
-            variance_weight=weights.variance,
-            phenotype_repulsion_weight=weights.phenotype_repulsion,
-            homeostasis_weight=weights.homeostasis,
-            supervised_steps=training.supervised_steps,
-        )
-        if bootstrap_active:
-            losses = replace(
-                losses,
-                total=losses.total + bootstrap_auxiliary,
-            )
-        return losses, history, state
 
     def train_optimizer_step(
         self,

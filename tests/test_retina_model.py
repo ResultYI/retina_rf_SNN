@@ -8,6 +8,7 @@ from evaluation.temporal_probes import run_temporal_probes
 from models.cells.rgc_types import RGCConfig
 from models.decoder.local_decoder import TiedLocalDecoder
 from models.retina_snn import RetinaModel, build_retina_model
+from training.unroll import ForwardRegionRequest, forward_region
 
 
 def _model() -> RetinaModel:
@@ -59,6 +60,37 @@ def test_rgc_parameters_are_per_unit_and_readout_tau_is_fixed() -> None:
     )
     assert all(value.shape == (unit_count,) for value in values)
     assert "readout_rate_tau_ms" not in dict(model.rgc.named_parameters())
+
+
+def test_checkpointed_unroll_matches_plain_unroll() -> None:
+    model = _model()
+    spatial_weights = model.rgc.compute_spatial_weights()
+    region = torch.randn(2, 4, 4)
+    initial = model.initial_state(2, torch.device("cpu"))
+
+    plain, _ = forward_region(
+        ForwardRegionRequest(
+            model=model,
+            region=region,
+            state=initial,
+            spatial_weights=spatial_weights,
+            checkpointed=False,
+            block_steps=2,
+        )
+    )
+    checkpointed, _ = forward_region(
+        ForwardRegionRequest(
+            model=model,
+            region=region,
+            state=initial,
+            spatial_weights=spatial_weights,
+            checkpointed=True,
+            block_steps=2,
+        )
+    )
+
+    assert torch.equal(checkpointed.hard_spikes, plain.hard_spikes)
+    assert torch.allclose(checkpointed.rates, plain.rates)
 
 
 def test_temporal_probes_execute_with_distinct_unit_and_time_dimensions() -> None:

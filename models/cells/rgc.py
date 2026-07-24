@@ -6,6 +6,11 @@ import torch
 from torch import nn
 
 from data.geometry import PositionArray
+from models.cells.rgc_dynamics import (
+    RGCDynamicsParameters,
+    RGCDynamicsRequest,
+    step_rgc_dynamics,
+)
 from models.cells.rgc_runtime import bounded, raw_from_bounded
 from models.cells.rgc_types import (
     RGCConfig,
@@ -236,74 +241,34 @@ class HeterogeneousRGCPool(nn.Module):
         probe_continuous_output: bool = False,
     ) -> tuple[RGCStepOutput, RGCState]:
         del probe_continuous_output
-        expected = (bipolar_output.shape[0], 2, 2, self.cone_positions_degs.shape[0])
-        if bipolar_output.shape != expected or amacrine_output.shape != expected:
-            raise RGCConfigurationError("RGC inputs must have shape [batch,2,2,Ncone]")
-        if spatial_weights.shape != (self.unit_count, self.cone_positions_degs.shape[0]):
-            raise RGCConfigurationError("spatial_weights must have shape [unit,cone]")
-        if self._debug_checks and (
-            not torch.isfinite(bipolar_output).all()
-            or not torch.isfinite(amacrine_output).all()
-            or not torch.isfinite(spatial_weights).all()
-        ):
-            raise RGCConfigurationError("RGC inputs must be finite")
         if previous is None:
             previous = self.initial_state(
                 bipolar_output.shape[0], bipolar_output.device, bipolar_output.dtype
             )
-        if self._debug_checks and not all(
-            torch.isfinite(value).all()
-            for value in (
-                previous.membrane,
-                previous.adaptation,
-                previous.rate,
-                previous.subunit_energy,
+        return step_rgc_dynamics(
+            RGCDynamicsRequest(
+                bipolar_output=bipolar_output,
+                amacrine_output=amacrine_output,
+                previous=previous,
+                spatial_weights=spatial_weights,
+                parameters=RGCDynamicsParameters(
+                    cone_count=int(self.cone_positions_degs.shape[0]),
+                    unit_count=self.unit_count,
+                    dt_ms=self._dt_ms,
+                    surrogate_slope=self._surrogate_slope,
+                    debug_checks=self._debug_checks,
+                    subunit_tau_ms=self.subunit_tau_ms,
+                    subunit_gain=self.subunit_gain,
+                    sustained_mix=self.sustained_mix,
+                    amacrine_gain=self.amacrine_gain,
+                    membrane_tau_ms=self.membrane_tau_ms,
+                    adaptation_gain=self.adaptation_gain,
+                    threshold=self.threshold,
+                    adaptation_tau_ms=self.adaptation_tau_ms,
+                    readout_rate_tau_ms=self.readout_rate_tau_ms,
+                ),
             )
-        ):
-            raise RGCConfigurationError("RGC state must be finite")
-
-        pooled_bipolar = torch.einsum("uc,bpkc->bpku", spatial_weights, bipolar_output)
-        pooled_amacrine = torch.einsum("uc,bpkc->bpku", spatial_weights, amacrine_output)
-        subunit_leak = torch.exp(-self._dt_ms / self.subunit_tau_ms).view(1, 1, 1, -1)
-        subunit_energy = subunit_leak * previous.subunit_energy + (
-            1.0 - subunit_leak
-        ) * pooled_bipolar.square()
-        adapted = pooled_bipolar / (
-            1.0 + self.subunit_gain.view(1, 1, 1, -1) * subunit_energy
         )
-        mix = self.sustained_mix.view(1, 1, -1)
-        bipolar_drive = mix * adapted[:, :, 0] + (1.0 - mix) * adapted[:, :, 1]
-        amacrine_drive = (
-            mix * pooled_amacrine[:, :, 0]
-            + (1.0 - mix) * pooled_amacrine[:, :, 1]
-        )
-        current = bipolar_drive - self.amacrine_gain.view(1, 1, -1) * amacrine_drive
-
-        membrane_leak = torch.exp(-self._dt_ms / self.membrane_tau_ms).view(1, 1, -1)
-        pre_reset = membrane_leak * previous.membrane + (1.0 - membrane_leak) * (
-            current - self.adaptation_gain.view(1, 1, -1) * previous.adaptation
-        )
-        threshold = self.threshold.view(1, 1, -1)
-        probability = torch.sigmoid(self._surrogate_slope * (pre_reset - threshold))
-        hard = (pre_reset >= threshold).to(pre_reset.dtype)
-        spikes = hard + (probability - probability.detach())
-        hard_event = hard.detach()
-        membrane = pre_reset * (1.0 - hard_event)
-
-        adaptation_leak = torch.exp(-self._dt_ms / self.adaptation_tau_ms).view(1, 1, -1)
-        adaptation = adaptation_leak * previous.adaptation + (
-            1.0 - adaptation_leak
-        ) * hard_event
-        rate_leak = torch.exp(-self._dt_ms / self.readout_rate_tau_ms)
-        rate = rate_leak * previous.rate + (1.0 - rate_leak) * spikes
-        output = RGCStepOutput(
-            hard_spikes=hard,
-            surrogate_spikes=spikes,
-            spike_probability=probability,
-            rates=rate,
-            generator_potential=pre_reset,
-        )
-        return output, RGCState(membrane, adaptation, rate, subunit_energy)
 
 
 __all__ = [
