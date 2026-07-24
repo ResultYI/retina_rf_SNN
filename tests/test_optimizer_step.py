@@ -66,7 +66,7 @@ def _clip() -> AugmentedClip:
 
 def test_trainer_constructs_with_true_batch_configuration() -> None:
     # Given: the canonical experiment configuration.
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
 
     # When: a trainer is constructed.
     trainer = RetinaTrainer(
@@ -85,7 +85,7 @@ def test_optimizer_step_uses_one_true_batch(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     # Given: a bootstrap trainer and four paired-source views.
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     model = TinyModel()
     decoder = torch.nn.Linear(1, 1, bias=False)
     trainer = RetinaTrainer(model, decoder, object(), config, 1.0)
@@ -121,7 +121,7 @@ def test_decoder_is_frozen_for_configured_optimizer_steps(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     # Given: a one-step decoder freeze after cross-fit bootstrap is disabled.
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     config = replace(
         config,
         training=replace(

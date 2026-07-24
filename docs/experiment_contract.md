@@ -1,44 +1,52 @@
 # Experiment contract
 
-## Configuration
-
-`configs/experiment.yaml` is the only active experiment configuration. `training/config.py` rejects unknown or missing keys, validates cross-section timing constraints, and produces the resolved checkpoint configuration from nested dataclasses.
-
-## Data
-
-Training statistics are fitted only on training exports. Validation reuses those per-cone log-response statistics. Formal train and validation exports must be source-disjoint and must share cone geometry, eccentricity, sampling interval, and configured sequence length. Augmentation preserves a deterministic clean target and adds configuration-driven gain and noise context transitions to the input; every transition must finish before the supervised window. Reconstruction normalization is fitted from seeded augmented clean targets, so it matches the supervised target distribution without using noisy inputs.
-
-## Credit assignment
-
-The active timing contract is:
+## HDF5
 
 ```text
-0..63    no-gradient burn-in
-64       one state detach
-64..319  one differentiable state chain
-224..319 reconstruction supervision
+/format_version                 "retina-rgc-response-v1"
+/cone_response                  [stimulus,time,cone]
+/spike_counts                   [stimulus,trial,time,cell]
+/valid_mask                     [stimulus,trial,time,cell]
+/time_axis_seconds              [time]
+/cone/position_degs             [cone,2]
+/cell/id                        [cell]
+/cell/type_id                   [cell]
+/cell/polarity                  [cell]
+/cell/position_degs             [cell,2]
+/cell/eccentricity_deg          [cell]
+/stimulus/source_id             [stimulus]
+/stimulus/context_id            [stimulus]
+attribute response_target_kind  "bernoulli" or "poisson"
 ```
 
-The 256 differentiable steps are recomputed in 32-step activation-checkpoint blocks. Block boundaries do not detach state. A full-sequence gradient-audit interface exists for manual comparison and is not part of routine training.
+Train, validation, and test source IDs must be disjoint. Geometry, cell order,
+target kind, and sampling interval must agree. Cone normalization is fitted on
+training stimuli only and reused unchanged.
 
-## Optimization schedule
+## Time and likelihood
 
-All model and decoder parameters are jointly optimized from the first step.
+```text
+0..63    no-gradient burn-in using observed response history
+64       one state detach
+64..319  one differentiable chain
+64..319  response likelihood at every bin
+```
 
-- Steps 0–1000 establish reconstruction and the EMA reference energy while constraint weights ramp from zero.
-- Steps 1000–2500 linearly move the current inequality budget from the frozen reference to the fixed target at 90% of that reference.
-- Steps 2500–6000 use the fixed target budget and full constrained objective.
+The 256 differentiable bins use 32-bin activation-checkpoint blocks without
+additional detach boundaries. Bernoulli targets must be binary. Poisson targets
+must be non-negative integer counts.
 
-The dual update and loss use the current budget. The energy penalty activates only above that current budget, and activity below budget receives no additional reward.
+## Selection and evidence
 
-Validation runs on a fixed clip set at the configured interval and scores only steps 224–319. Source sampling and augmentation use separate checkpointed PyTorch generators. A validation result is eligible for the feasible checkpoint only after step 2500 and only when hard validation energy divided by the fixed target budget passes the configured ratio. If no target exists, energy evidence is `not_identifiable`, never infinity.
+`checkpoint_best_nll.pt` is selected only by held-out response NLL. The
+canonical checkpoint schema is `retina_rgc_response_snn` revision 1 and rejects
+legacy cone-reconstruction checkpoints.
 
-## Evaluation
+Response prediction is reported on held-out stimuli/trials and compared with a
+static point-process GLM. Static RF uses spike-logit Jacobians plus finite
+differences. Dynamic RF uses same-source low/high contexts with an identical
+final probe.
 
-Reconstruction reports MSE relative to a train-only mean baseline. Before optimizer construction or resume restoration, the runner creates or validates `initial_reference.pt`. Only after reconstruction and energy gates pass, dynamic RF uses same-source low/high contexts, an identical final probe, one trained-model selection plan shared with the initialized model, continuous-readout Jacobians, support-local finite differences, cached recovery states, and reset reproducibility checks. A source requires at least three valid paired records and a valid-record fraction of at least 0.50. Trained and initialized finite-difference validity are reported separately. Unit evidence is reduced within each source and then compared with a paired source bootstrap.
-
-Positive and negative impulse and step probes use the unit's center cone over the canonical 320-step sequence with onset at step 224. The 4 Hz square-wave starts at step 128 and its signed baseline-subtracted response is summarized by first-harmonic amplitude. RGC clustering eligibility is determined by trained response quality; initialized response validity is reported separately. Clustering uses only encoder pooling radius, impulse time-to-peak, impulse width, step sustained index, and normalized flicker response. Excluded units retain assignment `-1`. A learned functional pairing candidate requires both the configured absolute separation gain and the trained-to-initial separation ratio when initialization is above the absolute floor; below that floor, the absolute gain is required.
-
-## Compatibility
-
-Only checkpoint schema `retina_rf_snn` revision 4 is accepted. Earlier revisions have no converter because they do not preserve the calibrated cross-fitted bootstrap state required for deterministic resume.
+Synthetic static/adaptive teachers are method validation. A real-retina claim
+requires an aligned recording that passes this contract and a held-out test
+evaluation.

@@ -89,7 +89,7 @@ def test_decoder_accepts_effective_calibration_values() -> None:
 
 
 def test_balanced_validation_has_opposing_scenarios_per_source() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     clip = PreparedClip(
         clean=torch.ones(config.data.sequence_steps, 2),
         source_id="source",
@@ -129,7 +129,7 @@ def test_causal_ema_alpha_is_fit_on_training_observations() -> None:
 
 
 def test_objective_schedule_keeps_repulsion_out_of_bootstrap() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     start = objective_weights(0, config)
     bootstrap_end = objective_weights(
         config.training.reconstruction_bootstrap_steps,

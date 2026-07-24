@@ -1,206 +1,248 @@
 from __future__ import annotations
 
+import argparse
+import copy
+import glob
+import json
 import sys
 from dataclasses import asdict
 from pathlib import Path
-from typing import Sequence
 
+import h5py
+import numpy as np
 import torch
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
+if __package__ in {None, ""}:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from evaluation.experiment_pipeline import (
-    FinalEvaluationRequest,
-    run_final_evaluation,
-)
-from evaluation.reconstruction import (
-    fit_augmented_reconstruction_scale,
-)
-from loss.retina import RetinaObjective
-from training import (
-    checkpoint_reporting,
-    experiment_cli,
-    experiment_setup,
-    runtime,
-    training_batch,
-)
-from training.checkpointing import load_checkpoint, save_checkpoint
-from training.config import load_config
-from training.data import prepare_data
-from training.trainer import RetinaTrainer
+from baselines.point_process_glm import fit_point_process_glm
+from configs.physiology_profiles import human_macaque
+from configs.rgc_type_priors import load_type_priors
+from evaluation.response_reporting import write_response_report
+from evaluation.rf_dynamic import evaluate_dynamic_rf
+from evaluation.rf_static import compare_rf_kernels, extract_static_rf
+from models.response_snn import build_response_retina_model
+from training.response_checkpointing import load_response_checkpoint
+from training.response_config import load_response_config
+from training.response_data import prepare_response_data, sample_response_batch
+from training.response_trainer import ResponseTrainer
 
 
-class ExperimentError(RuntimeError):
+class ResponseExperimentError(RuntimeError):
     pass
 
 
-def main(argv: Sequence[str] | None = None) -> int:
-    args = experiment_cli.parse_experiment_args(argv)
-    config = experiment_cli.apply_invocation_overrides(
-        load_config(args.config),
-        args,
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Fit known recorded-RGC responses with a stateful retinal SNN."
     )
-    experiment_cli.seed_everything(config.seed)
-    device = torch.device(args.device)
-    prepared = prepare_data(config.data)
-    model, decoder = runtime.build_network(config, prepared, device)
-    output_dir = args.output
-    setup = experiment_setup.initialize_experiment(
-        experiment_setup.ExperimentSetupRequest(
+    parser.add_argument("--config", default="configs/experiment.yaml")
+    parser.add_argument("--device", default="cpu")
+    parser.add_argument("--output", required=True)
+    parser.add_argument("--stop-after-steps", type=int)
+    parser.add_argument("--diagnostics-only", action="store_true")
+    parser.add_argument("--checkpoint")
+    args = parser.parse_args()
+    output = Path(args.output)
+    output.mkdir(parents=True, exist_ok=True)
+    try:
+        _run(args, output)
+    except (OSError, RuntimeError, ValueError) as exc:
+        (output / "run_status.json").write_text(
+            json.dumps(
+                {"status": "FAILED_WITH_REPORT", "error": str(exc)},
+                ensure_ascii=False,
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+        (output / "final_report_zh.md").write_text(
+            f"# RGC 响应拟合失败\n\n{type(exc).__name__}: {exc}\n",
+            encoding="utf-8",
+        )
+        raise
+
+
+def _run(args: argparse.Namespace, output: Path) -> None:
+    config = load_response_config(args.config)
+    torch.manual_seed(config.seed)
+    data = prepare_response_data(config.data)
+    priors = load_type_priors(
+        config.model.type_prior_path,
+        required_type_ids=tuple(sorted(set(data.cells.type_ids))),
+    )
+    spacing = _cone_spacing(data.cone_positions_degs)
+    profile = human_macaque(
+        dt_ms=data.dt_ms,
+        cone_spacing_deg=spacing,
+        eccentricity_deg=float(np.mean(data.cells.eccentricities_deg)),
+    )
+    model = build_response_retina_model(
+        torch.as_tensor(data.cone_positions_degs),
+        data.cells,
+        profile,
+        priors,
+        support_radius_degs=config.model.support_radius_degs,
+        readout_rate_tau_ms=config.model.readout_rate_tau_ms,
+        surrogate_slope=config.model.surrogate_slope,
+    ).to(torch.device(args.device))
+    initial_state = copy.deepcopy(model.state_dict())
+    trainer = ResponseTrainer(model, config, data, torch.device(args.device))
+    best_path = output / "checkpoint_best_nll.pt"
+    last_path = output / "checkpoint_last.pt"
+    if args.checkpoint:
+        load_response_checkpoint(
+            args.checkpoint,
             model=model,
-            decoder=decoder,
-            prepared=prepared,
-            config=config,
-            device=device,
-            output_dir=output_dir,
+            optimizer=None,
+            generator=None,
+            fingerprint=data.fingerprint,
+            target_kind=data.target_kind.value,
         )
+    elif not args.diagnostics_only:
+        _train(trainer, data, config, output, best_path, last_path, args.stop_after_steps)
+    if not best_path.exists() and not args.checkpoint:
+        raise ResponseExperimentError("No best-NLL checkpoint was produced")
+    checkpoint = Path(args.checkpoint) if args.checkpoint else best_path
+    load_response_checkpoint(
+        checkpoint,
+        model=model,
+        optimizer=None,
+        generator=None,
+        fingerprint=data.fingerprint,
+        target_kind=data.target_kind.value,
     )
-    if args.diagnostics_only and args.resume is None:
-        return 0
-    objective = RetinaObjective(
-        rho_energy=config.objective.rho_energy,
-        variance_floor=config.objective.variance_floor,
-        phenotype_temperature=config.objective.phenotype_temperature,
-        homeostasis_rate_min=config.objective.homeostasis_rate_min,
-    )
-    trainer = RetinaTrainer(
+    conditional = trainer.evaluate(data.test)
+    free_running = trainer.evaluate(data.test, free_running=True)
+    glm = fit_point_process_glm(data, device=torch.device(args.device))
+    probe = data.test.cone_response[0:1].to(torch.device(args.device))
+    static_rf = extract_static_rf(
         model,
-        decoder,
-        objective,
-        config,
-        fit_augmented_reconstruction_scale(
-            prepared.train,
-            config.data,
-            seed=config.seed + 3,
-        ),
+        probe,
+        lag_steps=config.evaluation.rf_lag_steps,
     )
-    generators = training_batch.TrainingGenerators(
-        sampling=torch.Generator().manual_seed(config.seed + 1),
-        augmentation=torch.Generator().manual_seed(config.seed + 2),
+    dynamic_rf = evaluate_dynamic_rf(
+        model,
+        data.test,
+        lag_steps=config.evaluation.rf_lag_steps,
     )
-    if args.resume is not None:
-        payload = load_checkpoint(args.resume, device)
-        if payload["resolved_config"] != config.resolved():
-            raise ExperimentError("Resume configuration does not match checkpoint")
-        trainer.restore(payload, generators.sampling, generators.augmentation)
-
-    execution_limit = experiment_cli.execution_limit(
-        config.training.max_optimizer_steps,
-        args.stop_after_steps,
-        args.representation_diagnostic_steps,
+    initialized_model = build_response_retina_model(
+        torch.as_tensor(data.cone_positions_degs),
+        data.cells,
+        profile,
+        priors,
+        support_radius_degs=config.model.support_radius_degs,
+        readout_rate_tau_ms=config.model.readout_rate_tau_ms,
+        surrogate_slope=config.model.surrogate_slope,
+    ).to(torch.device(args.device))
+    initialized_model.load_state_dict(initial_state)
+    initialized_dynamic_rf = evaluate_dynamic_rf(
+        initialized_model,
+        data.test,
+        lag_steps=config.evaluation.rf_lag_steps,
     )
-    validation = runtime.ValidationContext(
-        clips=setup.validation_clips,
-        train_mean=setup.train_mean,
-        ema_alpha=setup.ema_alpha,
-    )
-    evaluation_request = FinalEvaluationRequest(
-        trainer=trainer,
-        prepared=prepared,
-        config=config,
-        validation=validation,
-        calibration_clips=setup.calibration_clips,
-        initial_reference=setup.initial_reference,
-        initial_diagnostics=setup.initial_diagnostics,
-        output_dir=output_dir,
-        device=device,
-    )
-    if args.diagnostics_only:
-        run_final_evaluation(evaluation_request)
-        return 0
-    diagnostic_validation_mses: list[float] = []
-    while trainer.optimizer_step < execution_limit:
-        batch = training_batch.build_training_batch(
-            training_batch.TrainingBatchRequest(
-                sources=prepared.train,
-                config=config,
-                device=device,
-                generators=generators,
-                optimizer_step=trainer.optimizer_step,
-            )
+    teacher_kernel = _teacher_kernel(config.data.test_glob)
+    static_reference = (
+        None
+        if teacher_kernel is None
+        else compare_rf_kernels(
+            static_rf.kernels,
+            torch.as_tensor(
+                teacher_kernel,
+                device=static_rf.kernels.device,
+                dtype=static_rf.kernels.dtype,
+            ),
         )
-        result = trainer.train_optimizer_step(batch)
-        if trainer.optimizer_step % config.training.validation_interval_steps == 0:
-            reconstruction, _, target_energy_ratio = runtime.evaluate_validation(
-                trainer,
-                validation,
-                config,
-            )
-            best_reconstruction, best_feasible = trainer.record_validation(
-                trainer.optimizer_step,
-                reconstruction.mse,
-                target_energy_ratio,
-            )
-            best_representation = False
-            selection_metrics = None
-            if trainer.optimizer_step <= config.training.reconstruction_bootstrap_steps:
-                best_representation, selection_metrics = setup.selector.observe(
-                    trainer.validation_state,
-                    reconstruction.mse,
-                )
-            metrics = {
-                **result.metrics,
-                "gradient_norm": result.gradient_norm,
-                "temporal_gradient_norm": result.temporal_gradient_norm,
-                "peak_memory_bytes": result.peak_memory_bytes,
-                "reference_energy": trainer.energy_state.reference_energy,
-                "current_budget": trainer.energy_state.current_budget,
-                "target_budget": trainer.energy_state.target_budget,
-                "validation_mse": reconstruction.mse,
-                "validation_representation_skill": reconstruction.representation_skill,
-                "validation_target_energy_ratio": target_energy_ratio,
-                "best_reconstruction_event": best_reconstruction,
-                "best_feasible_event": best_feasible,
-            }
-            if selection_metrics is not None:
-                metrics.update(asdict(selection_metrics))
-            checkpoint_reporting.write_training_row(
-                output_dir,
-                trainer.optimizer_step,
-                metrics,
-            )
-            payload = trainer.checkpoint_payload(
-                generators.sampling,
-                generators.augmentation,
-            )
-            save_checkpoint(
-                output_dir / "checkpoint_last.pt",
-                payload,
-            )
-            if best_reconstruction:
-                save_checkpoint(
-                    output_dir / "checkpoint_best_reconstruction.pt", payload
-                )
-            if best_feasible:
-                save_checkpoint(output_dir / "checkpoint_best_feasible.pt", payload)
-            if best_representation:
-                save_checkpoint(
-                    output_dir / "checkpoint_best_representation.pt",
-                    payload,
-                )
-            diagnostic_validation_mses.append(reconstruction.mse)
-            if experiment_cli.diagnostic_should_stop(
-                setup.initial_diagnostics.current_decoder.mse,
-                diagnostic_validation_mses,
-                args,
-            ):
-                break
+    )
+    write_response_report(
+        output,
+        conditional=conditional,
+        free_running=free_running,
+        glm=glm,
+        static_rf=static_rf,
+        static_reference=static_reference,
+        dynamic_rf=dynamic_rf,
+        initialized_dynamic_rf=initialized_dynamic_rf,
+        synthetic=_has_teacher_data(config.data.test_glob),
+        checkpoint=str(checkpoint.resolve()),
+    )
+    torch.save(initial_state, output / "initialized_model_state.pt")
+    (output / "run_manifest.json").write_text(
+        json.dumps(
+            {
+                "config": asdict(config),
+                "dataset_fingerprint": data.fingerprint,
+                "target_kind": data.target_kind.value,
+                "cell_count": len(data.cells.ids),
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
 
-    selected_checkpoint = checkpoint_reporting.select_checkpoint(output_dir)
-    checkpoint_reporting.write_checkpoint_summaries(
-        output_dir,
-        selected_checkpoint,
-        device,
+
+def _train(
+    trainer: ResponseTrainer,
+    data,
+    config,
+    output: Path,
+    best_path: Path,
+    last_path: Path,
+    stop_after_steps: int | None,
+) -> None:
+    steps = config.training.max_optimizer_steps
+    if stop_after_steps is not None:
+        steps = min(steps, stop_after_steps)
+    log_path = output / "training.jsonl"
+    for _ in range(steps):
+        batch = sample_response_batch(
+            data.train,
+            batch_size=config.training.batch_size,
+            generator=trainer.sampling_generator,
+            device=trainer.device,
+        )
+        result = trainer.train_step(*batch)
+        with log_path.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(asdict(result)) + "\n")
+        validate = (
+            trainer.optimizer_step % config.training.validation_interval_steps == 0
+            or trainer.optimizer_step == steps
+        )
+        if validate:
+            metrics = trainer.evaluate(data.validation)
+            trainer.save(last_path)
+            if metrics.nll < trainer.best_nll:
+                trainer.best_nll = metrics.nll
+                trainer.save(best_path)
+
+
+def _cone_spacing(positions: np.ndarray) -> float:
+    distances = np.linalg.norm(
+        positions[:, None, :] - positions[None, :, :],
+        axis=-1,
     )
-    trainer.restore(
-        load_checkpoint(selected_checkpoint, device),
-        generators.sampling,
-        generators.augmentation,
-    )
-    run_final_evaluation(evaluation_request)
-    return 0
+    distances[distances == 0] = np.inf
+    return float(np.median(distances.min(axis=1)))
+
+
+def _has_teacher_data(pattern: str) -> bool:
+    paths = sorted(glob.glob(pattern))
+    if not paths:
+        return False
+    with h5py.File(paths[0], "r") as handle:
+        return "teacher" in handle
+
+
+def _teacher_kernel(pattern: str) -> np.ndarray | None:
+    paths = sorted(glob.glob(pattern))
+    if not paths:
+        return None
+    with h5py.File(paths[0], "r") as handle:
+        if "teacher/static_kernel" not in handle:
+            return None
+        return np.asarray(handle["teacher/static_kernel"][()], dtype=np.float32)
+
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_noise_views_share_context_and_target_but_not_noise() -> None:
     # Given: one clean sequence and a deterministic augmentation generator.
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     clip = PreparedClip(
         clean=torch.linspace(
             -1.0,
@@ -53,7 +53,7 @@ def test_noise_views_share_context_and_target_but_not_noise() -> None:
 
 def test_bootstrap_batch_keeps_paired_views_in_matching_halves() -> None:
     # Given: five sources and a four-source bootstrap batch.
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     sources = tuple(
         PreparedClip(
             clean=torch.full(

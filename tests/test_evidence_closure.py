@@ -65,7 +65,7 @@ def test_rgc_eligibility_uses_trained_response_quality_only() -> None:
 
 
 def test_rgc_separation_requires_absolute_and_relative_gain() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml").evaluation
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml").evaluation
     assert not separation_supports_learning(0.06, 0.09, config)
     assert not separation_supports_learning(0.20, 0.26, config)
     assert separation_supports_learning(0.20, 0.31, config)
@@ -73,7 +73,7 @@ def test_rgc_separation_requires_absolute_and_relative_gain() -> None:
 
 
 def test_augmented_reconstruction_scale_is_seed_deterministic() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     clip = PreparedClip(
         clean=torch.linspace(0.0, 1.0, config.data.sequence_steps).view(-1, 1),
         source_id="source",
@@ -84,7 +84,7 @@ def test_augmented_reconstruction_scale_is_seed_deterministic() -> None:
 
 
 def test_augmentation_transitions_finish_before_supervised_onset() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     clip = PreparedClip(
         clean=torch.ones(config.data.sequence_steps, 2),
         source_id="source",
@@ -111,7 +111,7 @@ def test_augmentation_transitions_finish_before_supervised_onset() -> None:
 
 
 def test_dynamic_rf_comparison_is_source_paired() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     trained = tuple(
         _dynamic_row(f"source-{source}", unit, 0.20, math.exp(0.20))
         for source in range(3)
@@ -136,7 +136,7 @@ def test_dynamic_rf_comparison_is_source_paired() -> None:
 
 
 def test_dynamic_rf_source_requires_multiple_valid_records() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     trained = (_dynamic_row("source", 0, 0.20, math.exp(0.20)),)
     initialized = (_dynamic_row("source", 0, 0.01, math.exp(0.01)),)
     summary, sources = compare_dynamic_rf(
@@ -156,7 +156,7 @@ def test_dynamic_rf_selection_is_immutable_and_shared() -> None:
 
 
 def test_evaluation_names_the_legacy_skill_gate_precisely() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     summary = summarize_evaluation(
         ReconstructionMetrics(0.3, 0.7, 0.04, 0.03, 0.5),
         None,

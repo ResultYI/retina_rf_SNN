@@ -1,9 +1,9 @@
 seed: 19
 
 data:
-  train_glob: "data/rgc_response/train/*.h5"
-  validation_glob: "data/rgc_response/validation/*.h5"
-  test_glob: "data/rgc_response/test/*.h5"
+  train_glob: ".omo/evidence/synthetic_response_smoke/train.h5"
+  validation_glob: ".omo/evidence/synthetic_response_smoke/validation.h5"
+  test_glob: ".omo/evidence/synthetic_response_smoke/test.h5"
   sequence_steps: 320
 
 model:
@@ -16,12 +16,12 @@ training:
   burn_in_steps: 64
   differentiable_steps: 256
   checkpoint_block_steps: 32
-  batch_size: 4
-  max_optimizer_steps: 6000
+  batch_size: 1
+  max_optimizer_steps: 2
   learning_rate: 0.0002
   gradient_clip_norm: 1.0
-  validation_interval_steps: 100
+  validation_interval_steps: 1
 
 evaluation:
-  rf_lag_steps: 64
-  recovery_delays_ms: [0, 100, 200, 500]
+  rf_lag_steps: 8
+  recovery_delays_ms: [0, 100]

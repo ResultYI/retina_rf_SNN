@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_matched_context_pair_keeps_identical_final_probe() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     evaluation = replace(
         config.evaluation,
         dynamic_rf_max_sources=1,

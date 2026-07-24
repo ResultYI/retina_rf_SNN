@@ -1,0 +1,24 @@
+cell_residual_scale: 0.25
+cell_residual_weight: 0.01
+
+types:
+  midget:
+    spatial_sigma: {mean: 0.05, lower: 0.015, upper: 0.20}
+    sustained_mix: {mean: 0.65, lower: 0.0, upper: 1.0}
+    membrane_tau_ms: {mean: 25.0, lower: 5.0, upper: 250.0}
+    adaptation_tau_ms: {mean: 90.0, lower: 5.0, upper: 250.0}
+    adaptation_gain: {mean: 0.10, lower: 0.0, upper: 1.0}
+    amacrine_gain: {mean: 0.05, lower: 0.0, upper: 1.0}
+    threshold: {mean: 0.20, lower: 0.02, upper: 2.0}
+    subunit_tau_ms: {mean: 60.0, lower: 5.0, upper: 250.0}
+    subunit_gain: {mean: 0.50, lower: 0.0, upper: 2.0}
+  parasol:
+    spatial_sigma: {mean: 0.09, lower: 0.015, upper: 0.24}
+    sustained_mix: {mean: 0.40, lower: 0.0, upper: 1.0}
+    membrane_tau_ms: {mean: 18.0, lower: 5.0, upper: 250.0}
+    adaptation_tau_ms: {mean: 70.0, lower: 5.0, upper: 250.0}
+    adaptation_gain: {mean: 0.12, lower: 0.0, upper: 1.0}
+    amacrine_gain: {mean: 0.08, lower: 0.0, upper: 1.0}
+    threshold: {mean: 0.18, lower: 0.02, upper: 2.0}
+    subunit_tau_ms: {mean: 45.0, lower: 5.0, upper: 250.0}
+    subunit_gain: {mean: 0.60, lower: 0.0, upper: 2.0}

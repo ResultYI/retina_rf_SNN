@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_canonical_time_and_checkpoint_contract() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     assert config.data.sequence_steps == 320
     assert config.training.burn_in_steps == 64
     assert config.training.differentiable_steps == 256
@@ -37,7 +37,7 @@ def test_canonical_time_and_checkpoint_contract() -> None:
 
 
 def test_unknown_configuration_key_is_rejected(tmp_path: Path) -> None:
-    source = ROOT / "configs" / "experiment.yaml"
+    source = ROOT / "configs" / "cone_reconstruction_diagnostic.yaml"
     raw = yaml.safe_load(source.read_text(encoding="utf-8"))
     raw["training"]["unexpected"] = 1
     path = tmp_path / "invalid.yaml"
@@ -47,7 +47,7 @@ def test_unknown_configuration_key_is_rejected(tmp_path: Path) -> None:
 
 
 def test_auxiliary_objective_weights_may_be_zero(tmp_path: Path) -> None:
-    source = ROOT / "configs" / "experiment.yaml"
+    source = ROOT / "configs" / "cone_reconstruction_diagnostic.yaml"
     raw = yaml.safe_load(source.read_text(encoding="utf-8"))
     for key in (
         "wiring_weight",
@@ -65,7 +65,7 @@ def test_auxiliary_objective_weights_may_be_zero(tmp_path: Path) -> None:
 
 
 def test_energy_budget_is_inactive_during_bootstrap() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     state = EnergyBudgetState()
     state.observe(0.2, 1, config)
     assert state.current_budget is None
@@ -78,7 +78,7 @@ def test_energy_budget_is_inactive_during_bootstrap() -> None:
 
 
 def test_energy_target_freezes_after_bootstrap() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     state = EnergyBudgetState()
     state.observe(0.2, config.training.reconstruction_bootstrap_steps, config)
     reference = state.reference_energy
@@ -104,7 +104,7 @@ def test_experiment_runner_imports_without_evaluation_side_effects() -> None:
 
 
 def test_runner_stop_after_steps_preserves_configured_horizon() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     args = experiment_cli.parse_experiment_args(
         ["--stop-after-steps", "160"]
     )
@@ -119,7 +119,7 @@ def test_runner_stop_after_steps_preserves_configured_horizon() -> None:
 
 
 def test_representation_diagnostic_mode_applies_one_canonical_policy() -> None:
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     args = experiment_cli.parse_experiment_args(
         [
             "--representation-diagnostic-steps",

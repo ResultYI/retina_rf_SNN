@@ -57,7 +57,7 @@ def test_training_source_sampling_is_without_replacement() -> None:
 
 def test_view_consistency_anneals_before_diagnostic_end() -> None:
     # Given: a 50-step representation diagnostic.
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     config = replace(
         config,
         training=replace(config.training, decoder_freeze_steps=50),
@@ -93,7 +93,7 @@ def test_view_consistency_weight_matches_core_gradient_ratio() -> None:
 
 def test_bootstrap_calibration_state_round_trips_in_checkpoint() -> None:
     # Given: a trainer with calibrated view consistency.
-    config = load_config(ROOT / "configs" / "experiment.yaml")
+    config = load_config(ROOT / "configs" / "cone_reconstruction_diagnostic.yaml")
     model = torch.nn.Linear(1, 1)
     decoder = torch.nn.Linear(1, 1)
     objective = RetinaObjective(

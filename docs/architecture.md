@@ -1,36 +1,30 @@
 # Canonical architecture
 
-## Signal path
+The shared front end retains the H1, bipolar, and amacrine state equations.
+`TypedRGCPopulation` then creates exactly one output unit per recorded cell.
 
-The model accepts normalized ISETBio cone-response sequences shaped `[batch,time,cone]`. H1 surround feedback, ON/OFF sustained/transient bipolar dynamics, and local recurrent amacrine dynamics preserve causal state. A single heterogeneous RGC pool converts those channels into hard events, continuous event probabilities, filtered rates, and generator potentials.
-
-For `Ncone` centers and `units_per_center = 2`, the RGC pool contains `2 × Ncone` anonymous units. No cell-type identity is present in model, loss, trainer, or configuration code.
-
-## RGC spatial encoder
-
-Each unit is assigned a cone center and learns one bounded spatial sigma. A fixed support mask and squared-distance matrix have shape `[unit,cone]`. The sequence call constructs one dense masked-softmax weight tensor and passes the same tensor through every RGC step, the tied decoder, and wiring loss.
-
-There are no per-edge residual parameters. Heterogeneity comes from per-unit spatial sigma, sustained mixture, membrane tau, adaptation tau, adaptation gain, amacrine gain, threshold, subunit tau, and subunit gain. The readout-rate tau is a fixed shared buffer.
-
-## State and outputs
-
-RGC states are:
+RGC states and outputs use `[batch,cell]` and `[batch,time,cell]`:
 
 ```text
-membrane       [batch,polarity,unit]
-adaptation     [batch,polarity,unit]
-rate           [batch,polarity,unit]
-subunit_energy [batch,polarity,kinetics,unit]
+membrane
+adaptation
+filtered rate
+subunit energy
+spike logit
+spike probability
+deterministic hard event
 ```
 
-Sequence outputs are `[batch,time,polarity,unit]` for hard spikes, straight-through surrogate spikes, spike probability, filtered rate, and generator potential. Detached hard events drive reset and adaptation events. The surrogate spike carries reconstruction and energy-constraint gradients into temporal and spatial parameters while hard spikes remain the reported energy measure.
+Each cell selects its known ON or OFF upstream channel. Spatial weights are a
+local Gaussian pooling over the recorded cell center. Parameters are a
+type-level base plus a bounded cell residual. Type ranges may overlap and the
+data can move individual cells away from the type mean.
 
-## Tied decoder and objective
+Training predicts the current spike logit from the previous state, computes the
+point-process likelihood, then uses the observed current event to update the
+next membrane reset and adaptation state. Free-running evaluation uses the
+model's deterministic event instead.
 
-The decoder applies bounded positive per-unit gains with fixed ON/OFF signs, projects through the transpose of the encoder weights, and adds a per-cone bias. It does not learn another spatial or temporal kernel. Adaptation, amacrine, and subunit gains are likewise bounded by the active model configuration.
-
-The sole objective is defined in `loss/retina.py`. It supervises clean current cone contrast over the final 96 steps and combines reconstruction with energy, wiring, variance-floor, phenotype-repulsion, and homeostasis terms.
-
-## Post-training interpretation
-
-RGC typing is evaluation-only. Its primary feature space contains only effective spatial radius, impulse time-to-peak, impulse width, step sustained index, and normalized flicker response. Hard activity is an eligibility and quality signal, not a clustering coordinate. The same probes and eligibility rules are applied to the saved initialization and trained model. Candidate physiological names require cluster-quality gates, preregistered radius/sustained/flicker relationships, and trained separation beyond initialization-level separation.
+RFs are never supervised. Static and dynamic effective RFs are derivatives of a
+cell's spike logit with respect to lagged cone input. Dynamic RF compares
+identical final probes reached through different preceding contexts.
