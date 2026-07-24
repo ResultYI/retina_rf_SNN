@@ -15,6 +15,10 @@ from evaluation.dynamic_rf_summary import (
     not_run_dynamic_rf_summary,
 )
 from evaluation.parameter_audit import audit_parameters
+from evaluation.readout_ladder import (
+    ModelReadoutLadderRequest,
+    evaluate_model_readout_ladder,
+)
 from evaluation.representation_diagnostics import (
     RepresentationDiagnostics,
     collect_decoder_examples,
@@ -68,6 +72,36 @@ def run_final_evaluation(request: FinalEvaluationRequest) -> None:
     )
     initialized_model.load_state_dict(request.initial_reference.model_state)
     initialized_decoder.load_state_dict(request.initial_reference.decoder_state)
+    initialized_ladder = evaluate_model_readout_ladder(
+        ModelReadoutLadderRequest(
+            model=initialized_model,
+            training_clips=request.calibration_clips,
+            validation_clips=request.validation.clips,
+            supervised_steps=config.training.supervised_steps,
+            dt_ms=request.prepared.dt_ms,
+            gain_max=initialized_decoder.gain_max,
+        )
+    )
+    selected_ladder = evaluate_model_readout_ladder(
+        ModelReadoutLadderRequest(
+            model=model,
+            training_clips=request.calibration_clips,
+            validation_clips=request.validation.clips,
+            supervised_steps=config.training.supervised_steps,
+            dt_ms=request.prepared.dt_ms,
+            gain_max=decoder.gain_max,
+        )
+    )
+    (request.output_dir / "readout_ladder.json").write_text(
+        json.dumps(
+            {
+                "initialized": asdict(initialized_ladder),
+                "selected": asdict(selected_ladder),
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
     selected_diagnostics = _write_selected_representation(
         request,
         initialized_decoder,
