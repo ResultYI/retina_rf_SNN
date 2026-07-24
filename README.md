@@ -56,14 +56,12 @@ baseline, spike-logit static RFs, and matched-context dynamic RFs.
 python scripts/generate_synthetic_response_benchmark.py `
   --train-glob "data/isetbio_bsds300_4deg/train/*.h5" `
   --validation-glob "data/isetbio_bsds300_4deg/val/*.h5" `
-  --output-dir .omo/evidence/synthetic_response_smoke `
+  --output-dir runs/synthetic_response_smoke `
   --teacher adaptive `
   --trials 2 `
   --test-count 1
 ```
 
-Cone reconstruction, decoder calibration, energy-budget experiments, anonymous
-type clustering, and the deterministic readout ladder remain historical or
-diagnostic code. Their configuration is
-`configs/cone_reconstruction_diagnostic.yaml`; they do not select canonical
-checkpoints or support the main scientific claim.
+The former cone-reconstruction, anonymous-population, bootstrap, and readout
+diagnostic pipelines have been removed. Git history remains the source for
+those superseded experiments.
