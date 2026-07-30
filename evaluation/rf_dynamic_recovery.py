@@ -1,12 +1,28 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 import torch
 
 from evaluation.rf_dynamic_conditioning import conditioned_rf
-from evaluation.rf_dynamic_metrics import kernel_metrics
+from evaluation.rf_dynamic_metrics import kernel_metrics, signed_log_gains
 from evaluation.rf_static import StaticRFResult
 from models.response_snn import ResponseRetinaModel
 from training.response_data import ResponseSplit
+
+
+@dataclass(frozen=True, slots=True)
+class RFDistance:
+    shape_distance: float
+    signed_gain_shifts: tuple[float, ...]
+
+    @property
+    def mean_absolute_gain_shift(self) -> float:
+        if not self.signed_gain_shifts:
+            return 0.0
+        return sum(abs(value) for value in self.signed_gain_shifts) / len(
+            self.signed_gain_shifts
+        )
 
 
 def reset_distance(
@@ -16,10 +32,10 @@ def reset_distance(
     lag_steps: int,
     *,
     condition_on_observed: bool,
-) -> float:
+) -> RFDistance:
     low_rf = _reset_rf(model, split, pair[0], lag_steps, condition_on_observed)
     high_rf = _reset_rf(model, split, pair[1], lag_steps, condition_on_observed)
-    return kernel_metrics(low_rf.kernels, high_rf.kernels)[0]
+    return rf_distance(low_rf, high_rf)
 
 
 def _reset_rf(
@@ -49,9 +65,9 @@ def recovery_distance(
     dt_ms: float,
     *,
     condition_on_observed: bool,
-) -> float:
+) -> RFDistance:
     delay_steps = max(0, round(delay_ms / dt_ms))
-    distances = []
+    distances: list[RFDistance] = []
     device = next(model.parameters()).device
     for low_index, high_index in pairs:
         low = _recovery_rf(
@@ -72,8 +88,8 @@ def recovery_distance(
             device,
             condition_on_observed,
         )
-        distances.append(kernel_metrics(low.kernels, high.kernels)[0])
-    return sum(distances) / len(distances)
+        distances.append(rf_distance(low, high))
+    return mean_distances(tuple(distances))
 
 
 def _recovery_rf(
@@ -145,7 +161,7 @@ def recovery_distances_by_source(
     dt_ms: float,
     *,
     condition_on_observed: bool,
-) -> tuple[tuple[float, ...], ...]:
+) -> tuple[tuple[RFDistance, ...], ...]:
     return tuple(
         tuple(
             recovery_distance(
@@ -163,4 +179,34 @@ def recovery_distances_by_source(
     )
 
 
-__all__ = ["recovery_distance", "recovery_distances_by_source", "reset_distance"]
+def rf_distance(low: StaticRFResult, high: StaticRFResult) -> RFDistance:
+    return RFDistance(
+        kernel_metrics(low.kernels, high.kernels)[0],
+        tuple(
+            float(value)
+            for value in signed_log_gains(low.kernels, high.kernels).detach().cpu()
+        ),
+    )
+
+
+def mean_distances(distances: tuple[RFDistance, ...]) -> RFDistance:
+    if not distances:
+        return RFDistance(0.0, ())
+    cell_count = len(distances[0].signed_gain_shifts)
+    return RFDistance(
+        sum(value.shape_distance for value in distances) / len(distances),
+        tuple(
+            sum(value.signed_gain_shifts[cell] for value in distances)
+            / len(distances)
+            for cell in range(cell_count)
+        ),
+    )
+
+
+__all__ = [
+    "RFDistance",
+    "mean_distances",
+    "recovery_distance",
+    "recovery_distances_by_source",
+    "reset_distance",
+]

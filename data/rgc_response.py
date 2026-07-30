@@ -119,6 +119,8 @@ def validate_response_splits(
     train: Sequence[RGCResponseSession],
     validation: Sequence[RGCResponseSession],
     test: Sequence[RGCResponseSession] = (),
+    *,
+    sequence_steps: int | None = None,
 ) -> None:
     if not train or not validation:
         raise RGCResponseContractError("train and validation splits must be non-empty")
@@ -131,10 +133,36 @@ def validate_response_splits(
             raise RGCResponseContractError("All splits must use one target kind")
         if session.cells.ids != reference.cells.ids:
             raise RGCResponseContractError("Cell order must match across response files")
-        if not np.allclose(
-            session.cone_positions_degs, reference.cone_positions_degs
+        if session.cells.type_ids != reference.cells.type_ids:
+            raise RGCResponseContractError("Cell types must match across response files")
+        if not np.array_equal(session.cells.polarities, reference.cells.polarities):
+            raise RGCResponseContractError("Cell polarities must match across response files")
+        if not _same_values(
+            session.cells.positions_degs,
+            reference.cells.positions_degs,
+        ):
+            raise RGCResponseContractError("Cell positions must match across response files")
+        if not _same_values(
+            session.cells.eccentricities_deg,
+            reference.cells.eccentricities_deg,
+        ):
+            raise RGCResponseContractError(
+                "Cell eccentricities must match across response files"
+            )
+        if not _same_values(
+            session.cone_positions_degs,
+            reference.cone_positions_degs,
         ):
             raise RGCResponseContractError("Cone geometry must match across response files")
+        if not _same_values(
+            session.time_axis_seconds[:sequence_steps],
+            reference.time_axis_seconds[:sequence_steps],
+        ):
+            raise RGCResponseContractError("Time axes must match across response files")
+
+
+def _same_values(left: np.ndarray, right: np.ndarray) -> bool:
+    return left.shape == right.shape and bool(np.allclose(left, right))
 
 
 def _validate_shapes(

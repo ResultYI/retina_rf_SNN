@@ -30,10 +30,12 @@ def response_nll(
     mask = valid_mask.to(dtype=logits.dtype)
     reduction_dims = tuple(range(logits.ndim - 1))
     denominator = mask.sum(dim=reduction_dims)
-    if torch.any(denominator <= 0):
-        raise ResponseLossError("Every cell needs at least one valid likelihood target")
+    active = denominator > 0
+    if not torch.any(active):
+        raise ResponseLossError("Likelihood batch has no valid targets")
     raw = response_nll_elements(logits, targets, target_kind)
-    return ((raw * mask).sum(dim=reduction_dims) / denominator).mean()
+    per_cell = (raw * mask).sum(dim=reduction_dims) / denominator.clamp_min(1)
+    return per_cell[active].mean()
 
 
 def response_nll_elements(

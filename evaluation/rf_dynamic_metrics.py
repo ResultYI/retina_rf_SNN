@@ -15,11 +15,15 @@ def kernel_metrics(low: torch.Tensor, high: torch.Tensor) -> tuple[float, float]
         high.flatten(1),
         dim=1,
     ).mean()
-    gain = (
+    gain = signed_log_gains(low, high).abs().mean()
+    return float(shape), float(gain)
+
+
+def signed_log_gains(low: torch.Tensor, high: torch.Tensor) -> torch.Tensor:
+    return (
         (high.norm(dim=(1, 2)) + 1e-8).log()
         - (low.norm(dim=(1, 2)) + 1e-8).log()
-    ).abs().mean()
-    return float(shape), float(gain)
+    )
 
 
 def bootstrap_ci(
@@ -95,6 +99,7 @@ __all__ = [
     "bootstrap_ci",
     "context_pairs",
     "kernel_metrics",
+    "signed_log_gains",
     "teacher_errors",
     "trial_conditioned_rf",
 ]

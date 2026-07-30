@@ -23,6 +23,7 @@ class RFModeEvidence:
     dynamic_rf: DynamicRFResult
     initialized_dynamic_rf: DynamicRFResult
     dynamic_comparison: DynamicRFComparison
+    initialized_static_reference: KernelReferenceComparison | None = None
 
 
 @dataclass(frozen=True, slots=True)

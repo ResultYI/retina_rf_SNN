@@ -55,7 +55,7 @@ def prepare_response_data(config: ResponseDataConfig) -> PreparedResponseData:
         _load_glob("validation", config.validation_glob),
         _load_glob("test", config.test_glob),
     )
-    validate_response_splits(*sessions)
+    validate_response_splits(*sessions, sequence_steps=config.sequence_steps)
     reference = sessions[0][0]
     if reference.target_kind is not ResponseTargetKind.BERNOULLI:
         raise RGCResponseContractError(
@@ -83,7 +83,7 @@ def prepare_response_data(config: ResponseDataConfig) -> PreparedResponseData:
     split_values = tuple(
         _stack_split(split, config.sequence_steps, mean, std) for split in sessions
     )
-    fingerprint = _fingerprint(sessions, config.sequence_steps)
+    fingerprint = _fingerprint(sessions, config.sequence_steps, mean, std)
     return PreparedResponseData(
         train=split_values[0],
         validation=split_values[1],
@@ -114,6 +114,13 @@ def sample_response_batch(
     counts = split.spike_counts[stimulus, trial]
     mask = split.valid_mask[stimulus, trial]
     return cones.to(device), counts.to(device), mask.to(device)
+
+
+def masked_history_counts(
+    counts: torch.Tensor,
+    mask: torch.Tensor,
+) -> torch.Tensor:
+    return counts.masked_fill(~mask, 0.0)
 
 
 def _load_glob(name: str, pattern: str) -> tuple[RGCResponseSession, ...]:
@@ -190,9 +197,13 @@ def _fingerprint(
         tuple[RGCResponseSession, ...],
     ],
     sequence_steps: int,
+    normalization_mean: np.ndarray,
+    normalization_std: np.ndarray,
 ) -> str:
     digest = hashlib.sha256()
     digest.update(str(sequence_steps).encode())
+    digest.update(normalization_mean.tobytes())
+    digest.update(normalization_std.tobytes())
     for split_name, sessions in zip(
         ("train", "validation", "test"),
         splits,
@@ -217,6 +228,7 @@ def _fingerprint(
 
 
 __all__ = [
+    "masked_history_counts",
     "PreparedResponseData",
     "ResponseSplit",
     "prepare_response_data",

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import math
+
 import torch
 from torch.nn import functional as F
 
@@ -83,7 +85,7 @@ def test_teacher_reference_flips_persisted_causal_lags_for_alignment() -> None:
     assert alignment.status == "supported"
 
 
-def test_teacher_status_uses_unsigned_status_only_for_identifiability() -> None:
+def test_teacher_status_preserves_failed_state_reset_gate() -> None:
     alignment = align_teacher_dynamic_rf(
         torch.ones(1, 2, 1),
         torch.full((1, 2, 1), 1.2),
@@ -93,7 +95,7 @@ def test_teacher_status_uses_unsigned_status_only_for_identifiability() -> None:
         ),
     )
 
-    assert classify_teacher_status("not_supported", [alignment]) == "supported"
+    assert classify_teacher_status("not_supported", [alignment]) == "not_supported"
     assert classify_teacher_status("not_identifiable", [alignment]) == "not_identifiable"
 
 
@@ -107,13 +109,12 @@ def test_teacher_recovery_error_uses_context_gain_envelope() -> None:
     )
 
     errors = teacher_recovery_errors(
-        (0.05, 0.025),
+        (((math.log(1.05),), (math.log(1.025),)),),
         reference,
         RecoveryContract(delays_ms=(0, 5), dt_ms=5.0),
     )
 
     assert errors[0] < 1e-6
-    assert errors[1] < 1e-6
 
 
 def test_teacher_recovery_error_samples_are_source_level() -> None:
@@ -124,8 +125,9 @@ def test_teacher_recovery_error_samples_are_source_level() -> None:
         high_kernel=torch.full((1, 2, 1), 1.2),
         context_gain_envelope=envelope,
     )
-    changed = [(0.05, 0.025) for _ in range(5)]
-    changed[2] = (0.15, 0.025)
+    expected = ((math.log(1.05),), (math.log(1.025),))
+    changed = [expected for _ in range(5)]
+    changed[2] = ((math.log(1.15),), expected[1])
 
     errors = teacher_recovery_errors(
         tuple(changed),
@@ -133,7 +135,14 @@ def test_teacher_recovery_error_samples_are_source_level() -> None:
         RecoveryContract(delays_ms=(0, 5), dt_ms=5.0),
     )
     more_delay_errors = teacher_recovery_errors(
-        tuple((0.05, 0.025, 0.0125) for _ in range(5)),
+        tuple(
+            (
+                (math.log(1.05),),
+                (math.log(1.025),),
+                (math.log(1.0125),),
+            )
+            for _ in range(5)
+        ),
         reference,
         RecoveryContract(delays_ms=(0, 5, 10), dt_ms=5.0),
     )

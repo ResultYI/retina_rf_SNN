@@ -186,7 +186,7 @@ def test_dynamic_rf_teacher_comparison_hardens_teacher_gate_samples() -> None:
         (
             _teacher_result("not_supported", (0.1,) * 3, (0.05,) * 3),
             _teacher_result("not_supported", (0.4,) * 3, (0.2,) * 3),
-            "supported",
+            "not_supported",
         ),
     )
 

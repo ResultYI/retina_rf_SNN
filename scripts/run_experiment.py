@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import shutil
 import sys
 from dataclasses import asdict
 from pathlib import Path
@@ -98,6 +99,7 @@ def _run(args: argparse.Namespace, output: Path) -> None:
             config=config,
         )
     elif args.resume:
+        _restore_resume_best(Path(args.resume), best_path)
         step, best_nll = load_response_checkpoint(
             args.resume,
             model=model,
@@ -192,6 +194,22 @@ def _cone_spacing(positions: np.ndarray) -> float:
     )
     distances[distances == 0] = np.inf
     return float(np.median(distances.min(axis=1)))
+
+
+def _restore_resume_best(resume_path: Path, output_best_path: Path) -> None:
+    if output_best_path.exists():
+        return
+    previous_best = (
+        resume_path
+        if resume_path.name == output_best_path.name
+        else resume_path.with_name(output_best_path.name)
+    )
+    if not previous_best.exists():
+        raise ResponseExperimentError(
+            "Resume requires the historical checkpoint_best_nll.pt"
+        )
+    if previous_best.resolve() != output_best_path.resolve():
+        shutil.copy2(previous_best, output_best_path)
 
 
 if __name__ == "__main__":

@@ -120,6 +120,50 @@ def test_dataset_fingerprint_includes_response_content(tmp_path: Path) -> None:
     assert first_data.fingerprint != second_data.fingerprint
 
 
+def test_dataset_fingerprint_includes_applied_normalization(tmp_path: Path) -> None:
+    roots = (tmp_path / "first", tmp_path / "second")
+    for root, mean in zip(roots, (0.0, 1.0), strict=True):
+        _write_split_files(root)
+        for split in ("train", "validation", "test"):
+            with h5py.File(root / f"{split}.h5", "r+") as handle:
+                teacher = handle.create_group("teacher")
+                teacher.create_dataset("input_mean", data=np.full(3, mean))
+                teacher.create_dataset("input_std", data=np.ones(3))
+
+    assert (
+        prepare_response_data(_data_config(roots[0])).fingerprint
+        != prepare_response_data(_data_config(roots[1])).fingerprint
+    )
+
+
+@pytest.mark.parametrize(
+    ("dataset", "value"),
+    (
+        ("cell/type_id", np.asarray([b"parasol", b"parasol"])),
+        ("cell/polarity", np.asarray([1, 1], dtype=np.uint8)),
+        ("cell/position_degs", np.ones((2, 2))),
+        ("cell/eccentricity_deg", np.asarray([5.0, 5.0])),
+        ("time_axis_seconds", np.arange(6) * 0.01),
+    ),
+)
+def test_rejects_split_metadata_mismatch(
+    tmp_path: Path,
+    dataset: str,
+    value: np.ndarray,
+) -> None:
+    _write_response(tmp_path / "train.h5", source="train")
+    _write_response(tmp_path / "validation.h5", source="validation")
+    with h5py.File(tmp_path / "validation.h5", "r+") as handle:
+        del handle[dataset]
+        handle.create_dataset(dataset, data=value)
+
+    with pytest.raises(RGCResponseContractError):
+        validate_response_splits(
+            (load_rgc_response(tmp_path / "train.h5"),),
+            (load_rgc_response(tmp_path / "validation.h5"),),
+        )
+
+
 def test_prepare_response_data_keeps_real_train_fitted_normalization(
     tmp_path: Path,
 ) -> None:

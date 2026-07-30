@@ -110,8 +110,8 @@ def _compare_teacher_gate(
         bootstrap_iterations,
         seed + 1,
     )
-    if trained.status == "teacher_mismatch":
-        status = "teacher_mismatch"
+    if trained.status != "supported":
+        status = trained.status
     elif primary_ci is None or recovery_ci is None:
         status = "not_supported"
     else:

@@ -85,7 +85,10 @@ def align_teacher_dynamic_rf(
 
 
 def teacher_recovery_errors(
-    model_recovery: tuple[float | tuple[float, ...], ...],
+    model_recovery: tuple[
+        tuple[tuple[float, ...], ...],
+        ...,
+    ],
     reference: TeacherDynamicReference,
     contract: RecoveryContract,
 ) -> tuple[float, ...]:
@@ -94,23 +97,19 @@ def teacher_recovery_errors(
     expected = _teacher_recovery(reference.context_gain_envelope, contract)
     if not model_recovery:
         return ()
-    first = model_recovery[0]
-    if isinstance(first, tuple):
-        return tuple(
-            _curve_error(source_curve, expected)
-            for source_curve in model_recovery
-            if isinstance(source_curve, tuple)
-        )
     count = min(len(model_recovery), len(expected))
-    return tuple(abs(float(model_recovery[index]) - expected[index]) for index in range(count))
+    return tuple(
+        _curve_error(model_recovery[index], expected[index])
+        for index in range(count)
+    )
 
 
 def classify_teacher_status(
     base_status: str,
     alignments: list[TeacherDynamicAlignment],
 ) -> str:
-    if base_status == "not_identifiable" or not alignments:
-        return "not_identifiable"
+    if base_status != "supported" or not alignments:
+        return base_status
     statuses = {alignment.status for alignment in alignments}
     if "not_identifiable" in statuses:
         return "not_identifiable"
@@ -206,29 +205,52 @@ def _alignment_status(
 def _teacher_recovery(
     envelope: torch.Tensor,
     contract: RecoveryContract,
-) -> tuple[float, ...]:
-    effects = (envelope[1::2] - envelope[0::2]).abs().mean(dim=(0, 2))
-    final = float(effects[-1])
-    if effects.shape[0] < 2 or final <= _EPS:
-        return tuple(float("inf") for _ in contract.delays_ms)
-    ratio = float((effects[-1] / effects[-2].clamp_min(_EPS)).clamp(0, 1))
+) -> tuple[tuple[tuple[float, ...], ...], ...]:
+    low = envelope[0::2]
+    high = envelope[1::2]
+    if low.shape[1] < 2:
+        return ()
+    previous_effect = high[:, -2] - low[:, -2]
+    final_effect = high[:, -1] - low[:, -1]
+    ratio = (final_effect.abs() / previous_effect.abs().clamp_min(_EPS)).clamp(0, 1)
     return tuple(
-        final * ratio ** max(0, round(delay_ms / contract.dt_ms))
-        for delay_ms in contract.delays_ms
+        tuple(
+            tuple(
+                float(value)
+                for value in (
+                    (
+                        1
+                        + (high[source, -1] - 1)
+                        * ratio[source]
+                        ** max(0, round(delay_ms / contract.dt_ms))
+                    ).clamp_min(_EPS)
+                    / (
+                        1
+                        + (low[source, -1] - 1)
+                        * ratio[source]
+                        ** max(0, round(delay_ms / contract.dt_ms))
+                    ).clamp_min(_EPS)
+                ).log()
+            )
+            for delay_ms in contract.delays_ms
+        )
+        for source in range(low.shape[0])
     )
 
 
 def _curve_error(
-    model_curve: tuple[float, ...],
-    expected_curve: tuple[float, ...],
+    model_curve: tuple[tuple[float, ...], ...],
+    expected_curve: tuple[tuple[float, ...], ...],
 ) -> float:
-    count = min(len(model_curve), len(expected_curve))
-    if count == 0:
+    delays = min(len(model_curve), len(expected_curve))
+    if delays == 0:
         return float("inf")
-    return sum(
-        abs(model_curve[index] - expected_curve[index])
-        for index in range(count)
-    ) / count
+    errors = [
+        abs(model_curve[delay][cell] - expected_curve[delay][cell])
+        for delay in range(delays)
+        for cell in range(min(len(model_curve[delay]), len(expected_curve[delay])))
+    ]
+    return sum(errors) / len(errors) if errors else float("inf")
 
 
 __all__ = [

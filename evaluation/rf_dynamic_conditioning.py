@@ -4,6 +4,7 @@ import torch
 
 from evaluation.rf_static import StaticRFResult, extract_static_rf
 from models.response_snn import ResponseRetinaModel
+from training.response_data import masked_history_counts
 
 
 def conditioned_rf(
@@ -28,7 +29,10 @@ def conditioned_rf(
             model,
             sequence,
             lag_steps=lag_steps,
-            observed_counts=counts[trial : trial + 1].masked_fill(~trial_mask, 0.0),
+            observed_counts=masked_history_counts(
+                counts[trial : trial + 1],
+                trial_mask,
+            ),
         )
         kernels.append(rf.kernels)
         errors.append(rf.finite_difference_relative_error)

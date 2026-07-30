@@ -14,7 +14,11 @@ from loss.rgc_response import response_nll
 from models.response_snn import ResponseRetinaModel
 from training.response_checkpointing import save_response_checkpoint
 from training.response_config import ResponseExperimentConfig
-from training.response_data import PreparedResponseData, ResponseSplit
+from training.response_data import (
+    PreparedResponseData,
+    ResponseSplit,
+    masked_history_counts,
+)
 from training.response_unroll import ResponseUnrollRequest, unroll_response
 
 
@@ -59,11 +63,12 @@ class ResponseTrainer:
     ) -> ResponseStepResult:
         self.model.train()
         self.optimizer.zero_grad(set_to_none=True)
+        history_counts = masked_history_counts(counts, mask)
         output, _ = unroll_response(
             ResponseUnrollRequest(
                 model=self.model,
                 cone_response=cones,
-                observed_counts=counts,
+                observed_counts=history_counts,
                 burn_in_steps=self.config.training.burn_in_steps,
                 differentiable_steps=self.config.training.differentiable_steps,
                 checkpoint_block_steps=self.config.training.checkpoint_block_steps,
@@ -122,11 +127,12 @@ class ResponseTrainer:
                     burn = self.config.training.burn_in_steps
                     output_logits = full_output.spike_logits[:, burn:]
                 else:
+                    history_counts = masked_history_counts(counts, mask)
                     output, _ = unroll_response(
                         ResponseUnrollRequest(
                             self.model,
                             cones,
-                            counts,
+                            history_counts,
                             self.config.training.burn_in_steps,
                             self.config.training.differentiable_steps,
                             self.config.training.checkpoint_block_steps,

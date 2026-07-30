@@ -139,7 +139,12 @@ def _metrics(nll: float) -> ResponseMetrics:
     return ResponseMetrics(nll, 0.1, 0.2, 0.3, 0.4, (nll,))
 
 
-def _fit_glm(data: PreparedResponseData, *, device: torch.device) -> GLMFitResult:
+def _fit_glm(
+    data: PreparedResponseData,
+    *,
+    device: torch.device,
+    burn_in_steps: int = 0,
+) -> GLMFitResult:
     metrics = _metrics(0.6)
     return GLMFitResult(PointProcessGLM(1, 1, 1), metrics, metrics, 1)
 

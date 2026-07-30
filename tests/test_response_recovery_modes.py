@@ -5,6 +5,7 @@ from dataclasses import dataclass
 import torch
 
 from evaluation.rf_dynamic import evaluate_dynamic_rf
+from training import response_data
 from training.response_data import ResponseSplit
 
 
@@ -51,6 +52,11 @@ def test_conditional_recovery_uses_observed_history() -> None:
     # Then
     assert conditional.recovery_shape_distances != base.recovery_shape_distances
     assert conditional.reset_shape_distance != base.reset_shape_distance
+    assert (
+        conditional.recovery_mean_log_gain_shifts
+        != base.recovery_mean_log_gain_shifts
+    )
+    assert conditional.reset_log_gain_shift != base.reset_log_gain_shift
     assert free.recovery_shape_distances == free_again.recovery_shape_distances
     assert free.reset_shape_distance == free_again.reset_shape_distance
 
@@ -82,6 +88,15 @@ def test_conditional_recovery_zeroes_invalid_history_bins() -> None:
     # Then
     assert reference.recovery_shape_distances == changed.recovery_shape_distances
     assert reference.reset_shape_distance == changed.reset_shape_distance
+
+
+def test_invalid_spike_bins_are_zeroed_before_state_updates() -> None:
+    counts = torch.tensor([[[1.0], [9.0], [1.0]]])
+    mask = torch.tensor([[[True], [False], [True]]])
+
+    history = response_data.masked_history_counts(counts, mask)
+
+    assert history.tolist() == [[[1.0], [0.0], [1.0]]]
 
 
 @dataclass(frozen=True, slots=True)

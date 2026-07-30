@@ -108,6 +108,10 @@ def _static_block(evidence: RFModeEvidence) -> JsonMap:
     }
     if evidence.static_reference is not None:
         value["reference_comparison"] = _kernel_reference(evidence.static_reference)
+    if evidence.initialized_static_reference is not None:
+        value["initialized_reference_comparison"] = _kernel_reference(
+            evidence.initialized_static_reference
+        )
     return value
 
 

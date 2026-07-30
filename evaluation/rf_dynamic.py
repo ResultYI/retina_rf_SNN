@@ -10,7 +10,7 @@ from evaluation.rf_dynamic_metrics import (
     trial_conditioned_rf,
 )
 from evaluation.rf_dynamic_recovery import (
-    recovery_distance,
+    mean_distances,
     recovery_distances_by_source,
     reset_distance,
 )
@@ -106,25 +106,17 @@ def evaluate_dynamic_rf(
             )
         )
         identifiable = identifiable and low_rf.identifiable and high_rf.identifiable
-    reset_shape = reset_distance(
-        model,
-        split,
-        pairs[0],
-        lag_steps,
-        condition_on_observed=condition_on_observed,
-    )
-    recovery = tuple(
-        recovery_distance(
+    reset_by_source = tuple(
+        reset_distance(
             model,
             split,
-            pairs,
+            pair,
             lag_steps,
-            delay,
-            dt_ms,
             condition_on_observed=condition_on_observed,
         )
-        for delay in recovery_delays_ms
+        for pair in pairs
     )
+    reset = mean_distances(reset_by_source)
     recovery_by_source = recovery_distances_by_source(
         model,
         split,
@@ -133,6 +125,12 @@ def evaluate_dynamic_rf(
         recovery_delays_ms,
         dt_ms,
         condition_on_observed=condition_on_observed,
+    )
+    recovery = tuple(
+        mean_distances(
+            tuple(source_curve[delay_index] for source_curve in recovery_by_source)
+        )
+        for delay_index in range(len(recovery_delays_ms))
     )
     shape_ci = bootstrap_ci(shapes, bootstrap_iterations, seed)
     gain_ci = bootstrap_ci(gains, bootstrap_iterations, seed + 1)
@@ -149,13 +147,17 @@ def evaluate_dynamic_rf(
         mean_shape,
         mean_gain,
         identifiable=identifiable,
-        reset_shape_distance=reset_shape,
+        reset_shape_distance=reset.shape_distance,
+        reset_log_gain_shift=reset.mean_absolute_gain_shift,
     )
     if teacher_reference is not None:
         status = classify_teacher_status(status, teacher_alignments)
     recovery_errors = (
         teacher_recovery_errors(
-            recovery_by_source,
+            tuple(
+                tuple(point.signed_gain_shifts for point in source_curve)
+                for source_curve in recovery_by_source
+            ),
             teacher_reference,
             RecoveryContract(recovery_delays_ms, dt_ms),
         )
@@ -171,8 +173,10 @@ def evaluate_dynamic_rf(
         mean_log_gain_shift=mean_gain,
         shape_distance_ci=shape_ci,
         gain_shift_ci=gain_ci,
-        reset_shape_distance=reset_shape,
-        recovery_shape_distances=recovery,
+        reset_shape_distance=reset.shape_distance,
+        recovery_shape_distances=tuple(
+            point.shape_distance for point in recovery
+        ),
         finite_difference_relative_error=finite_error,
         teacher_shape_error=teacher_shape_error,
         teacher_gain_error=teacher_gain_error,
@@ -198,6 +202,19 @@ def evaluate_dynamic_rf(
                 alignment.kernel_delta_cosine_distance
                 for alignment in teacher_alignments
             ]
+        ),
+        reset_log_gain_shift=reset.mean_absolute_gain_shift,
+        recovery_mean_log_gain_shifts=tuple(
+            point.mean_absolute_gain_shift for point in recovery
+        ),
+        recovery_signed_gain_shifts=tuple(
+            point.signed_gain_shifts for point in recovery
+        ),
+        per_source_reset_shape_distances=tuple(
+            point.shape_distance for point in reset_by_source
+        ),
+        per_source_reset_gain_shifts=tuple(
+            point.mean_absolute_gain_shift for point in reset_by_source
         ),
     )
 

@@ -24,6 +24,7 @@ data/*
 !data/geometry.py
 !data/rgc_response.py
 !data/rgc_response_export.py
+!data/synthetic_teacher.py
 datasets/
 results/
 runs/

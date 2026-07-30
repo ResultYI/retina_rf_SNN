@@ -37,7 +37,11 @@ def evaluate_and_report_response_experiment(
 ) -> None:
     conditional = trainer.evaluate(data.test)
     free_running = trainer.evaluate(data.test, free_running=True)
-    glm = fit_point_process_glm(data, device=trainer.device)
+    glm = fit_point_process_glm(
+        data,
+        device=trainer.device,
+        burn_in_steps=config.training.burn_in_steps,
+    )
     teacher = _teacher_metadata(config.data.test_glob)
     teacher_dynamic = (
         None
@@ -61,24 +65,47 @@ def evaluate_and_report_response_experiment(
             device=model.rgc.support_mask.device,
         )
     )
-    probe = data.test.cone_response[0:1].to(trainer.device)
-    conditional_static = trial_conditioned_rf(
-        model,
-        data.test,
-        0,
-        config.evaluation.rf_lag_steps,
+    conditional_static = _mean_static_rf(
+        tuple(
+            trial_conditioned_rf(
+                model,
+                data.test,
+                index,
+                config.evaluation.rf_lag_steps,
+            )
+            for index in range(data.test.cone_response.shape[0])
+        )
     )
-    initialized_conditional_static = trial_conditioned_rf(
-        initialized_model,
-        data.test,
-        0,
-        config.evaluation.rf_lag_steps,
+    initialized_conditional_static = _mean_static_rf(
+        tuple(
+            trial_conditioned_rf(
+                initialized_model,
+                data.test,
+                index,
+                config.evaluation.rf_lag_steps,
+            )
+            for index in range(data.test.cone_response.shape[0])
+        )
     )
-    free_static = extract_static_rf(
-        model, probe, lag_steps=config.evaluation.rf_lag_steps
+    free_static = _mean_static_rf(
+        tuple(
+            extract_static_rf(
+                model,
+                data.test.cone_response[index : index + 1].to(trainer.device),
+                lag_steps=config.evaluation.rf_lag_steps,
+            )
+            for index in range(data.test.cone_response.shape[0])
+        )
     )
-    initialized_free_static = extract_static_rf(
-        initialized_model, probe, lag_steps=config.evaluation.rf_lag_steps
+    initialized_free_static = _mean_static_rf(
+        tuple(
+            extract_static_rf(
+                initialized_model,
+                data.test.cone_response[index : index + 1].to(trainer.device),
+                lag_steps=config.evaluation.rf_lag_steps,
+            )
+            for index in range(data.test.cone_response.shape[0])
+        )
     )
     conditional_dynamic = evaluate_dynamic_rf(
         model,
@@ -155,6 +182,10 @@ def evaluate_and_report_response_experiment(
                 dynamic_rf=conditional_dynamic,
                 initialized_dynamic_rf=initialized_conditional_dynamic,
                 dynamic_comparison=conditional_comparison,
+                initialized_static_reference=_static_reference(
+                    initialized_conditional_static,
+                    teacher,
+                ),
             ),
             free_running_rf=RFModeEvidence(
                 static_rf=free_static,
@@ -163,6 +194,10 @@ def evaluate_and_report_response_experiment(
                 dynamic_rf=free_dynamic,
                 initialized_dynamic_rf=initialized_free_dynamic,
                 dynamic_comparison=free_comparison,
+                initialized_static_reference=_static_reference(
+                    initialized_free_static,
+                    teacher,
+                ),
             ),
             synthetic=teacher is not None,
             checkpoint=str(checkpoint.resolve()),
@@ -201,6 +236,14 @@ def _static_reference(
     return KernelReferenceComparison(
         comparison["mean_kernel_correlation"],
         comparison["mean_kernel_norm"],
+    )
+
+
+def _mean_static_rf(results: tuple[StaticRFResult, ...]) -> StaticRFResult:
+    return StaticRFResult(
+        torch.stack([result.kernels for result in results]).mean(dim=0),
+        max(result.finite_difference_relative_error for result in results),
+        all(result.identifiable for result in results),
     )
 
 

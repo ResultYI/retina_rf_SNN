@@ -9,7 +9,11 @@ from torch import nn
 from data.rgc_response import ResponseTargetKind
 from evaluation.response_metrics import ResponseMetrics, compute_response_metrics
 from loss.rgc_response import response_nll
-from training.response_data import PreparedResponseData, ResponseSplit
+from training.response_data import (
+    PreparedResponseData,
+    ResponseSplit,
+    masked_history_counts,
+)
 
 
 class GLMError(ValueError):
@@ -68,6 +72,7 @@ def fit_point_process_glm(
     device: torch.device,
     steps: int = 100,
     temporal_lags: int = 16,
+    burn_in_steps: int = 0,
 ) -> GLMFitResult:
     model = PointProcessGLM(
         data.train.cone_response.shape[-1],
@@ -76,14 +81,16 @@ def fit_point_process_glm(
     ).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.03)
     cones, counts, mask = _all_trials(data.train, device)
-    baseline_rates = _baseline_rates(data.train, device)
+    history_counts = masked_history_counts(counts, mask)
+    mask = _supervised_mask(mask, burn_in_steps)
+    baseline_rates = _baseline_rates(data.train, device, burn_in_steps)
     best_state = copy.deepcopy(model.state_dict())
     best_step = 0
     best_nll = float("inf")
     for step in range(1, steps + 1):
         optimizer.zero_grad(set_to_none=True)
         loss = response_nll(
-            model(cones, counts),
+            model(cones, history_counts),
             counts,
             mask,
             data.target_kind,
@@ -96,6 +103,7 @@ def fit_point_process_glm(
             data.target_kind,
             baseline_rates,
             device,
+            burn_in_steps,
         )
         if validation.nll < best_nll:
             best_nll = validation.nll
@@ -108,6 +116,7 @@ def fit_point_process_glm(
         data.target_kind,
         baseline_rates,
         device,
+        burn_in_steps,
     )
     test = _evaluate_split(
         model,
@@ -115,6 +124,7 @@ def fit_point_process_glm(
         data.target_kind,
         baseline_rates,
         device,
+        burn_in_steps,
     )
     return GLMFitResult(model, validation, test, best_step)
 
@@ -125,10 +135,13 @@ def _evaluate_split(
     target_kind: ResponseTargetKind,
     baseline_rates: torch.Tensor,
     device: torch.device,
+    burn_in_steps: int,
 ) -> ResponseMetrics:
     cones, counts, mask = _all_trials(split, device)
+    history_counts = masked_history_counts(counts, mask)
+    mask = _supervised_mask(mask, burn_in_steps)
     with torch.no_grad():
-        logits = model(cones, counts)
+        logits = model(cones, history_counts)
     shape = split.spike_counts.shape
     return compute_response_metrics(
         logits.reshape(shape),
@@ -163,13 +176,22 @@ def _all_trials(
 def _baseline_rates(
     split: ResponseSplit,
     device: torch.device,
+    burn_in_steps: int,
 ) -> torch.Tensor:
-    mask = split.valid_mask.to(torch.float32)
+    mask = _supervised_mask(split.valid_mask, burn_in_steps).to(torch.float32)
     rates = (split.spike_counts * mask).sum(dim=(0, 1, 2))
     rates /= mask.sum(dim=(0, 1, 2)).clamp_min(1)
     if rates.numel() == 0:
         raise GLMError(f"No valid {ResponseTargetKind} responses")
     return rates.to(device)
+
+
+def _supervised_mask(mask: torch.Tensor, burn_in_steps: int) -> torch.Tensor:
+    if burn_in_steps < 0 or burn_in_steps >= mask.shape[-2]:
+        raise GLMError("burn_in_steps must leave at least one supervised bin")
+    supervised = mask.clone()
+    supervised[..., :burn_in_steps, :] = False
+    return supervised
 
 
 __all__ = ["GLMError", "GLMFitResult", "PointProcessGLM", "fit_point_process_glm"]
