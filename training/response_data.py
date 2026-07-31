@@ -15,6 +15,7 @@ from data.rgc_response import (
     load_rgc_response,
     validate_response_splits,
 )
+from data.input_identity import InputIdentity
 from data.synthetic_teacher import (
     TeacherInputNormalization,
     load_teacher_input_normalization,
@@ -43,10 +44,11 @@ class PreparedResponseData:
     normalization_mean: np.ndarray
     normalization_std: np.ndarray
     fingerprint: str
+    input_identity: InputIdentity
 
     @property
     def dt_ms(self) -> float:
-        return float(np.mean(np.diff(self.time_axis_seconds)) * 1000)
+        return float(np.median(np.diff(self.time_axis_seconds)) * 1000)
 
 
 def prepare_response_data(config: ResponseDataConfig) -> PreparedResponseData:
@@ -95,6 +97,7 @@ def prepare_response_data(config: ResponseDataConfig) -> PreparedResponseData:
         normalization_mean=mean,
         normalization_std=std,
         fingerprint=fingerprint,
+        input_identity=reference.input_identity,
     )
 
 
@@ -211,6 +214,14 @@ def _fingerprint(
     ):
         digest.update(split_name.encode())
         for session in sessions:
+            for value in session.input_identity.compatibility_key():
+                digest.update(value.encode())
+                digest.update(b"\0")
+            digest.update(
+                "\0".join(
+                    session.input_identity.stimulus_source_fingerprints
+                ).encode()
+            )
             digest.update("\0".join(session.cells.ids).encode())
             digest.update("\0".join(session.cells.type_ids).encode())
             digest.update(session.cells.polarities.tobytes())

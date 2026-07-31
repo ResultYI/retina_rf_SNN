@@ -5,6 +5,7 @@ from pathlib import Path
 
 import numpy as np
 
+from data.input_identity import InputIdentity, synthetic_input_identity
 from data.rgc_response import CellMetadata, RGCResponseSession, ResponseTargetKind
 from data.synthetic_teacher import TeacherInputNormalization
 
@@ -31,6 +32,7 @@ def generate_teacher_responses(
     seed: int,
     adaptive: bool,
     teacher_normalization: TeacherInputNormalization,
+    input_identity: InputIdentity | None = None,
 ) -> SyntheticTeacherResult:
     if cone_sequences.ndim != 3 or trials < 1:
         raise SyntheticTeacherError(
@@ -59,6 +61,19 @@ def generate_teacher_responses(
     paired_cones, paired_sources, contexts = _matched_context_pairs(
         cone_sequences,
         source_ids,
+    )
+    identity = input_identity or synthetic_input_identity(cone_count, source_ids)
+    if len(identity.stimulus_source_fingerprints) != len(source_ids):
+        raise SyntheticTeacherError(
+            "Input identity fingerprints must match synthetic source ids"
+        )
+    fingerprints = dict(
+        zip(source_ids, identity.stimulus_source_fingerprints, strict=True)
+    )
+    paired_identity = identity.with_sources(
+        tuple(fingerprints[source_id] for source_id in paired_sources),
+        generator_name=f"{identity.generator_name}+point_process_teacher",
+        generator_revision=f"{identity.generator_revision}+1",
     )
     logits = _causal_logits(paired_cones, kernels, teacher_normalization)
     low_scale = np.ones(cell_count, dtype=np.float32)
@@ -90,6 +105,7 @@ def generate_teacher_responses(
         context_ids=contexts,
         target_kind=ResponseTargetKind.BERNOULLI,
         path=Path("<synthetic-memory>"),
+        input_identity=paired_identity,
     )
     low_index = contexts.index("low")
     high_index = contexts.index("high")

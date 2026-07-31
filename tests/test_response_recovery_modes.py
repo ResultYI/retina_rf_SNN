@@ -9,7 +9,7 @@ from training import response_data
 from training.response_data import ResponseSplit
 
 
-def test_conditional_recovery_uses_observed_history() -> None:
+def test_conditional_recovery_matches_final_probe_history() -> None:
     # Given
     model = _HistoryCausalModel()
     baseline = _split_with_recovery_history(0.0)
@@ -50,13 +50,13 @@ def test_conditional_recovery_uses_observed_history() -> None:
     )
 
     # Then
-    assert conditional.recovery_shape_distances != base.recovery_shape_distances
-    assert conditional.reset_shape_distance != base.reset_shape_distance
+    assert conditional.recovery_shape_distances == base.recovery_shape_distances
+    assert conditional.reset_shape_distance == base.reset_shape_distance
     assert (
         conditional.recovery_mean_log_gain_shifts
-        != base.recovery_mean_log_gain_shifts
+        == base.recovery_mean_log_gain_shifts
     )
-    assert conditional.reset_log_gain_shift != base.reset_log_gain_shift
+    assert conditional.reset_log_gain_shift == base.reset_log_gain_shift
     assert free.recovery_shape_distances == free_again.recovery_shape_distances
     assert free.reset_shape_distance == free_again.reset_shape_distance
 

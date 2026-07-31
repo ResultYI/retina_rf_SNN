@@ -29,6 +29,12 @@ eyeMovementEnabled = cfg_bool(cfg, 'eye_movement_enabled', true);
 displayFile = cfg_text(cfg, 'display_file', 'LCD-Apple.mat');
 stimulusSourceKind = cfg_text(cfg, 'stimulus_source_kind', 'unspecified');
 sourceMovieId = cfg_text(cfg, 'source_movie_id', '');
+requestedOpticsSpecies = lower(cfg_text(cfg, 'optics_species', 'human'));
+requestedMosaicSpecies = lower(cfg_text(cfg, 'mosaic_species', 'human'));
+if ~strcmp(requestedOpticsSpecies, 'human') || ~strcmp(requestedMosaicSpecies, 'human')
+    error('retinaSNN:UnsupportedSpecies', ...
+        'Stage -1 uses human ISETBio optics/cMosaic; macaque requires a real supplier.');
+end
 if strcmp(stimulusSourceKind, 'natural_video') && isempty(strtrim(sourceMovieId))
     error('retinaSNN:MissingSourceMovieId', ...
         'natural_video export requires an explicit source_movie_id.');
@@ -67,6 +73,8 @@ coneTypes = uint8(cm.coneTypes(:));
 [coneResponse, conePositionsDegs, coneTypes] = crop_cone_export( ...
     coneResponse, conePositionsDegs, coneTypes, exportCropFovDeg, ...
     eccentricityDegs);
+mosaicFingerprint = sha256_numeric(conePositionsDegs, coneTypes);
+sourceContentFingerprint = source_content_sha256(inputPath);
 validate_response(coneResponse, conePositionsDegs, coneTypes, timeAxisSeconds);
 lmsResponse = build_lms_response(single(coneResponse), coneTypes);
 achromaticResponse = single(sum(lmsResponse, 3));
@@ -82,6 +90,7 @@ write_numeric(outputPath, '/eye_movement_xy_deg', eyeTraceDegs);
 write_text(outputPath, '/config_json', jsonencode(cfg));
 write_text(outputPath, '/source_image_path', inputPath);
 write_text(outputPath, '/source_image_id', source_id(inputPath));
+write_text(outputPath, '/source_content_sha256', sourceContentFingerprint);
 if ~isempty(sourceMovieId)
     write_text(outputPath, '/source_movie_id', sourceMovieId);
 end
@@ -99,7 +108,8 @@ write_text(outputPath, '/input_path', inputPath);
 write_text(outputPath, '/input_kind', inputKind);
 
 write_metadata(outputPath, cfg, dtMs, fieldOfViewDeg, exportCropFovDeg, ...
-    eccentricityDegs, randomSeed, achromaticStimulus);
+    eccentricityDegs, randomSeed, achromaticStimulus, meanLuminanceCdM2, ...
+    mosaicFingerprint);
 fprintf('Generated Stage -1 cone HDF5: %s\n', outputPath);
 fprintf('  logical cone_response_lms [T,Ncone,3] = [%d,%d,3]\n', ...
     size(lmsResponse, 1), size(lmsResponse, 2));
@@ -361,7 +371,8 @@ datasetSize = size(value);
 end
 
 function write_metadata(path, cfg, dtMs, mosaicFieldOfViewDeg, ...
-    exportCropFovDeg, eccentricityDegs, randomSeed, achromaticStimulus)
+    exportCropFovDeg, eccentricityDegs, randomSeed, achromaticStimulus, ...
+    meanLuminanceCdM2, mosaicFingerprint)
 h5writeatt(path, '/', 'dt_ms', dtMs);
 h5writeatt(path, '/', 'field_of_view_deg', exportCropFovDeg);
 h5writeatt(path, '/', 'source_mosaic_field_of_view_deg', mosaicFieldOfViewDeg);
@@ -371,6 +382,26 @@ h5writeatt(path, '/', 'mosaic_type', 'cMosaic');
 h5writeatt(path, '/', 'mosaic_seed', cfg_int(cfg, 'mosaic_seed', randomSeed));
 h5writeatt(path, '/', 'stimulus_seed', randomSeed);
 h5writeatt(path, '/', 'is_achromatic_stimulus', uint8(achromaticStimulus));
+h5writeatt(path, '/', 'dataset_kind', 'synthetic_method_validation');
+h5writeatt(path, '/', 'species', 'human');
+h5writeatt(path, '/', 'optics_species', 'human');
+h5writeatt(path, '/', 'mosaic_species', 'human');
+h5writeatt(path, '/', 'photoreceptor_mode', 'cone_only');
+if achromaticStimulus
+    h5writeatt(path, '/', 'chromatic_mode', 'achromatic');
+else
+    h5writeatt(path, '/', 'chromatic_mode', 'chromatic');
+end
+h5writeatt(path, '/', 'light_level', 'photopic');
+h5writeatt(path, '/', 'mean_luminance_cd_m2', meanLuminanceCdM2);
+h5writeatt(path, '/', 'cone_mosaic_id', sprintf('cMosaic-seed-%d', ...
+    cfg_int(cfg, 'mosaic_seed', randomSeed)));
+h5writeatt(path, '/', 'cone_mosaic_fingerprint', mosaicFingerprint);
+h5writeatt(path, '/', 'generator_name', 'ISETBio-cMosaic');
+h5writeatt(path, '/', 'generator_revision', git_commit(getenv('ISETBIO_ROOT')));
+h5writeatt(path, '/', 'cone_bin_reference', 'interval_end');
+h5writeatt(path, '/', 'spike_bin_reference', 'interval_end');
+h5writeatt(path, '/', 'stimulus_to_spike_offset_bins', int64(0));
 h5writeatt(path, '/', 'stimulus_source_kind', ...
     cfg_text(cfg, 'stimulus_source_kind', 'unspecified'));
 h5writeatt(path, '/', 'achromatic_projection_method', 'type_routed_lms_sum');
@@ -394,4 +425,40 @@ end
 function id = source_id(path)
 [~, name, ext] = fileparts(path);
 id = [name ext];
+end
+
+function hex = sha256_numeric(varargin)
+digest = java.security.MessageDigest.getInstance('SHA-256');
+for index = 1:numel(varargin)
+    digest.update(typecast(varargin{index}(:), 'uint8'));
+end
+hex = digest_hex(digest.digest());
+end
+
+function hex = source_content_sha256(path)
+digest = java.security.MessageDigest.getInstance('SHA-256');
+if isfolder(path)
+    files = list_images(path, {'.png', '.jpg', '.jpeg', '.tif', '.tiff', '.bmp'});
+    for index = 1:numel(files)
+        digest.update(uint8(unicode2native(files(index).name, 'UTF-8')));
+        digest.update(read_file_bytes(fullfile(files(index).folder, files(index).name)));
+    end
+else
+    digest.update(read_file_bytes(path));
+end
+hex = digest_hex(digest.digest());
+end
+
+function bytes = read_file_bytes(path)
+file = fopen(path, 'rb');
+if file < 0
+    error('retinaSNN:InputNotFound', 'Cannot read input for hashing: %s', path);
+end
+cleanup = onCleanup(@() fclose(file));
+bytes = fread(file, inf, '*uint8');
+end
+
+function hex = digest_hex(value)
+bytes = typecast(value, 'uint8');
+hex = lower(reshape(dec2hex(bytes, 2).', 1, []));
 end

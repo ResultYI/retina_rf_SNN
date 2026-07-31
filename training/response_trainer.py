@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from uuid import uuid4
 
 import torch
 
@@ -50,9 +51,13 @@ class ResponseTrainer:
         self.sampling_generator = torch.Generator().manual_seed(config.seed + 1)
         self.optimizer_step = 0
         self.best_nll = float("inf")
+        self.best_checkpoint_step = 0
+        self.run_id = uuid4().hex
+        self.parent_run_id: str | None = None
+        burn_in = config.training.burn_in_steps
         self.baseline_rates = training_baseline_rates(
-            data.train.spike_counts.flatten(0, 1),
-            data.train.valid_mask.flatten(0, 1),
+            data.train.spike_counts[:, :, burn_in:].flatten(0, 1),
+            data.train.valid_mask[:, :, burn_in:].flatten(0, 1),
         ).to(device)
 
     def train_step(
@@ -158,17 +163,21 @@ class ResponseTrainer:
             self.baseline_rates,
         )
 
-    def save(self, path: str | Path) -> None:
+    def save(self, path: str | Path, checkpoint_kind: str) -> None:
         save_response_checkpoint(
             path,
             model=self.model,
             optimizer=self.optimizer,
             optimizer_step=self.optimizer_step,
             best_nll=self.best_nll,
+            best_checkpoint_step=self.best_checkpoint_step,
             generator=self.sampling_generator,
             fingerprint=self.data.fingerprint,
             target_kind=self.data.target_kind.value,
             config=self.config,
+            run_id=self.run_id,
+            parent_run_id=self.parent_run_id,
+            checkpoint_kind=checkpoint_kind,
         )
 
 

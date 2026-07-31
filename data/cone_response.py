@@ -1,11 +1,19 @@
 from __future__ import annotations
+# noqa: SIZE_OK — one HDF5 cone-response boundary keeps parsing and validation atomic.
 
 from collections.abc import Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from types import ModuleType
 
 import numpy as np
+
+from data.input_identity import (
+    DatasetKind,
+    InputIdentity,
+    InputIdentityError,
+    legacy_input_identity,
+)
 
 
 class DataContractError(ValueError):
@@ -25,6 +33,7 @@ class ConeResponseExport:
     source_movie_id: str | None = None
     stimulus_source_kind: str | None = None
     metadata_config: str | None = None
+    input_identity: InputIdentity = field(default_factory=legacy_input_identity)
 
 
 def load_cone_response(path: str | Path) -> ConeResponseExport:
@@ -92,6 +101,7 @@ def load_cone_response(path: str | Path) -> ConeResponseExport:
             handle,
             "stimulus_source_kind",
         )
+        input_identity = _read_input_identity(handle, cone_types, units)
 
     if response.shape != shape:
         raise DataContractError(
@@ -118,6 +128,7 @@ def load_cone_response(path: str | Path) -> ConeResponseExport:
         source_movie_id=source_movie_id,
         stimulus_source_kind=stimulus_source_kind,
         metadata_config=metadata_config,
+        input_identity=input_identity,
     )
 
 
@@ -177,6 +188,65 @@ def _optional_attribute_text(handle: h5py.File, name: str) -> str | None:
         return None
     value = np.asarray(handle.attrs[name]).astype(str).reshape(-1)
     return None if value.size == 0 else str(value[0])
+
+
+def _read_input_identity(
+    handle: h5py.File,
+    cone_types: np.ndarray,
+    units: str,
+) -> InputIdentity:
+    dataset_kind = _optional_attribute_text(handle, "dataset_kind")
+    if dataset_kind is None:
+        return legacy_input_identity()
+    source_fingerprint = _optional_text(handle, ("source_content_sha256",))
+    required_attributes = {
+        name: _optional_attribute_text(handle, name)
+        for name in (
+            "species",
+            "optics_species",
+            "mosaic_species",
+            "photoreceptor_mode",
+            "chromatic_mode",
+            "light_level",
+            "cone_mosaic_id",
+            "cone_mosaic_fingerprint",
+            "generator_name",
+            "generator_revision",
+            "cone_bin_reference",
+            "spike_bin_reference",
+        )
+    }
+    if source_fingerprint is None or any(
+        value is None for value in required_attributes.values()
+    ):
+        raise DataContractError("Cone export input identity is incomplete")
+    try:
+        return InputIdentity(
+            dataset_kind=DatasetKind(dataset_kind),
+            species=str(required_attributes["species"]),
+            optics_species=str(required_attributes["optics_species"]),
+            mosaic_species=str(required_attributes["mosaic_species"]),
+            photoreceptor_mode=str(required_attributes["photoreceptor_mode"]),
+            chromatic_mode=str(required_attributes["chromatic_mode"]),
+            light_level=str(required_attributes["light_level"]),
+            mean_luminance_cd_m2=float(handle.attrs["mean_luminance_cd_m2"]),
+            cone_types=tuple(int(value) for value in cone_types),
+            response_units=units,
+            mosaic_id=str(required_attributes["cone_mosaic_id"]),
+            mosaic_fingerprint=str(
+                required_attributes["cone_mosaic_fingerprint"]
+            ),
+            stimulus_source_fingerprints=(source_fingerprint,),
+            generator_name=str(required_attributes["generator_name"]),
+            generator_revision=str(required_attributes["generator_revision"]),
+            cone_bin_reference=str(required_attributes["cone_bin_reference"]),
+            spike_bin_reference=str(required_attributes["spike_bin_reference"]),
+            stimulus_to_spike_offset_bins=int(
+                handle.attrs["stimulus_to_spike_offset_bins"]
+            ),
+        )
+    except (InputIdentityError, KeyError, TypeError, ValueError) as exc:
+        raise DataContractError(f"Invalid cone input identity: {exc}") from exc
 
 
 def _formal_source_ids(

@@ -1,4 +1,5 @@
 from __future__ import annotations
+# noqa: SIZE_OK — legacy dataset boundary; this change reuses its compatibility path.
 
 from dataclasses import dataclass
 from pathlib import Path
@@ -59,10 +60,23 @@ def validate_compatible_cone_exports(
 ) -> tuple[ConeResponseExport, ...]:
     if not paths:
         raise DataContractError("At least one cone-response export is required")
-    exports = tuple(load_cone_response(Path(path)) for path in paths)
+    return validate_loaded_cone_exports(
+        tuple(load_cone_response(Path(path)) for path in paths)
+    )
+
+
+def validate_loaded_cone_exports(
+    exports: Sequence[ConeResponseExport],
+) -> tuple[ConeResponseExport, ...]:
+    exports = tuple(exports)
+    if not exports:
+        raise DataContractError("At least one cone-response export is required")
     reference = exports[0]
-    reference_dt_ms = float(np.median(np.diff(reference.time_axis_seconds)) * 1000.0)
     for export in exports[1:]:
+        if export.response.shape != reference.response.shape:
+            raise DataContractError(
+                "Cone-response exports do not use the same response shape"
+            )
         if (
             export.positions_degs.shape != reference.positions_degs.shape
             or not np.allclose(
@@ -78,6 +92,10 @@ def validate_compatible_cone_exports(
             raise DataContractError(
                 "Cone-response exports use different cone type ordering"
             )
+        if export.units != reference.units:
+            raise DataContractError(
+                "Cone-response exports use different response units"
+            )
         if not np.isclose(
             export.eccentricity_deg,
             reference.eccentricity_deg,
@@ -87,10 +105,21 @@ def validate_compatible_cone_exports(
             raise DataContractError(
                 "Cone-response exports use different retinal eccentricities"
             )
-        dt_ms = float(np.median(np.diff(export.time_axis_seconds)) * 1000.0)
-        if not np.isclose(dt_ms, reference_dt_ms, rtol=1e-6, atol=1e-6):
+        if not np.allclose(
+            export.time_axis_seconds,
+            reference.time_axis_seconds,
+            rtol=0.0,
+            atol=1e-9,
+        ):
             raise DataContractError(
-                "Cone-response exports use different temporal sampling intervals"
+                "Cone-response exports use different time axes"
+            )
+        if (
+            export.input_identity.compatibility_key()
+            != reference.input_identity.compatibility_key()
+        ):
+            raise DataContractError(
+                "Cone-response exports use different input identities"
             )
     return exports
 

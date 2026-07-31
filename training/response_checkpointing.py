@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from dataclasses import asdict
+from dataclasses import asdict, dataclass
+import os
 from pathlib import Path
 import pickle
 
@@ -12,7 +13,8 @@ from training.response_config import ResponseExperimentConfig
 
 
 CHECKPOINT_SCHEMA = "retina_rgc_response_snn"
-CHECKPOINT_SCHEMA_REVISION = 2
+CHECKPOINT_SCHEMA_REVISION = 3
+MODEL_CONTRACT_REVISION = 1
 CHECKPOINT_KEYS = frozenset(
     {
         "schema",
@@ -21,16 +23,31 @@ CHECKPOINT_KEYS = frozenset(
         "optimizer",
         "optimizer_step",
         "best_nll",
+        "best_checkpoint_step",
         "sampling_rng",
         "dataset_fingerprint",
         "target_kind",
         "config",
+        "run_id",
+        "parent_run_id",
+        "model_contract_revision",
+        "checkpoint_kind",
     }
 )
 
 
 class ResponseCheckpointError(ValueError):
     pass
+
+
+@dataclass(frozen=True, slots=True)
+class ResponseCheckpointState:
+    optimizer_step: int
+    best_nll: float
+    best_checkpoint_step: int
+    run_id: str
+    parent_run_id: str | None
+    checkpoint_kind: str
 
 
 def save_response_checkpoint(
@@ -40,26 +57,47 @@ def save_response_checkpoint(
     optimizer: torch.optim.Optimizer,
     optimizer_step: int,
     best_nll: float,
+    best_checkpoint_step: int,
     generator: torch.Generator,
     fingerprint: str,
     target_kind: str,
     config: ResponseExperimentConfig,
+    run_id: str,
+    checkpoint_kind: str,
+    parent_run_id: str | None = None,
 ) -> None:
-    torch.save(
-        {
-            "schema": CHECKPOINT_SCHEMA,
-            "schema_revision": CHECKPOINT_SCHEMA_REVISION,
-            "model": model.state_dict(),
-            "optimizer": optimizer.state_dict(),
-            "optimizer_step": optimizer_step,
-            "best_nll": best_nll,
-            "sampling_rng": generator.get_state(),
-            "dataset_fingerprint": fingerprint,
-            "target_kind": target_kind,
-            "config": asdict(config),
-        },
-        Path(path),
-    )
+    if not run_id or checkpoint_kind not in {"best", "last"}:
+        raise ResponseCheckpointError("Checkpoint lineage and kind must be explicit")
+    if best_checkpoint_step < 0 or best_checkpoint_step > optimizer_step:
+        raise ResponseCheckpointError("best_checkpoint_step is invalid")
+    payload = {
+        "schema": CHECKPOINT_SCHEMA,
+        "schema_revision": CHECKPOINT_SCHEMA_REVISION,
+        "model": model.state_dict(),
+        "optimizer": optimizer.state_dict(),
+        "optimizer_step": optimizer_step,
+        "best_nll": best_nll,
+        "best_checkpoint_step": best_checkpoint_step,
+        "sampling_rng": generator.get_state(),
+        "dataset_fingerprint": fingerprint,
+        "target_kind": target_kind,
+        "config": asdict(config),
+        "run_id": run_id,
+        "parent_run_id": parent_run_id,
+        "model_contract_revision": MODEL_CONTRACT_REVISION,
+        "checkpoint_kind": checkpoint_kind,
+    }
+    destination = Path(path)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    temporary = destination.with_suffix(f"{destination.suffix}.tmp")
+    try:
+        with temporary.open("wb") as handle:
+            torch.save(payload, handle)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, destination)
+    finally:
+        temporary.unlink(missing_ok=True)
 
 
 def load_response_checkpoint(
@@ -71,28 +109,62 @@ def load_response_checkpoint(
     fingerprint: str,
     target_kind: str,
     config: ResponseExperimentConfig,
-) -> tuple[int, float]:
-    payload = _load_safe_checkpoint_payload(Path(path))
-    if (
-        payload.get("schema") != CHECKPOINT_SCHEMA
-        or payload.get("schema_revision") != CHECKPOINT_SCHEMA_REVISION
-    ):
-        raise ResponseCheckpointError(
-            "Checkpoint is not a response-fitting revision-2 checkpoint; "
-            "start a fresh response run"
-        )
+    expected_run_id: str | None = None,
+) -> ResponseCheckpointState:
+    payload = _validated_checkpoint_payload(Path(path))
     if payload.get("dataset_fingerprint") != fingerprint:
         raise ResponseCheckpointError("Response checkpoint dataset fingerprint mismatch")
     if payload.get("target_kind") != target_kind:
         raise ResponseCheckpointError("Response checkpoint target kind mismatch")
     if payload.get("config") != asdict(config):
         raise ResponseCheckpointError("Response checkpoint configuration mismatch")
+    if expected_run_id is not None and payload["run_id"] != expected_run_id:
+        raise ResponseCheckpointError("Response checkpoint run lineage mismatch")
     model.load_state_dict(payload["model"])
     if optimizer is not None:
         optimizer.load_state_dict(payload["optimizer"])
     if generator is not None:
         generator.set_state(payload["sampling_rng"])
-    return int(payload["optimizer_step"]), float(payload["best_nll"])
+    return _checkpoint_state(payload)
+
+
+def inspect_response_checkpoint(path: str | Path) -> ResponseCheckpointState:
+    return _checkpoint_state(_validated_checkpoint_payload(Path(path)))
+
+
+def _validated_checkpoint_payload(path: Path) -> Mapping:
+    payload = _load_safe_checkpoint_payload(path)
+    if (
+        payload.get("schema") != CHECKPOINT_SCHEMA
+        or payload.get("schema_revision") != CHECKPOINT_SCHEMA_REVISION
+        or payload.get("model_contract_revision") != MODEL_CONTRACT_REVISION
+    ):
+        raise ResponseCheckpointError(
+            "Checkpoint is not a response-fitting revision-3 checkpoint; "
+            "start a fresh response run"
+        )
+    if (
+        not isinstance(payload["run_id"], str)
+        or not payload["run_id"]
+        or payload["checkpoint_kind"] not in {"best", "last"}
+    ):
+        raise ResponseCheckpointError("Response checkpoint lineage is invalid")
+    return payload
+
+
+def _checkpoint_state(payload: Mapping) -> ResponseCheckpointState:
+    return ResponseCheckpointState(
+        optimizer_step=int(payload["optimizer_step"]),
+        best_nll=float(payload["best_nll"]),
+        best_checkpoint_step=int(payload["best_checkpoint_step"]),
+        run_id=str(payload["run_id"]),
+        parent_run_id=(
+            None
+            if payload["parent_run_id"] is None
+            else str(payload["parent_run_id"])
+        ),
+        checkpoint_kind=str(payload["checkpoint_kind"]),
+    )
 
 
 def _load_safe_checkpoint_payload(path: Path) -> Mapping:
@@ -131,7 +203,10 @@ def _is_safe_checkpoint_value(value) -> bool:
 __all__ = [
     "CHECKPOINT_SCHEMA",
     "CHECKPOINT_SCHEMA_REVISION",
+    "MODEL_CONTRACT_REVISION",
+    "ResponseCheckpointState",
     "ResponseCheckpointError",
+    "inspect_response_checkpoint",
     "load_response_checkpoint",
     "save_response_checkpoint",
 ]

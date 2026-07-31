@@ -1,11 +1,16 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from pathlib import Path
 
 import h5py
 import numpy as np
+import pytest
 
 from benchmarks.point_process_teacher import generate_teacher_responses
+from data.cone_response import ConeResponseExport, DataContractError
+from data.dataset import validate_loaded_cone_exports
+from data.input_identity import synthetic_input_identity
 from data.rgc_response_export import write_rgc_response
 from data.synthetic_teacher import fit_teacher_input_normalization
 
@@ -127,6 +132,24 @@ def test_export_persists_teacher_input_normalization(tmp_path: Path) -> None:
     with h5py.File(tmp_path / "synthetic.h5", "r") as handle:
         assert "teacher/input_mean" in handle
         assert "teacher/input_std" in handle
+
+
+def test_same_shape_different_cone_positions_are_rejected() -> None:
+    identity = synthetic_input_identity(2, ("source",))
+    reference = ConeResponseExport(
+        response=np.ones((4, 2), dtype=np.float32),
+        positions_degs=np.zeros((2, 2), dtype=np.float32),
+        cone_types=np.asarray([1, 2], dtype=np.uint8),
+        time_axis_seconds=np.arange(4) * 0.005,
+        eye_trace_degs=np.zeros((4, 2), dtype=np.float32),
+        units="isomerizations_per_integration_time",
+        eccentricity_deg=4.0,
+        input_identity=identity,
+    )
+    changed = replace(reference, positions_degs=np.ones((2, 2), dtype=np.float32))
+
+    with pytest.raises(DataContractError, match="cone positions"):
+        validate_loaded_cone_exports((reference, changed))
 
 
 def test_static_teacher_kernel_matches_normalized_coordinate_finite_difference() -> None:

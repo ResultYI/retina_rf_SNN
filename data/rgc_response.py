@@ -1,13 +1,21 @@
 from __future__ import annotations
+# noqa: SIZE_OK — one HDF5 response boundary keeps parsing and validation atomic.
 
 from collections.abc import Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import StrEnum, unique
 from pathlib import Path
 from typing import TypeAlias
 
 import h5py
 import numpy as np
+
+from data.input_identity import (
+    DatasetKind,
+    InputIdentity,
+    InputIdentityError,
+    legacy_input_identity,
+)
 
 
 TextValue: TypeAlias = str | bytes | np.ndarray | np.generic | None
@@ -44,17 +52,18 @@ class RGCResponseSession:
     context_ids: tuple[str, ...]
     target_kind: ResponseTargetKind
     path: Path
+    input_identity: InputIdentity = field(default_factory=legacy_input_identity)
 
     @property
     def dt_ms(self) -> float:
-        return float(np.mean(np.diff(self.time_axis_seconds)) * 1000.0)
+        return float(np.median(np.diff(self.time_axis_seconds)) * 1000.0)
 
 
 def load_rgc_response(path: str | Path) -> RGCResponseSession:
     source_path = Path(path)
     with h5py.File(source_path, "r") as handle:
         version = _read_scalar_text(handle, "format_version")
-        if version != "retina-rgc-response-v1":
+        if version not in {"retina-rgc-response-v1", "retina-rgc-response-v2"}:
             raise RGCResponseContractError(f"Unsupported format_version: {version}")
         kind = _target_kind(handle.attrs.get("response_target_kind"))
         cone = np.asarray(_required(handle, "cone_response"), dtype=np.float32)
@@ -79,6 +88,11 @@ def load_rgc_response(path: str | Path) -> RGCResponseSession:
         ).reshape(-1)
         source_ids = _read_text_vector(handle, "stimulus/source_id")
         context_ids = _read_text_vector(handle, "stimulus/context_id")
+        input_identity = (
+            _read_input_identity(handle)
+            if version == "retina-rgc-response-v2"
+            else legacy_input_identity()
+        )
 
     _validate_shapes(
         cone,
@@ -94,7 +108,22 @@ def load_rgc_response(path: str | Path) -> RGCResponseSession:
         source_ids,
         context_ids,
     )
-    _validate_values(cone, spikes, mask, time_axis, polarities, kind)
+    _validate_values(
+        cone,
+        spikes,
+        mask,
+        time_axis,
+        cone_positions,
+        cell_positions,
+        eccentricities,
+        polarities,
+        kind,
+    )
+    _validate_input_identity(
+        input_identity,
+        stimulus_count=cone.shape[0],
+        cone_count=cone.shape[2],
+    )
     return RGCResponseSession(
         cone_response=cone,
         spike_counts=spikes,
@@ -112,6 +141,7 @@ def load_rgc_response(path: str | Path) -> RGCResponseSession:
         context_ids=context_ids,
         target_kind=kind,
         path=source_path,
+        input_identity=input_identity,
     )
 
 
@@ -131,6 +161,13 @@ def validate_response_splits(
     for session in (*train, *validation, *test):
         if session.target_kind is not reference.target_kind:
             raise RGCResponseContractError("All splits must use one target kind")
+        if (
+            session.input_identity.compatibility_key()
+            != reference.input_identity.compatibility_key()
+        ):
+            raise RGCResponseContractError(
+                "All splits must use one compatible input identity"
+            )
         if session.cells.ids != reference.cells.ids:
             raise RGCResponseContractError("Cell order must match across response files")
         if session.cells.type_ids != reference.cells.type_ids:
@@ -159,6 +196,17 @@ def validate_response_splits(
             reference.time_axis_seconds[:sequence_steps],
         ):
             raise RGCResponseContractError("Time axes must match across response files")
+    fingerprint_groups = tuple(
+        _source_fingerprints(split) for split in (train, validation, test)
+    )
+    if (
+        fingerprint_groups[0] & fingerprint_groups[1]
+        or fingerprint_groups[0] & fingerprint_groups[2]
+        or fingerprint_groups[1] & fingerprint_groups[2]
+    ):
+        raise RGCResponseContractError(
+            "Response splits must be source-content-disjoint"
+        )
 
 
 def _same_values(left: np.ndarray, right: np.ndarray) -> bool:
@@ -213,10 +261,19 @@ def _validate_values(
     spikes: np.ndarray,
     mask: np.ndarray,
     time_axis: np.ndarray,
+    cone_positions: np.ndarray,
+    cell_positions: np.ndarray,
+    eccentricities: np.ndarray,
     polarities: np.ndarray,
     kind: ResponseTargetKind,
 ) -> None:
-    if not np.isfinite(cone).all() or not np.isfinite(spikes).all():
+    if (
+        not np.isfinite(cone).all()
+        or not np.isfinite(spikes).all()
+        or not np.isfinite(cone_positions).all()
+        or not np.isfinite(cell_positions).all()
+        or not np.isfinite(eccentricities).all()
+    ):
         raise RGCResponseContractError("Responses must be finite")
     if np.any(spikes < 0):
         raise RGCResponseContractError("spike_counts must be non-negative")
@@ -230,8 +287,85 @@ def _validate_values(
         raise RGCResponseContractError("cell polarity must contain only 0=ON or 1=OFF")
     if time_axis.size < 2 or not np.all(np.diff(time_axis) > 0):
         raise RGCResponseContractError("time_axis_seconds must be strictly increasing")
+    intervals = np.diff(time_axis)
+    if float(intervals.std() / (np.median(intervals) + 1e-12)) > 1e-3:
+        raise RGCResponseContractError(
+            "time_axis_seconds must have a stable frame interval"
+        )
     if not mask.any(axis=(0, 1, 2)).all():
         raise RGCResponseContractError("Every cell needs at least one valid target")
+    invalid_seen = np.maximum.accumulate(~mask, axis=2)
+    if np.any(invalid_seen & mask):
+        raise RGCResponseContractError(
+            "valid_mask cannot become true after missing spike history"
+        )
+
+
+def _validate_input_identity(
+    identity: InputIdentity,
+    *,
+    stimulus_count: int,
+    cone_count: int,
+) -> None:
+    if identity.dataset_kind is DatasetKind.LEGACY_UNSPECIFIED:
+        return
+    if len(identity.stimulus_source_fingerprints) != stimulus_count:
+        raise RGCResponseContractError(
+            "Input identity source fingerprints must match stimulus count"
+        )
+    if len(identity.cone_types) != cone_count:
+        raise RGCResponseContractError(
+            "Input identity cone types must match cone count"
+        )
+
+
+def _read_input_identity(handle: h5py.File) -> InputIdentity:
+    try:
+        return InputIdentity(
+            dataset_kind=DatasetKind(_read_scalar_text(handle, "input/dataset_kind")),
+            species=_read_scalar_text(handle, "input/species"),
+            optics_species=_read_scalar_text(handle, "input/optics_species"),
+            mosaic_species=_read_scalar_text(handle, "input/mosaic_species"),
+            photoreceptor_mode=_read_scalar_text(handle, "input/photoreceptor_mode"),
+            chromatic_mode=_read_scalar_text(handle, "input/chromatic_mode"),
+            light_level=_read_scalar_text(handle, "input/light_level"),
+            mean_luminance_cd_m2=float(
+                np.asarray(_required(handle, "input/mean_luminance_cd_m2")).item()
+            ),
+            cone_types=tuple(
+                int(value)
+                for value in np.asarray(
+                    _required(handle, "input/cone_type")
+                ).reshape(-1)
+            ),
+            response_units=_read_scalar_text(handle, "input/response_units"),
+            mosaic_id=_read_scalar_text(handle, "input/cone_mosaic_id"),
+            mosaic_fingerprint=_read_scalar_text(
+                handle,
+                "input/cone_mosaic_fingerprint",
+            ),
+            stimulus_source_fingerprints=_read_text_vector(
+                handle,
+                "stimulus/source_content_sha256",
+            ),
+            generator_name=_read_scalar_text(handle, "input/generator_name"),
+            generator_revision=_read_scalar_text(handle, "input/generator_revision"),
+            cone_bin_reference=_read_scalar_text(
+                handle,
+                "input/cone_bin_reference",
+            ),
+            spike_bin_reference=_read_scalar_text(
+                handle,
+                "input/spike_bin_reference",
+            ),
+            stimulus_to_spike_offset_bins=int(
+                np.asarray(
+                    _required(handle, "input/stimulus_to_spike_offset_bins")
+                ).item()
+            ),
+        )
+    except (InputIdentityError, ValueError) as exc:
+        raise RGCResponseContractError(f"Invalid input identity: {exc}") from exc
 
 
 def _required(handle: h5py.File, key: str) -> h5py.Dataset:
@@ -271,8 +405,17 @@ def _source_ids(sessions: Sequence[RGCResponseSession]) -> set[str]:
     return {source_id for session in sessions for source_id in session.source_ids}
 
 
+def _source_fingerprints(sessions: Sequence[RGCResponseSession]) -> set[str]:
+    return {
+        fingerprint
+        for session in sessions
+        for fingerprint in session.input_identity.stimulus_source_fingerprints
+    }
+
+
 __all__ = [
     "CellMetadata",
+    "InputIdentity",
     "RGCResponseContractError",
     "RGCResponseSession",
     "ResponseTargetKind",

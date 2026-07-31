@@ -42,7 +42,7 @@ def dt_ms_from_time_axis_seconds(time_axis_seconds: np.ndarray) -> float:
     return interval_median * 1000.0
 
 
-def human_macaque(
+def macaque_photopic(
     *,
     dt_ms: float,
     cone_spacing_deg: float,
@@ -56,8 +56,8 @@ def human_macaque(
     if not math.isfinite(eccentricity_deg) or eccentricity_deg < 0:
         raise PhysiologyProfileError("eccentricity_deg must be finite and non-negative")
     return PhysiologyProfile(
-        name="human_macaque",
-        species_priority=("human", "macaque", "marmoset"),
+        name="macaque_photopic",
+        species_priority=("macaque",),
         cone_spacing_deg=cone_spacing_deg,
         eccentricity_deg=eccentricity_deg,
         h1=H1HorizontalConfig(
@@ -122,5 +122,5 @@ __all__ = [
     "PhysiologyProfile",
     "PhysiologyProfileError",
     "dt_ms_from_time_axis_seconds",
-    "human_macaque",
+    "macaque_photopic",
 ]

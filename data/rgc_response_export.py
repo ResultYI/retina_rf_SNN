@@ -22,7 +22,7 @@ def write_rgc_response(
     with h5py.File(destination, "w") as handle:
         handle.create_dataset(
             "format_version",
-            data=np.frombuffer(b"retina-rgc-response-v1", dtype=np.uint8),
+            data=np.frombuffer(b"retina-rgc-response-v2", dtype=np.uint8),
         )
         handle.attrs["response_target_kind"] = session.target_kind.value
         handle.create_dataset("cone_response", data=session.cone_response)
@@ -55,6 +55,43 @@ def write_rgc_response(
         handle.create_dataset(
             "stimulus/context_id",
             data=np.asarray(session.context_ids, dtype=string_dtype),
+        )
+        identity = session.input_identity
+        handle.create_dataset(
+            "stimulus/source_content_sha256",
+            data=np.asarray(
+                identity.stimulus_source_fingerprints,
+                dtype=string_dtype,
+            ),
+        )
+        for name, value in {
+            "dataset_kind": identity.dataset_kind.value,
+            "species": identity.species,
+            "optics_species": identity.optics_species,
+            "mosaic_species": identity.mosaic_species,
+            "photoreceptor_mode": identity.photoreceptor_mode,
+            "chromatic_mode": identity.chromatic_mode,
+            "light_level": identity.light_level,
+            "response_units": identity.response_units,
+            "cone_mosaic_id": identity.mosaic_id,
+            "cone_mosaic_fingerprint": identity.mosaic_fingerprint,
+            "generator_name": identity.generator_name,
+            "generator_revision": identity.generator_revision,
+            "cone_bin_reference": identity.cone_bin_reference,
+            "spike_bin_reference": identity.spike_bin_reference,
+        }.items():
+            handle.create_dataset(
+                f"input/{name}",
+                data=np.frombuffer(value.encode("utf-8"), dtype=np.uint8),
+            )
+        handle.create_dataset(
+            "input/mean_luminance_cd_m2",
+            data=identity.mean_luminance_cd_m2,
+        )
+        handle.create_dataset("input/cone_type", data=identity.cone_types)
+        handle.create_dataset(
+            "input/stimulus_to_spike_offset_bins",
+            data=identity.stimulus_to_spike_offset_bins,
         )
         if teacher_kernels or teacher_normalization is not None:
             group = handle.create_group("teacher")

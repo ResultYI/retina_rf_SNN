@@ -211,6 +211,7 @@ def evaluate_and_report_response_experiment(
                 "dataset_fingerprint": data.fingerprint,
                 "target_kind": data.target_kind.value,
                 "cell_count": len(data.cells.ids),
+                "input_identity": asdict(data.input_identity),
             },
             ensure_ascii=False,
             indent=2,

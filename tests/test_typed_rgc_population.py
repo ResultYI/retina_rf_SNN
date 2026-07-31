@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 import torch
 
-from configs.physiology_profiles import human_macaque
+from configs.physiology_profiles import macaque_photopic
 from configs.rgc_type_priors import (
     ParameterPrior,
     RGCTypePrior,
@@ -50,7 +50,7 @@ def test_recorded_cells_have_one_output_and_causal_observed_history() -> None:
         positions_degs=positions[:2],
         eccentricities_deg=np.asarray([4.0, 4.0]),
     )
-    profile = human_macaque(dt_ms=5.0, cone_spacing_deg=0.05, eccentricity_deg=4.0)
+    profile = macaque_photopic(dt_ms=5.0, cone_spacing_deg=0.05, eccentricity_deg=4.0)
     model = build_response_retina_model(
         torch.as_tensor(positions),
         cells,
@@ -83,7 +83,7 @@ def test_type_prior_penalty_tracks_type_base_drift() -> None:
         positions_degs=positions,
         eccentricities_deg=np.asarray([4.0, 4.0]),
     )
-    profile = human_macaque(dt_ms=5.0, cone_spacing_deg=0.05, eccentricity_deg=4.0)
+    profile = macaque_photopic(dt_ms=5.0, cone_spacing_deg=0.05, eccentricity_deg=4.0)
     model = build_response_retina_model(
         torch.as_tensor(positions),
         cells,
@@ -111,7 +111,7 @@ def test_checkpointed_response_unroll_matches_plain_unroll() -> None:
         positions_degs=positions[:2],
         eccentricities_deg=np.asarray([4.0, 4.0]),
     )
-    profile = human_macaque(dt_ms=5.0, cone_spacing_deg=0.05, eccentricity_deg=4.0)
+    profile = macaque_photopic(dt_ms=5.0, cone_spacing_deg=0.05, eccentricity_deg=4.0)
     model = build_response_retina_model(
         torch.as_tensor(positions),
         cells,

@@ -1,4 +1,5 @@
 from __future__ import annotations
+# noqa: SIZE_OK — CLI orchestration remains a single explicit experiment lifecycle.
 
 import argparse
 import copy
@@ -14,11 +15,16 @@ import torch
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from configs.physiology_profiles import human_macaque
+from configs.physiology_profiles import macaque_photopic
 from configs.rgc_type_priors import load_type_priors
+from data.input_identity import validate_experiment_input
 from evaluation.response_pipeline import evaluate_and_report_response_experiment
 from models.response_snn import build_response_retina_model
-from training.response_checkpointing import load_response_checkpoint
+from training.response_checkpointing import (
+    ResponseCheckpointState,
+    inspect_response_checkpoint,
+    load_response_checkpoint,
+)
 from training.response_config import load_response_config
 from training.response_data import prepare_response_data, sample_response_batch
 from training.response_trainer import ResponseTrainer
@@ -37,12 +43,12 @@ def main() -> None:
     parser.add_argument("--output", required=True)
     parser.add_argument("--stop-after-steps", type=int)
     parser.add_argument("--diagnostics-only", action="store_true")
+    parser.add_argument("--overwrite", action="store_true")
     checkpoint_group = parser.add_mutually_exclusive_group()
     checkpoint_group.add_argument("--checkpoint")
     checkpoint_group.add_argument("--resume")
     args = parser.parse_args()
-    output = Path(args.output)
-    output.mkdir(parents=True, exist_ok=True)
+    output = _prepare_output(args)
     try:
         _run(args, output)
     except (OSError, RuntimeError, ValueError) as exc:
@@ -65,12 +71,13 @@ def _run(args: argparse.Namespace, output: Path) -> None:
     config = load_response_config(args.config)
     torch.manual_seed(config.seed)
     data = prepare_response_data(config.data)
+    validate_experiment_input(data.input_identity, data.dt_ms)
     priors = load_type_priors(
         config.model.type_prior_path,
         required_type_ids=tuple(sorted(set(data.cells.type_ids))),
     )
     spacing = _cone_spacing(data.cone_positions_degs)
-    profile = human_macaque(
+    profile = macaque_photopic(
         dt_ms=data.dt_ms,
         cone_spacing_deg=spacing,
         eccentricity_deg=float(np.mean(data.cells.eccentricities_deg)),
@@ -89,7 +96,7 @@ def _run(args: argparse.Namespace, output: Path) -> None:
     best_path = output / "checkpoint_best_nll.pt"
     last_path = output / "checkpoint_last.pt"
     if args.checkpoint:
-        load_response_checkpoint(
+        checkpoint_state = load_response_checkpoint(
             args.checkpoint,
             model=model,
             optimizer=None,
@@ -98,9 +105,11 @@ def _run(args: argparse.Namespace, output: Path) -> None:
             target_kind=data.target_kind.value,
             config=config,
         )
+        _restore_trainer_lineage(trainer, checkpoint_state)
     elif args.resume:
-        _restore_resume_best(Path(args.resume), best_path)
-        step, best_nll = load_response_checkpoint(
+        resume_state = inspect_response_checkpoint(args.resume)
+        _restore_resume_best(Path(args.resume), best_path, resume_state.run_id)
+        checkpoint_state = load_response_checkpoint(
             args.resume,
             model=model,
             optimizer=trainer.optimizer,
@@ -108,9 +117,9 @@ def _run(args: argparse.Namespace, output: Path) -> None:
             fingerprint=data.fingerprint,
             target_kind=data.target_kind.value,
             config=config,
+            expected_run_id=resume_state.run_id,
         )
-        trainer.optimizer_step = step
-        trainer.best_nll = best_nll
+        _restore_trainer_lineage(trainer, checkpoint_state)
         if not args.diagnostics_only:
             _train(
                 trainer,
@@ -140,6 +149,7 @@ def _run(args: argparse.Namespace, output: Path) -> None:
         fingerprint=data.fingerprint,
         target_kind=data.target_kind.value,
         config=config,
+        expected_run_id=trainer.run_id,
     )
     evaluate_and_report_response_experiment(
         output,
@@ -174,7 +184,12 @@ def _train(
         )
         result = trainer.train_step(*batch)
         with log_path.open("a", encoding="utf-8") as handle:
-            handle.write(json.dumps(asdict(result)) + "\n")
+            handle.write(
+                json.dumps(
+                    {"optimizer_step": trainer.optimizer_step, **asdict(result)}
+                )
+                + "\n"
+            )
         validate = (
             trainer.optimizer_step % config.training.validation_interval_steps == 0
             or trainer.optimizer_step == steps
@@ -183,8 +198,9 @@ def _train(
             metrics = trainer.evaluate(data.validation)
             if metrics.nll < trainer.best_nll:
                 trainer.best_nll = metrics.nll
-                trainer.save(best_path)
-            trainer.save(last_path)
+                trainer.best_checkpoint_step = trainer.optimizer_step
+                trainer.save(best_path, "best")
+            trainer.save(last_path, "last")
 
 
 def _cone_spacing(positions: np.ndarray) -> float:
@@ -196,8 +212,17 @@ def _cone_spacing(positions: np.ndarray) -> float:
     return float(np.median(distances.min(axis=1)))
 
 
-def _restore_resume_best(resume_path: Path, output_best_path: Path) -> None:
+def _restore_resume_best(
+    resume_path: Path,
+    output_best_path: Path,
+    run_id: str,
+) -> None:
     if output_best_path.exists():
+        output_state = inspect_response_checkpoint(output_best_path)
+        if output_state.run_id != run_id or output_state.checkpoint_kind != "best":
+            raise ResponseExperimentError(
+                "Output best checkpoint belongs to a foreign run lineage"
+            )
         return
     previous_best = (
         resume_path
@@ -208,8 +233,42 @@ def _restore_resume_best(resume_path: Path, output_best_path: Path) -> None:
         raise ResponseExperimentError(
             "Resume requires the historical checkpoint_best_nll.pt"
         )
+    previous_state = inspect_response_checkpoint(previous_best)
+    if previous_state.run_id != run_id or previous_state.checkpoint_kind != "best":
+        raise ResponseExperimentError(
+            "Historical best checkpoint belongs to a foreign run lineage"
+        )
     if previous_best.resolve() != output_best_path.resolve():
         shutil.copy2(previous_best, output_best_path)
+
+
+def _restore_trainer_lineage(
+    trainer: ResponseTrainer,
+    state: ResponseCheckpointState,
+) -> None:
+    trainer.optimizer_step = state.optimizer_step
+    trainer.best_nll = state.best_nll
+    trainer.best_checkpoint_step = state.best_checkpoint_step
+    trainer.run_id = state.run_id
+    trainer.parent_run_id = state.parent_run_id
+
+
+def _prepare_output(args: argparse.Namespace) -> Path:
+    if args.diagnostics_only and not (args.checkpoint or args.resume):
+        raise ResponseExperimentError(
+            "--diagnostics-only requires --checkpoint or --resume"
+        )
+    if args.overwrite and args.resume:
+        raise ResponseExperimentError("--overwrite cannot be combined with --resume")
+    output = Path(args.output)
+    if output.exists() and any(output.iterdir()) and not args.resume:
+        if not args.overwrite:
+            raise ResponseExperimentError(
+                "Fresh run requires an empty output directory; use --overwrite"
+            )
+        shutil.rmtree(output)
+    output.mkdir(parents=True, exist_ok=True)
+    return output
 
 
 if __name__ == "__main__":

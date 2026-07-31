@@ -27,8 +27,8 @@
 \newcommand{\Tpeak}{$T_{\mathrm{peak}}$}
 \newcommand{\dTpeak}{$\Delta T_{\mathrm{peak}}$}
 
-\title{\textbf{生理制約付き Retina SNN による\\
-RGC 動的有効受容野モデリング}}
+\title{\textbf{マカク RGC 応答を用いた\\
+生理制約付き Retina SNN の動的有効受容野同定}}
 \author{M1 TANG YU}
 \date{2026年7月30日}
 
@@ -38,7 +38,7 @@ RGC 動的有効受容野モデリング}}
 
 \begin{abstract}
 本研究は、霊長類網膜の回路構造と生理的範囲を明示的な制約として用い、
-直接測定が不足するパラメータを記録 RGC 応答から学習する
+直接測定が不足する低次元パラメータをマカク記録 RGC 応答から学習する
 動的有効受容野モデリング手法を提案する。錐体、H1 水平細胞、
 ON/OFF 双極細胞、局所アマクリン細胞、ON/OFF RGC を
 解釈可能な処理段として構成し、接続方向、極性、局所性、細胞型を固定する。
@@ -48,6 +48,7 @@ RF は学習後の RGC 応答から推定する。主評価にはマカク記録
 既知・未知の生理データ、パラメータ決定方針、学習手順、
 実験上のリスクと対照条件を一体として整理する。
 \end{abstract}
+
 
 \section{研究目的と提案手法の位置づけ}
 
@@ -59,6 +60,16 @@ RF は学習後の RGC 応答から推定する。主評価にはマカク記録
 入力段では ISETBio により光学像と錐体励起を生成し
 \cite{brainard2015}、水平細胞、双極細胞、アマクリン細胞、RGC の
 各処理段を明示する。
+
+本報告でいう動的有効受容野とは、モデルへ直接与える固定 RF
+カーネルではなく、学習後に凍結したモデルの応答に対して
+STA、刺激摂動、Jacobian などから推定する、時間、内部状態、
+刺激条件に依存する入力感度である。
+
+\noindent\textbf{研究課題：}
+マカク RGC 記録応答に対し、回路構造を固定し、低次元の
+生理パラメータのみを学習することで、無制約モデルに近い予測性能を
+維持しながら、再現性の高い動的有効受容野を得られるか。
 
 受容野を記述する LN/GLM と point-process model は、
 刺激フィルタ、発火履歴、細胞間結合を解釈可能な形で推定できる
@@ -96,6 +107,8 @@ VALIDATION-TUNED、POST-HOC の五区分で管理する。
 \section{信号フロー図とデータの構成}
 
 図\ref{fig:retina-flow}は、自然画像から視神経出力までの回路構造を示す。
+図\ref{fig:training-evaluation-flow}は、マカク記録 RGC 応答を用いる
+学習経路と、モデル凍結後の動的有効受容野の抽出経路を示す。
 通常矢印は興奮性入力、
 曲線矢印はフィードバック、T 字端は抑制、破線は弱い入力、
 二重線はネットワーク結合を表す。
@@ -112,6 +125,19 @@ VALIDATION-TUNED、POST-HOC の五区分で管理する。
   細胞間接続は表\ref{tab:connectivity}、定量的な生理データは
   表\ref{tab:physiology}に示す。}
   \label{fig:retina-flow}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]
+  {assets/retina_snn_training_evaluation_flow.png}
+  \caption{Retina SNN の学習・評価フロー。各記録 RGC に
+  一つの model output unit を対応させ、cell type、ON/OFF polarity、
+  eccentricity は
+  固定 metadata とする。recorded spike を教師信号として likelihood loss
+  を計算し、RF は loss に含めず、モデル凍結後に
+  STA、Jacobian、GLM readout から抽出する。}
+  \label{fig:training-evaluation-flow}
 \end{figure*}
 
 \section{信号フローの解釈}
@@ -453,6 +479,31 @@ in vitro white-noise response。相対差として用いる。 &
 \clearpage
 \onecolumn
 
+\section{物種別の生理証拠フロー}
+
+緑の○は、選定した一次文献に対象物種の直接的な解剖学的または
+生理学的証拠が存在する箇所を示す。赤の×は、同じ細胞型、偏心度、
+刺激条件、測定定義で直接比較できる対象物種の証拠を確定していない
+箇所を示す。赤の×は回路自体の不存在を意味しない。
+
+\begin{center}
+  \includegraphics[width=\textwidth]{assets/retina_snn_evidence_flow_human.png}
+  \captionof{figure}{ヒトにおける生理証拠の分布。
+  緑の○は証拠あり、赤の×は直接比較可能な証拠が未確定であることを示す。}
+  \label{fig:evidence-flow-human}
+\end{center}
+
+\vspace{0.8\baselineskip}
+
+\begin{center}
+  \includegraphics[width=\textwidth]{assets/retina_snn_evidence_flow_macaque.png}
+  \captionof{figure}{マカクにおける生理証拠の分布。
+  緑の○は証拠あり、赤の×は直接比較可能な証拠が未確定であることを示す。}
+  \label{fig:evidence-flow-macaque}
+\end{center}
+
+\clearpage
+
 \section{対象物種と学習データ}
 
 \subsection{物種プロファイル}
@@ -461,8 +512,9 @@ in vitro white-noise response。相対差として用いる。 &
 受容野、時間特性、内網膜回路に関する直接生理データが比較的豊富であり、
 記録 spike とモデル unit を対応させた system identification が可能である。
 ヒト設定は ISETBio optics、ヒト cone geometry、ヒト解剖データを持つ
-独立プロファイルとして構築し、マカクで学習した type-level dynamics を
-弱い事前分布として転移する。
+独立プロファイルとして構築する。内網膜の type-level dynamics は
+マカクで学習した値を感度分析条件ごとの固定値として転移し、
+ヒト固有の学習済みパラメータとはみなさない。
 
 \begin{center}
 \centering
@@ -492,7 +544,7 @@ recorded spike likelihood、dynamic RF、mechanism ablation &
 
 Human-transfer &
 human optics、human cone mosaic、human anatomy &
-type-level prior の転移、RF range と挙動の確認 &
+type-level parameter の固定転移、感度分析、RF range と挙動の確認 &
 ヒト視覚への適用可能性、species transfer の評価 &
 inner-retinal direct physiology と spike data の不足 \\
 
@@ -512,7 +564,7 @@ ex vivo retina データでは網膜面刺激と retinal-space 座標を用い�
 
 \subsection{学習対象}
 
-主学習対象は記録 RGC spike response である。データ契約は
+主学習対象はマカクの記録 RGC spike response である。データ契約は
 \texttt{cone\_response [stimulus,time,cone]}、
 \texttt{spike\_counts [stimulus,trial,time,cell]}、
 \texttt{valid\_mask}、\texttt{time\_axis\_seconds}、
@@ -528,202 +580,190 @@ information-preservation control として位置づける。RF 形状は trainin
 
 \clearpage
 \onecolumn
-\begin{landscape}
-\section{生理証拠から実装への対応}
 
-\captionof{table}{各モデル要素の固定項目、学習項目、決定方法
-（実験 identity、入力、H1、双極細胞）。}
-\label{tab:model-policy}
+\subsection*{ヒト プロファイル のパラメータ決定方針}
+
+\captionof{table}{ヒト プロファイル における固定項目、学習項目、決定方法。}
+\label{tab:model-policy-human}
 
 \scriptsize
-\renewcommand{\arraystretch}{1.10}
-\setlength{\tabcolsep}{2.7pt}
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{2.5pt}
 \begin{tabularx}{0.98\linewidth}{
-  >{\raggedright\arraybackslash}p{0.13\linewidth}
-  >{\raggedright\arraybackslash}p{0.20\linewidth}
-  >{\raggedright\arraybackslash}p{0.16\linewidth}
-  >{\raggedright\arraybackslash}p{0.28\linewidth}
+  >{\raggedright\arraybackslash}p{0.14\linewidth}
+  >{\raggedright\arraybackslash}p{0.24\linewidth}
+  >{\raggedright\arraybackslash}p{0.19\linewidth}
   Y}
 \toprule
 \textbf{対象} &
 \textbf{具体的内容} &
 \textbf{区分} &
-\textbf{固定・学習方法} &
-\textbf{主な識別リスク} \\
-\midrule
-実験 identity &
-species、eccentricity、preparation、stimulus coordinates &
-DATA-FIXED &
-experiment metadata から一つの profile を選択し、checkpoint に保存 &
-物種・偏心度・測定条件の混在 \\
-
-時間と alignment &
-\texttt{dt}、stimulus frame、spike bin、burn-in、valid mask &
-DATA-FIXED &
-\texttt{time\_axis\_seconds} と記録 protocol から決定 &
-時間ずれを時定数が吸収 \\
-
-cone 入力 &
-position、type、eye trace、stimulus alignment &
-DATA-FIXED &
-入力 HDF5 の geometry を固定し、normalization は train split で算出 &
-geometry mismatch、split leakage \\
-
-回路 topology &
-cone$\leftrightarrow$H1、ON/OFF split、
-bipolar$\rightarrow$RGC、bipolar$\rightarrow$AC$\dashv$RGC &
-BIO-FIXED &
-接続方向、興奮/抑制符号、並列経路、局所 mask を固定 &
-誤った topology を gain が補償 \\
-
-local support &
-H1、bipolar、AC、RGC の接続半径と mask &
-BIO-FIXED + VALIDATION-TUNED &
-文献範囲内の離散候補を作り、validation で選択。
-mask 内の重みを学習 &
-半径と weight の非識別性 \\
-
-H1 dynamics &
-feedback gain、coupling strength、time constant &
-BOUNDED-LEARNED &
-L/M 優位入力と負帰還符号を固定。
-profile の上下限内で gain と $\tau_H$ を学習 &
-ヒト direct physiology の不足、
-bipolar surround との代替 \\
-
-Bipolar dynamics &
-ON/OFF gain、threshold、rectification、
-sustained/transient time scale &
-BIO-FIXED + BOUNDED-LEARNED &
-polarity と transient $<$ sustained の順序を固定。
-gain、threshold、softness、各 $\tau$ を有界学習 &
-上流・下流 time scale の相互補償 \\
-
-\bottomrule
-\end{tabularx}
-\end{landscape}
-
-\clearpage
-\begin{landscape}
-\subsection*{RGC・学習・評価パラメータ}
-
-\captionof{table}{各モデル要素の固定項目、学習項目、決定方法
-（アマクリン、RGC、学習、RF 評価）。}
-\label{tab:model-policy-rgc}
-
-\scriptsize
-\renewcommand{\arraystretch}{1.10}
-\setlength{\tabcolsep}{2.7pt}
-\begin{tabularx}{0.98\linewidth}{
-  >{\raggedright\arraybackslash}p{0.13\linewidth}
-  >{\raggedright\arraybackslash}p{0.20\linewidth}
-  >{\raggedright\arraybackslash}p{0.16\linewidth}
-  >{\raggedright\arraybackslash}p{0.28\linewidth}
-  Y}
-\toprule
-\textbf{対象} &
-\textbf{具体的内容} &
-\textbf{区分} &
-\textbf{固定・学習方法} &
-\textbf{主な識別リスク} \\
+\textbf{固定・学習方法} \\
 \midrule
 
-Amacrine dynamics &
-inhibitory gain、time scale、local radius、feedback target &
-BIO-FIXED + BOUNDED-LEARNED &
-抑制符号と並列経路を固定。
-radius は離散選択、gain と $\tau_A$ は有界学習 &
-subtype 未確定、複数機構の同等解 \\
-
-RGC type prior &
-ON/OFF、midget/parasol、cell identity、eccentricity &
+入力・形態\newline（固定） &
+human optics、cone mosaic、eccentricity、
+midget/parasol dendritic field &
 DATA-FIXED + BIO-FIXED &
-記録 metadata の type label と polarity を固定。
-type-level base parameter を共有 &
-type prior が RF 差を事前形成 \\
+ISETBio のヒト入力とヒト解剖データを固定する。
+マカクの密度・RF 数値で置き換えない \\
 
-RGC learnable state &
-spatial sigma、sustained mix、membrane/adaptation $\tau$、
+H1 horizontal\newline（転移値を固定・感度分析） &
+L/M input、feedback sign、direct/coupled radius、gain、$\tau_H$ &
+BIO-FIXED + DATA-FIXED（転移値） &
+回路上の入力選択性、feedback 符号、局所 coupling を固定する。
+ヒトの直接 RF・時間値は不明なため、マカクで決定した radius、gain、
+$\tau_H$ を条件ごとに固定し、範囲内で感度分析する \\
+
+Bipolar cells\newline（転移値を固定・感度分析） &
+ON/OFF polarity、midget/diffuse support、center/surround、
+gain、$\tau_B$、rectification &
+BIO-FIXED + DATA-FIXED（転移値） &
+ON/OFF の符号と foveal midget の解剖学的構造を固定する。
+ヒトの直接 RF・時間値は不明なため、マカクで決定した spatial support と
+動態値を条件ごとに固定し、範囲内で感度分析する \\
+
+Amacrine dynamics\newline（転移値を固定・感度分析） &
+inhibitory sign、parallel pathway、subtype、
+local radius、gain、$\tau_A$ &
+BIO-FIXED + DATA-FIXED（転移値） &
+抑制符号と並列経路のみ固定する。ヒトの subtype 別直接値が不明なため、
+マカクで決定した radius、gain、$\tau_A$ を条件ごとに固定する。
+subtype をヒト固有の確定値として解釈しない \\
+
+RGC type prior\newline（固定） &
+ON/OFF、midget/parasol、dendritic field、eccentricity &
+DATA-FIXED + BIO-FIXED &
+ヒト解剖に基づく type、polarity、空間配置を固定する。
+記録細胞 metadata がない場合は cell identity を仮定しない \\
+
+RGC dynamics\newline（マカクから転移して固定） &
+局所入力支持範囲、sustained mix、membrane/adaptation $\tau$、
 adaptation gain、threshold、subunit time/gain &
-BOUNDED-LEARNED &
-type-level parameter を上下限内で学習し、
-cell-specific residual を小さく正則化 &
-gain、threshold、input scale の相互補償 \\
+DATA-FIXED（転移値） &
+マカクで学習した type-level parameter を固定して転移する。
+cell-specific residual は学習しない。ヒト RGC 応答を導入する場合は、
+別の human-fitting experiment として再定義する \\
 
-出力 likelihood &
-Bernoulli/Poisson target、cell bias、observed-spike history &
-DATA-FIXED + BOUNDED-LEARNED &
-target kind はデータ属性で固定。
-bias、history、readout weight を学習 &
-readout shortcut、history leakage \\
+出力 likelihood\newline（現段階では使用しない） &
+human RGC spike/rate、cell bias、observed-spike history &
+該当なし &
+現在の human-transfer プロファイル には直接対応するヒト RGC 記録がないため、
+spike likelihood fitting と cell-specific parameter 学習を行わない \\
 
-学習制御 &
-learning rate、BPTT、gradient clipping、prior weights &
+転移・感度分析\newline（感度分析で設定） &
+transfer parameter set、species scaling、parameter range &
 VALIDATION-TUNED &
-validation likelihood、gradient statistics、
-state stability により選択 &
-validation overfitting \\
+マカク転移値を中心に複数の固定条件を比較する。
+予測性能だけで一つの条件をヒト真値として選ばない \\
 
-RF 指標 &
+RF 指標\newline（転移後に評価） &
 center、surround、latency、polarity、dynamicity &
 POST-HOC &
-モデル凍結後に STA、Jacobian、GLM から抽出 &
-刺激集合と解析法への依存 \\
+human-transfer model 凍結後に抽出し、ヒト解剖値とは比較するが、
+直接ヒト生理 RF としては解釈しない \\
 \bottomrule
 \end{tabularx}
 
 \vspace{0.6\baselineskip}
 \noindent\textbf{表の説明：}
-学習可能量は type-level shared parameter と小さな cell-specific residual に分ける。
-上下限は変換パラメータ化によって常に満たし、範囲端への集中を
-parameter identifiability の警告として記録する。local support の半径は
-連続重みと同時に自由化せず、文献範囲内の離散 sweep で決定する。
-
-\end{landscape}
+ヒト プロファイル は human optics、cone geometry、解剖データを保持する。
+現段階では、内網膜 dynamics と cell-specific parameter を
+ヒトデータから学習しない。マカク由来値は source species を保持した固定転移値とし、
+複数条件の感度分析に用いる。したがって、本表の転移値を
+ヒト固有の生理パラメータまたは学習結果として解釈しない。
 
 \clearpage
-\twocolumn
+\subsection*{マカク プロファイル のパラメータ決定方針}
 
-\section{段階的学習方針}
+\captionof{table}{マカク プロファイル における固定項目、学習項目、決定方法。}
+\label{tab:model-policy-macaque}
 
-\subsection{Stage 0：実験 identity の固定}
+\scriptsize
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabularx}{0.98\linewidth}{
+  >{\raggedright\arraybackslash}p{0.14\linewidth}
+  >{\raggedright\arraybackslash}p{0.24\linewidth}
+  >{\raggedright\arraybackslash}p{0.19\linewidth}
+  Y}
+\toprule
+\textbf{対象} &
+\textbf{具体的内容} &
+\textbf{区分} &
+\textbf{固定・学習方法} \\
+\midrule
 
-species、eccentricity、preparation、stimulus coordinate、cone geometry、
-cell mapping、ON/OFF polarity、connection topology、local mask を固定する。
-データ split は stimulus source 単位で分離し、normalization 統計量は
-training split から計算する。
+入力・記録条件\newline（固定） &
+macaque stimulus geometry、cone response、cell identity、
+eccentricity、in vivo/ex vivo &
+DATA-FIXED &
+各記録データの物種、偏心度、刺激座標、時間軸、cell mapping を固定する。
+in vivo と ex vivo を同じ observation model に混合しない \\
 
-\subsection{Stage 1：出力校正}
+H1 horizontal\newline（一部固定・モデル学習） &
+L/M input、feedback sign、direct/coupled radius、
+coupling strength、gain、$\tau_H$ &
+BIO-FIXED + BOUNDED-LEARNED &
+L/M 優位入力、feedback 符号、局所 coupling topology を固定する。
+表\ref{tab:physiology}のマカク RF・相対時間を範囲として、
+radius は離散選択、gain と $\tau_H$ は記録応答から学習する \\
 
-cell baseline、output bias、readout weight を先に学習し、
-各 recorded cell に予測可能な信号が存在することを確認する。
-この段階では上流 dynamics と type-level physiology parameter を凍結する。
+Bipolar cells\newline（一部固定・モデル学習） &
+ON/OFF polarity、midget/diffuse support、center/surround、
+gain、$\tau_B$、rectification &
+BIO-FIXED + BOUNDED-LEARNED &
+ON/OFF の符号、受容体機構、局所 topology を固定する。
+マカク RF 範囲内で spatial support を離散選択し、
+gain、$\tau_B$、rectification を記録応答から学習する \\
 
-\subsection{Stage 2：RGC dynamics}
+Amacrine dynamics\newline（一部固定・モデル学習） &
+inhibitory gain、time scale、local radius、feedback target &
+BIO-FIXED + BOUNDED-LEARNED &
+抑制符号と並列経路を固定する。generic amacrine の subtype は仮定せず、
+radius は離散選択、gain と $\tau_A$ はマカク RGC 応答から有界学習する \\
 
-RGC membrane、adaptation、history、threshold、subunit dynamics を解放する。
-同一 cell type は主要パラメータを共有し、各 cell は小さな residual のみを持つ。
-prior penalty と residual penalty により自由度を制御する。
+RGC type prior\newline（固定） &
+ON/OFF、midget/parasol、cell identity、eccentricity &
+DATA-FIXED + BIO-FIXED &
+記録 metadata の type label、polarity、cell identity、eccentricity を固定し、
+同じ type の base parameter を共有する \\
 
-\subsection{Stage 3：上流 dynamics}
+RGC learnable state\newline（モデル学習） &
+局所入力支持範囲、sustained mix、membrane/adaptation $\tau$、
+adaptation gain、threshold、subunit time/gain &
+BOUNDED-LEARNED &
+マカク生理範囲内で type-level parameter を学習し、
+cell-specific residual を小さく正則化する \\
 
-学習対象を amacrine、bipolar、H1 の順に一群ずつ追加する。
-各段階で直前の checkpoint、held-out likelihood、RF、parameter range、
-module ablation を比較する。追加モジュールの gain がゼロ近傍へ収束する場合、
-そのモジュールは記録データから識別されていないと判定する。
+出力 likelihood\newline（一部固定・モデル学習） &
+Bernoulli/Poisson target、cell bias、observed-spike history &
+DATA-FIXED + BOUNDED-LEARNED &
+target kind は記録データ属性で固定する。
+bias、history、readout weight はマカク RGC 応答から学習する \\
 
-\subsection{Stage 4：限定的な joint fine-tuning}
+学習制御\newline（検証データで設定） &
+learning rate、BPTT、gradient clipping、prior weights &
+VALIDATION-TUNED &
+マカク validation likelihood、gradient statistics、
+state stability により選択する \\
 
-全 BOUNDED-LEARNED parameter を各 bounds 内で共同最適化する。
-複数 seed の推定値、境界到達率、held-out performance、RF stability を保存する。
-同等性能を持つ複数パラメータ集合が残る場合、内部機構の一意性を主張しない。
+RF 指標\newline（学習しない） &
+center、surround、latency、polarity、dynamicity &
+POST-HOC &
+モデル凍結後に STA、Jacobian、GLM から抽出し、
+偏心度と測定条件を合わせたマカク生理データと比較する \\
+\bottomrule
+\end{tabularx}
 
-\subsection{複数刺激による識別}
-
-\enlargethispage{2\baselineskip}
-white noise は空間時間 RF、flash/step/chirp は time scale と adaptation、
-natural movie は自然統計下の汎化、contrast change は gain control を拘束する。
-単一刺激で得られたパラメータは、別刺激条件で再評価する。
+\vspace{0.6\baselineskip}
+\noindent\textbf{表の説明：}
+マカク　プロファイルは、本研究で内網膜 dynamics と RGC parameter を
+記録応答から学習する主プロファイルであり、parameter identification と主評価に用いる。
+学習可能量は type-level shared parameter と小さな cell-specific residual に分ける。
+上下限は変換パラメータ化によって満たし、範囲端への集中を
+parameter identifiability の警告として記録する。local support の半径は
+連続重みと同時に自由化せず、マカク文献範囲内の離散 sweep で決定する。
 
 \clearpage
 \twocolumn
@@ -763,16 +803,6 @@ cross-stimulus generalization、生理範囲内のパラメータ、
 高い spike likelihood と不安定な内部パラメータが併存する場合、
 応答予測能力を報告し、機構同定の結論を保留する。
 
-\section{未確定項目とデータ取得優先度}
-
-\begin{enumerate}
-  \item generic amacrine node に対応する subtype、抑制標的、空間範囲
-  \item ヒト H1 と cone bipolar の direct physiological RF
-  \item ヒト midget/parasol の physiological RF と dendritic field の対応
-  \item 同一刺激・順応条件で比較できる layer-to-layer temporal metric
-  \item macaque-primary dataset の cone geometry、RGC position、eccentricity alignment
-  \item in vivo optics と ex vivo retinal-space stimulus の observation model
-\end{enumerate}
 
 \section{まとめ}
 

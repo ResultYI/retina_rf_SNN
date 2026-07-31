@@ -22,6 +22,7 @@ data/*
 !data/cone_response.py
 !data/dataset.py
 !data/geometry.py
+!data/input_identity.py
 !data/rgc_response.py
 !data/rgc_response_export.py
 !data/synthetic_teacher.py

@@ -14,7 +14,12 @@ from benchmarks.point_process_teacher import (
     SyntheticTeacherResult,
     generate_teacher_responses,
 )
-from data.cone_response import ConeResponseExport, load_cone_response
+from data.cone_response import ConeResponseExport
+from data.dataset import (
+    validate_compatible_cone_exports,
+    validate_loaded_cone_exports,
+)
+from data.input_identity import DatasetKind
 from data.rgc_response_export import write_rgc_response
 from data.synthetic_teacher import (
     TeacherInputNormalization,
@@ -54,12 +59,16 @@ def main() -> None:
         )
     test_paths = train_paths[-args.test_count :]
     train_paths = train_paths[: -args.test_count]
-    train_exports = _load_exports(train_paths)
+    all_paths = (*train_paths, *validation_paths, *test_paths)
+    all_exports = _load_exports(all_paths)
+    train_end = len(train_paths)
+    validation_end = train_end + len(validation_paths)
+    train_exports = all_exports[:train_end]
     teacher_normalization = fit_teacher_input_normalization(
         np.stack([export.response for export in train_exports])
     )
-    validation_exports = _load_exports(validation_paths)
-    test_exports = _load_exports(test_paths)
+    validation_exports = all_exports[train_end:validation_end]
+    test_exports = all_exports[validation_end:]
     output = Path(args.output_dir)
     for split, exports, paths, offset in (
         ("train", train_exports, train_paths, 0),
@@ -91,6 +100,15 @@ def _generate_split(
     adaptive: bool,
     teacher_normalization: TeacherInputNormalization,
 ) -> SyntheticTeacherResult:
+    validate_loaded_cone_exports(exports)
+    if any(
+        export.input_identity.dataset_kind
+        is not DatasetKind.SYNTHETIC_METHOD_VALIDATION
+        for export in exports
+    ):
+        raise SyntheticBenchmarkError(
+            "Synthetic benchmark inputs must declare synthetic_method_validation"
+        )
     shape = exports[0].response.shape
     if any(export.response.shape != shape for export in exports):
         raise SyntheticBenchmarkError("Synthetic source cone shapes must match")
@@ -103,11 +121,17 @@ def _generate_split(
         seed=seed,
         adaptive=adaptive,
         teacher_normalization=teacher_normalization,
+        input_identity=exports[0].input_identity.with_sources(
+            tuple(
+                export.input_identity.stimulus_source_fingerprints[0]
+                for export in exports
+            )
+        ),
     )
 
 
 def _load_exports(paths: tuple[Path, ...]) -> tuple[ConeResponseExport, ...]:
-    return tuple(load_cone_response(path) for path in paths)
+    return validate_compatible_cone_exports(paths)
 
 
 if __name__ == "__main__":

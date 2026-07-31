@@ -46,11 +46,13 @@ def _reset_rf(
     condition_on_observed: bool,
 ) -> StaticRFResult:
     device = next(model.parameters()).device
+    counts = split.spike_counts[index, :, -lag_steps:].to(device)
+    mask = split.valid_mask[index, :, -lag_steps:].to(device)
     return conditioned_rf(
         model,
         split.cone_response[index : index + 1, -lag_steps:].to(device),
-        split.spike_counts[index, :, -lag_steps:].to(device),
-        split.valid_mask[index, :, -lag_steps:].to(device),
+        torch.zeros_like(counts),
+        torch.ones_like(mask),
         lag_steps,
         condition_on_observed=condition_on_observed,
     )
@@ -122,8 +124,6 @@ def _recovery_inputs(
     sequence = split.cone_response[index : index + 1].to(device)
     counts = split.spike_counts[index].to(device)
     mask = split.valid_mask[index].to(device)
-    if not delay_steps:
-        return sequence, counts, mask
     recovery = torch.zeros(
         1,
         delay_steps,
@@ -147,8 +147,22 @@ def _recovery_inputs(
     )
     return (
         torch.cat((sequence[:, :-lag_steps], recovery, sequence[:, -lag_steps:]), dim=1),
-        torch.cat((counts[:, :-lag_steps], count_recovery, counts[:, -lag_steps:]), dim=1),
-        torch.cat((mask[:, :-lag_steps], mask_recovery, mask[:, -lag_steps:]), dim=1),
+        torch.cat(
+            (
+                counts[:, :-lag_steps],
+                count_recovery,
+                torch.zeros_like(counts[:, -lag_steps:]),
+            ),
+            dim=1,
+        ),
+        torch.cat(
+            (
+                mask[:, :-lag_steps],
+                mask_recovery,
+                torch.ones_like(mask[:, -lag_steps:]),
+            ),
+            dim=1,
+        ),
     )
 
 
