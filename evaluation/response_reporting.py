@@ -146,6 +146,8 @@ def _dynamic_mode(evidence: RFModeEvidence) -> JsonMap:
 
 def _dynamic_result(result: DynamicRFResult) -> JsonMap:
     value = asdict(result)
+    del value["mean_low_kernel"]
+    del value["mean_high_kernel"]
     if result.teacher_model_signed_gains:
         return value
     for key in (

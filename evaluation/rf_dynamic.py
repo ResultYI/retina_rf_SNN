@@ -55,6 +55,8 @@ def evaluate_dynamic_rf(
     shapes: list[float] = []
     gains: list[float] = []
     numerical_errors: list[float] = []
+    low_kernels: list[torch.Tensor] = []
+    high_kernels: list[torch.Tensor] = []
     identifiable = True
     teacher_alignments: list[TeacherDynamicAlignment] = []
     teacher_reference = (
@@ -89,6 +91,8 @@ def evaluate_dynamic_rf(
             condition_on_observed=condition_on_observed,
         )
         shape, gain = kernel_metrics(low_rf.kernels, high_rf.kernels)
+        low_kernels.append(low_rf.kernels)
+        high_kernels.append(high_rf.kernels)
         if teacher_reference is not None:
             teacher_alignments.append(
                 align_teacher_dynamic_rf(
@@ -216,6 +220,8 @@ def evaluate_dynamic_rf(
         per_source_reset_gain_shifts=tuple(
             point.mean_absolute_gain_shift for point in reset_by_source
         ),
+        mean_low_kernel=torch.stack(low_kernels).mean(dim=0).detach().cpu(),
+        mean_high_kernel=torch.stack(high_kernels).mean(dim=0).detach().cpu(),
     )
 
 __all__ = [

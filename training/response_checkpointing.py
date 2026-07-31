@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import asdict, dataclass
+import hashlib
 import os
 from pathlib import Path
 import pickle
@@ -13,7 +14,7 @@ from training.response_config import ResponseExperimentConfig
 
 
 CHECKPOINT_SCHEMA = "retina_rgc_response_snn"
-CHECKPOINT_SCHEMA_REVISION = 3
+CHECKPOINT_SCHEMA_REVISION = 4
 MODEL_CONTRACT_REVISION = 1
 CHECKPOINT_KEYS = frozenset(
     {
@@ -27,6 +28,7 @@ CHECKPOINT_KEYS = frozenset(
         "sampling_rng",
         "dataset_fingerprint",
         "target_kind",
+        "type_prior_sha256",
         "config",
         "run_id",
         "parent_run_id",
@@ -81,6 +83,7 @@ def save_response_checkpoint(
         "sampling_rng": generator.get_state(),
         "dataset_fingerprint": fingerprint,
         "target_kind": target_kind,
+        "type_prior_sha256": _type_prior_sha256(config),
         "config": asdict(config),
         "run_id": run_id,
         "parent_run_id": parent_run_id,
@@ -116,7 +119,10 @@ def load_response_checkpoint(
         raise ResponseCheckpointError("Response checkpoint dataset fingerprint mismatch")
     if payload.get("target_kind") != target_kind:
         raise ResponseCheckpointError("Response checkpoint target kind mismatch")
-    if payload.get("config") != asdict(config):
+    if (
+        payload.get("config") != asdict(config)
+        or payload.get("type_prior_sha256") != _type_prior_sha256(config)
+    ):
         raise ResponseCheckpointError("Response checkpoint configuration mismatch")
     if expected_run_id is not None and payload["run_id"] != expected_run_id:
         raise ResponseCheckpointError("Response checkpoint run lineage mismatch")
@@ -140,7 +146,7 @@ def _validated_checkpoint_payload(path: Path) -> Mapping:
         or payload.get("model_contract_revision") != MODEL_CONTRACT_REVISION
     ):
         raise ResponseCheckpointError(
-            "Checkpoint is not a response-fitting revision-3 checkpoint; "
+            "Checkpoint is not a response-fitting revision-4 checkpoint; "
             "start a fresh response run"
         )
     if (
@@ -184,6 +190,11 @@ def _load_safe_checkpoint_payload(path: Path) -> Mapping:
     ):
         raise ResponseCheckpointError("Response checkpoint payload is invalid")
     return payload
+
+
+def _type_prior_sha256(config: ResponseExperimentConfig) -> str:
+    with Path(config.model.type_prior_path).open("rb") as handle:
+        return hashlib.file_digest(handle, "sha256").hexdigest()
 
 
 def _is_safe_checkpoint_value(value) -> bool:

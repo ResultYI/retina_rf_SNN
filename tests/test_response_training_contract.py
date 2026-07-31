@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from pathlib import Path
 import subprocess
 import sys
@@ -44,7 +44,7 @@ def test_canonical_response_training_contract() -> None:
     assert config.training.differentiable_steps == 256
     assert config.training.checkpoint_block_steps == 32
     assert CHECKPOINT_SCHEMA == "retina_rgc_response_snn"
-    assert CHECKPOINT_SCHEMA_REVISION == 3
+    assert CHECKPOINT_SCHEMA_REVISION == 4
 
 
 def test_response_config_rejects_reconstruction_keys(tmp_path: Path) -> None:
@@ -105,6 +105,49 @@ def test_checkpoint_restores_optimizer_step_rng_and_config(tmp_path: Path) -> No
     assert torch.equal(torch.rand(3, generator=restored_generator), expected_random)
 
 
+def test_checkpoint_rejects_changed_type_prior_content(tmp_path: Path) -> None:
+    # Given
+    prior_path = tmp_path / "priors.yaml"
+    prior_path.write_text("version: one\n", encoding="utf-8")
+    base = load_response_config(ROOT / "configs" / "synthetic_smoke.yaml")
+    config = replace(
+        base,
+        model=replace(base.model, type_prior_path=str(prior_path)),
+    )
+    model = nn.Linear(2, 1)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=0.01)
+    path = tmp_path / "checkpoint.pt"
+    save_response_checkpoint(
+        path,
+        model=model,
+        optimizer=optimizer,
+        optimizer_step=1,
+        best_nll=0.5,
+        best_checkpoint_step=1,
+        generator=torch.Generator().manual_seed(7),
+        fingerprint="dataset",
+        target_kind="bernoulli",
+        config=config,
+        run_id="run-a",
+        checkpoint_kind="last",
+    )
+
+    # When
+    prior_path.write_text("version: two\n", encoding="utf-8")
+
+    # Then
+    with pytest.raises(ResponseCheckpointError, match="configuration"):
+        load_response_checkpoint(
+            path,
+            model=model,
+            optimizer=None,
+            generator=None,
+            fingerprint="dataset",
+            target_kind="bernoulli",
+            config=config,
+        )
+
+
 def test_checkpoint_rejects_pickle_payload_without_executing_reducer(
     tmp_path: Path,
 ) -> None:
@@ -144,6 +187,7 @@ def test_checkpoint_rejects_malformed_safe_payload(tmp_path: Path) -> None:
             "sampling_rng": torch.Generator().manual_seed(7).get_state(),
             "dataset_fingerprint": "dataset",
             "target_kind": "bernoulli",
+            "type_prior_sha256": "invalid",
             "config": asdict(config),
             "run_id": "run-a",
             "parent_run_id": None,

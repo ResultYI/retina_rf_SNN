@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+import torch
+
 
 class DynamicRFError(ValueError):
     pass
@@ -34,6 +36,8 @@ class DynamicRFResult:
     recovery_signed_gain_shifts: tuple[tuple[float, ...], ...] = ()
     per_source_reset_shape_distances: tuple[float, ...] = ()
     per_source_reset_gain_shifts: tuple[float, ...] = ()
+    mean_low_kernel: torch.Tensor | None = None
+    mean_high_kernel: torch.Tensor | None = None
 
 
 def classify_dynamic_rf(

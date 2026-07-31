@@ -15,6 +15,7 @@ from evaluation.response_report_schema import (
     ResponseReportEvidence,
 )
 from evaluation.response_reporting import write_response_report
+from evaluation.rf_artifacts import write_rf_artifacts
 from evaluation.rf_dynamic import compare_dynamic_rf, evaluate_dynamic_rf
 from evaluation.rf_static import compare_rf_kernels, extract_static_rf
 from evaluation.rf_static import StaticRFResult
@@ -169,40 +170,39 @@ def evaluate_and_report_response_experiment(
         free_static,
         teacher,
     )
-    write_response_report(
-        output,
-        ResponseReportEvidence(
-            conditional=conditional,
-            free_running=free_running,
-            glm=glm,
-            conditional_rf=RFModeEvidence(
-                static_rf=conditional_static,
-                initialized_static_rf=initialized_conditional_static,
-                static_reference=static_reference,
-                dynamic_rf=conditional_dynamic,
-                initialized_dynamic_rf=initialized_conditional_dynamic,
-                dynamic_comparison=conditional_comparison,
-                initialized_static_reference=_static_reference(
-                    initialized_conditional_static,
-                    teacher,
-                ),
+    evidence = ResponseReportEvidence(
+        conditional=conditional,
+        free_running=free_running,
+        glm=glm,
+        conditional_rf=RFModeEvidence(
+            static_rf=conditional_static,
+            initialized_static_rf=initialized_conditional_static,
+            static_reference=static_reference,
+            dynamic_rf=conditional_dynamic,
+            initialized_dynamic_rf=initialized_conditional_dynamic,
+            dynamic_comparison=conditional_comparison,
+            initialized_static_reference=_static_reference(
+                initialized_conditional_static,
+                teacher,
             ),
-            free_running_rf=RFModeEvidence(
-                static_rf=free_static,
-                initialized_static_rf=initialized_free_static,
-                static_reference=free_static_reference,
-                dynamic_rf=free_dynamic,
-                initialized_dynamic_rf=initialized_free_dynamic,
-                dynamic_comparison=free_comparison,
-                initialized_static_reference=_static_reference(
-                    initialized_free_static,
-                    teacher,
-                ),
-            ),
-            synthetic=teacher is not None,
-            checkpoint=str(checkpoint.resolve()),
         ),
+        free_running_rf=RFModeEvidence(
+            static_rf=free_static,
+            initialized_static_rf=initialized_free_static,
+            static_reference=free_static_reference,
+            dynamic_rf=free_dynamic,
+            initialized_dynamic_rf=initialized_free_dynamic,
+            dynamic_comparison=free_comparison,
+            initialized_static_reference=_static_reference(
+                initialized_free_static,
+                teacher,
+            ),
+        ),
+        synthetic=teacher is not None,
+        checkpoint=str(checkpoint.resolve()),
     )
+    write_response_report(output, evidence)
+    write_rf_artifacts(output, data, evidence)
     torch.save(initialized_model.state_dict(), output / "initialized_model_state.pt")
     (output / "run_manifest.json").write_text(
         json.dumps(

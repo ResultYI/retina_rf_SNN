@@ -10,6 +10,7 @@ from pytest import MonkeyPatch
 from torch import nn
 
 from baselines.point_process_glm import GLMFitResult, PointProcessGLM
+from data.input_identity import synthetic_input_identity
 from data.rgc_response import CellMetadata, ResponseTargetKind
 from data.synthetic_teacher import load_teacher_rf_metadata
 import evaluation.response_pipeline as response_pipeline
@@ -59,6 +60,14 @@ def test_pipeline_runs_conditional_and_free_running_rf_modes(
     assert static_modes == [True, True, False, False]
     assert "conditional" in metrics["dynamic_rf"]
     assert "free_running" in metrics["dynamic_rf"]
+    artifacts = torch.load(
+        tmp_path / "rf_artifacts.pt",
+        map_location="cpu",
+        weights_only=True,
+    )
+    assert artifacts["cell_ids"] == ("cell",)
+    assert artifacts["conditional_dynamic_trained_low"].shape == (2, 3, 1)
+    assert artifacts["conditional_static_trained"].shape == (2, 3, 1)
 
 
 def test_synthetic_rf_metadata_loader_reads_kernels_and_recovery(
@@ -168,6 +177,8 @@ def _dynamic() -> DynamicRFResult:
         per_source_shape_distances=(0.2, 0.2, 0.2),
         per_source_gain_shifts=(0.2, 0.2, 0.2),
         status="not_supported",
+        mean_low_kernel=torch.ones(2, 3, 1),
+        mean_high_kernel=torch.full((2, 3, 1), 2.0),
     )
 
 
@@ -222,6 +233,7 @@ def _prepared_data() -> PreparedResponseData:
         normalization_mean=np.zeros(1, dtype=np.float32),
         normalization_std=np.ones(1, dtype=np.float32),
         fingerprint="fingerprint",
+        input_identity=synthetic_input_identity(1, ("source",)),
     )
 
 
