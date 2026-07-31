@@ -43,11 +43,17 @@ def write_response_report(
             "synthetic_method_validation" if evidence.synthetic else "real_recording"
         ),
         "checkpoint": evidence.checkpoint,
+        "evaluation_split": evidence.evaluation_split,
         "response_prediction": {
             "conditional": asdict(evidence.conditional),
             "free_running": asdict(evidence.free_running),
             "glm_validation": asdict(evidence.glm.validation_metrics),
-            "glm_test": asdict(evidence.glm.test_metrics),
+            "glm_test": (
+                None
+                if evidence.glm.test_metrics is None
+                else asdict(evidence.glm.test_metrics)
+            ),
+            "glm_evaluation": asdict(evidence.glm.evaluation_metrics),
             "glm_best_step": evidence.glm.best_step,
         },
         "static_rf": {
@@ -67,7 +73,11 @@ def write_response_report(
     )
     (output / "run_status.json").write_text(
         json.dumps(
-            {"status": "COMPLETED", "synthetic": evidence.synthetic},
+            {
+                "status": "COMPLETED",
+                "synthetic": evidence.synthetic,
+                "evaluation_split": evidence.evaluation_split,
+            },
             indent=2,
             allow_nan=False,
         ),
@@ -203,9 +213,10 @@ def _markdown_report(evidence: ResponseReportEvidence) -> str:
     report = (
         "# RGC 响应拟合报告\n\n"
         f"证据类型：{title}\n\n"
-        f"- 条件测试 NLL：{evidence.conditional.nll:.6f}\n"
-        f"- 自由运行测试 NLL：{evidence.free_running.nll:.6f}\n"
-        f"- 静态 GLM 测试 NLL：{evidence.glm.test_metrics.nll:.6f}\n"
+        f"- 评估数据集：{evidence.evaluation_split}\n"
+        f"- 条件评估 NLL：{evidence.conditional.nll:.6f}\n"
+        f"- 自由运行评估 NLL：{evidence.free_running.nll:.6f}\n"
+        f"- 静态 GLM 评估 NLL：{evidence.glm.evaluation_metrics.nll:.6f}\n"
         f"- Conditional Dynamic RF：{dynamic['status']}\n"
         f"- Free-running Dynamic RF：{evidence.free_running_rf.dynamic_comparison.status}\n"
         f"- Mode agreement：{dynamic['mode_agreement']}\n"

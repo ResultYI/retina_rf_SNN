@@ -43,6 +43,7 @@ def main() -> None:
     parser.add_argument("--output", required=True)
     parser.add_argument("--stop-after-steps", type=int)
     parser.add_argument("--diagnostics-only", action="store_true")
+    parser.add_argument("--final-test", action="store_true")
     parser.add_argument("--overwrite", action="store_true")
     checkpoint_group = parser.add_mutually_exclusive_group()
     checkpoint_group.add_argument("--checkpoint")
@@ -159,6 +160,7 @@ def _run(args: argparse.Namespace, output: Path) -> None:
         data=data,
         config=config,
         checkpoint=checkpoint,
+        evaluation_split="test" if args.final_test else "validation",
     )
 
 
@@ -254,6 +256,10 @@ def _restore_trainer_lineage(
 
 
 def _prepare_output(args: argparse.Namespace) -> Path:
+    if args.final_test and not args.diagnostics_only:
+        raise ResponseExperimentError(
+            "--final-test requires --diagnostics-only with --checkpoint or --resume"
+        )
     if args.diagnostics_only and not (args.checkpoint or args.resume):
         raise ResponseExperimentError(
             "--diagnostics-only requires --checkpoint or --resume"

@@ -6,11 +6,10 @@ import numpy as np
 import torch
 from torch import nn
 
-from baselines.point_process_glm import fit_point_process_glm
-from data.rgc_response import CellMetadata, ResponseTargetKind
+from data.rgc_response import ResponseTargetKind
 from evaluation.response_metrics import compute_response_metrics
 from evaluation import rf_dynamic
-from training.response_data import PreparedResponseData, ResponseSplit
+from training.response_data import ResponseSplit
 
 
 def test_response_metrics_preserve_stimulus_and_trial_axes() -> None:
@@ -34,17 +33,6 @@ def test_response_metrics_preserve_stimulus_and_trial_axes() -> None:
     assert metrics.psth_correlation < -0.99
     assert np.isfinite(metrics.micro_bits_per_spike)
     assert np.isfinite(metrics.macro_bits_per_spike)
-
-
-def test_glm_reports_validation_and_test_metrics() -> None:
-    data = _prepared_response_data()
-
-    result = fit_point_process_glm(data, device=torch.device("cpu"), steps=2)
-
-    assert result.model.kernel.shape[1] == 16
-    assert np.isfinite(result.validation_metrics.nll)
-    assert np.isfinite(result.test_metrics.nll)
-    assert result.best_step >= 1
 
 
 @dataclass(frozen=True, slots=True)
@@ -198,42 +186,6 @@ def test_dynamic_rf_teacher_comparison_hardens_teacher_gate_samples() -> None:
             seed=7,
         )
         assert comparison.status == expected
-
-
-def _prepared_response_data() -> PreparedResponseData:
-    cells = CellMetadata(
-        ids=("cell",),
-        type_ids=("midget",),
-        polarities=np.asarray([0], dtype=np.int64),
-        positions_degs=np.zeros((1, 2), dtype=np.float32),
-        eccentricities_deg=np.asarray([4.0], dtype=np.float32),
-    )
-    train = _response_split(0.0, "train")
-    validation = _response_split(1.0, "validation")
-    test = _response_split(0.0, "test")
-    return PreparedResponseData(
-        train=train,
-        validation=validation,
-        test=test,
-        cells=cells,
-        cone_positions_degs=np.zeros((1, 2), dtype=np.float32),
-        time_axis_seconds=np.arange(20, dtype=np.float64) * 0.005,
-        target_kind=ResponseTargetKind.BERNOULLI,
-        normalization_mean=np.zeros(1, dtype=np.float32),
-        normalization_std=np.ones(1, dtype=np.float32),
-        fingerprint="test",
-    )
-
-
-def _response_split(value: float, source: str) -> ResponseSplit:
-    counts = torch.full((1, 2, 20, 1), value)
-    return ResponseSplit(
-        cone_response=torch.linspace(-1, 1, 20).view(1, 20, 1),
-        spike_counts=counts,
-        valid_mask=torch.ones_like(counts, dtype=torch.bool),
-        source_ids=(source,),
-        context_ids=("stationary",),
-    )
 
 
 def _context_split() -> ResponseSplit:

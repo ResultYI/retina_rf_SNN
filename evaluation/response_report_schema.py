@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Literal, TypeAlias
 
 from baselines.point_process_glm import GLMFitResult
 from evaluation.response_metrics import ResponseMetrics
 from evaluation.rf_dynamic import DynamicRFResult
 from evaluation.rf_dynamic_compare import DynamicRFComparison
 from evaluation.rf_static import StaticRFResult
+
+
+EvaluationSplit: TypeAlias = Literal["validation", "test"]
 
 
 @dataclass(frozen=True, slots=True)
@@ -35,9 +39,11 @@ class ResponseReportEvidence:
     free_running_rf: RFModeEvidence
     synthetic: bool
     checkpoint: str
+    evaluation_split: EvaluationSplit = "validation"
 
 
 __all__ = [
+    "EvaluationSplit",
     "KernelReferenceComparison",
     "RFModeEvidence",
     "ResponseReportEvidence",

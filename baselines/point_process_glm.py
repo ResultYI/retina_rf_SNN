@@ -24,8 +24,12 @@ class GLMError(ValueError):
 class GLMFitResult:
     model: PointProcessGLM
     validation_metrics: ResponseMetrics
-    test_metrics: ResponseMetrics
+    test_metrics: ResponseMetrics | None
     best_step: int
+
+    @property
+    def evaluation_metrics(self) -> ResponseMetrics:
+        return self.validation_metrics if self.test_metrics is None else self.test_metrics
 
 
 class PointProcessGLM(nn.Module):
@@ -73,6 +77,7 @@ def fit_point_process_glm(
     steps: int = 100,
     temporal_lags: int = 16,
     burn_in_steps: int = 0,
+    evaluate_test: bool = False,
 ) -> GLMFitResult:
     model = PointProcessGLM(
         data.train.cone_response.shape[-1],
@@ -118,13 +123,17 @@ def fit_point_process_glm(
         device,
         burn_in_steps,
     )
-    test = _evaluate_split(
-        model,
-        data.test,
-        data.target_kind,
-        baseline_rates,
-        device,
-        burn_in_steps,
+    test = (
+        _evaluate_split(
+            model,
+            data.test,
+            data.target_kind,
+            baseline_rates,
+            device,
+            burn_in_steps,
+        )
+        if evaluate_test
+        else None
     )
     return GLMFitResult(model, validation, test, best_step)
 

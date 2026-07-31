@@ -249,6 +249,7 @@ def test_fresh_run_rejects_nonempty_output(tmp_path: Path) -> None:
     args = argparse.Namespace(
         output=str(output),
         diagnostics_only=False,
+        final_test=False,
         checkpoint=None,
         resume=None,
         overwrite=False,

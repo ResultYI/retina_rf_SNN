@@ -33,12 +33,13 @@ def test_pipeline_runs_conditional_and_free_running_rf_modes(
 ) -> None:
     # Given
     dynamic_modes: list[bool] = []
+    dynamic_splits: list[str] = []
     static_modes: list[bool] = []
     monkeypatch.setattr(response_pipeline, "fit_point_process_glm", _fit_glm)
     monkeypatch.setattr(
         response_pipeline,
         "evaluate_dynamic_rf",
-        _dynamic_recorder(dynamic_modes),
+        _dynamic_recorder(dynamic_modes, dynamic_splits),
     )
     monkeypatch.setattr(response_pipeline, "trial_conditioned_rf", _conditional_static(static_modes))
     monkeypatch.setattr(response_pipeline, "extract_static_rf", _free_static(static_modes))
@@ -57,9 +58,14 @@ def test_pipeline_runs_conditional_and_free_running_rf_modes(
     # Then
     metrics = json.loads((tmp_path / "final_metrics.json").read_text())
     assert dynamic_modes == [True, True, False, False]
+    assert dynamic_splits == ["validation"] * 4
     assert static_modes == [True, True, False, False]
+    assert metrics["evaluation_split"] == "validation"
+    assert metrics["response_prediction"]["glm_test"] is None
     assert "conditional" in metrics["dynamic_rf"]
     assert "free_running" in metrics["dynamic_rf"]
+    manifest = json.loads((tmp_path / "run_manifest.json").read_text())
+    assert manifest["evaluation_split"] == "validation"
     artifacts = torch.load(
         tmp_path / "rf_artifacts.pt",
         map_location="cpu",
@@ -98,7 +104,7 @@ def test_synthetic_rf_metadata_loader_reads_kernels_and_recovery(
     assert metadata.context_gain_envelope.shape == (4, 5, 2)
 
 
-def _dynamic_recorder(modes: list[bool]):
+def _dynamic_recorder(modes: list[bool], splits: list[str]):
     def fake_dynamic(
         model: nn.Module,
         split: ResponseSplit,
@@ -113,6 +119,7 @@ def _dynamic_recorder(modes: list[bool]):
         teacher_context_gain_envelope: torch.Tensor | None = None,
     ) -> DynamicRFResult:
         modes.append(condition_on_observed)
+        splits.append(split.source_ids[0])
         return _dynamic()
 
     return fake_dynamic
@@ -153,9 +160,15 @@ def _fit_glm(
     *,
     device: torch.device,
     burn_in_steps: int = 0,
+    evaluate_test: bool = False,
 ) -> GLMFitResult:
     metrics = _metrics(0.6)
-    return GLMFitResult(PointProcessGLM(1, 1, 1), metrics, metrics, 1)
+    return GLMFitResult(
+        PointProcessGLM(1, 1, 1),
+        metrics,
+        metrics if evaluate_test else None,
+        1,
+    )
 
 
 def _static_rf() -> StaticRFResult:
@@ -215,17 +228,24 @@ def _prepared_data() -> PreparedResponseData:
         positions_degs=np.zeros((1, 2), dtype=np.float32),
         eccentricities_deg=np.ones(1, dtype=np.float32),
     )
-    split = ResponseSplit(
+    validation = ResponseSplit(
         cone_response=torch.ones(1, 4, 1),
         spike_counts=torch.zeros(1, 1, 4, 1),
         valid_mask=torch.ones(1, 1, 4, 1, dtype=torch.bool),
-        source_ids=("source",),
+        source_ids=("validation",),
         context_ids=("stationary",),
     )
+    test = ResponseSplit(
+        cone_response=validation.cone_response,
+        spike_counts=validation.spike_counts,
+        valid_mask=validation.valid_mask,
+        source_ids=("test",),
+        context_ids=validation.context_ids,
+    )
     return PreparedResponseData(
-        train=split,
-        validation=split,
-        test=split,
+        train=validation,
+        validation=validation,
+        test=test,
         cells=cells,
         cone_positions_degs=np.zeros((1, 2), dtype=np.float32),
         time_axis_seconds=np.arange(4, dtype=np.float64) * 0.005,
