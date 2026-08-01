@@ -38,15 +38,32 @@ def write_response_report(
     evidence: ResponseReportEvidence,
 ) -> None:
     output = Path(output_dir)
+    prediction = evidence.response_prediction
     metrics = {
         "evidence_kind": (
             "synthetic_method_validation" if evidence.synthetic else "real_recording"
         ),
         "checkpoint": evidence.checkpoint,
         "evaluation_split": evidence.evaluation_split,
+        "parameter_delta_audit": [
+            asdict(parameter_delta) for parameter_delta in evidence.parameter_deltas
+        ],
         "response_prediction": {
-            "conditional": asdict(evidence.conditional),
-            "free_running": asdict(evidence.free_running),
+            "conditional": asdict(prediction.conditional),
+            "initialized_conditional": asdict(prediction.initialized_conditional),
+            "history_diagnostic": {
+                "observed": asdict(prediction.conditional),
+                "zero": asdict(prediction.zero_history),
+                "shuffled": (
+                    None
+                    if prediction.shuffled_history is None
+                    else asdict(prediction.shuffled_history)
+                ),
+                "observed_minus_zero_nll": (
+                    prediction.conditional.nll - prediction.zero_history.nll
+                ),
+            },
+            "free_running": asdict(prediction.free_running),
             "glm_validation": asdict(evidence.glm.validation_metrics),
             "glm_test": (
                 None
@@ -65,6 +82,15 @@ def write_response_report(
     (output / "final_metrics.json").write_text(
         json.dumps(
             _json_native(metrics),
+            indent=2,
+            ensure_ascii=False,
+            allow_nan=False,
+        ),
+        encoding="utf-8",
+    )
+    (output / "parameter_delta.json").write_text(
+        json.dumps(
+            _json_native(metrics["parameter_delta_audit"]),
             indent=2,
             ensure_ascii=False,
             allow_nan=False,
@@ -210,12 +236,13 @@ def _mode_agreement(conditional: str, free_running: str) -> str:
 def _markdown_report(evidence: ResponseReportEvidence) -> str:
     title = "合成方法验证" if evidence.synthetic else "真实 RGC 响应拟合"
     dynamic = _dynamic_block(evidence)
+    prediction = evidence.response_prediction
     report = (
         "# RGC 响应拟合报告\n\n"
         f"证据类型：{title}\n\n"
         f"- 评估数据集：{evidence.evaluation_split}\n"
-        f"- 条件评估 NLL：{evidence.conditional.nll:.6f}\n"
-        f"- 自由运行评估 NLL：{evidence.free_running.nll:.6f}\n"
+        f"- 条件评估 NLL：{prediction.conditional.nll:.6f}\n"
+        f"- 自由运行评估 NLL：{prediction.free_running.nll:.6f}\n"
         f"- 静态 GLM 评估 NLL：{evidence.glm.evaluation_metrics.nll:.6f}\n"
         f"- Conditional Dynamic RF：{dynamic['status']}\n"
         f"- Free-running Dynamic RF：{evidence.free_running_rf.dynamic_comparison.status}\n"

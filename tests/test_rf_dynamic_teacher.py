@@ -46,7 +46,7 @@ def test_signed_teacher_alignment_rejects_excessive_shape_for_pure_gain() -> Non
     assert alignment.excessive_shape_deformation
 
 
-def test_signed_teacher_alignment_marks_degenerate_teacher_not_identifiable() -> None:
+def test_signed_teacher_alignment_treats_static_teacher_as_zero_target() -> None:
     teacher = TeacherDynamicReference(
         low_kernel=torch.ones(1, 2, 1),
         high_kernel=torch.ones(1, 2, 1),
@@ -58,7 +58,23 @@ def test_signed_teacher_alignment_marks_degenerate_teacher_not_identifiable() ->
         teacher,
     )
 
-    assert alignment.status == "not_identifiable"
+    assert alignment.status == "not_supported"
+    assert alignment.direction_agreement == ()
+    assert alignment.primary_error is None
+    assert alignment.kernel_delta_cosine_distance is None
+
+
+def test_teacher_status_preserves_static_negative_control() -> None:
+    alignment = align_teacher_dynamic_rf(
+        torch.ones(1, 2, 1),
+        torch.ones(1, 2, 1),
+        TeacherDynamicReference(
+            low_kernel=torch.ones(1, 2, 1),
+            high_kernel=torch.ones(1, 2, 1),
+        ),
+    )
+
+    assert classify_teacher_status("supported", [alignment]) == "not_supported"
 
 
 def test_teacher_reference_flips_persisted_causal_lags_for_alignment() -> None:
@@ -81,6 +97,7 @@ def test_teacher_reference_flips_persisted_causal_lags_for_alignment() -> None:
     )
 
     assert float(1 - unflipped_cosine[0]) > 0.1
+    assert alignment.kernel_delta_cosine_distance is not None
     assert alignment.kernel_delta_cosine_distance < 1e-6
     assert alignment.status == "supported"
 

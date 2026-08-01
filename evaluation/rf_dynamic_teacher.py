@@ -35,8 +35,8 @@ class TeacherDynamicAlignment:
     direction_agreement: tuple[bool, ...]
     signed_gain_mae: float
     signed_gain_correlation: float
-    kernel_delta_cosine_distance: float
-    primary_error: float
+    kernel_delta_cosine_distance: float | None
+    primary_error: float | None
     excessive_shape_deformation: bool
     identifiable: bool
     status: str
@@ -63,9 +63,21 @@ def align_teacher_dynamic_rf(
         _shape_distance(teacher_low, teacher_high) <= _DIRECTION_EPS
         and _shape_distance(low, high) > _PURE_GAIN_SHAPE_LIMIT
     )
+    if not bool(teacher_active.any()):
+        return TeacherDynamicAlignment(
+            predicted_signed_gains=tuple(float(value) for value in predicted_gain.cpu()),
+            teacher_signed_gains=tuple(float(value) for value in teacher_gain.cpu()),
+            direction_agreement=(),
+            signed_gain_mae=float(gain_mae),
+            signed_gain_correlation=0.0,
+            kernel_delta_cosine_distance=None,
+            primary_error=None,
+            excessive_shape_deformation=excessive_shape,
+            identifiable=True,
+            status="not_supported",
+        )
     identifiable = bool(
-        teacher_active.any()
-        and torch.isfinite(predicted_gain).all()
+        torch.isfinite(predicted_gain).all()
         and torch.isfinite(teacher_gain).all()
         and torch.isfinite(delta_distance)
     )
@@ -113,6 +125,8 @@ def classify_teacher_status(
     statuses = {alignment.status for alignment in alignments}
     if "not_identifiable" in statuses:
         return "not_identifiable"
+    if "not_supported" in statuses:
+        return "not_supported"
     if "teacher_mismatch" in statuses:
         return "teacher_mismatch"
     return "supported"

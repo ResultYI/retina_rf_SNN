@@ -11,6 +11,7 @@ from evaluation.response_metrics import ResponseMetrics
 from evaluation.response_report_schema import (
     KernelReferenceComparison,
     RFModeEvidence,
+    ResponsePredictionEvidence,
     ResponseReportEvidence,
 )
 from evaluation.response_reporting import write_response_report
@@ -24,8 +25,8 @@ def test_report_uses_conditional_teacher_gate_when_free_running_disagrees(
 ) -> None:
     # Given
     evidence = ResponseReportEvidence(
-        conditional=_metrics(0.4),
-        free_running=_metrics(0.5),
+        response_prediction=_prediction(_metrics(0.4), _metrics(0.5)),
+        parameter_deltas=(),
         glm=_glm(),
         conditional_rf=RFModeEvidence(
             static_rf=_static_rf(),
@@ -68,8 +69,8 @@ def test_report_uses_conditional_teacher_gate_when_free_running_disagrees(
 def test_report_omits_teacher_arrays_for_real_data(tmp_path: Path) -> None:
     # Given
     evidence = ResponseReportEvidence(
-        conditional=_metrics(0.4),
-        free_running=_metrics(0.5),
+        response_prediction=_prediction(_metrics(0.4), _metrics(0.5)),
+        parameter_deltas=(),
         glm=_glm(),
         conditional_rf=RFModeEvidence(
             static_rf=_static_rf(),
@@ -107,15 +108,18 @@ def test_report_writes_strict_json_nulls_when_metrics_are_nonfinite(
 ) -> None:
     # Given
     evidence = ResponseReportEvidence(
-        conditional=ResponseMetrics(
-            float("nan"),
-            np.float64(float("inf")),
-            torch.tensor(float("-inf")),
-            0.3,
-            0.4,
-            (0.5, np.float32(float("nan")), torch.tensor(float("inf"))),
+        response_prediction=_prediction(
+            ResponseMetrics(
+                float("nan"),
+                np.float64(float("inf")),
+                torch.tensor(float("-inf")),
+                0.3,
+                0.4,
+                (0.5, np.float32(float("nan")), torch.tensor(float("inf"))),
+            ),
+            _metrics(0.5),
         ),
-        free_running=_metrics(0.5),
+        parameter_deltas=(),
         glm=_glm(),
         conditional_rf=RFModeEvidence(
             static_rf=StaticRFResult(torch.ones(2, 3, 1), float("inf"), True),
@@ -180,6 +184,19 @@ def test_report_writes_strict_json_nulls_when_metrics_are_nonfinite(
 
 def _metrics(nll: float) -> ResponseMetrics:
     return ResponseMetrics(nll, 0.1, 0.2, 0.3, 0.4, (nll,))
+
+
+def _prediction(
+    conditional: ResponseMetrics,
+    free_running: ResponseMetrics,
+) -> ResponsePredictionEvidence:
+    return ResponsePredictionEvidence(
+        conditional=conditional,
+        initialized_conditional=conditional,
+        zero_history=conditional,
+        shuffled_history=conditional,
+        free_running=free_running,
+    )
 
 
 def _glm() -> GLMFitResult:

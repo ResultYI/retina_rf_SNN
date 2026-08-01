@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import Literal, TypeAlias
 
 from baselines.point_process_glm import GLMFitResult
+from evaluation.parameter_audit import ParameterDelta
 from evaluation.response_metrics import ResponseMetrics
 from evaluation.rf_dynamic import DynamicRFResult
 from evaluation.rf_dynamic_compare import DynamicRFComparison
@@ -31,9 +32,18 @@ class RFModeEvidence:
 
 
 @dataclass(frozen=True, slots=True)
-class ResponseReportEvidence:
+class ResponsePredictionEvidence:
     conditional: ResponseMetrics
+    initialized_conditional: ResponseMetrics
+    zero_history: ResponseMetrics
+    shuffled_history: ResponseMetrics | None
     free_running: ResponseMetrics
+
+
+@dataclass(frozen=True, slots=True)
+class ResponseReportEvidence:
+    response_prediction: ResponsePredictionEvidence
+    parameter_deltas: tuple[ParameterDelta, ...]
     glm: GLMFitResult
     conditional_rf: RFModeEvidence
     free_running_rf: RFModeEvidence
@@ -46,5 +56,6 @@ __all__ = [
     "EvaluationSplit",
     "KernelReferenceComparison",
     "RFModeEvidence",
+    "ResponsePredictionEvidence",
     "ResponseReportEvidence",
 ]

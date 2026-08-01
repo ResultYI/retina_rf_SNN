@@ -10,6 +10,8 @@ import torch
 
 from baselines.point_process_glm import fit_point_process_glm
 from data.synthetic_teacher import TeacherRFMetadata, load_teacher_rf_metadata
+from evaluation.parameter_audit import ParameterAuditContext, audit_parameter_deltas
+from evaluation.response_prediction import evaluate_response_prediction
 from evaluation.response_report_schema import (
     EvaluationSplit,
     KernelReferenceComparison,
@@ -45,8 +47,7 @@ def evaluate_and_report_response_experiment(
             split, teacher_pattern = data.test, config.data.test_glob
         case unreachable:
             assert_never(unreachable)
-    conditional = trainer.evaluate(split)
-    free_running = trainer.evaluate(split, free_running=True)
+    response_prediction = evaluate_response_prediction(trainer, split, initialized_model)
     glm = fit_point_process_glm(
         data,
         device=trainer.device,
@@ -175,8 +176,10 @@ def evaluate_and_report_response_experiment(
     static_reference = _static_reference(conditional_static, teacher)
     free_static_reference = _static_reference(free_static, teacher)
     evidence = ResponseReportEvidence(
-        conditional=conditional,
-        free_running=free_running,
+        response_prediction=response_prediction,
+        parameter_deltas=audit_parameter_deltas(
+            model, initialized_model, ParameterAuditContext.from_cells(data.cells)
+        ),
         glm=glm,
         conditional_rf=RFModeEvidence(
             static_rf=conditional_static,
@@ -255,9 +258,4 @@ def _mean_static_rf(results: tuple[StaticRFResult, ...]) -> StaticRFResult:
 
 def _teacher_metadata(pattern: str) -> TeacherRFMetadata | None:
     paths = sorted(glob.glob(pattern))
-    if not paths:
-        return None
-    return load_teacher_rf_metadata(paths[0])
-
-
-__all__ = ["evaluate_and_report_response_experiment"]
+    return load_teacher_rf_metadata(paths[0]) if paths else None

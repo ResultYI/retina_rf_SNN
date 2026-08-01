@@ -103,7 +103,11 @@ def _finite_difference_check(
     lag_index = sequence.shape[1] - 1
     errors = []
     for cell in range(kernel.shape[0]):
-        cone = int(model.rgc.support_mask[cell].nonzero()[0])
+        supported = kernel[cell, -1].abs().masked_fill(
+            ~model.rgc.support_mask[cell],
+            -1.0,
+        )
+        cone = int(supported.argmax())
         plus = sequence.detach().clone()
         minus = sequence.detach().clone()
         plus[0, lag_index, cone] += epsilon

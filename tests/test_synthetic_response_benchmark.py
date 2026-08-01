@@ -69,6 +69,60 @@ def test_static_and_adaptive_teachers_declare_distinct_context_behavior() -> Non
     assert adaptive.session.spike_counts.shape == (4, 2, 80, 4)
 
 
+def test_teacher_contains_all_four_type_polarity_combinations() -> None:
+    # Given
+    rng = np.random.default_rng(17)
+    cones = rng.random((2, 80, 5), dtype=np.float32)
+    positions = np.stack((np.arange(5) * 0.05, np.zeros(5)), axis=1)
+
+    # When
+    result = generate_teacher_responses(
+        cones,
+        positions,
+        ("a", "b"),
+        np.arange(80) * 0.005,
+        trials=1,
+        seed=3,
+        adaptive=True,
+        teacher_normalization=fit_teacher_input_normalization(cones),
+    )
+
+    # Then
+    assert tuple(zip(result.session.cells.type_ids, result.session.cells.polarities)) == (
+        ("midget", 0),
+        ("midget", 1),
+        ("parasol", 0),
+        ("parasol", 1),
+    )
+
+
+def test_adaptive_teacher_uses_type_consistent_cell_ordered_scales() -> None:
+    # Given
+    rng = np.random.default_rng(19)
+    cones = rng.random((2, 80, 5), dtype=np.float32)
+    positions = np.stack((np.arange(5) * 0.05, np.zeros(5)), axis=1)
+
+    # When
+    result = generate_teacher_responses(
+        cones,
+        positions,
+        ("a", "b"),
+        np.arange(80) * 0.005,
+        trials=1,
+        seed=3,
+        adaptive=True,
+        teacher_normalization=fit_teacher_input_normalization(cones),
+    )
+
+    # Then
+    envelope = result.kernels["context_gain_envelope"]
+    transition = envelope.shape[1] - min(64, envelope.shape[1] // 2)
+    assert np.allclose(
+        envelope[1, transition],
+        np.asarray([0.85, 0.90, 1.10, 1.15], dtype=np.float32),
+    )
+
+
 def test_teacher_logits_use_shared_train_normalization_across_split_containers() -> None:
     base = np.linspace(-1.0, 1.0, 80 * 5, dtype=np.float32).reshape(80, 5)
     train_cones = np.stack((base, base + 4.0))

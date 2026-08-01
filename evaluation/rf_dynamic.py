@@ -169,7 +169,9 @@ def evaluate_dynamic_rf(
         else ()
     )
     primary_errors = tuple(
-        alignment.primary_error for alignment in teacher_alignments
+        alignment.primary_error
+        for alignment in teacher_alignments
+        if alignment.primary_error is not None
     )
     return DynamicRFResult(
         pair_count=len(pairs),
@@ -205,6 +207,7 @@ def evaluate_dynamic_rf(
             [
                 alignment.kernel_delta_cosine_distance
                 for alignment in teacher_alignments
+                if alignment.kernel_delta_cosine_distance is not None
             ]
         ),
         reset_log_gain_shift=reset.mean_absolute_gain_shift,

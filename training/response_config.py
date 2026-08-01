@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, fields
+from dataclasses import MISSING, dataclass, fields
 from pathlib import Path
 from typing import Any, TypeVar, get_type_hints
 
@@ -37,6 +37,22 @@ class ResponseTrainingConfig:
     learning_rate: float
     gradient_clip_norm: float
     validation_interval_steps: int
+    learn_cell_residuals: bool = True
+    supervised_tail_steps: int | None = None
+
+    def __post_init__(self) -> None:
+        if self.supervised_tail_steps is not None and not (
+            1 <= self.supervised_tail_steps <= self.differentiable_steps
+        ):
+            raise ResponseConfigurationError(
+                "supervised tail must fit within the differentiable window"
+            )
+
+    @property
+    def supervision_slice(self) -> slice:
+        if self.supervised_tail_steps is None:
+            return slice(None)
+        return slice(-self.supervised_tail_steps, None)
 
 
 @dataclass(frozen=True, slots=True)
@@ -87,6 +103,10 @@ class ResponseExperimentConfig:
             raise ResponseConfigurationError(
                 "Positive response configuration values are invalid"
             )
+        if not isinstance(self.training.learn_cell_residuals, bool):
+            raise ResponseConfigurationError(
+                "learn_cell_residuals must be a boolean"
+            )
 
 
 _ConfigType = TypeVar("_ConfigType")
@@ -107,14 +127,21 @@ def _materialize(
 ) -> _ConfigType:
     expected = {field.name for field in fields(cls)}
     keys = set(raw)
-    if keys != expected:
+    required = {
+        field.name
+        for field in fields(cls)
+        if field.default is MISSING and field.default_factory is MISSING
+    }
+    if not required.issubset(keys) or not keys.issubset(expected):
         raise ResponseConfigurationError(
-            f"{path} keys mismatch: missing={sorted(expected - keys)}, "
+            f"{path} keys mismatch: missing={sorted(required - keys)}, "
             f"unknown={sorted(keys - expected)}"
         )
     hints = get_type_hints(cls)
     values: dict[str, Any] = {}
     for field in fields(cls):
+        if field.name not in raw:
+            continue
         expected_type = hints[field.name]
         value = raw[field.name]
         if hasattr(expected_type, "__dataclass_fields__"):

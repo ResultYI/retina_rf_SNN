@@ -21,6 +21,8 @@ training:
   learning_rate: 0.0002
   gradient_clip_norm: 1.0
   validation_interval_steps: 100
+  learn_cell_residuals: true
+  supervised_tail_steps: null
 
 evaluation:
   rf_lag_steps: 64

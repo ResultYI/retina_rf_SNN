@@ -43,6 +43,7 @@ def test_canonical_response_training_contract() -> None:
     assert config.training.burn_in_steps == 64
     assert config.training.differentiable_steps == 256
     assert config.training.checkpoint_block_steps == 32
+    assert config.training.learn_cell_residuals is True
     assert CHECKPOINT_SCHEMA == "retina_rgc_response_snn"
     assert CHECKPOINT_SCHEMA_REVISION == 4
 

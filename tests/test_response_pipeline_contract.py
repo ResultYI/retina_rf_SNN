@@ -25,6 +25,7 @@ from training.response_config import (
     ResponseTrainingConfig,
 )
 from training.response_data import PreparedResponseData, ResponseSplit
+from training.response_trainer import ResponseHistoryMode
 
 
 def test_pipeline_runs_conditional_and_free_running_rf_modes(
@@ -62,6 +63,13 @@ def test_pipeline_runs_conditional_and_free_running_rf_modes(
     assert static_modes == [True, True, False, False]
     assert metrics["evaluation_split"] == "validation"
     assert metrics["response_prediction"]["glm_test"] is None
+    assert metrics["response_prediction"]["initialized_conditional"]["nll"] == 0.4
+    history = metrics["response_prediction"]["history_diagnostic"]
+    assert history["zero"]["nll"] == 0.3
+    assert history["shuffled"]["nll"] == 0.45
+    assert metrics["parameter_delta_audit"][0]["name"] == "weight"
+    parameter_delta = json.loads((tmp_path / "parameter_delta.json").read_text())
+    assert parameter_delta == metrics["parameter_delta_audit"]
     assert "conditional" in metrics["dynamic_rf"]
     assert "free_running" in metrics["dynamic_rf"]
     manifest = json.loads((tmp_path / "run_manifest.json").read_text())
@@ -215,9 +223,17 @@ class _FakeTrainer:
         self,
         split: ResponseSplit,
         *,
-        free_running: bool = False,
+        history_mode: ResponseHistoryMode = "observed",
+        model: _FakeModel | None = None,
     ) -> ResponseMetrics:
-        return _metrics(0.5 if free_running else 0.4)
+        return _metrics(
+            {
+                "observed": 0.4,
+                "zero": 0.3,
+                "shuffled": 0.45,
+                "free_running": 0.5,
+            }[history_mode]
+        )
 
 
 def _prepared_data() -> PreparedResponseData:
@@ -230,8 +246,8 @@ def _prepared_data() -> PreparedResponseData:
     )
     validation = ResponseSplit(
         cone_response=torch.ones(1, 4, 1),
-        spike_counts=torch.zeros(1, 1, 4, 1),
-        valid_mask=torch.ones(1, 1, 4, 1, dtype=torch.bool),
+        spike_counts=torch.zeros(1, 2, 4, 1),
+        valid_mask=torch.ones(1, 2, 4, 1, dtype=torch.bool),
         source_ids=("validation",),
         context_ids=("stationary",),
     )

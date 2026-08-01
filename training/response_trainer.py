@@ -2,9 +2,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Literal, TypeAlias, assert_never
 from uuid import uuid4
 
 import torch
+from torch import nn
 
 from evaluation.response_metrics import (
     ResponseMetrics,
@@ -21,6 +23,26 @@ from training.response_data import (
     masked_history_counts,
 )
 from training.response_unroll import ResponseUnrollRequest, unroll_response
+
+
+ResponseHistoryMode: TypeAlias = Literal[
+    "observed",
+    "zero",
+    "shuffled",
+    "free_running",
+]
+ConditionalHistoryMode: TypeAlias = Literal["observed", "zero", "shuffled"]
+
+
+class ResponseHistoryModeError(ValueError):
+    pass
+
+
+@dataclass(frozen=True, slots=True)
+class ResponseHistoryTrial:
+    split: ResponseSplit
+    stimulus_index: int
+    trial_index: int
 
 
 @dataclass(frozen=True, slots=True)
@@ -43,8 +65,12 @@ class ResponseTrainer:
         self.config = config
         self.data = data
         self.device = device
+        _configure_cell_residual_learning(
+            model,
+            learnable=config.training.learn_cell_residuals,
+        )
         self.optimizer = torch.optim.AdamW(
-            model.parameters(),
+            (parameter for parameter in model.parameters() if parameter.requires_grad),
             lr=config.training.learning_rate,
             weight_decay=0.0,
         )
@@ -80,12 +106,11 @@ class ResponseTrainer:
                 checkpointed=True,
             )
         )
-        supervised_counts = counts[:, self.config.training.burn_in_steps :]
-        supervised_mask = mask[:, self.config.training.burn_in_steps :]
+        supervision = self.config.training.supervision_slice
         likelihood = response_nll(
-            output.spike_logits,
-            supervised_counts,
-            supervised_mask,
+            output.spike_logits[:, supervision],
+            counts[:, self.config.training.burn_in_steps :][:, supervision],
+            mask[:, self.config.training.burn_in_steps :][:, supervision],
             self.data.target_kind,
         )
         physiology_prior = self.model.rgc.physiology_prior_penalty()
@@ -109,9 +134,11 @@ class ResponseTrainer:
         self,
         split: ResponseSplit,
         *,
-        free_running: bool = False,
+        history_mode: ResponseHistoryMode = "observed",
+        model: ResponseRetinaModel | None = None,
     ) -> ResponseMetrics:
-        self.model.eval()
+        evaluation_model = self.model if model is None else model
+        evaluation_model.eval()
         logits: list[torch.Tensor] = []
         targets: list[torch.Tensor] = []
         masks: list[torch.Tensor] = []
@@ -127,24 +154,30 @@ class ResponseTrainer:
                 mask = split.valid_mask[stimulus : stimulus + 1, trial].to(
                     self.device
                 )
-                if free_running:
-                    full_output, _ = self.model.forward_sequence(cones)
-                    burn = self.config.training.burn_in_steps
-                    output_logits = full_output.spike_logits[:, burn:]
-                else:
-                    history_counts = masked_history_counts(counts, mask)
-                    output, _ = unroll_response(
-                        ResponseUnrollRequest(
-                            self.model,
-                            cones,
-                            history_counts,
-                            self.config.training.burn_in_steps,
-                            self.config.training.differentiable_steps,
-                            self.config.training.checkpoint_block_steps,
-                            False,
+                match history_mode:
+                    case "free_running":
+                        full_output, _ = evaluation_model.forward_sequence(cones)
+                        burn = self.config.training.burn_in_steps
+                        output_logits = full_output.spike_logits[:, burn:]
+                    case "observed" | "zero" | "shuffled" as conditional_mode:
+                        history_counts = evaluation_history_counts(
+                            ResponseHistoryTrial(split, stimulus, trial),
+                            conditional_mode,
+                        ).to(self.device)
+                        output, _ = unroll_response(
+                            ResponseUnrollRequest(
+                                evaluation_model,
+                                cones,
+                                history_counts,
+                                self.config.training.burn_in_steps,
+                                self.config.training.differentiable_steps,
+                                self.config.training.checkpoint_block_steps,
+                                False,
+                            )
                         )
-                    )
-                    output_logits = output.spike_logits
+                        output_logits = output.spike_logits
+                    case unreachable:
+                        assert_never(unreachable)
                 stimulus_logits.append(output_logits.squeeze(0))
                 stimulus_targets.append(
                     counts[:, self.config.training.burn_in_steps :].squeeze(0)
@@ -181,4 +214,56 @@ class ResponseTrainer:
         )
 
 
-__all__ = ["ResponseStepResult", "ResponseTrainer"]
+def evaluation_history_counts(
+    trial: ResponseHistoryTrial,
+    history_mode: ConditionalHistoryMode,
+) -> torch.Tensor:
+    match history_mode:
+        case "observed":
+            history_trial = trial.trial_index
+        case "zero":
+            return torch.zeros_like(
+                trial.split.spike_counts[
+                    trial.stimulus_index : trial.stimulus_index + 1,
+                    trial.trial_index,
+                ]
+            )
+        case "shuffled":
+            trial_count = trial.split.spike_counts.shape[1]
+            if trial_count < 2:
+                raise ResponseHistoryModeError(
+                    "Shuffled response history requires at least two trials"
+                )
+            history_trial = (trial.trial_index + 1) % trial_count
+        case unreachable:
+            assert_never(unreachable)
+    counts = trial.split.spike_counts[
+        trial.stimulus_index : trial.stimulus_index + 1,
+        history_trial,
+    ]
+    mask = trial.split.valid_mask[
+        trial.stimulus_index : trial.stimulus_index + 1,
+        history_trial,
+    ]
+    return masked_history_counts(counts, mask)
+
+
+def _configure_cell_residual_learning(
+    model: nn.Module,
+    *,
+    learnable: bool,
+) -> None:
+    for name, parameter in model.named_parameters():
+        if name.startswith("rgc.") and name.endswith(".cell_residual_raw"):
+            parameter.requires_grad_(learnable)
+
+
+__all__ = [
+    "ConditionalHistoryMode",
+    "ResponseHistoryMode",
+    "ResponseHistoryModeError",
+    "ResponseHistoryTrial",
+    "ResponseStepResult",
+    "ResponseTrainer",
+    "evaluation_history_counts",
+]

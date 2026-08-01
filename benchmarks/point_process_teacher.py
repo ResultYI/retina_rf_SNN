@@ -2,12 +2,20 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Final
 
 import numpy as np
 
 from data.input_identity import InputIdentity, synthetic_input_identity
 from data.rgc_response import CellMetadata, RGCResponseSession, ResponseTargetKind
 from data.synthetic_teacher import TeacherInputNormalization
+
+
+_CELL_TYPES: Final = ("midget", "midget", "parasol", "parasol")
+_CELL_POLARITIES: Final = (0, 1, 0, 1)
+_ADAPTIVE_HIGH_SCALES: Final = (0.85, 0.90, 1.10, 1.15)
+_SPIKE_HISTORY_DECAY: Final = np.float32(np.exp(-0.1))
+_SPIKE_HISTORY_LOGIT_GAIN: Final = np.float32(-1.5)
 
 
 class SyntheticTeacherError(ValueError):
@@ -19,6 +27,7 @@ class SyntheticTeacherResult:
     session: RGCResponseSession
     kernels: dict[str, np.ndarray]
     expected_probabilities: np.ndarray
+    conditional_probabilities: np.ndarray
     teacher_normalization: TeacherInputNormalization
 
 
@@ -39,16 +48,13 @@ def generate_teacher_responses(
             "cone_sequences must be [stimulus,time,cone] and trials positive"
         )
     rng = np.random.default_rng(seed)
-    stimulus_count, time_count, cone_count = cone_sequences.shape
-    cell_count = min(4, cone_count)
+    _, time_count, cone_count = cone_sequences.shape
+    cell_count = len(_CELL_TYPES)
     center_indices = np.linspace(0, cone_count - 1, cell_count, dtype=int)
     cells = CellMetadata(
         ids=tuple(f"synthetic-{index}" for index in range(cell_count)),
-        type_ids=tuple(
-            "midget" if index % 2 == 0 else "parasol"
-            for index in range(cell_count)
-        ),
-        polarities=np.arange(cell_count, dtype=np.int64) % 2,
+        type_ids=_CELL_TYPES,
+        polarities=np.asarray(_CELL_POLARITIES, dtype=np.int64),
         positions_degs=cone_positions_degs[center_indices].astype(np.float32),
         eccentricities_deg=np.full(cell_count, 4.0, dtype=np.float32),
     )
@@ -73,12 +79,12 @@ def generate_teacher_responses(
     paired_identity = identity.with_sources(
         tuple(fingerprints[source_id] for source_id in paired_sources),
         generator_name=f"{identity.generator_name}+point_process_teacher",
-        generator_revision=f"{identity.generator_revision}+1",
+        generator_revision=f"{identity.generator_revision}+2",
     )
     logits = _causal_logits(paired_cones, kernels, teacher_normalization)
     low_scale = np.ones(cell_count, dtype=np.float32)
     high_scale = (
-        np.linspace(0.7, 1.3, cell_count, dtype=np.float32)
+        np.asarray(_ADAPTIVE_HIGH_SCALES, dtype=np.float32)
         if adaptive
         else low_scale.copy()
     )
@@ -88,12 +94,14 @@ def generate_teacher_responses(
     envelope = _adaptation_envelope(context_scale, time_count)
     if adaptive:
         logits = logits * envelope
-    probabilities = 1 / (1 + np.exp(-np.clip(logits - 2.0, -20.0, 20.0)))
-    spikes = rng.binomial(
-        1,
-        probabilities[:, None, :, :],
-        size=(len(contexts), trials, time_count, cell_count),
-    ).astype(np.float32)
+    expected_probabilities = 1 / (
+        1 + np.exp(-np.clip(logits - 2.0, -20.0, 20.0))
+    )
+    spikes, conditional_probabilities = _sample_history_conditioned_spikes(
+        rng,
+        logits - 2.0,
+        trials,
+    )
     session = RGCResponseSession(
         cone_response=paired_cones.astype(np.float32),
         spike_counts=spikes,
@@ -119,7 +127,8 @@ def generate_teacher_responses(
             "context_kernel_high": kernel_high,
             "context_gain_envelope": envelope,
         },
-        expected_probabilities=probabilities,
+        expected_probabilities=expected_probabilities,
+        conditional_probabilities=conditional_probabilities,
         teacher_normalization=teacher_normalization,
     )
 
@@ -188,6 +197,29 @@ def _adaptation_envelope(scales: np.ndarray, time_count: int) -> np.ndarray:
         recovery = np.exp(-(time - start) / 30.0)
         envelope[:, time] = 1 + (scales - 1) * recovery
     return envelope
+
+
+def _sample_history_conditioned_spikes(
+    rng: np.random.Generator,
+    base_logits: np.ndarray,
+    trials: int,
+) -> tuple[np.ndarray, np.ndarray]:
+    stimulus_count, time_count, cell_count = base_logits.shape
+    shape = (stimulus_count, trials, time_count, cell_count)
+    spikes = np.zeros(shape, dtype=np.float32)
+    probabilities = np.zeros(shape, dtype=np.float32)
+    history = np.zeros((stimulus_count, trials, cell_count), dtype=np.float32)
+    for time in range(time_count):
+        logits = (
+            base_logits[:, None, time]
+            + _SPIKE_HISTORY_LOGIT_GAIN * history
+        )
+        probability = 1 / (1 + np.exp(-np.clip(logits, -20.0, 20.0)))
+        event = rng.binomial(1, probability).astype(np.float32)
+        probabilities[:, :, time] = probability
+        spikes[:, :, time] = event
+        history = _SPIKE_HISTORY_DECAY * history + event
+    return spikes, probabilities
 
 
 __all__ = [

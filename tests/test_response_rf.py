@@ -43,6 +43,16 @@ def test_extract_static_rf_free_running_is_deterministic_when_no_history() -> No
     assert first.identifiable is second.identifiable
 
 
+def test_extract_static_rf_checks_strongest_supported_coordinate() -> None:
+    model = _MixedGradientModel()
+    sequence = torch.ones(1, 3, 2)
+
+    result = extract_static_rf(model, sequence, lag_steps=2)
+
+    assert result.identifiable
+    assert result.finite_difference_relative_error <= 0.05
+
+
 def test_extract_static_rf_uses_observed_history_causally() -> None:
     # Given
     model = _HistoryCausalModel()
@@ -181,15 +191,32 @@ class _StaticLinearModel(torch.nn.Module):
         return _StaticOutput(logits), logits[:, -1]
 
 
+class _MixedGradientModel(torch.nn.Module):
+    def __init__(self) -> None:
+        super().__init__()
+        self.weights = torch.nn.Parameter(torch.tensor([1e-4, 1.0]))
+        self.rgc = _StaticRGC(cone_count=2)
+
+    def forward_sequence(
+        self,
+        sequence: torch.Tensor,
+    ) -> tuple[_StaticOutput, torch.Tensor]:
+        logits = (sequence * self.weights).sum(dim=2, keepdim=True)
+        return _StaticOutput(logits), logits[:, -1]
+
+
 @dataclass(frozen=True, slots=True)
 class _StaticOutput:
     spike_logits: torch.Tensor
 
 
 class _StaticRGC(torch.nn.Module):
-    def __init__(self) -> None:
+    def __init__(self, cone_count: int = 1) -> None:
         super().__init__()
-        self.register_buffer("support_mask", torch.ones(1, 1, dtype=torch.bool))
+        self.register_buffer(
+            "support_mask",
+            torch.ones(1, cone_count, dtype=torch.bool),
+        )
 
 
 class _HistoryCausalModel(torch.nn.Module):

@@ -119,8 +119,21 @@ def load_response_checkpoint(
         raise ResponseCheckpointError("Response checkpoint dataset fingerprint mismatch")
     if payload.get("target_kind") != target_kind:
         raise ResponseCheckpointError("Response checkpoint target kind mismatch")
+    config_values = asdict(config)
+    accepted_configs = [config_values]
+    if config.training.supervised_tail_steps is None:
+        accepted_configs.append(
+            {
+                **config_values,
+                "training": {
+                    key: value
+                    for key, value in config_values["training"].items()
+                    if key != "supervised_tail_steps"
+                },
+            }
+        )
     if (
-        payload.get("config") != asdict(config)
+        payload.get("config") not in accepted_configs
         or payload.get("type_prior_sha256") != _type_prior_sha256(config)
     ):
         raise ResponseCheckpointError("Response checkpoint configuration mismatch")
