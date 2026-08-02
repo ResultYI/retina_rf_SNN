@@ -256,9 +256,7 @@ class TypedRGCPopulation(nn.Module):
         generator = membrane_leak * previous.membrane + (
             1 - membrane_leak
         ) * (current - self.adaptation_gain().view(1, -1) * previous.adaptation)
-        logits = self._surrogate_slope * (
-            generator - self.threshold().view(1, -1)
-        )
+        logits = self.logits_from_generator(generator)
         probability = torch.sigmoid(logits)
         hard = (logits >= 0).to(logits.dtype)
         state_event = hard.detach() if observed_counts is None else observed_counts
@@ -285,6 +283,11 @@ class TypedRGCPopulation(nn.Module):
                 generator_potential=generator,
             ),
             next_state,
+        )
+
+    def logits_from_generator(self, generator: torch.Tensor) -> torch.Tensor:
+        return self._surrogate_slope * (
+            generator - self.threshold().view(*([1] * (generator.ndim - 1)), -1)
         )
 
 

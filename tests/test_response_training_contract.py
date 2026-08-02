@@ -45,7 +45,7 @@ def test_canonical_response_training_contract() -> None:
     assert config.training.differentiable_steps == 256
     assert config.training.checkpoint_block_steps == 32
     assert config.training.learn_cell_residuals is True
-    assert config.model.parameter_sharing_mode == "type_aware"
+    assert config.model.parameter_sharing_mode == "type_blind"
     assert CHECKPOINT_SCHEMA == "retina_rgc_response_snn"
     assert CHECKPOINT_SCHEMA_REVISION == 4
     assert MODEL_CONTRACT_REVISION == 2
