@@ -14,6 +14,7 @@ from evaluation.response_report_schema import (
     RFModeEvidence,
     ResponseReportEvidence,
 )
+from evaluation.parameter_audit import ResponseReadoutAudit
 from evaluation.rf_dynamic import DynamicRFResult
 from evaluation.rf_history_contracts import require_exact_history_contracts
 from evaluation.rf_static import StaticRFResult
@@ -37,6 +38,7 @@ class ResponseReportSerializationError(TypeError):
 def write_response_report(
     output_dir: str | Path,
     evidence: ResponseReportEvidence,
+    response_readout: ResponseReadoutAudit | None = None,
 ) -> None:
     output = Path(output_dir)
     prediction = evidence.response_prediction
@@ -49,6 +51,9 @@ def write_response_report(
         "parameter_delta_audit": [
             asdict(parameter_delta) for parameter_delta in evidence.parameter_deltas
         ],
+        "response_readout": (
+            None if response_readout is None else asdict(response_readout)
+        ),
         "response_prediction": {
             "conditional": asdict(prediction.conditional),
             "initialized_conditional": asdict(prediction.initialized_conditional),

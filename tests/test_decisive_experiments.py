@@ -101,6 +101,11 @@ def test_decisive_reconstruction_preserves_variant_identity(
     # Then
     assert build_model.call_args.kwargs["parameter_sharing_mode"] == mode
     assert build_model.call_args.kwargs["parameter_sharing_seed"] == 37
+    assert build_model.call_args.kwargs["enable_response_bias"] is True
+    assert build_model.call_args.kwargs["enable_synaptic_gain"] is True
+    assert build_model.call_args.kwargs["synaptic_gain_min"] == 0.1
+    assert build_model.call_args.kwargs["synaptic_gain_max"] == 4.0
+    assert build_model.call_args.kwargs["synaptic_gain_init"] == 1.0
 
 
 @pytest.mark.parametrize("mode", ("type_blind", "cell_only", "shuffled_type"))
@@ -144,6 +149,11 @@ def test_gradient_audit_reconstruction_preserves_variant_identity(
     # Then
     assert build_model.call_args.kwargs["parameter_sharing_mode"] == mode
     assert build_model.call_args.kwargs["parameter_sharing_seed"] == 41
+    assert build_model.call_args.kwargs["enable_response_bias"] is True
+    assert build_model.call_args.kwargs["enable_synaptic_gain"] is True
+    assert build_model.call_args.kwargs["synaptic_gain_min"] == 0.1
+    assert build_model.call_args.kwargs["synaptic_gain_max"] == 4.0
+    assert build_model.call_args.kwargs["synaptic_gain_init"] == 1.0
 
 
 def test_reconstructed_teacher_targets_match_generated_probabilities(

@@ -14,8 +14,8 @@ from training.response_config import ResponseExperimentConfig
 
 
 CHECKPOINT_SCHEMA = "retina_rgc_response_snn"
-CHECKPOINT_SCHEMA_REVISION = 4
-MODEL_CONTRACT_REVISION = 2
+CHECKPOINT_SCHEMA_REVISION = 5
+MODEL_CONTRACT_REVISION = 3
 CHECKPOINT_KEYS = frozenset(
     {
         "schema",
@@ -159,7 +159,7 @@ def _validated_checkpoint_payload(path: Path) -> Mapping:
         or payload.get("model_contract_revision") != MODEL_CONTRACT_REVISION
     ):
         raise ResponseCheckpointError(
-            "Checkpoint is not a response-fitting revision-4 checkpoint; "
+            "Checkpoint is not an Architecture V2 response-fitting checkpoint; "
             "start a fresh response run"
         )
     if (

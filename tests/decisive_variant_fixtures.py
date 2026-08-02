@@ -50,6 +50,8 @@ def response_config(
             readout_rate_tau_ms=10.0,
             surrogate_slope=3.0,
             parameter_sharing_mode=mode,
+            enable_response_bias=True,
+            enable_synaptic_gain=True,
         ),
         training=ResponseTrainingConfig(
             burn_in_steps=1,
@@ -60,6 +62,7 @@ def response_config(
             learning_rate=0.01,
             gradient_clip_norm=1.0,
             validation_interval_steps=1,
+            stage0_calibration_enabled=True,
         ),
         evaluation=ResponseEvaluationConfig(
             rf_lag_steps=1,

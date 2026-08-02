@@ -12,6 +12,11 @@ model:
   readout_rate_tau_ms: 50.0
   surrogate_slope: 5.0
   parameter_sharing_mode: "type_blind"
+  enable_response_bias: true
+  enable_synaptic_gain: true
+  synaptic_gain_min: 0.1
+  synaptic_gain_max: 4.0
+  synaptic_gain_init: 1.0
 
 training:
   burn_in_steps: 64
@@ -24,6 +29,10 @@ training:
   validation_interval_steps: 100
   learn_cell_residuals: true
   supervised_tail_steps: null
+  response_bias_lr: 0.01
+  rgc_lr: 0.001
+  stage0_calibration_enabled: true
+  freeze_threshold: true
 
 evaluation:
   rf_lag_steps: 64

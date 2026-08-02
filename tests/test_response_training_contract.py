@@ -5,6 +5,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 import subprocess
 import sys
+from unittest.mock import Mock
 
 import pytest
 import torch
@@ -22,6 +23,8 @@ from training.response_checkpointing import (
 )
 from training.response_config import (
     ResponseConfigurationError,
+    ResponseExperimentConfig,
+    ResponseTrainingConfig,
     load_response_config,
 )
 
@@ -40,15 +43,61 @@ class _MaliciousCheckpoint:
 
 def test_canonical_response_training_contract() -> None:
     config = load_response_config(ROOT / "configs" / "experiment.yaml")
+    smoke = load_response_config(ROOT / "configs" / "synthetic_smoke.yaml")
 
     assert config.training.burn_in_steps == 64
     assert config.training.differentiable_steps == 256
     assert config.training.checkpoint_block_steps == 32
     assert config.training.learn_cell_residuals is True
+    assert config.training.response_bias_lr == 0.01
+    assert config.training.rgc_lr == 0.001
+    assert config.training.stage0_calibration_enabled is True
+    assert config.training.freeze_threshold is True
     assert config.model.parameter_sharing_mode == "type_blind"
+    assert config.model.enable_response_bias is True
+    assert config.model.enable_synaptic_gain is True
+    assert config.model.synaptic_gain_min == 0.1
+    assert config.model.synaptic_gain_max == 4.0
+    assert config.model.synaptic_gain_init == 1.0
+    assert smoke.training.stage0_calibration_enabled is True
+    assert smoke.training.freeze_threshold is True
     assert CHECKPOINT_SCHEMA == "retina_rgc_response_snn"
-    assert CHECKPOINT_SCHEMA_REVISION == 4
-    assert MODEL_CONTRACT_REVISION == 2
+    assert CHECKPOINT_SCHEMA_REVISION == 5
+    assert MODEL_CONTRACT_REVISION == 3
+
+
+def test_response_training_config_defaults_keep_legacy_threshold_unfrozen() -> None:
+    config = ResponseTrainingConfig(1, 3, 1, 1, 1, 0.001, 1.0, 1)
+
+    assert config.stage0_calibration_enabled is False
+    assert config.freeze_threshold is False
+
+
+@pytest.mark.parametrize("field_name", ("learning_rate", "response_bias_lr", "rgc_lr"))
+@pytest.mark.parametrize("bad_value", (float("nan"), float("inf"), 0.0, -0.001))
+def test_response_training_config_rejects_invalid_learning_rates(
+    field_name: str,
+    bad_value: float,
+) -> None:
+    config = ResponseTrainingConfig(1, 3, 1, 1, 1, 0.001, 1.0, 1)
+
+    with pytest.raises(ResponseConfigurationError, match=field_name):
+        replace(config, **{field_name: bad_value})
+
+
+def test_response_config_rejects_stage0_calibration_without_bias() -> None:
+    # Given
+    config = load_response_config(ROOT / "configs" / "experiment.yaml")
+
+    # When / Then
+    with pytest.raises(ResponseConfigurationError, match="response bias"):
+        ResponseExperimentConfig(
+            config.seed,
+            config.data,
+            replace(config.model, enable_response_bias=False),
+            config.training,
+            config.evaluation,
+        )
 
 
 def test_response_config_rejects_reconstruction_keys(tmp_path: Path) -> None:
@@ -211,6 +260,49 @@ def test_checkpoint_rejects_malformed_safe_payload(tmp_path: Path) -> None:
             target_kind="bernoulli",
             config=config,
         )
+
+
+def test_checkpoint_rejects_revision_four_contract_two_before_state_load(
+    tmp_path: Path,
+) -> None:
+    # Given
+    config = load_response_config(ROOT / "configs" / "synthetic_smoke.yaml")
+    source = nn.Linear(2, 1)
+    optimizer = torch.optim.AdamW(source.parameters(), lr=0.01)
+    path = tmp_path / "checkpoint.pt"
+    save_response_checkpoint(
+        path,
+        model=source,
+        optimizer=optimizer,
+        optimizer_step=1,
+        best_nll=0.5,
+        best_checkpoint_step=1,
+        generator=torch.Generator().manual_seed(7),
+        fingerprint="dataset",
+        target_kind="bernoulli",
+        config=config,
+        run_id="run-a",
+        checkpoint_kind="last",
+    )
+    payload = torch.load(path, map_location="cpu", weights_only=True)
+    payload["schema_revision"] = 4
+    payload["model_contract_revision"] = 2
+    torch.save(payload, path)
+    target = nn.Linear(2, 1)
+    target.load_state_dict = Mock(side_effect=AssertionError("state load called"))
+
+    # When / Then
+    with pytest.raises(ResponseCheckpointError, match="Architecture V2"):
+        load_response_checkpoint(
+            path,
+            model=target,
+            optimizer=None,
+            generator=None,
+            fingerprint="dataset",
+            target_kind="bernoulli",
+            config=config,
+        )
+    target.load_state_dict.assert_not_called()
 
 
 def test_checkpoint_rejects_foreign_run_lineage(tmp_path: Path) -> None:

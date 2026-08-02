@@ -12,6 +12,8 @@ from data.rgc_response import CellMetadata
 ParameterRole: TypeAlias = Literal[
     "rgc_type_base",
     "rgc_cell_residual",
+    "response_bias",
+    "synaptic_gain",
     "polarity_pathway",
     "other",
 ]
@@ -45,6 +47,16 @@ class TypeDifferential:
     opposition_cosine: float
 
 
+@dataclass(frozen=True, slots=True)
+class ResponseReadoutAudit:
+    initial_response_bias: tuple[float, ...]
+    calibrated_response_bias: tuple[float, ...]
+    trained_response_bias: tuple[float, ...]
+    initial_effective_synaptic_gain: tuple[float, ...]
+    calibrated_effective_synaptic_gain: tuple[float, ...]
+    trained_effective_synaptic_gain: tuple[float, ...]
+
+
 def audit_parameter_deltas(
     trained: nn.Module,
     initialized: nn.Module,
@@ -64,6 +76,8 @@ def audit_parameter_deltas(
             case "rgc_type_base":
                 labels = _rgc_type_base_labels(trained, context)
             case "rgc_cell_residual":
+                labels = () if context is None else context.cell_ids
+            case "response_bias" | "synaptic_gain":
                 labels = () if context is None else context.cell_ids
             case "polarity_pathway":
                 labels = ("ON", "OFF")
@@ -89,6 +103,10 @@ def audit_parameter_deltas(
 
 
 def parameter_role(name: str) -> ParameterRole:
+    if name == "rgc.response_bias":
+        return "response_bias"
+    if name == "rgc.synaptic_gain_raw":
+        return "synaptic_gain"
     if name.startswith("rgc.") and name.endswith(".type_base_raw"):
         return "rgc_type_base"
     if name.startswith("rgc.") and name.endswith(".cell_residual_raw"):
@@ -99,6 +117,26 @@ def parameter_role(name: str) -> ParameterRole:
     }:
         return "polarity_pathway"
     return "other"
+
+
+def audit_response_readout(
+    trained: nn.Module,
+    calibrated: nn.Module,
+) -> ResponseReadoutAudit:
+    calibrated_bias = calibrated.rgc.response_bias.detach().cpu()
+    trained_bias = trained.rgc.response_bias.detach().cpu()
+    calibrated_gain = calibrated.rgc.synaptic_gain().detach().cpu()
+    trained_gain = trained.rgc.synaptic_gain().detach().cpu()
+    return ResponseReadoutAudit(
+        initial_response_bias=tuple(0.0 for _ in calibrated_bias),
+        calibrated_response_bias=tuple(float(value) for value in calibrated_bias),
+        trained_response_bias=tuple(float(value) for value in trained_bias),
+        initial_effective_synaptic_gain=tuple(1.0 for _ in calibrated_gain),
+        calibrated_effective_synaptic_gain=tuple(
+            float(value) for value in calibrated_gain
+        ),
+        trained_effective_synaptic_gain=tuple(float(value) for value in trained_gain),
+    )
 
 
 def _rgc_type_base_labels(
@@ -134,8 +172,10 @@ __all__ = [
     "ParameterAuditContext",
     "ParameterDelta",
     "ParameterRole",
+    "ResponseReadoutAudit",
     "TypeDifferential",
     "audit_parameter_deltas",
+    "audit_response_readout",
     "parameter_role",
     "type_differential",
 ]

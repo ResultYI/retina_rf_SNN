@@ -67,7 +67,7 @@ def test_checkpoint_rejects_revision_one_model_contract(tmp_path: Path) -> None:
     payload["model_contract_revision"] = 1
     torch.save(payload, path)
 
-    with pytest.raises(ResponseCheckpointError, match="revision-4"):
+    with pytest.raises(ResponseCheckpointError, match="Architecture V2"):
         load_response_checkpoint(
             path,
             model=model,

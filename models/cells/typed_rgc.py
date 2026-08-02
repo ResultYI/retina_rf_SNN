@@ -3,6 +3,7 @@ from __future__ import annotations
 # noqa: SIZE_OK - bounded parameters and their stateful RGC population are one unit.
 
 from dataclasses import dataclass
+import math
 
 import torch
 from torch import nn
@@ -119,6 +120,11 @@ class TypedRGCPopulation(nn.Module):
         parameter_sharing_mode: ParameterSharingMode = "type_aware",
         parameter_sharing_seed: int = 0,
         matched_initialization: bool = False,
+        enable_response_bias: bool = False,
+        enable_synaptic_gain: bool = False,
+        synaptic_gain_min: float = 0.1,
+        synaptic_gain_max: float = 4.0,
+        synaptic_gain_init: float = 1.0,
     ) -> None:
         super().__init__()
         cones = torch.as_tensor(cone_positions_degs, dtype=torch.float32)
@@ -127,6 +133,17 @@ class TypedRGCPopulation(nn.Module):
             raise TypedRGCError("Cone and cell positions must have shape [count,2]")
         if support_radius_degs <= 0 or dt_ms <= 0 or readout_rate_tau_ms <= 0:
             raise TypedRGCError("RGC time and support values must be positive")
+        if not isinstance(enable_response_bias, bool):
+            raise TypedRGCError("enable_response_bias must be a boolean")
+        if not isinstance(enable_synaptic_gain, bool):
+            raise TypedRGCError("enable_synaptic_gain must be a boolean")
+        gain_values = (synaptic_gain_min, synaptic_gain_max, synaptic_gain_init)
+        if not all(math.isfinite(value) for value in gain_values):
+            raise TypedRGCError("Synaptic gain bounds must be finite")
+        if not synaptic_gain_min < synaptic_gain_init < synaptic_gain_max:
+            raise TypedRGCError(
+                "synaptic_gain_init must lie inside synaptic gain bounds"
+            )
         try:
             groups = parameter_sharing_groups(
                 cells,
@@ -153,6 +170,10 @@ class TypedRGCPopulation(nn.Module):
         self._surrogate_slope = float(surrogate_slope)
         self._residual_weight = priors.cell_residual_weight
         self._type_prior_weight = priors.type_prior_weight
+        self._enable_response_bias = enable_response_bias
+        self._enable_synaptic_gain = enable_synaptic_gain
+        self._synaptic_gain_min = float(synaptic_gain_min)
+        self._synaptic_gain_max = float(synaptic_gain_max)
         self.parameter_sharing_mode = groups.mode
         self.matched_initialization = matched_initialization
         self.shuffle_contract = groups.shuffle_contract
@@ -182,6 +203,16 @@ class TypedRGCPopulation(nn.Module):
                     use_cell_residuals=groups.use_cell_residuals,
                     initial_value=initial_value,
                 ),
+            )
+        if enable_response_bias:
+            self.response_bias = nn.Parameter(torch.zeros(self.cell_count))
+        if enable_synaptic_gain:
+            fraction = (synaptic_gain_init - synaptic_gain_min) / (
+                synaptic_gain_max - synaptic_gain_min
+            )
+            raw_init = torch.logit(torch.tensor(fraction, dtype=torch.float32))
+            self.synaptic_gain_raw = nn.Parameter(
+                torch.full((self.cell_count,), float(raw_init))
             )
 
     @property
@@ -223,6 +254,14 @@ class TypedRGCPopulation(nn.Module):
             type_penalties
         ).mean()
 
+    def synaptic_gain(self) -> torch.Tensor:
+        if not self._enable_synaptic_gain:
+            return self.threshold().new_ones(self.cell_count)
+        gain_range = self._synaptic_gain_max - self._synaptic_gain_min
+        return self._synaptic_gain_min + gain_range * torch.sigmoid(
+            self.synaptic_gain_raw
+        )
+
     def forward(
         self,
         bipolar: torch.Tensor,
@@ -249,6 +288,8 @@ class TypedRGCPopulation(nn.Module):
         mix = self.sustained_mix().view(1, -1)
         drive = mix * adapted[:, 0] + (1 - mix) * adapted[:, 1]
         inhibition = selected_amacrine.mean(dim=1)
+        if self._enable_synaptic_gain:
+            drive = self.synaptic_gain().view(1, -1) * drive
         current = drive - self.amacrine_gain().view(1, -1) * inhibition
         membrane_leak = torch.exp(-self._dt_ms / self.membrane_tau_ms()).view(
             1, -1
@@ -286,9 +327,12 @@ class TypedRGCPopulation(nn.Module):
         )
 
     def logits_from_generator(self, generator: torch.Tensor) -> torch.Tensor:
-        return self._surrogate_slope * (
+        logits = self._surrogate_slope * (
             generator - self.threshold().view(*([1] * (generator.ndim - 1)), -1)
         )
+        if not self._enable_response_bias:
+            return logits
+        return logits + self.response_bias.view(*([1] * (generator.ndim - 1)), -1)
 
 
 __all__ = [

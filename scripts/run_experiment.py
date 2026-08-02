@@ -6,7 +6,7 @@ import copy
 import json
 import shutil
 import sys
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from pathlib import Path
 
 import numpy as np
@@ -19,6 +19,7 @@ from configs.physiology_profiles import macaque_photopic
 from configs.rgc_type_priors import load_type_priors
 from data.input_identity import validate_experiment_input
 from evaluation.response_pipeline import evaluate_and_report_response_experiment
+from evaluation.parameter_audit import audit_response_readout
 from models.response_snn import build_response_retina_model
 from training.response_checkpointing import (
     ResponseCheckpointState,
@@ -94,9 +95,25 @@ def _run(args: argparse.Namespace, output: Path) -> None:
         parameter_sharing_mode=config.model.parameter_sharing_mode,
         parameter_sharing_seed=config.seed,
         matched_initialization=config.model.matched_initialization,
+        enable_response_bias=config.model.enable_response_bias,
+        enable_synaptic_gain=config.model.enable_synaptic_gain,
+        synaptic_gain_min=config.model.synaptic_gain_min,
+        synaptic_gain_max=config.model.synaptic_gain_max,
+        synaptic_gain_init=config.model.synaptic_gain_init,
     ).to(torch.device(args.device))
+    trainer = _build_trainer(
+        model,
+        config,
+        data,
+        torch.device(args.device),
+        run_stage0=not (args.checkpoint or args.resume),
+    )
     initialized_model = copy.deepcopy(model)
-    trainer = ResponseTrainer(model, config, data, torch.device(args.device))
+    if args.checkpoint or args.resume:
+        _load_initialized_model(
+            Path(args.checkpoint or args.resume),
+            initialized_model,
+        )
     best_path = output / "checkpoint_best_nll.pt"
     last_path = output / "checkpoint_last.pt"
     if args.checkpoint:
@@ -259,6 +276,29 @@ def _restore_trainer_lineage(
     trainer.parent_run_id = state.parent_run_id
 
 
+def _build_trainer(model, config, data, device, *, run_stage0: bool) -> ResponseTrainer:
+    if run_stage0:
+        return ResponseTrainer(model, config, data, device)
+    checkpoint_config = replace(
+        config,
+        training=replace(config.training, stage0_calibration_enabled=False),
+    )
+    trainer = ResponseTrainer(model, checkpoint_config, data, device)
+    trainer.config = config
+    return trainer
+
+
+def _load_initialized_model(checkpoint: Path, initialized_model) -> None:
+    state_path = checkpoint.with_name("initialized_model_state.pt")
+    if not state_path.exists():
+        raise ResponseExperimentError(
+            "Architecture V2 checkpoint requires initialized_model_state.pt"
+        )
+    initialized_model.load_state_dict(
+        torch.load(state_path, map_location="cpu", weights_only=True)
+    )
+
+
 def _write_parameter_sharing_manifest(output: Path, model, initialized_model=None) -> None:
     manifest_path = output / "run_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -276,6 +316,13 @@ def _write_parameter_sharing_manifest(output: Path, model, initialized_model=Non
             for name in initial_rgc.parameter_names
         },
     }
+    if hasattr(initial_rgc, "response_bias"):
+        manifest["response_readout"] = asdict(
+            audit_response_readout(
+                model,
+                model if initialized_model is None else initialized_model,
+            )
+        )
     manifest_path.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2),
         encoding="utf-8",

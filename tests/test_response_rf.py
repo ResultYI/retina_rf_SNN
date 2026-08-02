@@ -89,6 +89,44 @@ def test_extract_static_rf_uses_observed_history_causally() -> None:
     assert past_rf.finite_difference_relative_error <= 0.05
 
 
+def test_additive_bias_leaves_conditional_logit_rf_derivative_unchanged() -> None:
+    # Given
+    model = _HistoryCausalModel()
+    sequence = torch.ones(1, 4, 1)
+    history = torch.arange(4.0).view(1, 4, 1)
+    before = extract_static_rf(
+        model, sequence, lag_steps=2, observed_counts=history
+    )
+
+    # When
+    with torch.no_grad():
+        model.response_bias.fill_(7.0)
+    after = extract_static_rf(
+        model, sequence, lag_steps=2, observed_counts=history
+    )
+
+    # Then
+    torch.testing.assert_close(after.kernels, before.kernels, rtol=0, atol=0)
+    assert after.finite_difference_relative_error <= 0.05
+
+
+def test_cone_predictions_differ_from_zero_and_shuffled_controls() -> None:
+    # Given
+    model = _StaticLinearModel()
+    cones = torch.tensor([[[0.25], [1.0], [-0.5]]])
+    zero = torch.zeros_like(cones)
+    shuffled = cones.flip(1)
+
+    # When
+    real_logits = model.forward_sequence(cones)[0].spike_logits
+    zero_logits = model.forward_sequence(zero)[0].spike_logits
+    shuffled_logits = model.forward_sequence(shuffled)[0].spike_logits
+
+    # Then
+    assert not torch.equal(real_logits, zero_logits)
+    assert not torch.equal(real_logits, shuffled_logits)
+
+
 def test_extract_static_rf_rejects_malformed_observed_history_shape() -> None:
     # Given
     model = _HistoryCausalModel()
@@ -223,6 +261,7 @@ class _HistoryCausalModel(torch.nn.Module):
     def __init__(self) -> None:
         super().__init__()
         self.scale = torch.nn.Parameter(torch.tensor(1.0))
+        self.response_bias = torch.nn.Parameter(torch.tensor(0.0))
         self.rgc = _StaticRGC()
 
     def forward_sequence(
@@ -234,7 +273,7 @@ class _HistoryCausalModel(torch.nn.Module):
         state = torch.zeros(sequence.shape[0], 1, device=sequence.device)
         logits = []
         for index, sample in enumerate(sequence.unbind(dim=1)):
-            logits.append(self.scale * sample * (1.0 + state))
+            logits.append(self.response_bias + self.scale * sample * (1.0 + state))
             if observed_counts is not None:
                 state = state + observed_counts[:, index]
         return _StaticOutput(torch.stack(logits, dim=1)), state

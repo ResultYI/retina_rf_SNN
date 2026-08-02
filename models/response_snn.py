@@ -136,6 +136,11 @@ def build_response_retina_model(
     parameter_sharing_mode: ParameterSharingMode = "type_aware",
     parameter_sharing_seed: int = 0,
     matched_initialization: bool = False,
+    enable_response_bias: bool = False,
+    enable_synaptic_gain: bool = False,
+    synaptic_gain_min: float = 0.1,
+    synaptic_gain_max: float = 4.0,
+    synaptic_gain_init: float = 1.0,
 ) -> ResponseRetinaModel:
     return ResponseRetinaModel(
         H1HorizontalNetwork(cone_positions_degs, profile.h1),
@@ -152,6 +157,11 @@ def build_response_retina_model(
             parameter_sharing_mode=parameter_sharing_mode,
             parameter_sharing_seed=parameter_sharing_seed,
             matched_initialization=matched_initialization,
+            enable_response_bias=enable_response_bias,
+            enable_synaptic_gain=enable_synaptic_gain,
+            synaptic_gain_min=synaptic_gain_min,
+            synaptic_gain_max=synaptic_gain_max,
+            synaptic_gain_init=synaptic_gain_init,
         ),
     )
 

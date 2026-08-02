@@ -72,6 +72,8 @@ def _model(
     type_ids: tuple[str, ...] = ("midget", "parasol", "midget", "parasol"),
     parameter_sharing_mode: str = "type_aware",
     matched_initialization: bool = False,
+    enable_response_bias: bool = False,
+    enable_synaptic_gain: bool = False,
 ):
     cells = _cells(type_ids=type_ids)
     cone_positions = np.asarray(
@@ -90,6 +92,11 @@ def _model(
         parameter_sharing_mode=parameter_sharing_mode,
         parameter_sharing_seed=11,
         matched_initialization=matched_initialization,
+        enable_response_bias=enable_response_bias,
+        enable_synaptic_gain=enable_synaptic_gain,
+        synaptic_gain_min=0.1,
+        synaptic_gain_max=4.0,
+        synaptic_gain_init=1.0,
     )
 
 
@@ -109,11 +116,94 @@ def test_default_type_aware_parameterization_preserves_current_shapes() -> None:
         support_radius_degs=0.2,
         readout_rate_tau_ms=50.0,
         surrogate_slope=5.0,
+        enable_response_bias=False,
+        enable_synaptic_gain=False,
+        synaptic_gain_min=0.1,
+        synaptic_gain_max=4.0,
+        synaptic_gain_init=1.0,
     )
 
     # Then
     assert model.rgc.threshold.type_base_raw.shape == (2,)
     assert model.rgc.threshold.cell_residual_raw.shape == (2,)
+    assert not hasattr(model.rgc, "response_bias")
+    assert not hasattr(model.rgc, "synaptic_gain_raw")
+
+
+def test_v2_readout_parameters_are_per_cell_when_type_blind() -> None:
+    # Given / When
+    model = _model(
+        parameter_sharing_mode="type_blind",
+        enable_response_bias=True,
+        enable_synaptic_gain=True,
+    )
+
+    # Then
+    assert model.rgc.response_bias.shape == (4,)
+    assert model.rgc.synaptic_gain_raw.shape == (4,)
+    torch.testing.assert_close(model.rgc.response_bias, torch.zeros(4))
+    torch.testing.assert_close(model.rgc.synaptic_gain(), torch.ones(4))
+    assert model.rgc.threshold.type_base_raw.numel() == 1
+
+
+def test_response_bias_shifts_logits_without_changing_threshold() -> None:
+    # Given
+    model = _model(enable_response_bias=True)
+    generator = torch.tensor([[0.2, 0.3, 0.4, 0.5]])
+    with torch.no_grad():
+        model.rgc.response_bias.copy_(torch.tensor([0.25, -0.5, 0.75, -1.0]))
+
+    # When
+    logits = model.rgc.logits_from_generator(generator)
+
+    # Then
+    expected = model.rgc.response_bias + 5.0 * (
+        generator - model.rgc.threshold().view(1, -1)
+    )
+    torch.testing.assert_close(logits, expected)
+
+
+def test_synaptic_gain_scales_excitatory_drive_before_inhibition() -> None:
+    # Given
+    model = _model(type_ids=("midget", "parasol"), enable_synaptic_gain=True)
+    rgc = model.rgc
+    previous = rgc.initial_state(1, torch.device("cpu"), torch.float32)
+    spatial_weights = torch.eye(2)
+    bipolar = torch.tensor([[[[1.0, 2.0], [0.5, 0.25]], [[3.0, 4.0], [0.1, 0.2]]]])
+    amacrine = torch.zeros_like(bipolar)
+    with torch.no_grad():
+        fraction = (2.0 - 0.1) / (4.0 - 0.1)
+        rgc.synaptic_gain_raw.fill_(torch.logit(torch.tensor(fraction)))
+
+    # When
+    output, _ = rgc(bipolar, amacrine, previous, spatial_weights)
+
+    # Then
+    pooled = torch.einsum("uc,bpkc->bpku", spatial_weights, bipolar)
+    polarity_index = rgc.cell_polarities.view(1, 1, 1, -1).expand(1, 1, 2, -1)
+    selected = pooled.gather(1, polarity_index).squeeze(1)
+    subunit_leak = torch.exp(-rgc._dt_ms / rgc.subunit_tau_ms()).view(1, 1, -1)
+    energy = subunit_leak * previous.subunit_energy + (1 - subunit_leak) * selected.square()
+    adapted = selected / (1 + rgc.subunit_gain().view(1, 1, -1) * energy)
+    mix = rgc.sustained_mix().view(1, -1)
+    drive = mix * adapted[:, 0] + (1 - mix) * adapted[:, 1]
+    membrane_leak = torch.exp(-rgc._dt_ms / rgc.membrane_tau_ms()).view(1, -1)
+    expected = (1 - membrane_leak) * (2.0 * drive)
+    torch.testing.assert_close(output.generator_potential, expected)
+
+
+def test_bias_and_synaptic_gain_do_not_change_physiology_prior_penalty() -> None:
+    # Given
+    model = _model(enable_response_bias=True, enable_synaptic_gain=True)
+    baseline = model.rgc.physiology_prior_penalty()
+
+    # When
+    with torch.no_grad():
+        model.rgc.response_bias.add_(3.0)
+        model.rgc.synaptic_gain_raw.add_(1.0)
+
+    # Then
+    torch.testing.assert_close(model.rgc.physiology_prior_penalty(), baseline)
 
 
 def test_parameter_sharing_modes_record_effective_groups_and_parameter_counts() -> None:
@@ -251,6 +341,11 @@ def test_recorded_cells_have_one_output_and_causal_observed_history() -> None:
         support_radius_degs=0.2,
         readout_rate_tau_ms=50.0,
         surrogate_slope=5.0,
+        enable_response_bias=False,
+        enable_synaptic_gain=False,
+        synaptic_gain_min=0.1,
+        synaptic_gain_max=4.0,
+        synaptic_gain_init=1.0,
     )
     sequence = torch.rand(1, 4, 3)
     no_spike = torch.zeros(1, 4, 2)
@@ -284,6 +379,11 @@ def test_type_prior_penalty_tracks_type_base_drift() -> None:
         support_radius_degs=0.2,
         readout_rate_tau_ms=50.0,
         surrogate_slope=5.0,
+        enable_response_bias=False,
+        enable_synaptic_gain=False,
+        synaptic_gain_min=0.1,
+        synaptic_gain_max=4.0,
+        synaptic_gain_init=1.0,
     )
 
     baseline = model.rgc.physiology_prior_penalty()
@@ -312,6 +412,11 @@ def test_checkpointed_response_unroll_matches_plain_unroll() -> None:
         support_radius_degs=0.2,
         readout_rate_tau_ms=50.0,
         surrogate_slope=5.0,
+        enable_response_bias=False,
+        enable_synaptic_gain=False,
+        synaptic_gain_min=0.1,
+        synaptic_gain_max=4.0,
+        synaptic_gain_init=1.0,
     )
     sequence = torch.rand(1, 8, 3)
     counts = torch.zeros(1, 8, 2)

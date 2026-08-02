@@ -71,6 +71,12 @@ def main() -> None:
         surrogate_slope=config.model.surrogate_slope,
         parameter_sharing_mode=config.model.parameter_sharing_mode,
         parameter_sharing_seed=config.seed,
+        matched_initialization=config.model.matched_initialization,
+        enable_response_bias=config.model.enable_response_bias,
+        enable_synaptic_gain=config.model.enable_synaptic_gain,
+        synaptic_gain_min=config.model.synaptic_gain_min,
+        synaptic_gain_max=config.model.synaptic_gain_max,
+        synaptic_gain_init=config.model.synaptic_gain_init,
     ).to(device)
     initialized_model = copy.deepcopy(model)
     trainer = ResponseTrainer(model, config, data, device)

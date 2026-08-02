@@ -6,7 +6,11 @@ import pytest
 import torch
 from torch import nn
 
-from evaluation.parameter_audit import ParameterAuditContext, audit_parameter_deltas
+from evaluation.parameter_audit import (
+    ParameterAuditContext,
+    audit_parameter_deltas,
+    audit_response_readout,
+)
 from training.response_trainer import _configure_cell_residual_learning
 
 
@@ -28,6 +32,23 @@ def test_parameter_delta_audit_records_grouped_nonzero_updates() -> None:
     assert by_name["rgc.weight"].absolute_norm > 0
     assert by_name["rgc.bias"].absolute_norm == 0
     assert by_name["rgc.bias"].relative_norm is None
+
+
+def test_response_readout_audit_separates_initial_calibrated_and_trained() -> None:
+    # Given
+    calibrated = _readout_model((0.2, -0.3), (1.0, 1.0))
+    trained = _readout_model((0.4, -0.1), (1.5, 0.5))
+
+    # When
+    audit = audit_response_readout(trained, calibrated)
+
+    # Then
+    assert audit.initial_response_bias == (0.0, 0.0)
+    assert audit.calibrated_response_bias == pytest.approx((0.2, -0.3))
+    assert audit.trained_response_bias == pytest.approx((0.4, -0.1))
+    assert audit.initial_effective_synaptic_gain == (1.0, 1.0)
+    assert audit.calibrated_effective_synaptic_gain == pytest.approx((1.0, 1.0))
+    assert audit.trained_effective_synaptic_gain == pytest.approx((1.5, 0.5))
 
 
 def test_parameter_delta_audit_labels_adaptation_attribution_roles() -> None:
@@ -119,3 +140,15 @@ def _attribution_model() -> nn.ModuleDict:
             "bipolar": bipolar,
         }
     )
+
+
+def _readout_model(
+    bias: tuple[float, float],
+    gain: tuple[float, float],
+) -> nn.Module:
+    model = nn.Module()
+    rgc = nn.Module()
+    rgc.response_bias = nn.Parameter(torch.tensor(bias))
+    rgc.synaptic_gain = lambda: torch.tensor(gain)
+    model.rgc = rgc
+    return model

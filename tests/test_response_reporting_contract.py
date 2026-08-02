@@ -10,6 +10,7 @@ import torch
 
 from baselines.point_process_glm import GLMFitResult, PointProcessGLM
 from evaluation.response_metrics import ResponseMetrics
+from evaluation.parameter_audit import ResponseReadoutAudit
 from evaluation.response_report_schema import (
     KernelReferenceComparison,
     RFModeEvidence,
@@ -110,6 +111,45 @@ def test_report_omits_teacher_arrays_for_real_data(tmp_path: Path) -> None:
     assert "free_running" in metrics["static_rf"]
     assert metrics["dynamic_rf"]["teacher_alignment"] == {"available": False}
     assert "teacher_model_signed_gains" not in json.dumps(metrics)
+
+
+def test_report_exposes_readout_without_physiology_prior_nesting(
+    tmp_path: Path,
+) -> None:
+    # Given
+    evidence = _complete_history(
+        ResponseReportEvidence(
+            response_prediction=_prediction(_metrics(0.4), _metrics(0.5)),
+            parameter_deltas=(),
+            glm=_glm(),
+            conditional_rf=RFModeEvidence(
+                _static_rf(), _static_rf(), None,
+                _dynamic("not_supported", teacher=False),
+                _dynamic("not_supported", teacher=False),
+                _comparison("not_supported"),
+            ),
+            free_running_rf=RFModeEvidence(
+                _static_rf(), _static_rf(), None,
+                _dynamic("not_supported", teacher=False),
+                _dynamic("not_supported", teacher=False),
+                _comparison("not_supported"),
+            ),
+            synthetic=False,
+            checkpoint="checkpoint.pt",
+        )
+    )
+    readout = ResponseReadoutAudit(
+        (0.0,), (0.2,), (0.3,), (1.0,), (1.0,), (1.4,)
+    )
+
+    # When
+    write_response_report(tmp_path, evidence, readout)
+
+    # Then
+    metrics = json.loads((tmp_path / "final_metrics.json").read_text())
+    assert metrics["response_readout"]["calibrated_response_bias"] == [0.2]
+    assert metrics["response_readout"]["trained_effective_synaptic_gain"] == [1.4]
+    assert "physiology_prior" not in metrics["response_readout"]
 
 
 def test_report_writes_strict_json_nulls_when_metrics_are_nonfinite(

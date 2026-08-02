@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import MISSING, dataclass, fields
+import math
 from pathlib import Path
 from typing import Any, Final, Literal, TypeAlias, TypeVar, get_type_hints
 
@@ -45,6 +46,11 @@ class ResponseModelConfig:
     surrogate_slope: float
     parameter_sharing_mode: ParameterSharingMode = "type_aware"
     matched_initialization: bool = False
+    enable_response_bias: bool = False
+    enable_synaptic_gain: bool = False
+    synaptic_gain_min: float = 0.1
+    synaptic_gain_max: float = 4.0
+    synaptic_gain_init: float = 1.0
 
     def __post_init__(self) -> None:
         if (
@@ -58,6 +64,21 @@ class ResponseModelConfig:
         if not isinstance(self.matched_initialization, bool):
             raise ResponseConfigurationError(
                 "matched_initialization must be a boolean"
+            )
+        if not isinstance(self.enable_response_bias, bool):
+            raise ResponseConfigurationError("enable_response_bias must be a boolean")
+        if not isinstance(self.enable_synaptic_gain, bool):
+            raise ResponseConfigurationError("enable_synaptic_gain must be a boolean")
+        gains = (
+            self.synaptic_gain_min,
+            self.synaptic_gain_max,
+            self.synaptic_gain_init,
+        )
+        if not all(math.isfinite(value) for value in gains):
+            raise ResponseConfigurationError("synaptic gain bounds must be finite")
+        if not self.synaptic_gain_min < self.synaptic_gain_init < self.synaptic_gain_max:
+            raise ResponseConfigurationError(
+                "synaptic_gain_init must lie inside synaptic gain bounds"
             )
 
 
@@ -73,14 +94,33 @@ class ResponseTrainingConfig:
     validation_interval_steps: int
     learn_cell_residuals: bool = True
     supervised_tail_steps: int | None = None
+    response_bias_lr: float = 0.01
+    rgc_lr: float = 0.001
+    stage0_calibration_enabled: bool = False
+    freeze_threshold: bool = False
 
     def __post_init__(self) -> None:
+        for name, value in (
+            ("learning_rate", self.learning_rate),
+            ("response_bias_lr", self.response_bias_lr),
+            ("rgc_lr", self.rgc_lr),
+        ):
+            if not math.isfinite(value) or value <= 0:
+                raise ResponseConfigurationError(
+                    f"{name} must be finite and positive"
+                )
         if self.supervised_tail_steps is not None and not (
             1 <= self.supervised_tail_steps <= self.differentiable_steps
         ):
             raise ResponseConfigurationError(
                 "supervised tail must fit within the differentiable window"
             )
+        if not isinstance(self.stage0_calibration_enabled, bool):
+            raise ResponseConfigurationError(
+                "stage0_calibration_enabled must be a boolean"
+            )
+        if not isinstance(self.freeze_threshold, bool):
+            raise ResponseConfigurationError("freeze_threshold must be a boolean")
 
     @property
     def supervision_slice(self) -> slice:
@@ -137,11 +177,16 @@ class ResponseExperimentConfig:
             self.model.support_radius_degs,
             self.model.readout_rate_tau_ms,
             self.model.surrogate_slope,
+            self.model.synaptic_gain_min,
+            self.model.synaptic_gain_max,
+            self.model.synaptic_gain_init,
             self.training.burn_in_steps,
             self.training.differentiable_steps,
             self.training.batch_size,
             self.training.max_optimizer_steps,
             self.training.learning_rate,
+            self.training.response_bias_lr,
+            self.training.rgc_lr,
             self.training.gradient_clip_norm,
             self.training.validation_interval_steps,
             self.evaluation.rf_lag_steps,
@@ -153,6 +198,13 @@ class ResponseExperimentConfig:
         if not isinstance(self.training.learn_cell_residuals, bool):
             raise ResponseConfigurationError(
                 "learn_cell_residuals must be a boolean"
+            )
+        if (
+            self.training.stage0_calibration_enabled
+            and not self.model.enable_response_bias
+        ):
+            raise ResponseConfigurationError(
+                "stage0 calibration requires enabled response bias"
             )
 
 

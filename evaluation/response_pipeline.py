@@ -10,7 +10,11 @@ import torch
 
 from baselines.point_process_glm import fit_point_process_glm
 from data.synthetic_teacher import TeacherRFMetadata, load_teacher_rf_metadata
-from evaluation.parameter_audit import ParameterAuditContext, audit_parameter_deltas
+from evaluation.parameter_audit import (
+    ParameterAuditContext,
+    audit_parameter_deltas,
+    audit_response_readout,
+)
 from evaluation.response_prediction import evaluate_response_prediction
 from evaluation.response_report_schema import (
     EvaluationSplit,
@@ -195,7 +199,11 @@ def evaluate_and_report_response_experiment(
         evaluation_split=evaluation_split,
         conditional_rf_by_history=conditional_by_history,
     )
-    write_response_report(output, evidence)
+    write_response_report(
+        output,
+        evidence,
+        audit_response_readout(model, initialized_model),
+    )
     write_rf_artifacts(output, data, evidence)
     torch.save(initialized_model.state_dict(), output / "initialized_model_state.pt")
     (output / "run_manifest.json").write_text(
