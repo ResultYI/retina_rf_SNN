@@ -15,9 +15,15 @@ def conditioned_rf(
     lag_steps: int,
     *,
     condition_on_observed: bool,
+    finite_difference_tolerance: float | None = 0.05,
 ) -> StaticRFResult:
     if not condition_on_observed:
-        return extract_static_rf(model, sequence, lag_steps=lag_steps)
+        return extract_static_rf(
+            model,
+            sequence,
+            lag_steps=lag_steps,
+            finite_difference_tolerance=finite_difference_tolerance,
+        )
     kernels: list[torch.Tensor] = []
     errors: list[float] = []
     identifiable = True
@@ -33,6 +39,7 @@ def conditioned_rf(
                 counts[trial : trial + 1],
                 trial_mask,
             ),
+            finite_difference_tolerance=finite_difference_tolerance,
         )
         kernels.append(rf.kernels)
         errors.append(rf.finite_difference_relative_error)

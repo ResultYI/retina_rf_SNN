@@ -12,6 +12,7 @@ from data.rgc_response import (
     RGCResponseContractError,
     RGCResponseSession,
     ResponseTargetKind,
+    fingerprint_field_bytes,
     load_rgc_response,
     validate_response_splits,
 )
@@ -204,37 +205,44 @@ def _fingerprint(
     normalization_std: np.ndarray,
 ) -> str:
     digest = hashlib.sha256()
-    digest.update(str(sequence_steps).encode())
-    digest.update(normalization_mean.tobytes())
-    digest.update(normalization_std.tobytes())
+    digest.update(fingerprint_field_bytes("sequence_steps", str(sequence_steps)))
+    digest.update(fingerprint_field_bytes("normalization_mean", normalization_mean))
+    digest.update(fingerprint_field_bytes("normalization_std", normalization_std))
     for split_name, sessions in zip(
         ("train", "validation", "test"),
         splits,
         strict=True,
     ):
-        digest.update(split_name.encode())
+        digest.update(fingerprint_field_bytes("split", split_name))
         for session in sessions:
-            for value in session.input_identity.compatibility_key():
-                digest.update(value.encode())
-                digest.update(b"\0")
-            digest.update(
-                "\0".join(
-                    session.input_identity.stimulus_source_fingerprints
-                ).encode()
-            )
-            digest.update("\0".join(session.cells.ids).encode())
-            digest.update("\0".join(session.cells.type_ids).encode())
-            digest.update(session.cells.polarities.tobytes())
-            digest.update(session.cells.positions_degs.tobytes())
-            digest.update(session.cells.eccentricities_deg.tobytes())
-            digest.update(session.cone_positions_degs.tobytes())
-            digest.update(session.time_axis_seconds[:sequence_steps].tobytes())
-            digest.update(session.cone_response[:, :sequence_steps].tobytes())
-            digest.update(session.spike_counts[:, :, :sequence_steps].tobytes())
-            digest.update(session.valid_mask[:, :, :sequence_steps].tobytes())
-            digest.update("\0".join(session.source_ids).encode())
-            digest.update("\0".join(session.context_ids).encode())
-            digest.update(session.target_kind.value.encode())
+            if session.teacher_identity is not None:
+                digest.update(
+                    fingerprint_field_bytes(
+                        "teacher_identity",
+                        session.teacher_identity.identity_bytes().hex(),
+                    )
+                )
+            for tag, value in (
+                ("input_compatibility", session.input_identity.compatibility_key()),
+                (
+                    "stimulus_source_fingerprints",
+                    session.input_identity.stimulus_source_fingerprints,
+                ),
+                ("cell_ids", session.cells.ids),
+                ("cell_type_ids", session.cells.type_ids),
+                ("cell_polarities", session.cells.polarities),
+                ("cell_positions", session.cells.positions_degs),
+                ("cell_eccentricities", session.cells.eccentricities_deg),
+                ("cone_positions", session.cone_positions_degs),
+                ("time_axis", session.time_axis_seconds[:sequence_steps]),
+                ("cone_response", session.cone_response[:, :sequence_steps]),
+                ("spike_counts", session.spike_counts[:, :, :sequence_steps]),
+                ("valid_mask", session.valid_mask[:, :, :sequence_steps]),
+                ("source_ids", session.source_ids),
+                ("context_ids", session.context_ids),
+                ("target_kind", session.target_kind.value),
+            ):
+                digest.update(fingerprint_field_bytes(tag, value))
     return digest.hexdigest()
 
 

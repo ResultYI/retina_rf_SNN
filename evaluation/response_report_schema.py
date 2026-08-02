@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Literal, TypeAlias
+from typing import Literal, Mapping, TypeAlias
 
 from baselines.point_process_glm import GLMFitResult
 from evaluation.parameter_audit import ParameterDelta
@@ -9,6 +9,7 @@ from evaluation.response_metrics import ResponseMetrics
 from evaluation.rf_dynamic import DynamicRFResult
 from evaluation.rf_dynamic_compare import DynamicRFComparison
 from evaluation.rf_static import StaticRFResult
+from evaluation.rf_history_contracts import RFHistoryContract
 
 
 EvaluationSplit: TypeAlias = Literal["validation", "test"]
@@ -31,6 +32,9 @@ class RFModeEvidence:
     initialized_static_reference: KernelReferenceComparison | None = None
 
 
+RFModeEvidenceByHistory: TypeAlias = Mapping[RFHistoryContract, RFModeEvidence]
+
+
 @dataclass(frozen=True, slots=True)
 class ResponsePredictionEvidence:
     conditional: ResponseMetrics
@@ -50,11 +54,13 @@ class ResponseReportEvidence:
     synthetic: bool
     checkpoint: str
     evaluation_split: EvaluationSplit = "validation"
+    conditional_rf_by_history: RFModeEvidenceByHistory | None = None
 
 
 __all__ = [
     "EvaluationSplit",
     "KernelReferenceComparison",
+    "RFModeEvidenceByHistory",
     "RFModeEvidence",
     "ResponsePredictionEvidence",
     "ResponseReportEvidence",

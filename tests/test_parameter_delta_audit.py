@@ -70,6 +70,27 @@ def test_parameter_delta_audit_labels_adaptation_attribution_roles() -> None:
     assert polarity.element_labels == ("ON", "OFF")
 
 
+def test_parameter_delta_audit_prefers_model_effective_group_labels() -> None:
+    # Given
+    initialized = _attribution_model()
+    trained = copy.deepcopy(initialized)
+    trained["rgc"].parameter_group_labels = ("pooled",)
+    with torch.no_grad():
+        trained["rgc"]["adaptation_gain"].type_base_raw = nn.Parameter(torch.zeros(1))
+        initialized["rgc"]["adaptation_gain"].type_base_raw = nn.Parameter(torch.zeros(1))
+
+    # When
+    audit = audit_parameter_deltas(
+        trained,
+        initialized,
+        ParameterAuditContext(type_ids=("midget", "parasol"), cell_ids=("cell",)),
+    )
+
+    # Then
+    by_name = {entry.name: entry for entry in audit}
+    assert by_name["rgc.adaptation_gain.type_base_raw"].element_labels == ("pooled",)
+
+
 def test_cell_residual_learning_can_be_frozen_for_ablation() -> None:
     # Given
     model = _attribution_model()

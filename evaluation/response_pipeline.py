@@ -21,8 +21,9 @@ from evaluation.response_report_schema import (
 from evaluation.response_reporting import write_response_report
 from evaluation.rf_artifacts import write_rf_artifacts
 from evaluation.rf_dynamic import compare_dynamic_rf, evaluate_dynamic_rf
+from evaluation.rf_history_contracts import standard_train_rate_history_counts
+from evaluation.rf_history_pipeline import conditional_rf_by_history, mean_static_rf
 from evaluation.rf_static import StaticRFResult, compare_rf_kernels, extract_static_rf
-from evaluation.rf_dynamic_metrics import trial_conditioned_rf
 from models.response_snn import ResponseRetinaModel
 from training.response_config import ResponseExperimentConfig
 from training.response_data import PreparedResponseData
@@ -77,69 +78,56 @@ def evaluate_and_report_response_experiment(
             device=model.rgc.support_mask.device,
         )
     )
-    conditional_static = _mean_static_rf(
-        tuple(
-            trial_conditioned_rf(
-                model,
-                split,
-                index,
-                config.evaluation.rf_lag_steps,
-            )
-            for index in range(split.cone_response.shape[0])
-        )
+    standard_history = standard_train_rate_history_counts(
+        data.train,
+        burn_in_steps=config.training.burn_in_steps,
+        sequence_steps=split.cone_response.shape[1],
+        device=trainer.device,
     )
-    initialized_conditional_static = _mean_static_rf(
-        tuple(
-            trial_conditioned_rf(
-                initialized_model,
-                split,
-                index,
-                config.evaluation.rf_lag_steps,
-            )
-            for index in range(split.cone_response.shape[0])
-        )
-    )
-    free_static = _mean_static_rf(
-        tuple(
-            extract_static_rf(
-                model,
-                split.cone_response[index : index + 1].to(trainer.device),
-                lag_steps=config.evaluation.rf_lag_steps,
-            )
-            for index in range(split.cone_response.shape[0])
-        )
-    )
-    initialized_free_static = _mean_static_rf(
-        tuple(
-            extract_static_rf(
-                initialized_model,
-                split.cone_response[index : index + 1].to(trainer.device),
-                lag_steps=config.evaluation.rf_lag_steps,
-            )
-            for index in range(split.cone_response.shape[0])
-        )
-    )
-    conditional_dynamic = evaluate_dynamic_rf(
+    conditional_by_history = conditional_rf_by_history(
         model,
-        split,
-        lag_steps=config.evaluation.rf_lag_steps,
-        condition_on_observed=True,
-        recovery_delays_ms=config.evaluation.recovery_delays_ms,
-        dt_ms=data.dt_ms,
-        seed=config.seed,
-        teacher_kernels=teacher_dynamic,
-        teacher_context_gain_envelope=teacher_envelope,
-    )
-    initialized_conditional_dynamic = evaluate_dynamic_rf(
         initialized_model,
         split,
-        lag_steps=config.evaluation.rf_lag_steps,
-        condition_on_observed=True,
-        recovery_delays_ms=config.evaluation.recovery_delays_ms,
-        dt_ms=data.dt_ms,
-        seed=config.seed,
-        teacher_kernels=teacher_dynamic,
-        teacher_context_gain_envelope=teacher_envelope,
+        config,
+        data.dt_ms,
+        config.seed,
+        teacher_dynamic,
+        teacher_envelope,
+        standard_history,
+    )
+    finite_difference_tolerance = config.evaluation.finite_difference_tolerance
+    conditional_static = conditional_by_history["matched_observed"].static_rf
+    initialized_conditional_static = conditional_by_history[
+        "matched_observed"
+    ].initialized_static_rf
+    conditional_dynamic = conditional_by_history["matched_observed"].dynamic_rf
+    initialized_conditional_dynamic = conditional_by_history[
+        "matched_observed"
+    ].initialized_dynamic_rf
+    conditional_comparison = conditional_by_history[
+        "matched_observed"
+    ].dynamic_comparison
+    free_static = mean_static_rf(
+        tuple(
+            extract_static_rf(
+                model,
+                split.cone_response[index : index + 1].to(trainer.device),
+                lag_steps=config.evaluation.rf_lag_steps,
+                finite_difference_tolerance=finite_difference_tolerance,
+            )
+            for index in range(split.cone_response.shape[0])
+        )
+    )
+    initialized_free_static = mean_static_rf(
+        tuple(
+            extract_static_rf(
+                initialized_model,
+                split.cone_response[index : index + 1].to(trainer.device),
+                lag_steps=config.evaluation.rf_lag_steps,
+                finite_difference_tolerance=finite_difference_tolerance,
+            )
+            for index in range(split.cone_response.shape[0])
+        )
     )
     free_dynamic = evaluate_dynamic_rf(
         model,
@@ -151,6 +139,7 @@ def evaluate_and_report_response_experiment(
         seed=config.seed,
         teacher_kernels=teacher_dynamic,
         teacher_context_gain_envelope=teacher_envelope,
+        finite_difference_tolerance=finite_difference_tolerance,
     )
     initialized_free_dynamic = evaluate_dynamic_rf(
         initialized_model,
@@ -162,11 +151,7 @@ def evaluate_and_report_response_experiment(
         seed=config.seed,
         teacher_kernels=teacher_dynamic,
         teacher_context_gain_envelope=teacher_envelope,
-    )
-    conditional_comparison = compare_dynamic_rf(
-        conditional_dynamic,
-        initialized_conditional_dynamic,
-        seed=config.seed,
+        finite_difference_tolerance=finite_difference_tolerance,
     )
     free_comparison = compare_dynamic_rf(
         free_dynamic,
@@ -208,6 +193,7 @@ def evaluate_and_report_response_experiment(
         synthetic=teacher is not None,
         checkpoint=str(checkpoint.resolve()),
         evaluation_split=evaluation_split,
+        conditional_rf_by_history=conditional_by_history,
     )
     write_response_report(output, evidence)
     write_rf_artifacts(output, data, evidence)
@@ -245,14 +231,6 @@ def _static_reference(
     )
     return KernelReferenceComparison(
         comparison["mean_kernel_correlation"], comparison["mean_kernel_norm"]
-    )
-
-
-def _mean_static_rf(results: tuple[StaticRFResult, ...]) -> StaticRFResult:
-    return StaticRFResult(
-        torch.stack([result.kernels for result in results]).mean(dim=0),
-        max(result.finite_difference_relative_error for result in results),
-        all(result.identifiable for result in results),
     )
 
 

@@ -9,17 +9,16 @@ import numpy as np
 from data.input_identity import InputIdentity, synthetic_input_identity
 from data.rgc_response import CellMetadata, RGCResponseSession, ResponseTargetKind
 from data.synthetic_teacher import TeacherInputNormalization
+from benchmarks.teacher_population import (
+    SyntheticTeacherError,
+    TeacherPopulationConfig,
+    build_teacher_population,
+    teacher_population_metadata,
+)
 
 
-_CELL_TYPES: Final = ("midget", "midget", "parasol", "parasol")
-_CELL_POLARITIES: Final = (0, 1, 0, 1)
-_ADAPTIVE_HIGH_SCALES: Final = (0.85, 0.90, 1.10, 1.15)
 _SPIKE_HISTORY_DECAY: Final = np.float32(np.exp(-0.1))
 _SPIKE_HISTORY_LOGIT_GAIN: Final = np.float32(-1.5)
-
-
-class SyntheticTeacherError(ValueError):
-    pass
 
 
 @dataclass(frozen=True, slots=True)
@@ -42,6 +41,8 @@ def generate_teacher_responses(
     adaptive: bool,
     teacher_normalization: TeacherInputNormalization,
     input_identity: InputIdentity | None = None,
+    population_config: TeacherPopulationConfig = TeacherPopulationConfig(),
+    teacher_seed: int | None = None,
 ) -> SyntheticTeacherResult:
     if cone_sequences.ndim != 3 or trials < 1:
         raise SyntheticTeacherError(
@@ -49,15 +50,14 @@ def generate_teacher_responses(
         )
     rng = np.random.default_rng(seed)
     _, time_count, cone_count = cone_sequences.shape
-    cell_count = len(_CELL_TYPES)
-    center_indices = np.linspace(0, cone_count - 1, cell_count, dtype=int)
-    cells = CellMetadata(
-        ids=tuple(f"synthetic-{index}" for index in range(cell_count)),
-        type_ids=_CELL_TYPES,
-        polarities=np.asarray(_CELL_POLARITIES, dtype=np.int64),
-        positions_degs=cone_positions_degs[center_indices].astype(np.float32),
-        eccentricities_deg=np.full(cell_count, 4.0, dtype=np.float32),
+    generation_seed = seed if teacher_seed is None else teacher_seed
+    population = build_teacher_population(
+        cone_positions_degs,
+        population_config,
+        generation_seed=generation_seed,
     )
+    cells = population.cells
+    cell_count = len(cells.ids)
     lag_count = min(16, time_count)
     kernels = _teacher_kernels(
         cone_positions_degs,
@@ -83,11 +83,7 @@ def generate_teacher_responses(
     )
     logits = _causal_logits(paired_cones, kernels, teacher_normalization)
     low_scale = np.ones(cell_count, dtype=np.float32)
-    high_scale = (
-        np.asarray(_ADAPTIVE_HIGH_SCALES, dtype=np.float32)
-        if adaptive
-        else low_scale.copy()
-    )
+    high_scale = population.high_scales if adaptive else low_scale.copy()
     context_scale = np.stack(
         [low_scale if context == "low" else high_scale for context in contexts]
     )
@@ -126,6 +122,7 @@ def generate_teacher_responses(
             "context_kernel_low": kernel_low,
             "context_kernel_high": kernel_high,
             "context_gain_envelope": envelope,
+            **teacher_population_metadata(population),
         },
         expected_probabilities=expected_probabilities,
         conditional_probabilities=conditional_probabilities,
@@ -225,5 +222,6 @@ def _sample_history_conditioned_spikes(
 __all__ = [
     "SyntheticTeacherError",
     "SyntheticTeacherResult",
+    "TeacherPopulationConfig",
     "generate_teacher_responses",
 ]

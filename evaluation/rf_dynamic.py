@@ -34,6 +34,7 @@ from evaluation.rf_dynamic_teacher import (
 )
 from models.response_snn import ResponseRetinaModel
 from training.response_data import ResponseSplit
+from evaluation.rf_history_contracts import RFHistoryContract
 
 
 def evaluate_dynamic_rf(
@@ -48,8 +49,11 @@ def evaluate_dynamic_rf(
     seed: int = 0,
     teacher_kernels: tuple[torch.Tensor, torch.Tensor] | None = None,
     teacher_context_gain_envelope: torch.Tensor | None = None,
+    history_mode: RFHistoryContract | None = None,
+    standard_history_counts: torch.Tensor | None = None,
+    finite_difference_tolerance: float | None = 0.05,
 ) -> DynamicRFResult:
-    pairs = context_pairs(split)
+    pairs = context_pairs(split, require_complete=history_mode is not None)
     if not pairs:
         return empty_dynamic_rf_result()
     shapes: list[float] = []
@@ -82,6 +86,10 @@ def evaluate_dynamic_rf(
             low_index,
             lag_steps,
             condition_on_observed=condition_on_observed,
+            history_mode=history_mode,
+            matched_history_index=low_index,
+            standard_history_counts=standard_history_counts,
+            finite_difference_tolerance=finite_difference_tolerance,
         )
         high_rf = trial_conditioned_rf(
             model,
@@ -89,6 +97,10 @@ def evaluate_dynamic_rf(
             high_index,
             lag_steps,
             condition_on_observed=condition_on_observed,
+            history_mode=history_mode,
+            matched_history_index=low_index,
+            standard_history_counts=standard_history_counts,
+            finite_difference_tolerance=finite_difference_tolerance,
         )
         shape, gain = kernel_metrics(low_rf.kernels, high_rf.kernels)
         low_kernels.append(low_rf.kernels)
@@ -117,6 +129,9 @@ def evaluate_dynamic_rf(
             pair,
             lag_steps,
             condition_on_observed=condition_on_observed,
+            history_mode=history_mode,
+            standard_history_counts=standard_history_counts,
+            finite_difference_tolerance=finite_difference_tolerance,
         )
         for pair in pairs
     )
@@ -129,6 +144,9 @@ def evaluate_dynamic_rf(
         recovery_delays_ms,
         dt_ms,
         condition_on_observed=condition_on_observed,
+        history_mode=history_mode,
+        standard_history_counts=standard_history_counts,
+        finite_difference_tolerance=finite_difference_tolerance,
     )
     recovery = tuple(
         mean_distances(

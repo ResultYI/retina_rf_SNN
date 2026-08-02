@@ -91,6 +91,9 @@ def _run(args: argparse.Namespace, output: Path) -> None:
         support_radius_degs=config.model.support_radius_degs,
         readout_rate_tau_ms=config.model.readout_rate_tau_ms,
         surrogate_slope=config.model.surrogate_slope,
+        parameter_sharing_mode=config.model.parameter_sharing_mode,
+        parameter_sharing_seed=config.seed,
+        matched_initialization=config.model.matched_initialization,
     ).to(torch.device(args.device))
     initialized_model = copy.deepcopy(model)
     trainer = ResponseTrainer(model, config, data, torch.device(args.device))
@@ -162,6 +165,7 @@ def _run(args: argparse.Namespace, output: Path) -> None:
         checkpoint=checkpoint,
         evaluation_split="test" if args.final_test else "validation",
     )
+    _write_parameter_sharing_manifest(output, model, initialized_model)
 
 
 def _train(
@@ -253,6 +257,29 @@ def _restore_trainer_lineage(
     trainer.best_checkpoint_step = state.best_checkpoint_step
     trainer.run_id = state.run_id
     trainer.parent_run_id = state.parent_run_id
+
+
+def _write_parameter_sharing_manifest(output: Path, model, initialized_model=None) -> None:
+    manifest_path = output / "run_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    initial_rgc = model.rgc if initialized_model is None else initialized_model.rgc
+    manifest["parameter_sharing"] = {
+        "mode": model.rgc.parameter_sharing_mode,
+        "matched_initialization": model.rgc.matched_initialization,
+        "shuffle_contract": model.rgc.shuffle_contract,
+        "observed_type_labels": model.rgc.observed_type_labels,
+        "cell_polarities": model.rgc.cell_polarities.detach().cpu().tolist(),
+        "effective_type_labels": model.rgc.effective_type_labels,
+        "parameter_group_labels": model.rgc.parameter_group_labels,
+        "initial_effective_parameters": {
+            name: getattr(initial_rgc, name)().detach().cpu().tolist()
+            for name in initial_rgc.parameter_names
+        },
+    }
+    manifest_path.write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
 
 
 def _prepare_output(args: argparse.Namespace) -> Path:

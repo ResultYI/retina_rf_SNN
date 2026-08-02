@@ -15,7 +15,7 @@ from training.response_config import ResponseExperimentConfig
 
 CHECKPOINT_SCHEMA = "retina_rgc_response_snn"
 CHECKPOINT_SCHEMA_REVISION = 4
-MODEL_CONTRACT_REVISION = 1
+MODEL_CONTRACT_REVISION = 2
 CHECKPOINT_KEYS = frozenset(
     {
         "schema",

@@ -12,6 +12,7 @@ if __package__ in {None, ""}:
 
 from benchmarks.point_process_teacher import (
     SyntheticTeacherResult,
+    TeacherPopulationConfig,
     generate_teacher_responses,
 )
 from data.cone_response import ConeResponseExport
@@ -44,6 +45,7 @@ def main() -> None:
     parser.add_argument("--train-limit", type=int)
     parser.add_argument("--validation-limit", type=int)
     parser.add_argument("--seed", type=int, default=19)
+    parser.add_argument("--cells-per-type-polarity", type=int, default=4)
     args = parser.parse_args()
     train_paths = tuple(Path(path) for path in sorted(glob.glob(args.train_glob)))
     validation_paths = tuple(
@@ -69,6 +71,7 @@ def main() -> None:
     )
     validation_exports = all_exports[train_end:validation_end]
     test_exports = all_exports[validation_end:]
+    population_config = TeacherPopulationConfig(args.cells_per_type_polarity)
     output = Path(args.output_dir)
     for split, exports, paths, offset in (
         ("train", train_exports, train_paths, 0),
@@ -82,6 +85,8 @@ def main() -> None:
             seed=args.seed + offset,
             adaptive=args.teacher == "adaptive",
             teacher_normalization=teacher_normalization,
+            population_config=population_config,
+            teacher_seed=args.seed,
         )
         write_rgc_response(
             output / f"{split}.h5",
@@ -99,6 +104,8 @@ def _generate_split(
     seed: int,
     adaptive: bool,
     teacher_normalization: TeacherInputNormalization,
+    population_config: TeacherPopulationConfig,
+    teacher_seed: int,
 ) -> SyntheticTeacherResult:
     validate_loaded_cone_exports(exports)
     if any(
@@ -121,6 +128,8 @@ def _generate_split(
         seed=seed,
         adaptive=adaptive,
         teacher_normalization=teacher_normalization,
+        population_config=population_config,
+        teacher_seed=teacher_seed,
         input_identity=exports[0].input_identity.with_sources(
             tuple(
                 export.input_identity.stimulus_source_fingerprints[0]

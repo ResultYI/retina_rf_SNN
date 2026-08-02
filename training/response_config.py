@@ -2,13 +2,31 @@ from __future__ import annotations
 
 from dataclasses import MISSING, dataclass, fields
 from pathlib import Path
-from typing import Any, TypeVar, get_type_hints
+from typing import Any, Final, Literal, TypeAlias, TypeVar, get_type_hints
 
 import yaml
 
 
 class ResponseConfigurationError(ValueError):
     pass
+
+
+ParameterSharingMode: TypeAlias = Literal[
+    "type_aware",
+    "type_blind",
+    "cell_only",
+    "shuffled_type",
+    "balanced_shuffled_type",
+]
+_PARAMETER_SHARING_MODES: Final = frozenset(
+    (
+        "type_aware",
+        "type_blind",
+        "cell_only",
+        "shuffled_type",
+        "balanced_shuffled_type",
+    )
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -25,6 +43,22 @@ class ResponseModelConfig:
     support_radius_degs: float
     readout_rate_tau_ms: float
     surrogate_slope: float
+    parameter_sharing_mode: ParameterSharingMode = "type_aware"
+    matched_initialization: bool = False
+
+    def __post_init__(self) -> None:
+        if (
+            not isinstance(self.parameter_sharing_mode, str)
+            or self.parameter_sharing_mode not in _PARAMETER_SHARING_MODES
+        ):
+            raise ResponseConfigurationError(
+                "parameter_sharing_mode must be one of "
+                f"{sorted(_PARAMETER_SHARING_MODES)}"
+            )
+        if not isinstance(self.matched_initialization, bool):
+            raise ResponseConfigurationError(
+                "matched_initialization must be a boolean"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -59,6 +93,19 @@ class ResponseTrainingConfig:
 class ResponseEvaluationConfig:
     rf_lag_steps: int
     recovery_delays_ms: tuple[int, ...]
+    rf_finite_difference_checks: bool = True
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.rf_finite_difference_checks, bool):
+            raise ResponseConfigurationError(
+                "rf_finite_difference_checks must be a boolean"
+            )
+
+    @property
+    def finite_difference_tolerance(self) -> float | None:
+        if self.rf_finite_difference_checks:
+            return 0.05
+        return None
 
 
 @dataclass(frozen=True, slots=True)
@@ -169,5 +216,6 @@ __all__ = [
     "ResponseExperimentConfig",
     "ResponseModelConfig",
     "ResponseTrainingConfig",
+    "ParameterSharingMode",
     "load_response_config",
 ]

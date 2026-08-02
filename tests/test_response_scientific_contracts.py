@@ -123,6 +123,29 @@ def test_dynamic_rf_teacher_comparison_requires_error_reduction() -> None:
     assert comparison.teacher_recovery_error_delta_ci[0] > 0
 
 
+def test_dynamic_rf_teacher_comparison_ignores_finite_direction_mismatch() -> None:
+    trained = _teacher_result(
+        "teacher_mismatch",
+        (0.1,) * 3,
+        (0.05,) * 3,
+        direction_agreement=(False, False, False),
+        model_signed_gains=(-0.2, -0.2, -0.2),
+        reference_signed_gains=(0.3, 0.3, 0.3),
+    )
+    initialized = _teacher_result("supported", (0.4,) * 3, (0.2,) * 3)
+
+    comparison = rf_dynamic.compare_dynamic_rf(
+        trained,
+        initialized,
+        bootstrap_iterations=100,
+        seed=7,
+    )
+
+    assert comparison.status == "supported"
+    assert comparison.teacher_primary_error_delta_ci[0] > 0
+    assert comparison.teacher_recovery_error_delta_ci[0] > 0
+
+
 def test_dynamic_rf_teacher_comparison_hardens_teacher_gate_samples() -> None:
     initialized = _teacher_result(
         "supported",
@@ -150,12 +173,24 @@ def test_dynamic_rf_teacher_comparison_hardens_teacher_gate_samples() -> None:
                 "supported",
                 (0.1,) * 3,
                 (0.05,) * 3,
-                direction_agreement=(True, False),
-                model_signed_gains=(0.2, -0.1),
+                direction_agreement=(),
+                model_signed_gains=(),
+                reference_signed_gains=(),
+            ),
+            initialized,
+            "not_supported",
+        ),
+        (
+            _teacher_result(
+                "supported",
+                (0.1,) * 3,
+                (0.05,) * 3,
+                direction_agreement=(True, True),
+                model_signed_gains=(0.2, float("nan")),
                 reference_signed_gains=(0.3, 0.1),
             ),
             initialized,
-            "teacher_mismatch",
+            "not_supported",
         ),
         (
             _teacher_result(

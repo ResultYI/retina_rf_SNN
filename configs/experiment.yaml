@@ -11,6 +11,7 @@ model:
   support_radius_degs: 0.20
   readout_rate_tau_ms: 50.0
   surrogate_slope: 5.0
+  parameter_sharing_mode: "type_aware"
 
 training:
   burn_in_steps: 64

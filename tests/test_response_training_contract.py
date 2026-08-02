@@ -15,6 +15,7 @@ from scripts.run_experiment import ResponseExperimentError, _prepare_output
 from training.response_checkpointing import (
     CHECKPOINT_SCHEMA,
     CHECKPOINT_SCHEMA_REVISION,
+    MODEL_CONTRACT_REVISION,
     ResponseCheckpointError,
     load_response_checkpoint,
     save_response_checkpoint,
@@ -44,8 +45,10 @@ def test_canonical_response_training_contract() -> None:
     assert config.training.differentiable_steps == 256
     assert config.training.checkpoint_block_steps == 32
     assert config.training.learn_cell_residuals is True
+    assert config.model.parameter_sharing_mode == "type_aware"
     assert CHECKPOINT_SCHEMA == "retina_rgc_response_snn"
     assert CHECKPOINT_SCHEMA_REVISION == 4
+    assert MODEL_CONTRACT_REVISION == 2
 
 
 def test_response_config_rejects_reconstruction_keys(tmp_path: Path) -> None:

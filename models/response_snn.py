@@ -12,6 +12,7 @@ from models.cells.amacrine import LocalAmacrineLayer
 from models.cells.bipolar import BipolarLayer, BipolarState
 from models.cells.horizontal import H1HorizontalNetwork
 from models.cells.typed_rgc import (
+    ParameterSharingMode,
     TypedRGCOutput,
     TypedRGCPopulation,
     TypedRGCState,
@@ -132,6 +133,9 @@ def build_response_retina_model(
     support_radius_degs: float,
     readout_rate_tau_ms: float,
     surrogate_slope: float,
+    parameter_sharing_mode: ParameterSharingMode = "type_aware",
+    parameter_sharing_seed: int = 0,
+    matched_initialization: bool = False,
 ) -> ResponseRetinaModel:
     return ResponseRetinaModel(
         H1HorizontalNetwork(cone_positions_degs, profile.h1),
@@ -145,6 +149,9 @@ def build_response_retina_model(
             support_radius_degs=support_radius_degs,
             readout_rate_tau_ms=readout_rate_tau_ms,
             surrogate_slope=surrogate_slope,
+            parameter_sharing_mode=parameter_sharing_mode,
+            parameter_sharing_seed=parameter_sharing_seed,
+            matched_initialization=matched_initialization,
         ),
     )
 

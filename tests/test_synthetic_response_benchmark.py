@@ -1,17 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import replace
-from pathlib import Path
 
-import h5py
 import numpy as np
 import pytest
 
-from benchmarks.point_process_teacher import generate_teacher_responses
+from benchmarks.point_process_teacher import TeacherPopulationConfig, generate_teacher_responses
 from data.cone_response import ConeResponseExport, DataContractError
 from data.dataset import validate_loaded_cone_exports
 from data.input_identity import synthetic_input_identity
-from data.rgc_response_export import write_rgc_response
 from data.synthetic_teacher import fit_teacher_input_normalization
 
 
@@ -66,7 +63,7 @@ def test_static_and_adaptive_teachers_declare_distinct_context_behavior() -> Non
         np.abs(envelope[1, transition] - 1)
         > np.abs(envelope[1, -1] - 1)
     )
-    assert adaptive.session.spike_counts.shape == (4, 2, 80, 4)
+    assert adaptive.session.spike_counts.shape == (4, 2, 80, 16)
 
 
 def test_teacher_contains_all_four_type_polarity_combinations() -> None:
@@ -85,6 +82,7 @@ def test_teacher_contains_all_four_type_polarity_combinations() -> None:
         seed=3,
         adaptive=True,
         teacher_normalization=fit_teacher_input_normalization(cones),
+        population_config=TeacherPopulationConfig(cells_per_type_polarity=1),
     )
 
     # Then
@@ -112,6 +110,7 @@ def test_adaptive_teacher_uses_type_consistent_cell_ordered_scales() -> None:
         seed=3,
         adaptive=True,
         teacher_normalization=fit_teacher_input_normalization(cones),
+        population_config=TeacherPopulationConfig(cells_per_type_polarity=1),
     )
 
     # Then
@@ -157,35 +156,6 @@ def test_teacher_logits_use_shared_train_normalization_across_split_containers()
         validation.expected_probabilities[0],
         atol=1e-7,
     )
-
-
-def test_export_persists_teacher_input_normalization(tmp_path: Path) -> None:
-    rng = np.random.default_rng(11)
-    cones = rng.random((2, 80, 5), dtype=np.float32)
-    positions = np.stack((np.arange(5) * 0.05, np.zeros(5)), axis=1)
-    time_axis = np.arange(80) * 0.005
-    normalization = fit_teacher_input_normalization(cones)
-    result = generate_teacher_responses(
-        cones,
-        positions,
-        ("a", "b"),
-        time_axis,
-        trials=1,
-        seed=3,
-        adaptive=False,
-        teacher_normalization=normalization,
-    )
-
-    write_rgc_response(
-        tmp_path / "synthetic.h5",
-        result.session,
-        teacher_kernels=result.kernels,
-        teacher_normalization=result.teacher_normalization,
-    )
-
-    with h5py.File(tmp_path / "synthetic.h5", "r") as handle:
-        assert "teacher/input_mean" in handle
-        assert "teacher/input_std" in handle
 
 
 def test_same_shape_different_cone_positions_are_rejected() -> None:

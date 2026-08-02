@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import json
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
+import pytest
 import torch
 
 from baselines.point_process_glm import GLMFitResult, PointProcessGLM
@@ -17,11 +19,14 @@ from evaluation.response_report_schema import (
 from evaluation.response_reporting import write_response_report
 from evaluation.rf_dynamic import DynamicRFResult
 from evaluation.rf_dynamic_compare import DynamicRFComparison
+from evaluation.rf_history_contracts import RF_HISTORY_CONTRACTS
 from evaluation.rf_static import StaticRFResult
 
 
-def test_report_uses_conditional_teacher_gate_when_free_running_disagrees(
+@pytest.mark.parametrize("teacher_status", ("teacher_mismatch", "supported"))
+def test_report_separates_primary_dynamic_status_from_teacher_alignment(
     tmp_path: Path,
+    teacher_status: str,
 ) -> None:
     # Given
     evidence = ResponseReportEvidence(
@@ -32,9 +37,9 @@ def test_report_uses_conditional_teacher_gate_when_free_running_disagrees(
             static_rf=_static_rf(),
             initialized_static_rf=_static_rf(),
             static_reference=KernelReferenceComparison(0.7, 1.0),
-            dynamic_rf=_dynamic("teacher_mismatch", teacher=True),
+            dynamic_rf=_dynamic(teacher_status, teacher=True),
             initialized_dynamic_rf=_dynamic("supported", teacher=True),
-            dynamic_comparison=_comparison("teacher_mismatch"),
+            dynamic_comparison=_comparison("supported"),
         ),
         free_running_rf=RFModeEvidence(
             static_rf=_static_rf(),
@@ -47,17 +52,20 @@ def test_report_uses_conditional_teacher_gate_when_free_running_disagrees(
         synthetic=True,
         checkpoint="checkpoint.pt",
     )
+    evidence = _complete_history(evidence)
 
     # When
     write_response_report(tmp_path, evidence)
 
     # Then
     metrics = json.loads((tmp_path / "final_metrics.json").read_text())
-    assert metrics["dynamic_rf"]["status"] == "teacher_mismatch"
-    assert metrics["dynamic_rf"]["support_reason"] == "teacher_mismatch"
-    assert metrics["dynamic_rf"]["mode_agreement"] == "mismatch"
-    assert metrics["dynamic_rf"]["conditional"]["trained_minus_initialized"]["status"] == "teacher_mismatch"
+    assert metrics["dynamic_rf"]["status"] == "supported"
+    assert metrics["dynamic_rf"]["support_reason"] == "conditional_rf_supported"
+    assert metrics["dynamic_rf"]["mode_agreement"] == "agree"
+    assert metrics["dynamic_rf"]["conditional"]["trained"]["status"] == teacher_status
+    assert metrics["dynamic_rf"]["conditional"]["trained_minus_initialized"]["status"] == "supported"
     assert metrics["dynamic_rf"]["free_running"]["trained_minus_initialized"]["status"] == "supported"
+    assert metrics["dynamic_rf"]["teacher_alignment"]["status"] == teacher_status
     assert metrics["dynamic_rf"]["teacher_alignment"]["model_signed_gains"] == [0.2, -0.1]
     assert metrics["dynamic_rf"]["teacher_alignment"]["direction_agreement"] == [True, False]
     assert len(metrics["dynamic_rf"]["teacher_alignment"]["direction_agreement"]) == len(
@@ -91,6 +99,7 @@ def test_report_omits_teacher_arrays_for_real_data(tmp_path: Path) -> None:
         synthetic=False,
         checkpoint="checkpoint.pt",
     )
+    evidence = _complete_history(evidence)
 
     # When
     write_response_report(tmp_path, evidence)
@@ -151,6 +160,7 @@ def test_report_writes_strict_json_nulls_when_metrics_are_nonfinite(
         synthetic=True,
         checkpoint="checkpoint.pt",
     )
+    evidence = _complete_history(evidence)
 
     # When
     write_response_report(tmp_path, evidence)
@@ -245,4 +255,13 @@ def _comparison(status: str) -> DynamicRFComparison:
         teacher_primary_error_delta_ci=(0.1, 0.3),
         teacher_recovery_error_delta=0.1,
         teacher_recovery_error_delta_ci=(0.05, 0.2),
+    )
+
+
+def _complete_history(evidence: ResponseReportEvidence) -> ResponseReportEvidence:
+    return replace(
+        evidence,
+        conditional_rf_by_history={
+            key: evidence.conditional_rf for key in RF_HISTORY_CONTRACTS
+        },
     )

@@ -69,6 +69,8 @@ def main() -> None:
         support_radius_degs=config.model.support_radius_degs,
         readout_rate_tau_ms=config.model.readout_rate_tau_ms,
         surrogate_slope=config.model.surrogate_slope,
+        parameter_sharing_mode=config.model.parameter_sharing_mode,
+        parameter_sharing_seed=config.seed,
     ).to(device)
     initialized_model = copy.deepcopy(model)
     trainer = ResponseTrainer(model, config, data, device)

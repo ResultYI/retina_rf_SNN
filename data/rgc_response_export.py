@@ -104,7 +104,11 @@ def write_rgc_response(
                 )
         if teacher_kernels:
             for name, values in teacher_kernels.items():
-                group.create_dataset(name, data=values)
+                array = np.asarray(values)
+                if array.dtype.kind in {"O", "U"}:
+                    group.create_dataset(name, data=array.astype(string_dtype))
+                else:
+                    group.create_dataset(name, data=array)
 
 
 __all__ = ["write_rgc_response"]

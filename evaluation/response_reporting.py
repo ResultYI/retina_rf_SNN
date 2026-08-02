@@ -15,6 +15,7 @@ from evaluation.response_report_schema import (
     ResponseReportEvidence,
 )
 from evaluation.rf_dynamic import DynamicRFResult
+from evaluation.rf_history_contracts import require_exact_history_contracts
 from evaluation.rf_static import StaticRFResult
 
 JsonScalar: TypeAlias = str | int | float | bool | None
@@ -76,6 +77,7 @@ def write_response_report(
         "static_rf": {
             "conditional": _static_block(evidence.conditional_rf),
             "free_running": _static_block(evidence.free_running_rf),
+            "by_history": _static_by_history(evidence),
         },
         "dynamic_rf": _dynamic_block(evidence),
     }
@@ -156,6 +158,7 @@ def _static_result(result: StaticRFResult) -> JsonMap:
         "identifiable": result.identifiable,
         "finite_difference_relative_error": result.finite_difference_relative_error,
         "kernel_shape": list(result.kernels.shape),
+        "per_cell_kernel_norm": result.kernels.norm(dim=(1, 2)),
     }
 
 
@@ -168,6 +171,7 @@ def _dynamic_block(evidence: ResponseReportEvidence) -> JsonMap:
         "mode_agreement": _mode_agreement(conditional, free_running),
         "conditional": _dynamic_mode(evidence.conditional_rf),
         "free_running": _dynamic_mode(evidence.free_running_rf),
+        "by_history": _dynamic_by_history(evidence),
         "teacher_alignment": _teacher_alignment(evidence.conditional_rf.dynamic_rf),
     }
 
@@ -184,6 +188,7 @@ def _dynamic_result(result: DynamicRFResult) -> JsonMap:
     value = asdict(result)
     del value["mean_low_kernel"]
     del value["mean_high_kernel"]
+    value["per_cell_signed_log_gain_shift"] = _dynamic_cell_gain_shift(result)
     if result.teacher_model_signed_gains:
         return value
     for key in (
@@ -199,11 +204,31 @@ def _dynamic_result(result: DynamicRFResult) -> JsonMap:
     return value
 
 
+def _static_by_history(evidence: ResponseReportEvidence) -> JsonMap:
+    by_history = require_exact_history_contracts(evidence.conditional_rf_by_history)
+    return {key: _static_block(value) for key, value in by_history.items()}
+
+
+def _dynamic_by_history(evidence: ResponseReportEvidence) -> JsonMap:
+    by_history = require_exact_history_contracts(evidence.conditional_rf_by_history)
+    return {key: _dynamic_mode(value) for key, value in by_history.items()}
+
+
+def _dynamic_cell_gain_shift(result: DynamicRFResult) -> torch.Tensor:
+    if result.mean_low_kernel is None or result.mean_high_kernel is None:
+        return torch.empty(0)
+    return (
+        (result.mean_high_kernel.norm(dim=(1, 2)) + 1e-8).log()
+        - (result.mean_low_kernel.norm(dim=(1, 2)) + 1e-8).log()
+    )
+
+
 def _teacher_alignment(result: DynamicRFResult) -> JsonMap:
     if not result.teacher_model_signed_gains:
         return {"available": False}
     return {
         "available": True,
+        "status": result.status,
         "model_signed_gains": list(result.teacher_model_signed_gains),
         "reference_signed_gains": list(result.teacher_reference_signed_gains),
         "direction_agreement": list(result.teacher_gain_direction_agreement),
@@ -223,7 +248,7 @@ def _kernel_reference(reference: KernelReferenceComparison) -> JsonMap:
 
 def _support_reason(status: str, synthetic: bool) -> str:
     if synthetic and status == "supported":
-        return "conditional_teacher_aligned_supported"
+        return "conditional_rf_supported"
     return status
 
 

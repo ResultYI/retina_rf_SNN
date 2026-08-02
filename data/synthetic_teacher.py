@@ -44,6 +44,19 @@ class TeacherRFMetadata:
     context_kernel_low: np.ndarray
     context_kernel_high: np.ndarray
     context_gain_envelope: np.ndarray | None
+    cell_group_ids: tuple[str, ...] = ()
+    cell_replicate_ids: tuple[str, ...] = ()
+    component_ids: tuple[str, ...] = ()
+    revision: str | None = None
+    generation_seed: int | None = None
+    residual_seed: int | None = None
+    cells_per_type_polarity: int | None = None
+    residual_bound: float | None = None
+    context_high_scale: np.ndarray | None = None
+    context_gain_population_component: np.ndarray | None = None
+    context_gain_type_component: np.ndarray | None = None
+    context_gain_polarity_component: np.ndarray | None = None
+    context_gain_cell_residual: np.ndarray | None = None
 
     def __post_init__(self) -> None:
         for name, value in (
@@ -53,6 +66,27 @@ class TeacherRFMetadata:
         ):
             if value.ndim != 3 or not np.isfinite(value).all():
                 raise RGCResponseContractError(f"{name} teacher kernel is invalid")
+        cell_count = self.static_kernel.shape[0]
+        for name, values in (
+            ("cell_group_ids", self.cell_group_ids),
+            ("cell_replicate_ids", self.cell_replicate_ids),
+        ):
+            if values and len(values) != cell_count:
+                raise RGCResponseContractError(f"{name} teacher metadata is invalid")
+        for name, value in (
+            ("context_high_scale", self.context_high_scale),
+            (
+                "context_gain_population_component",
+                self.context_gain_population_component,
+            ),
+            ("context_gain_type_component", self.context_gain_type_component),
+            ("context_gain_polarity_component", self.context_gain_polarity_component),
+            ("context_gain_cell_residual", self.context_gain_cell_residual),
+        ):
+            if value is not None and (
+                value.shape != (cell_count,) or not np.isfinite(value).all()
+            ):
+                raise RGCResponseContractError(f"{name} teacher metadata is invalid")
 
 
 def fit_teacher_input_normalization(
@@ -113,7 +147,78 @@ def load_teacher_rf_metadata(path: str | Path) -> TeacherRFMetadata | None:
             context_kernel_low=np.asarray(handle[keys[1]][()], dtype=np.float32),
             context_kernel_high=np.asarray(handle[keys[2]][()], dtype=np.float32),
             context_gain_envelope=envelope,
+            cell_group_ids=_optional_text_vector(handle, "teacher/cell_group_id"),
+            cell_replicate_ids=_optional_text_vector(
+                handle,
+                "teacher/cell_replicate_id",
+            ),
+            component_ids=_optional_text_vector(handle, "teacher/component_id"),
+            revision=_optional_scalar_text(handle, "teacher/revision"),
+            generation_seed=_optional_int_scalar(handle, "teacher/generation_seed"),
+            residual_seed=_optional_int_scalar(handle, "teacher/residual_seed"),
+            cells_per_type_polarity=_optional_int_scalar(
+                handle,
+                "teacher/cells_per_type_polarity",
+            ),
+            residual_bound=_optional_float_scalar(handle, "teacher/residual_bound"),
+            context_high_scale=_optional_float_vector(
+                handle,
+                "teacher/context_high_scale",
+            ),
+            context_gain_population_component=_optional_float_vector(
+                handle,
+                "teacher/context_gain_population_component",
+            ),
+            context_gain_type_component=_optional_float_vector(
+                handle,
+                "teacher/context_gain_type_component",
+            ),
+            context_gain_polarity_component=_optional_float_vector(
+                handle,
+                "teacher/context_gain_polarity_component",
+            ),
+            context_gain_cell_residual=_optional_float_vector(
+                handle,
+                "teacher/context_gain_cell_residual",
+            ),
         )
+
+
+def _optional_int_scalar(handle: h5py.File, key: str) -> int | None:
+    return int(np.asarray(handle[key][()]).reshape(-1)[0]) if key in handle else None
+
+
+def _optional_float_scalar(handle: h5py.File, key: str) -> float | None:
+    return float(np.asarray(handle[key][()]).reshape(-1)[0]) if key in handle else None
+
+
+def _optional_float_vector(handle: h5py.File, key: str) -> np.ndarray | None:
+    return (
+        np.asarray(handle[key][()], dtype=np.float32).reshape(-1)
+        if key in handle
+        else None
+    )
+
+
+def _optional_scalar_text(handle: h5py.File, key: str) -> str | None:
+    values = _optional_text_vector(handle, key)
+    return None if not values else values[0]
+
+
+def _optional_text_vector(handle: h5py.File, key: str) -> tuple[str, ...]:
+    if key not in handle:
+        return ()
+    values = np.asarray(handle[key][()]).reshape(-1)
+    return tuple(_decode_text(value) for value in values)
+
+
+def _decode_text(value: str | bytes | np.ndarray | np.generic) -> str:
+    if isinstance(value, bytes):
+        return value.decode("utf-8")
+    array = np.asarray(value)
+    if array.dtype == np.uint8:
+        return array.reshape(-1).tobytes().decode("utf-8")
+    return str(array.item())
 
 
 __all__ = [

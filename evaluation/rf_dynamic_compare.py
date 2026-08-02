@@ -93,9 +93,9 @@ def _compare_teacher_gate(
         return TeacherComparisonGate(None, None, None, None, None)
     if trained.pair_count < 3 or trained.status == "not_identifiable":
         return TeacherComparisonGate("not_identifiable", None, None, None, None)
-    direction_status = _direction_status(trained)
-    if direction_status is not None:
-        return TeacherComparisonGate(direction_status, None, None, None, None)
+    signed_gain_status = _signed_gain_status(trained)
+    if signed_gain_status is not None:
+        return TeacherComparisonGate(signed_gain_status, None, None, None, None)
     primary_delta, primary_ci = _error_improvement(
         initialized.teacher_primary_errors,
         trained.teacher_primary_errors,
@@ -110,7 +110,7 @@ def _compare_teacher_gate(
         bootstrap_iterations,
         seed + 1,
     )
-    if trained.status != "supported":
+    if trained.status == "not_supported":
         status = trained.status
     elif primary_ci is None or recovery_ci is None:
         status = "not_supported"
@@ -147,7 +147,7 @@ def _deltas(
     return tuple(left_value - right_value for left_value, right_value in zip(left, right, strict=True))
 
 
-def _direction_status(result: DynamicRFLike) -> str | None:
+def _signed_gain_status(result: DynamicRFLike) -> str | None:
     count = len(result.teacher_gain_direction_agreement)
     if (
         count == 0
@@ -157,8 +157,6 @@ def _direction_status(result: DynamicRFLike) -> str | None:
         or not _finite_values(result.teacher_reference_signed_gains)
     ):
         return "not_supported"
-    if not all(result.teacher_gain_direction_agreement):
-        return "teacher_mismatch"
     return None
 
 

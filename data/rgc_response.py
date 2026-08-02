@@ -5,7 +5,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass, field
 from enum import StrEnum, unique
 from pathlib import Path
-from typing import TypeAlias
+from typing import Final, TypeAlias, assert_never
 
 import h5py
 import numpy as np
@@ -19,6 +19,8 @@ from data.input_identity import (
 
 
 TextValue: TypeAlias = str | bytes | np.ndarray | np.generic | None
+FingerprintFieldValue: TypeAlias = str | tuple[str, ...] | np.ndarray
+_FRAME_SIZE_BYTES: Final = 8
 
 
 class RGCResponseContractError(ValueError):
@@ -41,6 +43,52 @@ class CellMetadata:
 
 
 @dataclass(frozen=True, slots=True)
+class TeacherIdentityMetadata:
+    revision: str
+    generation_seed: int
+    residual_seed: int
+    cells_per_type_polarity: int
+    residual_bound: float
+    cell_group_ids: tuple[str, ...]
+    cell_replicate_ids: tuple[str, ...]
+    component_ids: tuple[str, ...]
+    context_high_scale: np.ndarray
+    context_gain_cell_residual: np.ndarray
+
+    def matches(self, other: TeacherIdentityMetadata) -> bool:
+        return bool(
+            self.revision == other.revision
+            and self.generation_seed == other.generation_seed
+            and self.residual_seed == other.residual_seed
+            and self.cells_per_type_polarity == other.cells_per_type_polarity
+            and np.isclose(self.residual_bound, other.residual_bound)
+            and self.cell_group_ids == other.cell_group_ids
+            and self.cell_replicate_ids == other.cell_replicate_ids
+            and self.component_ids == other.component_ids
+            and np.array_equal(self.context_high_scale, other.context_high_scale)
+            and np.array_equal(
+                self.context_gain_cell_residual,
+                other.context_gain_cell_residual,
+            )
+        )
+
+    def identity_bytes(self) -> bytes:
+        fields: tuple[tuple[str, FingerprintFieldValue], ...] = (
+            ("revision", self.revision),
+            ("generation_seed", str(self.generation_seed)),
+            ("residual_seed", str(self.residual_seed)),
+            ("cells_per_type_polarity", str(self.cells_per_type_polarity)),
+            ("residual_bound", repr(self.residual_bound)),
+            ("cell_group_ids", self.cell_group_ids),
+            ("cell_replicate_ids", self.cell_replicate_ids),
+            ("component_ids", self.component_ids),
+            ("context_high_scale", self.context_high_scale),
+            ("context_gain_cell_residual", self.context_gain_cell_residual),
+        )
+        return b"".join(fingerprint_field_bytes(tag, value) for tag, value in fields)
+
+
+@dataclass(frozen=True, slots=True)
 class RGCResponseSession:
     cone_response: np.ndarray
     spike_counts: np.ndarray
@@ -53,6 +101,7 @@ class RGCResponseSession:
     target_kind: ResponseTargetKind
     path: Path
     input_identity: InputIdentity = field(default_factory=legacy_input_identity)
+    teacher_identity: TeacherIdentityMetadata | None = None
 
     @property
     def dt_ms(self) -> float:
@@ -93,6 +142,7 @@ def load_rgc_response(path: str | Path) -> RGCResponseSession:
             if version == "retina-rgc-response-v2"
             else legacy_input_identity()
         )
+        teacher_identity = _read_teacher_identity(handle)
 
     _validate_shapes(
         cone,
@@ -124,6 +174,7 @@ def load_rgc_response(path: str | Path) -> RGCResponseSession:
         stimulus_count=cone.shape[0],
         cone_count=cone.shape[2],
     )
+    _validate_teacher_identity(teacher_identity, cell_count=spikes.shape[3])
     return RGCResponseSession(
         cone_response=cone,
         spike_counts=spikes,
@@ -142,6 +193,7 @@ def load_rgc_response(path: str | Path) -> RGCResponseSession:
         target_kind=kind,
         path=source_path,
         input_identity=input_identity,
+        teacher_identity=teacher_identity,
     )
 
 
@@ -167,6 +219,10 @@ def validate_response_splits(
         ):
             raise RGCResponseContractError(
                 "All splits must use one compatible input identity"
+            )
+        if not _same_teacher_identity(session.teacher_identity, reference.teacher_identity):
+            raise RGCResponseContractError(
+                "Synthetic teacher identity must match across response files"
             )
         if session.cells.ids != reference.cells.ids:
             raise RGCResponseContractError("Cell order must match across response files")
@@ -211,6 +267,52 @@ def validate_response_splits(
 
 def _same_values(left: np.ndarray, right: np.ndarray) -> bool:
     return left.shape == right.shape and bool(np.allclose(left, right))
+
+
+def _same_teacher_identity(
+    left: TeacherIdentityMetadata | None,
+    right: TeacherIdentityMetadata | None,
+) -> bool:
+    if left is None or right is None:
+        return left is right
+    return left.matches(right)
+
+
+def fingerprint_field_bytes(tag: str, value: FingerprintFieldValue) -> bytes:
+    payload = bytearray(b"rgc-fingerprint-field-v1")
+    _append_framed_bytes(payload, tag.encode("utf-8"))
+    match value:
+        case str():
+            _append_framed_bytes(payload, b"utf8")
+            _append_shape(payload, ())
+            value_bytes = value.encode("utf-8")
+        case tuple():
+            _append_framed_bytes(payload, b"utf8")
+            _append_shape(payload, (len(value),))
+            values = bytearray()
+            for item in value:
+                _append_framed_bytes(values, item.encode("utf-8"))
+            value_bytes = bytes(values)
+        case np.ndarray():
+            array = np.ascontiguousarray(value)
+            _append_framed_bytes(payload, array.dtype.str.encode("ascii"))
+            _append_shape(payload, array.shape)
+            value_bytes = array.tobytes()
+        case unreachable:
+            assert_never(unreachable)
+    _append_framed_bytes(payload, value_bytes)
+    return bytes(payload)
+
+
+def _append_framed_bytes(payload: bytearray, value: bytes) -> None:
+    payload.extend(len(value).to_bytes(_FRAME_SIZE_BYTES, "big", signed=False))
+    payload.extend(value)
+
+
+def _append_shape(payload: bytearray, shape: tuple[int, ...]) -> None:
+    payload.extend(len(shape).to_bytes(_FRAME_SIZE_BYTES, "big", signed=False))
+    for value in shape:
+        payload.extend(int(value).to_bytes(_FRAME_SIZE_BYTES, "big", signed=False))
 
 
 def _validate_shapes(
@@ -319,6 +421,48 @@ def _validate_input_identity(
         )
 
 
+def _validate_teacher_identity(
+    identity: TeacherIdentityMetadata | None,
+    *,
+    cell_count: int,
+) -> None:
+    if identity is None:
+        return
+    if (
+        len(identity.cell_group_ids) != cell_count
+        or len(identity.cell_replicate_ids) != cell_count
+        or identity.context_high_scale.shape != (cell_count,)
+        or identity.context_gain_cell_residual.shape != (cell_count,)
+    ):
+        raise RGCResponseContractError(
+            "Synthetic teacher identity vectors must match cell count"
+        )
+    text_values = (
+        identity.revision,
+        *identity.cell_group_ids,
+        *identity.cell_replicate_ids,
+        *identity.component_ids,
+    )
+    if any(not value.strip() for value in text_values):
+        raise RGCResponseContractError("Synthetic teacher identity text is invalid")
+    if len(set(identity.component_ids)) != len(identity.component_ids):
+        raise RGCResponseContractError("Synthetic teacher identity components repeat")
+    if (
+        len(set(zip(identity.cell_group_ids, identity.cell_replicate_ids, strict=True)))
+        != cell_count
+    ):
+        raise RGCResponseContractError("Synthetic teacher identity cell IDs repeat")
+    if (
+        identity.cells_per_type_polarity < 1
+        or cell_count % identity.cells_per_type_polarity != 0
+        or not np.isfinite(identity.residual_bound)
+        or identity.residual_bound < 0
+        or not np.isfinite(identity.context_high_scale).all()
+        or not np.isfinite(identity.context_gain_cell_residual).all()
+    ):
+        raise RGCResponseContractError("Synthetic teacher identity values are invalid")
+
+
 def _read_input_identity(handle: h5py.File) -> InputIdentity:
     try:
         return InputIdentity(
@@ -368,6 +512,44 @@ def _read_input_identity(handle: h5py.File) -> InputIdentity:
         raise RGCResponseContractError(f"Invalid input identity: {exc}") from exc
 
 
+def _read_teacher_identity(handle: h5py.File) -> TeacherIdentityMetadata | None:
+    keys = (
+        "teacher/revision",
+        "teacher/generation_seed",
+        "teacher/residual_seed",
+        "teacher/cells_per_type_polarity",
+        "teacher/residual_bound",
+        "teacher/cell_group_id",
+        "teacher/cell_replicate_id",
+        "teacher/component_id",
+        "teacher/context_high_scale",
+        "teacher/context_gain_cell_residual",
+    )
+    present = tuple(key in handle for key in keys)
+    if not any(present):
+        return None
+    if not all(present):
+        raise RGCResponseContractError("Synthetic teacher identity metadata is partial")
+    return TeacherIdentityMetadata(
+        revision=_read_scalar_text(handle, "teacher/revision"),
+        generation_seed=_read_int_scalar(handle, "teacher/generation_seed"),
+        residual_seed=_read_int_scalar(handle, "teacher/residual_seed"),
+        cells_per_type_polarity=_read_int_scalar(
+            handle,
+            "teacher/cells_per_type_polarity",
+        ),
+        residual_bound=_read_float_scalar(handle, "teacher/residual_bound"),
+        cell_group_ids=_read_vector_text(handle, "teacher/cell_group_id"),
+        cell_replicate_ids=_read_vector_text(handle, "teacher/cell_replicate_id"),
+        component_ids=_read_vector_text(handle, "teacher/component_id"),
+        context_high_scale=_read_float_vector(handle, "teacher/context_high_scale"),
+        context_gain_cell_residual=_read_float_vector(
+            handle,
+            "teacher/context_gain_cell_residual",
+        ),
+    )
+
+
 def _required(handle: h5py.File, key: str) -> h5py.Dataset:
     if key not in handle:
         raise RGCResponseContractError(f"Missing required dataset: {key}")
@@ -381,6 +563,41 @@ def _read_scalar_text(handle: h5py.File, key: str) -> str:
 def _read_text_vector(handle: h5py.File, key: str) -> tuple[str, ...]:
     values = np.asarray(_required(handle, key)[()]).reshape(-1)
     return tuple(_decode_text(value) for value in values)
+
+
+def _read_vector_text(handle: h5py.File, key: str) -> tuple[str, ...]:
+    values = np.asarray(_required(handle, key)[()])
+    if values.ndim != 1:
+        raise RGCResponseContractError("Synthetic teacher identity text must be vector")
+    return tuple(_decode_text(value) for value in values)
+
+
+def _read_float_vector(handle: h5py.File, key: str) -> np.ndarray:
+    values = np.asarray(_required(handle, key)[()])
+    if values.ndim != 1:
+        raise RGCResponseContractError(
+            "Synthetic teacher identity arrays must be vectors"
+        )
+    try:
+        return np.asarray(values, dtype=np.float32)
+    except (TypeError, ValueError) as exc:
+        raise RGCResponseContractError(
+            "Synthetic teacher identity arrays must be numeric"
+        ) from exc
+
+
+def _read_int_scalar(handle: h5py.File, key: str) -> int:
+    values = np.asarray(_required(handle, key)[()])
+    if values.shape not in {(), (1,)} or values.dtype.kind not in {"i", "u"}:
+        raise RGCResponseContractError("Integer metadata must be integer scalar")
+    return int(values.reshape(-1)[0])
+
+
+def _read_float_scalar(handle: h5py.File, key: str) -> float:
+    values = np.asarray(_required(handle, key)[()])
+    if values.shape not in {(), (1,)} or values.dtype.kind not in {"f", "i", "u"}:
+        raise RGCResponseContractError("Float metadata must be numeric scalar")
+    return float(values.reshape(-1)[0])
 
 
 def _decode_text(value: TextValue) -> str:
@@ -419,6 +636,8 @@ __all__ = [
     "RGCResponseContractError",
     "RGCResponseSession",
     "ResponseTargetKind",
+    "TeacherIdentityMetadata",
+    "fingerprint_field_bytes",
     "load_rgc_response",
     "validate_response_splits",
 ]

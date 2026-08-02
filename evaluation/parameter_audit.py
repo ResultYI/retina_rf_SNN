@@ -62,7 +62,7 @@ def audit_parameter_deltas(
         role = parameter_role(name)
         match role:
             case "rgc_type_base":
-                labels = () if context is None else context.type_ids
+                labels = _rgc_type_base_labels(trained, context)
             case "rgc_cell_residual":
                 labels = () if context is None else context.cell_ids
             case "polarity_pathway":
@@ -99,6 +99,17 @@ def parameter_role(name: str) -> ParameterRole:
     }:
         return "polarity_pathway"
     return "other"
+
+
+def _rgc_type_base_labels(
+    trained: nn.Module,
+    context: ParameterAuditContext | None,
+) -> tuple[str, ...]:
+    rgc = getattr(trained, "rgc", None)
+    labels = () if rgc is None else getattr(rgc, "parameter_group_labels", ())
+    if labels:
+        return tuple(str(label) for label in labels)
+    return () if context is None else context.type_ids
 
 
 def type_differential(

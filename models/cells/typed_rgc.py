@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+# noqa: SIZE_OK - bounded parameters and their stateful RGC population are one unit.
+
 from dataclasses import dataclass
 
 import torch
@@ -7,6 +9,12 @@ from torch import nn
 
 from configs.rgc_type_priors import ParameterPrior, RGCTypePriors
 from data.rgc_response import CellMetadata
+from models.cells.parameter_sharing import (
+    ParameterSharingError,
+    ParameterSharingMode,
+    RGC_PARAMETER_NAMES,
+    parameter_sharing_groups,
+)
 
 
 class TypedRGCError(ValueError):
@@ -45,34 +53,50 @@ class TypeConditionedParameter(nn.Module):
         priors: tuple[ParameterPrior, ...],
         cell_type_indices: torch.Tensor,
         residual_scale: float,
+        *,
+        use_cell_residuals: bool = True,
+        initial_value: float | None = None,
     ) -> None:
         super().__init__()
-        means = torch.tensor([prior.mean for prior in priors], dtype=torch.float32)
+        means = torch.tensor(
+            [
+                prior.mean if initial_value is None else initial_value
+                for prior in priors
+            ],
+            dtype=torch.float32,
+        )
         lower = torch.tensor([prior.lower for prior in priors], dtype=torch.float32)
         upper = torch.tensor([prior.upper for prior in priors], dtype=torch.float32)
+        if not bool(((means >= lower) & (means <= upper)).all()):
+            raise TypedRGCError("matched initialization must fit every prior bound")
         fraction = ((means - lower) / (upper - lower)).clamp(1e-5, 1 - 1e-5)
         self.type_base_raw = nn.Parameter(torch.logit(fraction))
         self.register_buffer(
             "prior_type_base_raw",
             self.type_base_raw.detach().clone(),
         )
-        self.cell_residual_raw = nn.Parameter(
-            torch.zeros(cell_type_indices.numel(), dtype=torch.float32)
-        )
+        if use_cell_residuals:
+            self.cell_residual_raw = nn.Parameter(
+                torch.zeros(cell_type_indices.numel(), dtype=torch.float32)
+            )
         self.register_buffer("cell_type_indices", cell_type_indices.to(torch.long))
         self.register_buffer("lower", lower)
         self.register_buffer("upper", upper)
         self._residual_scale = residual_scale
+        self._use_cell_residuals = use_cell_residuals
 
     def forward(self) -> torch.Tensor:
         indices = self.cell_type_indices
         raw = self.type_base_raw.index_select(0, indices)
-        raw = raw + self._residual_scale * torch.tanh(self.cell_residual_raw)
+        if self._use_cell_residuals:
+            raw = raw + self._residual_scale * torch.tanh(self.cell_residual_raw)
         lower = self.lower.index_select(0, indices)
         upper = self.upper.index_select(0, indices)
         return lower + (upper - lower) * torch.sigmoid(raw)
 
     def residual_penalty(self) -> torch.Tensor:
+        if not self._use_cell_residuals:
+            return self.type_base_raw.new_zeros(())
         return self.cell_residual_raw.square().mean()
 
     def type_prior_penalty(self) -> torch.Tensor:
@@ -80,17 +104,7 @@ class TypeConditionedParameter(nn.Module):
 
 
 class TypedRGCPopulation(nn.Module):
-    parameter_names = (
-        "spatial_sigma",
-        "sustained_mix",
-        "membrane_tau_ms",
-        "adaptation_tau_ms",
-        "adaptation_gain",
-        "amacrine_gain",
-        "threshold",
-        "subunit_tau_ms",
-        "subunit_gain",
-    )
+    parameter_names = RGC_PARAMETER_NAMES
 
     def __init__(
         self,
@@ -102,6 +116,9 @@ class TypedRGCPopulation(nn.Module):
         support_radius_degs: float,
         readout_rate_tau_ms: float,
         surrogate_slope: float,
+        parameter_sharing_mode: ParameterSharingMode = "type_aware",
+        parameter_sharing_seed: int = 0,
+        matched_initialization: bool = False,
     ) -> None:
         super().__init__()
         cones = torch.as_tensor(cone_positions_degs, dtype=torch.float32)
@@ -110,14 +127,15 @@ class TypedRGCPopulation(nn.Module):
             raise TypedRGCError("Cone and cell positions must have shape [count,2]")
         if support_radius_degs <= 0 or dt_ms <= 0 or readout_rate_tau_ms <= 0:
             raise TypedRGCError("RGC time and support values must be positive")
-        type_lookup = {type_id: index for index, type_id in enumerate(priors.type_ids)}
         try:
-            type_indices = torch.tensor(
-                [type_lookup[type_id] for type_id in cells.type_ids],
-                dtype=torch.long,
+            groups = parameter_sharing_groups(
+                cells,
+                priors,
+                parameter_sharing_mode,
+                parameter_sharing_seed,
             )
-        except KeyError as exc:
-            raise TypedRGCError(f"Missing RGC type prior: {exc.args[0]}") from exc
+        except ParameterSharingError as exc:
+            raise TypedRGCError(str(exc)) from exc
         polarities = torch.as_tensor(cells.polarities, dtype=torch.long)
         if polarities.shape != (centers.shape[0],):
             raise TypedRGCError("Cell polarity shape is invalid")
@@ -135,15 +153,34 @@ class TypedRGCPopulation(nn.Module):
         self._surrogate_slope = float(surrogate_slope)
         self._residual_weight = priors.cell_residual_weight
         self._type_prior_weight = priors.type_prior_weight
+        self.parameter_sharing_mode = groups.mode
+        self.matched_initialization = matched_initialization
+        self.shuffle_contract = groups.shuffle_contract
+        self.observed_type_labels = cells.type_ids
+        self.effective_type_labels = groups.effective_type_labels
+        self.parameter_group_labels = groups.parameter_group_labels
         for name in self.parameter_names:
-            values = tuple(prior.parameter(name) for prior in priors.types)
+            values = tuple(prior.parameter(name) for prior in groups.priors)
+            initial_value = None
+            if matched_initialization:
+                source = tuple(prior.parameter(name) for prior in priors.types)
+                count = len(source)
+                matched_prior = ParameterPrior(
+                    mean=sum(prior.mean for prior in source) / count,
+                    lower=sum(prior.lower for prior in source) / count,
+                    upper=sum(prior.upper for prior in source) / count,
+                )
+                values = (matched_prior,) * len(groups.priors)
+                initial_value = matched_prior.mean
             setattr(
                 self,
                 name,
                 TypeConditionedParameter(
                     values,
-                    type_indices,
+                    groups.group_indices,
                     priors.cell_residual_scale,
+                    use_cell_residuals=groups.use_cell_residuals,
+                    initial_value=initial_value,
                 ),
             )
 
@@ -252,6 +289,7 @@ class TypedRGCPopulation(nn.Module):
 
 
 __all__ = [
+    "ParameterSharingMode",
     "TypedRGCError",
     "TypedRGCOutput",
     "TypedRGCPopulation",
