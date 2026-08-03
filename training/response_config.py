@@ -48,6 +48,7 @@ class ResponseModelConfig:
     matched_initialization: bool = False
     enable_response_bias: bool = False
     enable_synaptic_gain: bool = False
+    enable_direct_readout: bool = False
     synaptic_gain_min: float = 0.1
     synaptic_gain_max: float = 4.0
     synaptic_gain_init: float = 1.0
@@ -69,6 +70,10 @@ class ResponseModelConfig:
             raise ResponseConfigurationError("enable_response_bias must be a boolean")
         if not isinstance(self.enable_synaptic_gain, bool):
             raise ResponseConfigurationError("enable_synaptic_gain must be a boolean")
+        if not isinstance(self.enable_direct_readout, bool):
+            raise ResponseConfigurationError(
+                "enable_direct_readout must be a boolean"
+            )
         gains = (
             self.synaptic_gain_min,
             self.synaptic_gain_max,

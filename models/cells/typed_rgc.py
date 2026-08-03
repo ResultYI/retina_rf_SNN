@@ -122,6 +122,7 @@ class TypedRGCPopulation(nn.Module):
         matched_initialization: bool = False,
         enable_response_bias: bool = False,
         enable_synaptic_gain: bool = False,
+        enable_direct_readout: bool = False,
         synaptic_gain_min: float = 0.1,
         synaptic_gain_max: float = 4.0,
         synaptic_gain_init: float = 1.0,
@@ -137,6 +138,8 @@ class TypedRGCPopulation(nn.Module):
             raise TypedRGCError("enable_response_bias must be a boolean")
         if not isinstance(enable_synaptic_gain, bool):
             raise TypedRGCError("enable_synaptic_gain must be a boolean")
+        if not isinstance(enable_direct_readout, bool):
+            raise TypedRGCError("enable_direct_readout must be a boolean")
         gain_values = (synaptic_gain_min, synaptic_gain_max, synaptic_gain_init)
         if not all(math.isfinite(value) for value in gain_values):
             raise TypedRGCError("Synaptic gain bounds must be finite")
@@ -172,6 +175,7 @@ class TypedRGCPopulation(nn.Module):
         self._type_prior_weight = priors.type_prior_weight
         self._enable_response_bias = enable_response_bias
         self._enable_synaptic_gain = enable_synaptic_gain
+        self._enable_direct_readout = enable_direct_readout
         self._synaptic_gain_min = float(synaptic_gain_min)
         self._synaptic_gain_max = float(synaptic_gain_max)
         self.parameter_sharing_mode = groups.mode
@@ -214,6 +218,10 @@ class TypedRGCPopulation(nn.Module):
             self.synaptic_gain_raw = nn.Parameter(
                 torch.full((self.cell_count,), float(raw_init))
             )
+        if enable_direct_readout:
+            shape = (2, self.cell_count)
+            self.bipolar_readout_gain = nn.Parameter(torch.zeros(shape))
+            self.amacrine_readout_gain = nn.Parameter(torch.zeros(shape))
 
     @property
     def cell_count(self) -> int:
@@ -298,6 +306,11 @@ class TypedRGCPopulation(nn.Module):
             1 - membrane_leak
         ) * (current - self.adaptation_gain().view(1, -1) * previous.adaptation)
         logits = self.logits_from_generator(generator)
+        if self._enable_direct_readout:
+            logits = logits + (
+                self.bipolar_readout_gain.unsqueeze(0) * selected
+                + self.amacrine_readout_gain.unsqueeze(0) * selected_amacrine
+            ).sum(dim=1)
         probability = torch.sigmoid(logits)
         hard = (logits >= 0).to(logits.dtype)
         state_event = hard.detach() if observed_counts is None else observed_counts

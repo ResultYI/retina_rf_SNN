@@ -74,6 +74,7 @@ def main() -> None:
         matched_initialization=config.model.matched_initialization,
         enable_response_bias=config.model.enable_response_bias,
         enable_synaptic_gain=config.model.enable_synaptic_gain,
+        enable_direct_readout=config.model.enable_direct_readout,
         synaptic_gain_min=config.model.synaptic_gain_min,
         synaptic_gain_max=config.model.synaptic_gain_max,
         synaptic_gain_init=config.model.synaptic_gain_init,

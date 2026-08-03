@@ -14,6 +14,7 @@ model:
   parameter_sharing_mode: "type_blind"
   enable_response_bias: true
   enable_synaptic_gain: true
+  enable_direct_readout: true
   synaptic_gain_min: 0.1
   synaptic_gain_max: 4.0
   synaptic_gain_init: 1.0

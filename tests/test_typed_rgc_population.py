@@ -74,6 +74,7 @@ def _model(
     matched_initialization: bool = False,
     enable_response_bias: bool = False,
     enable_synaptic_gain: bool = False,
+    enable_direct_readout: bool = False,
 ):
     cells = _cells(type_ids=type_ids)
     cone_positions = np.asarray(
@@ -94,6 +95,7 @@ def _model(
         matched_initialization=matched_initialization,
         enable_response_bias=enable_response_bias,
         enable_synaptic_gain=enable_synaptic_gain,
+        enable_direct_readout=enable_direct_readout,
         synaptic_gain_min=0.1,
         synaptic_gain_max=4.0,
         synaptic_gain_init=1.0,
@@ -128,6 +130,8 @@ def test_default_type_aware_parameterization_preserves_current_shapes() -> None:
     assert model.rgc.threshold.cell_residual_raw.shape == (2,)
     assert not hasattr(model.rgc, "response_bias")
     assert not hasattr(model.rgc, "synaptic_gain_raw")
+    assert not hasattr(model.rgc, "bipolar_readout_gain")
+    assert not hasattr(model.rgc, "amacrine_readout_gain")
 
 
 def test_v2_readout_parameters_are_per_cell_when_type_blind() -> None:
@@ -144,6 +148,62 @@ def test_v2_readout_parameters_are_per_cell_when_type_blind() -> None:
     torch.testing.assert_close(model.rgc.response_bias, torch.zeros(4))
     torch.testing.assert_close(model.rgc.synaptic_gain(), torch.ones(4))
     assert model.rgc.threshold.type_base_raw.numel() == 1
+
+
+def test_direct_readout_parameters_are_zero_initialized_per_channel_and_cell() -> None:
+    # Given / When
+    model = _model(
+        parameter_sharing_mode="type_blind",
+        enable_direct_readout=True,
+    )
+
+    # Then
+    assert model.rgc.bipolar_readout_gain.shape == (2, 4)
+    assert model.rgc.amacrine_readout_gain.shape == (2, 4)
+    torch.testing.assert_close(
+        model.rgc.bipolar_readout_gain,
+        torch.zeros(2, 4),
+    )
+    torch.testing.assert_close(
+        model.rgc.amacrine_readout_gain,
+        torch.zeros(2, 4),
+    )
+
+
+def test_direct_readout_adds_current_bipolar_and_amacrine_features_to_logits() -> None:
+    # Given
+    model = _model(
+        type_ids=("midget", "parasol"),
+        enable_direct_readout=True,
+    )
+    rgc = model.rgc
+    previous = rgc.initial_state(1, torch.device("cpu"), torch.float32)
+    spatial_weights = torch.eye(2)
+    bipolar = torch.tensor(
+        [[[[1.0, 2.0], [0.5, 0.25]], [[3.0, 4.0], [0.1, 0.2]]]]
+    )
+    amacrine = torch.tensor(
+        [[[[0.3, 0.4], [0.2, 0.1]], [[0.6, 0.8], [0.05, 0.15]]]]
+    )
+    with torch.no_grad():
+        rgc.bipolar_readout_gain.copy_(torch.tensor([[0.2, -0.1], [0.3, 0.4]]))
+        rgc.amacrine_readout_gain.copy_(torch.tensor([[-0.5, 0.6], [0.7, -0.8]]))
+
+    # When
+    output, _ = rgc(bipolar, amacrine, previous, spatial_weights)
+
+    # Then
+    pooled_bipolar = torch.einsum("uc,bpkc->bpku", spatial_weights, bipolar)
+    pooled_amacrine = torch.einsum("uc,bpkc->bpku", spatial_weights, amacrine)
+    polarity_index = rgc.cell_polarities.view(1, 1, 1, -1).expand(1, 1, 2, -1)
+    selected_bipolar = pooled_bipolar.gather(1, polarity_index).squeeze(1)
+    selected_amacrine = pooled_amacrine.gather(1, polarity_index).squeeze(1)
+    direct_logits = (
+        rgc.bipolar_readout_gain.unsqueeze(0) * selected_bipolar
+        + rgc.amacrine_readout_gain.unsqueeze(0) * selected_amacrine
+    ).sum(dim=1)
+    expected = rgc.logits_from_generator(output.generator_potential) + direct_logits
+    torch.testing.assert_close(output.spike_logits, expected)
 
 
 def test_response_bias_shifts_logits_without_changing_threshold() -> None:
