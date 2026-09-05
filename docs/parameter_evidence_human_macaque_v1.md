@@ -79,16 +79,19 @@ These should not be hard constants. Literature should give ordering, plausible b
 | Code parameter | Current audit value | Recommended treatment | Constraint to preserve |
 |---|---:|---|---|
 | `H1.raw_tau` | test init `50 ms`, bounds `10-200 ms` | bounded learnable | H1/surround slower than feedforward cone input |
-| `H1.raw_gain` | test init `0.01`, max `0.2` | bounded learnable | subtractive surround sign, avoid gain large enough to erase local contrast |
+| `PathwayGates.raw_h1_amplitude` | init `0.01`, bounds `0-0.2` | bounded learnable effective amplitude | subtractive surround sign; no separate H1 gain/gate scale factors |
 | `Bipolar.raw_tau_sustained` | profile init `80 ms`, bounds `20-200 ms` | bounded learnable | sustained tau > transient tau within the fitted model |
 | `Bipolar.raw_tau_transient` | profile init `20 ms`, bounds `5-120 ms` | bounded learnable | transient tau < sustained tau; overlapping bounds are allowed |
 | `Bipolar.raw_g_ab_*` | test init `0.01` | bounded learnable | non-negative local amacrine-to-bipolar inhibition |
 | `LocalAmacrine.raw_tau_sustained` | profile init `100 ms`, bounds `20-250 ms` | bounded learnable | sustained filtering slower than transient filtering |
 | `LocalAmacrine.raw_tau_transient` | profile init `40 ms`, bounds `15-180 ms` | bounded learnable | faster filtering component; not a transmission delay |
 | `LocalAmacrine.raw_g_ba_*` | test init `0.03/0.05` | bounded learnable | positive bipolar drive into the local amacrine state |
-| `RGC membrane_tau_ms` | profile init `20 ms`, bounds `5-80 ms` | bounded learnable in current code | stable spike dynamics; interpret as latent filtering |
+| `H1.raw_delay` | init `5 ms`, bounds `0-20 ms` | bounded learnable explicit pathway delay | causal, non-negative; distinct from H1 tau |
+| `PathFeatureBank.raw_delay[BC sustained/transient]` | init `10/5 ms`, bounds `0-30/0-20 ms` | bounded learnable explicit pathway delay | sustained delay remains greater than transient delay |
+| `PathFeatureBank.raw_delay[AC local/transient]` | init `15/7.5 ms`, bounds `0-40/0-25 ms` | bounded learnable explicit pathway delay | local delay remains greater than transient delay |
+| `RGC membrane_tau_ms` | current mechanistic core fixed `5 ms` buffer | keep fixed in this round | stable latent filtering; not an H1/BC/AC explicit delay |
 | `RGC rate_tau_ms` | profile fixed `50 ms` | keep fixed for the frozen architecture; calibrate output bandwidth | should not erase human transient timing; this smoother is not membrane physiology |
-| `RGC adaptation_tau_ms` | profile init `80 ms`, bounds `20-250 ms` | bounded learnable in current code | adaptation slower than membrane response |
+| `RGC adaptation_tau_ms` | current mechanistic core fixed `80 ms` buffer | keep fixed in this round | adaptation slower than membrane response; not optimizer-listed |
 | `RGC.raw_g_ag_*` | test init `0.01/0.03/0.01` | bounded learnable | non-negative local amacrine-to-RGC inhibition |
 | `residual_drive_scale` | test fixed `0.25` | bounded learnable or validation-tuned | residual remains auxiliary |
 
@@ -100,6 +103,14 @@ These should not be hard constants. Literature should give ordering, plausible b
   fixed radial bases shared by every target position
 - the two population-level causal temporal-decay parameters
 Decoder weights are task readout parameters. Existing literature should constrain locality and population interpretation, not assign numeric decoder weights.
+
+The implementation keeps four timing concepts separate. `tau` controls causal
+filter/state decay. Explicit H1/BC/AC pathway delay shifts a signal in milliseconds
+with adjacent-bin linear interpolation. The RF lag window is a fixed 16-bin analysis
+window and is not a model delay. The RGC history path keeps a fixed one-bin causal
+shift so the current spike target cannot enter its own logit; that shift is not an
+H1/BC/AC delay parameter. The explicit-delay bounds are conservative latent-model
+bounds, not direct assignments of an observed RGC response latency to an interneuron.
 
 ## 7. Parameters Not To Learn In V1
 
@@ -162,7 +173,7 @@ This gives the paper a defensible story: human anatomy constrains geometry, huma
   - Current status: profile init `80/20 ms`, overlapping bounds `20-200/5-120 ms`, with `tau_transient < tau_sustained` enforced per model.
   - Remaining need: calibrate the combined output to HumRet and audit boundary accumulation; do not make ranges disjoint without direct evidence.
 - RGC temporal parameters
-  - Current status: profile membrane/adaptation initial values `20/80 ms` are bounded learnable; rate smoother is fixed at `50 ms` in the frozen architecture.
+  - Current mechanistic-core status: membrane/adaptation values are fixed at `5/80 ms` and are not optimizer-listed. The bounded-learnable temporal parameters in this benchmark are H1/BC/AC tau and explicit pathway delay; the RGC one-bin history shift is fixed.
   - Human observable target: HumRet flash/chirp/grating response waveforms and spikes/s distributions.
   - Remaining gap: infer defensible bounds for non-identifiable internal tau without equating them to response latency; use macaque evidence only where it resolves an otherwise missing ordering.
 - spatial radius/sigma in degrees

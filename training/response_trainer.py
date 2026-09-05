@@ -5,7 +5,6 @@ from pathlib import Path
 from uuid import uuid4
 
 import torch
-from torch import nn
 
 from evaluation.response_calibration import (
     LogitCalibrationRequest,
@@ -34,7 +33,20 @@ from training.response_data import (
     ResponseSplit,
     masked_history_counts,
 )
+from training.response_optimizer import (
+    build_response_optimizer,
+    configure_cell_residual_learning,
+    freeze_threshold,
+)
+from training.response_readout_calibration import (
+    Stage05ReadoutCalibrationRequest,
+    Stage05ReadoutCalibrationResult,
+    fit_stage05_readout_calibration,
+)
 from training.response_unroll import ResponseUnrollRequest, unroll_response
+
+
+_configure_cell_residual_learning = configure_cell_residual_learning
 
 
 @dataclass(frozen=True, slots=True)
@@ -64,12 +76,12 @@ class ResponseTrainer:
         self.config = config
         self.data = data
         self.device = device
-        _configure_cell_residual_learning(
+        configure_cell_residual_learning(
             model,
             learnable=config.training.learn_cell_residuals,
         )
         if config.training.freeze_threshold:
-            _freeze_threshold(model)
+            freeze_threshold(model)
         burn_in = config.training.burn_in_steps
         self.baseline_rates = training_baseline_rates(
             data.train.spike_counts[:, :, burn_in:].flatten(0, 1),
@@ -78,7 +90,18 @@ class ResponseTrainer:
         self.stage0_result = None
         if config.training.stage0_calibration_enabled:
             self.stage0_result = self._run_stage0_calibration()
-        self.optimizer = _build_optimizer(model, config)
+        self.stage05_result = None
+        if config.training.stage05_readout_calibration_enabled:
+            self.stage05_result = fit_stage05_readout_calibration(
+                Stage05ReadoutCalibrationRequest(
+                    model,
+                    data.train,
+                    data.target_kind,
+                    burn_in,
+                    device,
+                )
+            )
+        self.optimizer = build_response_optimizer(model, config)
         self.sampling_generator = torch.Generator().manual_seed(config.seed + 1)
         self.optimizer_step = 0
         self.best_nll = float("inf")
@@ -212,60 +235,6 @@ class ResponseTrainer:
         )
 
 
-def _configure_cell_residual_learning(
-    model: nn.Module,
-    *,
-    learnable: bool,
-) -> None:
-    for name, parameter in model.named_parameters():
-        if name.startswith("rgc.") and name.endswith(".cell_residual_raw"):
-            parameter.requires_grad_(learnable)
-
-
-def _freeze_threshold(model: nn.Module) -> None:
-    for name, parameter in model.named_parameters():
-        if name.startswith("rgc.threshold."):
-            parameter.requires_grad_(False)
-
-
-def _build_optimizer(
-    model: nn.Module,
-    config: ResponseExperimentConfig,
-) -> torch.optim.AdamW:
-    response_bias = []
-    rgc = []
-    upstream = []
-    for name, parameter in model.named_parameters():
-        if not parameter.requires_grad:
-            continue
-        if name == "rgc.response_bias":
-            response_bias.append(parameter)
-        elif name.startswith("rgc."):
-            rgc.append(parameter)
-        else:
-            upstream.append(parameter)
-    return torch.optim.AdamW(
-        [
-            {
-                "name": "response_bias",
-                "params": response_bias,
-                "lr": config.training.response_bias_lr,
-            },
-            {
-                "name": "rgc",
-                "params": rgc,
-                "lr": config.training.rgc_lr,
-            },
-            {
-                "name": "upstream",
-                "params": upstream,
-                "lr": config.training.learning_rate,
-            },
-        ],
-        weight_decay=0.0,
-    )
-
-
 __all__ = [
     "ConditionalHistoryMode",
     "ResponseHistoryMode",
@@ -273,6 +242,7 @@ __all__ = [
     "ResponseHistoryTrial",
     "ResponseStepResult",
     "Stage0CalibrationResult",
+    "Stage05ReadoutCalibrationResult",
     "ResponseTrainer",
     "evaluation_history_counts",
 ]

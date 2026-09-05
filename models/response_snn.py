@@ -13,6 +13,7 @@ from models.cells.bipolar import BipolarLayer, BipolarState
 from models.cells.horizontal import H1HorizontalNetwork
 from models.cells.typed_rgc import (
     ParameterSharingMode,
+    ReadoutMode,
     TypedRGCOutput,
     TypedRGCPopulation,
     TypedRGCState,
@@ -142,6 +143,7 @@ def build_response_retina_model(
     synaptic_gain_min: float = 0.1,
     synaptic_gain_max: float = 4.0,
     synaptic_gain_init: float = 1.0,
+    readout_mode: ReadoutMode = "v2_direct_logit",
 ) -> ResponseRetinaModel:
     return ResponseRetinaModel(
         H1HorizontalNetwork(cone_positions_degs, profile.h1),
@@ -164,6 +166,7 @@ def build_response_retina_model(
             synaptic_gain_min=synaptic_gain_min,
             synaptic_gain_max=synaptic_gain_max,
             synaptic_gain_init=synaptic_gain_init,
+            readout_mode=readout_mode,
         ),
     )
 

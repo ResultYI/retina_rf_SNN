@@ -1,96 +1,45 @@
-# Retina RF SNN
+# Retina RF — Canonical V1
 
-This repository fits recorded retinal ganglion cell responses with a causal,
-physiologically constrained spiking retinal network.
+This project fits real RGC responses with a physiology-constrained recurrent/state-space retinal point-process model. Macaque is the primary biological target. The historical repository name contains SNN; the current implementation is not a strict LIF/threshold-reset SNN.
+
+**Independent audit: start at [AUDIT_INDEX.md](AUDIT_INDEX.md).** It identifies final results, code, checkpoints, limitations and historical dependencies. [CURRENT_STATE.md](CURRENT_STATE.md) is a navigation summary, not independent validation.
 
 ```text
-cone response
--> H1 surround
--> ON/OFF sustained/transient bipolar pathways
--> recurrent amacrine state
--> known recorded RGC cells with soft type priors
--> spike likelihood
--> static and context-dependent effective RF
+visual stimulus -> species/experiment-specific cone front-end -> cone representation
+ -> H1 -> shared ON/OFF sustained/transient BC encoder
+          | narrow BC support -> direct BC --------------------> RGC
+          | broader overlapping support -> BC -> AC dynamics --> RGC
+ -> Bernoulli spike likelihood
 ```
 
-Each output unit corresponds to one recorded RGC. Cell polarity, type, position,
-and eccentricity are observed metadata. Type information supplies overlapping
-soft priors; it is not treated as an emergent discovery. Cell-specific residuals
-remain learnable.
+Both BC views share encoder parameters. AC receives the broad BC representation and has no independent stimulus encoder. H1 amplitude, BC weights, AC group mixtures, per-cell BC/AC gains, bounded tau and explicit fractional delays are learnable. See [source](models/mechanistic_retina/model.py) and [mathematical contract](docs/architecture.md).
 
-The canonical objective is Bernoulli response likelihood. During conditional
-training, the response for time `t` is predicted before the observed event at
-`t` updates reset and adaptation state for `t+1`. Cell-wise conditional
-spike-logit RF is the primary RF endpoint. It is reported under zero history,
-matched observed history, and deterministic standard-train-rate history;
-endogenous observed-history response statistics are separate prediction
-metrics. Type-prior predictive, RF-stability, and data-efficiency value are
-secondary validation-only endpoints. Type/polarity RF signs and direction
-agreement are exploratory only.
-Deterministic free-running RF is reported only as an auxiliary diagnostic.
-Poisson free-running is not enabled in the canonical pipeline.
+## Frozen evidence
 
-## Data contract
+Final lineage: `output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/`. It contains 22 cell-wise fits from 37 MC/PC recordings, native 150 Hz, measured Bernoulli spike events and 17x17 calibrated L+M Weber input. MC maps to parasol and PC to midget. No cross-recording population geometry is inferred. This is luminance fitting, not a full chromatic cone front-end.
 
-Canonical inputs use `retina-rgc-response-v1` HDF5 files containing aligned cone
-responses, repeated RGC spike/count targets, masks, source/context identifiers,
-and cell metadata. See [docs/experiment_contract.md](docs/experiment_contract.md).
+| Model | 22-cell mean validation NLL |
+|---|---:|
+| Constant | 0.509817266 |
+| Center-surround LN | 0.425997944 |
+| Compact causal CNN | 0.422597811 |
+| Canonical V1 | 0.438956146 |
+| SC-adapted (supplement) | 0.458313940 |
 
-The repository does not yet contain aligned real RGC recordings. The synthetic
-point-process benchmark validates the method and software path only.
+These are existing artifact values, not new fits. NLL is nats per valid bin, equally averaged over cells. The [prediction package](.omo/evidence/final_prediction_results/README.md) contains per-cell values and paired uncertainty. Canonical has 33 trainable/optimizer-listed scalars per cell (129 registered parameter scalars), CNN 2990; this is not matched-capacity evidence.
 
-## Run
+The [illusion aggregation check](.omo/evidence/parametric_illusion_benchmark/aggregation_check/summary.md) qualifies earlier cohort-reversal claims: Mach width>0 reversal disappears after balancing ON/OFF or the four classes. Control-subtracted AC interactions and class-resolved curves, including null results, are retained.
 
-```powershell
-python scripts/run_experiment.py `
-  --config configs/experiment.yaml `
-  --device cuda `
-  --output runs/rgc_response
-```
+## Runtime and reproduction
 
-The best checkpoint is selected by held-out response NLL and uses:
+The recorded final local runtime is Python 3.12.7, PyTorch 2.6.0 CPU and NumPy 2.2.6. `requirements.txt` is the historical dependency list, not a fully pinned environment; inspect each artifact's manifest.
 
-```json
-{"schema": "retina_rgc_response_snn", "schema_revision": 4}
-```
+The final training producer is `run.py` inside the final lineage directory and uses `training/mechanistic_retina/r4_development.py`. The generic `scripts/run_schottdorf_multirecording_training.py` belongs to an earlier fixed-step protocol and is not the final experiment entry point. Inspection and aggregation do not require training.
 
-`model.parameter_sharing_mode` selects the RGC parameter grouping:
-`type_aware` uses observed type bases plus cell residuals, `type_blind` uses one
-pooled type base plus cell residuals, `cell_only` uses one bounded base per cell
-without residuals, and `shuffled_type` applies a seeded count-preserving type
-label shuffle for type-control runs.
+See [data availability](audit/DATA_AVAILABILITY.md) for raw data, local-only tensors and unresolved frame-zero synchronization. Small final checkpoints and selected frozen analysis tensors are included in the intended Git publication set.
 
-The final report contains response prediction, a static point-process GLM
-baseline, conditional spike-logit static RFs, and matched-context dynamic RFs.
-Unstable dynamic RFs are treated as model-internal explanations, not biological
-truth.
+## Cleanup and scope
 
-## Synthetic method validation
+The 2026-09-05 cleanup archived superseded unreferenced experiments and old reports with verified hashes. Model, training, loader, baseline and test Python sources remain unchanged. Some legacy modules/results remain because of imports, CLI defaults or artifact provenance; their presence does not make them current evidence.
 
-```powershell
-python scripts/generate_synthetic_response_benchmark.py `
-  --train-glob "data/isetbio_bsds300_4deg/train/*.h5" `
-  --validation-glob "data/isetbio_bsds300_4deg/val/*.h5" `
-  --output-dir runs/synthetic_response_smoke `
-  --teacher adaptive `
-  --cells-per-type-polarity 4 `
-  --trials 2 `
-  --test-count 3
-```
-
-The default replicated teacher has 16 cells: four position-matched cells for
-each ON/OFF by midget/parasol group. Use `--test-count 1` only for an
-engineering smoke check. A formal adaptive method benchmark needs at least
-three independent held-out context pairs, and a two-step experiment run only
-verifies the CLI/reporting contract; it is not scientific support.
-`configs/synthetic_smoke.yaml` disables RF finite-difference checks only for
-that bounded engineering smoke. Canonical experiments keep the default checks.
-
-Compare `type_aware`, `type_blind`, `cell_only`, and `shuffled_type` runs with
-`scripts/compare_type_prior_variants.py`. The comparator accepts validation
-runs only and rejects mismatched datasets, cell/cone identity, source-pair
-counts, history contracts, or training budgets.
-
-The former cone-reconstruction, anonymous-population, bootstrap, and readout
-diagnostic pipelines have been removed. Git history remains the source for
-those superseded experiments.
+See the [cleanup record](audit/cleanup_20260905/README.md) and [Pro audit prompt](audit/PRO_AUDIT_PROMPT_ZH.md).

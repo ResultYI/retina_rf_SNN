@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import math
+from typing import Final, Literal, TypeAlias, assert_never
 
 import torch
 from torch import nn
@@ -22,6 +23,13 @@ class TypedRGCError(ValueError):
     pass
 
 
+ReadoutMode: TypeAlias = Literal[
+    "v2_direct_logit",
+    "v3_mechanism_preserving",
+]
+READOUT_MODES: Final = frozenset(("v2_direct_logit", "v3_mechanism_preserving"))
+
+
 @dataclass(frozen=True, slots=True)
 class TypedRGCState:
     membrane: torch.Tensor
@@ -37,6 +45,21 @@ class TypedRGCStepOutput:
     hard_spikes: torch.Tensor
     filtered_rate: torch.Tensor
     generator_potential: torch.Tensor
+
+
+@dataclass(frozen=True, slots=True)
+class RGCMechanismFeatures:
+    selected_bipolar: torch.Tensor
+    adapted_bipolar: torch.Tensor
+    selected_amacrine: torch.Tensor
+    subunit_energy: torch.Tensor
+
+
+@dataclass(frozen=True, slots=True)
+class RGCCurrentDrive:
+    current: torch.Tensor
+    subunit_energy: torch.Tensor
+    direct_logit: torch.Tensor | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -126,6 +149,7 @@ class TypedRGCPopulation(nn.Module):
         synaptic_gain_min: float = 0.1,
         synaptic_gain_max: float = 4.0,
         synaptic_gain_init: float = 1.0,
+        readout_mode: ReadoutMode = "v2_direct_logit",
     ) -> None:
         super().__init__()
         cones = torch.as_tensor(cone_positions_degs, dtype=torch.float32)
@@ -140,6 +164,14 @@ class TypedRGCPopulation(nn.Module):
             raise TypedRGCError("enable_synaptic_gain must be a boolean")
         if not isinstance(enable_direct_readout, bool):
             raise TypedRGCError("enable_direct_readout must be a boolean")
+        if not isinstance(readout_mode, str) or readout_mode not in READOUT_MODES:
+            raise TypedRGCError("readout_mode is invalid")
+        if readout_mode == "v3_mechanism_preserving" and (
+            enable_synaptic_gain or enable_direct_readout
+        ):
+            raise TypedRGCError(
+                "V3 forbids duplicate synaptic gain and direct-to-logit readout"
+            )
         gain_values = (synaptic_gain_min, synaptic_gain_max, synaptic_gain_init)
         if not all(math.isfinite(value) for value in gain_values):
             raise TypedRGCError("Synaptic gain bounds must be finite")
@@ -176,6 +208,7 @@ class TypedRGCPopulation(nn.Module):
         self._enable_response_bias = enable_response_bias
         self._enable_synaptic_gain = enable_synaptic_gain
         self._enable_direct_readout = enable_direct_readout
+        self.readout_mode = readout_mode
         self._synaptic_gain_min = float(synaptic_gain_min)
         self._synaptic_gain_max = float(synaptic_gain_max)
         self.parameter_sharing_mode = groups.mode
@@ -222,6 +255,27 @@ class TypedRGCPopulation(nn.Module):
             shape = (2, self.cell_count)
             self.bipolar_readout_gain = nn.Parameter(torch.zeros(shape))
             self.amacrine_readout_gain = nn.Parameter(torch.zeros(shape))
+        if readout_mode == "v3_mechanism_preserving":
+            fraction = (synaptic_gain_init - synaptic_gain_min) / (
+                synaptic_gain_max - synaptic_gain_min
+            )
+            raw_init = torch.logit(torch.tensor(fraction, dtype=torch.float32))
+            legacy_gain = synaptic_gain_min + (
+                synaptic_gain_max - synaptic_gain_min
+            ) * torch.sigmoid(raw_init)
+            mix = self.sustained_mix().detach()
+            bipolar_gain = torch.stack(
+                (legacy_gain * mix, legacy_gain * (1 - mix))
+            )
+            amacrine_gain = (
+                self.amacrine_gain().detach().unsqueeze(0).expand(2, -1) / 2
+            )
+            self.bipolar_current_gain_raw = nn.Parameter(
+                _softplus_inverse(bipolar_gain)
+            )
+            self.amacrine_current_gain_raw = nn.Parameter(
+                _softplus_inverse(amacrine_gain)
+            )
 
     @property
     def cell_count(self) -> int:
@@ -270,14 +324,23 @@ class TypedRGCPopulation(nn.Module):
             self.synaptic_gain_raw
         )
 
-    def forward(
+    def bipolar_current_gain(self) -> torch.Tensor:
+        if self.readout_mode != "v3_mechanism_preserving":
+            raise TypedRGCError("Bipolar current gains require V3")
+        return nn.functional.softplus(self.bipolar_current_gain_raw)
+
+    def amacrine_current_gain(self) -> torch.Tensor:
+        if self.readout_mode != "v3_mechanism_preserving":
+            raise TypedRGCError("Amacrine current gains require V3")
+        return nn.functional.softplus(self.amacrine_current_gain_raw)
+
+    def mechanism_features(
         self,
         bipolar: torch.Tensor,
         amacrine: torch.Tensor,
         previous: TypedRGCState,
         spatial_weights: torch.Tensor,
-        observed_counts: torch.Tensor | None = None,
-    ) -> tuple[TypedRGCStepOutput, TypedRGCState]:
+    ) -> RGCMechanismFeatures:
         pooled = torch.einsum("uc,bpkc->bpku", spatial_weights, bipolar)
         pooled_amacrine = torch.einsum("uc,bpkc->bpku", spatial_weights, amacrine)
         batch = bipolar.shape[0]
@@ -293,24 +356,82 @@ class TypedRGCPopulation(nn.Module):
             1 - subunit_leak
         ) * selected.square()
         adapted = selected / (1 + self.subunit_gain().view(1, 1, -1) * energy)
-        mix = self.sustained_mix().view(1, -1)
-        drive = mix * adapted[:, 0] + (1 - mix) * adapted[:, 1]
-        inhibition = selected_amacrine.mean(dim=1)
-        if self._enable_synaptic_gain:
-            drive = self.synaptic_gain().view(1, -1) * drive
-        current = drive - self.amacrine_gain().view(1, -1) * inhibition
+        return RGCMechanismFeatures(selected, adapted, selected_amacrine, energy)
+
+    def forward(
+        self,
+        bipolar: torch.Tensor,
+        amacrine: torch.Tensor,
+        previous: TypedRGCState,
+        spatial_weights: torch.Tensor,
+        observed_counts: torch.Tensor | None = None,
+    ) -> tuple[TypedRGCStepOutput, TypedRGCState]:
+        features = self.mechanism_features(
+            bipolar,
+            amacrine,
+            previous,
+            spatial_weights,
+        )
+        return self.forward_from_mechanism_features(
+            features,
+            previous,
+            observed_counts,
+        )
+
+    def forward_from_mechanism_features(
+        self,
+        features: RGCMechanismFeatures,
+        previous: TypedRGCState,
+        observed_counts: torch.Tensor | None = None,
+    ) -> tuple[TypedRGCStepOutput, TypedRGCState]:
+        match self.readout_mode:
+            case "v2_direct_logit":
+                mix = self.sustained_mix().view(1, -1)
+                drive = mix * features.adapted_bipolar[:, 0] + (
+                    1 - mix
+                ) * features.adapted_bipolar[:, 1]
+                inhibition = features.selected_amacrine.mean(dim=1)
+                if self._enable_synaptic_gain:
+                    drive = self.synaptic_gain().view(1, -1) * drive
+                current = drive - self.amacrine_gain().view(1, -1) * inhibition
+            case "v3_mechanism_preserving":
+                current = (
+                    self.bipolar_current_gain().unsqueeze(0)
+                    * features.adapted_bipolar
+                ).sum(dim=1) - (
+                    self.amacrine_current_gain().unsqueeze(0)
+                    * features.selected_amacrine
+                ).sum(dim=1)
+            case unreachable:
+                assert_never(unreachable)
+        direct_logit = None
+        if self._enable_direct_readout:
+            direct_logit = (
+                self.bipolar_readout_gain.unsqueeze(0) * features.selected_bipolar
+                + self.amacrine_readout_gain.unsqueeze(0)
+                * features.selected_amacrine
+            ).sum(dim=1)
+        return self.forward_from_current(
+            RGCCurrentDrive(current, features.subunit_energy, direct_logit),
+            previous,
+            observed_counts,
+        )
+
+    def forward_from_current(
+        self,
+        drive: RGCCurrentDrive,
+        previous: TypedRGCState,
+        observed_counts: torch.Tensor | None = None,
+    ) -> tuple[TypedRGCStepOutput, TypedRGCState]:
         membrane_leak = torch.exp(-self._dt_ms / self.membrane_tau_ms()).view(
             1, -1
         )
         generator = membrane_leak * previous.membrane + (
             1 - membrane_leak
-        ) * (current - self.adaptation_gain().view(1, -1) * previous.adaptation)
+        ) * (drive.current - self.adaptation_gain().view(1, -1) * previous.adaptation)
         logits = self.logits_from_generator(generator)
-        if self._enable_direct_readout:
-            logits = logits + (
-                self.bipolar_readout_gain.unsqueeze(0) * selected
-                + self.amacrine_readout_gain.unsqueeze(0) * selected_amacrine
-            ).sum(dim=1)
+        if drive.direct_logit is not None:
+            logits = logits + drive.direct_logit
         probability = torch.sigmoid(logits)
         hard = (logits >= 0).to(logits.dtype)
         state_event = hard.detach() if observed_counts is None else observed_counts
@@ -326,7 +447,7 @@ class TypedRGCPopulation(nn.Module):
             adaptation=adaptation_leak * previous.adaptation
             + (1 - adaptation_leak) * state_event,
             rate=rate_leak * previous.rate + (1 - rate_leak) * state_event,
-            subunit_energy=energy,
+            subunit_energy=drive.subunit_energy,
         )
         return (
             TypedRGCStepOutput(
@@ -348,8 +469,16 @@ class TypedRGCPopulation(nn.Module):
         return logits + self.response_bias.view(*([1] * (generator.ndim - 1)), -1)
 
 
+def _softplus_inverse(values: torch.Tensor) -> torch.Tensor:
+    positive = values.clamp_min(torch.finfo(values.dtype).eps)
+    return positive + torch.log(-torch.expm1(-positive))
+
+
 __all__ = [
     "ParameterSharingMode",
+    "ReadoutMode",
+    "RGCCurrentDrive",
+    "RGCMechanismFeatures",
     "TypedRGCError",
     "TypedRGCOutput",
     "TypedRGCPopulation",

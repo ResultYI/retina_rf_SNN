@@ -55,6 +55,12 @@ class ResponseReadoutAudit:
     initial_effective_synaptic_gain: tuple[float, ...]
     calibrated_effective_synaptic_gain: tuple[float, ...]
     trained_effective_synaptic_gain: tuple[float, ...]
+    initial_bipolar_readout_gain: tuple[tuple[float, ...], ...] = ()
+    calibrated_bipolar_readout_gain: tuple[tuple[float, ...], ...] = ()
+    trained_bipolar_readout_gain: tuple[tuple[float, ...], ...] = ()
+    initial_amacrine_readout_gain: tuple[tuple[float, ...], ...] = ()
+    calibrated_amacrine_readout_gain: tuple[tuple[float, ...], ...] = ()
+    trained_amacrine_readout_gain: tuple[tuple[float, ...], ...] = ()
 
 
 def audit_parameter_deltas(
@@ -127,6 +133,10 @@ def audit_response_readout(
     trained_bias = trained.rgc.response_bias.detach().cpu()
     calibrated_gain = calibrated.rgc.synaptic_gain().detach().cpu()
     trained_gain = trained.rgc.synaptic_gain().detach().cpu()
+    calibrated_bipolar = _readout_gain(calibrated.rgc, "bipolar_readout_gain")
+    trained_bipolar = _readout_gain(trained.rgc, "bipolar_readout_gain")
+    calibrated_amacrine = _readout_gain(calibrated.rgc, "amacrine_readout_gain")
+    trained_amacrine = _readout_gain(trained.rgc, "amacrine_readout_gain")
     return ResponseReadoutAudit(
         initial_response_bias=tuple(0.0 for _ in calibrated_bias),
         calibrated_response_bias=tuple(float(value) for value in calibrated_bias),
@@ -136,7 +146,32 @@ def audit_response_readout(
             float(value) for value in calibrated_gain
         ),
         trained_effective_synaptic_gain=tuple(float(value) for value in trained_gain),
+        initial_bipolar_readout_gain=_zero_matrix(calibrated_bipolar),
+        calibrated_bipolar_readout_gain=calibrated_bipolar,
+        trained_bipolar_readout_gain=trained_bipolar,
+        initial_amacrine_readout_gain=_zero_matrix(calibrated_amacrine),
+        calibrated_amacrine_readout_gain=calibrated_amacrine,
+        trained_amacrine_readout_gain=trained_amacrine,
     )
+
+
+def _readout_gain(
+    rgc: nn.Module,
+    name: str,
+) -> tuple[tuple[float, ...], ...]:
+    value = getattr(rgc, name, None)
+    if value is None:
+        return ()
+    return tuple(
+        tuple(float(item) for item in row)
+        for row in value.detach().cpu()
+    )
+
+
+def _zero_matrix(
+    values: tuple[tuple[float, ...], ...],
+) -> tuple[tuple[float, ...], ...]:
+    return tuple(tuple(0.0 for _ in row) for row in values)
 
 
 def _rgc_type_base_labels(

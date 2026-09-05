@@ -1,6 +1,8 @@
 ﻿numpy
 scipy
 h5py
+numba>=0.62.1
+opencv-python-headless>=4.5
 Pillow
 torch
 pytest

@@ -52,6 +52,7 @@ def test_canonical_response_training_contract() -> None:
     assert config.training.response_bias_lr == 0.01
     assert config.training.rgc_lr == 0.001
     assert config.training.stage0_calibration_enabled is True
+    assert config.training.stage05_readout_calibration_enabled is True
     assert config.training.freeze_threshold is True
     assert config.model.parameter_sharing_mode == "type_blind"
     assert config.model.enable_response_bias is True
@@ -60,6 +61,7 @@ def test_canonical_response_training_contract() -> None:
     assert config.model.synaptic_gain_max == 4.0
     assert config.model.synaptic_gain_init == 1.0
     assert smoke.training.stage0_calibration_enabled is True
+    assert smoke.training.stage05_readout_calibration_enabled is True
     assert smoke.training.freeze_threshold is True
     assert CHECKPOINT_SCHEMA == "retina_rgc_response_snn"
     assert CHECKPOINT_SCHEMA_REVISION == 5
@@ -70,6 +72,7 @@ def test_response_training_config_defaults_keep_legacy_threshold_unfrozen() -> N
     config = ResponseTrainingConfig(1, 3, 1, 1, 1, 0.001, 1.0, 1)
 
     assert config.stage0_calibration_enabled is False
+    assert config.stage05_readout_calibration_enabled is False
     assert config.freeze_threshold is False
 
 

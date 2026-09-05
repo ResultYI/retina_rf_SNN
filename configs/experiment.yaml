@@ -33,6 +33,7 @@ training:
   response_bias_lr: 0.01
   rgc_lr: 0.001
   stage0_calibration_enabled: true
+  stage05_readout_calibration_enabled: true
   freeze_threshold: true
 
 evaluation:

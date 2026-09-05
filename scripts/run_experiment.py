@@ -282,7 +282,11 @@ def _build_trainer(model, config, data, device, *, run_stage0: bool) -> Response
         return ResponseTrainer(model, config, data, device)
     checkpoint_config = replace(
         config,
-        training=replace(config.training, stage0_calibration_enabled=False),
+        training=replace(
+            config.training,
+            stage0_calibration_enabled=False,
+            stage05_readout_calibration_enabled=False,
+        ),
     )
     trainer = ResponseTrainer(model, checkpoint_config, data, device)
     trainer.config = config

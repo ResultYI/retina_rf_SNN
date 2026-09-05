@@ -17,7 +17,8 @@ from models.cells.parameter_sharing import (
     ParameterSharingError,
     parameter_sharing_groups,
 )
-from models.response_snn import build_response_retina_model
+from models.response_snn import build_response_retina_model, response_state_to_tensors
+from evaluation.direct_readout_paths import forward_sequence_readout_paths
 from training.response_unroll import ResponseUnrollRequest, unroll_response
 
 
@@ -75,6 +76,7 @@ def _model(
     enable_response_bias: bool = False,
     enable_synaptic_gain: bool = False,
     enable_direct_readout: bool = False,
+    readout_mode: str = "v2_direct_logit",
 ):
     cells = _cells(type_ids=type_ids)
     cone_positions = np.asarray(
@@ -99,7 +101,85 @@ def _model(
         synaptic_gain_min=0.1,
         synaptic_gain_max=4.0,
         synaptic_gain_init=1.0,
+        readout_mode=readout_mode,
     )
+
+
+def test_v3_step_zero_preserves_v2_forward_and_state() -> None:
+    # Given
+    torch.manual_seed(17)
+    v2 = _model(
+        type_ids=("midget", "parasol"),
+        enable_response_bias=True,
+        enable_synaptic_gain=True,
+        enable_direct_readout=True,
+    )
+    torch.manual_seed(17)
+    v3 = _model(
+        type_ids=("midget", "parasol"),
+        enable_response_bias=True,
+        readout_mode="v3_mechanism_preserving",
+    )
+    sequence = torch.randn(3, 24, 3)
+    observed = torch.zeros(3, 24, 2)
+    observed[:, (7, 15), :] = 1.0
+
+    # When
+    v2_output, v2_state = v2.forward_sequence(sequence, observed_counts=observed)
+    v3_output, v3_state = v3.forward_sequence(sequence, observed_counts=observed)
+
+    # Then
+    torch.testing.assert_close(v3_output.spike_logits, v2_output.spike_logits, atol=2e-6, rtol=2e-6)
+    torch.testing.assert_close(v3_output.generator_potential, v2_output.generator_potential, atol=2e-6, rtol=2e-6)
+    for v3_value, v2_value in zip(
+        response_state_to_tensors(v3_state),
+        response_state_to_tensors(v2_state),
+        strict=True,
+    ):
+        torch.testing.assert_close(v3_value, v2_value, atol=2e-6, rtol=2e-6)
+
+
+def test_v3_has_nonnegative_current_gains_and_no_direct_logit_parameters() -> None:
+    # Given / When
+    model = _model(
+        type_ids=("midget", "parasol"),
+        enable_response_bias=True,
+        readout_mode="v3_mechanism_preserving",
+    )
+
+    # Then
+    assert model.rgc.bipolar_current_gain_raw.shape == (2, 2)
+    assert model.rgc.amacrine_current_gain_raw.shape == (2, 2)
+    assert bool((model.rgc.bipolar_current_gain() >= 0).all())
+    assert bool((model.rgc.amacrine_current_gain() >= 0).all())
+    assert not hasattr(model.rgc, "synaptic_gain_raw")
+    assert not hasattr(model.rgc, "bipolar_readout_gain")
+    assert not hasattr(model.rgc, "amacrine_readout_gain")
+
+
+def test_v3_total_rf_equals_physiological_core_rf() -> None:
+    # Given
+    model = _model(
+        type_ids=("midget", "parasol"),
+        enable_response_bias=True,
+        readout_mode="v3_mechanism_preserving",
+    )
+    sequence = torch.randn(2, 20, 3, requires_grad=True)
+    observed = torch.zeros(2, 20, 2)
+
+    # When
+    paths, _ = forward_sequence_readout_paths(
+        model,
+        sequence,
+        observed_counts=observed,
+    )
+    total_rf = torch.autograd.grad(paths.total[:, -1].sum(), sequence, retain_graph=True)[0]
+    core_rf = torch.autograd.grad(paths.core[:, -1].sum(), sequence)[0]
+
+    # Then
+    torch.testing.assert_close(total_rf, core_rf, atol=2e-6, rtol=0.0)
+    assert int(torch.count_nonzero(paths.bipolar_direct)) == 0
+    assert int(torch.count_nonzero(paths.amacrine_direct)) == 0
 
 
 def test_default_type_aware_parameterization_preserves_current_shapes() -> None:

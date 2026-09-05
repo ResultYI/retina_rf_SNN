@@ -10,6 +10,7 @@ import yaml
 from scripts.run_experiment import _write_parameter_sharing_manifest
 from training.response_checkpointing import (
     ResponseCheckpointError,
+    inspect_response_checkpoint,
     load_response_checkpoint,
     save_response_checkpoint,
 )
@@ -77,6 +78,39 @@ def test_checkpoint_rejects_revision_one_model_contract(tmp_path: Path) -> None:
             target_kind="bernoulli",
             config=config,
         )
+
+
+def test_stage05_checkpoint_kind_inspects_and_foreign_kind_rejects(
+    tmp_path: Path,
+) -> None:
+    config = load_response_config(ROOT / "configs" / "synthetic_smoke.yaml")
+    model = nn.Linear(2, 1)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=0.01)
+    path = tmp_path / "stage05.pt"
+    save_response_checkpoint(
+        path,
+        model=model,
+        optimizer=optimizer,
+        optimizer_step=0,
+        best_nll=float("inf"),
+        best_checkpoint_step=0,
+        generator=torch.Generator().manual_seed(7),
+        fingerprint="dataset",
+        target_kind="bernoulli",
+        config=config,
+        run_id="run-a",
+        checkpoint_kind="stage05",
+    )
+
+    state = inspect_response_checkpoint(path)
+
+    assert state.optimizer_step == 0
+    assert state.checkpoint_kind == "stage05"
+    payload = torch.load(path, map_location="cpu", weights_only=True)
+    payload["checkpoint_kind"] = "foreign"
+    torch.save(payload, path)
+    with pytest.raises(ResponseCheckpointError, match="lineage"):
+        inspect_response_checkpoint(path)
 
 
 def test_runner_records_model_parameter_sharing_in_manifest(tmp_path: Path) -> None:

@@ -6,6 +6,7 @@ import hashlib
 import os
 from pathlib import Path
 import pickle
+from typing import Final
 
 import torch
 from torch import nn
@@ -36,6 +37,7 @@ CHECKPOINT_KEYS = frozenset(
         "checkpoint_kind",
     }
 )
+ALLOWED_CHECKPOINT_KINDS: Final = frozenset(("best", "last", "stage05"))
 
 
 class ResponseCheckpointError(ValueError):
@@ -68,7 +70,7 @@ def save_response_checkpoint(
     checkpoint_kind: str,
     parent_run_id: str | None = None,
 ) -> None:
-    if not run_id or checkpoint_kind not in {"best", "last"}:
+    if not run_id or checkpoint_kind not in ALLOWED_CHECKPOINT_KINDS:
         raise ResponseCheckpointError("Checkpoint lineage and kind must be explicit")
     if best_checkpoint_step < 0 or best_checkpoint_step > optimizer_step:
         raise ResponseCheckpointError("best_checkpoint_step is invalid")
@@ -121,16 +123,22 @@ def load_response_checkpoint(
         raise ResponseCheckpointError("Response checkpoint target kind mismatch")
     config_values = asdict(config)
     accepted_configs = [config_values]
+    optional_legacy_fields = []
     if config.training.supervised_tail_steps is None:
-        accepted_configs.append(
+        optional_legacy_fields.append("supervised_tail_steps")
+    if not config.training.stage05_readout_calibration_enabled:
+        optional_legacy_fields.append("stage05_readout_calibration_enabled")
+    for field in optional_legacy_fields:
+        accepted_configs.extend(
             {
-                **config_values,
+                **accepted,
                 "training": {
                     key: value
-                    for key, value in config_values["training"].items()
-                    if key != "supervised_tail_steps"
+                    for key, value in accepted["training"].items()
+                    if key != field
                 },
             }
+            for accepted in tuple(accepted_configs)
         )
     if (
         payload.get("config") not in accepted_configs
@@ -165,7 +173,7 @@ def _validated_checkpoint_payload(path: Path) -> Mapping:
     if (
         not isinstance(payload["run_id"], str)
         or not payload["run_id"]
-        or payload["checkpoint_kind"] not in {"best", "last"}
+        or payload["checkpoint_kind"] not in ALLOWED_CHECKPOINT_KINDS
     ):
         raise ResponseCheckpointError("Response checkpoint lineage is invalid")
     return payload

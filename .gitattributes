@@ -11,3 +11,10 @@
 *.pt binary
 *.pth binary
 *.ckpt binary
+
+# Keep scientific provenance hashes stable across clone platforms.
+*.py -text
+*.yaml -text
+*.yml -text
+/output/** -text
+/.omo/evidence/** -text

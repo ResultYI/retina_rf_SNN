@@ -3,88 +3,16 @@ from __future__ import annotations
 from dataclasses import MISSING, dataclass, fields
 import math
 from pathlib import Path
-from typing import Any, Final, Literal, TypeAlias, TypeVar, get_type_hints
+from typing import Any, TypeVar, get_type_hints
 
 import yaml
 
-
-class ResponseConfigurationError(ValueError):
-    pass
-
-
-ParameterSharingMode: TypeAlias = Literal[
-    "type_aware",
-    "type_blind",
-    "cell_only",
-    "shuffled_type",
-    "balanced_shuffled_type",
-]
-_PARAMETER_SHARING_MODES: Final = frozenset(
-    (
-        "type_aware",
-        "type_blind",
-        "cell_only",
-        "shuffled_type",
-        "balanced_shuffled_type",
-    )
+from training.response_config_types import (
+    ParameterSharingMode,
+    ResponseConfigurationError,
+    ResponseDataConfig,
+    ResponseModelConfig,
 )
-
-
-@dataclass(frozen=True, slots=True)
-class ResponseDataConfig:
-    train_glob: str
-    validation_glob: str
-    test_glob: str
-    sequence_steps: int
-
-
-@dataclass(frozen=True, slots=True)
-class ResponseModelConfig:
-    type_prior_path: str
-    support_radius_degs: float
-    readout_rate_tau_ms: float
-    surrogate_slope: float
-    parameter_sharing_mode: ParameterSharingMode = "type_aware"
-    matched_initialization: bool = False
-    enable_response_bias: bool = False
-    enable_synaptic_gain: bool = False
-    enable_direct_readout: bool = False
-    synaptic_gain_min: float = 0.1
-    synaptic_gain_max: float = 4.0
-    synaptic_gain_init: float = 1.0
-
-    def __post_init__(self) -> None:
-        if (
-            not isinstance(self.parameter_sharing_mode, str)
-            or self.parameter_sharing_mode not in _PARAMETER_SHARING_MODES
-        ):
-            raise ResponseConfigurationError(
-                "parameter_sharing_mode must be one of "
-                f"{sorted(_PARAMETER_SHARING_MODES)}"
-            )
-        if not isinstance(self.matched_initialization, bool):
-            raise ResponseConfigurationError(
-                "matched_initialization must be a boolean"
-            )
-        if not isinstance(self.enable_response_bias, bool):
-            raise ResponseConfigurationError("enable_response_bias must be a boolean")
-        if not isinstance(self.enable_synaptic_gain, bool):
-            raise ResponseConfigurationError("enable_synaptic_gain must be a boolean")
-        if not isinstance(self.enable_direct_readout, bool):
-            raise ResponseConfigurationError(
-                "enable_direct_readout must be a boolean"
-            )
-        gains = (
-            self.synaptic_gain_min,
-            self.synaptic_gain_max,
-            self.synaptic_gain_init,
-        )
-        if not all(math.isfinite(value) for value in gains):
-            raise ResponseConfigurationError("synaptic gain bounds must be finite")
-        if not self.synaptic_gain_min < self.synaptic_gain_init < self.synaptic_gain_max:
-            raise ResponseConfigurationError(
-                "synaptic_gain_init must lie inside synaptic gain bounds"
-            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -102,6 +30,7 @@ class ResponseTrainingConfig:
     response_bias_lr: float = 0.01
     rgc_lr: float = 0.001
     stage0_calibration_enabled: bool = False
+    stage05_readout_calibration_enabled: bool = False
     freeze_threshold: bool = False
 
     def __post_init__(self) -> None:
@@ -123,6 +52,10 @@ class ResponseTrainingConfig:
         if not isinstance(self.stage0_calibration_enabled, bool):
             raise ResponseConfigurationError(
                 "stage0_calibration_enabled must be a boolean"
+            )
+        if not isinstance(self.stage05_readout_calibration_enabled, bool):
+            raise ResponseConfigurationError(
+                "stage05_readout_calibration_enabled must be a boolean"
             )
         if not isinstance(self.freeze_threshold, bool):
             raise ResponseConfigurationError("freeze_threshold must be a boolean")
@@ -204,6 +137,13 @@ class ResponseExperimentConfig:
             raise ResponseConfigurationError(
                 "learn_cell_residuals must be a boolean"
             )
+        if self.training.stage05_readout_calibration_enabled:
+            if not self.training.stage0_calibration_enabled:
+                raise ResponseConfigurationError("Stage0.5 requires Stage0 calibration")
+            if not self.model.enable_response_bias or not self.model.enable_direct_readout:
+                raise ResponseConfigurationError(
+                    "Stage0.5 requires enabled response bias and direct readout"
+                )
         if (
             self.training.stage0_calibration_enabled
             and not self.model.enable_response_bias

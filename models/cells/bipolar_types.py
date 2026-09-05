@@ -116,6 +116,17 @@ class BipolarConfig:
             < self.tau_transient_max_ms
         ):
             raise BipolarConfigurationError("Transient tau must lie inside its bounds")
+        ordering_epsilon = math.ulp(self.tau_sustained_max_ms)
+        if not (
+            ordering_epsilon > 0
+            and self.tau_sustained_min_ms < self.tau_sustained_max_ms
+            and self.tau_transient_min_ms
+            < min(
+                self.tau_transient_max_ms,
+                self.tau_sustained_max_ms - ordering_epsilon,
+            )
+        ):
+            raise BipolarConfigurationError("Tau bounds cannot guarantee transient < sustained")
         if self.initial_tau_transient_ms >= self.initial_tau_sustained_ms:
             raise BipolarConfigurationError(
                 "Transient tau must be less than sustained tau"
