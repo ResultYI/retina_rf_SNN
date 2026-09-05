@@ -1,0 +1,323 @@
+{
+  "original_source": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_dev_visual_illusions_20260830",
+  "original_contract_unchanged": true,
+  "input": "Identical saved 17x17 relative L+M Weber drive; native dt=1000/150 ms; exact original envelope and zero observed-spike history",
+  "variant_scope": "One fixed custom diagnostic per family, not exact paper reproductions; no perceptual effect asserted; no stimulus search or model-output-dependent construction",
+  "White_motivation": "Change remote contour continuity/orientation while preserving target and near-junction neighborhood; motivated by Howe 2001/2005 contextual variants with unchanged local junctions",
+  "White_sources": [
+    "https://doi.org/10.1068/p3212",
+    "https://doi.org/10.1068/p5414"
+  ],
+  "Hermann_motivation": "Disrupt straight alley continuity without changing intersection target, motivated by Geier et al. 2008 straightness manipulation. At 17x17 resolution this produces fragmented contours, not a smooth curved grid.",
+  "Hermann_source": "https://doi.org/10.1068/p5622",
+  "construction": "At each exact squared pixel radius, sort pixels by atan2(y,x). Cyclically permute luminance by floor(n*phi(r)/(2*pi)+0.5). phi(r)=phi_max*clip((r-r_protected)/4,0,1). Values at r<=r_protected unchanged. This is lattice-shell rearrangement, not an exact continuous rotation.",
+  "variants": [
+    {
+      "family": "White",
+      "variant": "remote_contour_rearrangement",
+      "original_A": 58,
+      "original_B": 59,
+      "protected_radius_pixels": 4.0,
+      "protected_radius_deg": 0.21562499999999998,
+      "max_angle_radians": 1.5707963267948966
+    },
+    {
+      "family": "Hermann",
+      "variant": "contour_rearrangement",
+      "original_A": 54,
+      "original_B": 55,
+      "protected_radius_pixels": 2.0,
+      "protected_radius_deg": 0.10781249999999999,
+      "max_angle_radians": 0.7853981633974483
+    }
+  ],
+  "local_views": "A and B are separately centered local diagnostic views, not crops claimed to belong to one globally warped scene",
+  "annulus_definition": "Target-centered Euclidean pixel radius; ring endpoints (0,2],(2,4],(4,6],(6,8],(8,sqrt(128)] with origin included in first disk; pitch=0.05390625 deg. Relative L+M=1+drive.",
+  "matching_boundary": "Original-to-variant histogram at every exact target-centered radius is preserved separately for A and B, including target. A and B surrounds are not claimed equal. Off-center LN Gaussian-weighted luminance is not claimed matched.",
+  "metrics": "Unmodified prior response_metrics, cell_rows, mach_rows, aggregate. Original-vs-variant and LN-vs-R4 are signed differences of response time courses, measured using those same metrics.",
+  "pairs": [
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-12",
+      "a": 0,
+      "b": 25,
+      "control": false,
+      "x_pixels": -12
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-11",
+      "a": 1,
+      "b": 26,
+      "control": false,
+      "x_pixels": -11
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-10",
+      "a": 2,
+      "b": 27,
+      "control": false,
+      "x_pixels": -10
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-09",
+      "a": 3,
+      "b": 28,
+      "control": false,
+      "x_pixels": -9
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-08",
+      "a": 4,
+      "b": 29,
+      "control": false,
+      "x_pixels": -8
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-07",
+      "a": 5,
+      "b": 30,
+      "control": false,
+      "x_pixels": -7
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-06",
+      "a": 6,
+      "b": 31,
+      "control": false,
+      "x_pixels": -6
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-05",
+      "a": 7,
+      "b": 32,
+      "control": false,
+      "x_pixels": -5
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-04",
+      "a": 8,
+      "b": 33,
+      "control": false,
+      "x_pixels": -4
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-03",
+      "a": 9,
+      "b": 34,
+      "control": false,
+      "x_pixels": -3
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-02",
+      "a": 10,
+      "b": 35,
+      "control": false,
+      "x_pixels": -2
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-01",
+      "a": 11,
+      "b": 36,
+      "control": false,
+      "x_pixels": -1
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+00",
+      "a": 12,
+      "b": 37,
+      "control": false,
+      "x_pixels": 0
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+01",
+      "a": 13,
+      "b": 38,
+      "control": false,
+      "x_pixels": 1
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+02",
+      "a": 14,
+      "b": 39,
+      "control": false,
+      "x_pixels": 2
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+03",
+      "a": 15,
+      "b": 40,
+      "control": false,
+      "x_pixels": 3
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+04",
+      "a": 16,
+      "b": 41,
+      "control": false,
+      "x_pixels": 4
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+05",
+      "a": 17,
+      "b": 42,
+      "control": false,
+      "x_pixels": 5
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+06",
+      "a": 18,
+      "b": 43,
+      "control": false,
+      "x_pixels": 6
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+07",
+      "a": 19,
+      "b": 44,
+      "control": false,
+      "x_pixels": 7
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+08",
+      "a": 20,
+      "b": 45,
+      "control": false,
+      "x_pixels": 8
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+09",
+      "a": 21,
+      "b": 46,
+      "control": false,
+      "x_pixels": 9
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+10",
+      "a": 22,
+      "b": 47,
+      "control": false,
+      "x_pixels": 10
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+11",
+      "a": 23,
+      "b": 48,
+      "control": false,
+      "x_pixels": 11
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+12",
+      "a": 24,
+      "b": 49,
+      "control": false,
+      "x_pixels": 12
+    },
+    {
+      "family": "SBC",
+      "name": "bright_surround_minus_dark_surround",
+      "a": 50,
+      "b": 51,
+      "control": false,
+      "x_pixels": null
+    },
+    {
+      "family": "SBC",
+      "name": "control_bright_surround_minus_dark_surround",
+      "a": 52,
+      "b": 53,
+      "control": true,
+      "x_pixels": null
+    },
+    {
+      "family": "Hermann",
+      "name": "intersection_minus_corridor",
+      "a": 54,
+      "b": 55,
+      "control": false,
+      "x_pixels": null
+    },
+    {
+      "family": "Hermann",
+      "name": "control_intersection_minus_corridor",
+      "a": 56,
+      "b": 57,
+      "control": true,
+      "x_pixels": null
+    },
+    {
+      "family": "White",
+      "name": "on_bright_bar_minus_on_dark_bar",
+      "a": 58,
+      "b": 59,
+      "control": false,
+      "x_pixels": null
+    },
+    {
+      "family": "White",
+      "name": "control_on_bright_bar_minus_on_dark_bar",
+      "a": 60,
+      "b": 61,
+      "control": true,
+      "x_pixels": null
+    },
+    {
+      "family": "White",
+      "name": "remote_contour_rearrangement_A_minus_B",
+      "a": 63,
+      "b": 64,
+      "control": false,
+      "x_pixels": null
+    },
+    {
+      "family": "White",
+      "name": "remote_contour_rearrangement_control_A_minus_B",
+      "a": 65,
+      "b": 66,
+      "control": true,
+      "x_pixels": null
+    },
+    {
+      "family": "Hermann",
+      "name": "contour_rearrangement_A_minus_B",
+      "a": 67,
+      "b": 68,
+      "control": false,
+      "x_pixels": null
+    },
+    {
+      "family": "Hermann",
+      "name": "contour_rearrangement_control_A_minus_B",
+      "a": 69,
+      "b": 70,
+      "control": true,
+      "x_pixels": null
+    }
+  ],
+  "protocol_frozen_before_model_inference": true,
+  "max_annular_mean_delta": 0.0,
+  "max_annular_std_delta": 2.7755575615628914e-16
+}

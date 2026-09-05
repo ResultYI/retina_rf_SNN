@@ -1,0 +1,11 @@
+{
+  "22_cells": true,
+  "166_stimuli": true,
+  "shared_zero_history": true,
+  "all_outputs_finite": true,
+  "all_controls_exact_zero": true,
+  "all_model_states_unchanged": true,
+  "all_canonical_clamps_verified": true,
+  "original_grid_bitwise_replay": true,
+  "checkpoint_hashes_unchanged": true
+}

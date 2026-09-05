@@ -1,0 +1,516 @@
+{
+  "saved_output_consistency": "PASS",
+  "fit_count": 44,
+  "max_nll_error": 0.0,
+  "max_row_nll_error": 0.0,
+  "all_probabilities_exact": true,
+  "all_endpoints_finite": true,
+  "rows": [
+    {
+      "cell_id": "67#4",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.5281393141364099,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.007390597417441127,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "67#4",
+      "model": "matched_w0",
+      "nll_recomputed": 0.5245925660425217,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.02954625227948444,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "67#6",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.4889014517515875,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 5.2648788625880604e-05,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "67#6",
+      "model": "matched_w0",
+      "nll_recomputed": 0.49122015561666116,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.01174039693699054,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "67#7",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.44657196628640855,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.03064779340401446,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "67#7",
+      "model": "matched_w0",
+      "nll_recomputed": 0.4504759222679465,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.05547927182291401,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "67#14",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.3762592719233111,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 1.9109199913809425e-06,
+      "optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+    },
+    {
+      "cell_id": "67#14",
+      "model": "matched_w0",
+      "nll_recomputed": 0.39232702004636033,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.05008928738235178,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "67#21",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.3041017286693641,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.00014801409632521855,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "67#21",
+      "model": "matched_w0",
+      "nll_recomputed": 0.30956182881341016,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.031039685458175006,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "67#26",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.525191626746297,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.030565488493284543,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "67#26",
+      "model": "matched_w0",
+      "nll_recomputed": 0.5266570903565996,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 8.570173008108906e-07,
+      "optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+    },
+    {
+      "cell_id": "67#33",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.466717875720877,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 1.8579546899640086e-05,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "67#33",
+      "model": "matched_w0",
+      "nll_recomputed": 0.46819694062987793,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.011359783487858049,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "67#34",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.3964390789047723,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 2.841500551090553e-05,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "67#34",
+      "model": "matched_w0",
+      "nll_recomputed": 0.3994805888395081,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.3143941690494607,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "68#3",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.5737578548688193,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.051486952757444096,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "68#3",
+      "model": "matched_w0",
+      "nll_recomputed": 0.575106493503371,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.0996385541935725,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "68#4",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.4376132267119747,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 2.790389287889302e-06,
+      "optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+    },
+    {
+      "cell_id": "68#4",
+      "model": "matched_w0",
+      "nll_recomputed": 0.43935297504850646,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.012850874839987043,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "68#7",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.3721523671116139,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.08311039980098255,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "68#7",
+      "model": "matched_w0",
+      "nll_recomputed": 0.37287011364117156,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.03355750601081902,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "68#10",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.361510521585647,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.05339661792447546,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "68#10",
+      "model": "matched_w0",
+      "nll_recomputed": 0.36704559406901005,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.12234450718496827,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "68#11",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.43892258783981597,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 8.944244133346519e-05,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "68#11",
+      "model": "matched_w0",
+      "nll_recomputed": 0.4502153683381439,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.019625611061773872,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "69#3",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.6180712027648675,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 5.8361142037316856e-06,
+      "optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+    },
+    {
+      "cell_id": "69#3",
+      "model": "matched_w0",
+      "nll_recomputed": 0.6176047210288271,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.012773738529932264,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "69#4",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.453406195194451,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.04727813189983526,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "69#4",
+      "model": "matched_w0",
+      "nll_recomputed": 0.4582388115969108,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.07275871691771645,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "69#6",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.4847742278749893,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.013046535869700065,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "69#6",
+      "model": "matched_w0",
+      "nll_recomputed": 0.4843044165094018,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.01634785376712475,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "69#7",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.4650851615299506,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.08889910745520291,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "69#7",
+      "model": "matched_w0",
+      "nll_recomputed": 0.4690131941920628,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 6.868634482988986e-07,
+      "optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+    },
+    {
+      "cell_id": "69#21",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.5136721483124735,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.07965170874560717,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "69#21",
+      "model": "matched_w0",
+      "nll_recomputed": 0.5127225681860214,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.2064298850685266,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "70#1",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.5293212340780831,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.00012315035416041368,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "70#1",
+      "model": "matched_w0",
+      "nll_recomputed": 0.5319809873431298,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.011753786018991073,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "70#7",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.4826914644726937,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.02985418492133432,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "70#7",
+      "model": "matched_w0",
+      "nll_recomputed": 0.48728495626477814,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.06182683043296969,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "70#15",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.434251621322101,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.0757212592418031,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "70#15",
+      "model": "matched_w0",
+      "nll_recomputed": 0.4357779472872986,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.08253229958560941,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "70#34",
+      "model": "sc_adapted",
+      "nll_recomputed": 0.38487626461502944,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.06064704475205176,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    },
+    {
+      "cell_id": "70#34",
+      "model": "matched_w0",
+      "nll_recomputed": 0.38587839390535117,
+      "nll_abs_error": 0.0,
+      "row_nll_abs_error": 0.0,
+      "probability_link_exact": true,
+      "endpoint_finite": true,
+      "max_abs_gradient": 0.08572791527037023,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+    }
+  ],
+  "post_run_source_corrections": [
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\spatial_contrast_adapted\\run.py",
+    "D:\\PythonProject\\retina_rf_SNN\\baselines\\spatial_contrast_adapted.py",
+    "D:\\PythonProject\\retina_rf_SNN\\tests\\test_spatial_contrast_adapted.py"
+  ],
+  "executed_source_snapshots": [
+    {
+      "path": ".omo\\evidence\\spatial_contrast_adapted\\executed_source\\run.py.txt",
+      "sha256": "8cffd835f2429b8879beddc866c22a76565e7a13d2ec525af704618bf0beeb29",
+      "matches_executed_hash": true
+    },
+    {
+      "path": ".omo\\evidence\\spatial_contrast_adapted\\executed_source\\spatial_contrast_adapted.py.txt",
+      "sha256": "7686cee1aa2e6032862d5fd54499b0ebba1f3c3f73b6a4f7da37c24612799112",
+      "matches_executed_hash": true
+    },
+    {
+      "path": ".omo\\evidence\\spatial_contrast_adapted\\executed_source\\test_spatial_contrast_adapted.py.txt",
+      "sha256": "dca63977c21fa763acd235a793ea48f89f55ceeb7e74c2418762965a3f4246e8",
+      "matches_executed_hash": true
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "status": "COMPLETED_CORRECTED",
+  "fit_executions_this_correction": 2,
+  "other_fit_files": 84,
+  "other_fit_hashes_unchanged": true,
+  "current_source_hashes_unchanged": true,
+  "other_cell_rows_changed": [],
+  "corrected_output_checks": [
+    {
+      "model": "sc_adapted",
+      "nll_abs_error": 0.0,
+      "finite": true,
+      "target_mask_order_unchanged": true,
+      "link_exact": true
+    },
+    {
+      "model": "matched_w0",
+      "nll_abs_error": 0.0,
+      "finite": true,
+      "target_mask_order_unchanged": true,
+      "link_exact": true
+    }
+  ],
+  "max_group_or_overall_nll_error": 0.0,
+  "per_cell_csv_exact": true,
+  "group_csv_exact": true,
+  "official_a0_matches_all_cells": true
+}

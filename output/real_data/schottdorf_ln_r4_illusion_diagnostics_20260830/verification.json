@@ -1,0 +1,261 @@
+{
+  "checks": [
+    {
+      "cell_id": "67#4",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "67#6",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "67#7",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "67#14",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "67#21",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "67#26",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "67#33",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "67#34",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "68#3",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "68#4",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "68#7",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "68#10",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "68#11",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "69#3",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "69#4",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "69#6",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "69#7",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "69#21",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "70#1",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "70#7",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "70#15",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    },
+    {
+      "cell_id": "70#34",
+      "original_R4_max_error": 0.0,
+      "states_unchanged": true,
+      "clamps_exact_zero": true,
+      "controls_exact_zero": true,
+      "all_gradients_none": true
+    }
+  ],
+  "sha256": {
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\amacrine_pathways.py": "38fc2c8b01ab7414ebbd344ed84d250bb3efd27e269a663c193750faedd81349",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\bipolar_subunits.py": "7419b03e8aa63ecf175fd5c1a3c5cb5c2c317c01f5b8972eb04b24d8c110ce75",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\cell_specific_gains.py": "72fe52688e5c04211a711a720f443e361fc4e59f25d9ca4f25735f39cbbe01db",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\contracts.py": "c7c237fd911e890e260864918c7dfb936f5b4cbbb3ab48f1f13f0fa290d79fc8",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\delay_parameters.py": "083816a26aa1d94d620b2460d6e1c7efd0b04e5825aa01775272d2bf5bd37c02",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\graph.py": "d647c5d042383772a675f5a9b59120bd5c783d931c92523578811634270153bd",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\h1_pathway.py": "dab8e1a687c3ec9ced59e29ee0b1ffb49d93bd2d7732049eb06c265a4321d156",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\model.py": "e6b27ac2c026fb8f297da9dace28807d15fed00d35cbb7372464583520200fb7",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\neural_operators.py": "13b63e667cddb54f17b0b0d1f1906180d71155fa7cdffd26fdffc81e0b86efef",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\pathway_gates.py": "14c38959e47205546e029a2ba0fa826fd5cde45d467834ae66597a0ee9476c11",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\pathway_spatial_geometry.py": "be719fe2e0a56e77a8a9baa60344db0ae6363f6ca3305ea7f8fa9cc8c9b9eff2",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\pathway_temporal.py": "bd0096acc4138e26953cade22d347c13ad0d4f3807ceca5f0e4a30ebc695a265",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\phase1_run_contract.py": "939474d43bf05dd85d4dd152b48abd636a686a489df8ecb1749c75491a972e3a",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\rgc_state.py": "859d29f65d2df0a8785fa8087f873404aba0f15585441d1db251e69fee8d7540",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\shared_subunits.py": "c50488654f516f38e05c76d0d8808a651a9e5115861cad16be178e7050a56d3d",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\state.py": "fb20576fa7c277deb01261d0ad7f743211a7aab2643986d8bffd2ba47b3e486b",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\support_partition.py": "c42000360db432d974ae2d4aa1a1246edc23d000020dc8b090063b1944addf5f",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\temporal_parameters.py": "3230165b0c7a86c340e76467b4bc2eb965add94b20f8832b5e99d6d973bf3505",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\__init__.py": "4f0b9e668c2ddc3c9bae13553aec50a52a133401db6e9b2f2a2127f085882390",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_ln_r4_illusion_diagnostics_20260830\\diagnostic_stimuli.py": "ba43e2345b8f4c4503340922c5f6ee7866ef6fc3e48fa66631b53621455d7722",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_ln_r4_illusion_diagnostics_20260830\\replay.py": "96a53993bd39d9f6438489e2338ecd4bde6739e92fafce75103103902ce6449e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_ln_r4_illusion_diagnostics_20260830\\report.py": "3599f22dc0900c29a0b02c97dae152f46194e0dc0b12d22bb61526e0f358b791",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_ln_r4_illusion_diagnostics_20260830\\test_contract.py": "7b4f9d4f97c5d2898c51d1ec4c2e7163b405280afe8da2a7b9349ddcf7bed4d2",
+    "D:\\PythonProject\\retina_rf_SNN\\baselines\\center_surround_ln.py": "3b8a32f61a272d05f36f8c3ff2a3c4d428d5a8674ea840339927d0ad44364ddd",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_dev_visual_illusions_20260830\\stimuli.py": "cf425a906f6f1174a7e65a38782ea8723229ebc030086edaa3668b6b7dee3f61",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_dev_visual_illusions_20260830\\metrics.py": "f00476f8b20700d8ddeaa0d54988ce80a0955078010429b5876218b6d44670cd",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_dev_visual_illusions_20260830\\stimuli.pt": "e2c15880e8b164bb18369c686da24251b9bb97a389b1384fce125cc03c0e2956",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_dev_visual_illusions_20260830\\input-tensors.pt": "9de620f16352301dde9939386b8950a1eb9112634038e865e7783bbbd6d7a94d",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_dev_visual_illusions_20260830\\response-tensors.pt": "1226adea74ae17f2bd8ec7b5908d8caf47a9698b5374073cfff9980fd6107d42",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_dev_visual_illusions_20260830\\stimulus-contract.json": "431bd88cea321159f9f28ee6f71d958af335ab2bdea3ceb46efb9b086f7630a0",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_ln_r4_illusion_diagnostics_20260830\\protocol.json": "7f56229bfbba874aef224892d90c2c0a02f63d7533eec394f99c56286386707e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_ln_r4_illusion_diagnostics_20260830\\inputs.pt": "84693bb310502d093dbc8d865cbfc13d6d0660839fac926dd5aa5940d38ceee3",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\67_4\\model-trained.pt": "0572610141b165be4b7f6d612adeb11f35782ac14376fbd3703f1e00cab4265c",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_4\\ln-trained.pt": "340a5214b33a3135eabf234a076fda7744ee50f832f066713956e4eea0e4bb63",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\67_6\\model-trained.pt": "c7d7027fd72b86c32c5c32cf404335c456af36c552df738aec557f76c66fb23f",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_6\\ln-trained.pt": "8c001a97989696651f314c1970b024eee8f188526b79b7cb85b8d6728722a014",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\67_7\\model-trained.pt": "12272ffd8ceca67a1cf4c3ffed9193880e05cf3f17bc5e3489ab4baf9fcf6c5c",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_7\\ln-trained.pt": "9574ed9c694567a308fa70ac2848ec34ad81732f921677f72c80234cf64ba02a",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\67_14\\model-trained.pt": "cbd0b209be9700737fe455952c9535e7659486c00d050845341e0bd9b2d0772b",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_14\\ln-trained.pt": "3ad6fb22061de698c814643cf91c2af1e54ebb4eefe9321370af2930d5988419",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\67_21\\model-trained.pt": "7415224b27d7ebdaa2def093e862a1e32092798dc218bbe47f76be80b052b5da",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_21\\ln-trained.pt": "d06d5daaabe0a6de3fe44ad21d0902ab9103d461a0f8dc10e43103498fc54876",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\67_26\\model-trained.pt": "c9520857021afffd1f489e9b99ffd30a26b0346c7828d6de438426f1c9ad7849",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_26\\ln-trained.pt": "3925fe635ee84d0b2dc72a20a1484ba296881b937f7143b557187d9f53b09869",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\67_33\\model-trained.pt": "cec991401747cdb5141c754f41d9cbf3dbae934484037277a7ad10ebf6e32267",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_33\\ln-trained.pt": "2214095516353e591e483d020a0c7726a1c3fdba30199738479487fa1d2c06f4",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\67_34\\model-trained.pt": "bd115e7b381663916e0747867a964c3af7de976a3e1a4ac1beaf18cc7520a78f",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_34\\ln-trained.pt": "5d01db4758014227145034352a3aa21df71120e7ab26cef2b191147565447e8e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\68_3\\model-trained.pt": "57fa076d755079c00b326c2ee67dba6bf80a7fca057bfdf4a16690e51c547ddc",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_3\\ln-trained.pt": "547f727d8f54359e16ac42e49b721a17709d7393c10e484d3bb5af4dd5c21bdb",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\68_4\\model-trained.pt": "06a201750cf931ebc2cb7faca5b3b79fe411ddc087eb6e5657ad42851d179143",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_4\\ln-trained.pt": "bae348332843fa56c4a05a3c769790e73c45e04e7e06ed8bb37f0115bb4e4281",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\68_7\\model-trained.pt": "976b7a743a1b378a9bff5eaff3aba55053d374e68eef8e61999aaac8776fc52c",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_7\\ln-trained.pt": "97d77bc59873a07af799eb5ea7473316aeae7ba97541de3b2585ae09a8e8b44d",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\68_10\\model-trained.pt": "51c05a3d87d8cfc7a901d38b1785f11f52f40b52fe1f767d3c8ec091f6b56e40",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_10\\ln-trained.pt": "521e5ea0af1296f890f0fb367dc6a054bf6f823ace15841cb8f8b46cdee7b83c",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\68_11\\model-trained.pt": "063b3a41c76034522868979445ea5d1a2e0fd8ff64c8cd3039e92b80d2239909",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_11\\ln-trained.pt": "f2c09690356c273980032537fad0e40d787b22c2df8956540fdd969274d9267e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\69_3\\model-trained.pt": "19654270702edabbaa478fc3431833057428c9dc02dc974ec54cb68a44542025",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_3\\ln-trained.pt": "a18f14a6f06f044023fc6f049f5237c3e48173f9434706edce70a054ba1a5857",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\69_4\\model-trained.pt": "9bf68ab5468838905ddc7b18decad8b6e51fdbf32fd15f0bae91f846f2dfc896",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_4\\ln-trained.pt": "a57ba32aa6c5e2bb948479947a979b08888872f3e37ea67f64c276b9d6836bb8",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\69_6\\model-trained.pt": "3ea2c94f30632c6fd7458f6be73c0cf5adcbd52566b4ab705fcd46c7d011b20c",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_6\\ln-trained.pt": "55c5d91f0647261d7ba6ede81ea482fe8b97aa14f0c941e1c99f94cf906af61a",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\69_7\\model-trained.pt": "2e004f5685ae11be75035c10878a37c87b3f136cb22fd3815d45efd06bce1c35",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_7\\ln-trained.pt": "5198fb2a42694de36b4df06547dfaec2ee2c5bff5d244c9d9ed6da62e26f1270",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\69_21\\model-trained.pt": "198a22345e3ba0af4798a14a071ff742a843eeea5dbd32ab7dcb6ff0fc25efd3",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_21\\ln-trained.pt": "09132054d57c37b5bd59a1be882fad02abf4d94c9d3c280561ff44ee2aaaa8be",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\70_1\\model-trained.pt": "06bd5c4c5e168b3aa21ff63186985ed42f62eb71c164ceb1a9c91793b652ded5",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\70_1\\ln-trained.pt": "977615eae5f2cccdd5755e0326dbf5e6a2350fd491bf7703f21c66f71756ebfa",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\70_7\\model-trained.pt": "5f5122d42b70f3c8042edae1193e5f5b46503b8c863f2084a1982f3b0ae91fdd",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\70_7\\ln-trained.pt": "c8db43261c52822ff864d3a8f1f9d2184538df2c17f193bb4e37fac6d2b76faf",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\70_15\\model-trained.pt": "57550830fbae134423cfb4b535bfe25f0518254640e3ebd9cdf6368ecf1214d9",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\70_15\\ln-trained.pt": "385b580a8f97e5b1c039c7bc3b670bb8b6e20b4885675cb0334d46a5ea867308",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_r4_development_22cell_20260830_verified\\cells\\70_34\\model-trained.pt": "1703e6c2d71fdd82e77be92221712b86e75b54da7021ec3f6f4d2c30578d4444",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\70_34\\ln-trained.pt": "45f85e951ca4af71236b8526ffbe83c1bc1dbabe4bb47ae7f81f06e41c978447"
+  },
+  "all_sources_unchanged": true,
+  "training": false,
+  "checkpoint_writes": 0
+}

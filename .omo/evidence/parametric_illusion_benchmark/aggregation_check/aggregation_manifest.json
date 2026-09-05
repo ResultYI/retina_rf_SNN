@@ -1,0 +1,16 @@
+{
+  "source": "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\parametric_illusion_benchmark\\per_cell_curves.csv",
+  "source_sha256": "aafd121cb481549542a1f302d2863a5be8c10d1ce4aa2ec44cddb8fd7cfebf68",
+  "cells": 22,
+  "group_counts": {
+    "MC_ON": 5,
+    "MC_OFF": 4,
+    "PC_ON": 9,
+    "PC_OFF": 4
+  },
+  "bootstrap_samples": 100000,
+  "bootstrap_seed": 20260902,
+  "models_loaded": false,
+  "training_performed": false,
+  "new_probes_generated": false
+}

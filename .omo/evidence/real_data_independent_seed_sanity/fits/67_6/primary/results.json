@@ -1,0 +1,15 @@
+{
+  "cell_id": "67#6",
+  "group": "MC OFF",
+  "fit": "primary",
+  "seed": 20260829,
+  "validation_nll": 0.4422644376754761,
+  "delta_nll_vs_primary": 0.0,
+  "best_step": 369,
+  "stopping_step": 569,
+  "H1_off": 0.08676516252259413,
+  "direct_BC_off": 1.2253307069341342,
+  "AC_off": 0.9610932952413956,
+  "checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_6\\model-trained.pt",
+  "checkpoint_sha256": "02f6b00debb45d64c91a7b1017068b18c7b9e852bc4dab6dd049e50e6e96ccef"
+}

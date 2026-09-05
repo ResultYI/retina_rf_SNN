@@ -1,0 +1,407 @@
+{
+  "checkpoint_root": "schottdorf_r4_development_22cell_20260830_verified",
+  "input": "Calibrated L+M Weber drive (L+M-background)/background; no RGB gamma or synthetic frontend",
+  "relative_LM_levels": [
+    0.75,
+    1.0,
+    1.25
+  ],
+  "absolute_luminance_cd_m2": null,
+  "dt_ms": 6.666666666666667,
+  "pitch_deg": 0.053906249999999996,
+  "patch_shape": [
+    17,
+    17
+  ],
+  "scene_shape": [
+    65,
+    65
+  ],
+  "onset_ms": 300.0,
+  "duration_ms": 100.0,
+  "total_ms": 1000.0,
+  "spike_history": "Identical all-zero observed counts; conditional inference, not free-running spikes",
+  "polarity": "Same physical luminance for ON and OFF; no polarity-dependent stimulus inversion",
+  "sampling": "Local crops translated onto the saved cone grid; x right/y up; no invented cell positions",
+  "Mach_bands": "Continuous ramp from -0.25 at x=-4 pixels to +0.25 at x=+4; flat plateaus outside; scan -12..12. Control at each position is spatially uniform, matching the central pixel luminance.",
+  "SBC": "Identical 3x3 neutral targets on -0.25/+0.25 surrounds; control removes surround difference to neutral background.",
+  "Hermann": "Bright grid width 3 pixels, period 16, on dark background; compare intersection to horizontal corridor 8 pixels away. Control removes vertical bars, leaving identical horizontal corridors.",
+  "White": "Alternating vertical bars width 3 pixels; identical 3x7 neutral rectangles replace sections of bright/dark bars. Control removes grating to neutral background.",
+  "control_matching": "Target luminance, target pixels, local center position and timing are matched. Surround luminance/histogram is intentionally not matched.",
+  "metrics": "Raw logit/probability; within-mode blank subtraction; A-B physical-target contrast; clamp-minus-normal; stimulus-on 300<=t<400ms mean; peak/integral and onset/offset time courses. No perceptual decoder or illusion score.",
+  "Mach_boundary_regions_pixels": [
+    [
+      -6,
+      -2
+    ],
+    [
+      2,
+      6
+    ]
+  ],
+  "Mach_overshoot": "Positive excursion above max of the two remote-plateau responses; negative excursion below their min; computed from stimulus-on response means in each fixed boundary region, in original response units. Uniform matched-control profile evaluated identically.",
+  "time_quantities": "Learned tau and explicit pathway delay frozen in ms. No RF lag window evaluated. RGC history uses existing strictly-past one-bin shift with zero observed counts.",
+  "references": [
+    "https://doi.org/10.1016/0042-6989(95)00341-X",
+    "https://michaelbach.de/ot/lum-herGrid/",
+    "https://michaelbach.de/ot/lum-white/"
+  ],
+  "names": [
+    "Mach_x-12",
+    "Mach_x-11",
+    "Mach_x-10",
+    "Mach_x-09",
+    "Mach_x-08",
+    "Mach_x-07",
+    "Mach_x-06",
+    "Mach_x-05",
+    "Mach_x-04",
+    "Mach_x-03",
+    "Mach_x-02",
+    "Mach_x-01",
+    "Mach_x+00",
+    "Mach_x+01",
+    "Mach_x+02",
+    "Mach_x+03",
+    "Mach_x+04",
+    "Mach_x+05",
+    "Mach_x+06",
+    "Mach_x+07",
+    "Mach_x+08",
+    "Mach_x+09",
+    "Mach_x+10",
+    "Mach_x+11",
+    "Mach_x+12",
+    "Mach_uniform_x-12",
+    "Mach_uniform_x-11",
+    "Mach_uniform_x-10",
+    "Mach_uniform_x-09",
+    "Mach_uniform_x-08",
+    "Mach_uniform_x-07",
+    "Mach_uniform_x-06",
+    "Mach_uniform_x-05",
+    "Mach_uniform_x-04",
+    "Mach_uniform_x-03",
+    "Mach_uniform_x-02",
+    "Mach_uniform_x-01",
+    "Mach_uniform_x+00",
+    "Mach_uniform_x+01",
+    "Mach_uniform_x+02",
+    "Mach_uniform_x+03",
+    "Mach_uniform_x+04",
+    "Mach_uniform_x+05",
+    "Mach_uniform_x+06",
+    "Mach_uniform_x+07",
+    "Mach_uniform_x+08",
+    "Mach_uniform_x+09",
+    "Mach_uniform_x+10",
+    "Mach_uniform_x+11",
+    "Mach_uniform_x+12",
+    "SBC_bright_surround",
+    "SBC_dark_surround",
+    "SBC_control_bright_surround",
+    "SBC_control_dark_surround",
+    "Hermann_intersection",
+    "Hermann_corridor",
+    "Hermann_control_intersection",
+    "Hermann_control_corridor",
+    "White_on_bright_bar",
+    "White_on_dark_bar",
+    "White_control_on_bright_bar",
+    "White_control_on_dark_bar",
+    "neutral_blank"
+  ],
+  "pairs": [
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-12",
+      "a": 0,
+      "b": 25,
+      "control": false,
+      "x_pixels": -12
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-11",
+      "a": 1,
+      "b": 26,
+      "control": false,
+      "x_pixels": -11
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-10",
+      "a": 2,
+      "b": 27,
+      "control": false,
+      "x_pixels": -10
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-09",
+      "a": 3,
+      "b": 28,
+      "control": false,
+      "x_pixels": -9
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-08",
+      "a": 4,
+      "b": 29,
+      "control": false,
+      "x_pixels": -8
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-07",
+      "a": 5,
+      "b": 30,
+      "control": false,
+      "x_pixels": -7
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-06",
+      "a": 6,
+      "b": 31,
+      "control": false,
+      "x_pixels": -6
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-05",
+      "a": 7,
+      "b": 32,
+      "control": false,
+      "x_pixels": -5
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-04",
+      "a": 8,
+      "b": 33,
+      "control": false,
+      "x_pixels": -4
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-03",
+      "a": 9,
+      "b": 34,
+      "control": false,
+      "x_pixels": -3
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-02",
+      "a": 10,
+      "b": 35,
+      "control": false,
+      "x_pixels": -2
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x-01",
+      "a": 11,
+      "b": 36,
+      "control": false,
+      "x_pixels": -1
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+00",
+      "a": 12,
+      "b": 37,
+      "control": false,
+      "x_pixels": 0
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+01",
+      "a": 13,
+      "b": 38,
+      "control": false,
+      "x_pixels": 1
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+02",
+      "a": 14,
+      "b": 39,
+      "control": false,
+      "x_pixels": 2
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+03",
+      "a": 15,
+      "b": 40,
+      "control": false,
+      "x_pixels": 3
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+04",
+      "a": 16,
+      "b": 41,
+      "control": false,
+      "x_pixels": 4
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+05",
+      "a": 17,
+      "b": 42,
+      "control": false,
+      "x_pixels": 5
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+06",
+      "a": 18,
+      "b": 43,
+      "control": false,
+      "x_pixels": 6
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+07",
+      "a": 19,
+      "b": 44,
+      "control": false,
+      "x_pixels": 7
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+08",
+      "a": 20,
+      "b": 45,
+      "control": false,
+      "x_pixels": 8
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+09",
+      "a": 21,
+      "b": 46,
+      "control": false,
+      "x_pixels": 9
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+10",
+      "a": 22,
+      "b": 47,
+      "control": false,
+      "x_pixels": 10
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+11",
+      "a": 23,
+      "b": 48,
+      "control": false,
+      "x_pixels": 11
+    },
+    {
+      "family": "Mach_bands",
+      "name": "ramp_minus_matched_uniform_x+12",
+      "a": 24,
+      "b": 49,
+      "control": false,
+      "x_pixels": 12
+    },
+    {
+      "family": "SBC",
+      "name": "bright_surround_minus_dark_surround",
+      "a": 50,
+      "b": 51,
+      "control": false,
+      "x_pixels": null
+    },
+    {
+      "family": "SBC",
+      "name": "control_bright_surround_minus_dark_surround",
+      "a": 52,
+      "b": 53,
+      "control": true,
+      "x_pixels": null
+    },
+    {
+      "family": "Hermann",
+      "name": "intersection_minus_corridor",
+      "a": 54,
+      "b": 55,
+      "control": false,
+      "x_pixels": null
+    },
+    {
+      "family": "Hermann",
+      "name": "control_intersection_minus_corridor",
+      "a": 56,
+      "b": 57,
+      "control": true,
+      "x_pixels": null
+    },
+    {
+      "family": "White",
+      "name": "on_bright_bar_minus_on_dark_bar",
+      "a": 58,
+      "b": 59,
+      "control": false,
+      "x_pixels": null
+    },
+    {
+      "family": "White",
+      "name": "control_on_bright_bar_minus_on_dark_bar",
+      "a": 60,
+      "b": 61,
+      "control": true,
+      "x_pixels": null
+    }
+  ],
+  "crop_centers_pixels": {
+    "Mach_bands": [
+      [
+        -4,
+        0
+      ],
+      [
+        4,
+        0
+      ]
+    ],
+    "SBC": [
+      [
+        16,
+        0
+      ],
+      [
+        -16,
+        0
+      ]
+    ],
+    "Hermann": [
+      [
+        0,
+        0
+      ],
+      [
+        8,
+        0
+      ]
+    ],
+    "White": [
+      [
+        -18,
+        0
+      ],
+      [
+        21,
+        0
+      ]
+    ]
+  },
+  "protocol_fixed_before_inference": true
+}

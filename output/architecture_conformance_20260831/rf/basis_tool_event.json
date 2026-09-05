@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-08-31T01:51:07.229Z",
+  "ordinal": 139,
+  "type": "event_msg",
+  "payload": {
+    "type": "item_completed",
+    "thread_id": "01a0557d-e2bd-73d0-ae32-02ee9c60b2c6",
+    "turn_id": "01a0557d-e3b4-7770-ba1d-70c0c1535919",
+    "item": {
+      "type": "McpToolCall",
+      "id": "exec-1a200170-1586-43bb-b06c-fed70c720077",
+      "server": "git_bash",
+      "tool": "run",
+      "arguments": {
+        "command": "PYTHONDONTWRITEBYTECODE=1 D:/anaconda/python.exe -B - <<'PY'\nfrom __future__ import annotations\n\nimport hashlib\nimport json\n\nimport torch\n\nfrom evaluation.mechanistic_retina.rf_base import base_rf\nfrom models.mechanistic_retina.contracts import ArchitectureMode, MechanisticRetinaConfig, PathwayClamp\nfrom models.mechanistic_retina.model import build_mechanistic_retina\n\ntorch.manual_seed(73021)\ntorch.set_num_threads(1)\ntorch.use_deterministic_algorithms(True)\naxis = torch.tensor([-0.16, -0.08, 0.0, 0.08, 0.16], dtype=torch.float64)\npositions = torch.cartesian_prod(axis, axis)\ncells = torch.tensor([[0.0, 0.0], [0.02, 0.0], [0.0, 0.02], [0.02, 0.02]], dtype=torch.float64)\nconfig = MechanisticRetinaConfig(architecture_mode=ArchitectureMode.MECHANISM_IDENTIFIABLE)\nmodel = build_mechanistic_retina(config, positions, cells, ('midget', 'midget', 'parasol', 'parasol'), ('ON', 'OFF', 'ON', 'OFF')).eval()\nt = torch.arange(16, dtype=torch.float64).view(1, 16, 1)\nc = torch.arange(25, dtype=torch.float64).view(1, 1, 25)\nx = 0.27*torch.sin(0.37*t+0.19*c)+0.12*torch.cos(0.23*t-0.41*c)+0.02*t/15\nhistory = (torch.arange(64).reshape(1, 16, 4)%11==0).to(torch.float64)\nconditions = {\n    'normal': frozenset(),\n    'H1-off': frozenset({PathwayClamp.H1}),\n    'direct-BC-off': frozenset({PathwayClamp.DIRECT_BC_SUSTAINED, PathwayClamp.DIRECT_BC_TRANSIENT}),\n    'AC-off': frozenset({PathwayClamp.AMACRINE_LOCAL, PathwayClamp.AMACRINE_TRANSIENT}),\n}\nrows = []\nfor name, clamps in conditions.items():\n    output = model.forward_sequence(x, observed_counts=history, clamps=clamps)\n    currents = torch.stack((output.bc_sustained_current, output.bc_transient_current, output.amacrine_local_current, output.amacrine_transient_current), dim=-1)\n    basis = model.pathway_basis_features(x, clamps=clamps)\n    shared_weights = model.bipolar.positive_weights().repeat(1, 2, 1, 1)\n    contracted = (basis*shared_weights[None, None]).sum(dim=(-1,-2))\n    zero = torch.zeros_like(x)\n    zero_history = torch.zeros_like(history)\n    direct_current_jacobian = torch.autograd.functional.jacobian(\n        lambda values: model.forward_sequence(values, observed_counts=zero_history, clamps=clamps).total_current[0, -1], zero\n    ).squeeze(1)\n    helper_current_jacobian = base_rf(model, clamps=clamps)\n    rows.append({\n        'condition': name,\n        'basis_shape': list(basis.shape),\n        'current_shape': list(currents.shape),\n        'basis_contracted_with_shared_BC_weights_current_max_abs_difference': float((contracted-currents).abs().max()),\n        'basis_contracted_current_allclose': torch.allclose(contracted, currents, atol=1e-12, rtol=1e-10),\n        'zero_input_base_rf_vs_production_total_current_jacobian_max_abs_difference': float((direct_current_jacobian-helper_current_jacobian).abs().max()),\n        'zero_input_base_rf_allclose': torch.allclose(direct_current_jacobian, helper_current_jacobian, atol=1e-12, rtol=1e-10),\n        'base_rf_sha256': hashlib.sha256(helper_current_jacobian.detach().numpy().tobytes()).hexdigest(),\n    })\nprint(json.dumps({'fixture':'same as primary H probe seed73021 CPU float64 B1T16C25N4', 'scope':'basis/current estimand; NOT final-logit RF', 'rows':rows}))\nPY",
+        "description": "Verify basis contraction and true current RF consistency",
+        "workdir": "D:/PythonProject/retina_rf_SNN",
+        "timeout": 60000
+      },
+      "pluginId": "omo@sisyphuslabs",
+      "status": "completed",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"exitCode\": 0,\n  \"stdout\": \"{\\\"fixture\\\": \\\"same as primary H probe seed73021 CPU float64 B1T16C25N4\\\", \\\"scope\\\": \\\"basis/current estimand; NOT final-logit RF\\\", \\\"rows\\\": [{\\\"condition\\\": \\\"normal\\\", \\\"basis_shape\\\": [1, 16, 4, 4, 2, 3], \\\"current_shape\\\": [1, 16, 4, 4], \\\"basis_contracted_with_shared_BC_weights_current_max_abs_difference\\\": 6.938893903907228e-18, \\\"basis_contracted_current_allclose\\\": true, \\\"zero_input_base_rf_vs_production_total_current_jacobian_max_abs_difference\\\": 1.1102230246251565e-16, \\\"zero_input_base_rf_allclose\\\": true, \\\"base_rf_sha256\\\": \\\"338030b5286ecb461221c09af3ce84c537b6409214f14ea617152625e1d4d7be\\\"}, {\\\"condition\\\": \\\"H1-off\\\", \\\"basis_shape\\\": [1, 16, 4, 4, 2, 3], \\\"current_shape\\\": [1, 16, 4, 4], \\\"basis_contracted_with_shared_BC_weights_current_max_abs_difference\\\": 6.938893903907228e-18, \\\"basis_contracted_current_allclose\\\": true, \\\"zero_input_base_rf_vs_production_total_current_jacobian_max_abs_difference\\\": 8.326672684688674e-17, \\\"zero_input_base_rf_allclose\\\": true, \\\"base_rf_sha256\\\": \\\"30dd115d91d4da08b089c6f50b6e3aa034c64a8ebc94791a550f6ad5aeae2891\\\"}, {\\\"condition\\\": \\\"direct-BC-off\\\", \\\"basis_shape\\\": [1, 16, 4, 4, 2, 3], \\\"current_shape\\\": [1, 16, 4, 4], \\\"basis_contracted_with_shared_BC_weights_current_max_abs_difference\\\": 6.938893903907228e-18, \\\"basis_contracted_current_allclose\\\": true, \\\"zero_input_base_rf_vs_production_total_current_jacobian_max_abs_difference\\\": 6.938893903907228e-18, \\\"zero_input_base_rf_allclose\\\": true, \\\"base_rf_sha256\\\": \\\"b5a36ac3722342ec09a7e461890a9bec6dda4e6970021b42eb7cc3bd324b1c7a\\\"}, {\\\"condition\\\": \\\"AC-off\\\", \\\"basis_shape\\\": [1, 16, 4, 4, 2, 3], \\\"current_shape\\\": [1, 16, 4, 4], \\\"basis_contracted_with_shared_BC_weights_current_max_abs_difference\\\": 0.0, \\\"basis_contracted_current_allclose\\\": true, \\\"zero_input_base_rf_vs_production_total_current_jacobian_max_abs_difference\\\": 1.1102230246251565e-16, \\\"zero_input_base_rf_allclose\\\": true, \\\"base_rf_sha256\\\": \\\"037f4991b291b0b9d6318da3043e500fa0cf4e956ca7189e43832a8b35042eb6\\\"}]}\\r\\n\",\n  \"stderr\": \"\",\n  \"timedOut\": false\n}"
+          }
+        ],
+        "isError": false
+      },
+      "duration": {
+        "secs": 2,
+        "nanos": 869704500
+      }
+    },
+    "started_at_ms": 1788141060943,
+    "completed_at_ms": 1788141067229
+  }
+}

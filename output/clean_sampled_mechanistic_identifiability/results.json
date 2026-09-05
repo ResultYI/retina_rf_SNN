@@ -1,0 +1,133 @@
+{
+  "config": {
+    "batch_size": 8,
+    "checkpoint_steps": [
+      0,
+      50,
+      100,
+      200,
+      400
+    ],
+    "learning_rate": 0.03,
+    "spike_seed": 54001,
+    "steps": 400,
+    "stimulus_seed": 51001,
+    "student_seed": 53001,
+    "teacher_seed": 52001,
+    "time_steps": 64,
+    "train_stimuli": 32,
+    "training_seed": 55001,
+    "trials": 4,
+    "validation_stimuli": 12
+  },
+  "data_sha256": {
+    "train_cones": "a5d5ac435e23c5f8fdc091deb9d0cb66bd28e33eb0f2f0ad1cc0076101c1da32",
+    "train_spikes": "68412fb999c58a41d31132e1c09524fbeec7f509198188886a1667633c7c291e",
+    "validation_cones": "9fa9a7a3b79af709c9956b1d0a0227c6534b7294e9975c6160238baa69694548",
+    "validation_spikes": "eb2b822122ccf2718747a2460dd0f93c363d648fa1d48f17c5f8db6e01992340"
+  },
+  "fresh_optimizer": true,
+  "loaded_checkpoint": false,
+  "model_class": "physiology-constrained recurrent/state-space retinal point-process model",
+  "optimizer_parameters": [
+    "bipolar.raw_weights",
+    "amacrine.raw_weights",
+    "gates.h1",
+    "gates.ac_local",
+    "gates.ac_transient",
+    "gates.history",
+    "rgc.response_bias"
+  ],
+  "pathway_updates": {
+    "AC": {
+      "actually_updated": true,
+      "gradient_seen": true,
+      "max_abs_delta": 2.1320791244506836,
+      "total_elements": 50,
+      "updated_elements": 50
+    },
+    "BC": {
+      "actually_updated": true,
+      "gradient_seen": true,
+      "max_abs_delta": 1.8029189109802246,
+      "total_elements": 48,
+      "updated_elements": 48
+    },
+    "H1": {
+      "actually_updated": true,
+      "gradient_seen": true,
+      "max_abs_delta": 0.3422137498855591,
+      "total_elements": 1,
+      "updated_elements": 1
+    }
+  },
+  "rf": {
+    "global": {
+      "raw_norm": 0.5525469183921814,
+      "raw_teacher_cosine": 0.9677106142044067,
+      "raw_to_trained_change_norm": 2.0052497386932373,
+      "teacher_norm": 2.54026198387146,
+      "trained_norm": 2.5323402881622314,
+      "trained_teacher_cosine": 0.9956623315811157
+    },
+    "pathways": {
+      "AC": {
+        "raw_norm": 0.17860011756420135,
+        "raw_teacher_cosine": 0.9996883869171143,
+        "raw_to_trained_change_norm": 1.2285215854644775,
+        "teacher_norm": 1.4061384201049805,
+        "trained_norm": 1.4057166576385498,
+        "trained_teacher_cosine": 0.9929694533348083
+      },
+      "BC": {
+        "raw_norm": 0.5388927459716797,
+        "raw_teacher_cosine": 0.9996468424797058,
+        "raw_to_trained_change_norm": 1.6371870040893555,
+        "teacher_norm": 2.1778697967529297,
+        "trained_norm": 2.173849105834961,
+        "trained_teacher_cosine": 0.996608316898346
+      },
+      "H1": {
+        "raw_norm": 0.029496246948838234,
+        "raw_teacher_cosine": 0.9702227711677551,
+        "raw_to_trained_change_norm": 0.09709125012159348,
+        "teacher_norm": 0.11776542663574219,
+        "trained_norm": 0.12540894746780396,
+        "trained_teacher_cosine": 0.9889242053031921
+      }
+    }
+  },
+  "teacher_pathway_effects": {
+    "AC": 0.44350770115852356,
+    "BC": 0.6617228984832764,
+    "H1": 0.050824232399463654
+  },
+  "temporal_parameters_learned": false,
+  "training_target": "sampled_rgc_spikes_only",
+  "validation_spike_nll": {
+    "raw": 0.39229679107666016,
+    "trained": 0.3735061585903168,
+    "trajectory": [
+      {
+        "nll": 0.39229679107666016,
+        "step": 0
+      },
+      {
+        "nll": 0.374068021774292,
+        "step": 50
+      },
+      {
+        "nll": 0.3733201324939728,
+        "step": 100
+      },
+      {
+        "nll": 0.3739161491394043,
+        "step": 200
+      },
+      {
+        "nll": 0.3735061585903168,
+        "step": 400
+      }
+    ]
+  }
+}

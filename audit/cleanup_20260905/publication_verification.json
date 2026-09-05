@@ -1,0 +1,20 @@
+{
+  "GitHead": "7dc00b1e9f2902186891a97c022e5d04fab6d1d4",
+  "PublicationFiles": 2088,
+  "PublicationBytes": 251824510.0,
+  "LargestFileBytes": 29086484.0,
+  "LocalOnlyFiles": 1729,
+  "LocalOnlyBytes": 3378537108.0,
+  "ScientificSourceFilesUnchanged": 402,
+  "PredictionSourcesUnchanged": 29,
+  "EssentialPathsVisible": true,
+  "FinalCheckpointCounts": {
+    "Canonical": 22,
+    "LN": 22,
+    "CNN": 22
+  },
+  "TrainingPerformed": false,
+  "ModelSourcesModified": false,
+  "Committed": false,
+  "Pushed": false
+}

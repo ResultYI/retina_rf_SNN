@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "focused_regression_cases": 101,
+  "review_lanes": 5,
+  "checkpoint_count": 22,
+  "compared_tensors": 1188,
+  "max_abs_error": 0.0,
+  "source_hashes_verified": 11,
+  "frozen_checkpoint_input_hashes_verified": 24,
+  "pure_loc": {
+    "evaluation/mechanistic_retina/karamanlis_v1_rf_validation.py": 235,
+    "models/mechanistic_retina/bipolar_subunits.py": 238,
+    "models/mechanistic_retina/model.py": 233,
+    "models/mechanistic_retina/pathway_rf.py": 60,
+    "models/mechanistic_retina/pathway_spatial_geometry.py": 67,
+    "models/mechanistic_retina/shared_subunits.py": 113,
+    "models/mechanistic_retina/spatial_contract.py": 79,
+    "models/mechanistic_retina/support_partition.py": 64,
+    "models/mechanistic_retina/canonical_contract.py": 17,
+    "tests/test_canonical_mixing_correctness.py": 145,
+    "tests/test_canonical_geometry_entry_correctness.py": 169
+  }
+}

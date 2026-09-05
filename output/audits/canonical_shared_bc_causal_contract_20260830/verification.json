@@ -1,0 +1,296 @@
+{
+  "task": "Canonical V1 shared-BC causal pathway contract; no training",
+  "public_model_name": "Canonical V1",
+  "causal_contract": "h1-shared-bc-direct-broad-ac",
+  "git_head": "7dc00b1e9f2902186891a97c022e5d04fab6d1d4",
+  "worktree": "Pre-existing tracked and untracked changes preserved; only listed files edited in this task.",
+  "before": {
+    "flow": "H1 output -> independent BC stimulus encoder -> direct BC current; H1 output -> independent AC stimulus encoder -> AC state -> AC current",
+    "ac_independent_weights": "G x 2 pathways x 2 spatial modes x 3 temporal modes",
+    "ac_independent_encoder_tau_count": 6,
+    "ac_delay_location": "feature_bank.raw_delay[2:4]"
+  },
+  "after": {
+    "flow": "H1 output -> one shared BC encoder with narrow and broad support views; narrow BC -> direct RGC current; broad BC -> downstream AC delay/state -> RGC current",
+    "bc_weights": "W[g,p,s,r] = softmax(raw_BC[g].flatten())[p,s,r]; sum_p,s,r W = 1",
+    "bc_views": "B[v,p] = sum_s,r W[g,p,s,r] * shared_locality_mix(sign * normalized_spatial_basis[s,support_v] * BC_temporal_basis[p,r] * X_H1)",
+    "ac": "a[p] = lowpass_tau_AC[p](fractional_delay_ms_AC[p](B[broad,p])); I_AC = -g_AC * sum_p AC_mask[p] * softmax(AC_group_logits)[p] * a[p]",
+    "direct_bc": "I_direct_BC = g_BC * sum_p direct_mask[p] * B[direct,p]",
+    "rgc_input": "I_direct_BC + I_AC; existing RGC dynamics/history/likelihood unchanged",
+    "ac_delay_location": "amacrine.raw_delay, existing two delay values/bounds moved downstream; no new degrees of freedom",
+    "unchanged": "H1 equations/graph/amplitude/tau/delay/sign; BC normalized encoder weights, spatial basis scales, temporal basis, tau/delay/bounds; spatial radii and locality; AC state tau/gates/cell gains/sign; loss/LR/batch/split/stopping"
+  },
+  "parameter_counts": {
+    "count_kind": "scalar parameter elements, not identifiable effective degrees of freedom; aggregate cell gains enabled",
+    "removed": "12*G independent AC encoder weight logits plus 6 AC encoder tau parameters",
+    "rehome": "2 AC delay parameters move from feature_bank to amacrine; net count 0",
+    "frozen_operator_parameters_retained": 96,
+    "single_cell": {
+      "before": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "after": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      }
+    },
+    "two_cells_one_group_four_edges": {
+      "before": {
+        "total": 154,
+        "requires_grad": 58,
+        "optimizer_listed": 58
+      },
+      "after": {
+        "total": 136,
+        "requires_grad": 40,
+        "optimizer_listed": 40
+      }
+    },
+    "four_cells_four_groups_four_edges": {
+      "before": {
+        "total": 238,
+        "requires_grad": 142,
+        "optimizer_listed": 142
+      },
+      "after": {
+        "total": 184,
+        "requires_grad": 88,
+        "optimizer_listed": 88
+      }
+    },
+    "twenty_two_separate_single_cell_models": {
+      "before": {
+        "total": 3234,
+        "requires_grad": 1122,
+        "optimizer_listed": 1122
+      },
+      "after": {
+        "total": 2838,
+        "requires_grad": 726,
+        "optimizer_listed": 726
+      }
+    },
+    "formula_after": {
+      "total": "112 + 14*G + 3*N + E",
+      "requires_grad": "16 + 14*G + 3*N + E",
+      "optimizer_listed": "16 + 14*G + 3*N + E",
+      "definitions": "G populated type/polarity groups; N cells; E trainable mixer edge scalars (0 for N=1). Canonical mode with aggregate gains."
+    }
+  },
+  "clamps": {
+    "H1_off": "Only H1 amplitude exact-zero; BC direct/broad and AC recomputed normally.",
+    "AC_off": "Only final AC contributions exact-zero after group softmax; H1, both BC views and AC states unchanged; no renormalization.",
+    "direct_BC_off": "Only direct BC contributions exact-zero; broad BC presynaptic and AC states/currents unchanged.",
+    "ambiguous_BC_off": "Removed old enum/string contract; current helpers emit direct_BC_off."
+  },
+  "verification": {
+    "focused_pytest": {
+      "passed": 75,
+      "failed": 0,
+      "elapsed_seconds": 5.05,
+      "training_tests_excluded": true
+    },
+    "syntax": {
+      "files": 33,
+      "passed": true
+    },
+    "mainline_imports": {
+      "modules": 21,
+      "passed": true
+    },
+    "core_static_rule_check": {
+      "files": 8,
+      "violations": 0
+    },
+    "lsp": "UNVERIFIED: MCP Transport closed; no LSP diagnostics available.",
+    "actual_old_checkpoint": {
+      "path": "output/real_data/schottdorf_canonical_v1_overlapping_support_development_22cell_20260830/cells/67_4/model-trained.pt",
+      "strict_true_rejected_before_state_mutation": true,
+      "strict_false_rejected_before_state_mutation": true
+    },
+    "config_against_actual_old_checkpoint": {
+      "removed_keys": [
+        "ac_basis_tau_ms",
+        "ac_basis_tau_bounds_ms"
+      ],
+      "added_keys": [
+        "causal_contract"
+      ],
+      "changed_common_values": {}
+    },
+    "independent_float64_api": {
+      "dt_ms": [
+        5,
+        6.666666666666667
+      ],
+      "equal_support_direct_vs_broad_max_error": 0,
+      "four_current_basis_recomposition_max_abs_error": 2.78e-17,
+      "pathway_rf_basis_recomposition_max_abs_error": 2.78e-17,
+      "clamps_exact_zero": true,
+      "direct_clamp_preserves_broad_bc_and_ac": true,
+      "state_dict_unchanged": true,
+      "optimizer_updates": 0
+    },
+    "review_lanes": {
+      "goal": "PASS",
+      "code": "PASS",
+      "identity_security": "PASS",
+      "qa": "PASS",
+      "context": "PASS"
+    },
+    "legacy_only_limit": "natural_exploratory, mechanism_diagnosis_support, mechanism_diagnosis compiled but not imported: their pre-existing Candidate0-era dependencies remain outside this task.",
+    "training_runs": 0,
+    "training_checkpoints_created": 0,
+    "baseline_source_modified": false,
+    "unintended_structure_findings": []
+  },
+  "changed_files": [
+    {
+      "path": "models/mechanistic_retina/causal_contract.py",
+      "sha256": "0aacee1e4b98f144f082d87eb77abe03912cb086cca6dd2d86802dd49bceb726"
+    },
+    {
+      "path": "models/mechanistic_retina/contracts.py",
+      "sha256": "3050e2efa26490a0d6ac36564d184dfe3d7ac99f9b5280ed912e33a7bd4ee843"
+    },
+    {
+      "path": "models/mechanistic_retina/bipolar_subunits.py",
+      "sha256": "4725f23eb5bee18db7dc3919cbbe7198ceb7d093c06eb0873fac8da12cf8f580"
+    },
+    {
+      "path": "models/mechanistic_retina/amacrine_pathways.py",
+      "sha256": "dc8c3ce543b4af2412f53a57fbcc60785433de7a61d7e169e1094d1d7e247631"
+    },
+    {
+      "path": "models/mechanistic_retina/model.py",
+      "sha256": "29271cc1634ed8eadc577e95b0b6c01a8c5b5ad240f303c05b496b80a5586ed1"
+    },
+    {
+      "path": "models/mechanistic_retina/pathway_rf.py",
+      "sha256": "ffb02588e5664a58c02ebaad8f7ee9e9860849e378e0363c697aa6901eba8f7f"
+    },
+    {
+      "path": "training/mechanistic_retina/optimizer.py",
+      "sha256": "06d169ae1ebb6a258d844c7f3038e28ece78a8cdcaa78fcdb6f8c9b3f08aba17"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/clean_sampled_reporting.py",
+      "sha256": "56422db9bde3a84b8e19668601d1529a0ee335f78f597a7d79354d7069d10b8b"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/clean_sampled_teacher.py",
+      "sha256": "06a9e02c310c7aabc31c450a39ac243a5ade8f1da7b37bc10d5a8fd8399a0ef8"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/clean_sampled_data.py",
+      "sha256": "b3a639e12ee2a375b84c4aaf12e2097e604e55d0bc1412acf46baa279b765ffb"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/clean_sampled_training.py",
+      "sha256": "ebe888098d67ece10f492b98931929dfa01e3ca9d0ce7e09661e05bd98caf41d"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/clean_sampled_benchmark.py",
+      "sha256": "8a0d5e837d5d65eb0027b6cb6b24ed45fb056d19bf907124427969790b21a662"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/mechanism_teacher_support.py",
+      "sha256": "72727e75097ae7557d0edd6d1aa1e6a8bcb51618c5bc8454fd86f64db99e08e3"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/noise_free_recovery_metrics.py",
+      "sha256": "e22060901a9c1a25202b608215827777d053dea0cd6d85947283512c7e492948"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/sampled_robustness_metrics.py",
+      "sha256": "40635b39510de8ea169f42f78c0920d00b31a8005a0e3cde1ff4440e2b1981c7"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/schottdorf_fresh_evaluation.py",
+      "sha256": "3ea9f82411cbba09b9ea84a04b5acd3f732900213d3b74910b82ad8bf3dd9b13"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/schottdorf_multirecording_reporting.py",
+      "sha256": "12208f61368e85eeef3a613b751055224ffdf5a54d7aeffcac5301f3224eeacb"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/schottdorf_real_run.py",
+      "sha256": "dca35192128e5ebaeece2923c38a6e0532daf5f0a66f63470d3c7d86851e3719"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/natural_exploratory.py",
+      "sha256": "8f475062c93752ff0b2caa7fa4df874b96c80d920ec3f0d6c8c969d75a6af713"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/subspace_overlap.py",
+      "sha256": "fbcacede0bbdda7e7de685185bf7b798637edb1d3aed025df764dee5ce73ef12"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/mechanism_diagnosis_support.py",
+      "sha256": "969b336967713f731af57cfb85498ce2c5e607ed7e916fc0673caba159b09511"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/mechanism_diagnosis.py",
+      "sha256": "36f2a44411c9c24fb9afbeace67fcdc1a9dc639b1155cb5c9494eb974f8bc2e1"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/karamanlis_real_run.py",
+      "sha256": "290832d28f5a09c45c4aa71541ab6d7490968dfcbe419e14e228e17be5d0178d"
+    },
+    {
+      "path": "evaluation/mechanistic_retina/karamanlis_rf_population_run.py",
+      "sha256": "191181e9b00a8ae2de135693dc90cc971b2b6cdf6b18aed6cbc37918613d9fe8"
+    },
+    {
+      "path": "tests/test_causal_pathway_contract.py",
+      "sha256": "2bc8438855c07aea5c5f86daa640d9b72a59a015badbf622b1fce3ccf14b692a"
+    },
+    {
+      "path": "tests/test_parameter_contract_cleanup.py",
+      "sha256": "5193c3ee8ba3def64519ec15f59c3835502ef7617028c646654146c29760efef"
+    },
+    {
+      "path": "tests/test_mechanistic_temporal_parameters.py",
+      "sha256": "02957370dddfce2e6f176942f789447acbe9c5afbfa070042b399dbfd57dff15"
+    },
+    {
+      "path": "tests/test_pathway_strength_parameterization.py",
+      "sha256": "98a624bc14de3fb30e0875fc9206c5799d6bdbc16c7d20ea144ff4930308240f"
+    },
+    {
+      "path": "tests/test_clean_sampled_mechanistic_benchmark.py",
+      "sha256": "a21ea809816c6f6b0b53c8d30c0dd5d30af50b002d10c6e0b03c822c2279d94c"
+    },
+    {
+      "path": "tests/test_spatial_pathway_contract.py",
+      "sha256": "8564983de13a31009f9ed6c05b78b913c7888dce1623349e83e29aa47f937f55"
+    },
+    {
+      "path": "tests/test_mechanistic_retina_contract.py",
+      "sha256": "8d7c7da01f7a2086a8ca7643da33530cd1ee0d51f9d24ffed59cdce35335ed44"
+    },
+    {
+      "path": "tests/test_retina_audit_corrections.py",
+      "sha256": "20a43ced65b359fa568e8142cfd9dd67fb0ee4a399d664aad692e65606653c11"
+    },
+    {
+      "path": "tests/test_mechanistic_retina_training.py",
+      "sha256": "bc691f23d85e6db58a79e8348a8304d8222fe4af6ec69dc00761baa995bb4b86"
+    },
+    {
+      "path": "README.md",
+      "sha256": "2a4c65d6b78f5aa9e3ba6ca921337cbf77aa830dea10395fb2ddaa16424d6d0a"
+    },
+    {
+      "path": "CURRENT_STATE.md",
+      "sha256": "307e878f7ddc5b49d4e8606e34e70afa65c124990fbcea58df0f2fa6c14d5080"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "777141643070015467bb34ce8e2d49335d1fae507610428ae061036111110ba8"
+    }
+  ]
+}

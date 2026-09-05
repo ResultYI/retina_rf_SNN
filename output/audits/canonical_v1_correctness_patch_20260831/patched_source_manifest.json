@@ -1,0 +1,13 @@
+{
+  "evaluation/mechanistic_retina/karamanlis_v1_rf_validation.py": "b43dcd7f8f180eee0a59a294ff80a137e569043c1a5b1a18f390bb874b5da6a1",
+  "models/mechanistic_retina/bipolar_subunits.py": "c14cff98435e3d5401ac5307fe4af080d04a7321f572adefcfdd1b04305751e5",
+  "models/mechanistic_retina/model.py": "040b631f93aff307d06f5d354d971ea9e9d00bf1eb5595a0ecba1c2be76828ef",
+  "models/mechanistic_retina/pathway_rf.py": "211d3fdaae9f5c0fab17f2332098948bbd2a7c6a0d22cc46e1fae17ca4dba521",
+  "models/mechanistic_retina/pathway_spatial_geometry.py": "dbd9c432668f6194cfc333778cfa178a2d2332230e9b4e11c571dc9e31ed9708",
+  "models/mechanistic_retina/shared_subunits.py": "78a9d7af1c572851953bd8917f94e3149fa8823b33363fa04b903a575b25004d",
+  "models/mechanistic_retina/spatial_contract.py": "718923e8112175a2469460fb41d23ce974437a88670db00ef75263daf41a1a11",
+  "models/mechanistic_retina/support_partition.py": "e049de5e3ab44f5089936eaa94904ea2b27ef43d043169c4d6baddaafacc36b4",
+  "models/mechanistic_retina/canonical_contract.py": "344e87ec2544ac49c12ef704a20fc428c7a5f308f1f9baacfcd425b62aee1ebb",
+  "tests/test_canonical_mixing_correctness.py": "3f503faf68a10b19fe490a7394c0cfde3a351f9d1946890ce5c643b66d1df503",
+  "tests/test_canonical_geometry_entry_correctness.py": "e5a377c772b7db4754ec81fae066c9357edb2401e2176b73513de15c53424920"
+}

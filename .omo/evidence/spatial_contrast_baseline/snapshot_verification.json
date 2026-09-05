@@ -1,0 +1,58 @@
+{
+  "status": "STOP_DEFINITION_UNRESOLVED",
+  "snapshots": [
+    {
+      "path": "sources/sc_model__models__sc_model.py.txt",
+      "expected_git_blob_sha1": "6e07076b47027e9f468e0ff9586c82fc84dd8cb1",
+      "actual_git_blob_sha1": "6e07076b47027e9f468e0ff9586c82fc84dd8cb1",
+      "match": true,
+      "sha256": "1ac89f45cc07ad1b1216000ffaef9bab1340f74b253bc5a1322df866c195ee9c"
+    },
+    {
+      "path": "sources/sc_model__utils__convolutions.py.txt",
+      "expected_git_blob_sha1": "8ec63a28b801df17933398fd0b1f47651d69c2b2",
+      "actual_git_blob_sha1": "8ec63a28b801df17933398fd0b1f47651d69c2b2",
+      "match": true,
+      "sha256": "f22188288f16b7251da9864406f2b545fb355ecb231eff74848ae4eb5e52ee4f"
+    },
+    {
+      "path": "sources/sc_model__utils__minimization.py.txt",
+      "expected_git_blob_sha1": "36173d363e6e91302dc83ff8eae8514a520deafc",
+      "actual_git_blob_sha1": "36173d363e6e91302dc83ff8eae8514a520deafc",
+      "match": true,
+      "sha256": "dbd2158dac266bf72d4d614924762d204a35fa96d759f2f87683246d9902acc8"
+    },
+    {
+      "path": "sources/sc_model__utils__nonlinearities.py.txt",
+      "expected_git_blob_sha1": "9d1e2b2e93d3a6eb2ce4db1a22b9ed94ff6fa24b",
+      "actual_git_blob_sha1": "9d1e2b2e93d3a6eb2ce4db1a22b9ed94ff6fa24b",
+      "match": true,
+      "sha256": "568e6d6cc3685e6a7f1c47720a25d894b20d47ad6b95de856c8aca8757b0d565"
+    },
+    {
+      "path": "sources/sc_model__utils__receptive_fields.py.txt",
+      "expected_git_blob_sha1": "8c7c7205a5f351f130d6928d183fd7d479c9eed5",
+      "actual_git_blob_sha1": "8c7c7205a5f351f130d6928d183fd7d479c9eed5",
+      "match": true,
+      "sha256": "2521d61e58ce06f7374556c50573341c242d41960caa9581d3307f8034f7e00b"
+    },
+    {
+      "path": "sources/sc_model__scripts__run_sc_model.py.txt",
+      "expected_git_blob_sha1": "34fb3646183784baf754b952e57b759733aae013",
+      "actual_git_blob_sha1": "34fb3646183784baf754b952e57b759733aae013",
+      "match": true,
+      "sha256": "d469653e9a4597789e9164568f4cdca3688552a0625223ba1b756155726654b0"
+    },
+    {
+      "path": "sources/LICENSE.txt",
+      "expected_git_blob_sha1": "31919f104ea6b8d4973edd6aebdea538fa79b61a",
+      "actual_git_blob_sha1": "31919f104ea6b8d4973edd6aebdea538fa79b61a",
+      "match": true,
+      "sha256": "3539593abea646079640f91a7e3a125e692ce03dfeb7c09dd6a2aad787ec5313"
+    }
+  ],
+  "all_snapshots_match": true,
+  "model_tests_run": false,
+  "training_runs": 0,
+  "model_loads": 0
+}

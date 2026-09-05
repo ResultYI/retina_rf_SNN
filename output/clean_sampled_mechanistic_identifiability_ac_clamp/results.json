@@ -1,0 +1,272 @@
+{
+  "ac_contribution": {
+    "global_rf_norm": 6.405425071716309,
+    "mean_absolute_logit": 0.4028153717517853,
+    "mean_absolute_probability": 0.043128956109285355,
+    "normal_ac_current_mean_abs": 0.41444095969200134,
+    "temporal_rf_norm": 14.861588478088379
+  },
+  "analysis": "AC in-silico structural circuit perturbation",
+  "execution": {
+    "checkpoint_role": "student-trained",
+    "clamps": [
+      "no-amacrine-local",
+      "no-amacrine-transient"
+    ],
+    "optimizer_created": false,
+    "training_performed": false
+  },
+  "global_rf_change": {
+    "clamped_norm": 9.843015670776367,
+    "cosine": 0.8600794076919556,
+    "difference_norm": 6.405425071716309,
+    "mean_absolute_change": 0.012980903498828411,
+    "norm_change": -2.599410057067871,
+    "normal_norm": 12.442425727844238,
+    "relative_norm_change": -0.20891505479812622
+  },
+  "lineage": {
+    "checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\clean_sampled_mechanistic_identifiability\\student-trained.pt",
+    "checkpoint_sha256": "e1b16b5c0aae784826d1f9ef77644b6682cb2f05b89909d26109b667ecb3800b",
+    "sampled_data": "D:\\PythonProject\\retina_rf_SNN\\output\\clean_sampled_mechanistic_identifiability\\sampled-data.pt",
+    "sampled_data_sha256": "8dc25dba474393756acac13c311c8d71053f4072a21d5855fe00646b5f1fafd8",
+    "validation_cones_sha256": "9fa9a7a3b79af709c9956b1d0a0227c6534b7294e9975c6160238baa69694548",
+    "validation_spikes_sha256": "eb2b822122ccf2718747a2460dd0f93c363d648fa1d48f17c5f8db6e01992340"
+  },
+  "model_class": "physiology-constrained recurrent/state-space retinal point-process model",
+  "parameter_invariance": {
+    "BC": true,
+    "H1": true,
+    "RGC": true,
+    "all_parameters_unchanged": true,
+    "all_state_tensors_unchanged": true,
+    "state_sha256_after": "0644d70feddcb184e3ce5edb5651804ad777823708840efa20cc182fea2bebd7",
+    "state_sha256_before": "0644d70feddcb184e3ce5edb5651804ad777823708840efa20cc182fea2bebd7"
+  },
+  "response_change": {
+    "clamped_mean_probability": 0.1303025335073471,
+    "mean_absolute_logit_change": 0.4028153717517853,
+    "mean_absolute_probability_change": 0.043128956109285355,
+    "mean_logit_change": -0.020636415109038353,
+    "mean_probability_change": -0.0050546652637422085,
+    "normal_mean_probability": 0.13535720109939575
+  },
+  "rf_artifact_identity": {
+    "cell_order": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "cell_positions_degs": [
+      [
+        -0.04800000041723251,
+        -0.04800000041723251
+      ],
+      [
+        0.03199999779462814,
+        -0.04800000041723251
+      ],
+      [
+        -0.04800000041723251,
+        0.03199999779462814
+      ],
+      [
+        0.03199999779462814,
+        0.03199999779462814
+      ],
+      [
+        -0.03199999779462814,
+        -0.03199999779462814
+      ],
+      [
+        0.04800000041723251,
+        -0.03199999779462814
+      ],
+      [
+        -0.03199999779462814,
+        0.04800000041723251
+      ],
+      [
+        0.04800000041723251,
+        0.04800000041723251
+      ]
+    ],
+    "cell_types": [
+      "midget",
+      "midget",
+      "parasol",
+      "parasol",
+      "midget",
+      "midget",
+      "parasol",
+      "parasol"
+    ],
+    "checkpoint_sha256": "e1b16b5c0aae784826d1f9ef77644b6682cb2f05b89909d26109b667ecb3800b",
+    "cone_order": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "cone_positions_degs": [
+      [
+        -0.07500000298023224,
+        -0.07500000298023224
+      ],
+      [
+        -0.02500000223517418,
+        -0.07500000298023224
+      ],
+      [
+        0.02500000223517418,
+        -0.07500000298023224
+      ],
+      [
+        0.07500000298023224,
+        -0.07500000298023224
+      ],
+      [
+        -0.07500000298023224,
+        -0.02500000223517418
+      ],
+      [
+        -0.02500000223517418,
+        -0.02500000223517418
+      ],
+      [
+        0.02500000223517418,
+        -0.02500000223517418
+      ],
+      [
+        0.07500000298023224,
+        -0.02500000223517418
+      ],
+      [
+        -0.07500000298023224,
+        0.02500000223517418
+      ],
+      [
+        -0.02500000223517418,
+        0.02500000223517418
+      ],
+      [
+        0.02500000223517418,
+        0.02500000223517418
+      ],
+      [
+        0.07500000298023224,
+        0.02500000223517418
+      ],
+      [
+        -0.07500000298023224,
+        0.07500000298023224
+      ],
+      [
+        -0.02500000223517418,
+        0.07500000298023224
+      ],
+      [
+        0.02500000223517418,
+        0.07500000298023224
+      ],
+      [
+        0.07500000298023224,
+        0.07500000298023224
+      ]
+    ],
+    "lag_order": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "lag_order_semantics": "oldest_to_current",
+    "polarities": [
+      "ON",
+      "OFF",
+      "ON",
+      "OFF",
+      "ON",
+      "OFF",
+      "ON",
+      "OFF"
+    ],
+    "rf_estimand": "final-time conditional RGC-logit Jacobian with sampled spike history held fixed",
+    "sampled_data_sha256": "8dc25dba474393756acac13c311c8d71053f4072a21d5855fe00646b5f1fafd8",
+    "source_sha256": {
+      "evaluation/mechanistic_retina/ac_circuit_inputs.py": "11a38a3f04518fb7e77c898b97cbe06bb66eb272d750a511937217dff2068a3c",
+      "evaluation/mechanistic_retina/ac_circuit_lineage.py": "2f75994ad36fab029d853a53f5c8abe85f472341a260bb55afccd8bfe47ec444",
+      "evaluation/mechanistic_retina/ac_circuit_perturbation.py": "e68574384211e06d63344ec04a8e75fe13a366539847ecfb32633913cee4ea18",
+      "evaluation/mechanistic_retina/ac_circuit_support.py": "eb13a4f0d27aa01136e22b1524ccc52379aba8a214c056c9e28025af223e268a",
+      "evaluation/mechanistic_retina/rf_effective.py": "dc87ed315f9145b8f9da9886bb93c7b0cba54ca7f1cc885308af2cc45c81973a",
+      "evaluation/mechanistic_retina/spike_banks.py": "e6b7c439b17115c56b120d444e5969cf615536b55ab3949468d04dd02772cf49",
+      "models/mechanistic_retina/__init__.py": "4f0b9e668c2ddc3c9bae13553aec50a52a133401db6e9b2f2a2127f085882390",
+      "models/mechanistic_retina/amacrine_pathways.py": "b82ddf6911936b293adb44f11d62059dfbfac18f76b49fe3f52c0ceb287733fc",
+      "models/mechanistic_retina/bipolar_subunits.py": "587f6e34d529b929ecf2608981e597e20cc880ba34d7816d9ca5af818add3394",
+      "models/mechanistic_retina/contracts.py": "e35cdc316d3bbb3e0bb4600ea006fa58dd53eef4d789d257450df33028f3541a",
+      "models/mechanistic_retina/graph.py": "d647c5d042383772a675f5a9b59120bd5c783d931c92523578811634270153bd",
+      "models/mechanistic_retina/h1_pathway.py": "9e01fe519913d1a52537c403648edb45f6abd7c2d069114ab9b593f213a145fb",
+      "models/mechanistic_retina/model.py": "1b5e58c97890f35cc11ddf5ec48d48b8990fb9f8ed37a1c3ead2b8639817f84a",
+      "models/mechanistic_retina/neural_operators.py": "aedc36f440c57d090527c433c75a01a0aff11340e56d93c5c9e09aa76ce83661",
+      "models/mechanistic_retina/pathway_gates.py": "d706e5b605217cc3e753f4a02a7beec982949709d586f4aed8277da3cfcb1367",
+      "models/mechanistic_retina/rgc_state.py": "416967e5b981debc8e648040cad18599e4beb9f27898ef2222276d74415f421c",
+      "models/mechanistic_retina/shared_subunits.py": "6c1b21fc0c6844ba1f2737271b124f44ea55a5c4b7ff2c91a31e7a9b5077128b",
+      "models/mechanistic_retina/state.py": "6a440ca9c64289ac3537d98352e84bb97ebb7b6ba3b698b5c5251b9ab5d20234",
+      "models/mechanistic_retina/support_partition.py": "c42000360db432d974ae2d4aa1a1246edc23d000020dc8b090063b1944addf5f"
+    },
+    "validation_cones_sha256": "9fa9a7a3b79af709c9956b1d0a0227c6534b7294e9975c6160238baa69694548",
+    "validation_context": "all validation stimuli and sampled-history trials",
+    "validation_spikes_sha256": "eb2b822122ccf2718747a2460dd0f93c363d648fa1d48f17c5f8db6e01992340",
+    "validation_split": "validation"
+  },
+  "structural_clamp": {
+    "ac_current_exact_zero": true,
+    "clamped_ac_current_max_abs": 0.0
+  },
+  "temporal_rf_change": {
+    "clamped_norm": 20.876195907592773,
+    "cosine": 0.8669645190238953,
+    "difference_norm": 14.861588478088379,
+    "mean_absolute_change": 0.1744949221611023,
+    "norm_change": 13.389639854431152,
+    "normal_norm": 7.486556053161621,
+    "relative_norm_change": 1.7884912490844727
+  },
+  "validation": {
+    "cell_count": 8,
+    "rf_context": "all validation stimulus/trial histories",
+    "stimulus_count": 12,
+    "temporal_rf_definition": "signed sum of global RF over cone dimension",
+    "time_steps": 64,
+    "trial_count": 4
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "original_mixer_source": "D:\\PythonProject\\retina_rf_SNN\\output\\audits\\canonical_v1_correctness_patch_20260831\\source_before\\models\\mechanistic_retina\\shared_subunits.py",
+  "before_total_method": "current unchanged non-mixer parameter count plus original snapshot mixer count",
+  "training": false,
+  "optimizer_constructed": false,
+  "fixtures": [
+    {
+      "fixture": "original_audit_N6_E10",
+      "cell_count": 6,
+      "edge_count": 10,
+      "self_only_rows": 2,
+      "mixing_scalars_before": 10,
+      "mixing_scalars_after": 8,
+      "trainable_scalars_before": 88,
+      "trainable_scalars_after": 86,
+      "trainable_tensors_before": 13,
+      "trainable_tensors_after": 13,
+      "initial_connection_matrix_bitwise_equal": true,
+      "mixing_raw_state_shape_before": [
+        10
+      ],
+      "mixing_raw_state_shape_after": [
+        8
+      ]
+    },
+    {
+      "fixture": "all_self_only_N4_E4",
+      "cell_count": 4,
+      "edge_count": 4,
+      "self_only_rows": 4,
+      "mixing_scalars_before": 4,
+      "mixing_scalars_after": 0,
+      "trainable_scalars_before": 80,
+      "trainable_scalars_after": 76,
+      "trainable_tensors_before": 13,
+      "trainable_tensors_after": 12,
+      "initial_connection_matrix_bitwise_equal": true,
+      "mixing_raw_state_shape_before": [
+        4
+      ],
+      "mixing_raw_state_shape_after": [
+        0
+      ]
+    },
+    {
+      "fixture": "mixed_degree_N3_E5",
+      "cell_count": 3,
+      "edge_count": 5,
+      "self_only_rows": 1,
+      "mixing_scalars_before": 5,
+      "mixing_scalars_after": 4,
+      "trainable_scalars_before": 38,
+      "trainable_scalars_after": 37,
+      "trainable_tensors_before": 13,
+      "trainable_tensors_after": 13,
+      "initial_connection_matrix_bitwise_equal": true,
+      "mixing_raw_state_shape_before": [
+        5
+      ],
+      "mixing_raw_state_shape_after": [
+        4
+      ]
+    },
+    {
+      "fixture": "fixed_N1_E1",
+      "cell_count": 1,
+      "edge_count": 1,
+      "self_only_rows": 1,
+      "mixing_scalars_before": 0,
+      "mixing_scalars_after": 0,
+      "trainable_scalars_before": 31,
+      "trainable_scalars_after": 31,
+      "trainable_tensors_before": 12,
+      "trainable_tensors_after": 12,
+      "initial_connection_matrix_bitwise_equal": true,
+      "mixing_raw_state_shape_before": [
+        1
+      ],
+      "mixing_raw_state_shape_after": [
+        1
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1139 @@
+{
+  "cells": [
+    {
+      "id": "456",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "8123",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "1717",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "4152",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "8259",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "8715",
+      "polarity": "OFF",
+      "type": "midget"
+    },
+    {
+      "id": "4084",
+      "polarity": "OFF",
+      "type": "midget"
+    },
+    {
+      "id": "8823",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "9916",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "1743",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "396",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "118",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "298",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "1806",
+      "polarity": "OFF",
+      "type": "midget"
+    },
+    {
+      "id": "1821",
+      "polarity": "OFF",
+      "type": "midget"
+    },
+    {
+      "id": "98",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "67",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "21059",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "3176",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "11185",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "116",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "1842",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "12291",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "12204",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "3181",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "14218",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "23",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "101",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "3270",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "3945",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "3310",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "1587",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "143",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "8",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "464",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "3367",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "3388",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "11493",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "102",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "228",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "11576",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "11651",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "3924",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "3908",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "5489",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "11882",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "3535",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "15776",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "11895",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "19249",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "11943",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "19073",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "3629",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "3650",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "3698",
+      "polarity": "OFF",
+      "type": "midget"
+    },
+    {
+      "id": "3703",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "11915",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "4989",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "5238",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "7205",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "7219",
+      "polarity": "ON",
+      "type": "midget"
+    },
+    {
+      "id": "80",
+      "polarity": "ON",
+      "type": "parasol"
+    },
+    {
+      "id": "17200",
+      "polarity": "OFF",
+      "type": "parasol"
+    },
+    {
+      "id": "3731",
+      "polarity": "ON",
+      "type": "parasol"
+    }
+  ],
+  "dataset": "G-Node 10.12751/g-node.ejk8kx / OpenRetina gollisch_lab/karamanlis_2024",
+  "explicit_pathway_delay_units": "ms",
+  "fresh_initialization": true,
+  "fresh_optimizer": true,
+  "input_contract": {
+    "crop_pixels": 153,
+    "display_to_drive": "retinally projected achromatic Weber contrast",
+    "pooled_grid": [
+      51,
+      51
+    ],
+    "retinal_um_per_degree": 200.0,
+    "stimulus": "measured natural-image flash sequence"
+  },
+  "input_representation": "marmoset_projected_achromatic_cone_drive_v1",
+  "model_class": "physiology-constrained recurrent/state-space retinal point-process model",
+  "model_revision": 3,
+  "native_dt_ms": 11.764705882352942,
+  "projector_rate_hz": 85.0,
+  "recording_sampling_rate_hz": 25000.0,
+  "rgc_history_shift_ms": 11.764705882352942,
+  "session_id": "20220301_252MEA_marmoset_left_n1",
+  "source_sha256": {
+    "expdata.mat": "b465fc72f69a7578d6e409af8ef427da13fc474d6ccdb14983eb8d5f205843c6",
+    "imagesequence_data.mat": "13a4209fb689e233d8eae250e30b9a224cb13d704f9ad0eade5fec4dbc26e3d4"
+  },
+  "species": "marmoset",
+  "spike_encoding": {
+    "likelihood": "Bernoulli event per native projector frame",
+    "multi_spike_bin_fraction": 0.004132645204663277,
+    "observed_event_rate": 0.03865845501422882
+  },
+  "splits": {
+    "source_disjoint": true,
+    "time_steps": 68,
+    "train_sequences": 1290,
+    "train_source_images": 176,
+    "validation_sequences": 327,
+    "validation_source_images": 44
+  },
+  "tau_units": "ms",
+  "topology": "Cone->H1->ON/OFF BC->AC->RGC->spike likelihood",
+  "training": {
+    "actually_updated": [
+      "h1.raw_tau",
+      "h1.raw_delay",
+      "feature_bank.raw_tau",
+      "feature_bank.raw_delay",
+      "bipolar.raw_weights",
+      "amacrine.raw_tau",
+      "amacrine.raw_weights",
+      "rgc.response_bias",
+      "gates.h1",
+      "gates.ac_local",
+      "gates.ac_transient",
+      "gates.history"
+    ],
+    "batch_size": 4,
+    "gradients_finite": true,
+    "learning_rate": 0.03,
+    "seed": 20260302,
+    "steps": 50
+  },
+  "training_target": "measured_marmoset_spike_events_only",
+  "validation_prediction": {
+    "by_cell_class": {
+      "OFF midget": {
+        "cell_count": 5,
+        "improved_cell_fraction": 0.8,
+        "mean_nll_improvement": 0.027760130167007447,
+        "mean_nll_raw": 0.44675809144973755,
+        "mean_nll_trained": 0.4189979612827301
+      },
+      "OFF parasol": {
+        "cell_count": 16,
+        "improved_cell_fraction": 1.0,
+        "mean_nll_improvement": 0.04306045826524496,
+        "mean_nll_raw": 0.21030370611697435,
+        "mean_nll_trained": 0.1672432478517294
+      },
+      "ON midget": {
+        "cell_count": 14,
+        "improved_cell_fraction": 1.0,
+        "mean_nll_improvement": 0.07482676261237689,
+        "mean_nll_raw": 0.14846368027584894,
+        "mean_nll_trained": 0.07363691766347204
+      },
+      "ON parasol": {
+        "cell_count": 29,
+        "improved_cell_fraction": 1.0,
+        "mean_nll_improvement": 0.0525447659451386,
+        "mean_nll_raw": 0.18451236137028398,
+        "mean_nll_trained": 0.13196759542514538
+      }
+    },
+    "mean_probability_raw": 0.11935438215732574,
+    "mean_probability_trained": 0.05215039476752281,
+    "nll_improvement_distribution": {
+      "improved_cell_fraction": 0.984375,
+      "maximum": 0.08632917702198029,
+      "mean": 0.05311157612595707,
+      "median": 0.06013903766870499,
+      "minimum": -0.0010829567909240723,
+      "quartile_25": 0.03603800758719444,
+      "quartile_75": 0.07109265774488449
+    },
+    "nll_raw": 0.20356248319149017,
+    "nll_trained": 0.1504509299993515,
+    "per_cell": [
+      {
+        "id": "456",
+        "mean_probability_raw": 0.11746145039796829,
+        "mean_probability_trained": 0.03653832525014877,
+        "nll_improvement": 0.06601033359766006,
+        "nll_raw": 0.1588231325149536,
+        "nll_trained": 0.09281279891729355,
+        "observed_event_rate": 0.01578521355986595,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "8123",
+        "mean_probability_raw": 0.1213110014796257,
+        "mean_probability_trained": 0.04531649872660637,
+        "nll_improvement": 0.03869180381298065,
+        "nll_raw": 0.2119058072566986,
+        "nll_trained": 0.17321400344371796,
+        "observed_event_rate": 0.04177909716963768,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "1717",
+        "mean_probability_raw": 0.11897582560777664,
+        "mean_probability_trained": 0.04427124932408333,
+        "nll_improvement": 0.0358593612909317,
+        "nll_raw": 0.21601495146751404,
+        "nll_trained": 0.18015559017658234,
+        "observed_event_rate": 0.04321820288896561,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "4152",
+        "mean_probability_raw": 0.11958358436822891,
+        "mean_probability_trained": 0.03788604587316513,
+        "nll_improvement": 0.0640033558011055,
+        "nll_raw": 0.16766756772994995,
+        "nll_trained": 0.10366421192884445,
+        "observed_event_rate": 0.020912034437060356,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "8259",
+        "mean_probability_raw": 0.11906702071428299,
+        "mean_probability_trained": 0.036663684993982315,
+        "nll_improvement": 0.08360666409134865,
+        "nll_raw": 0.13588395714759827,
+        "nll_trained": 0.05227729305624962,
+        "observed_event_rate": 0.005036877002567053,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "8715",
+        "mean_probability_raw": 0.12092497199773788,
+        "mean_probability_trained": 0.07648330926895142,
+        "nll_improvement": 0.014988869428634644,
+        "nll_raw": 0.2736301124095917,
+        "nll_trained": 0.25864124298095703,
+        "observed_event_rate": 0.07514841109514236,
+        "polarity": "OFF",
+        "type": "midget"
+      },
+      {
+        "id": "4084",
+        "mean_probability_raw": 0.12078825384378433,
+        "mean_probability_trained": 0.2642350196838379,
+        "nll_improvement": 0.06755602359771729,
+        "nll_raw": 0.6391600370407104,
+        "nll_trained": 0.5716040134429932,
+        "observed_event_rate": 0.2568357586860657,
+        "polarity": "OFF",
+        "type": "midget"
+      },
+      {
+        "id": "8823",
+        "mean_probability_raw": 0.11855877935886383,
+        "mean_probability_trained": 0.03836548700928688,
+        "nll_improvement": 0.049042150378227234,
+        "nll_raw": 0.19024397432804108,
+        "nll_trained": 0.14120182394981384,
+        "observed_event_rate": 0.03166037052869797,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "9916",
+        "mean_probability_raw": 0.12266482412815094,
+        "mean_probability_trained": 0.04386024549603462,
+        "nll_improvement": 0.046393007040023804,
+        "nll_raw": 0.2005181759595871,
+        "nll_trained": 0.1541251689195633,
+        "observed_event_rate": 0.03566288948059082,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "1743",
+        "mean_probability_raw": 0.11670812219381332,
+        "mean_probability_trained": 0.038460228592157364,
+        "nll_improvement": 0.05473160743713379,
+        "nll_raw": 0.17511804401874542,
+        "nll_trained": 0.12038643658161163,
+        "observed_event_rate": 0.024869581684470177,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "396",
+        "mean_probability_raw": 0.12099280208349228,
+        "mean_probability_trained": 0.04599819332361221,
+        "nll_improvement": 0.036097556352615356,
+        "nll_raw": 0.21521998941898346,
+        "nll_trained": 0.1791224330663681,
+        "observed_event_rate": 0.043667927384376526,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "118",
+        "mean_probability_raw": 0.11678948998451233,
+        "mean_probability_trained": 0.0357784740626812,
+        "nll_improvement": 0.06878519803285599,
+        "nll_raw": 0.1567884385585785,
+        "nll_trained": 0.0880032405257225,
+        "observed_event_rate": 0.015200575813651085,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "298",
+        "mean_probability_raw": 0.11690868437290192,
+        "mean_probability_trained": 0.035727255046367645,
+        "nll_improvement": 0.0755121260881424,
+        "nll_raw": 0.14583837985992432,
+        "nll_trained": 0.07032625377178192,
+        "observed_event_rate": 0.009983809664845467,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "1806",
+        "mean_probability_raw": 0.12028186023235321,
+        "mean_probability_trained": 0.25010403990745544,
+        "nll_improvement": 0.05688720941543579,
+        "nll_raw": 0.6101052165031433,
+        "nll_trained": 0.5532180070877075,
+        "observed_event_rate": 0.2428494393825531,
+        "polarity": "OFF",
+        "type": "midget"
+      },
+      {
+        "id": "1821",
+        "mean_probability_raw": 0.12130371481180191,
+        "mean_probability_trained": 0.087304025888443,
+        "nll_improvement": 0.000451505184173584,
+        "nll_raw": 0.35044896602630615,
+        "nll_trained": 0.34999746084213257,
+        "observed_event_rate": 0.11341968178749084,
+        "polarity": "OFF",
+        "type": "midget"
+      },
+      {
+        "id": "98",
+        "mean_probability_raw": 0.11828560382127762,
+        "mean_probability_trained": 0.03706325218081474,
+        "nll_improvement": 0.07484866678714752,
+        "nll_raw": 0.14766955375671387,
+        "nll_trained": 0.07282088696956635,
+        "observed_event_rate": 0.011108112521469593,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "67",
+        "mean_probability_raw": 0.11868375539779663,
+        "mean_probability_trained": 0.03710310533642769,
+        "nll_improvement": 0.07125828415155411,
+        "nll_raw": 0.15360839664936066,
+        "nll_trained": 0.08235011249780655,
+        "observed_event_rate": 0.014076272957026958,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "21059",
+        "mean_probability_raw": 0.11929109692573547,
+        "mean_probability_trained": 0.03809099271893501,
+        "nll_improvement": 0.07274086773395538,
+        "nll_raw": 0.15242303907871246,
+        "nll_trained": 0.07968217134475708,
+        "observed_event_rate": 0.012772081419825554,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "3176",
+        "mean_probability_raw": 0.1178230419754982,
+        "mean_probability_trained": 0.05490977317094803,
+        "nll_improvement": 0.019686326384544373,
+        "nll_raw": 0.24596615135669708,
+        "nll_trained": 0.2262798249721527,
+        "observed_event_rate": 0.059812914580106735,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "11185",
+        "mean_probability_raw": 0.1176832914352417,
+        "mean_probability_trained": 0.03663976490497589,
+        "nll_improvement": 0.07697730511426926,
+        "nll_raw": 0.14269471168518066,
+        "nll_trained": 0.06571740657091141,
+        "observed_event_rate": 0.009219284169375896,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "116",
+        "mean_probability_raw": 0.12148193269968033,
+        "mean_probability_trained": 0.04208400472998619,
+        "nll_improvement": 0.05283370614051819,
+        "nll_raw": 0.19052532315254211,
+        "nll_trained": 0.13769161701202393,
+        "observed_event_rate": 0.030086345970630646,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "1842",
+        "mean_probability_raw": 0.11832679063081741,
+        "mean_probability_trained": 0.03797033429145813,
+        "nll_improvement": 0.06376875936985016,
+        "nll_raw": 0.16799309849739075,
+        "nll_trained": 0.10422433912754059,
+        "observed_event_rate": 0.02190142124891281,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "12291",
+        "mean_probability_raw": 0.11814757436513901,
+        "mean_probability_trained": 0.03719554468989372,
+        "nll_improvement": 0.06428451836109161,
+        "nll_raw": 0.16184844076633453,
+        "nll_trained": 0.09756392240524292,
+        "observed_event_rate": 0.018303651362657547,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "12204",
+        "mean_probability_raw": 0.11760568618774414,
+        "mean_probability_trained": 0.05167725682258606,
+        "nll_improvement": 0.016259849071502686,
+        "nll_raw": 0.24958696961402893,
+        "nll_trained": 0.23332712054252625,
+        "observed_event_rate": 0.06197157874703407,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "3181",
+        "mean_probability_raw": 0.11872369796037674,
+        "mean_probability_trained": 0.03771118074655533,
+        "nll_improvement": 0.06108818203210831,
+        "nll_raw": 0.17067234218120575,
+        "nll_trained": 0.10958416014909744,
+        "observed_event_rate": 0.023790249601006508,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "14218",
+        "mean_probability_raw": 0.11883338540792465,
+        "mean_probability_trained": 0.039010584354400635,
+        "nll_improvement": 0.055558547377586365,
+        "nll_raw": 0.18264570832252502,
+        "nll_trained": 0.12708716094493866,
+        "observed_event_rate": 0.031120704486966133,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "23",
+        "mean_probability_raw": 0.11811400949954987,
+        "mean_probability_trained": 0.03917719051241875,
+        "nll_improvement": 0.05757724493741989,
+        "nll_raw": 0.17341601848602295,
+        "nll_trained": 0.11583877354860306,
+        "observed_event_rate": 0.024464832618832588,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "101",
+        "mean_probability_raw": 0.12171249091625214,
+        "mean_probability_trained": 0.03954705968499184,
+        "nll_improvement": 0.06554412096738815,
+        "nll_raw": 0.16785302758216858,
+        "nll_trained": 0.10230890661478043,
+        "observed_event_rate": 0.019562870264053345,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "3270",
+        "mean_probability_raw": 0.11804693192243576,
+        "mean_probability_trained": 0.0366130992770195,
+        "nll_improvement": 0.08328332006931305,
+        "nll_raw": 0.13382500410079956,
+        "nll_trained": 0.05054168403148651,
+        "observed_event_rate": 0.004047490656375885,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "3945",
+        "mean_probability_raw": 0.12125508487224579,
+        "mean_probability_trained": 0.057323407381772995,
+        "nll_improvement": 0.01695902645587921,
+        "nll_raw": 0.2590026259422302,
+        "nll_trained": 0.242043599486351,
+        "observed_event_rate": 0.06556934863328934,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "3310",
+        "mean_probability_raw": 0.11864575743675232,
+        "mean_probability_trained": 0.03939041122794151,
+        "nll_improvement": 0.06582927703857422,
+        "nll_raw": 0.16225823760032654,
+        "nll_trained": 0.09642896056175232,
+        "observed_event_rate": 0.019382983446121216,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "1587",
+        "mean_probability_raw": 0.11775236576795578,
+        "mean_probability_trained": 0.036745231598615646,
+        "nll_improvement": 0.0786147266626358,
+        "nll_raw": 0.14032983779907227,
+        "nll_trained": 0.06171511113643646,
+        "observed_event_rate": 0.00809498131275177,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "143",
+        "mean_probability_raw": 0.11909789592027664,
+        "mean_probability_trained": 0.037149786949157715,
+        "nll_improvement": 0.08486800268292427,
+        "nll_raw": 0.13384707272052765,
+        "nll_trained": 0.04897907003760338,
+        "observed_event_rate": 0.0033279366325587034,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "8",
+        "mean_probability_raw": 0.11854787170886993,
+        "mean_probability_trained": 0.03882741928100586,
+        "nll_improvement": 0.06731415539979935,
+        "nll_raw": 0.15874628722667694,
+        "nll_trained": 0.0914321318268776,
+        "observed_event_rate": 0.016459794715046883,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "464",
+        "mean_probability_raw": 0.12025877088308334,
+        "mean_probability_trained": 0.03966847434639931,
+        "nll_improvement": 0.05936332046985626,
+        "nll_raw": 0.1755218654870987,
+        "nll_trained": 0.11615854501724243,
+        "observed_event_rate": 0.02383522130548954,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "3367",
+        "mean_probability_raw": 0.12129038572311401,
+        "mean_probability_trained": 0.03822225332260132,
+        "nll_improvement": 0.07505761831998825,
+        "nll_raw": 0.1544572114944458,
+        "nll_trained": 0.07939959317445755,
+        "observed_event_rate": 0.012502248398959637,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "3388",
+        "mean_probability_raw": 0.11839465796947479,
+        "mean_probability_trained": 0.03866925835609436,
+        "nll_improvement": 0.06766811013221741,
+        "nll_raw": 0.1600385457277298,
+        "nll_trained": 0.09237043559551239,
+        "observed_event_rate": 0.018033819273114204,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "11493",
+        "mean_probability_raw": 0.12079237401485443,
+        "mean_probability_trained": 0.03882468119263649,
+        "nll_improvement": 0.07103744894266129,
+        "nll_raw": 0.15887467563152313,
+        "nll_trained": 0.08783722668886185,
+        "observed_event_rate": 0.014930742792785168,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "102",
+        "mean_probability_raw": 0.11758561432361603,
+        "mean_probability_trained": 0.03766705095767975,
+        "nll_improvement": 0.05810856074094772,
+        "nll_raw": 0.1715283840894699,
+        "nll_trained": 0.11341982334852219,
+        "observed_event_rate": 0.023070696741342545,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "228",
+        "mean_probability_raw": 0.11657766252756119,
+        "mean_probability_trained": 0.03676605969667435,
+        "nll_improvement": 0.07579274475574493,
+        "nll_raw": 0.14172622561454773,
+        "nll_trained": 0.0659334808588028,
+        "observed_event_rate": 0.008589674718677998,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "11576",
+        "mean_probability_raw": 0.12304144352674484,
+        "mean_probability_trained": 0.03848584368824959,
+        "nll_improvement": 0.07951495796442032,
+        "nll_raw": 0.15049582719802856,
+        "nll_trained": 0.07098086923360825,
+        "observed_event_rate": 0.009983809664845467,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "11651",
+        "mean_probability_raw": 0.12229403108358383,
+        "mean_probability_trained": 0.04564194008708,
+        "nll_improvement": 0.03470134735107422,
+        "nll_raw": 0.2205164134502411,
+        "nll_trained": 0.18581506609916687,
+        "observed_event_rate": 0.04591653123497963,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "3924",
+        "mean_probability_raw": 0.11820133775472641,
+        "mean_probability_trained": 0.05141545087099075,
+        "nll_improvement": 0.03889966011047363,
+        "nll_raw": 0.20367299020290375,
+        "nll_trained": 0.16477333009243011,
+        "observed_event_rate": 0.038810938596725464,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "3908",
+        "mean_probability_raw": 0.11836693435907364,
+        "mean_probability_trained": 0.03693394735455513,
+        "nll_improvement": 0.08632917702198029,
+        "nll_raw": 0.12955427169799805,
+        "nll_trained": 0.04322509467601776,
+        "observed_event_rate": 0.0017089404864236712,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "5489",
+        "mean_probability_raw": 0.11741385608911514,
+        "mean_probability_trained": 0.04831995069980621,
+        "nll_improvement": 0.03101786971092224,
+        "nll_raw": 0.21784265339374542,
+        "nll_trained": 0.18682478368282318,
+        "observed_event_rate": 0.046231336891651154,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "11882",
+        "mean_probability_raw": 0.12180150300264359,
+        "mean_probability_trained": 0.06561822444200516,
+        "nll_improvement": 0.014231860637664795,
+        "nll_raw": 0.269501656293869,
+        "nll_trained": 0.2552697956562042,
+        "observed_event_rate": 0.07078611105680466,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "3535",
+        "mean_probability_raw": 0.11822985112667084,
+        "mean_probability_trained": 0.04012375697493553,
+        "nll_improvement": 0.06251111626625061,
+        "nll_raw": 0.16539119184017181,
+        "nll_trained": 0.1028800755739212,
+        "observed_event_rate": 0.0199226476252079,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "15776",
+        "mean_probability_raw": 0.11842744052410126,
+        "mean_probability_trained": 0.03744063898921013,
+        "nll_improvement": 0.08078156411647797,
+        "nll_raw": 0.13783399760723114,
+        "nll_trained": 0.057052433490753174,
+        "observed_event_rate": 0.00584637513384223,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "11895",
+        "mean_probability_raw": 0.12070908397436142,
+        "mean_probability_trained": 0.06567476689815521,
+        "nll_improvement": 0.018185749650001526,
+        "nll_raw": 0.2583625912666321,
+        "nll_trained": 0.24017684161663055,
+        "observed_event_rate": 0.06606403738260269,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "19249",
+        "mean_probability_raw": 0.11774453520774841,
+        "mean_probability_trained": 0.04328428953886032,
+        "nll_improvement": 0.06091475486755371,
+        "nll_raw": 0.16300833225250244,
+        "nll_trained": 0.10209357738494873,
+        "observed_event_rate": 0.018753372132778168,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "11943",
+        "mean_probability_raw": 0.12173810601234436,
+        "mean_probability_trained": 0.08024243265390396,
+        "nll_improvement": 0.009468019008636475,
+        "nll_raw": 0.28830233216285706,
+        "nll_trained": 0.2788343131542206,
+        "observed_event_rate": 0.08063500374555588,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "19073",
+        "mean_probability_raw": 0.12128283828496933,
+        "mean_probability_trained": 0.054462678730487823,
+        "nll_improvement": 0.026474595069885254,
+        "nll_raw": 0.23524798452854156,
+        "nll_trained": 0.2087733894586563,
+        "observed_event_rate": 0.05378665402531624,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "3629",
+        "mean_probability_raw": 0.1208282858133316,
+        "mean_probability_trained": 0.0429292656481266,
+        "nll_improvement": 0.055564165115356445,
+        "nll_raw": 0.18358542025089264,
+        "nll_trained": 0.1280212551355362,
+        "observed_event_rate": 0.02887209877371788,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "3650",
+        "mean_probability_raw": 0.12002462893724442,
+        "mean_probability_trained": 0.03806030750274658,
+        "nll_improvement": 0.06959868967533112,
+        "nll_raw": 0.1592307686805725,
+        "nll_trained": 0.0896320790052414,
+        "observed_event_rate": 0.016055045649409294,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "3698",
+        "mean_probability_raw": 0.12208990752696991,
+        "mean_probability_trained": 0.12142949551343918,
+        "nll_improvement": -0.0010829567909240723,
+        "nll_raw": 0.36044612526893616,
+        "nll_trained": 0.36152908205986023,
+        "observed_event_rate": 0.11620794981718063,
+        "polarity": "OFF",
+        "type": "midget"
+      },
+      {
+        "id": "3703",
+        "mean_probability_raw": 0.12125306576490402,
+        "mean_probability_trained": 0.06647790968418121,
+        "nll_improvement": 0.015448808670043945,
+        "nll_raw": 0.2658460736274719,
+        "nll_trained": 0.250397264957428,
+        "observed_event_rate": 0.06885231286287308,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "11915",
+        "mean_probability_raw": 0.11663827300071716,
+        "mean_probability_trained": 0.03831147775053978,
+        "nll_improvement": 0.06742749363183975,
+        "nll_raw": 0.15382879972457886,
+        "nll_trained": 0.0864013060927391,
+        "observed_event_rate": 0.01475085411220789,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "4989",
+        "mean_probability_raw": 0.1182202473282814,
+        "mean_probability_trained": 0.038070134818553925,
+        "nll_improvement": 0.07171989977359772,
+        "nll_raw": 0.15126904845237732,
+        "nll_trained": 0.0795491486787796,
+        "observed_event_rate": 0.013176830485463142,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "5238",
+        "mean_probability_raw": 0.11896122246980667,
+        "mean_probability_trained": 0.050368595868349075,
+        "nll_improvement": 0.030909627676010132,
+        "nll_raw": 0.22175781428813934,
+        "nll_trained": 0.1908481866121292,
+        "observed_event_rate": 0.04740061238408089,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "7205",
+        "mean_probability_raw": 0.11859125643968582,
+        "mean_probability_trained": 0.04111381992697716,
+        "nll_improvement": 0.040953099727630615,
+        "nll_raw": 0.20217667520046234,
+        "nll_trained": 0.16122357547283173,
+        "observed_event_rate": 0.03867601975798607,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "7219",
+        "mean_probability_raw": 0.11933084577322006,
+        "mean_probability_trained": 0.03761019930243492,
+        "nll_improvement": 0.0728343054652214,
+        "nll_raw": 0.15207692980766296,
+        "nll_trained": 0.07924262434244156,
+        "observed_event_rate": 0.013086886145174503,
+        "polarity": "ON",
+        "type": "midget"
+      },
+      {
+        "id": "80",
+        "mean_probability_raw": 0.11740841716527939,
+        "mean_probability_trained": 0.05432440713047981,
+        "nll_improvement": 0.014003679156303406,
+        "nll_raw": 0.2587170898914337,
+        "nll_trained": 0.2447134107351303,
+        "observed_event_rate": 0.0670534297823906,
+        "polarity": "ON",
+        "type": "parasol"
+      },
+      {
+        "id": "17200",
+        "mean_probability_raw": 0.12290769070386887,
+        "mean_probability_trained": 0.040964920073747635,
+        "nll_improvement": 0.0471501350402832,
+        "nll_raw": 0.20107030868530273,
+        "nll_trained": 0.15392017364501953,
+        "observed_event_rate": 0.03584277629852295,
+        "polarity": "OFF",
+        "type": "parasol"
+      },
+      {
+        "id": "3731",
+        "mean_probability_raw": 0.11789732426404953,
+        "mean_probability_trained": 0.039281293749809265,
+        "nll_improvement": 0.05664379149675369,
+        "nll_raw": 0.17383895814418793,
+        "nll_trained": 0.11719516664743423,
+        "observed_event_rate": 0.02365533448755741,
+        "polarity": "ON",
+        "type": "parasol"
+      }
+    ]
+  }
+}

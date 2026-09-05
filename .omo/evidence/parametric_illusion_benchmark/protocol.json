@@ -1,0 +1,36 @@
+{
+  "status": "FROZEN_BEFORE_INFERENCE",
+  "models": {
+    "canonical": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830",
+    "center_surround_ln": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830",
+    "causal_cnn": ".omo/evidence/compact_causal_cnn_baseline"
+  },
+  "cell_count": 22,
+  "input": "17x17 calibrated L+M Weber drive",
+  "dt_ms": 6.666666666666667,
+  "history": "shared all-zero observed spike history",
+  "presentation": {"total_ms": 1000, "onset_ms": 300, "duration_ms": 100},
+  "metric": "mean paired logit over 300 <= t < 400 ms",
+  "SBC": {
+    "contrast_magnitude": [0, 0.0625, 0.125, 0.25, 0.375, 0.5],
+    "context_outer_chebyshev_radius_px": [0, 2, 4, 6, 8],
+    "target": "central 3x3, value zero",
+    "pair": "bright-context response minus dark-context response",
+    "zero_context": "radius zero; two bitwise-identical zero inputs"
+  },
+  "Mach": {
+    "contrast_magnitude": [0, 0.0625, 0.125, 0.25, 0.375, 0.5],
+    "ramp_width_px": [0, 2, 4, 8, 12, 16],
+    "width_zero": "no-ramp step-edge control",
+    "pair": "local ramp/step response at each dark or bright endpoint minus spatially uniform response matched to the endpoint luminance"
+  },
+  "pixel_pitch_deg": 0.05390625,
+  "bootstrap": {"unit": "cell", "samples": 100000, "seed": 20260901, "confidence": 0.95},
+  "canonical_conditions": ["normal", "H1_off", "direct_BC_off", "AC_off"],
+  "training_performed": false,
+  "model_or_checkpoint_modified": false,
+  "White_Hermann": {
+    "expanded": false,
+    "existing_diagnostic": "output/real_data/schottdorf_canonical_v1_shared_bc_frozen_applications_20260830/illusion"
+  }
+}

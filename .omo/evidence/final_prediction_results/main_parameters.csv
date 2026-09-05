@@ -1,0 +1,5 @@
+model,fitted_scalars_per_cell,total_stored_parameter_scalars,fitted_scalars_all_22,counting_scope
+Constant,1,1,22,"one training-estimated probability; analytical fit, no optimizer"
+LN,128,128,2816,stored scalar coordinates; includes normalized temporal filters and bias/history
+CNN,2990,2990,65780,"requires-grad and optimizer-listed scalars, including convolution biases and LN output/history head"
+Canonical V1,33,129,726,"requires-grad and optimizer-listed scalars; 129 registered total parameters, excluding buffers"

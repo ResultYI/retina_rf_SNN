@@ -1,0 +1,32 @@
+{
+  "candidate0_path": ".omo/evidence/hierarchical-endpoint-and-v4-decision/teacher-preflight-results.json",
+  "candidate_teacher_usage": "development/reference",
+  "candidate_teacher_reference_index": 0,
+  "output_dir": ".omo/evidence/canonical-model-comparison-t2",
+  "run_dir": "runs/canonical_model_comparison_t2",
+  "data_seed": 19,
+  "bank_seeds": [31001, 31002, 31003],
+  "model_seeds": [19, 20, 21],
+  "trials": 2,
+  "steps": 400,
+  "checkpoints": [0, 50, 100, 200, 400],
+  "learning_rate": 0.03,
+  "batch_size": 8,
+  "monitor_interval_seconds": 300.0,
+  "stall_intervals": 2,
+  "candidate0_rf_sha256": "d21a877e80b70755325a0d909f6033c1dddb4f35dfb0bb28cbf16c16ad422921",
+  "bank_hashes": {
+    "31001": {
+      "train": "2f213dff34c9c6d16eee94cadfc08cc7754366eb10e2e8d86d997249a809d664",
+      "validation": "7b70b62162df7444f0d65ed93e603dc39ed9cd24c8597273c6e7142b9f54dcf1"
+    },
+    "31002": {
+      "train": "856aafebdddccf9d01ab6efc745145ac4e42d0eed34315ebebfcb902c4178e4b",
+      "validation": "6cc1d18d4ea85d9a6f15a88a6cc3780db7e65d820a167a47a5a808d3ac40a11a"
+    },
+    "31003": {
+      "train": "2ce2d0c88e887f93696969c749508821fa7f4325f523cb75c4303dbaa0d17a9f",
+      "validation": "6e37f12348798c3342a9f20b23c4443ada81c64d6039d7cd0e505f0e52f0e161"
+    }
+  }
+}

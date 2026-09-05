@@ -1,0 +1,32 @@
+{
+  "scope": "completed analysis artifacts only; no model or training changes; no commit requested",
+  "artifact_sha256": {
+    "replay.py": "807dae29a18247e9b2e921f3934fe67a4f1137f3c704aee0bc4d9f9f7ebaac42",
+    "compare.py": "5c0dac573e07011077e88817d53d9efbb03d56bb2f8839233dc8f733d44eb46b",
+    "replay-results.json": "9149e142f7fde1db62520543da85af5928c51aaf6c201f5b25738d37a36cf70d",
+    "comparison.json": "bfe9d3f66279ea677e13fc271be116d9c2d46d10c403a44a8d603bb90c19fbfc",
+    "RESULTS.md": "3ca08f2562093db5a09f85d931bf8de072f6598a5af61185d5fb5da4c62e2d22"
+  },
+  "qa_reassessment": {
+    "original_record": ".omo/evidence/schottdorf_r4_dev_circuit_replay_20260830/manualQa.json",
+    "original_overbroad_all_tensor_finite_verdict": "FAIL",
+    "corrected_verdict_under_original_probe_contract": "PASS",
+    "reason": "Only offset_ms metadata contains NaN sentinels for center_only and surround_only. The old experiment uses exactly the same NaN mask and values. These are not response NaNs and must remain unchanged.",
+    "independent_qa_agent": "replay_qa",
+    "cells": 22,
+    "temporal_rows": 462,
+    "clamp_rows": 66,
+    "nonfinite_response_rf_perturbation_tensors": 0,
+    "rf_decomposition_max_abs_error": 1.4901161193847656e-8,
+    "csv_json_and_tensor_metrics_match": true
+  },
+  "independent_context_review": "PASS",
+  "independent_safety_review": "PASS",
+  "independent_code_review": "CLEAR / APPROVE",
+  "independent_goal_review": "APPROVE after reviewing QA sentinel correction, scoped code review, and artifact hash snapshot",
+  "independent_code_review_report": ".omo/evidence/artifact-replay-wrapper-comparison-code-review.md",
+  "existing_temporal_contract_tests": "3 passed",
+  "source_checkpoint_hashes_rechecked_unchanged": 133,
+  "trained_checkpoint_hashes_rechecked_unchanged": 44,
+  "numerical_replay_boundary": "Old response artifacts differ in last float digits; strict check failures are retained in replay-results.json, not represented as passes. Source of the difference UNVERIFIED."
+}

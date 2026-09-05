@@ -1,0 +1,45 @@
+{
+  "fit": {
+    "parameters": [
+      0.06621694348592937,
+      1.9846951169847054,
+      3.202522677514512,
+      1.4814955741802267
+    ],
+    "initial_parameters": [
+      2.0,
+      -2.0,
+      1.0,
+      0.0
+    ],
+    "optimizer_success": true,
+    "optimizer_status": 0,
+    "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+    "iterations": 44,
+    "function_evaluations": 53,
+    "gradient": [
+      -0.00014801409632521855,
+      -2.31845477613853e-06,
+      -1.9375501218748598e-06,
+      -1.345132239259801e-06
+    ],
+    "train_nll": 0.3315644864245012,
+    "mean": [
+      0.08262450024301707,
+      0.5735225505713042
+    ],
+    "std": [
+      1.148778608057332,
+      0.444626437209588
+    ]
+  },
+  "validation_nll": 0.3041017286693641,
+  "cell_id": "67#21",
+  "ln_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_21\\ln-trained.pt",
+  "inherited_center_raw_parameters": 64,
+  "source_ln_parameters": 128,
+  "total_raw_parameter_count": 68,
+  "history": false,
+  "smoothing": null,
+  "validation_used_for_fitting_or_selection": false
+}

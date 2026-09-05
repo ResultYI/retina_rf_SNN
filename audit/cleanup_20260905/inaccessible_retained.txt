@@ -1,0 +1,5 @@
+.omo/evidence/ac-temporal-gate-final-pytest-tmp-20260827
+.omo/evidence/ac-temporal-incremental-qa
+.omo/evidence/ac-temporal-qa-review
+.omo/evidence/review-pytest-tmp
+.omo/evidence/rgc-response-evidence-closure

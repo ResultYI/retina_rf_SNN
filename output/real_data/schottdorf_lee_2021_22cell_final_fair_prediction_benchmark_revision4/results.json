@@ -1,0 +1,1616 @@
+{
+  "aggregate_parameter_counts": {
+    "constant": {
+      "optimizer_listed": 0,
+      "requires_grad": 0,
+      "total": 22
+    },
+    "glm": {
+      "optimizer_listed": 101838,
+      "requires_grad": 101838,
+      "total": 101838
+    },
+    "neural": {
+      "optimizer_listed": 3410,
+      "requires_grad": 3410,
+      "total": 3410
+    },
+    "retinal": {
+      "optimizer_listed": 1122,
+      "requires_grad": 1122,
+      "total": 3234
+    }
+  },
+  "cell_count": 22,
+  "cells": [
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "67#4",
+      "constant_nll": 0.5226954221725464,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 2.2070603370666504,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1999,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\67_4\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.5692358016967773,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.5407004952430725,
+      "neural_train_nll_trained": 0.41776102781295776,
+      "polarity": "OFF",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01071"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.4841122627258301,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\67_4\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "25dc7eb5972ddbeb6772b94b0278ac65f4547417c78cc97644163648e02494e1",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_4\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "eb7e12ce64f8b3c1697336a31ca412742bab1522a91ce8f1a59a939baf414558",
+      "train_sequences": 16,
+      "train_valid_bins": 1920,
+      "validation_sequences": 4,
+      "validation_valid_bins": 480,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "67#6",
+      "constant_nll": 0.5222243666648865,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.2285699844360352,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1992,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\67_6\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.4564923346042633,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.5524106621742249,
+      "neural_train_nll_trained": 0.4606592357158661,
+      "polarity": "OFF",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01078",
+        "lSS01079"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.46408164501190186,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\67_6\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "db27ccd94dfd98b91d9fe3739da19b68b1c443b5019de1e0cfb008debc4cb3e9",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_6\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "92c42f628914007c5a5ffedc6dd1d6122360334e292938f52b44176a6b98e3c2",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "neural"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "67#7",
+      "constant_nll": 0.529005765914917,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.5690174102783203,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 2000,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\67_7\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.45789098739624023,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.5466413497924805,
+      "neural_train_nll_trained": 0.4077238440513611,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01086",
+        "lSS01087"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.4680718779563904,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\67_7\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "7d77882f660472202345d6314e0c7808c5bf45a0b4c367d4202c71051f762110",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_7\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "6f2310d8f8345eafaab1442135ed20ff0b14b9ce5824c5d2c794efd33ba6aa6b",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "neural"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "67#14",
+      "constant_nll": 0.5105581283569336,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.0734498500823975,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1979,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\67_14\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.44870316982269287,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.5387075543403625,
+      "neural_train_nll_trained": 0.3915252089500427,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01110",
+        "lSS01112"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.38224947452545166,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\67_14\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "8cb192f6d305b6216949050ebf131efacdd5d1cd6079e856010ea77bbababa05",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_14\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "f247bb3ee61b4d40e935e8999a7c49880d5b6c9d2c31b1c82002363218756fc6",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "67#21",
+      "constant_nll": 0.37004104256629944,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 0.8667140603065491,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1998,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\67_21\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.3409535586833954,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.42611002922058105,
+      "neural_train_nll_trained": 0.3209662437438965,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01130",
+        "lSS01131"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.3243543207645416,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\67_21\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "2b13ddd3fc8a534c571a98da653cff8c3e7827af5fbf26defcd43f8bfa81b83b",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_21\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "2b6f0a0100564ffa5979eba51fa2d50dc5c36941826dbef0e68b9a56b8d3f7cd",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "67#26",
+      "constant_nll": 0.5894726514816284,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.1708706617355347,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 2000,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\67_26\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.5507038235664368,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.5981506109237671,
+      "neural_train_nll_trained": 0.5406297445297241,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01141",
+        "lSS01142"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.5387109518051147,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\67_26\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "8ac2881438265fb207b83f05f032a39447c839e2ce6818d539c6a35ac0368a43",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_26\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "b0be15f47a2e188944d18b4f22daad8e636d45de4eb65adcb40f0618139c7646",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "67#33",
+      "constant_nll": 0.4962886869907379,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.1858713626861572,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 2000,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\67_33\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.43401867151260376,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.523231565952301,
+      "neural_train_nll_trained": 0.3591081202030182,
+      "polarity": "OFF",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01159",
+        "lSS01160"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.42171624302864075,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\67_33\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "245f7a91a443e14e9573382fe02ba9d190fcd45bf04d5f5689173b6fc77dd4d2",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_33\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "97d27b24a0f83e962e80a2ffd7c6a0a9124779f25505e655ae2f089eb0906d0d",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "67#34",
+      "constant_nll": 0.48460838198661804,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.2119166851043701,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1996,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\67_34\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.4391458332538605,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.5030182003974915,
+      "neural_train_nll_trained": 0.3963800072669983,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01167",
+        "lSS01168"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.3927723467350006,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\67_34\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "5fff9c022c4bbe739853dcf117d4f5b7b51990e6f268edb62d9f6899ef932efd",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_34\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "cbf3d60438f792a168ac28ad97d87565bba42c1d9661a471f415905e2e46558e",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "68#3",
+      "constant_nll": 0.6051455736160278,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.3167972564697266,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1983,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\68_3\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.5224195122718811,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.6165453195571899,
+      "neural_train_nll_trained": 0.48434510827064514,
+      "polarity": "OFF",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01181",
+        "lSS01183"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.532558262348175,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\68_3\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "51fc459c30d8736e0ed31c209792ceac1506543bb82e898d21702e335264aef0",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\68_3\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "e131771d986e59e8ede50198c2603091ba7bd4a594bcbafc0215ca5b48783973",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "neural"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "68#4",
+      "constant_nll": 0.45858410000801086,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.1250605583190918,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 2000,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\68_4\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.4425748586654663,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.4436803460121155,
+      "neural_train_nll_trained": 0.3865092694759369,
+      "polarity": "ON",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01184"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.45166701078414917,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\68_4\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "4405438370f4fcc8f186826493dc932b6c805307db336279b16323ae2b736851",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\68_4\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "2e469e2d3fc2de7d58d81faa8e5dfc51d783b8bdc18d8640a28d5c99c640ac6a",
+      "train_sequences": 96,
+      "train_valid_bins": 11520,
+      "validation_sequences": 24,
+      "validation_valid_bins": 2880,
+      "winner": "neural"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "68#7",
+      "constant_nll": 0.4731142222881317,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.0098358392715454,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1995,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\68_7\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.3948290944099426,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.5485970377922058,
+      "neural_train_nll_trained": 0.4106312394142151,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01194",
+        "lSS01196"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.3927496671676636,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\68_7\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "f0d6248ba49a0d7744d6e9199ab26c1580492de008483de703d338e4926c0a1e",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\68_7\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "30866e70612720c8f53e75e86539128ec96a3cfde6eb1e923ff6951f8d197d18",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "68#10",
+      "constant_nll": 0.44951745867729187,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.478105068206787,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1993,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\68_10\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.5420603156089783,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.517475962638855,
+      "neural_train_nll_trained": 0.3360899090766907,
+      "polarity": "ON",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01221"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.4256708323955536,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\68_10\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "5b61a1ef85f869df42cd1d87f87af4640643f0c9ca32010dfc50ca4e2cb35d60",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\68_10\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "532408610406aa1e45e9a356f0ec3ca5b6d1545a100db2d29843b4cb906c271f",
+      "train_sequences": 16,
+      "train_valid_bins": 1920,
+      "validation_sequences": 4,
+      "validation_valid_bins": 480,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "68#11",
+      "constant_nll": 0.45921972393989563,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 0.8841984868049622,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1999,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\68_11\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.4163559377193451,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.41629675030708313,
+      "neural_train_nll_trained": 0.31733548641204834,
+      "polarity": "OFF",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01225",
+        "lSS01227"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.39242833852767944,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\68_11\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "078e42b9a0c8b59a69a756c99e60ec8ec5bd26d9990c554db49e034a1b35a558",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\68_11\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "a8d51accf6023648e236f78c6d0c4366a707b03afb643b9c9cdb7626345c0dba",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "69#3",
+      "constant_nll": 0.632579505443573,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.3131072521209717,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 2000,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\69_3\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.5967915058135986,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.6231296062469482,
+      "neural_train_nll_trained": 0.5436570048332214,
+      "polarity": "OFF",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01251",
+        "lSS01252"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.5675764679908752,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\69_3\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "71aa08f1fc95c2b20bdec956f232cc74e633bd4bb4cd3b9155e5de51496fb615",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\69_3\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "607375a34506a61e32a24de765cce90001a7255d450de4b0994d278dff7238f3",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "69#4",
+      "constant_nll": 0.5139977931976318,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.5493345260620117,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1985,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\69_4\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.43997034430503845,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.526749312877655,
+      "neural_train_nll_trained": 0.3639243543148041,
+      "polarity": "ON",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01254"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.4420666992664337,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\69_4\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "f8598ccab3f0ec3ce6ff5883e8f81654ca8fa8c2356fcabad38294b565c49e9e",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\69_4\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "96de6816d151e87333e55ed1630d691b0313cdd400936615a10720030a5a6fc6",
+      "train_sequences": 96,
+      "train_valid_bins": 11520,
+      "validation_sequences": 24,
+      "validation_valid_bins": 2880,
+      "winner": "neural"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "69#6",
+      "constant_nll": 0.5116271376609802,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.5206953287124634,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1994,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\69_6\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.5008649826049805,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.5323423743247986,
+      "neural_train_nll_trained": 0.4175519049167633,
+      "polarity": "OFF",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01256",
+        "lSS01257"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.45485395193099976,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\69_6\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "57cf08eb8b98bdb88553a8940d29c1d40a4eab382f38949b6838ca11d0d80380",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\69_6\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "61f7c561702fa56da2e7b0a3688fe8a9f7c096e9de0b9d8b5ac7b3670beb945c",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "69#7",
+      "constant_nll": 0.5219630002975464,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.7476801872253418,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1991,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\69_7\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.4588746428489685,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.5571714043617249,
+      "neural_train_nll_trained": 0.41990426182746887,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01258",
+        "lSS01259"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.4739486575126648,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\69_7\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "72f9f0e175c159e4d465ee9d035f638e5394827268589febe4e09b82a6d98312",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\69_7\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "4a55835ac6f9295891446706da08f016a3846060e01c026119572e9acdff4299",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "neural"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "69#21",
+      "constant_nll": 0.5310361385345459,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.1832343339920044,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1997,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\69_21\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.48796841502189636,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.5352841019630432,
+      "neural_train_nll_trained": 0.4578111469745636,
+      "polarity": "OFF",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01270"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.5180193185806274,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\69_21\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "9c3bee2cf3cbd10b536b9c59b54fc7f27c4f14fa55ee74664b204e4b0f5a440d",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\69_21\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "0a3747f99460e46105e79a3f0633c03082d0da324fab115df3d2dda4040655ce",
+      "train_sequences": 96,
+      "train_valid_bins": 11520,
+      "validation_sequences": 24,
+      "validation_valid_bins": 2880,
+      "winner": "neural"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "70#1",
+      "constant_nll": 0.5555933117866516,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.3841891288757324,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 2000,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\70_1\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.5456873774528503,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.5450843572616577,
+      "neural_train_nll_trained": 0.5061405897140503,
+      "polarity": "ON",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01278"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.562501847743988,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\70_1\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "ca5fc270757f57adcbab26628f326f7e2ff7f5c582ba39bdec893cd6d6f58d59",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\70_1\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "f9d86d6acd1f8a7941dbc2860c6fbd65b0a1d46c06103b19f36eeff0607a981c",
+      "train_sequences": 96,
+      "train_valid_bins": 11520,
+      "validation_sequences": 24,
+      "validation_valid_bins": 2880,
+      "winner": "neural"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "70#7",
+      "constant_nll": 0.5469987392425537,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.2878921031951904,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 2000,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\70_7\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.5136197805404663,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.5725181698799133,
+      "neural_train_nll_trained": 0.4914834797382355,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01284",
+        "lSS01285"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.4822358191013336,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\70_7\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "b53072c6e4fac5593db01dc3e4ffdc1a1254de2d4ef84188c6e8dc470f5f7ff6",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\70_7\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "8e612a90578e73b5fef5009e31ac0f5ef0201c4629635e084d19baa2cffa4ec2",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "70#15",
+      "constant_nll": 0.46590667963027954,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.16682767868042,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 2000,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\70_15\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.47572869062423706,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.47926631569862366,
+      "neural_train_nll_trained": 0.4142404794692993,
+      "polarity": "ON",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01287"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.4386668801307678,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\70_15\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "2d1f6ea619422c5fda15d23a29099d306b8dd183b55e352b8fafca90a3978861",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\70_15\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "b24854882e1d7fe363cf465035e0c0e3083a4ed91a23ca136521ae919f6b5e86",
+      "train_sequences": 96,
+      "train_valid_bins": 11520,
+      "validation_sequences": 24,
+      "validation_valid_bins": 2880,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "70#34",
+      "constant_nll": 0.46580201387405396,
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "glm_nll": 1.187114953994751,
+      "glm_nll_replay_error": 0.0,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "native_dt_ms": 6.666666666666667,
+      "neural_actually_updated": [
+        "readout",
+        "bias",
+        "history",
+        "input_projection.weight",
+        "input_projection.bias",
+        "blocks.0.depthwise.weight",
+        "blocks.0.depthwise.bias",
+        "blocks.0.pointwise.weight",
+        "blocks.0.pointwise.bias",
+        "blocks.1.depthwise.weight",
+        "blocks.1.depthwise.bias",
+        "blocks.1.pointwise.weight",
+        "blocks.1.pointwise.bias"
+      ],
+      "neural_best_step": 1953,
+      "neural_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_final_fair_prediction_benchmark_revision4\\cells\\70_34\\compact-neural-trained.pt",
+      "neural_gradients_finite": true,
+      "neural_nll": 0.39561036229133606,
+      "neural_parameters": {
+        "optimizer_listed": 155,
+        "requires_grad": 155,
+        "total": 155
+      },
+      "neural_stop_step": 2000,
+      "neural_train_nll_initial": 0.5012213587760925,
+      "neural_train_nll_trained": 0.3707246780395508,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01299",
+        "lSS01300"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.3991176187992096,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 51,
+        "requires_grad": 51,
+        "total": 147
+      },
+      "source_glm_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1\\cells\\70_34\\glm-trained.pt",
+      "source_glm_checkpoint_sha256": "8476996c1b237d87bc1288232272cbaa4939d8775da13763642fdff50b09a93d",
+      "source_retinal_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\70_34\\model-trained.pt",
+      "source_retinal_checkpoint_sha256": "c3e6dd25cbc6ce85c7e1dc07ce64066c07c0d6e1cdc94338a9fd193bb8ffc7fa",
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "neural"
+    }
+  ],
+  "dataset": "Schottdorf and Lee 2021, G-Node 10.12751/g-node.xage77",
+  "fairness_anomalies": [],
+  "fairness_checks": {
+    "constant_rate_estimated_from_training_only": true,
+    "future_information_used": false,
+    "glm_fit_uses_training_only": true,
+    "neural_fit_uses_training_only": true,
+    "retinal_checkpoint_modified_or_retrained": false,
+    "same_cells_split_valid_bins_target_and_stimulus": true,
+    "spike_history_strictly_past_same_cell_only": true,
+    "stimulus_current_or_past_only": true,
+    "validation_used_for_fit_or_selection": false
+  },
+  "feature_contract": {
+    "history": "strictly_past_same_cell_spike_events",
+    "history_lags": 4,
+    "stimulus": "current_and_past_l_plus_m_luminance",
+    "stimulus_features": 289,
+    "stimulus_lags": 16
+  },
+  "group_mean_validation_nll": {
+    "MC_OFF": {
+      "cell_count": 4,
+      "constant": 0.5338214412331581,
+      "glm": 1.3129834830760956,
+      "neural": 0.47844887524843216,
+      "retinal": 0.46830252557992935
+    },
+    "MC_ON": {
+      "cell_count": 5,
+      "constant": 0.49605720639228823,
+      "glm": 1.5062504291534424,
+      "neural": 0.4588813304901123,
+      "retinal": 0.44177513718605044
+    },
+    "PC_OFF": {
+      "cell_count": 4,
+      "constant": 0.5363826975226402,
+      "glm": 1.3969001024961472,
+      "neural": 0.5175879150629044,
+      "retinal": 0.49053409695625305
+    },
+    "PC_ON": {
+      "cell_count": 9,
+      "constant": 0.4949863619274563,
+      "glm": 1.1440840628412035,
+      "neural": 0.4613273541132609,
+      "retinal": 0.4406564798620012
+    }
+  },
+  "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+  "likelihood": "Bernoulli event per native 150 Hz stimulus frame",
+  "maximum_glm_replay_error": 0.0,
+  "maximum_retinal_replay_error": 0.0,
+  "mean_validation_nll_across_cells": {
+    "constant": 0.5098172656514428,
+    "glm": 1.303070138801228,
+    "neural": 0.474113636396148,
+    "retinal": 0.45500593158331787
+  },
+  "models": {
+    "constant": "per-cell training-segment event rate",
+    "glm": "fixed-L2 causal per-cell stimulus-history GLM",
+    "neural": "compact causal Graph-TCN, width chosen nearest frozen retinal total parameters",
+    "retinal": "frozen Canonical V1 revision 4 checkpoint replay"
+  },
+  "neural_finite_gradient_cells": 22,
+  "neural_training_contract": {
+    "learning_rate": 0.01,
+    "maximum_steps": 2000,
+    "optimizer": "AdamW",
+    "patience": 200,
+    "selection_metric": "training Bernoulli NLL only",
+    "validation_used_for_fit_or_selection": false,
+    "weight_decay": 0.0001
+  },
+  "pooled_validation_nll_weighted_by_valid_bins": {
+    "constant": 0.5120690773873433,
+    "glm": 1.2565924285972205,
+    "neural": 0.4668160117890713,
+    "retinal": 0.45400943895326046
+  },
+  "recording_count": 37,
+  "retinal_minus_baselines": {
+    "constant": -0.05481133406812494,
+    "glm": -0.8480642072179101,
+    "neural": -0.01910770481283014
+  },
+  "schema": "schottdorf_lee_2021_final_fair_prediction_benchmark_revision4_v1",
+  "source_glm_artifact": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_matched_prediction_baselines_v1",
+  "source_glm_results_sha256": "b93d746e6328876e43c183e58064904b3a0d4615c935c0245c08b19268612bc8",
+  "source_retinal_artifact": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829",
+  "source_retinal_results_sha256": "57612eef913970c67bc5e86468d676375784ab11b79f5186af036863382cd1be",
+  "split": "identical held-out contiguous temporal segments",
+  "winner_counts": {
+    "constant": 0,
+    "glm": 0,
+    "neural": 9,
+    "retinal": 13
+  }
+}

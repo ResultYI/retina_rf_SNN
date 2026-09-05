@@ -1,0 +1,925 @@
+{
+  "status": "FROZEN_INFERENCE_COMPLETE",
+  "cells": 22,
+  "models": [
+    "canonical",
+    "ln",
+    "cnn"
+  ],
+  "conditions": [
+    "normal",
+    "H1_off",
+    "direct_BC_off",
+    "AC_off"
+  ],
+  "training_performed": false,
+  "shared_zero_history": true,
+  "original_input_sha256": "60605a8c11eccbc7a0fd17f3c866d6a64a4c1a89e6bf1a39c1effb22f41513ab",
+  "original_response_sha256": "9f0b0c4b8612e6aca8e337acb1aad3372db9efef96f939489f90ec20b743bf82",
+  "checkpoint_sha256": {
+    "67#4": {
+      "canonical": "f9ab8103f00d42703c31f8a96d57b76b25893d97c94cb9f72f534741021829a7",
+      "ln": "340a5214b33a3135eabf234a076fda7744ee50f832f066713956e4eea0e4bb63",
+      "cnn": "cbb3770aecf321b6bab3a35f3e3adf331a99f46b8ae95d70c4844459c8214e6b"
+    },
+    "67#6": {
+      "canonical": "02f6b00debb45d64c91a7b1017068b18c7b9e852bc4dab6dd049e50e6e96ccef",
+      "ln": "8c001a97989696651f314c1970b024eee8f188526b79b7cb85b8d6728722a014",
+      "cnn": "e8df4841b641ce33378bfb86831c66f9385240040affea47e4b3fde631deec25"
+    },
+    "67#7": {
+      "canonical": "d9e78dbed900229fea46b440ea93695147b0cb0866d5f90b35b2f0d345147cdb",
+      "ln": "9574ed9c694567a308fa70ac2848ec34ad81732f921677f72c80234cf64ba02a",
+      "cnn": "544fded0e1e463d4090b93ca3315bd573ae506442e4aaa8922288cca2add2a50"
+    },
+    "67#14": {
+      "canonical": "16255822b90ab992e2afb655fa065546536653986348a31a20b63e0f4514f4e2",
+      "ln": "3ad6fb22061de698c814643cf91c2af1e54ebb4eefe9321370af2930d5988419",
+      "cnn": "a4e000dbe92d1700c640187a641edae2b665f50fabb7e878e21fc12b2677b82b"
+    },
+    "67#21": {
+      "canonical": "b0fe331387572fd14d020ca1ec294f14163f30b9cfcfad50f01d39497554fd0a",
+      "ln": "d06d5daaabe0a6de3fe44ad21d0902ab9103d461a0f8dc10e43103498fc54876",
+      "cnn": "495004d305cbf56e160895300cdd6db8ae92ed3e2565e2250a6f38c01371be11"
+    },
+    "67#26": {
+      "canonical": "fb3e3c5227acac5632338f334a25c45fc9e61c1400bfb2e7fe777c0bbe4fd873",
+      "ln": "3925fe635ee84d0b2dc72a20a1484ba296881b937f7143b557187d9f53b09869",
+      "cnn": "32f810a8a7ac3ef446da8d95fa67df8135391777113351df0a5765a117c670bc"
+    },
+    "67#33": {
+      "canonical": "a519568baef8aacf9e549956d1728260f26262d11971cd3e91b7e6cb23195955",
+      "ln": "2214095516353e591e483d020a0c7726a1c3fdba30199738479487fa1d2c06f4",
+      "cnn": "12c93ab57b0f5a5fcd7eaf71c25b9c8ec5c0652d47544b50eaaacc7c0311698d"
+    },
+    "67#34": {
+      "canonical": "4ec9c3f8bbe1557a0873c95039459b738f34d6fc3d6236d8cda992c922f9f06c",
+      "ln": "5d01db4758014227145034352a3aa21df71120e7ab26cef2b191147565447e8e",
+      "cnn": "20821fcb07b81dd4a0c8d3e7e26d8c8b363edc582e1e07bc61b21bd764b0c63e"
+    },
+    "68#3": {
+      "canonical": "d7cd8f67ebd8b7997492255457af8acbf7b236bcd597e7c14ba8ec0711c1a6de",
+      "ln": "547f727d8f54359e16ac42e49b721a17709d7393c10e484d3bb5af4dd5c21bdb",
+      "cnn": "6934c229e3ad72a71e3ee054e82e3c9f08ceb34b2730a2560e88d058722dbb38"
+    },
+    "68#4": {
+      "canonical": "0fc06f738cec84b855d2c0c7f7ca48907cd98ab11cd6d10be027ce8e5a4ff67f",
+      "ln": "bae348332843fa56c4a05a3c769790e73c45e04e7e06ed8bb37f0115bb4e4281",
+      "cnn": "0a55f7d89970c64670943a05c870c2ce420f4f81f02d1e9fa424931339eceedf"
+    },
+    "68#7": {
+      "canonical": "479abfdf9dc3766b317f96581db9628fa17cf81913eee9020db78cb69f7944d3",
+      "ln": "97d77bc59873a07af799eb5ea7473316aeae7ba97541de3b2585ae09a8e8b44d",
+      "cnn": "a94d0c680d48f737ad2404ab62ba43398d70aed2cec3cd9d04aa571938167ad9"
+    },
+    "68#10": {
+      "canonical": "c394ffbd7c303df2025e5dc4176007f088ab1e9b488ac5b2564aa56c57352bfd",
+      "ln": "521e5ea0af1296f890f0fb367dc6a054bf6f823ace15841cb8f8b46cdee7b83c",
+      "cnn": "0e721ed13dd9134f2d96303bc398ebc99600b2e23562c6ad95ff7ff713311ba1"
+    },
+    "68#11": {
+      "canonical": "ae5ea08ce4140e1561d9930e4d1c2bcff28d2d5c8618e04eadedef69e3ecf23f",
+      "ln": "f2c09690356c273980032537fad0e40d787b22c2df8956540fdd969274d9267e",
+      "cnn": "1f237381ac0471afa3df5d135a0a2725666506ec203eac85e2df437f0284ccbb"
+    },
+    "69#3": {
+      "canonical": "50b334692cbfb5ba8e8feaedac885c75a30860f5406b0414d831916754afae65",
+      "ln": "a18f14a6f06f044023fc6f049f5237c3e48173f9434706edce70a054ba1a5857",
+      "cnn": "d143eaab907bb3f61d48485664d7977cb53573c44e0fe109ecb5a0bf0a7540a2"
+    },
+    "69#4": {
+      "canonical": "b40878f31dca0434259a6bc6affe5c3793daf3adf7d541ce205c226a2e91473b",
+      "ln": "a57ba32aa6c5e2bb948479947a979b08888872f3e37ea67f64c276b9d6836bb8",
+      "cnn": "ec26cb7185e04848ff68981a3300d86cbae7bed7cadc15e0d1d4fbe270c4fc65"
+    },
+    "69#6": {
+      "canonical": "336e3d8e2de8282f9134fe057e1c91c021b6bf4f47c0eb25840f492f322fc21d",
+      "ln": "55c5d91f0647261d7ba6ede81ea482fe8b97aa14f0c941e1c99f94cf906af61a",
+      "cnn": "4a1cc69f96713f260a1ad7dff7e3f4c1c0ea3288f9c8c475117bb8c4cfd95004"
+    },
+    "69#7": {
+      "canonical": "e2c234c61343d1050b20793f5c09a5927e9ec62061a30949d339271843ced80e",
+      "ln": "5198fb2a42694de36b4df06547dfaec2ee2c5bff5d244c9d9ed6da62e26f1270",
+      "cnn": "b99a1661b4a9c7277d6b56d6a88d6b13fb21b61970c1feb2000ad5425cdbfc3e"
+    },
+    "69#21": {
+      "canonical": "3a8e2d91dc71b321de8ca03aa8da0ae1cbabdb7a1eed9778ba982022dba2f42d",
+      "ln": "09132054d57c37b5bd59a1be882fad02abf4d94c9d3c280561ff44ee2aaaa8be",
+      "cnn": "c5ba66dd02979b232af599ee1dec045dba5b35bd58f3db1de4c314810e7296fd"
+    },
+    "70#1": {
+      "canonical": "e4d15d07d2accb218dce44b5a0f5ab4f3dab7124dceb0082dcec886ce0236309",
+      "ln": "977615eae5f2cccdd5755e0326dbf5e6a2350fd491bf7703f21c66f71756ebfa",
+      "cnn": "dc7168f88a51eea509175b6621d423496dd2f46aa92f0c6a2c66637f214fc997"
+    },
+    "70#7": {
+      "canonical": "f58a9ed77ca1132cfab909b661449ece0fd185c57c2146ddecdf23d2dc1c49ce",
+      "ln": "c8db43261c52822ff864d3a8f1f9d2184538df2c17f193bb4e37fac6d2b76faf",
+      "cnn": "6dad277015fd5a35c791f3d06007e54279ae3c1d33a59d54aa9d3b6479c14d78"
+    },
+    "70#15": {
+      "canonical": "2f6178198ae6591cefaca37dedaaa707a60116f73ad966a72899dce0eb4d338a",
+      "ln": "385b580a8f97e5b1c039c7bc3b670bb8b6e20b4885675cb0334d46a5ea867308",
+      "cnn": "126ac94483b552168ede90ef314b539609a490e426fd4d4558dfb277ffbaf26d"
+    },
+    "70#34": {
+      "canonical": "ae01dfe02d83ca87cd19c6e3da9d3e76a2d3389b4773178b9d488b44b599ecfa",
+      "ln": "45f85e951ca4af71236b8526ffbe83c1bc1dbabe4bb47ae7f81f06e41c978447",
+      "cnn": "d70c9433702b9935927f9228d71b4e335fe21667fca2f3d48b9673f230a6046a"
+    }
+  },
+  "verification": [
+    {
+      "cell_id": "67#4",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.18170960247516632,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.1812949776649475,
+        "H1_off_amacrine_local_state_change_norm": 0.04016374424099922,
+        "H1_off_amacrine_transient_state_change_norm": 0.16991297900676727
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "67#6",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 2.769650459289551,
+        "H1_off_bc_broad_presynaptic_change_norm": 2.7618918418884277,
+        "H1_off_amacrine_local_state_change_norm": 0.5456953644752502,
+        "H1_off_amacrine_transient_state_change_norm": 2.583859443664551
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "67#7",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 1.4501885175704956,
+        "H1_off_bc_broad_presynaptic_change_norm": 1.4461302757263184,
+        "H1_off_amacrine_local_state_change_norm": 0.26600614190101624,
+        "H1_off_amacrine_transient_state_change_norm": 1.3599880933761597
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "67#14",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.4095096290111542,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.4084782302379608,
+        "H1_off_amacrine_local_state_change_norm": 0.13407959043979645,
+        "H1_off_amacrine_transient_state_change_norm": 0.3637404441833496
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "67#21",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.5234705209732056,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.5223155617713928,
+        "H1_off_amacrine_local_state_change_norm": 0.16943182051181793,
+        "H1_off_amacrine_transient_state_change_norm": 0.47059059143066406
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "67#26",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.5174523591995239,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.5162756443023682,
+        "H1_off_amacrine_local_state_change_norm": 0.16324114799499512,
+        "H1_off_amacrine_transient_state_change_norm": 0.46863383054733276
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "67#33",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 1.1659575700759888,
+        "H1_off_bc_broad_presynaptic_change_norm": 1.16287100315094,
+        "H1_off_amacrine_local_state_change_norm": 0.040961358696222305,
+        "H1_off_amacrine_transient_state_change_norm": 1.1099644899368286
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "67#34",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.2846999764442444,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.2840590476989746,
+        "H1_off_amacrine_local_state_change_norm": 0.07203752547502518,
+        "H1_off_amacrine_transient_state_change_norm": 0.2599197328090668
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "68#3",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.9877662658691406,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.9849725365638733,
+        "H1_off_amacrine_local_state_change_norm": 0.23511244356632233,
+        "H1_off_amacrine_transient_state_change_norm": 0.9141570329666138
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "68#4",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.3650663495063782,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.36411187052726746,
+        "H1_off_amacrine_local_state_change_norm": 0.2938140630722046,
+        "H1_off_amacrine_transient_state_change_norm": 0.18688978254795074
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "68#7",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.31603267788887024,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.31520089507102966,
+        "H1_off_amacrine_local_state_change_norm": 0.1278824359178543,
+        "H1_off_amacrine_transient_state_change_norm": 0.27394548058509827
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "68#10",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.35059526562690735,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.34959810972213745,
+        "H1_off_amacrine_local_state_change_norm": 0.12413468956947327,
+        "H1_off_amacrine_transient_state_change_norm": 0.31257879734039307
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "68#11",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.24451041221618652,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.24391056597232819,
+        "H1_off_amacrine_local_state_change_norm": 0.023565953597426414,
+        "H1_off_amacrine_transient_state_change_norm": 0.23210056126117706
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "69#3",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 4.477145195007324,
+        "H1_off_bc_broad_presynaptic_change_norm": 4.468188762664795,
+        "H1_off_amacrine_local_state_change_norm": 0.3006478548049927,
+        "H1_off_amacrine_transient_state_change_norm": 4.155642509460449
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "69#4",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.496120423078537,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.4947148263454437,
+        "H1_off_amacrine_local_state_change_norm": 0.11263523250818253,
+        "H1_off_amacrine_transient_state_change_norm": 0.46447980403900146
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "69#6",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 2.623840570449829,
+        "H1_off_bc_broad_presynaptic_change_norm": 2.616533041000366,
+        "H1_off_amacrine_local_state_change_norm": 0.6506932973861694,
+        "H1_off_amacrine_transient_state_change_norm": 2.414430618286133
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "69#7",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 1.6953691244125366,
+        "H1_off_bc_broad_presynaptic_change_norm": 1.6905897855758667,
+        "H1_off_amacrine_local_state_change_norm": 0.40357351303100586,
+        "H1_off_amacrine_transient_state_change_norm": 1.5714983940124512
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "69#21",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.27451643347740173,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.2739042639732361,
+        "H1_off_amacrine_local_state_change_norm": 0.08628468960523605,
+        "H1_off_amacrine_transient_state_change_norm": 0.2500447630882263
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "70#1",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.492160439491272,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.491046279668808,
+        "H1_off_amacrine_local_state_change_norm": 0.2417512983083725,
+        "H1_off_amacrine_transient_state_change_norm": 0.41167891025543213
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "70#7",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 1.0602465867996216,
+        "H1_off_bc_broad_presynaptic_change_norm": 1.0575611591339111,
+        "H1_off_amacrine_local_state_change_norm": 0.2301536649465561,
+        "H1_off_amacrine_transient_state_change_norm": 0.9882135391235352
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "70#15",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.3589614927768707,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.35798266530036926,
+        "H1_off_amacrine_local_state_change_norm": 0.19070260226726532,
+        "H1_off_amacrine_transient_state_change_norm": 0.28532522916793823
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    },
+    {
+      "cell_id": "70#34",
+      "canonical": {
+        "AC_input_equals_BC_broad": true,
+        "H1_clamp_exact_zero": true,
+        "direct_BC_clamp_exact_zero": true,
+        "AC_clamp_exact_zero": true,
+        "direct_BC_off_preserves_BC_broad_AC": true,
+        "AC_off_preserves_H1_BC_views": true,
+        "H1_off_propagates_downstream": true,
+        "all_outputs_finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "parameter_gradients_absent": true,
+        "normal_reentry_bitwise_equal": true,
+        "H1_off_bc_direct_presynaptic_change_norm": 0.8749938011169434,
+        "H1_off_bc_broad_presynaptic_change_norm": 0.8725184798240662,
+        "H1_off_amacrine_local_state_change_norm": 0.19700093567371368,
+        "H1_off_amacrine_transient_state_change_norm": 0.8140090107917786
+      },
+      "ln": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "cnn": {
+        "finite": true,
+        "state_unchanged": true,
+        "eval_mode_unchanged": true,
+        "gradients_absent": true,
+        "repeat_bitwise_equal": true
+      },
+      "original_grid_replay_max_abs_logit_error": 0.0
+    }
+  ]
+}

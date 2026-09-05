@@ -1,0 +1,34 @@
+[
+  {
+    "model": "sc_adapted",
+    "optimizer_success": true,
+    "optimizer_status": 0,
+    "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+    "iterations": 38,
+    "final_objective": 2.283508999053132,
+    "train_nll": 0.5169610650634174,
+    "validation_nll": 0.5136721483124735,
+    "train_nll_abs_error": 0.0,
+    "validation_nll_abs_error": 0.0,
+    "max_abs_gradient": 0.07965170874560717,
+    "all_endpoint_outputs_finite": true,
+    "saved_outputs_exact": true,
+    "retained_unchanged": true
+  },
+  {
+    "model": "matched_w0",
+    "optimizer_success": true,
+    "optimizer_status": 0,
+    "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+    "iterations": 263,
+    "final_objective": 2.296250855163218,
+    "train_nll": 0.519845679710562,
+    "validation_nll": 0.5127225681860214,
+    "train_nll_abs_error": 1.1102230246251565e-16,
+    "validation_nll_abs_error": 0.0,
+    "max_abs_gradient": 0.2064298850685266,
+    "all_endpoint_outputs_finite": true,
+    "saved_outputs_exact": true,
+    "retained_unchanged": true
+  }
+]

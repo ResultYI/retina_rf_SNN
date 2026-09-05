@@ -1,0 +1,31 @@
+{
+  "source_sha256": {
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\common.py": "8c7f40f42a6f3710c8367da23d5e7b44dc8f94104b0f9d67ded1d49039afd79e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\figures.py": "9a1610f9a7e7db08c1c6a76369fffe0ea75d8b04ac057ab2f2d2d3e556e368e6",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\illusion_replay.py": "4617877b84b280c461cd7d213a61a2f3f1173534c61239c2cae73acaf2ae4e29",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\report_results.py": "ebb19810599c69282e411a539a8ccee9d348128f89d94c204815bda05cf348d7",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\run.py": "9c83c1f44eeeb44fbaa6b89ac7b01b4cdb2be1b0548771b6b2415a666ee56a1d",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\temporal_replay.py": "e1782aa86bb2d386a5c5446b30e937b18324c5fade495676c0029dc267d91ec8",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\RESULTS.md": "fc1d41518c2d38bbb04612320904861deb105a13c54e4e0168742314b0027676",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\temporal\\group-summary.csv": "b272a4ed8483cffb1ea646dcef79d029fe6b71f95f1a392237f89aa5076df347",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\temporal\\group-vs-overlapping.csv": "3c368718f1ee19bcac52df186185786d839116e57347fd857a87bdff41975d00",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\temporal\\per-cell-vs-overlapping.csv": "e160fba9a3b343a3a5034b360ad0a60d8340b9d580dc8e86ff9974e4d86360e4",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\temporal\\per-cell.csv": "8a44832c24182a0059659b4660a63ac1fdf373fb995f8d33b19d2cf3e36dffca",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\temporal\\per-event-onset-offset.csv": "89a2396359ec6e080c8eb438c4d308148bd234391f8d8eeca1170649d2626dda",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\temporal\\per-event-vs-overlapping.csv": "d1a38120328b0dba1052388dfa6d93f2d810b57ea98bfd0f5f52af114c6b10a4",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\temporal\\stimulus-statistics.csv": "c715851c81ccce88fca3dadbf0d58964c2d38a18e87837f3520954333f1212d3",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\illusion\\group-comparisons.csv": "96b8f30ee974211ba0507fb4c2f121c4f9822e06949c6a6007ad8fb590280ef5",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\illusion\\group-metric-differences.csv": "2730981ee42efee481154c05ddbdb31a1208d9a1f611f9ede8f16408c8cd22b2",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\illusion\\group-responses.csv": "158af14c757d7bbec2ef7352b6f1a8d7e7e51e0541b96129583f17b04f31d993",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\illusion\\mach-boundary-differences.csv": "9e9e926a420c84735638aa2256c7fa01f106f576acf50dcd10861688adb97201",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\illusion\\mach-boundary-extrema.csv": "220b6d13cc35b8c155c1e7aafe2981a0926f198ebd1f6015bd03d3e0da3f3e75",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\illusion\\mach-boundary-group-differences.csv": "df87501fda43cd01ad51b026edabeef3497edafff277290117fe410e3a14672e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\illusion\\mach-boundary-group.csv": "22368a8d467eb5248122985e7acba4e055b799121a250cb941ec6558a18d139d",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\illusion\\per-cell-comparisons.csv": "fbd8cc27c41d4aafd885f3580fea27513aad2cae876997a41d7178c6605fd61f",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\illusion\\per-cell-metric-differences.csv": "cc18c7d252a9046a88677f6c8fb328d925ca8ef97fb9572152a30084bcb103a6",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_frozen_applications_20260830\\illusion\\per-cell-responses.csv": "9b7285352547c1ace4388cca404633bba73a32e1f8e7d0ae3b04510355136798"
+  },
+  "inference_rerun": false,
+  "training": false,
+  "new_metrics": false
+}

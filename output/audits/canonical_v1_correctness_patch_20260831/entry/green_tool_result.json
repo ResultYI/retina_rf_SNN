@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"exitCode\": 0,\n  \"stdout\": \"..........................................                               [100%]\\r\\n42 passed in 1.77s\\r\\n\",\n  \"stderr\": \"\",\n  \"timedOut\": false\n}"
+    }
+  ],
+  "isError": false
+}

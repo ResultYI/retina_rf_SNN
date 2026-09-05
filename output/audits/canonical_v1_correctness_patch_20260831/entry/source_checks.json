@@ -1,0 +1,38 @@
+[
+  {
+    "path": "models\\mechanistic_retina\\canonical_contract.py",
+    "sha256": "344e87ec2544ac49c12ef704a20fc428c7a5f308f1f9baacfcd425b62aee1ebb",
+    "ast_parse": true,
+    "pure_line_count": 17
+  },
+  {
+    "path": "models\\mechanistic_retina\\pathway_spatial_geometry.py",
+    "sha256": "dbd9c432668f6194cfc333778cfa178a2d2332230e9b4e11c571dc9e31ed9708",
+    "ast_parse": true,
+    "pure_line_count": 67
+  },
+  {
+    "path": "models\\mechanistic_retina\\support_partition.py",
+    "sha256": "e049de5e3ab44f5089936eaa94904ea2b27ef43d043169c4d6baddaafacc36b4",
+    "ast_parse": true,
+    "pure_line_count": 64
+  },
+  {
+    "path": "models\\mechanistic_retina\\spatial_contract.py",
+    "sha256": "718923e8112175a2469460fb41d23ce974437a88670db00ef75263daf41a1a11",
+    "ast_parse": true,
+    "pure_line_count": 79
+  },
+  {
+    "path": "evaluation\\mechanistic_retina\\karamanlis_v1_rf_validation.py",
+    "sha256": "b43dcd7f8f180eee0a59a294ff80a137e569043c1a5b1a18f390bb874b5da6a1",
+    "ast_parse": true,
+    "pure_line_count": 235
+  },
+  {
+    "path": "tests\\test_canonical_geometry_entry_correctness.py",
+    "sha256": "e5a377c772b7db4754ec81fae066c9357edb2401e2176b73513de15c53424920",
+    "ast_parse": true,
+    "pure_line_count": 169
+  }
+]

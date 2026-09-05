@@ -1,0 +1,3403 @@
+{
+  "cells": [
+    {
+      "cell_id": "456",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -637.4999999999999,
+          -209.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          315.0,
+          272.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.374999999999999,
+          -2.0999999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 2474,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -637.4999999999999,
+          -206.24999999999997
+        ],
+        "stimulus_screen_pixels": [
+          315.0,
+          272.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.374999999999999,
+          -2.0624999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 8.38525491562421,
+      "split_half_distance_visual_degrees": 0.08385254915624211,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -629.9999999999999,
+          -209.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          316.0,
+          272.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.299999999999999,
+          -2.0999999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "8123",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -629.9999999999999,
+          -258.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          316.0,
+          265.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.299999999999999,
+          -2.5874999999999995
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 8801,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -633.7499999999999,
+          -254.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          315.5,
+          266.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.337499999999999,
+          -2.55
+        ]
+      },
+      "split_half_distance_micrometers": 3.7499999999999996,
+      "split_half_distance_visual_degrees": 0.0375,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -629.9999999999999,
+          -254.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          316.0,
+          266.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.299999999999999,
+          -2.55
+        ]
+      }
+    },
+    {
+      "cell_id": "1717",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -629.9999999999999,
+          -247.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          316.0,
+          267.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.299999999999999,
+          -2.4749999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 10113,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -629.9999999999999,
+          -296.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          316.0,
+          260.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.299999999999999,
+          -2.9624999999999995
+        ]
+      },
+      "split_half_distance_micrometers": 48.74999999999999,
+      "split_half_distance_visual_degrees": 0.48749999999999993,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -584.9999999999999,
+          -277.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          322.0,
+          263.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.849999999999999,
+          -2.7749999999999995
+        ]
+      }
+    },
+    {
+      "cell_id": "4152",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -618.7499999999999,
+          311.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          317.5,
+          341.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.187499999999999,
+          3.1124999999999994
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 3415,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -626.2499999999999,
+          318.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          316.5,
+          342.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.262499999999999,
+          3.1874999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 10.606601717798211,
+      "split_half_distance_visual_degrees": 0.10606601717798211,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -618.7499999999999,
+          311.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          317.5,
+          341.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.187499999999999,
+          3.1124999999999994
+        ]
+      }
+    },
+    {
+      "cell_id": "8259",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -603.7499999999999,
+          281.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          319.5,
+          337.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.037499999999999,
+          2.8124999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 636,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -607.4999999999999,
+          277.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          319.0,
+          337.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.074999999999999,
+          2.7749999999999995
+        ]
+      },
+      "split_half_distance_micrometers": 11.858541225631422,
+      "split_half_distance_visual_degrees": 0.11858541225631422,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -603.7499999999999,
+          288.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          319.5,
+          338.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -6.037499999999999,
+          2.8874999999999993
+        ]
+      }
+    },
+    {
+      "cell_id": "8715",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -446.24999999999994,
+          401.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          340.5,
+          353.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.4624999999999995,
+          4.012499999999999
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 26052,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -438.74999999999994,
+          401.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          341.5,
+          353.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.387499999999999,
+          4.012499999999999
+        ]
+      },
+      "split_half_distance_micrometers": 11.858541225631422,
+      "split_half_distance_visual_degrees": 0.11858541225631422,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -449.99999999999994,
+          397.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          340.0,
+          353.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.499999999999999,
+          3.9749999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "4084",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -509.99999999999994,
+          374.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          332.0,
+          350.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.1,
+          3.7499999999999996
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 44926,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -513.7499999999999,
+          378.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          331.5,
+          350.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.137499999999999,
+          3.7874999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 8.38525491562421,
+      "split_half_distance_visual_degrees": 0.08385254915624211,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -509.99999999999994,
+          371.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          332.0,
+          349.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.1,
+          3.7124999999999995
+        ]
+      }
+    },
+    {
+      "cell_id": "8823",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -494.99999999999994,
+          329.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          334.0,
+          344.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.949999999999999,
+          3.2999999999999994
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 6307,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -494.99999999999994,
+          329.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          334.0,
+          344.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.949999999999999,
+          3.2999999999999994
+        ]
+      },
+      "split_half_distance_micrometers": 8.38525491562421,
+      "split_half_distance_visual_degrees": 0.08385254915624211,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -498.74999999999994,
+          337.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          333.5,
+          345.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.9875,
+          3.3749999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "9916",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -562.4999999999999,
+          318.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          325.0,
+          342.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.624999999999999,
+          3.1874999999999996
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 9114,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -566.2499999999999,
+          322.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          324.5,
+          343.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.662499999999999,
+          3.2249999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 5.303300858899106,
+      "split_half_distance_visual_degrees": 0.05303300858899106,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -562.4999999999999,
+          318.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          325.0,
+          342.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.624999999999999,
+          3.1874999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "1743",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -554.9999999999999,
+          -194.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          326.0,
+          274.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.549999999999999,
+          -1.9499999999999997
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 7977,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -558.7499999999999,
+          -187.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          325.5,
+          275.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.587499999999999,
+          -1.8749999999999998
+        ]
+      },
+      "split_half_distance_micrometers": 13.520817282989958,
+      "split_half_distance_visual_degrees": 0.13520817282989958,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -551.2499999999999,
+          -198.74999999999997
+        ],
+        "stimulus_screen_pixels": [
+          326.5,
+          273.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.512499999999999,
+          -1.9874999999999998
+        ]
+      }
+    },
+    {
+      "cell_id": "396",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -487.49999999999994,
+          -224.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          335.0,
+          270.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.874999999999999,
+          -2.2499999999999996
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 15159,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -464.99999999999994,
+          -224.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          338.0,
+          270.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.6499999999999995,
+          -2.2499999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 52.63375817856824,
+      "split_half_distance_visual_degrees": 0.5263375817856825,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -517.4999999999999,
+          -228.74999999999997
+        ],
+        "stimulus_screen_pixels": [
+          331.0,
+          269.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.174999999999999,
+          -2.2874999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "118",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -461.24999999999994,
+          479.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          338.5,
+          364.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.6125,
+          4.8
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 2791,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -457.49999999999994,
+          479.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          339.0,
+          364.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.574999999999999,
+          4.8
+        ]
+      },
+      "split_half_distance_micrometers": 5.303300858899106,
+      "split_half_distance_visual_degrees": 0.05303300858899106,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -453.74999999999994,
+          476.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          339.5,
+          363.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.5375,
+          4.762499999999999
+        ]
+      }
+    },
+    {
+      "cell_id": "298",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -431.24999999999994,
+          472.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          342.5,
+          363.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.312499999999999,
+          4.725
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 333,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -434.99999999999994,
+          476.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          342.0,
+          363.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.35,
+          4.762499999999999
+        ]
+      },
+      "split_half_distance_micrometers": 3.7499999999999996,
+      "split_half_distance_visual_degrees": 0.0375,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -434.99999999999994,
+          472.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          342.0,
+          363.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.35,
+          4.725
+        ]
+      }
+    },
+    {
+      "cell_id": "1806",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -472.49999999999994,
+          311.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          337.0,
+          341.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.725,
+          3.1124999999999994
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 55221,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -472.49999999999994,
+          307.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          337.0,
+          341.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.725,
+          3.0749999999999993
+        ]
+      },
+      "split_half_distance_micrometers": 5.303300858899106,
+      "split_half_distance_visual_degrees": 0.05303300858899106,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -476.24999999999994,
+          311.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          336.5,
+          341.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.762499999999999,
+          3.1124999999999994
+        ]
+      }
+    },
+    {
+      "cell_id": "1821",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -446.24999999999994,
+          187.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          340.5,
+          325.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.4624999999999995,
+          1.8749999999999998
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 25648,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -446.24999999999994,
+          183.74999999999997
+        ],
+        "stimulus_screen_pixels": [
+          340.5,
+          324.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.4624999999999995,
+          1.8374999999999997
+        ]
+      },
+      "split_half_distance_micrometers": 5.303300858899106,
+      "split_half_distance_visual_degrees": 0.05303300858899106,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -449.99999999999994,
+          187.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          340.0,
+          325.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.499999999999999,
+          1.8749999999999998
+        ]
+      }
+    },
+    {
+      "cell_id": "98",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -502.49999999999994,
+          -3.7499999999999996
+        ],
+        "stimulus_screen_pixels": [
+          333.0,
+          299.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.0249999999999995,
+          -0.0375
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 694,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -498.74999999999994,
+          -3.7499999999999996
+        ],
+        "stimulus_screen_pixels": [
+          333.5,
+          299.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.9875,
+          -0.0375
+        ]
+      },
+      "split_half_distance_micrometers": 3.7499999999999996,
+      "split_half_distance_visual_degrees": 0.0375,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -498.74999999999994,
+          0.0
+        ],
+        "stimulus_screen_pixels": [
+          333.5,
+          300.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.9875,
+          0.0
+        ]
+      }
+    },
+    {
+      "cell_id": "67",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -513.7499999999999,
+          -67.49999999999999
+        ],
+        "stimulus_screen_pixels": [
+          331.5,
+          291.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.137499999999999,
+          -0.6749999999999998
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [
+        "split-half center distance exceeds 75 micrometers"
+      ],
+      "reliable_for_locality": false,
+      "spike_count_full": 5429,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -494.99999999999994,
+          -104.99999999999999
+        ],
+        "stimulus_screen_pixels": [
+          334.0,
+          286.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.949999999999999,
+          -1.0499999999999998
+        ]
+      },
+      "split_half_distance_micrometers": 1410.4985820623851,
+      "split_half_distance_visual_degrees": 14.10498582062385,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -532.4999999999999,
+          1304.9999999999998
+        ],
+        "stimulus_screen_pixels": [
+          329.0,
+          474.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -5.324999999999999,
+          13.049999999999997
+        ]
+      }
+    },
+    {
+      "cell_id": "21059",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -449.99999999999994,
+          -322.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          340.0,
+          257.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.499999999999999,
+          -3.2249999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 2221,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -446.24999999999994,
+          -318.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          340.5,
+          257.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.4624999999999995,
+          -3.1874999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 11.858541225631422,
+      "split_half_distance_visual_degrees": 0.11858541225631422,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -457.49999999999994,
+          -322.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          339.0,
+          257.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.574999999999999,
+          -3.2249999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "3176",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -401.24999999999994,
+          -337.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          346.5,
+          255.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.012499999999999,
+          -3.3749999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 19852,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -404.99999999999994,
+          -337.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          346.0,
+          255.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.05,
+          -3.3749999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 3.7499999999999996,
+      "split_half_distance_visual_degrees": 0.0375,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -401.24999999999994,
+          -337.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          346.5,
+          255.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.012499999999999,
+          -3.3749999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "11185",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -393.74999999999994,
+          359.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          347.5,
+          348.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.9374999999999996,
+          3.5999999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 825,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -393.74999999999994,
+          356.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          347.5,
+          347.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.9374999999999996,
+          3.5624999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 5.303300858899106,
+      "split_half_distance_visual_degrees": 0.05303300858899106,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -389.99999999999994,
+          359.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          348.0,
+          348.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.8999999999999995,
+          3.5999999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "116",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -389.99999999999994,
+          183.74999999999997
+        ],
+        "stimulus_screen_pixels": [
+          348.0,
+          324.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.8999999999999995,
+          1.8374999999999997
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 5544,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -397.49999999999994,
+          243.74999999999997
+        ],
+        "stimulus_screen_pixels": [
+          347.0,
+          332.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.9749999999999996,
+          2.4374999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 72.42452968435487,
+      "split_half_distance_visual_degrees": 0.7242452968435487,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -464.99999999999994,
+          217.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          338.0,
+          329.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.6499999999999995,
+          2.175
+        ]
+      }
+    },
+    {
+      "cell_id": "1842",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -371.24999999999994,
+          153.74999999999997
+        ],
+        "stimulus_screen_pixels": [
+          350.5,
+          320.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.7124999999999995,
+          1.5374999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 7229,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -371.24999999999994,
+          153.74999999999997
+        ],
+        "stimulus_screen_pixels": [
+          350.5,
+          320.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.7124999999999995,
+          1.5374999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 5.303300858899106,
+      "split_half_distance_visual_degrees": 0.05303300858899106,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -374.99999999999994,
+          157.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          350.0,
+          321.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.7499999999999996,
+          1.5749999999999997
+        ]
+      }
+    },
+    {
+      "cell_id": "12291",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -412.49999999999994,
+          -112.49999999999999
+        ],
+        "stimulus_screen_pixels": [
+          345.0,
+          285.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.124999999999999,
+          -1.1249999999999998
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 9078,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -416.24999999999994,
+          -112.49999999999999
+        ],
+        "stimulus_screen_pixels": [
+          344.5,
+          285.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.1625,
+          -1.1249999999999998
+        ]
+      },
+      "split_half_distance_micrometers": 3.7499999999999996,
+      "split_half_distance_visual_degrees": 0.0375,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -419.99999999999994,
+          -112.49999999999999
+        ],
+        "stimulus_screen_pixels": [
+          344.0,
+          285.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.199999999999999,
+          -1.1249999999999998
+        ]
+      }
+    },
+    {
+      "cell_id": "12204",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -408.74999999999994,
+          -224.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          345.5,
+          270.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.0874999999999995,
+          -2.2499999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 25739,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -408.74999999999994,
+          -224.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          345.5,
+          270.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.0874999999999995,
+          -2.2499999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 0.0,
+      "split_half_distance_visual_degrees": 0.0,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -408.74999999999994,
+          -224.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          345.5,
+          270.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -4.0874999999999995,
+          -2.2499999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "3181",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -344.99999999999994,
+          397.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          354.0,
+          353.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.4499999999999993,
+          3.9749999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 5898,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -348.74999999999994,
+          401.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          353.5,
+          353.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.4874999999999994,
+          4.012499999999999
+        ]
+      },
+      "split_half_distance_micrometers": 8.38525491562421,
+      "split_half_distance_visual_degrees": 0.08385254915624211,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -341.24999999999994,
+          397.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          354.5,
+          353.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.4124999999999996,
+          3.9749999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "14218",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -356.24999999999994,
+          284.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          352.5,
+          338.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.5624999999999996,
+          2.8499999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 5779,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -344.99999999999994,
+          277.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          354.0,
+          337.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.4499999999999993,
+          2.7749999999999995
+        ]
+      },
+      "split_half_distance_micrometers": 8.38525491562421,
+      "split_half_distance_visual_degrees": 0.08385254915624211,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -352.49999999999994,
+          273.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          353.0,
+          336.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.5249999999999995,
+          2.7374999999999994
+        ]
+      }
+    },
+    {
+      "cell_id": "23",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -359.99999999999994,
+          52.49999999999999
+        ],
+        "stimulus_screen_pixels": [
+          352.0,
+          307.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.5999999999999996,
+          0.5249999999999999
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 18718,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -359.99999999999994,
+          56.24999999999999
+        ],
+        "stimulus_screen_pixels": [
+          352.0,
+          307.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.5999999999999996,
+          0.5624999999999999
+        ]
+      },
+      "split_half_distance_micrometers": 3.7499999999999996,
+      "split_half_distance_visual_degrees": 0.0375,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -356.24999999999994,
+          56.24999999999999
+        ],
+        "stimulus_screen_pixels": [
+          352.5,
+          307.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.5624999999999996,
+          0.5624999999999999
+        ]
+      }
+    },
+    {
+      "cell_id": "101",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -337.49999999999994,
+          -29.999999999999996
+        ],
+        "stimulus_screen_pixels": [
+          355.0,
+          296.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.3749999999999996,
+          -0.3
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 13265,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -344.99999999999994,
+          -3.7499999999999996
+        ],
+        "stimulus_screen_pixels": [
+          354.0,
+          299.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.4499999999999993,
+          -0.0375
+        ]
+      },
+      "split_half_distance_micrometers": 53.69182898728632,
+      "split_half_distance_visual_degrees": 0.5369182898728632,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -322.49999999999994,
+          -52.49999999999999
+        ],
+        "stimulus_screen_pixels": [
+          357.0,
+          293.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.2249999999999996,
+          -0.5249999999999999
+        ]
+      }
+    },
+    {
+      "cell_id": "3270",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -374.99999999999994,
+          -29.999999999999996
+        ],
+        "stimulus_screen_pixels": [
+          350.0,
+          296.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.7499999999999996,
+          -0.3
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 1756,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -378.74999999999994,
+          -33.74999999999999
+        ],
+        "stimulus_screen_pixels": [
+          349.5,
+          295.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.7874999999999996,
+          -0.3374999999999999
+        ]
+      },
+      "split_half_distance_micrometers": 5.303300858899106,
+      "split_half_distance_visual_degrees": 0.05303300858899106,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -374.99999999999994,
+          -29.999999999999996
+        ],
+        "stimulus_screen_pixels": [
+          350.0,
+          296.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.7499999999999996,
+          -0.3
+        ]
+      }
+    },
+    {
+      "cell_id": "3945",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -296.24999999999994,
+          494.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          360.5,
+          366.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.9624999999999995,
+          4.949999999999999
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 21758,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -296.24999999999994,
+          494.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          360.5,
+          366.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.9624999999999995,
+          4.949999999999999
+        ]
+      },
+      "split_half_distance_micrometers": 3.7499999999999996,
+      "split_half_distance_visual_degrees": 0.0375,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -299.99999999999994,
+          494.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          360.0,
+          366.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.9999999999999996,
+          4.949999999999999
+        ]
+      }
+    },
+    {
+      "cell_id": "3310",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -236.24999999999997,
+          266.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          368.5,
+          335.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.3625,
+          2.6624999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 7517,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -232.49999999999997,
+          269.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          369.0,
+          336.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.3249999999999997,
+          2.6999999999999993
+        ]
+      },
+      "split_half_distance_micrometers": 13.520817282989958,
+      "split_half_distance_visual_degrees": 0.13520817282989958,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -243.74999999999997,
+          262.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          367.5,
+          335.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.4374999999999996,
+          2.6249999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "1587",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -288.74999999999994,
+          236.24999999999997
+        ],
+        "stimulus_screen_pixels": [
+          361.5,
+          331.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.8874999999999993,
+          2.3625
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 1580,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -292.49999999999994,
+          236.24999999999997
+        ],
+        "stimulus_screen_pixels": [
+          361.0,
+          331.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.9249999999999994,
+          2.3625
+        ]
+      },
+      "split_half_distance_micrometers": 5.303300858899106,
+      "split_half_distance_visual_degrees": 0.05303300858899106,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -288.74999999999994,
+          232.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          361.5,
+          331.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.8874999999999993,
+          2.3249999999999997
+        ]
+      }
+    },
+    {
+      "cell_id": "143",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -284.99999999999994,
+          -22.499999999999996
+        ],
+        "stimulus_screen_pixels": [
+          362.0,
+          297.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.8499999999999996,
+          -0.22499999999999998
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 2757,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -284.99999999999994,
+          -18.749999999999996
+        ],
+        "stimulus_screen_pixels": [
+          362.0,
+          297.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.8499999999999996,
+          -0.18749999999999997
+        ]
+      },
+      "split_half_distance_micrometers": 3.7499999999999996,
+      "split_half_distance_visual_degrees": 0.0375,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -281.24999999999994,
+          -18.749999999999996
+        ],
+        "stimulus_screen_pixels": [
+          362.5,
+          297.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.8124999999999996,
+          -0.18749999999999997
+        ]
+      }
+    },
+    {
+      "cell_id": "8",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -326.24999999999994,
+          -67.49999999999999
+        ],
+        "stimulus_screen_pixels": [
+          356.5,
+          291.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.2624999999999993,
+          -0.6749999999999998
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 17325,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -326.24999999999994,
+          -67.49999999999999
+        ],
+        "stimulus_screen_pixels": [
+          356.5,
+          291.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.2624999999999993,
+          -0.6749999999999998
+        ]
+      },
+      "split_half_distance_micrometers": 5.303300858899106,
+      "split_half_distance_visual_degrees": 0.05303300858899106,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -322.49999999999994,
+          -63.74999999999999
+        ],
+        "stimulus_screen_pixels": [
+          357.0,
+          291.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -3.2249999999999996,
+          -0.6375
+        ]
+      }
+    },
+    {
+      "cell_id": "464",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -247.49999999999997,
+          412.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          367.0,
+          355.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.4749999999999996,
+          4.124999999999999
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 14282,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -258.74999999999994,
+          423.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          365.5,
+          356.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.5874999999999995,
+          4.2375
+        ]
+      },
+      "split_half_distance_micrometers": 32.04001404494073,
+      "split_half_distance_visual_degrees": 0.32040014044940734,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -228.74999999999997,
+          412.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          369.5,
+          355.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.2874999999999996,
+          4.124999999999999
+        ]
+      }
+    },
+    {
+      "cell_id": "3367",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -187.49999999999997,
+          292.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          375.0,
+          339.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.8749999999999998,
+          2.9249999999999994
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [
+        "split-half center distance exceeds 75 micrometers"
+      ],
+      "reliable_for_locality": false,
+      "spike_count_full": 9662,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -262.49999999999994,
+          314.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          365.0,
+          342.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.6249999999999996,
+          3.1499999999999995
+        ]
+      },
+      "split_half_distance_micrometers": 120.0585794518659,
+      "split_half_distance_visual_degrees": 1.2005857945186589,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -146.24999999999997,
+          284.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          380.5,
+          338.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.4624999999999997,
+          2.8499999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "3388",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -217.49999999999997,
+          393.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          371.0,
+          352.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.175,
+          3.9374999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 7782,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -213.74999999999997,
+          397.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          371.5,
+          353.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.1374999999999997,
+          3.9749999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 3.7499999999999996,
+      "split_half_distance_visual_degrees": 0.0375,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -217.49999999999997,
+          397.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          371.0,
+          353.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.175,
+          3.9749999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "11493",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -213.74999999999997,
+          112.49999999999999
+        ],
+        "stimulus_screen_pixels": [
+          371.5,
+          315.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.1374999999999997,
+          1.1249999999999998
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 11843,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -232.49999999999997,
+          112.49999999999999
+        ],
+        "stimulus_screen_pixels": [
+          369.0,
+          315.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.3249999999999997,
+          1.1249999999999998
+        ]
+      },
+      "split_half_distance_micrometers": 27.30041208480194,
+      "split_half_distance_visual_degrees": 0.2730041208480194,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -206.24999999999997,
+          119.99999999999999
+        ],
+        "stimulus_screen_pixels": [
+          372.5,
+          316.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.0624999999999996,
+          1.2
+        ]
+      }
+    },
+    {
+      "cell_id": "102",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -247.49999999999997,
+          119.99999999999999
+        ],
+        "stimulus_screen_pixels": [
+          367.0,
+          316.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.4749999999999996,
+          1.2
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 16806,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -247.49999999999997,
+          119.99999999999999
+        ],
+        "stimulus_screen_pixels": [
+          367.0,
+          316.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.4749999999999996,
+          1.2
+        ]
+      },
+      "split_half_distance_micrometers": 0.0,
+      "split_half_distance_visual_degrees": 0.0,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -247.49999999999997,
+          119.99999999999999
+        ],
+        "stimulus_screen_pixels": [
+          367.0,
+          316.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.4749999999999996,
+          1.2
+        ]
+      }
+    },
+    {
+      "cell_id": "228",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -224.99999999999997,
+          -22.499999999999996
+        ],
+        "stimulus_screen_pixels": [
+          370.0,
+          297.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.2499999999999996,
+          -0.22499999999999998
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 11917,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -224.99999999999997,
+          -26.249999999999996
+        ],
+        "stimulus_screen_pixels": [
+          370.0,
+          296.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.2499999999999996,
+          -0.26249999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 3.7499999999999996,
+      "split_half_distance_visual_degrees": 0.0375,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -224.99999999999997,
+          -22.499999999999996
+        ],
+        "stimulus_screen_pixels": [
+          370.0,
+          297.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.2499999999999996,
+          -0.22499999999999998
+        ]
+      }
+    },
+    {
+      "cell_id": "11576",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -157.49999999999997,
+          -29.999999999999996
+        ],
+        "stimulus_screen_pixels": [
+          379.0,
+          296.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.5749999999999997,
+          -0.3
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 13502,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -146.24999999999997,
+          -37.49999999999999
+        ],
+        "stimulus_screen_pixels": [
+          380.5,
+          295.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.4624999999999997,
+          -0.37499999999999994
+        ]
+      },
+      "split_half_distance_micrometers": 34.573291714848324,
+      "split_half_distance_visual_degrees": 0.34573291714848325,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -112.49999999999999,
+          -29.999999999999996
+        ],
+        "stimulus_screen_pixels": [
+          385.0,
+          296.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.1249999999999998,
+          -0.3
+        ]
+      }
+    },
+    {
+      "cell_id": "11651",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -179.99999999999997,
+          -123.74999999999999
+        ],
+        "stimulus_screen_pixels": [
+          376.0,
+          283.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.7999999999999998,
+          -1.2374999999999998
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 12723,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -194.99999999999997,
+          -131.24999999999997
+        ],
+        "stimulus_screen_pixels": [
+          374.0,
+          282.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.9499999999999997,
+          -1.3124999999999998
+        ]
+      },
+      "split_half_distance_micrometers": 29.28843628464995,
+      "split_half_distance_visual_degrees": 0.2928843628464995,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -172.49999999999997,
+          -149.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          377.0,
+          280.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.7249999999999996,
+          -1.4999999999999998
+        ]
+      }
+    },
+    {
+      "cell_id": "3924",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -247.49999999999997,
+          -389.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          367.0,
+          248.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.4749999999999996,
+          -3.8999999999999995
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 14428,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -254.99999999999997,
+          -378.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          366.0,
+          249.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.55,
+          -3.7874999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 13.520817282989958,
+      "split_half_distance_visual_degrees": 0.13520817282989958,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -247.49999999999997,
+          -389.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          367.0,
+          248.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.4749999999999996,
+          -3.8999999999999995
+        ]
+      }
+    },
+    {
+      "cell_id": "3908",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -194.99999999999997,
+          532.4999999999999
+        ],
+        "stimulus_screen_pixels": [
+          374.0,
+          371.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.9499999999999997,
+          5.324999999999999
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [
+        "split-half center distance exceeds 75 micrometers"
+      ],
+      "reliable_for_locality": false,
+      "spike_count_full": 12316,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          1214.9999999999998,
+          -502.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          562.0,
+          233.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          12.149999999999999,
+          -5.0249999999999995
+        ]
+      },
+      "split_half_distance_micrometers": 1770.0635581808917,
+      "split_half_distance_visual_degrees": 17.700635581808918,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -209.99999999999997,
+          547.4999999999999
+        ],
+        "stimulus_screen_pixels": [
+          372.0,
+          373.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.0999999999999996,
+          5.474999999999999
+        ]
+      }
+    },
+    {
+      "cell_id": "5489",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -202.49999999999997,
+          -119.99999999999999
+        ],
+        "stimulus_screen_pixels": [
+          373.0,
+          284.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.025,
+          -1.2
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 20062,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -202.49999999999997,
+          -119.99999999999999
+        ],
+        "stimulus_screen_pixels": [
+          373.0,
+          284.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.025,
+          -1.2
+        ]
+      },
+      "split_half_distance_micrometers": 5.303300858899106,
+      "split_half_distance_visual_degrees": 0.05303300858899106,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -198.74999999999997,
+          -116.24999999999999
+        ],
+        "stimulus_screen_pixels": [
+          373.5,
+          284.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.9874999999999998,
+          -1.1624999999999999
+        ]
+      }
+    },
+    {
+      "cell_id": "11882",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -108.74999999999999,
+          -176.24999999999997
+        ],
+        "stimulus_screen_pixels": [
+          385.5,
+          276.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.0875,
+          -1.7624999999999997
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 16099,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -108.74999999999999,
+          -172.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          385.5,
+          277.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.0875,
+          -1.7249999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 3.7499999999999996,
+      "split_half_distance_visual_degrees": 0.0375,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -112.49999999999999,
+          -172.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          385.0,
+          277.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.1249999999999998,
+          -1.7249999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "3535",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -206.24999999999997,
+          -236.24999999999997
+        ],
+        "stimulus_screen_pixels": [
+          372.5,
+          268.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.0624999999999996,
+          -2.3625
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 12457,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -209.99999999999997,
+          -239.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          372.0,
+          268.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.0999999999999996,
+          -2.4
+        ]
+      },
+      "split_half_distance_micrometers": 10.606601717798211,
+      "split_half_distance_visual_degrees": 0.10606601717798211,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -202.49999999999997,
+          -232.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          373.0,
+          269.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.025,
+          -2.3249999999999997
+        ]
+      }
+    },
+    {
+      "cell_id": "15776",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -116.24999999999999,
+          509.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          384.5,
+          368.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.1624999999999999,
+          5.1
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 3323,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -112.49999999999999,
+          509.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          385.0,
+          368.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.1249999999999998,
+          5.1
+        ]
+      },
+      "split_half_distance_micrometers": 7.499999999999999,
+      "split_half_distance_visual_degrees": 0.075,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -112.49999999999999,
+          517.4999999999999
+        ],
+        "stimulus_screen_pixels": [
+          385.0,
+          369.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.1249999999999998,
+          5.174999999999999
+        ]
+      }
+    },
+    {
+      "cell_id": "11895",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -146.24999999999997,
+          161.24999999999997
+        ],
+        "stimulus_screen_pixels": [
+          380.5,
+          321.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.4624999999999997,
+          1.6124999999999998
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 33361,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -149.99999999999997,
+          168.74999999999997
+        ],
+        "stimulus_screen_pixels": [
+          380.0,
+          322.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.4999999999999998,
+          1.6874999999999998
+        ]
+      },
+      "split_half_distance_micrometers": 15.909902576697316,
+      "split_half_distance_visual_degrees": 0.15909902576697316,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -138.74999999999997,
+          157.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          381.5,
+          321.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.3874999999999997,
+          1.5749999999999997
+        ]
+      }
+    },
+    {
+      "cell_id": "19249",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -149.99999999999997,
+          -119.99999999999999
+        ],
+        "stimulus_screen_pixels": [
+          380.0,
+          284.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.4999999999999998,
+          -1.2
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [
+        "split-half center distance exceeds 75 micrometers"
+      ],
+      "reliable_for_locality": false,
+      "spike_count_full": 15976,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -1927.4999999999998,
+          -2073.7499999999995
+        ],
+        "stimulus_screen_pixels": [
+          143.0,
+          23.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -19.275,
+          -20.737499999999997
+        ]
+      },
+      "split_half_distance_micrometers": 859.200209497181,
+      "split_half_distance_visual_degrees": 8.59200209497181,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -1312.4999999999998,
+          -1473.7499999999998
+        ],
+        "stimulus_screen_pixels": [
+          225.0,
+          103.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -13.124999999999998,
+          -14.737499999999997
+        ]
+      }
+    },
+    {
+      "cell_id": "11943",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -93.74999999999999,
+          -236.24999999999997
+        ],
+        "stimulus_screen_pixels": [
+          387.5,
+          268.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.9374999999999999,
+          -2.3625
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 18377,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -97.49999999999999,
+          -232.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          387.0,
+          269.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.9749999999999999,
+          -2.3249999999999997
+        ]
+      },
+      "split_half_distance_micrometers": 8.38525491562421,
+      "split_half_distance_visual_degrees": 0.08385254915624211,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -93.74999999999999,
+          -239.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          387.5,
+          268.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.9374999999999999,
+          -2.4
+        ]
+      }
+    },
+    {
+      "cell_id": "19073",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -127.49999999999999,
+          -318.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          383.0,
+          257.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.275,
+          -3.1874999999999996
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 12013,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -131.24999999999997,
+          -322.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          382.5,
+          257.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.3124999999999998,
+          -3.2249999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 3.7499999999999996,
+      "split_half_distance_visual_degrees": 0.0375,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -134.99999999999997,
+          -322.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          382.0,
+          257.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.3499999999999996,
+          -3.2249999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "3629",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -86.24999999999999,
+          243.74999999999997
+        ],
+        "stimulus_screen_pixels": [
+          388.5,
+          332.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.8624999999999998,
+          2.4374999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 19913,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -89.99999999999999,
+          239.99999999999997
+        ],
+        "stimulus_screen_pixels": [
+          388.0,
+          332.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.8999999999999999,
+          2.4
+        ]
+      },
+      "split_half_distance_micrometers": 7.499999999999999,
+      "split_half_distance_visual_degrees": 0.075,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -89.99999999999999,
+          247.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          388.0,
+          333.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.8999999999999999,
+          2.4749999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "3650",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -52.49999999999999,
+          116.24999999999999
+        ],
+        "stimulus_screen_pixels": [
+          393.0,
+          315.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.5249999999999999,
+          1.1624999999999999
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 2731,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -52.49999999999999,
+          116.24999999999999
+        ],
+        "stimulus_screen_pixels": [
+          393.0,
+          315.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.5249999999999999,
+          1.1624999999999999
+        ]
+      },
+      "split_half_distance_micrometers": 0.0,
+      "split_half_distance_visual_degrees": 0.0,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -52.49999999999999,
+          116.24999999999999
+        ],
+        "stimulus_screen_pixels": [
+          393.0,
+          315.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.5249999999999999,
+          1.1624999999999999
+        ]
+      }
+    },
+    {
+      "cell_id": "3698",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -52.49999999999999,
+          67.49999999999999
+        ],
+        "stimulus_screen_pixels": [
+          393.0,
+          309.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.5249999999999999,
+          0.6749999999999998
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 41949,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -52.49999999999999,
+          74.99999999999999
+        ],
+        "stimulus_screen_pixels": [
+          393.0,
+          310.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.5249999999999999,
+          0.7499999999999999
+        ]
+      },
+      "split_half_distance_micrometers": 16.77050983124842,
+      "split_half_distance_visual_degrees": 0.16770509831248423,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -44.99999999999999,
+          59.99999999999999
+        ],
+        "stimulus_screen_pixels": [
+          394.0,
+          308.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.44999999999999996,
+          0.6
+        ]
+      }
+    },
+    {
+      "cell_id": "3703",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -52.49999999999999,
+          -7.499999999999999
+        ],
+        "stimulus_screen_pixels": [
+          393.0,
+          299.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.5249999999999999,
+          -0.075
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 14989,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -63.74999999999999,
+          -14.999999999999998
+        ],
+        "stimulus_screen_pixels": [
+          391.5,
+          298.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.6375,
+          -0.15
+        ]
+      },
+      "split_half_distance_micrometers": 7.499999999999999,
+      "split_half_distance_visual_degrees": 0.075,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -63.74999999999999,
+          -7.499999999999999
+        ],
+        "stimulus_screen_pixels": [
+          391.5,
+          299.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.6375,
+          -0.075
+        ]
+      }
+    },
+    {
+      "cell_id": "11915",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -131.24999999999997,
+          29.999999999999996
+        ],
+        "stimulus_screen_pixels": [
+          382.5,
+          304.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.3124999999999998,
+          0.3
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 22354,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -138.74999999999997,
+          22.499999999999996
+        ],
+        "stimulus_screen_pixels": [
+          381.5,
+          303.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.3874999999999997,
+          0.22499999999999998
+        ]
+      },
+      "split_half_distance_micrometers": 10.606601717798211,
+      "split_half_distance_visual_degrees": 0.10606601717798211,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -131.24999999999997,
+          29.999999999999996
+        ],
+        "stimulus_screen_pixels": [
+          382.5,
+          304.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -1.3124999999999998,
+          0.3
+        ]
+      }
+    },
+    {
+      "cell_id": "4989",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -29.999999999999996,
+          337.49999999999994
+        ],
+        "stimulus_screen_pixels": [
+          396.0,
+          345.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.3,
+          3.3749999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 5580,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -29.999999999999996,
+          333.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          396.0,
+          344.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.3,
+          3.3374999999999995
+        ]
+      },
+      "split_half_distance_micrometers": 8.38525491562421,
+      "split_half_distance_visual_degrees": 0.08385254915624211,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -33.74999999999999,
+          341.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          395.5,
+          345.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.3374999999999999,
+          3.4124999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "5238",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -33.74999999999999,
+          142.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          395.5,
+          319.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.3374999999999999,
+          1.4249999999999998
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 24531,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -29.999999999999996,
+          138.74999999999997
+        ],
+        "stimulus_screen_pixels": [
+          396.0,
+          318.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.3,
+          1.3874999999999997
+        ]
+      },
+      "split_half_distance_micrometers": 5.303300858899106,
+      "split_half_distance_visual_degrees": 0.05303300858899106,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -26.249999999999996,
+          142.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          396.5,
+          319.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -0.26249999999999996,
+          1.4249999999999998
+        ]
+      }
+    },
+    {
+      "cell_id": "7205",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          14.999999999999998,
+          311.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          402.0,
+          341.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          0.15,
+          3.1124999999999994
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 19305,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          18.749999999999996,
+          311.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          402.5,
+          341.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          0.18749999999999997,
+          3.1124999999999994
+        ]
+      },
+      "split_half_distance_micrometers": 7.499999999999999,
+      "split_half_distance_visual_degrees": 0.075,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          18.749999999999996,
+          318.74999999999994
+        ],
+        "stimulus_screen_pixels": [
+          402.5,
+          342.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          0.18749999999999997,
+          3.1874999999999996
+        ]
+      }
+    },
+    {
+      "cell_id": "7219",
+      "cell_type": "midget",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          63.74999999999999,
+          374.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          408.5,
+          350.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          0.6375,
+          3.7499999999999996
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 2282,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          67.49999999999999,
+          374.99999999999994
+        ],
+        "stimulus_screen_pixels": [
+          409.0,
+          350.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          0.6749999999999998,
+          3.7499999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 5.303300858899106,
+      "split_half_distance_visual_degrees": 0.05303300858899106,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          63.74999999999999,
+          371.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          408.5,
+          349.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          0.6375,
+          3.7124999999999995
+        ]
+      }
+    },
+    {
+      "cell_id": "80",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          52.49999999999999,
+          202.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          407.0,
+          327.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          0.5249999999999999,
+          2.025
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 24437,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          59.99999999999999,
+          206.24999999999997
+        ],
+        "stimulus_screen_pixels": [
+          408.0,
+          327.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          0.6,
+          2.0624999999999996
+        ]
+      },
+      "split_half_distance_micrometers": 8.38525491562421,
+      "split_half_distance_visual_degrees": 0.08385254915624211,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          52.49999999999999,
+          202.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          407.0,
+          327.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          0.5249999999999999,
+          2.025
+        ]
+      }
+    },
+    {
+      "cell_id": "17200",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -1597.4999999999998,
+          401.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          187.0,
+          353.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -15.974999999999998,
+          4.012499999999999
+        ]
+      },
+      "polarity": "OFF",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 7379,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -1593.7499999999998,
+          401.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          187.5,
+          353.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -15.937499999999998,
+          4.012499999999999
+        ]
+      },
+      "split_half_distance_micrometers": 3.7499999999999996,
+      "split_half_distance_visual_degrees": 0.0375,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -1589.9999999999998,
+          401.24999999999994
+        ],
+        "stimulus_screen_pixels": [
+          188.0,
+          353.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -15.899999999999999,
+          4.012499999999999
+        ]
+      }
+    },
+    {
+      "cell_id": "3731",
+      "cell_type": "parasol",
+      "full_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -292.49999999999994,
+          -176.24999999999997
+        ],
+        "stimulus_screen_pixels": [
+          361.0,
+          276.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.9249999999999994,
+          -1.7624999999999997
+        ]
+      },
+      "polarity": "ON",
+      "reliability_flags": [],
+      "reliable_for_locality": true,
+      "spike_count_full": 24893,
+      "split_even_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -288.74999999999994,
+          -176.24999999999997
+        ],
+        "stimulus_screen_pixels": [
+          361.5,
+          276.5
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.8874999999999993,
+          -1.7624999999999997
+        ]
+      },
+      "split_half_distance_micrometers": 11.858541225631422,
+      "split_half_distance_visual_degrees": 0.11858541225631422,
+      "split_odd_center": {
+        "retinal_micrometers_from_stimulus_center": [
+          -299.99999999999994,
+          -172.49999999999997
+        ],
+        "stimulus_screen_pixels": [
+          360.0,
+          277.0
+        ],
+        "visual_degrees_from_stimulus_center": [
+          -2.9999999999999996,
+          -1.7249999999999996
+        ]
+      }
+    }
+  ],
+  "coordinates": {
+    "axis_order": [
+      "x",
+      "y"
+    ],
+    "marmoset_retinal_micrometers_per_visual_degree": 100.0,
+    "origin": "stimulus center (screen pixel 400,300)",
+    "screen_pixel_size_micrometers_on_retina": 7.499999999999999,
+    "x_positive": "right",
+    "y_positive": "up"
+  },
+  "method": {
+    "center": "25%-maximum contour median after 5x upsampling and sigma-4-pixel blur",
+    "frame_dt_ms": 11.764705882352942,
+    "rf_lag_bin_count": 43,
+    "rf_lag_window_ms": 505.8823529411765,
+    "rf_max_lag_ms": 494.11764705882354,
+    "running_frames_per_trial": 4000,
+    "spatial_projection": "STA projected onto >4.5 robust-SD temporal filter",
+    "split_half_trials": {
+      "even": 20,
+      "odd": 20
+    },
+    "split_reliability_limit_basis": "conservative reuse of the paper's 75-micrometer center-distance QC; the paper applied it to spot versus white-noise centers, not split halves",
+    "split_reliability_limit_micrometers": 75.0,
+    "sta_window_requested_ms": 500.0,
+    "stimulus_reconstruction": "Gollisch Lab ran1 with continuous running-sequence state",
+    "white_noise_segment": "runningbin varying sequence within frozencheckerflicker_data"
+  },
+  "schema": "karamanlis_marmoset_frozen_white_noise_rf_centers_v1",
+  "session_id": "20220301_252MEA_marmoset_left_n1",
+  "source_checkpoint": "output\\real_data\\karamanlis_2024_population_v1\\model-trained.pt",
+  "source_sha256": {
+    "expdata.mat": "b465fc72f69a7578d6e409af8ef427da13fc474d6ccdb14983eb8d5f205843c6",
+    "frozencheckerflicker_data.mat": "5d758c8af4501e92d3dff929de9e58594637e95627e24ef2d86a97a6ea5b47b7",
+    "model-trained.pt": "066da754a440186f4f54edde2f23439c6aba99dfe5655a37db1d96094009ef0a"
+  },
+  "summary": {
+    "cell_count": 64,
+    "full_center_success_count": 64,
+    "reliable_for_locality_count": 60,
+    "split_half_distance_micrometers": {
+      "maximum": 1770.0635581808917,
+      "median": 7.9426274578121046,
+      "q75": 13.520817282989958
+    },
+    "unreliable_cell_ids": [
+      "67",
+      "3367",
+      "3908",
+      "19249"
+    ],
+    "visual_degree_range": {
+      "x": [
+        -15.974999999999998,
+        0.6375
+      ],
+      "y": [
+        -3.8999999999999995,
+        5.324999999999999
+      ]
+    }
+  }
+}

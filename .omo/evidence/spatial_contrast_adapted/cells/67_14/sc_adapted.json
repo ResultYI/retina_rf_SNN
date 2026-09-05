@@ -1,0 +1,45 @@
+{
+  "fit": {
+    "parameters": [
+      0.17060810699928824,
+      1.2115823761149087,
+      3.9199272101836526,
+      0.788239534652453
+    ],
+    "initial_parameters": [
+      3.0,
+      -2.0,
+      1.0,
+      0.0
+    ],
+    "optimizer_success": true,
+    "optimizer_status": 0,
+    "optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+    "iterations": 30,
+    "function_evaluations": 37,
+    "gradient": [
+      6.544732608549388e-07,
+      -1.0727452861806428e-06,
+      3.6479407716748323e-07,
+      1.9109199913809425e-06
+    ],
+    "train_nll": 0.38218927999648383,
+    "mean": [
+      0.259984896084824,
+      0.766179975291284
+    ],
+    "std": [
+      2.0929851762866933,
+      0.7010801019288121
+    ]
+  },
+  "validation_nll": 0.3762592719233111,
+  "cell_id": "67#14",
+  "ln_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_14\\ln-trained.pt",
+  "inherited_center_raw_parameters": 64,
+  "source_ln_parameters": 128,
+  "total_raw_parameter_count": 68,
+  "history": false,
+  "smoothing": null,
+  "validation_used_for_fitting_or_selection": false
+}

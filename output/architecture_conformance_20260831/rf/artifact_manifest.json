@@ -1,0 +1,17 @@
+{
+  "source_session": "C:\\Users\\win11-pc\\.codex\\sessions\\2026\\08\\31\\rollout-2026-08-31T10-45-08-01a0557d-e2bd-73d0-ae32-02ee9c60b2c6.jsonl",
+  "no_probe_rerun": true,
+  "files": {
+    "basis_observed.json": "b7a3ff22ceeeb867d88ccfccb9ce5d9a7f5006e396d5bd6bf25cd5dbf27a9184",
+    "basis_probe.py": "6fb4ddbb1cd186ab7a1052b5a174f71eec74f311e4a4aba0bf1ab32cd2f38f11",
+    "basis_raw_result.json": "db238ab62f819e99d400a962319f4df8990d22ed371cf515f7326328ca2407dc",
+    "basis_tool_event.json": "d93f049b8b884b520c8ba7c38931cb014c9114faed0e088283f58e773ac0a070",
+    "initial_state_sha256_by_key.json": "88f68928ea63832c1c33202115a472d7d065e318abfc352af79fdeae5c3e53cf",
+    "primary_observed.json": "52ff3877398f91698b2f60dc2673f9b7899d10bcb140d51db05bb76e84e211e3",
+    "primary_probe.py": "650dc8eda9d831a230f71aa0aa37f2408663551d244e42691ec344b6f4bcf9c1",
+    "primary_raw_result.json": "714d27c0c2ec46aaaa138d1da1e3e2f79c0c26e26412f1818af28a9c9e58d7f9",
+    "primary_tool_event.json": "dc8e354706d69a2f590967be186f930af70144e4585a7a89c8c44cc24126f53f",
+    "RF_AUDIT_MEMO.md": "dc1f4a405b6b6ee0e53b1003984c416b73a1a61b676930dbfc479e774bd79070",
+    "source_hashes.json": "30c53f4a947a58368220e00b1e0e01b58aaf10447011dee128b6fac67d84ddbf"
+  }
+}

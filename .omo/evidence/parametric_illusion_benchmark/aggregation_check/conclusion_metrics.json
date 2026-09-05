@@ -1,0 +1,33 @@
+{
+  "group_counts": {
+    "MC_ON": 5,
+    "MC_OFF": 4,
+    "PC_ON": 9,
+    "PC_OFF": 4
+  },
+  "polarity_counts": {
+    "ON": 14,
+    "OFF": 8
+  },
+  "effect_sign_points_checked": 80,
+  "effect_sign_exact_polarity_partition": true,
+  "effect_sign_cells_checked": 66,
+  "effect_sign_all_cell_surfaces_match": true,
+  "cohort_reversal_counts": {
+    "ON_OFF_equal": {
+      "bright_minus_dark": "20/20",
+      "bright_ramp_minus_uniform": "5/30",
+      "dark_ramp_minus_uniform": "0/30"
+    },
+    "four_group_equal": {
+      "bright_minus_dark": "20/20",
+      "bright_ramp_minus_uniform": "5/30",
+      "dark_ramp_minus_uniform": "0/30"
+    },
+    "raw_22cell": {
+      "bright_minus_dark": "20/20",
+      "bright_ramp_minus_uniform": "30/30",
+      "dark_ramp_minus_uniform": "30/30"
+    }
+  }
+}

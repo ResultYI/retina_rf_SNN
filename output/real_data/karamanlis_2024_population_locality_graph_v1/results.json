@@ -1,0 +1,979 @@
+{
+  "cells": [
+    {
+      "area_um2": 28968.749999999993,
+      "cell_id": "456",
+      "cell_type": "parasol",
+      "center_um": [
+        -637.4999999999999,
+        -209.99999999999997
+      ],
+      "contour_point_count": 104,
+      "equivalent_radius_um": 96.02624388877597,
+      "height_um": 224.99999999999994,
+      "nonself_neighbor_count": 1,
+      "polarity": "ON",
+      "width_um": 180.0
+    },
+    {
+      "area_um2": 36112.49999999999,
+      "cell_id": "8123",
+      "cell_type": "parasol",
+      "center_um": [
+        -629.9999999999999,
+        -258.74999999999994
+      ],
+      "contour_point_count": 114,
+      "equivalent_radius_um": 107.21457813568144,
+      "height_um": 202.49999999999997,
+      "nonself_neighbor_count": 1,
+      "polarity": "OFF",
+      "width_um": 240.0
+    },
+    {
+      "area_um2": 19799.999999999996,
+      "cell_id": "1717",
+      "cell_type": "midget",
+      "center_um": [
+        -629.9999999999999,
+        -247.49999999999997
+      ],
+      "contour_point_count": 87,
+      "equivalent_radius_um": 79.3885114260184,
+      "height_um": 187.49999999999997,
+      "nonself_neighbor_count": 0,
+      "polarity": "ON",
+      "width_um": 157.5
+    },
+    {
+      "area_um2": 26381.249999999993,
+      "cell_id": "4152",
+      "cell_type": "parasol",
+      "center_um": [
+        -618.7499999999999,
+        311.24999999999994
+      ],
+      "contour_point_count": 94,
+      "equivalent_radius_um": 91.63739785091087,
+      "height_um": 209.99999999999997,
+      "nonself_neighbor_count": 1,
+      "polarity": "ON",
+      "width_um": 157.5
+    },
+    {
+      "area_um2": 16312.499999999996,
+      "cell_id": "8259",
+      "cell_type": "midget",
+      "center_um": [
+        -603.7499999999999,
+        281.24999999999994
+      ],
+      "contour_point_count": 72,
+      "equivalent_radius_um": 72.0585180139939,
+      "height_um": 149.99999999999997,
+      "nonself_neighbor_count": 0,
+      "polarity": "ON",
+      "width_um": 135.0
+    },
+    {
+      "area_um2": 36843.74999999999,
+      "cell_id": "8715",
+      "cell_type": "midget",
+      "center_um": [
+        -446.24999999999994,
+        401.24999999999994
+      ],
+      "contour_point_count": 112,
+      "equivalent_radius_um": 108.29464376913586,
+      "height_um": 225.0,
+      "nonself_neighbor_count": 3,
+      "polarity": "OFF",
+      "width_um": 209.99999999999994
+    },
+    {
+      "area_um2": 29362.499999999993,
+      "cell_id": "4084",
+      "cell_type": "midget",
+      "center_um": [
+        -509.99999999999994,
+        374.99999999999994
+      ],
+      "contour_point_count": 102,
+      "equivalent_radius_um": 96.67664678231012,
+      "height_um": 187.5,
+      "nonself_neighbor_count": 3,
+      "polarity": "OFF",
+      "width_um": 209.99999999999994
+    },
+    {
+      "area_um2": 44043.749999999985,
+      "cell_id": "8823",
+      "cell_type": "parasol",
+      "center_um": [
+        -494.99999999999994,
+        329.99999999999994
+      ],
+      "contour_point_count": 130,
+      "equivalent_radius_um": 118.40422732997047,
+      "height_um": 209.99999999999997,
+      "nonself_neighbor_count": 5,
+      "polarity": "ON",
+      "width_um": 277.49999999999994
+    },
+    {
+      "area_um2": 33918.74999999999,
+      "cell_id": "9916",
+      "cell_type": "parasol",
+      "center_um": [
+        -562.4999999999999,
+        318.74999999999994
+      ],
+      "contour_point_count": 108,
+      "equivalent_radius_um": 103.90704235996927,
+      "height_um": 187.49999999999997,
+      "nonself_neighbor_count": 1,
+      "polarity": "OFF",
+      "width_um": 232.49999999999994
+    },
+    {
+      "area_um2": 42581.24999999999,
+      "cell_id": "1743",
+      "cell_type": "parasol",
+      "center_um": [
+        -554.9999999999999,
+        -194.99999999999997
+      ],
+      "contour_point_count": 128,
+      "equivalent_radius_um": 116.42178851513806,
+      "height_um": 209.99999999999994,
+      "nonself_neighbor_count": 5,
+      "polarity": "ON",
+      "width_um": 277.49999999999994
+    },
+    {
+      "area_um2": 26268.749999999993,
+      "cell_id": "396",
+      "cell_type": "parasol",
+      "center_um": [
+        -487.49999999999994,
+        -224.99999999999997
+      ],
+      "contour_point_count": 96,
+      "equivalent_radius_um": 91.4418001938416,
+      "height_um": 172.49999999999997,
+      "nonself_neighbor_count": 1,
+      "polarity": "OFF",
+      "width_um": 202.49999999999994
+    },
+    {
+      "area_um2": 31668.749999999993,
+      "cell_id": "118",
+      "cell_type": "parasol",
+      "center_um": [
+        -461.24999999999994,
+        479.99999999999994
+      ],
+      "contour_point_count": 116,
+      "equivalent_radius_um": 100.40157472909934,
+      "height_um": 277.49999999999994,
+      "nonself_neighbor_count": 3,
+      "polarity": "ON",
+      "width_um": 172.49999999999994
+    },
+    {
+      "area_um2": 15524.999999999996,
+      "cell_id": "298",
+      "cell_type": "midget",
+      "center_um": [
+        -431.24999999999994,
+        472.49999999999994
+      ],
+      "contour_point_count": 72,
+      "equivalent_radius_um": 70.29765986861403,
+      "height_um": 157.49999999999994,
+      "nonself_neighbor_count": 1,
+      "polarity": "ON",
+      "width_um": 127.5
+    },
+    {
+      "area_um2": 34931.24999999999,
+      "cell_id": "1806",
+      "cell_type": "midget",
+      "center_um": [
+        -472.49999999999994,
+        311.24999999999994
+      ],
+      "contour_point_count": 110,
+      "equivalent_radius_um": 105.44648980292106,
+      "height_um": 209.99999999999997,
+      "nonself_neighbor_count": 3,
+      "polarity": "OFF",
+      "width_um": 217.49999999999994
+    },
+    {
+      "area_um2": 40387.49999999999,
+      "cell_id": "1821",
+      "cell_type": "midget",
+      "center_um": [
+        -446.24999999999994,
+        187.49999999999997
+      ],
+      "contour_point_count": 118,
+      "equivalent_radius_um": 113.38315804495764,
+      "height_um": 217.49999999999994,
+      "nonself_neighbor_count": 3,
+      "polarity": "OFF",
+      "width_um": 239.99999999999994
+    },
+    {
+      "area_um2": 17831.249999999996,
+      "cell_id": "98",
+      "cell_type": "midget",
+      "center_um": [
+        -502.49999999999994,
+        -3.7499999999999996
+      ],
+      "contour_point_count": 78,
+      "equivalent_radius_um": 75.33832462973089,
+      "height_um": 164.99999999999997,
+      "nonself_neighbor_count": 1,
+      "polarity": "ON",
+      "width_um": 142.49999999999994
+    },
+    {
+      "area_um2": 16818.749999999996,
+      "cell_id": "21059",
+      "cell_type": "midget",
+      "center_um": [
+        -449.99999999999994,
+        -322.49999999999994
+      ],
+      "contour_point_count": 74,
+      "equivalent_radius_um": 73.16812419526435,
+      "height_um": 135.0,
+      "nonself_neighbor_count": 0,
+      "polarity": "ON",
+      "width_um": 157.49999999999994
+    },
+    {
+      "area_um2": 32624.999999999993,
+      "cell_id": "3176",
+      "cell_type": "parasol",
+      "center_um": [
+        -401.24999999999994,
+        -337.49999999999994
+      ],
+      "contour_point_count": 106,
+      "equivalent_radius_um": 101.90613345989617,
+      "height_um": 187.49999999999997,
+      "nonself_neighbor_count": 5,
+      "polarity": "ON",
+      "width_um": 225.0
+    },
+    {
+      "area_um2": 15637.499999999996,
+      "cell_id": "11185",
+      "cell_type": "midget",
+      "center_um": [
+        -393.74999999999994,
+        359.99999999999994
+      ],
+      "contour_point_count": 70,
+      "equivalent_radius_um": 70.55190178300671,
+      "height_um": 142.5,
+      "nonself_neighbor_count": 1,
+      "polarity": "ON",
+      "width_um": 135.0
+    },
+    {
+      "area_um2": 26043.749999999993,
+      "cell_id": "116",
+      "cell_type": "parasol",
+      "center_um": [
+        -389.99999999999994,
+        183.74999999999997
+      ],
+      "contour_point_count": 140,
+      "equivalent_radius_um": 91.04934430460824,
+      "height_um": 224.99999999999994,
+      "nonself_neighbor_count": 2,
+      "polarity": "OFF",
+      "width_um": 262.49999999999994
+    },
+    {
+      "area_um2": 42693.74999999999,
+      "cell_id": "1842",
+      "cell_type": "parasol",
+      "center_um": [
+        -371.24999999999994,
+        153.74999999999997
+      ],
+      "contour_point_count": 128,
+      "equivalent_radius_um": 116.57548071210863,
+      "height_um": 239.99999999999994,
+      "nonself_neighbor_count": 5,
+      "polarity": "ON",
+      "width_um": 254.99999999999997
+    },
+    {
+      "area_um2": 33862.49999999999,
+      "cell_id": "12291",
+      "cell_type": "parasol",
+      "center_um": [
+        -412.49999999999994,
+        -112.49999999999999
+      ],
+      "contour_point_count": 108,
+      "equivalent_radius_um": 103.8208481996685,
+      "height_um": 217.49999999999997,
+      "nonself_neighbor_count": 6,
+      "polarity": "ON",
+      "width_um": 202.5
+    },
+    {
+      "area_um2": 28349.999999999993,
+      "cell_id": "12204",
+      "cell_type": "parasol",
+      "center_um": [
+        -408.74999999999994,
+        -224.99999999999997
+      ],
+      "contour_point_count": 98,
+      "equivalent_radius_um": 94.99518552700691,
+      "height_um": 187.49999999999997,
+      "nonself_neighbor_count": 6,
+      "polarity": "ON",
+      "width_um": 195.0
+    },
+    {
+      "area_um2": 38868.74999999999,
+      "cell_id": "3181",
+      "cell_type": "parasol",
+      "center_um": [
+        -344.99999999999994,
+        397.49999999999994
+      ],
+      "contour_point_count": 120,
+      "equivalent_radius_um": 111.23087425983044,
+      "height_um": 232.49999999999994,
+      "nonself_neighbor_count": 5,
+      "polarity": "ON",
+      "width_um": 232.49999999999997
+    },
+    {
+      "area_um2": 38249.99999999999,
+      "cell_id": "14218",
+      "cell_type": "parasol",
+      "center_um": [
+        -356.24999999999994,
+        284.99999999999994
+      ],
+      "contour_point_count": 114,
+      "equivalent_radius_um": 110.3419827016444,
+      "height_um": 239.99999999999997,
+      "nonself_neighbor_count": 7,
+      "polarity": "ON",
+      "width_um": 202.49999999999997
+    },
+    {
+      "area_um2": 36899.99999999999,
+      "cell_id": "23",
+      "cell_type": "parasol",
+      "center_um": [
+        -359.99999999999994,
+        52.49999999999999
+      ],
+      "contour_point_count": 112,
+      "equivalent_radius_um": 108.37727990765349,
+      "height_um": 217.49999999999997,
+      "nonself_neighbor_count": 5,
+      "polarity": "ON",
+      "width_um": 217.49999999999997
+    },
+    {
+      "area_um2": 32793.74999999999,
+      "cell_id": "101",
+      "cell_type": "parasol",
+      "center_um": [
+        -337.49999999999994,
+        -29.999999999999996
+      ],
+      "contour_point_count": 113,
+      "equivalent_radius_um": 102.16934388572574,
+      "height_um": 202.49999999999997,
+      "nonself_neighbor_count": 3,
+      "polarity": "OFF",
+      "width_um": 239.99999999999997
+    },
+    {
+      "area_um2": 21318.749999999996,
+      "cell_id": "3270",
+      "cell_type": "midget",
+      "center_um": [
+        -374.99999999999994,
+        -29.999999999999996
+      ],
+      "contour_point_count": 90,
+      "equivalent_radius_um": 82.37699245590777,
+      "height_um": 172.49999999999997,
+      "nonself_neighbor_count": 2,
+      "polarity": "ON",
+      "width_um": 180.0
+    },
+    {
+      "area_um2": 42131.24999999999,
+      "cell_id": "3945",
+      "cell_type": "parasol",
+      "center_um": [
+        -296.24999999999994,
+        494.99999999999994
+      ],
+      "contour_point_count": 118,
+      "equivalent_radius_um": 115.8049799977567,
+      "height_um": 247.49999999999994,
+      "nonself_neighbor_count": 1,
+      "polarity": "OFF",
+      "width_um": 209.99999999999997
+    },
+    {
+      "area_um2": 40949.99999999999,
+      "cell_id": "3310",
+      "cell_type": "parasol",
+      "center_um": [
+        -236.24999999999997,
+        266.24999999999994
+      ],
+      "contour_point_count": 118,
+      "equivalent_radius_um": 114.17000411327936,
+      "height_um": 239.99999999999997,
+      "nonself_neighbor_count": 7,
+      "polarity": "ON",
+      "width_um": 217.49999999999997
+    },
+    {
+      "area_um2": 19799.999999999996,
+      "cell_id": "1587",
+      "cell_type": "midget",
+      "center_um": [
+        -288.74999999999994,
+        236.24999999999997
+      ],
+      "contour_point_count": 80,
+      "equivalent_radius_um": 79.3885114260184,
+      "height_um": 164.99999999999997,
+      "nonself_neighbor_count": 0,
+      "polarity": "ON",
+      "width_um": 149.99999999999997
+    },
+    {
+      "area_um2": 15243.749999999996,
+      "cell_id": "143",
+      "cell_type": "midget",
+      "center_um": [
+        -284.99999999999994,
+        -22.499999999999996
+      ],
+      "contour_point_count": 70,
+      "equivalent_radius_um": 69.6579954313513,
+      "height_um": 142.49999999999997,
+      "nonself_neighbor_count": 1,
+      "polarity": "ON",
+      "width_um": 134.99999999999997
+    },
+    {
+      "area_um2": 32399.999999999993,
+      "cell_id": "8",
+      "cell_type": "parasol",
+      "center_um": [
+        -326.24999999999994,
+        -67.49999999999999
+      ],
+      "contour_point_count": 106,
+      "equivalent_radius_um": 101.55412503859613,
+      "height_um": 187.49999999999997,
+      "nonself_neighbor_count": 9,
+      "polarity": "ON",
+      "width_um": 224.99999999999997
+    },
+    {
+      "area_um2": 32062.499999999993,
+      "cell_id": "464",
+      "cell_type": "parasol",
+      "center_um": [
+        -247.49999999999997,
+        412.49999999999994
+      ],
+      "contour_point_count": 105,
+      "equivalent_radius_um": 101.02381266695386,
+      "height_um": 202.49999999999994,
+      "nonself_neighbor_count": 1,
+      "polarity": "OFF",
+      "width_um": 209.99999999999997
+    },
+    {
+      "area_um2": 43874.999999999985,
+      "cell_id": "3388",
+      "cell_type": "parasol",
+      "center_um": [
+        -217.49999999999997,
+        393.74999999999994
+      ],
+      "contour_point_count": 122,
+      "equivalent_radius_um": 118.1771816228235,
+      "height_um": 202.5,
+      "nonself_neighbor_count": 4,
+      "polarity": "ON",
+      "width_um": 269.99999999999994
+    },
+    {
+      "area_um2": 30374.999999999993,
+      "cell_id": "11493",
+      "cell_type": "parasol",
+      "center_um": [
+        -213.74999999999997,
+        112.49999999999999
+      ],
+      "contour_point_count": 104,
+      "equivalent_radius_um": 98.32935875328711,
+      "height_um": 164.99999999999997,
+      "nonself_neighbor_count": 4,
+      "polarity": "OFF",
+      "width_um": 239.99999999999994
+    },
+    {
+      "area_um2": 42243.74999999999,
+      "cell_id": "102",
+      "cell_type": "parasol",
+      "center_um": [
+        -247.49999999999997,
+        119.99999999999999
+      ],
+      "contour_point_count": 116,
+      "equivalent_radius_um": 115.95948971290149,
+      "height_um": 217.49999999999997,
+      "nonself_neighbor_count": 10,
+      "polarity": "ON",
+      "width_um": 232.49999999999997
+    },
+    {
+      "area_um2": 35268.74999999999,
+      "cell_id": "228",
+      "cell_type": "parasol",
+      "center_um": [
+        -224.99999999999997,
+        -22.499999999999996
+      ],
+      "contour_point_count": 108,
+      "equivalent_radius_um": 105.95466860098504,
+      "height_um": 202.49999999999997,
+      "nonself_neighbor_count": 8,
+      "polarity": "ON",
+      "width_um": 217.49999999999994
+    },
+    {
+      "area_um2": 38756.24999999999,
+      "cell_id": "11576",
+      "cell_type": "parasol",
+      "center_um": [
+        -157.49999999999997,
+        -29.999999999999996
+      ],
+      "contour_point_count": 136,
+      "equivalent_radius_um": 111.06978673973646,
+      "height_um": 209.99999999999997,
+      "nonself_neighbor_count": 6,
+      "polarity": "OFF",
+      "width_um": 284.99999999999994
+    },
+    {
+      "area_um2": 26381.249999999993,
+      "cell_id": "11651",
+      "cell_type": "parasol",
+      "center_um": [
+        -179.99999999999997,
+        -123.74999999999999
+      ],
+      "contour_point_count": 94,
+      "equivalent_radius_um": 91.63739785091087,
+      "height_um": 164.99999999999997,
+      "nonself_neighbor_count": 5,
+      "polarity": "OFF",
+      "width_um": 202.49999999999994
+    },
+    {
+      "area_um2": 29362.499999999993,
+      "cell_id": "3924",
+      "cell_type": "parasol",
+      "center_um": [
+        -247.49999999999997,
+        -389.99999999999994
+      ],
+      "contour_point_count": 98,
+      "equivalent_radius_um": 96.67664678231012,
+      "height_um": 187.5,
+      "nonself_neighbor_count": 2,
+      "polarity": "ON",
+      "width_um": 194.99999999999997
+    },
+    {
+      "area_um2": 33524.99999999999,
+      "cell_id": "5489",
+      "cell_type": "parasol",
+      "center_um": [
+        -202.49999999999997,
+        -119.99999999999999
+      ],
+      "contour_point_count": 110,
+      "equivalent_radius_um": 103.30217294089984,
+      "height_um": 224.99999999999997,
+      "nonself_neighbor_count": 5,
+      "polarity": "ON",
+      "width_um": 194.99999999999994
+    },
+    {
+      "area_um2": 28237.499999999993,
+      "cell_id": "11882",
+      "cell_type": "parasol",
+      "center_um": [
+        -108.74999999999999,
+        -176.24999999999997
+      ],
+      "contour_point_count": 96,
+      "equivalent_radius_um": 94.8065156574947,
+      "height_um": 194.99999999999994,
+      "nonself_neighbor_count": 5,
+      "polarity": "OFF",
+      "width_um": 179.99999999999997
+    },
+    {
+      "area_um2": 35324.99999999999,
+      "cell_id": "3535",
+      "cell_type": "parasol",
+      "center_um": [
+        -206.24999999999997,
+        -236.24999999999997
+      ],
+      "contour_point_count": 112,
+      "equivalent_radius_um": 106.03912829442915,
+      "height_um": 194.99999999999997,
+      "nonself_neighbor_count": 6,
+      "polarity": "ON",
+      "width_um": 239.99999999999994
+    },
+    {
+      "area_um2": 19012.499999999996,
+      "cell_id": "15776",
+      "cell_type": "midget",
+      "center_um": [
+        -116.24999999999999,
+        509.99999999999994
+      ],
+      "contour_point_count": 78,
+      "equivalent_radius_um": 77.79374467827937,
+      "height_um": 157.49999999999994,
+      "nonself_neighbor_count": 0,
+      "polarity": "ON",
+      "width_um": 149.99999999999997
+    },
+    {
+      "area_um2": 34312.49999999999,
+      "cell_id": "11895",
+      "cell_type": "parasol",
+      "center_um": [
+        -146.24999999999997,
+        161.24999999999997
+      ],
+      "contour_point_count": 108,
+      "equivalent_radius_um": 104.5084109996957,
+      "height_um": 224.99999999999994,
+      "nonself_neighbor_count": 7,
+      "polarity": "ON",
+      "width_um": 194.99999999999997
+    },
+    {
+      "area_um2": 35043.74999999999,
+      "cell_id": "11943",
+      "cell_type": "parasol",
+      "center_um": [
+        -93.74999999999999,
+        -236.24999999999997
+      ],
+      "contour_point_count": 110,
+      "equivalent_radius_um": 105.61615441755684,
+      "height_um": 232.49999999999994,
+      "nonself_neighbor_count": 4,
+      "polarity": "OFF",
+      "width_um": 194.99999999999997
+    },
+    {
+      "area_um2": 31443.749999999993,
+      "cell_id": "19073",
+      "cell_type": "parasol",
+      "center_um": [
+        -127.49999999999999,
+        -318.74999999999994
+      ],
+      "contour_point_count": 106,
+      "equivalent_radius_um": 100.04427261813424,
+      "height_um": 209.99999999999997,
+      "nonself_neighbor_count": 2,
+      "polarity": "OFF",
+      "width_um": 202.49999999999997
+    },
+    {
+      "area_um2": 43424.999999999985,
+      "cell_id": "3629",
+      "cell_type": "parasol",
+      "center_um": [
+        -86.24999999999999,
+        243.74999999999997
+      ],
+      "contour_point_count": 126,
+      "equivalent_radius_um": 117.5695828330232,
+      "height_um": 277.49999999999994,
+      "nonself_neighbor_count": 8,
+      "polarity": "ON",
+      "width_um": 209.99999999999997
+    },
+    {
+      "area_um2": 15187.499999999996,
+      "cell_id": "3650",
+      "cell_type": "midget",
+      "center_um": [
+        -52.49999999999999,
+        116.24999999999999
+      ],
+      "contour_point_count": 70,
+      "equivalent_radius_um": 69.52935636417412,
+      "height_um": 134.99999999999997,
+      "nonself_neighbor_count": 0,
+      "polarity": "ON",
+      "width_um": 142.49999999999997
+    },
+    {
+      "area_um2": 26493.749999999993,
+      "cell_id": "3698",
+      "cell_type": "midget",
+      "center_um": [
+        -52.49999999999999,
+        67.49999999999999
+      ],
+      "contour_point_count": 96,
+      "equivalent_radius_um": 91.8325788981329,
+      "height_um": 187.49999999999997,
+      "nonself_neighbor_count": 0,
+      "polarity": "OFF",
+      "width_um": 187.49999999999997
+    },
+    {
+      "area_um2": 37068.74999999999,
+      "cell_id": "3703",
+      "cell_type": "parasol",
+      "center_um": [
+        -52.49999999999999,
+        -7.499999999999999
+      ],
+      "contour_point_count": 112,
+      "equivalent_radius_um": 108.62481113205854,
+      "height_um": 224.99999999999997,
+      "nonself_neighbor_count": 4,
+      "polarity": "OFF",
+      "width_um": 209.99999999999997
+    },
+    {
+      "area_um2": 39431.24999999999,
+      "cell_id": "11915",
+      "cell_type": "parasol",
+      "center_um": [
+        -131.24999999999997,
+        29.999999999999996
+      ],
+      "contour_point_count": 116,
+      "equivalent_radius_um": 112.03283759498638,
+      "height_um": 254.99999999999994,
+      "nonself_neighbor_count": 7,
+      "polarity": "ON",
+      "width_um": 194.99999999999997
+    },
+    {
+      "area_um2": 15356.249999999996,
+      "cell_id": "4989",
+      "cell_type": "midget",
+      "center_um": [
+        -29.999999999999996,
+        337.49999999999994
+      ],
+      "contour_point_count": 72,
+      "equivalent_radius_um": 69.91456350224776,
+      "height_um": 142.5,
+      "nonself_neighbor_count": 1,
+      "polarity": "ON",
+      "width_um": 142.49999999999997
+    },
+    {
+      "area_um2": 34312.49999999999,
+      "cell_id": "5238",
+      "cell_type": "parasol",
+      "center_um": [
+        -33.74999999999999,
+        142.49999999999997
+      ],
+      "contour_point_count": 110,
+      "equivalent_radius_um": 104.5084109996957,
+      "height_um": 187.49999999999997,
+      "nonself_neighbor_count": 6,
+      "polarity": "ON",
+      "width_um": 239.99999999999994
+    },
+    {
+      "area_um2": 33637.49999999999,
+      "cell_id": "7205",
+      "cell_type": "parasol",
+      "center_um": [
+        14.999999999999998,
+        311.24999999999994
+      ],
+      "contour_point_count": 108,
+      "equivalent_radius_um": 103.47535357034185,
+      "height_um": 209.99999999999997,
+      "nonself_neighbor_count": 3,
+      "polarity": "ON",
+      "width_um": 209.99999999999997
+    },
+    {
+      "area_um2": 17324.999999999996,
+      "cell_id": "7219",
+      "cell_type": "midget",
+      "center_um": [
+        63.749999999999986,
+        374.99999999999994
+      ],
+      "contour_point_count": 76,
+      "equivalent_radius_um": 74.2611525505373,
+      "height_um": 150.0,
+      "nonself_neighbor_count": 1,
+      "polarity": "ON",
+      "width_um": 149.99999999999997
+    },
+    {
+      "area_um2": 32343.749999999993,
+      "cell_id": "80",
+      "cell_type": "parasol",
+      "center_um": [
+        52.49999999999999,
+        202.49999999999997
+      ],
+      "contour_point_count": 103,
+      "equivalent_radius_um": 101.46593212136268,
+      "height_um": 209.99999999999994,
+      "nonself_neighbor_count": 4,
+      "polarity": "ON",
+      "width_um": 194.99999999999997
+    },
+    {
+      "area_um2": 52649.999999999985,
+      "cell_id": "17200",
+      "cell_type": "parasol",
+      "center_um": [
+        -1597.4999999999998,
+        401.24999999999994
+      ],
+      "contour_point_count": 136,
+      "equivalent_radius_um": 129.4566163144108,
+      "height_um": 225.0,
+      "nonself_neighbor_count": 0,
+      "polarity": "OFF",
+      "width_um": 300.0
+    },
+    {
+      "area_um2": 46518.749999999985,
+      "cell_id": "3731",
+      "cell_type": "parasol",
+      "center_um": [
+        -292.49999999999994,
+        -176.24999999999997
+      ],
+      "contour_point_count": 126,
+      "equivalent_radius_um": 121.68557029455961,
+      "height_um": 232.49999999999994,
+      "nonself_neighbor_count": 8,
+      "polarity": "ON",
+      "width_um": 254.99999999999997
+    }
+  ],
+  "coordinates": {
+    "axis_order": [
+      "x",
+      "y"
+    ],
+    "origin_screen_pixels": [
+      400.0,
+      300.0
+    ],
+    "projection": "screen pixels multiplied by projector pixel size from expdata.mat",
+    "screen_pixel_size_um": 7.499999999999999,
+    "screen_shape_pixels": [
+      600,
+      800
+    ],
+    "unit": "retinal_micrometers",
+    "x_positive": "right",
+    "y_positive": "down"
+  },
+  "criterion": {
+    "nonself_edge": "same cell_type and polarity, and either |S_i intersection S_j| > 0 or Euclidean(c_i,c_j) <= r_i + r_j",
+    "rf_extent": "A_i = |S_i| times pixel_area; r_i = sqrt(A_i/pi)",
+    "rf_support": "S_i is the connected central component at spatial RF >= 0.25 peak after sigma-4-screen-pixel smoothing",
+    "selection": "split-half QC only; no prediction metric or tuned radius",
+    "self_edge": "A_ii = 1 for every retained cell"
+  },
+  "excluded_cell_ids": [
+    "67",
+    "3367",
+    "3908",
+    "19249"
+  ],
+  "raw_connections_contract": {
+    "edge_index_axis_0": "target",
+    "edge_index_axis_1": "source",
+    "nonself_positive_initial": 0.1,
+    "parameterization": "positive connection = softplus(raw_connections), then target-row normalization in canonical forward",
+    "self_positive_initial": 1.0
+  },
+  "schema": "karamanlis_marmoset_rf_locality_graph_v1",
+  "session_id": "20220301_252MEA_marmoset_left_n1",
+  "source_sha256": {
+    "expdata_mat": "b465fc72f69a7578d6e409af8ef427da13fc474d6ccdb14983eb8d5f205843c6",
+    "rf_maps_npz": "fc2a88208df198d1d8f9672daa42654a10a07bdf163bff8212518c00f74064b6",
+    "rf_results_json": "754ae8050d1759ddbcfc391c0c983945636e5102f0eb15117626e60fd6fa9ca4"
+  },
+  "summary": {
+    "all_centers_and_extents_usable": true,
+    "cell_count": 60,
+    "class_neighbor_summary": {
+      "OFF midget": {
+        "cell_count": 5,
+        "mean_nonself_neighbor_count": 2.4,
+        "self_only_cell_count": 1
+      },
+      "OFF parasol": {
+        "cell_count": 15,
+        "mean_nonself_neighbor_count": 2.6666666666666665,
+        "self_only_cell_count": 1
+      },
+      "ON midget": {
+        "cell_count": 13,
+        "mean_nonself_neighbor_count": 0.6153846153846154,
+        "self_only_cell_count": 6
+      },
+      "ON parasol": {
+        "cell_count": 27,
+        "mean_nonself_neighbor_count": 5.481481481481482,
+        "self_only_cell_count": 0
+      }
+    },
+    "edge_count": 268,
+    "nonself_edge_count": 208,
+    "self_edge_count": 60
+  }
+}

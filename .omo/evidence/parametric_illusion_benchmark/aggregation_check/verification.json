@@ -1,0 +1,21 @@
+{
+  "source_sha256_matches_manifest": true,
+  "row_counts": {
+    "labeled_surfaces": 2244,
+    "aggregation_surface_curves": 918,
+    "mach_control_subtracted_per_cell": 1320,
+    "effect_sign_point_audit": 80,
+    "effect_sign_cell_audit": 66
+  },
+  "cells": 22,
+  "groups": [
+    "MC_OFF",
+    "MC_ON",
+    "PC_OFF",
+    "PC_ON"
+  ],
+  "effect_sign_contract_pass": true,
+  "models_loaded": false,
+  "training_performed": false,
+  "new_probes_generated": false
+}

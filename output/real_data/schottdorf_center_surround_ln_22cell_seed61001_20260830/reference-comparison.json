@@ -1,0 +1,404 @@
+{
+  "source_results_sha256": "57612eef913970c67bc5e86468d676375784ab11b79f5186af036863382cd1be",
+  "fair_results_sha256": "ee59cd9fe2b947c9c64e7e40bab551cac7133d0f6d7130bce054e8577834510b",
+  "constant_training_only": true,
+  "retinal_training_performed": false,
+  "cells": [
+    {
+      "cell_id": "67#4",
+      "retinal_class": "PC",
+      "polarity": "OFF",
+      "constant_nll": 0.5226954221725464,
+      "retinal_nll": 0.4841122329235077,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 2.9802322387695312e-08,
+      "train_rate": 0.22031250596046448,
+      "train_valid_bins": 1920,
+      "validation_valid_bins": 480,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "eb7e12ce64f8b3c1697336a31ca412742bab1522a91ce8f1a59a939baf414558"
+    },
+    {
+      "cell_id": "67#6",
+      "retinal_class": "MC",
+      "polarity": "OFF",
+      "constant_nll": 0.5222243666648865,
+      "retinal_nll": 0.46408164501190186,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.24300594627857208,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "92c42f628914007c5a5ffedc6dd1d6122360334e292938f52b44176a6b98e3c2"
+    },
+    {
+      "cell_id": "67#7",
+      "retinal_class": "MC",
+      "polarity": "ON",
+      "constant_nll": 0.529005765914917,
+      "retinal_nll": 0.4680718779563904,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.24017857015132904,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "6f2310d8f8345eafaab1442135ed20ff0b14b9ce5824c5d2c794efd33ba6aa6b"
+    },
+    {
+      "cell_id": "67#14",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "constant_nll": 0.5105581283569336,
+      "retinal_nll": 0.38224947452545166,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.23869048058986664,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "f247bb3ee61b4d40e935e8999a7c49880d5b6c9d2c31b1c82002363218756fc6"
+    },
+    {
+      "cell_id": "67#21",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "constant_nll": 0.37004104256629944,
+      "retinal_nll": 0.3243543207645416,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.14241071045398712,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "2b6f0a0100564ffa5979eba51fa2d50dc5c36941826dbef0e68b9a56b8d3f7cd"
+    },
+    {
+      "cell_id": "67#26",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "constant_nll": 0.5894726514816284,
+      "retinal_nll": 0.5387109518051147,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.3058035671710968,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "b0be15f47a2e188944d18b4f22daad8e636d45de4eb65adcb40f0618139c7646"
+    },
+    {
+      "cell_id": "67#33",
+      "retinal_class": "MC",
+      "polarity": "OFF",
+      "constant_nll": 0.4962886869907379,
+      "retinal_nll": 0.42171624302864075,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.20059524476528168,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "97d27b24a0f83e962e80a2ffd7c6a0a9124779f25505e655ae2f089eb0906d0d"
+    },
+    {
+      "cell_id": "67#34",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "constant_nll": 0.48460838198661804,
+      "retinal_nll": 0.3927723467350006,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.20357142388820648,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "cbf3d60438f792a168ac28ad97d87565bba42c1d9661a471f415905e2e46558e"
+    },
+    {
+      "cell_id": "68#3",
+      "retinal_class": "MC",
+      "polarity": "OFF",
+      "constant_nll": 0.6051455736160278,
+      "retinal_nll": 0.532558262348175,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.3021577298641205,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "e131771d986e59e8ede50198c2603091ba7bd4a594bcbafc0215ca5b48783973"
+    },
+    {
+      "cell_id": "68#4",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "constant_nll": 0.45858410000801086,
+      "retinal_nll": 0.45166701078414917,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.16267360746860504,
+      "train_valid_bins": 11520,
+      "validation_valid_bins": 2880,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "2e469e2d3fc2de7d58d81faa8e5dfc51d783b8bdc18d8640a28d5c99c640ac6a"
+    },
+    {
+      "cell_id": "68#7",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "constant_nll": 0.4731142222881317,
+      "retinal_nll": 0.3927496671676636,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.22738094627857208,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "30866e70612720c8f53e75e86539128ec96a3cfde6eb1e923ff6951f8d197d18"
+    },
+    {
+      "cell_id": "68#10",
+      "retinal_class": "MC",
+      "polarity": "ON",
+      "constant_nll": 0.44951745867729187,
+      "retinal_nll": 0.4256708323955536,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.21406249701976776,
+      "train_valid_bins": 1920,
+      "validation_valid_bins": 480,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "532408610406aa1e45e9a356f0ec3ca5b6d1545a100db2d29843b4cb906c271f"
+    },
+    {
+      "cell_id": "68#11",
+      "retinal_class": "PC",
+      "polarity": "OFF",
+      "constant_nll": 0.45921972393989563,
+      "retinal_nll": 0.39242833852767944,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.14784225821495056,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "a8d51accf6023648e236f78c6d0c4366a707b03afb643b9c9cdb7626345c0dba"
+    },
+    {
+      "cell_id": "69#3",
+      "retinal_class": "PC",
+      "polarity": "OFF",
+      "constant_nll": 0.632579505443573,
+      "retinal_nll": 0.56757652759552,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 5.960464477539063e-08,
+      "train_rate": 0.3165178596973419,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "607375a34506a61e32a24de765cce90001a7255d450de4b0994d278dff7238f3"
+    },
+    {
+      "cell_id": "69#4",
+      "retinal_class": "MC",
+      "polarity": "ON",
+      "constant_nll": 0.5139977931976318,
+      "retinal_nll": 0.4420666992664337,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.22152778506278992,
+      "train_valid_bins": 11520,
+      "validation_valid_bins": 2880,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "96de6816d151e87333e55ed1630d691b0313cdd400936615a10720030a5a6fc6"
+    },
+    {
+      "cell_id": "69#6",
+      "retinal_class": "MC",
+      "polarity": "OFF",
+      "constant_nll": 0.5116271376609802,
+      "retinal_nll": 0.45485395193099976,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.22299106419086456,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "61f7c561702fa56da2e7b0a3688fe8a9f7c096e9de0b9d8b5ac7b3670beb945c"
+    },
+    {
+      "cell_id": "69#7",
+      "retinal_class": "MC",
+      "polarity": "ON",
+      "constant_nll": 0.5219630002975464,
+      "retinal_nll": 0.4739486575126648,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.2455357164144516,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "4a55835ac6f9295891446706da08f016a3846060e01c026119572e9acdff4299"
+    },
+    {
+      "cell_id": "69#21",
+      "retinal_class": "PC",
+      "polarity": "OFF",
+      "constant_nll": 0.5310361385345459,
+      "retinal_nll": 0.5180193185806274,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.22638888657093048,
+      "train_valid_bins": 11520,
+      "validation_valid_bins": 2880,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "0a3747f99460e46105e79a3f0633c03082d0da324fab115df3d2dda4040655ce"
+    },
+    {
+      "cell_id": "70#1",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "constant_nll": 0.5555933117866516,
+      "retinal_nll": 0.562501847743988,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.23463541269302368,
+      "train_valid_bins": 11520,
+      "validation_valid_bins": 2880,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "f9d86d6acd1f8a7941dbc2860c6fbd65b0a1d46c06103b19f36eeff0607a981c"
+    },
+    {
+      "cell_id": "70#7",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "constant_nll": 0.5469987392425537,
+      "retinal_nll": 0.4822358191013336,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.2641369104385376,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "8e612a90578e73b5fef5009e31ac0f5ef0201c4629635e084d19baa2cffa4ec2"
+    },
+    {
+      "cell_id": "70#15",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "constant_nll": 0.46590667963027954,
+      "retinal_nll": 0.4386668801307678,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.17951388657093048,
+      "train_valid_bins": 11520,
+      "validation_valid_bins": 2880,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "b24854882e1d7fe363cf465035e0c0e3083a4ed91a23ca136521ae919f6b5e86"
+    },
+    {
+      "cell_id": "70#34",
+      "retinal_class": "MC",
+      "polarity": "ON",
+      "constant_nll": 0.46580201387405396,
+      "retinal_nll": 0.3991176187992096,
+      "constant_replay_error": 0.0,
+      "retinal_replay_error": 0.0,
+      "train_rate": 0.20282737910747528,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "retinal_parameter_counts": {
+        "total": 147,
+        "requires_grad": 51,
+        "optimizer_listed": 51
+      },
+      "retinal_checkpoint_sha256": "c3e6dd25cbc6ce85c7e1dc07ce64066c07c0d6e1cdc94338a9fd193bb8ffc7fa"
+    }
+  ]
+}

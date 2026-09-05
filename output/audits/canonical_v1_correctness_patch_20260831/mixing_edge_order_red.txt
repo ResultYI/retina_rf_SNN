@@ -1,0 +1,33 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+____ test_loaded_edge_order_preserves_identity_rows_and_mixing_parameters _____
+
+    def test_loaded_edge_order_preserves_identity_rows_and_mixing_parameters() -> None:
+        # Given: the same mixed-degree graph constructed with different edge orderings.
+        edges = torch.tensor(((0, 0, 1, 1, 2), (0, 1, 0, 1, 2)))
+        mixers = tuple(
+            SharedSubunitMixer(
+                SharedSubunitLayout(torch.zeros(3, 2), ("midget",) * 3, ("ON",) * 3, order),
+                radius_deg=0.08,
+                trainable=True,
+            )
+            for order in (edges, edges[:, (4, 0, 1, 2, 3)])
+        )
+    
+        # When: the checkpoint carries its own edge order and corresponding raw weights.
+        mixers[1].load_state_dict(mixers[0].state_dict(), strict=True)
+    
+        # Then: derived identity rows follow loaded edges rather than construction order.
+>       assert torch.equal(mixers[0].connection_matrix(), mixers[1].connection_matrix())
+E       assert False
+E        +  where False = <built-in method equal of type object at 0x00007FFBD8533560>(tensor([[0.9091, 0.0909, 0.0000],\n        [0.0909, 0.9091, 0.0000],\n        [0.0000, 0.0000, 1.0000]], grad_fn=<DivBackward0>), tensor([[0.0000, 1.0000, 0.0000],\n        [0.5000, 0.5000, 0.0000],\n        [0.0000, 0.0000, 1.0000]], grad_fn=<DivBackward0>))
+E        +    where <built-in method equal of type object at 0x00007FFBD8533560> = torch.equal
+E        +    and   tensor([[0.9091, 0.0909, 0.0000],\n        [0.0909, 0.9091, 0.0000],\n        [0.0000, 0.0000, 1.0000]], grad_fn=<DivBackward0>) = <bound method SharedSubunitMixer.connection_matrix of SharedSubunitMixer()>()
+E        +      where <bound method SharedSubunitMixer.connection_matrix of SharedSubunitMixer()> = SharedSubunitMixer().connection_matrix
+E        +    and   tensor([[0.0000, 1.0000, 0.0000],\n        [0.5000, 0.5000, 0.0000],\n        [0.0000, 0.0000, 1.0000]], grad_fn=<DivBackward0>) = <bound method SharedSubunitMixer.connection_matrix of SharedSubunitMixer()>()
+E        +      where <bound method SharedSubunitMixer.connection_matrix of SharedSubunitMixer()> = SharedSubunitMixer().connection_matrix
+
+tests\test_canonical_mixing_correctness.py:188: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_canonical_mixing_correctness.py::test_loaded_edge_order_preserves_identity_rows_and_mixing_parameters
+1 failed, 7 deselected in 1.51s

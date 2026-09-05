@@ -1,0 +1,41 @@
+{
+  "fixture": "in_memory_only_no_checkpoint_io",
+  "seed": 319,
+  "torch": "2.6.0+cpu",
+  "dtype": "torch.float64",
+  "input_shape": [
+    1,
+    32,
+    49
+  ],
+  "minimal_validator_accepts_legacy": true,
+  "full_model_payload_validator_accepts_legacy": true,
+  "loaded_architecture_mode": "legacy",
+  "strict_load_missing_keys": [],
+  "strict_load_unexpected_keys": [],
+  "state_dict_key_count": 50,
+  "root_load_pre_hook_count": 0,
+  "logits_shape": [
+    1,
+    32,
+    2
+  ],
+  "logits_all_finite": true,
+  "reloaded_vs_source_logits_max_abs_difference": 0.0,
+  "direct_broad_path_spatial_basis_equal": true,
+  "direct_broad_output_equal": true,
+  "direct_broad_output_max_abs_difference": 0.0,
+  "bc_ac_support_buffers_equal": false,
+  "trainable_parameter_keys": [
+    "h1.raw_tau",
+    "h1.raw_delay",
+    "feature_bank.raw_tau",
+    "feature_bank.raw_delay",
+    "bipolar.raw_weights",
+    "amacrine.raw_tau",
+    "amacrine.raw_delay",
+    "cell_gains.log_bc",
+    "cell_gains.log_ac",
+    "rgc.response_bias"
+  ]
+}

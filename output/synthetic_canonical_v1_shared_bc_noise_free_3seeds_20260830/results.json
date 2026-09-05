@@ -1,0 +1,490 @@
+{
+  "causal_contract": "h1-shared-bc-direct-broad-ac",
+  "causal_contract_checks": {
+    "53001": {
+      "AC_depends_on_BC_broad": true,
+      "AC_exact_zero": true,
+      "AC_has_only_downstream_parameters": true,
+      "AC_off_preserves_H1_and_BC_views": true,
+      "AC_to_BC_broad_gradient_norm": 54.10261154174805,
+      "AC_without_BC_has_no_stimulus_gradient": true,
+      "H1_exact_zero": true,
+      "H1_off_amacrine_local_current_change_norm": 0.8020148277282715,
+      "H1_off_amacrine_local_state_change_norm": 1.4511691331863403,
+      "H1_off_amacrine_transient_current_change_norm": 0.8500185012817383,
+      "H1_off_amacrine_transient_state_change_norm": 1.6878067255020142,
+      "H1_off_bc_broad_presynaptic_change_norm": 2.6132564544677734,
+      "H1_off_bc_direct_presynaptic_change_norm": 2.6659352779388428,
+      "H1_off_propagates_to_BC_and_AC": true,
+      "all_outputs_finite": true,
+      "all_passed": true,
+      "checkpoint_replay_kl": 2.9802322387695312e-08,
+      "checkpoint_validation_kl_equal": true,
+      "direct_BC_exact_zero": true,
+      "direct_BC_off_preserves_BC_broad_and_AC": true,
+      "identity_current": true,
+      "one_BC_temporal_encoder": true,
+      "shared_basis_max_absolute_error": 0.0,
+      "shared_encoder_parameter_identity": true,
+      "shared_view_max_absolute_error": 0.0,
+      "state_dict_unchanged": true,
+      "views_differ_only_by_support": true,
+      "views_reconstruct_from_same_weights": true
+    },
+    "53002": {
+      "AC_depends_on_BC_broad": true,
+      "AC_exact_zero": true,
+      "AC_has_only_downstream_parameters": true,
+      "AC_off_preserves_H1_and_BC_views": true,
+      "AC_to_BC_broad_gradient_norm": 54.126182556152344,
+      "AC_without_BC_has_no_stimulus_gradient": true,
+      "H1_exact_zero": true,
+      "H1_off_amacrine_local_current_change_norm": 0.8014976978302002,
+      "H1_off_amacrine_local_state_change_norm": 1.4496240615844727,
+      "H1_off_amacrine_transient_current_change_norm": 0.849518358707428,
+      "H1_off_amacrine_transient_state_change_norm": 1.6867892742156982,
+      "H1_off_bc_broad_presynaptic_change_norm": 2.6111674308776855,
+      "H1_off_bc_direct_presynaptic_change_norm": 2.6637930870056152,
+      "H1_off_propagates_to_BC_and_AC": true,
+      "all_outputs_finite": true,
+      "all_passed": true,
+      "checkpoint_replay_kl": 2.9802322387695312e-08,
+      "checkpoint_validation_kl_equal": true,
+      "direct_BC_exact_zero": true,
+      "direct_BC_off_preserves_BC_broad_and_AC": true,
+      "identity_current": true,
+      "one_BC_temporal_encoder": true,
+      "shared_basis_max_absolute_error": 0.0,
+      "shared_encoder_parameter_identity": true,
+      "shared_view_max_absolute_error": 0.0,
+      "state_dict_unchanged": true,
+      "views_differ_only_by_support": true,
+      "views_reconstruct_from_same_weights": true
+    },
+    "53003": {
+      "AC_depends_on_BC_broad": true,
+      "AC_exact_zero": true,
+      "AC_has_only_downstream_parameters": true,
+      "AC_off_preserves_H1_and_BC_views": true,
+      "AC_to_BC_broad_gradient_norm": 54.063392639160156,
+      "AC_without_BC_has_no_stimulus_gradient": true,
+      "H1_exact_zero": true,
+      "H1_off_amacrine_local_current_change_norm": 0.8022705316543579,
+      "H1_off_amacrine_local_state_change_norm": 1.4539543390274048,
+      "H1_off_amacrine_transient_current_change_norm": 0.8501711487770081,
+      "H1_off_amacrine_transient_state_change_norm": 1.6839810609817505,
+      "H1_off_bc_broad_presynaptic_change_norm": 2.612910509109497,
+      "H1_off_bc_direct_presynaptic_change_norm": 2.665576219558716,
+      "H1_off_propagates_to_BC_and_AC": true,
+      "all_outputs_finite": true,
+      "all_passed": true,
+      "checkpoint_replay_kl": 2.9802322387695312e-08,
+      "checkpoint_validation_kl_equal": true,
+      "direct_BC_exact_zero": true,
+      "direct_BC_off_preserves_BC_broad_and_AC": true,
+      "identity_current": true,
+      "one_BC_temporal_encoder": true,
+      "shared_basis_max_absolute_error": 0.0,
+      "shared_encoder_parameter_identity": true,
+      "shared_view_max_absolute_error": 0.0,
+      "state_dict_unchanged": true,
+      "views_differ_only_by_support": true,
+      "views_reconstruct_from_same_weights": true
+    },
+    "teacher": {
+      "AC_depends_on_BC_broad": true,
+      "AC_exact_zero": true,
+      "AC_has_only_downstream_parameters": true,
+      "AC_off_preserves_H1_and_BC_views": true,
+      "AC_to_BC_broad_gradient_norm": 54.44761657714844,
+      "AC_without_BC_has_no_stimulus_gradient": true,
+      "H1_exact_zero": true,
+      "H1_off_amacrine_local_current_change_norm": 0.8409315943717957,
+      "H1_off_amacrine_local_state_change_norm": 1.5552972555160522,
+      "H1_off_amacrine_transient_current_change_norm": 0.9317704439163208,
+      "H1_off_amacrine_transient_state_change_norm": 1.7584604024887085,
+      "H1_off_bc_broad_presynaptic_change_norm": 2.7616097927093506,
+      "H1_off_bc_direct_presynaptic_change_norm": 2.8172965049743652,
+      "H1_off_propagates_to_BC_and_AC": true,
+      "all_outputs_finite": true,
+      "all_passed": true,
+      "checkpoint_replay_kl": 0.0,
+      "direct_BC_exact_zero": true,
+      "direct_BC_off_preserves_BC_broad_and_AC": true,
+      "identity_current": true,
+      "one_BC_temporal_encoder": true,
+      "shared_basis_max_absolute_error": 0.0,
+      "shared_encoder_parameter_identity": true,
+      "shared_view_max_absolute_error": 0.0,
+      "state_dict_unchanged": true,
+      "views_differ_only_by_support": true,
+      "views_reconstruct_from_same_weights": true
+    }
+  },
+  "counterfactual_contract": "clamped minus normal: logits/probability over all validation stimuli; RF over first two",
+  "fresh_optimizer_per_student": true,
+  "fresh_students": true,
+  "fresh_teacher": true,
+  "history": "zero; identical teacher/student conditional history",
+  "model_name": "Canonical V1",
+  "old_checkpoints_loaded_or_converted": false,
+  "parameter_recovery_audit_run": false,
+  "protocol": {
+    "batch_size": 8,
+    "checkpoint_steps": [
+      0,
+      50,
+      100,
+      200,
+      400
+    ],
+    "learning_rate": 0.03,
+    "spike_seed": 54001,
+    "steps": 400,
+    "stimulus_seed": 51001,
+    "student_seed": 53001,
+    "teacher_seed": 52001,
+    "time_steps": 64,
+    "train_stimuli": 32,
+    "training_seed": 55001,
+    "trials": 4,
+    "validation_stimuli": 12
+  },
+  "relative_l2": "norm(student-teacher)/norm(teacher), flattened tensor, float64 metric accumulation",
+  "rf_contract": {
+    "AC": "H1-off RF minus direct_BC RF (existing ordered rf_bundle endpoint)",
+    "H1": "global RF minus H1-off RF",
+    "contexts": "first two validation stimuli",
+    "direct_BC": "RF with H1-off and AC-off (existing ordered rf_bundle BC endpoint)",
+    "global": "forward-autograd logit Jacobian",
+    "lag_bins": 16,
+    "lag_order": "oldest to current"
+  },
+  "runtime": {
+    "dtype": "torch.float32",
+    "threads": 1,
+    "torch": "2.6.0+cpu"
+  },
+  "sampled_spike_banks_generated": false,
+  "solutions": {
+    "53001": {
+      "counterfactual": {
+        "AC_off": {
+          "logit_delta": {
+            "cosine": 0.9997465617630888,
+            "relative_l2": 0.028264181492772076
+          },
+          "probability_delta": {
+            "cosine": 0.9997512973383981,
+            "relative_l2": 0.027457532785296397
+          },
+          "rf_delta": {
+            "cosine": 0.9996811124572774,
+            "relative_l2": 0.02551992892217551
+          }
+        },
+        "H1_off": {
+          "logit_delta": {
+            "cosine": 0.9986159574909914,
+            "relative_l2": 0.0906070019178996
+          },
+          "probability_delta": {
+            "cosine": 0.9986369900296251,
+            "relative_l2": 0.08777886412160499
+          },
+          "rf_delta": {
+            "cosine": 0.9998455098075147,
+            "relative_l2": 0.04755368126000286
+          }
+        },
+        "direct_BC_off": {
+          "logit_delta": {
+            "cosine": 0.9999573309878401,
+            "relative_l2": 0.009364227321771062
+          },
+          "probability_delta": {
+            "cosine": 0.9999577115963313,
+            "relative_l2": 0.009342731466745656
+          },
+          "rf_delta": {
+            "cosine": 0.9999664803382702,
+            "relative_l2": 0.008187802996177346
+          }
+        }
+      },
+      "rf": {
+        "AC": {
+          "raw": {
+            "cosine": 0.9753522989849204,
+            "relative_l2": 0.25538553175266354
+          },
+          "trained": {
+            "cosine": 0.9997190399321839,
+            "relative_l2": 0.023804015930218272
+          }
+        },
+        "H1": {
+          "raw": {
+            "cosine": 0.9912448632801255,
+            "relative_l2": 0.9347393865187833
+          },
+          "trained": {
+            "cosine": 0.9998455098075147,
+            "relative_l2": 0.04755368126000286
+          }
+        },
+        "direct_BC": {
+          "raw": {
+            "cosine": 0.9987049208920854,
+            "relative_l2": 0.05563728537046469
+          },
+          "trained": {
+            "cosine": 0.9999713369257168,
+            "relative_l2": 0.007623354482967973
+          }
+        },
+        "global": {
+          "raw": {
+            "cosine": 0.9967762557770755,
+            "relative_l2": 0.08778385204509333
+          },
+          "trained": {
+            "cosine": 0.9999666031549622,
+            "relative_l2": 0.008172882891103106
+          }
+        }
+      },
+      "validation_kl": {
+        "raw": 9.366869926452637e-05,
+        "trained": 2.9802322387695312e-08
+      }
+    },
+    "53002": {
+      "counterfactual": {
+        "AC_off": {
+          "logit_delta": {
+            "cosine": 0.9997445345844326,
+            "relative_l2": 0.028468811845132353
+          },
+          "probability_delta": {
+            "cosine": 0.9997495260032835,
+            "relative_l2": 0.027656642813673506
+          },
+          "rf_delta": {
+            "cosine": 0.999683755195891,
+            "relative_l2": 0.02543544306035152
+          }
+        },
+        "H1_off": {
+          "logit_delta": {
+            "cosine": 0.9985824599125821,
+            "relative_l2": 0.09148344819067826
+          },
+          "probability_delta": {
+            "cosine": 0.9986039111113972,
+            "relative_l2": 0.08862379659137382
+          },
+          "rf_delta": {
+            "cosine": 0.9998417936602517,
+            "relative_l2": 0.04792688441780143
+          }
+        },
+        "direct_BC_off": {
+          "logit_delta": {
+            "cosine": 0.9999567257865822,
+            "relative_l2": 0.009438517655265497
+          },
+          "probability_delta": {
+            "cosine": 0.9999571166738875,
+            "relative_l2": 0.009416778839086414
+          },
+          "rf_delta": {
+            "cosine": 0.9999665269115946,
+            "relative_l2": 0.008182377545462327
+          }
+        }
+      },
+      "rf": {
+        "AC": {
+          "raw": {
+            "cosine": 0.9749072308763994,
+            "relative_l2": 0.25616989826684045
+          },
+          "trained": {
+            "cosine": 0.9997217527553658,
+            "relative_l2": 0.02370144971844961
+          }
+        },
+        "H1": {
+          "raw": {
+            "cosine": 0.9912997134148461,
+            "relative_l2": 0.9347586854614305
+          },
+          "trained": {
+            "cosine": 0.9998417936602517,
+            "relative_l2": 0.04792688441780143
+          }
+        },
+        "direct_BC": {
+          "raw": {
+            "cosine": 0.9987099399741388,
+            "relative_l2": 0.0554063240075577
+          },
+          "trained": {
+            "cosine": 0.9999714366733261,
+            "relative_l2": 0.007606944645322054
+          }
+        },
+        "global": {
+          "raw": {
+            "cosine": 0.9967639013492646,
+            "relative_l2": 0.08793593731659102
+          },
+          "trained": {
+            "cosine": 0.9999665158421615,
+            "relative_l2": 0.008183422399873203
+          }
+        }
+      },
+      "validation_kl": {
+        "raw": 9.40859317779541e-05,
+        "trained": 2.9802322387695312e-08
+      }
+    },
+    "53003": {
+      "counterfactual": {
+        "AC_off": {
+          "logit_delta": {
+            "cosine": 0.9997536384457992,
+            "relative_l2": 0.028057176277834137
+          },
+          "probability_delta": {
+            "cosine": 0.999758251592328,
+            "relative_l2": 0.027274861242810283
+          },
+          "rf_delta": {
+            "cosine": 0.9996909498515868,
+            "relative_l2": 0.02518171735121969
+          }
+        },
+        "H1_off": {
+          "logit_delta": {
+            "cosine": 0.9986579040722252,
+            "relative_l2": 0.09011135739687219
+          },
+          "probability_delta": {
+            "cosine": 0.9986805271435696,
+            "relative_l2": 0.08731319376786802
+          },
+          "rf_delta": {
+            "cosine": 0.9998577015531717,
+            "relative_l2": 0.04781800641527377
+          }
+        },
+        "direct_BC_off": {
+          "logit_delta": {
+            "cosine": 0.9999581199335019,
+            "relative_l2": 0.009294488990193209
+          },
+          "probability_delta": {
+            "cosine": 0.9999584807882631,
+            "relative_l2": 0.009275628325011725
+          },
+          "rf_delta": {
+            "cosine": 0.9999672050557665,
+            "relative_l2": 0.008099473584494374
+          }
+        }
+      },
+      "rf": {
+        "AC": {
+          "raw": {
+            "cosine": 0.9755553781729397,
+            "relative_l2": 0.25386100594389166
+          },
+          "trained": {
+            "cosine": 0.9997275787723141,
+            "relative_l2": 0.023469931288348712
+          }
+        },
+        "H1": {
+          "raw": {
+            "cosine": 0.9913279173430131,
+            "relative_l2": 0.9347384121194733
+          },
+          "trained": {
+            "cosine": 0.9998577015531717,
+            "relative_l2": 0.04781800641527377
+          }
+        },
+        "direct_BC": {
+          "raw": {
+            "cosine": 0.9987387791091237,
+            "relative_l2": 0.05499189271365339
+          },
+          "trained": {
+            "cosine": 0.9999719035459462,
+            "relative_l2": 0.007543978140688903
+          }
+        },
+        "global": {
+          "raw": {
+            "cosine": 0.9968264949979367,
+            "relative_l2": 0.08721471476852269
+          },
+          "trained": {
+            "cosine": 0.9999670603159498,
+            "relative_l2": 0.00811668318527001
+          }
+        }
+      },
+      "validation_kl": {
+        "raw": 9.34302806854248e-05,
+        "trained": 2.9802322387695312e-08
+      }
+    }
+  },
+  "source_hashes_before": {
+    "evaluation\\mechanistic_retina\\clean_sampled_artifacts.py": "32b40d7132f880ff5a75300173432bab090bfb36165eff981d6a84759cf100e9",
+    "evaluation\\mechanistic_retina\\clean_sampled_data.py": "b3a639e12ee2a375b84c4aaf12e2097e604e55d0bc1412acf46baa279b765ffb",
+    "evaluation\\mechanistic_retina\\clean_sampled_reporting.py": "56422db9bde3a84b8e19668601d1529a0ee335f78f597a7d79354d7069d10b8b",
+    "evaluation\\mechanistic_retina\\clean_sampled_teacher.py": "06a9e02c310c7aabc31c450a39ac243a5ade8f1da7b37bc10d5a8fd8399a0ef8",
+    "evaluation\\mechanistic_retina\\mechanism_teacher_support.py": "72727e75097ae7557d0edd6d1aa1e6a8bcb51618c5bc8454fd86f64db99e08e3",
+    "evaluation\\mechanistic_retina\\noise_free_recovery.py": "3676db477d66b7b254f24dee0b9c51d5da5ddf20f48266e45c6ff36b68819cd5",
+    "evaluation\\mechanistic_retina\\noise_free_recovery_metrics.py": "e22060901a9c1a25202b608215827777d053dea0cd6d85947283512c7e492948",
+    "evaluation\\mechanistic_retina\\rf_effective.py": "dc87ed315f9145b8f9da9886bb93c7b0cba54ca7f1cc885308af2cc45c81973a",
+    "models\\mechanistic_retina\\__init__.py": "4f0b9e668c2ddc3c9bae13553aec50a52a133401db6e9b2f2a2127f085882390",
+    "models\\mechanistic_retina\\amacrine_pathways.py": "dc8c3ce543b4af2412f53a57fbcc60785433de7a61d7e169e1094d1d7e247631",
+    "models\\mechanistic_retina\\bipolar_subunits.py": "4725f23eb5bee18db7dc3919cbbe7198ceb7d093c06eb0873fac8da12cf8f580",
+    "models\\mechanistic_retina\\causal_contract.py": "0aacee1e4b98f144f082d87eb77abe03912cb086cca6dd2d86802dd49bceb726",
+    "models\\mechanistic_retina\\cell_specific_gains.py": "72fe52688e5c04211a711a720f443e361fc4e59f25d9ca4f25735f39cbbe01db",
+    "models\\mechanistic_retina\\contracts.py": "3050e2efa26490a0d6ac36564d184dfe3d7ac99f9b5280ed912e33a7bd4ee843",
+    "models\\mechanistic_retina\\delay_parameters.py": "083816a26aa1d94d620b2460d6e1c7efd0b04e5825aa01775272d2bf5bd37c02",
+    "models\\mechanistic_retina\\graph.py": "d647c5d042383772a675f5a9b59120bd5c783d931c92523578811634270153bd",
+    "models\\mechanistic_retina\\h1_pathway.py": "dab8e1a687c3ec9ced59e29ee0b1ffb49d93bd2d7732049eb06c265a4321d156",
+    "models\\mechanistic_retina\\model.py": "29271cc1634ed8eadc577e95b0b6c01a8c5b5ad240f303c05b496b80a5586ed1",
+    "models\\mechanistic_retina\\neural_operators.py": "13b63e667cddb54f17b0b0d1f1906180d71155fa7cdffd26fdffc81e0b86efef",
+    "models\\mechanistic_retina\\pathway_gates.py": "14c38959e47205546e029a2ba0fa826fd5cde45d467834ae66597a0ee9476c11",
+    "models\\mechanistic_retina\\pathway_rf.py": "ffb02588e5664a58c02ebaad8f7ee9e9860849e378e0363c697aa6901eba8f7f",
+    "models\\mechanistic_retina\\pathway_spatial_geometry.py": "dcf34f50d7cf8889917d1027aa7386d38033988088c311861d72476494810389",
+    "models\\mechanistic_retina\\pathway_temporal.py": "bd0096acc4138e26953cade22d347c13ad0d4f3807ceca5f0e4a30ebc695a265",
+    "models\\mechanistic_retina\\phase1_run_contract.py": "939474d43bf05dd85d4dd152b48abd636a686a489df8ecb1749c75491a972e3a",
+    "models\\mechanistic_retina\\rgc_state.py": "859d29f65d2df0a8785fa8087f873404aba0f15585441d1db251e69fee8d7540",
+    "models\\mechanistic_retina\\shared_subunits.py": "c50488654f516f38e05c76d0d8808a651a9e5115861cad16be178e7050a56d3d",
+    "models\\mechanistic_retina\\spatial_contract.py": "4f272111b5070256e3259aa82cac72b4ae6d1a4f60e46946a8aa6952d8feb319",
+    "models\\mechanistic_retina\\state.py": "fb20576fa7c277deb01261d0ad7f743211a7aab2643986d8bffd2ba47b3e486b",
+    "models\\mechanistic_retina\\support_partition.py": "6a90f9a42f4f60287438e6d1f47dbdda04b85eda0ef67a1983af835711f23881",
+    "models\\mechanistic_retina\\temporal_parameters.py": "3230165b0c7a86c340e76467b4bc2eb965add94b20f8832b5e99d6d973bf3505",
+    "training\\mechanistic_retina\\losses.py": "6e26f7b0ac7d08b681d2b4a291e457d8159e170afc41c6b39aba4166fb9cc91a",
+    "training\\mechanistic_retina\\optimizer.py": "06d169ae1ebb6a258d844c7f3038e28ece78a8cdcaa78fcdb6f8c9b3f08aba17"
+  },
+  "source_hashes_unchanged": true,
+  "student_seeds": [
+    53001,
+    53002,
+    53003
+  ],
+  "teacher_trained": false,
+  "training_target": "teacher_probability_expected_Bernoulli_CE",
+  "validation_kl": "unchanged float32 expected CE minus teacher entropy helper"
+}

@@ -1,0 +1,118 @@
+{
+  "capture_observations.py": {
+    "bytes": 1766,
+    "sha256": "c494e5b5af7f180661c50cbc463d1414cdd0f04322af364401104fc6f96efbcc"
+  },
+  "capture_run_results.json": {
+    "bytes": 17030,
+    "sha256": "dd4d63483400635c2a136ba47175e6c0f1cf1ab5dc4c6ab24da03e643e76956d"
+  },
+  "captured_tensors.npz": {
+    "bytes": 928074,
+    "sha256": "c9f0a3439d999b2eabf32fbe874732689afb4e89400c95c1414ebbc3fe50adc5"
+  },
+  "GOAL_ALIGNMENT.md": {
+    "bytes": 5543,
+    "sha256": "400ee86fe7ca845f94cae661751523b515c2924c0e937591920c6658af7c1192"
+  },
+  "identity_edges_probe.py": {
+    "bytes": 5737,
+    "sha256": "988f8f1249f573c97c582e5b4d543681ab298347a2d1943fd556e5d23c3c39a5"
+  },
+  "identity_edges_results.json": {
+    "bytes": 4216,
+    "sha256": "7fc427204e8f13e572fb43ba320af2556ea785ad04e9c61c9a00c2870eb7ae16"
+  },
+  "illusion_literature.md": {
+    "bytes": 5024,
+    "sha256": "fad33ffaecf9aa89f5e1c9abfb7bf8477b3446ce9e5303fe398bef2374e5ff40"
+  },
+  "legacy\\legacy_in_memory_probe.sh": {
+    "bytes": 3793,
+    "sha256": "0326ab9a7d68b39a7b01f117c9d2193200db488c1120f6dfb35e1351ccf08ec6"
+  },
+  "legacy\\legacy_in_memory_stdout.json": {
+    "bytes": 1026,
+    "sha256": "5c819b99df126cf62a25c0e9e00628ff85807d31edec44021135052e765c307c"
+  },
+  "legacy\\ownership_legacy_source_memo.md": {
+    "bytes": 11743,
+    "sha256": "d93e3996a8a51937b1d063a2939454dc2faf3e13c58c7fbaeff447b6f6d412ec"
+  },
+  "physiology.md": {
+    "bytes": 5455,
+    "sha256": "849ccdcb8d6339655748a74ab4a7f36692efbdce5cc9cba294af9c6c0eb4aa77"
+  },
+  "REPORT.md": {
+    "bytes": 21404,
+    "sha256": "9cc93cd56faf8baf0d6b5088574ae7ba14732ce84efef9efb5b51ef198c0771c"
+  },
+  "rf\\artifact_manifest.json": {
+    "bytes": 1270,
+    "sha256": "5842c72ccb507052e388214f3518975a3748729d1e20f0280c15eba90260fd78"
+  },
+  "rf\\basis_observed.json": {
+    "bytes": 2662,
+    "sha256": "b7a3ff22ceeeb867d88ccfccb9ce5d9a7f5006e396d5bd6bf25cd5dbf27a9184"
+  },
+  "rf\\basis_probe.py": {
+    "bytes": 3579,
+    "sha256": "6fb4ddbb1cd186ab7a1052b5a174f71eec74f311e4a4aba0bf1ab32cd2f38f11"
+  },
+  "rf\\basis_raw_result.json": {
+    "bytes": 2407,
+    "sha256": "db238ab62f819e99d400a962319f4df8990d22ed371cf515f7326328ca2407dc"
+  },
+  "rf\\basis_tool_event.json": {
+    "bytes": 6588,
+    "sha256": "d93f049b8b884b520c8ba7c38931cb014c9114faed0e088283f58e773ac0a070"
+  },
+  "rf\\initial_state_sha256_by_key.json": {
+    "bytes": 4751,
+    "sha256": "88f68928ea63832c1c33202115a472d7d065e318abfc352af79fdeae5c3e53cf"
+  },
+  "rf\\primary_observed.json": {
+    "bytes": 33967,
+    "sha256": "52ff3877398f91698b2f60dc2673f9b7899d10bcb140d51db05bb76e84e211e3"
+  },
+  "rf\\primary_probe.py": {
+    "bytes": 8181,
+    "sha256": "650dc8eda9d831a230f71aa0aa37f2408663551d244e42691ec344b6f4bcf9c1"
+  },
+  "rf\\primary_raw_result.json": {
+    "bytes": 28041,
+    "sha256": "714d27c0c2ec46aaaa138d1da1e3e2f79c0c26e26412f1818af28a9c9e58d7f9"
+  },
+  "rf\\primary_tool_event.json": {
+    "bytes": 36819,
+    "sha256": "dc8e354706d69a2f590967be186f930af70144e4585a7a89c8c44cc24126f53f"
+  },
+  "rf\\RF_AUDIT_MEMO.md": {
+    "bytes": 5402,
+    "sha256": "dc1f4a405b6b6ee0e53b1003984c416b73a1a61b676930dbfc479e774bd79070"
+  },
+  "rf\\source_hashes.json": {
+    "bytes": 3140,
+    "sha256": "30c53f4a947a58368220e00b1e0e01b58aaf10447011dee128b6fac67d84ddbf"
+  },
+  "runtime_probe.py": {
+    "bytes": 6168,
+    "sha256": "2ce8066d7388b12a711a97ec2817fa5a3a46a8f505f73c99cf11420d890dadba"
+  },
+  "runtime_results.json": {
+    "bytes": 16358,
+    "sha256": "d9f4db89426693636867b0c0fc00fc12b95ae300c3fcd1d9d788edcbef22a5f0"
+  },
+  "source_manifest.json": {
+    "bytes": 18052,
+    "sha256": "d0ad2df600d28ae32a127f1fffddd2bb72578f91d798741289b0e837cb647855"
+  },
+  "spatial_dead_parameters_probe.py": {
+    "bytes": 2636,
+    "sha256": "5ee216810f5e1f2f70889cf449efe825d4eae0afd2f8764fcf840d91325e0918"
+  },
+  "spatial_dead_parameters_results.json": {
+    "bytes": 1081,
+    "sha256": "3658dfdf9e5c9b7bae852dc9a91d6566c3b3bb2477d50ba35895084c7061efc4"
+  }
+}

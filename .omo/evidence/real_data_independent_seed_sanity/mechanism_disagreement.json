@@ -1,0 +1,7 @@
+{
+  "opposite_rows": [],
+  "closeness_threshold": null,
+  "sign_zero_tolerance": 1e-09,
+  "sign_definition": "unchanged mean-on paired logit, 300 <= time_ms < 400",
+  "no_refits_or_tuning_triggered_by_disagreement": true
+}

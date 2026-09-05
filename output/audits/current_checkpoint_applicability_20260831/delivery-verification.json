@@ -1,0 +1,119 @@
+{
+  "utc": "2026-08-31T02:22:17.368419+00:00",
+  "checks": {
+    "22_unique_cells": true,
+    "runtime_verdicts": true,
+    "176_VJPs": true,
+    "outside_zero_inside_nonzero": true,
+    "mixer_22_unique_cells": true,
+    "mixer_66_zero_differences": true,
+    "mixer_nontrainable_buffer": true,
+    "global_FAIL_retained": true,
+    "four_NOT_REACHED_classifications": true,
+    "actual-mask-vs-full-disk.csv_22_unique_cells": true,
+    "checkpoint-identity.csv_22_unique_cells": true,
+    "effective-support-derivatives.csv_22_unique_cells": true,
+    "markdown_table_column_counts": true,
+    "all_report_local_links_exist": true,
+    "all_expected_artifacts_present": true
+  },
+  "integrity": {
+    "source_sha256": {
+      "checked": 262,
+      "changed": [],
+      "passed": true
+    },
+    "checkpoint_sha256": {
+      "checked": 22,
+      "changed": [],
+      "passed": true
+    },
+    "existing_lineage_artifact_sha256": {
+      "checked": 213,
+      "changed": [],
+      "passed": true
+    }
+  },
+  "csv_rows": {
+    "actual-mask-vs-full-disk.csv": 22,
+    "checkpoint-identity.csv": 22,
+    "effective-support-derivatives.csv": 22
+  },
+  "syntax_checked_without_execution": [
+    "integrity_snapshot.py",
+    "mixer_audit.py",
+    "runtime_audit.py"
+  ],
+  "report_local_links_checked": 35,
+  "artifacts": {
+    "actual-mask-vs-full-disk.csv": {
+      "sha256": "404a99cad5894b1de2a07f48fc4749a81bac6ff0354c991b173b5545a9b2c674",
+      "bytes": 2925
+    },
+    "checkpoint-identity.csv": {
+      "sha256": "df48ca5f89ad84926cf96dbe53d83c5f72d918eb36d5e77635dea39bf0a4caa6",
+      "bytes": 17724
+    },
+    "effective-support-derivatives.csv": {
+      "sha256": "ee4f35c456425772a831f7f121b99bb4e4b73f784d32b429e296f0da98745db5",
+      "bytes": 2781
+    },
+    "historical-source-integrity.json": {
+      "sha256": "336ceefb1287ece3ef6b39a857b7573606fc35940ed54234ab16ba3b0ebfc55c",
+      "bytes": 79425
+    },
+    "integrity-after.json": {
+      "sha256": "dc24dcadd5074216ee33958d1ca23cda49f2bc7c8629f3ca42d14ed1b85d15be",
+      "bytes": 75527
+    },
+    "integrity-before.json": {
+      "sha256": "d5e6dba0184a00666b61655a114656a46951bbba4a02e3bbd0e6c93e4c34a34f",
+      "bytes": 75558
+    },
+    "integrity-comparison.json": {
+      "sha256": "f8ecee7d521560c7bbaedc4cc43d536916b68726d99abc012559a4e637d030c3",
+      "bytes": 451
+    },
+    "integrity_snapshot.py": {
+      "sha256": "cc2c9cb82e08c3c1088c53cbfaa86f801f98176fb846c2380d54967854fe3323",
+      "bytes": 1215
+    },
+    "method-review.txt": {
+      "sha256": "bb90a77808124670d5a6831d5dcdcf483551f6ab110b9fe61c2603a084502d6a",
+      "bytes": 685
+    },
+    "mixer-audit.json": {
+      "sha256": "10158fb6dc44c0925224cb3a98943b750c38af30d67834393fbc846a4a6ad52e",
+      "bytes": 15198
+    },
+    "mixer_audit.py": {
+      "sha256": "6bd81694c07a509ac1c3851f6fd2239835791f227d8c06a9f0932ac7df6030ff",
+      "bytes": 5129
+    },
+    "REPORT.md": {
+      "sha256": "67c68a39b905de67940d7d0e2b7301edd0609da3eef8355029d6d365c3b3149b",
+      "bytes": 19683
+    },
+    "runtime-audit.json": {
+      "sha256": "a8769f71010fd568635b33fc78148428bab930c3f168632d0d0d61b4c3fec875",
+      "bytes": 528089
+    },
+    "runtime_audit.py": {
+      "sha256": "e69c8425d143bbed2fd75259ae26377bae310a5814160413f23fdb468ae863b7",
+      "bytes": 14109
+    }
+  },
+  "model_or_experiment_reruns": 0,
+  "all_passed": true,
+  "artifact_manifest_scope": "The 14 audit files listed below; excludes delivery-verification.json itself.",
+  "independent_delivery_review": {
+    "passed": true,
+    "scope": "Read-only comparison of delivered REPORT.md, three CSVs, runtime-audit.json and mixer-audit.json; no model reruns.",
+    "findings": [],
+    "csv_fields_match_json": true,
+    "report_tables_match_json": true,
+    "markdown_tables_valid": true,
+    "global_architecture_fail_retained": true,
+    "historical_optimizer_snapshot_limitation_retained": true
+  }
+}

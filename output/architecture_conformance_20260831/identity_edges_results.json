@@ -1,0 +1,178 @@
+{
+  "shared_parameter_graph_identity": [
+    {
+      "name": "feature_bank.raw_tau",
+      "object_id": 2305231706528,
+      "in_direct_graph": true,
+      "in_broad_graph": true,
+      "data_ptr": 2305303121344,
+      "state_key": "feature_bank.raw_tau"
+    },
+    {
+      "name": "feature_bank.raw_delay",
+      "object_id": 2305231706928,
+      "in_direct_graph": true,
+      "in_broad_graph": true,
+      "data_ptr": 2305302792320,
+      "state_key": "feature_bank.raw_delay"
+    },
+    {
+      "name": "shared_subunits.raw_connections",
+      "object_id": 2305231706288,
+      "in_direct_graph": true,
+      "in_broad_graph": true,
+      "data_ptr": 2305302987584,
+      "state_key": "shared_subunits.raw_connections"
+    },
+    {
+      "name": "bipolar.raw_weights",
+      "object_id": 2305231705648,
+      "in_direct_graph": true,
+      "in_broad_graph": true,
+      "data_ptr": 2305303642496,
+      "state_key": "bipolar.raw_weights"
+    }
+  ],
+  "dead_singleton_entries": [
+    4,
+    9
+  ],
+  "singleton_edge_degree": [
+    2,
+    2,
+    1,
+    2,
+    2,
+    1
+  ],
+  "singleton_perturb_logit": {
+    "equal": true,
+    "max_abs_difference": 0.0,
+    "right_exact_zero": false
+  },
+  "optional_gain_variants": {
+    "aggregate": {
+      "trainable_tensor_count": 15,
+      "trainable_scalar_count": 100,
+      "all_connected": true,
+      "all_optimizer_once": true,
+      "additional_parameters": [
+        {
+          "name": "cell_gains.log_bc",
+          "shape": [
+            6
+          ],
+          "object_id": 2305232078960,
+          "storage_ptr": 2305303122304,
+          "state_dict_same_storage": true,
+          "optimizer_count": 1,
+          "gradient_max_abs": 57.87442378136781
+        },
+        {
+          "name": "cell_gains.log_ac",
+          "shape": [
+            6
+          ],
+          "object_id": 2305232079520,
+          "storage_ptr": 2305303122432,
+          "state_dict_same_storage": true,
+          "optimizer_count": 1,
+          "gradient_max_abs": 20.825426341841776
+        }
+      ]
+    },
+    "pathway_mixture": {
+      "trainable_tensor_count": 17,
+      "trainable_scalar_count": 112,
+      "all_connected": true,
+      "all_optimizer_once": true,
+      "additional_parameters": [
+        {
+          "name": "cell_gains.log_bc_sustained",
+          "shape": [
+            6
+          ],
+          "object_id": 2305294675040,
+          "storage_ptr": 2305303124992,
+          "state_dict_same_storage": true,
+          "optimizer_count": 1,
+          "gradient_max_abs": 26.960088195718477
+        },
+        {
+          "name": "cell_gains.log_bc_transient",
+          "shape": [
+            6
+          ],
+          "object_id": 2305294673440,
+          "storage_ptr": 2305303120448,
+          "state_dict_same_storage": true,
+          "optimizer_count": 1,
+          "gradient_max_abs": 30.918707412698332
+        },
+        {
+          "name": "cell_gains.log_ac_local",
+          "shape": [
+            6
+          ],
+          "object_id": 2305294675200,
+          "storage_ptr": 2305303125568,
+          "state_dict_same_storage": true,
+          "optimizer_count": 1,
+          "gradient_max_abs": 7.820557709792428
+        },
+        {
+          "name": "cell_gains.log_ac_transient",
+          "shape": [
+            6
+          ],
+          "object_id": 2305294674160,
+          "storage_ptr": 2305303123648,
+          "state_dict_same_storage": true,
+          "optimizer_count": 1,
+          "gradient_max_abs": 13.25287052623086
+        }
+      ]
+    }
+  },
+  "two_cell_spatial_counterexample": {
+    "BC_mask": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "AC_mask": [
+      [
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0
+      ]
+    ],
+    "mixing": [
+      [
+        0.9090909055877738,
+        0.09090909441222615
+      ],
+      [
+        0.09090909441222615,
+        0.9090909055877738
+      ]
+    ],
+    "direct_broad_equal": {
+      "equal": false,
+      "max_abs_difference": 0.04069439626625052,
+      "right_exact_zero": false
+    },
+    "direct_cell0_outside_radius_gradient_max": 0.02389010889779217,
+    "outside_distance": 0.07,
+    "BC_radius": 0.06
+  }
+}
+

@@ -1,0 +1,77 @@
+{
+  "status": "STOP_DEFINITION_UNRESOLVED",
+  "checked_date": "2026-08-31",
+  "paper": {
+    "title": "Modeling spatial contrast sensitivity in responses of primate retinal ganglion cells to natural movies",
+    "authors": "Sridhar et al.",
+    "year": 2026,
+    "doi": "10.1371/journal.pcbi.1014157",
+    "url": "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1014157",
+    "sections": [
+      "Modeling: Spatial contrast (SC) model",
+      "Model fitting and evaluation",
+      "Advantages and limitations of the SC model"
+    ]
+  },
+  "official_repository": "https://github.com/gollischlab/SpatiotemporalSCModel",
+  "official_commit": "76b733421cc16131c2229e66a7714d8892de39d7",
+  "official_sources": [
+    {
+      "repository_path": "sc_model/models/sc_model.py",
+      "git_blob_sha1": "6e07076b47027e9f468e0ff9586c82fc84dd8cb1",
+      "pinned_url": "https://github.com/gollischlab/SpatiotemporalSCModel/blob/76b733421cc16131c2229e66a7714d8892de39d7/sc_model/models/sc_model.py",
+      "snapshot": "sources/sc_model__models__sc_model.py.txt"
+    },
+    {
+      "repository_path": "sc_model/utils/convolutions.py",
+      "git_blob_sha1": "8ec63a28b801df17933398fd0b1f47651d69c2b2",
+      "pinned_url": "https://github.com/gollischlab/SpatiotemporalSCModel/blob/76b733421cc16131c2229e66a7714d8892de39d7/sc_model/utils/convolutions.py",
+      "snapshot": "sources/sc_model__utils__convolutions.py.txt"
+    },
+    {
+      "repository_path": "sc_model/utils/minimization.py",
+      "git_blob_sha1": "36173d363e6e91302dc83ff8eae8514a520deafc",
+      "pinned_url": "https://github.com/gollischlab/SpatiotemporalSCModel/blob/76b733421cc16131c2229e66a7714d8892de39d7/sc_model/utils/minimization.py",
+      "snapshot": "sources/sc_model__utils__minimization.py.txt"
+    },
+    {
+      "repository_path": "sc_model/utils/nonlinearities.py",
+      "git_blob_sha1": "9d1e2b2e93d3a6eb2ce4db1a22b9ed94ff6fa24b",
+      "pinned_url": "https://github.com/gollischlab/SpatiotemporalSCModel/blob/76b733421cc16131c2229e66a7714d8892de39d7/sc_model/utils/nonlinearities.py",
+      "snapshot": "sources/sc_model__utils__nonlinearities.py.txt"
+    },
+    {
+      "repository_path": "sc_model/utils/receptive_fields.py",
+      "git_blob_sha1": "8c7c7205a5f351f130d6928d183fd7d479c9eed5",
+      "pinned_url": "https://github.com/gollischlab/SpatiotemporalSCModel/blob/76b733421cc16131c2229e66a7714d8892de39d7/sc_model/utils/receptive_fields.py",
+      "snapshot": "sources/sc_model__utils__receptive_fields.py.txt"
+    },
+    {
+      "repository_path": "sc_model/scripts/run_sc_model.py",
+      "git_blob_sha1": "34fb3646183784baf754b952e57b759733aae013",
+      "pinned_url": "https://github.com/gollischlab/SpatiotemporalSCModel/blob/76b733421cc16131c2229e66a7714d8892de39d7/sc_model/scripts/run_sc_model.py",
+      "snapshot": "sources/sc_model__scripts__run_sc_model.py.txt"
+    },
+    {
+      "repository_path": "LICENSE",
+      "git_blob_sha1": "31919f104ea6b8d4973edd6aebdea538fa79b61a",
+      "pinned_url": "https://github.com/gollischlab/SpatiotemporalSCModel/blob/76b733421cc16131c2229e66a7714d8892de39d7/LICENSE",
+      "snapshot": "sources/LICENSE.txt"
+    }
+  ],
+  "scope": {
+    "baseline_implemented": false,
+    "training_runs": 0,
+    "models_loaded": 0,
+    "validation_used_for_selection": false,
+    "canonical_modified": false,
+    "data_pipeline_modified": false,
+    "model_tests_run": false
+  },
+  "blocker": "No frozen, source-supported mapping from the project's two-temporal-filter center-surround LN to the original SC single-separable-filter definition, or complete Bernoulli/inner-development adapter specification.",
+  "source_fetch_note": "Public web paper and official GitHub connector read. Direct HTTPS API shell access failed certificate-chain validation; no TLS checks were disabled.",
+  "reference_results": {
+    "constant_ln": "D:/PythonProject/retina_rf_SNN/output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/results.json",
+    "canonical_shared_bc": "D:/PythonProject/retina_rf_SNN/output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/results.json"
+  }
+}

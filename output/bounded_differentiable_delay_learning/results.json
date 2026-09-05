@@ -1,0 +1,434 @@
+{
+  "config": {
+    "batch_size": 8,
+    "checkpoint_steps": [
+      0,
+      50,
+      100,
+      200,
+      400
+    ],
+    "learning_rate": 0.03,
+    "spike_seed": 54001,
+    "steps": 400,
+    "stimulus_seed": 51001,
+    "student_seed": 53001,
+    "teacher_seed": 52001,
+    "time_steps": 64,
+    "train_stimuli": 32,
+    "training_seed": 55001,
+    "trials": 4,
+    "validation_stimuli": 12
+  },
+  "data_sha256": {
+    "train_cones": "a5d5ac435e23c5f8fdc091deb9d0cb66bd28e33eb0f2f0ad1cc0076101c1da32",
+    "train_spikes": "70ec15bc9b6007ab33bbebab26c9a5093d92ab143b14fbe8fa3d0e5cec93721f",
+    "validation_cones": "9fa9a7a3b79af709c9956b1d0a0227c6534b7294e9975c6160238baa69694548",
+    "validation_spikes": "3ac0ea24a336401b7bc4de86ec0d6129be226936942f802ccb9914b57460a3ea"
+  },
+  "explicit_pathway_delay_diagnostics": {
+    "all_finite": true,
+    "any_hit_boundary": false,
+    "order_valid": true
+  },
+  "explicit_pathway_delay_parameters": {
+    "AC_local": {
+      "actually_updated": true,
+      "finite": true,
+      "gradient_seen": true,
+      "hit_boundary": false,
+      "initial_ms": [
+        15.000000953674316
+      ],
+      "lower_ms": [
+        0.0
+      ],
+      "max_abs_delta_ms": 9.983315467834473,
+      "minimum_boundary_margin_ms": 5.016685485839844,
+      "trained_ms": [
+        5.016685485839844
+      ],
+      "upper_ms": [
+        40.0
+      ]
+    },
+    "AC_transient": {
+      "actually_updated": true,
+      "finite": true,
+      "gradient_seen": true,
+      "hit_boundary": false,
+      "initial_ms": [
+        7.500000476837158
+      ],
+      "lower_ms": [
+        0.0
+      ],
+      "max_abs_delta_ms": 5.214106559753418,
+      "minimum_boundary_margin_ms": 2.2858939170837402,
+      "trained_ms": [
+        2.2858939170837402
+      ],
+      "upper_ms": [
+        25.0
+      ]
+    },
+    "BC_sustained": {
+      "actually_updated": true,
+      "finite": true,
+      "gradient_seen": true,
+      "hit_boundary": false,
+      "initial_ms": [
+        10.0
+      ],
+      "lower_ms": [
+        0.0
+      ],
+      "max_abs_delta_ms": 3.4527759552001953,
+      "minimum_boundary_margin_ms": 6.547224044799805,
+      "trained_ms": [
+        6.547224044799805
+      ],
+      "upper_ms": [
+        30.0
+      ]
+    },
+    "BC_transient": {
+      "actually_updated": true,
+      "finite": true,
+      "gradient_seen": true,
+      "hit_boundary": false,
+      "initial_ms": [
+        5.0
+      ],
+      "lower_ms": [
+        0.0
+      ],
+      "max_abs_delta_ms": 1.018977165222168,
+      "minimum_boundary_margin_ms": 3.981022834777832,
+      "trained_ms": [
+        3.981022834777832
+      ],
+      "upper_ms": [
+        20.0
+      ]
+    },
+    "H1": {
+      "actually_updated": true,
+      "finite": true,
+      "gradient_seen": true,
+      "hit_boundary": false,
+      "initial_ms": [
+        5.0
+      ],
+      "lower_ms": [
+        0.0
+      ],
+      "max_abs_delta_ms": 0.050200462341308594,
+      "minimum_boundary_margin_ms": 4.949799537658691,
+      "trained_ms": [
+        4.949799537658691
+      ],
+      "upper_ms": [
+        20.0
+      ]
+    }
+  },
+  "explicit_pathway_delays_learned": true,
+  "fresh_optimizer": true,
+  "loaded_checkpoint": false,
+  "model_class": "physiology-constrained recurrent/state-space retinal point-process model",
+  "model_revision": 3,
+  "numerical_anomaly_detected": false,
+  "optimizer_parameters": [
+    "h1.raw_tau",
+    "h1.raw_delay",
+    "feature_bank.raw_tau",
+    "feature_bank.raw_delay",
+    "bipolar.raw_weights",
+    "amacrine.raw_weights",
+    "amacrine.raw_tau",
+    "gates.h1",
+    "gates.ac_local",
+    "gates.ac_transient",
+    "gates.history",
+    "rgc.response_bias"
+  ],
+  "parameter_inventory": {
+    "actually_updated": 128,
+    "gates": 4,
+    "nonzero_gradient": 144,
+    "optimizer_listed": 128,
+    "requires_grad": 240,
+    "rf_bearing": 228,
+    "state_dynamics": 8,
+    "total": 240
+  },
+  "pathway_diagnostics": false,
+  "pathway_updates": {
+    "AC": {
+      "actually_updated": true,
+      "gradient_seen": true,
+      "max_abs_delta": 2.297682762145996,
+      "total_elements": 50,
+      "updated_elements": 50
+    },
+    "BC": {
+      "actually_updated": true,
+      "gradient_seen": true,
+      "max_abs_delta": 1.7443619966506958,
+      "total_elements": 48,
+      "updated_elements": 48
+    },
+    "H1": {
+      "actually_updated": true,
+      "gradient_seen": true,
+      "max_abs_delta": 0.5,
+      "total_elements": 1,
+      "updated_elements": 1
+    }
+  },
+  "rf": {
+    "global": {
+      "raw_norm": 0.515707790851593,
+      "raw_teacher_cosine": 0.9718881249427795,
+      "raw_to_trained_change_norm": 1.7320828437805176,
+      "teacher_norm": 2.2400903701782227,
+      "trained_norm": 2.230489492416382,
+      "trained_teacher_cosine": 0.9960440397262573
+    },
+    "temporal": {
+      "raw_norm": 0.7270880937576294,
+      "raw_teacher_cosine": 0.9409032464027405,
+      "raw_to_trained_change_norm": 1.1146515607833862,
+      "teacher_norm": 1.5854929685592651,
+      "trained_norm": 1.7773609161376953,
+      "trained_teacher_cosine": 0.9670968055725098
+    }
+  },
+  "rf_lag_window": {
+    "dt_ms": 5.0,
+    "lag_steps": 16,
+    "learnable": false,
+    "maximum_lag_ms": 75.0
+  },
+  "rgc_history_shift": {
+    "learnable": false,
+    "shift_ms": 5.0,
+    "shift_steps": 1
+  },
+  "tau_parameters": {
+    "AC_local_basis": {
+      "actually_updated": true,
+      "finite": true,
+      "gradient_seen": true,
+      "hit_boundary": false,
+      "initial_ms": [
+        20.0,
+        40.0,
+        70.0
+      ],
+      "lower_ms": [
+        15.0,
+        15.0,
+        15.0
+      ],
+      "max_abs_delta_ms": 19.149917602539062,
+      "minimum_boundary_margin_ms": 17.047252655029297,
+      "trained_ms": [
+        32.0472526550293,
+        43.03160858154297,
+        50.85008239746094
+      ],
+      "upper_ms": [
+        250.0,
+        250.0,
+        250.0
+      ]
+    },
+    "AC_local_state": {
+      "actually_updated": true,
+      "finite": true,
+      "gradient_seen": true,
+      "hit_boundary": false,
+      "initial_ms": [
+        35.0
+      ],
+      "lower_ms": [
+        20.0
+      ],
+      "max_abs_delta_ms": 15.340499877929688,
+      "minimum_boundary_margin_ms": 30.340499877929688,
+      "trained_ms": [
+        50.34049987792969
+      ],
+      "upper_ms": [
+        250.0
+      ]
+    },
+    "AC_transient_basis": {
+      "actually_updated": true,
+      "finite": true,
+      "gradient_seen": true,
+      "hit_boundary": false,
+      "initial_ms": [
+        8.0,
+        14.999999046325684,
+        30.000001907348633
+      ],
+      "lower_ms": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "max_abs_delta_ms": 15.720271110534668,
+      "minimum_boundary_margin_ms": 4.731332778930664,
+      "trained_ms": [
+        9.731332778930664,
+        30.72027015686035,
+        32.5045280456543
+      ],
+      "upper_ms": [
+        180.0,
+        180.0,
+        180.0
+      ]
+    },
+    "AC_transient_state": {
+      "actually_updated": true,
+      "finite": true,
+      "gradient_seen": true,
+      "hit_boundary": false,
+      "initial_ms": [
+        18.0
+      ],
+      "lower_ms": [
+        15.0
+      ],
+      "max_abs_delta_ms": 7.560024261474609,
+      "minimum_boundary_margin_ms": 10.56002426147461,
+      "trained_ms": [
+        25.56002426147461
+      ],
+      "upper_ms": [
+        180.0
+      ]
+    },
+    "BC_sustained_basis": {
+      "actually_updated": true,
+      "finite": true,
+      "gradient_seen": true,
+      "hit_boundary": false,
+      "initial_ms": [
+        35.0,
+        60.0,
+        99.99999237060547
+      ],
+      "lower_ms": [
+        20.0,
+        20.0,
+        20.0
+      ],
+      "max_abs_delta_ms": 48.894683837890625,
+      "minimum_boundary_margin_ms": 13.21065902709961,
+      "trained_ms": [
+        33.21065902709961,
+        43.620059967041016,
+        51.105308532714844
+      ],
+      "upper_ms": [
+        200.0,
+        200.0,
+        200.0
+      ]
+    },
+    "BC_transient_basis": {
+      "actually_updated": true,
+      "finite": true,
+      "gradient_seen": true,
+      "hit_boundary": false,
+      "initial_ms": [
+        10.0,
+        20.0,
+        35.0
+      ],
+      "lower_ms": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "max_abs_delta_ms": 15.768301010131836,
+      "minimum_boundary_margin_ms": 20.768301010131836,
+      "trained_ms": [
+        25.768301010131836,
+        31.366039276123047,
+        31.398391723632812
+      ],
+      "upper_ms": [
+        120.0,
+        120.0,
+        120.0
+      ]
+    },
+    "H1": {
+      "actually_updated": true,
+      "finite": true,
+      "gradient_seen": true,
+      "hit_boundary": false,
+      "initial_ms": [
+        50.0
+      ],
+      "lower_ms": [
+        10.0
+      ],
+      "max_abs_delta_ms": 29.377042770385742,
+      "minimum_boundary_margin_ms": 10.622957229614258,
+      "trained_ms": [
+        20.622957229614258
+      ],
+      "upper_ms": [
+        200.0
+      ]
+    }
+  },
+  "tau_parameters_learned": true,
+  "timing_concepts": {
+    "explicit_pathway_delay": "bounded-learnable causal fractional H1/BC/AC delay in ms",
+    "rf_lag_window": "fixed non-learnable truncated RF analysis window",
+    "rgc_history_shift": "fixed non-learnable one-bin causal observed-spike shift",
+    "tau": "bounded-learnable filter/state decay time constant in ms"
+  },
+  "temporal_rf_change": {
+    "cosine": 0.9460747241973877,
+    "difference_norm": 1.1146515607833862,
+    "initial_norm": 0.7270880937576294,
+    "mean_absolute_change": 0.05590101704001427,
+    "trained_norm": 1.7773609161376953
+  },
+  "training_target": "sampled_rgc_spikes_only",
+  "validation_spike_nll": {
+    "raw": 0.3877772092819214,
+    "trained": 0.37315407395362854,
+    "trajectory": [
+      {
+        "nll": 0.3877772092819214,
+        "step": 0
+      },
+      {
+        "nll": 0.3734034597873688,
+        "step": 50
+      },
+      {
+        "nll": 0.37288060784339905,
+        "step": 100
+      },
+      {
+        "nll": 0.373636931180954,
+        "step": 200
+      },
+      {
+        "nll": 0.37315407395362854,
+        "step": 400
+      }
+    ]
+  }
+}

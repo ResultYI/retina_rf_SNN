@@ -1,0 +1,13 @@
+{
+  "paired_logit_window_ms": [
+    300,
+    400
+  ],
+  "paired_bootstrap": {
+    "samples": 100000,
+    "seed": 20260901,
+    "unit": "cell",
+    "cell_count": 22
+  },
+  "training_performed": false
+}

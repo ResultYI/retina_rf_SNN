@@ -1,0 +1,747 @@
+--- before/evaluation/mechanistic_retina/karamanlis_v1_rf_validation.py
++++ after/evaluation/mechanistic_retina/karamanlis_v1_rf_validation.py
+@@ -1,7 +1,7 @@
+ from __future__ import annotations
+ 
+ from collections.abc import Mapping
+-from dataclasses import dataclass
++from dataclasses import dataclass, fields
+ from pathlib import Path
+ 
+ import numpy as np
+@@ -31,11 +31,15 @@
+     separable_projection,
+ )
+ from evaluation.mechanistic_retina.rf_effective import effective_rf
++from models.mechanistic_retina.canonical_contract import validate_canonical_config
+ from models.mechanistic_retina.contracts import (
+     ArchitectureMode,
++    MECHANISTIC_MODEL_REVISION,
+     MechanisticRetinaConfig,
+     PathwayClamp,
+ )
++from models.mechanistic_retina.causal_contract import CANONICAL_CAUSAL_CONTRACT
++from models.mechanistic_retina.spatial_contract import CANONICAL_SPATIAL_CONTRACT
+ from models.mechanistic_retina.model import build_mechanistic_retina
+ 
+ 
+@@ -69,6 +73,25 @@
+         raise RFValidationError(
+             "V1 requires aggregate BC/AC gains and forbids pathway mixture"
+         )
++    if checkpoint.get("revision") != MECHANISTIC_MODEL_REVISION or set(model_config) != {
++        field.name for field in fields(MechanisticRetinaConfig)
++    }:
++        raise RFValidationError("Canonical V1 checkpoint revision/config identity mismatch")
++    try:
++        validate_canonical_config(MechanisticRetinaConfig(**model_config))
++    except (TypeError, ValueError) as error:
++        raise RFValidationError(f"Canonical V1 config identity mismatch: {error}") from error
++    model_state = checkpoint.get("model")
++    if not isinstance(model_state, Mapping):
++        raise RFValidationError("Canonical V1 checkpoint model state is missing")
++    for key, contract in (
++        ("_causal_contract_id", CANONICAL_CAUSAL_CONTRACT),
++        ("_spatial_contract_id", CANONICAL_SPATIAL_CONTRACT),
++    ):
++        identity = model_state.get(key)
++        expected = torch.tensor(list(contract.encode()), dtype=torch.uint8)
++        if not isinstance(identity, torch.Tensor) or identity.dtype != torch.uint8 or not torch.equal(identity.cpu(), expected):
++            raise RFValidationError(f"Canonical V1 checkpoint contract identity mismatch: {key}")
+ 
+ 
+ def run_v1_rf_validation(config: V1RFValidationConfig) -> dict[str, JsonValue]:
+--- before/models/mechanistic_retina/bipolar_subunits.py
++++ after/models/mechanistic_retina/bipolar_subunits.py
+@@ -21,6 +21,7 @@
+     PathwaySpatialGeometry,
+     validate_pathway_spatial_geometry,
+ )
++from models.mechanistic_retina.shared_subunits import SharedSubunitMixer
+ from models.mechanistic_retina.support_partition import (
+     SupportPartition,
+     SupportPartitionRequest,
+@@ -67,6 +68,14 @@
+         pathway_spatial_geometry: PathwaySpatialGeometry | None = None,
+     ) -> None:
+         super().__init__()
++        supports = build_support_partition(
++            SupportPartitionRequest(
++                cone_positions,
++                cell_positions,
++                cell_types,
++                config.h1_radius_deg,
++            )
++        )
+         spatial = (
+             _spatial_basis(cone_positions, cell_positions, cell_types)
+             if pathway_spatial_geometry is None
+@@ -75,6 +84,7 @@
+                 cell_count=cell_positions.shape[0],
+                 cone_count=cone_positions.shape[0],
+                 spatial_mode_count=_SPATIAL_MODE_COUNT,
++                expected_supports=supports,
+             )
+         )
+         initial_tau = torch.tensor(
+@@ -89,23 +99,6 @@
+         signs = torch.tensor(
+             [_polarity_sign(value) for value in polarities], dtype=torch.float32
+         )
+-        if pathway_spatial_geometry is None:
+-            supports = build_support_partition(
+-                SupportPartitionRequest(
+-                    cone_positions,
+-                    cell_positions,
+-                    cell_types,
+-                    config.h1_radius_deg,
+-                )
+-            )
+-        else:
+-            h1 = torch.cdist(cell_positions.float(), cone_positions.float())
+-            h1 = (h1 <= config.h1_radius_deg).to(spatial)
+-            supports = SupportPartition(
+-                pathway_spatial_geometry.bc_support.to(spatial),
+-                pathway_spatial_geometry.ac_support.to(spatial),
+-                h1,
+-            )
+         mode = ArchitectureMode(config.architecture_mode)
+         match mode:
+             case ArchitectureMode.MECHANISM_IDENTIFIABLE:
+@@ -167,11 +160,22 @@
+             self.path_spatial_basis,
+         )
+ 
+-    def forward(self, cones: torch.Tensor) -> torch.Tensor:
++    def forward(
++        self, cones: torch.Tensor, *, mixer: SharedSubunitMixer | None = None
++    ) -> torch.Tensor:
+         lag_count = self.temporal_basis.shape[-1]
+         padded = F.pad(cones, (0, 0, lag_count - 1, 0))
+         lagged = padded.unfold(1, lag_count, 1).permute(0, 1, 3, 2)
+-        return torch.einsum("btlc,npsrlc->btnpsr", lagged, self.basis_kernels())
++        kernels = self.basis_kernels()
++        if mixer is not None and self.bc_support.shape[0] > 1:
++            target_support = torch.stack(
++                (self.bc_support, self.bc_support, self.ac_support, self.ac_support), dim=1
++            )
++            kernels = mixer.mix_kernels(kernels) * target_support[:, :, None, None, None, :]
++        features = torch.einsum("btlc,npsrlc->btnpsr", lagged, kernels)
++        if mixer is not None and self.bc_support.shape[0] == 1:
++            return mixer(features)
++        return features
+ 
+ 
+ class BipolarSubunits(nn.Module):
+--- before/models/mechanistic_retina/model.py
++++ after/models/mechanistic_retina/model.py
+@@ -29,6 +29,7 @@
+ )
+ from models.mechanistic_retina.spatial_contract import register_spatial_contract
+ from models.mechanistic_retina.causal_contract import register_causal_contract
++from models.mechanistic_retina.canonical_contract import validate_canonical_config
+ from models.mechanistic_retina.pathway_rf import pathway_basis_features, pathway_basis_rfs, pathway_base_rfs
+ 
+ 
+@@ -66,6 +67,7 @@
+             raise MechanisticModelError(
+                 f"unsupported polarities: {', '.join(invalid_polarities)}"
+             )
++        validate_canonical_config(config)
+         self.config = config
+         mode = ArchitectureMode(config.architecture_mode)
+         match mode:
+@@ -140,7 +142,7 @@
+             raise MechanisticModelError("Canonical V1 uses only the shared BC encoder; independent pathway operators are disabled")
+         gates = self.gates.values(clamps)
+         h1 = self.h1(cones, amplitude=gates.h1)
+-        features = self.shared_subunits(self.feature_bank(h1.modulated_cones))
++        features = self.feature_bank(h1.modulated_cones, mixer=self.shared_subunits)
+         modulation = self.operator(features, enabled=operators_enabled)
+         bipolar = self.bipolar(
+             features[:, :, :, :2], modulation[:, :, :, :2],
+--- before/models/mechanistic_retina/pathway_rf.py
++++ after/models/mechanistic_retina/pathway_rf.py
+@@ -19,7 +19,7 @@
+     clamps = frozenset(PathwayClamp(value) for value in clamps)
+     gates = model.gates.values(clamps)
+     modulated = model.h1(cones, amplitude=gates.h1).modulated_cones
+-    features = model.shared_subunits(model.feature_bank(modulated))
++    features = model.feature_bank(modulated, mixer=model.shared_subunits)
+     broad = features[:, :, :, 2:]
+     batch, time, cells, paths, spatial, temporal = broad.shape
+     state_input = broad.permute(0, 1, 2, 4, 5, 3).reshape(batch, time, -1, paths)
+--- before/models/mechanistic_retina/pathway_spatial_geometry.py
++++ after/models/mechanistic_retina/pathway_spatial_geometry.py
+@@ -3,6 +3,8 @@
+ from dataclasses import dataclass
+ 
+ import torch
++
++from models.mechanistic_retina.support_partition import SupportPartition
+ 
+ 
+ @dataclass(frozen=True, slots=True)
+@@ -26,6 +28,7 @@
+     cell_count: int,
+     cone_count: int,
+     spatial_mode_count: int,
++    expected_supports: SupportPartition,
+ ) -> torch.Tensor:
+     expected_basis = (cell_count, spatial_mode_count, cone_count)
+     expected_support = (cell_count, cone_count)
+@@ -63,6 +66,13 @@
+         raise PathwaySpatialGeometryError(
+             "RF-derived spatial basis must be nonnegative"
+         )
++    if (
++        not torch.equal(geometry.bc_support.cpu(), expected_supports.bc.cpu())
++        or not torch.equal(geometry.ac_support.cpu(), expected_supports.ac.cpu())
++    ):
++        raise PathwaySpatialGeometryError(
++            "Canonical V1 custom BC/AC support must equal the complete radius-defined disks"
++        )
+     return geometry.spatial_basis
+ 
+ 
+--- before/models/mechanistic_retina/shared_subunits.py
++++ after/models/mechanistic_retina/shared_subunits.py
+@@ -87,18 +87,28 @@
+             torch.full((edges.shape[1],), 0.10),
+         )
+         raw = torch.log(torch.expm1(initial.clamp_min(1e-6)))
++        row_degree = support.sum(dim=1)
++        mixing_edges = row_degree[edges[0]] > 1
+         if cell_count == 1:
+             self.register_buffer("raw_connections", raw)
++        elif not bool(mixing_edges.any()):
++            self.register_buffer("raw_connections", raw[mixing_edges])
+         else:
+-            self.raw_connections = nn.Parameter(raw, requires_grad=trainable)
++            self.raw_connections = nn.Parameter(raw[mixing_edges], requires_grad=trainable)
+         self.register_buffer("edge_index", edges)
+         self.register_buffer("cell_order", torch.arange(cell_count))
+ 
+     def connection_matrix(self) -> torch.Tensor:
++        if self.cell_order.numel() == 1:
++            return self.raw_connections.new_ones((1, 1))
+         matrix = self.raw_connections.new_zeros(
+             (self.cell_order.numel(), self.cell_order.numel())
+         )
+-        matrix[self.edge_index[0], self.edge_index[1]] = F.softplus(
++        row_degree = torch.bincount(self.edge_index[0], minlength=self.cell_order.numel())
++        self_only_rows = (row_degree == 1).nonzero().flatten()
++        matrix[self_only_rows, self_only_rows] = 1.0
++        mixing_edges = self.edge_index[:, row_degree[self.edge_index[0]] > 1]
++        matrix[mixing_edges[0], mixing_edges[1]] = F.softplus(
+             self.raw_connections
+         )
+         return matrix / matrix.sum(dim=1, keepdim=True).clamp_min(1e-12)
+--- before/models/mechanistic_retina/spatial_contract.py
++++ after/models/mechanistic_retina/spatial_contract.py
+@@ -49,3 +49,44 @@
+             f"Canonical V1 spatial contract mismatch: expected {CANONICAL_SPATIAL_CONTRACT}; "
+             "legacy or unlabelled spatial checkpoints cannot be loaded"
+         )
++    _check_loaded_geometry(module, state_dict, prefix)
++
++
++def _check_loaded_geometry(
++    module: nn.Module,
++    state_dict: Mapping[str, torch.Tensor],
++    prefix: str,
++) -> None:
++    support_names = ("bc_support", "ac_support")
++    supports = []
++    for name in support_names:
++        key = f"feature_bank.{name}"
++        incoming = state_dict.get(prefix + key)
++        expected = module.get_buffer(key)
++        if incoming is None or not torch.equal(incoming.cpu(), expected.cpu()):
++            raise SpatialContractError(
++                f"Canonical V1 checkpoint spatial geometry must preserve full-disk {name}"
++            )
++        supports.append(incoming.cpu().bool())
++    spatial = state_dict.get(prefix + "feature_bank.spatial_basis")
++    paths = state_dict.get(prefix + "feature_bank.path_spatial_basis")
++    if spatial is None or paths is None:
++        raise SpatialContractError("Canonical V1 checkpoint spatial geometry is incomplete")
++    if (
++        spatial.shape != module.get_buffer("feature_bank.spatial_basis").shape
++        or paths.shape != module.get_buffer("feature_bank.path_spatial_basis").shape
++        or not bool(torch.isfinite(spatial).all() and torch.isfinite(paths).all())
++        or bool((spatial < 0).any() or (paths < 0).any())
++    ):
++        raise SpatialContractError("Canonical V1 checkpoint spatial basis is invalid")
++    bc, ac = supports
++    expected_pattern = torch.stack((bc, bc, ac, ac), dim=1)[:, :, None]
++    expected_pattern = expected_pattern & (spatial.cpu()[:, None] > 0)
++    if (
++        not torch.equal(paths.cpu() > 0, expected_pattern)
++        or not torch.equal(paths[:, 0], paths[:, 1])
++        or not torch.equal(paths[:, 2], paths[:, 3])
++    ):
++        raise SpatialContractError(
++            "Canonical V1 checkpoint spatial basis violates shared full-disk geometry"
++        )
+--- before/models/mechanistic_retina/support_partition.py
++++ after/models/mechanistic_retina/support_partition.py
+@@ -36,6 +36,11 @@
+ def build_support_partition(
+     request: SupportPartitionRequest,
+ ) -> SupportPartition:
++    if not bool(
++        torch.isfinite(request.cone_positions).all()
++        and torch.isfinite(request.cell_positions).all()
++    ):
++        raise SupportPartitionError("Canonical V1 spatial positions must be finite")
+     distances = torch.cdist(
+         request.cell_positions.float(), request.cone_positions.float()
+     )
+--- before/models/mechanistic_retina/canonical_contract.py
++++ after/models/mechanistic_retina/canonical_contract.py
+@@ -0,0 +1,20 @@
++from __future__ import annotations
++
++from models.mechanistic_retina.causal_contract import CANONICAL_CAUSAL_CONTRACT
++from models.mechanistic_retina.contracts import (
++    ArchitectureMode,
++    MechanisticConfigError,
++    MechanisticRetinaConfig,
++)
++from models.mechanistic_retina.spatial_contract import CANONICAL_SPATIAL_CONTRACT
++
++
++def validate_canonical_config(config: MechanisticRetinaConfig) -> None:
++    if config.architecture_mode != ArchitectureMode.MECHANISM_IDENTIFIABLE:
++        raise MechanisticConfigError(
++            "Canonical V1 requires mechanism_identifiable architecture mode"
++        )
++    if config.causal_contract != CANONICAL_CAUSAL_CONTRACT:
++        raise MechanisticConfigError("Canonical V1 requires the shared-BC causal contract")
++    if config.spatial_contract != CANONICAL_SPATIAL_CONTRACT:
++        raise MechanisticConfigError("Canonical V1 requires overlapping full-disk spatial support")
+--- before/tests/test_canonical_mixing_correctness.py
++++ after/tests/test_canonical_mixing_correctness.py
+@@ -0,0 +1,202 @@
++from __future__ import annotations
++
++import pytest
++import torch
++
++from models.mechanistic_retina.contracts import MechanisticRetinaConfig
++from models.mechanistic_retina.h1_pathway import H1Output
++from models.mechanistic_retina.model import (
++    MechanisticGraphTemporalRetina,
++    build_mechanistic_retina,
++)
++from models.mechanistic_retina.shared_subunits import SharedSubunitLayout, SharedSubunitMixer
++from training.mechanistic_retina.optimizer import build_phase1_optimizer
++
++
++def _audit_model() -> MechanisticGraphTemporalRetina:
++    axis = torch.arange(-6, 7, dtype=torch.float64) * 0.04
++    with torch.random.fork_rng():
++        torch.manual_seed(831)
++        return build_mechanistic_retina(
++            MechanisticRetinaConfig(architecture_mode="mechanism_identifiable"),
++            torch.cartesian_prod(axis, axis),
++            torch.tensor(
++                ((0, 0), (0.04, 0), (0, 0.04), (0, 0), (0.04, 0), (0, 0.04)),
++                dtype=torch.float64,
++            ),
++            ("midget", "midget", "midget", "parasol", "parasol", "parasol"),
++            ("ON", "ON", "OFF", "ON", "ON", "OFF"),
++        ).eval()
++
++
++@pytest.mark.parametrize("broad", (False, True), ids=("direct", "broad"))
++def test_target_support_derivative_is_zero_when_audited_six_cells_mix(broad: bool) -> None:
++    # Given: the original six-cell audit fixture and its actual H1 output.
++    model = _audit_model()
++    count = model.feature_bank.spatial_basis.shape[-1]
++    cones = torch.sin(torch.arange(40 * count, dtype=torch.float64) * 0.017)
++    cones = cones.reshape(1, 40, count).requires_grad_()
++    captured: list[torch.Tensor] = []
++
++    def capture_h1(
++        module: torch.nn.Module, inputs: tuple[torch.Tensor, ...], output: H1Output
++    ) -> None:
++        captured.append(output.modulated_cones)
++
++    hook = model.h1.register_forward_hook(capture_h1)
++    try:
++        output = model.forward_sequence(cones, observed_counts=torch.zeros(1, 40, 6))
++    finally:
++        hook.remove()
++    values = output.bc_broad_presynaptic if broad else output.bc_direct_presynaptic
++    support = model.feature_bank.ac_support if broad else model.feature_bank.bc_support
++
++    # When: each final-bin BC component is differentiated through production forward.
++    for cell in range(6):
++        for component in range(2):
++            gradient = torch.autograd.grad(
++                values[0, -1, cell, component], captured[0], retain_graph=True
++            )[0]
++            inside = support[cell].bool()
++
++            # Then: the target disk, not merely every source disk, bounds dependency.
++            assert torch.count_nonzero(gradient[..., ~inside]) == 0
++            assert torch.count_nonzero(gradient[..., inside]) > 0
++
++
++def test_direct_support_is_local_when_two_nonoverlapping_bc_disks_mix() -> None:
++    # Given: the minimal original two-cone counterexample.
++    positions = torch.tensor(((0.0, 0.0), (0.07, 0.0)), dtype=torch.float64)
++    model = build_mechanistic_retina(
++        MechanisticRetinaConfig(architecture_mode="mechanism_identifiable"),
++        positions,
++        positions,
++        ("midget", "midget"),
++        ("ON", "ON"),
++    )
++    cones = torch.ones(1, 24, 2, dtype=torch.float64, requires_grad=True)
++    captured: list[torch.Tensor] = []
++
++    def capture_h1(
++        module: torch.nn.Module, inputs: tuple[torch.Tensor, ...], output: H1Output
++    ) -> None:
++        captured.append(output.modulated_cones)
++
++    hook = model.h1.register_forward_hook(capture_h1)
++    try:
++        output = model.forward_sequence(cones, observed_counts=torch.zeros(1, 24, 2))
++    finally:
++        hook.remove()
++
++    # When: the target-zero direct state is differentiated at the other cone.
++    gradient = torch.autograd.grad(output.bc_direct_presynaptic[0, -1, 0].sum(), captured[0])[0]
++
++    # Then: the cross-cell edge remains, but cannot import outside-disk stimulus.
++    assert model.shared_subunits.connection_matrix()[0, 1] > 0
++    assert torch.count_nonzero(gradient[..., 1]) == 0
++    assert torch.count_nonzero(gradient[..., 0]) > 0
++
++
++def test_self_only_rows_are_not_optimizer_parameters_when_four_groups_are_isolated() -> None:
++    # Given: the audit's four self-only class/polarity groups.
++    axis = torch.arange(-4, 5, dtype=torch.float64) * 0.04
++    model = build_mechanistic_retina(
++        MechanisticRetinaConfig(architecture_mode="mechanism_identifiable"),
++        torch.cartesian_prod(axis, axis),
++        torch.zeros(4, 2, dtype=torch.float64),
++        ("midget", "midget", "parasol", "parasol"),
++        ("ON", "OFF", "ON", "OFF"),
++    )
++    cones = torch.sin(torch.arange(32 * 81, dtype=torch.float64) * 0.017).reshape(1, 32, 81)
++    history = torch.zeros(1, 32, 4, dtype=torch.float64)
++    before = model.forward_sequence(cones, observed_counts=history).logits
++
++    # When: the unused compatibility buffer is perturbed without an optimizer step.
++    with torch.no_grad():
++        model.shared_subunits.raw_connections.fill_(-1e6)
++    after = model.forward_sequence(cones, observed_counts=history).logits
++    optimizer = build_phase1_optimizer(model, learning_rate=0.001)
++    listed = tuple(value for group in optimizer.param_groups for value in group["params"])
++
++    # Then: literal identity rows have no raw trainable or optimizer coordinates.
++    assert not tuple(model.shared_subunits.parameters())
++    assert all(value is not model.shared_subunits.raw_connections for value in listed)
++    assert torch.equal(model.shared_subunits.connection_matrix(), torch.eye(4, dtype=torch.float64))
++    assert torch.equal(before, after)
++    assert sum(value.numel() for value in model.parameters() if value.requires_grad) == 76
++
++
++def test_only_multi_neighbor_edges_train_when_one_row_is_self_only() -> None:
++    # Given: two mixing rows and a third fixed identity row.
++    edges = torch.tensor(((0, 0, 1, 1, 2), (0, 1, 0, 1, 2)))
++    mixer = SharedSubunitMixer(
++        SharedSubunitLayout(torch.zeros(3, 2), ("midget",) * 3, ("ON",) * 3, edges),
++        radius_deg=0.08,
++        trainable=True,
++    ).double()
++
++    # When: a genuine mixing coefficient is differentiated and perturbed.
++    before = mixer.connection_matrix()
++    gradient = torch.autograd.grad(before[0, 1], mixer.raw_connections)[0]
++    with torch.no_grad():
++        mixer.raw_connections[0].add_(0.2)
++    after = mixer.connection_matrix()
++
++    # Then: all four ordinary mixing edges remain trainable, with no fifth null edge.
++    assert mixer.raw_connections.numel() == 4
++    assert torch.count_nonzero(gradient) == 2
++    assert not torch.equal(before[0], after[0])
++    assert torch.equal(before[2], torch.tensor((0.0, 0.0, 1.0), dtype=torch.float64))
++    assert torch.equal(before[2], after[2])
++
++
++def test_single_cell_identity_is_fixed_when_compatibility_buffer_changes() -> None:
++    # Given: the existing one-cell state_dict buffer contract.
++    mixer = SharedSubunitMixer(
++        SharedSubunitLayout(torch.zeros(1, 2), ("midget",), ("ON",)),
++        radius_deg=0.08,
++        trainable=True,
++    )
++    assert set(mixer.state_dict()) == {"raw_connections", "edge_index", "cell_order"}
++    assert mixer.raw_connections.shape == (1,)
++    assert not tuple(mixer.parameters())
++
++    # When: a legacy-compatible but semantically unused buffer value is perturbed.
++    with torch.no_grad():
++        mixer.raw_connections.fill_(-1e6)
++
++    # Then: normalization cannot turn the self-only identity into zero.
++    assert torch.equal(mixer.connection_matrix(), torch.ones(1, 1))
++
++
++def test_loaded_edge_order_preserves_identity_rows_and_mixing_parameters() -> None:
++    # Given: the same mixed-degree graph constructed with different edge orderings.
++    edges = torch.tensor(((0, 0, 1, 1, 2), (0, 1, 0, 1, 2)))
++    mixers = tuple(
++        SharedSubunitMixer(
++            SharedSubunitLayout(torch.zeros(3, 2), ("midget",) * 3, ("ON",) * 3, order),
++            radius_deg=0.08,
++            trainable=True,
++        )
++        for order in (edges, edges[:, (4, 0, 1, 2, 3)])
++    )
++
++    # When: the checkpoint carries its own edge order and corresponding raw weights.
++    mixers[1].load_state_dict(mixers[0].state_dict(), strict=True)
++
++    # Then: derived identity rows follow loaded edges rather than construction order.
++    assert torch.equal(mixers[0].connection_matrix(), mixers[1].connection_matrix())
++
++
++def test_audit_parameter_count_excludes_two_self_only_coordinates() -> None:
++    # Given: the original N=6, G=4, E=10 audit fixture.
++    model = _audit_model()
++
++    # When: trainable scalars are counted without training.
++    counts = {name: value.numel() for name, value in model.named_parameters() if value.requires_grad}
++
++    # Then: only the two structurally ineffective self-only coordinates disappear.
++    assert model.shared_subunits.edge_index.shape == (2, 10)
++    assert counts["shared_subunits.raw_connections"] == 8
++    assert len(counts) == 13
++    assert sum(counts.values()) == 86
+--- before/tests/test_canonical_geometry_entry_correctness.py
++++ after/tests/test_canonical_geometry_entry_correctness.py
+@@ -0,0 +1,216 @@
++from __future__ import annotations
++
++from copy import deepcopy
++from dataclasses import asdict
++from typing import Literal, assert_never
++
++import pytest
++import torch
++
++from evaluation.mechanistic_retina.karamanlis_v1_rf_validation import (
++    RFValidationError,
++    validate_v1_checkpoint,
++)
++from models.mechanistic_retina.contracts import (
++    ArchitectureMode,
++    MECHANISTIC_MODEL_REVISION,
++    MechanisticConfigError,
++    MechanisticRetinaConfig,
++)
++from models.mechanistic_retina.model import (
++    MechanisticGraphTemporalRetina,
++    build_mechanistic_retina,
++)
++from models.mechanistic_retina.pathway_spatial_geometry import PathwaySpatialGeometry
++
++
++def _config() -> MechanisticRetinaConfig:
++    return MechanisticRetinaConfig(
++        architecture_mode=ArchitectureMode.MECHANISM_IDENTIFIABLE,
++        cell_specific_gains=True,
++    )
++
++
++def _positions() -> torch.Tensor:
++    return torch.tensor(((0.0, 0.0), (0.04, 0.0), (0.12, 0.0), (0.16, 0.0)))
++
++
++def _model() -> MechanisticGraphTemporalRetina:
++    return build_mechanistic_retina(
++        _config(), _positions(), torch.zeros(1, 2), ("midget",), ("ON",),
++    )
++
++
++@pytest.mark.parametrize("supports", (
++    ((1.0, 0.0, 0.0, 0.0), (1.0, 0.0, 1.0, 0.0)),
++    ((1.0, 1.0, 0.0, 0.0), (1.0, 1.0, 0.0, 1.0)),
++    ((1.0, 1.0, 0.0, 0.0), (0.0, 0.0, 1.0, 0.0)),
++    ((1.0, 0.5, 0.0, 0.0), (1.0, 1.0, 1.0, 0.0)),
++))
++def test_custom_geometry_rejected_when_masks_are_not_exact_full_disks(
++    supports: tuple[tuple[float, ...], tuple[float, ...]],
++) -> None:
++    # Given: the audit interior-hole counterexample and other non-disk masks.
++    geometry = PathwaySpatialGeometry(
++        torch.ones(1, 2, 4), torch.tensor([supports[0]]), torch.tensor([supports[1]]),
++    )
++    # When/Then: incompatible geometry is rejected during construction.
++    with pytest.raises(ValueError, match="support|disk"):
++        build_mechanistic_retina(
++            _config(), _positions(), torch.zeros(1, 2), ("midget",), ("ON",),
++            pathway_spatial_geometry=geometry,
++        )
++
++
++def test_custom_geometry_preserved_when_masks_equal_full_disks() -> None:
++    # Given: valid full disks and an explicitly supplied nonnegative spatial basis.
++    geometry = PathwaySpatialGeometry(
++        torch.tensor([[[0.4, 0.3, 0.2, 0.1], [0.1, 0.2, 0.3, 0.4]]]),
++        torch.tensor([[1.0, 1.0, 0.0, 0.0]]),
++        torch.tensor([[1.0, 1.0, 1.0, 0.0]]),
++    )
++    # When: the current Canonical builder accepts a conforming custom geometry.
++    model = build_mechanistic_retina(
++        _config(), _positions(), torch.zeros(1, 2), ("midget",), ("ON",),
++        pathway_spatial_geometry=geometry,
++    )
++    # Then: geometry values are preserved without any radius or basis adjustment.
++    assert torch.equal(model.feature_bank.spatial_basis, geometry.spatial_basis)
++    assert torch.equal(model.feature_bank.bc_support, geometry.bc_support)
++    assert torch.equal(model.feature_bank.ac_support, geometry.ac_support)
++
++
++@pytest.mark.parametrize("invalid", (float("nan"), float("inf")))
++def test_geometry_rejected_when_a_cone_position_is_nonfinite(invalid: float) -> None:
++    # Given: an invalid cone outside otherwise populated BC and AC disks.
++    positions = _positions()
++    positions[-1, 0] = invalid
++    # When/Then: nonfinite coordinates cannot silently become masked-out cones.
++    with pytest.raises(ValueError, match="finite"):
++        build_mechanistic_retina(
++            _config(), positions, torch.zeros(1, 2), ("midget",), ("ON",),
++        )
++
++
++@pytest.mark.parametrize("direct_constructor", (False, True))
++def test_canonical_entry_rejects_legacy_configuration(direct_constructor: bool) -> None:
++    # Given: the explicit legacy configuration accepted in the original audit.
++    constructor = MechanisticGraphTemporalRetina if direct_constructor else build_mechanistic_retina
++    legacy = MechanisticRetinaConfig(architecture_mode=ArchitectureMode.LEGACY)
++    # When/Then: neither public construction route may execute legacy as Canonical V1.
++    with pytest.raises(MechanisticConfigError, match="mechanism_identifiable"):
++        constructor(legacy, _positions(), torch.zeros(1, 2), ("midget",), ("ON",))
++
++
++@pytest.mark.parametrize("mutation", (
++    "legacy", "missing_mode", "causal", "spatial", "missing_config_field",
++    "revision", "missing_revision", "schema", "missing_causal_state",
++))
++def test_canonical_validator_rejects_incompatible_checkpoint_identity(
++    mutation: Literal[
++        "legacy", "missing_mode", "causal", "spatial", "missing_config_field",
++        "revision", "missing_revision", "schema", "missing_causal_state",
++    ],
++) -> None:
++    # Given: a full current payload, then one incompatible serialized identity.
++    model = _model()
++    config = asdict(model.config)
++    checkpoint = {
++        "schema": "karamanlis_2024_marmoset_rf_geometry_canonical_retina_v1",
++        "revision": MECHANISTIC_MODEL_REVISION,
++        "stage": "best_trained",
++        "model_config": config,
++        "model": deepcopy(model.state_dict()),
++    }
++    match mutation:
++        case "legacy":
++            config["architecture_mode"] = "legacy"
++        case "missing_mode":
++            del config["architecture_mode"]
++        case "causal":
++            config["causal_contract"] = "independent-ac"
++        case "spatial":
++            config["spatial_contract"] = "exclusive-annulus"
++        case "missing_config_field":
++            del config["bc_delay_bounds_ms"]
++        case "revision":
++            checkpoint["revision"] = MECHANISTIC_MODEL_REVISION - 1
++        case "missing_revision":
++            del checkpoint["revision"]
++        case "schema":
++            checkpoint["schema"] = "legacy"
++        case "missing_causal_state":
++            del checkpoint["model"]["_causal_contract_id"]
++        case unreachable:
++            assert_never(unreachable)
++    # When/Then: strict loading is never reached for an incompatible V1 payload.
++    with pytest.raises(RFValidationError):
++        validate_v1_checkpoint(checkpoint)
++
++
++@pytest.mark.parametrize("strict", (False, True))
++def test_legacy_state_rejected_before_mutation_regardless_of_strict(strict: bool) -> None:
++    # Given: the original legacy state format lacks both canonical identity markers.
++    model = _model()
++    before = deepcopy(model.state_dict())
++    legacy = {name: value.clone() for name, value in before.items()
++              if name not in {"_causal_contract_id", "_spatial_contract_id"}}
++    legacy["rgc.response_bias"].add_(1.0)
++    # When/Then: semantic rejection does not depend on PyTorch key strictness.
++    with pytest.raises(RuntimeError, match="causal contract"):
++        model.load_state_dict(legacy, strict=strict)
++    assert all(torch.equal(value, before[name]) for name, value in model.state_dict().items())
++
++
++def test_canonical_validator_accepts_current_complete_identity() -> None:
++    # Given: the actual current schema, config fields, and contract state markers.
++    model = _model()
++    checkpoint = {
++        "schema": "karamanlis_2024_marmoset_rf_geometry_canonical_retina_v1",
++        "revision": MECHANISTIC_MODEL_REVISION,
++        "stage": "best_trained",
++        "model_config": asdict(model.config),
++        "model": model.state_dict(),
++    }
++    # When/Then: full current identity remains admissible without conversion.
++    validate_v1_checkpoint(checkpoint)
++
++
++@pytest.mark.parametrize("strict", (False, True))
++@pytest.mark.parametrize("invalid_geometry", ("hole", "basis_hole", "basis_outside", "missing_basis"))
++def test_checkpoint_geometry_rejected_before_state_mutation(
++    strict: bool, invalid_geometry: Literal["hole", "basis_hole", "basis_outside", "missing_basis"],
++) -> None:
++    # Given: an incompatible geometry state carrying both current contract markers.
++    model = _model()
++    before = deepcopy(model.state_dict())
++    incoming = deepcopy(before)
++    match invalid_geometry:
++        case "hole":
++            incoming["feature_bank.bc_support"][0, 1] = 0
++            incoming["feature_bank.ac_support"][0, 1] = 0
++            incoming["feature_bank.path_spatial_basis"][:, :, :, 1] = 0
++        case "basis_outside":
++            incoming["feature_bank.path_spatial_basis"][:, :, :, -1] = 0.2
++        case "basis_hole":
++            incoming["feature_bank.path_spatial_basis"][:, :, :, 1] = 0
++        case "missing_basis":
++            del incoming["feature_bank.path_spatial_basis"]
++        case unreachable:
++            assert_never(unreachable)
++    incoming["rgc.response_bias"].add_(2.0)
++    # When/Then: rejection occurs before any checkpoint tensor is loaded.
++    with pytest.raises(RuntimeError, match="spatial|geometry"):
++        model.load_state_dict(incoming, strict=strict)
++    assert all(torch.equal(value, before[name]) for name, value in model.state_dict().items())
++
++
++def test_spatial_checkpoint_identity_preserves_dtype_converted_roundtrip() -> None:
++    # Given: buffers computed in float32 then promoted by the standard module API.
++    model = _model().double()
++    restored = _model().double()
++    # When: a complete converted state is strict-loaded without recomputing geometry.
++    restored.load_state_dict(model.state_dict(), strict=True)
++    # Then: valid dtype conversion retains exact saved buffer values.
++    assert all(torch.equal(value, restored.state_dict()[name])
++               for name, value in model.state_dict().items())

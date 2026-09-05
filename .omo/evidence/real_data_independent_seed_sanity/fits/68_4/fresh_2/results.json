@@ -1,0 +1,15 @@
+{
+  "cell_id": "68#4",
+  "group": "PC ON",
+  "fit": "fresh_2",
+  "seed": 20460837,
+  "validation_nll": 0.4283381998538971,
+  "delta_nll_vs_primary": 0.0012378990650177002,
+  "best_step": 181,
+  "stopping_step": 381,
+  "H1_off": 0.007941675434509913,
+  "direct_BC_off": 1.0815639227628708,
+  "AC_off": 1.5092848063757023,
+  "checkpoint": "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\real_data_independent_seed_sanity\\fits\\68_4\\fresh_2\\model-trained.pt",
+  "checkpoint_sha256": "576397646e949ef85f9d5c764f467b2dd6d76a72b2f24384907fdc5170ede775"
+}

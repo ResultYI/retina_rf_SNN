@@ -1,0 +1,94 @@
+{
+  "biological_trials": 7,
+  "canonical_cell_type": "parasol",
+  "cell_id": "67#33",
+  "eccentricity_deg": 4.73,
+  "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+  "native_dt_ms": 6.666666666666667,
+  "nll_improvement": 0.13079726696014404,
+  "polarity": "OFF",
+  "prediction_improved": true,
+  "recorded_cell_classes": [
+    "MC off"
+  ],
+  "recording_count": 2,
+  "recording_ids": [
+    "lSS01159",
+    "lSS01160"
+  ],
+  "recording_kinds": [
+    "6x1min",
+    "10min"
+  ],
+  "recording_metadata": [
+    {
+      "canonical_cell_type": "parasol",
+      "catalog_recording_kind": "6x1min",
+      "eccentricity_deg": 4.73,
+      "polarity": "OFF",
+      "recorded_cell_class": "MC off",
+      "recording_id": "lSS01159",
+      "recording_kind": "6x1min",
+      "retinal_class": "MC",
+      "spike_sha256": "28b5a076d39ad1bba8a71f3d9d6f5732882229eb4b21fdf5e02f7f1a54e5aae6"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "catalog_recording_kind": "10min",
+      "eccentricity_deg": 4.73,
+      "polarity": "OFF",
+      "recorded_cell_class": "MC off",
+      "recording_id": "lSS01160",
+      "recording_kind": "10min",
+      "retinal_class": "MC",
+      "spike_sha256": "74e5456b5d65c45d4c5c99f1d962c390b6f63c4a11ea83391cb744ee2f4350a5"
+    }
+  ],
+  "retinal_class": "MC",
+  "source_sha256": {
+    "lSS01159.txt": "28b5a076d39ad1bba8a71f3d9d6f5732882229eb4b21fdf5e02f7f1a54e5aae6",
+    "lSS01160.txt": "74e5456b5d65c45d4c5c99f1d962c390b6f63c4a11ea83391cb744ee2f4350a5"
+  },
+  "spike_time_resolution_ms": 0.1,
+  "stimulus_rate_hz": 150.0,
+  "time_segment_disjoint": true,
+  "train_event_rate": 0.20059524476528168,
+  "train_multi_spike_bin_fraction": 0.03898809477686882,
+  "train_sequences": 112,
+  "train_valid_bins": 13440,
+  "training": {
+    "actually_updated": [
+      "h1.raw_tau",
+      "h1.raw_delay",
+      "feature_bank.raw_tau",
+      "feature_bank.raw_delay",
+      "bipolar.raw_weights",
+      "amacrine.raw_tau",
+      "amacrine.raw_weights",
+      "rgc.response_bias",
+      "gates.h1",
+      "gates.ac_local",
+      "gates.ac_transient",
+      "gates.history",
+      "cell_gains.log_bc",
+      "cell_gains.log_ac"
+    ],
+    "gradients_finite": true,
+    "major_parameter_groups_updated": {
+      "aggregate_bc_ac_gains": true,
+      "bounded_explicit_delay": true,
+      "bounded_tau": true,
+      "pathway_gates": true,
+      "pathway_weights": true,
+      "rgc_bias": true
+    },
+    "seed": 20260834,
+    "self_edge_connection_parameter_updated": false
+  },
+  "validation_event_rate": 0.19702380895614624,
+  "validation_multi_spike_bin_fraction": 0.03214285895228386,
+  "validation_nll_raw": 0.5770063996315002,
+  "validation_nll_trained": 0.4462091326713562,
+  "validation_sequences": 28,
+  "validation_valid_bins": 3360
+}

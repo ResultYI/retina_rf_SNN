@@ -1,0 +1,12 @@
+{
+  "status": "initialization_preflight_failed_before_training",
+  "optimizer_updates": 0,
+  "cell_id": "67#4",
+  "mismatched_state_key": "h1.graph.edge_weight",
+  "state_kind": "fixed floating-point graph buffer, not a learned parameter",
+  "observed_max_absolute_difference_at_two_threads": 2.2351741790771484e-7,
+  "all_parameters_equal": true,
+  "all_geometry_coordinates_and_edge_indices_equal": true,
+  "subsequent_run_directory": "../schottdorf_r4_development_22cell_20260830_verified",
+  "subsequent_check": "Exact equality for parameters and all other state; only the named fixed graph buffer permits recorded float32 roundoff up to absolute 1e-6. No old state is copied into fresh models."
+}

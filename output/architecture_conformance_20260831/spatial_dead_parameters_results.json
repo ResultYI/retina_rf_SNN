@@ -1,0 +1,80 @@
+{
+  "singleton_only_trainable": {
+    "shape": [
+      4
+    ],
+    "requires_grad": true,
+    "optimizer_count": 1,
+    "gradient": [
+      0.0,
+      -5.614358388524618e-16,
+      5.614358388524618e-16,
+      -5.614358388524618e-16
+    ],
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "perturb_all_entries_logit_equal": true,
+    "max_abs_logit_diff": 0.0
+  },
+  "irregular_geometry": {
+    "accepted_and_forward_finite": true,
+    "distance": [
+      0.0,
+      0.04,
+      0.12
+    ],
+    "actual_BC": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "actual_AC": [
+      [
+        1.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "expected_full_BC": [
+      [
+        1.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "expected_full_AC": [
+      [
+        1.0,
+        1.0,
+        1.0
+      ]
+    ]
+  }
+}
+

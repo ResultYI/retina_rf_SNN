@@ -1,0 +1,51 @@
+{
+  "status": "COMPLETED_CORRECTED",
+  "implementation_current_tests": "Historical prior-turn result: 8 passed; no tests added or run in the authorized two-fit correction",
+  "compile_import": "PASS",
+  "scoped_rules_check": "no violations in 4 non-vendored files",
+  "original_executed_run": {
+    "cells": 22,
+    "fits": 44,
+    "restarts": 0,
+    "all_endpoints_finite": true,
+    "optimizer_success_count": 44,
+    "relative_objective_stops": 39,
+    "projected_gradient_stops": 5
+  },
+  "frozen_contract": {
+    "filter_recovery": "PASS 22/22",
+    "center_activation": "PASS 22/22",
+    "same_data_split_target_mask": "PASS 22/22",
+    "fit_only_zscore": "PASS",
+    "no_history_smoothing": "PASS",
+    "official_function_bodies": "PASS",
+    "official_initialization": "PASS 22/22 current fits; only 69#6 replaced with a0=4",
+    "full_benchmark_accepted": true
+  },
+  "post_run_correction": {
+    "code": "baselines/spatial_contrast_adapted.py: FittingData.maximum_count now uses counts.max() over entire training response",
+    "test": "test_given_fit_mask_when_standardizing_then_only_fitting_bins_are_used includes unmasked initializer max",
+    "rerun": "Only 69#6 SC-adapted and matched_w0, once each, explicitly authorized",
+    "other_42_fits_unchanged_by_sha256": true,
+    "manifest": "correction_69_6_a0_4/correction.json",
+    "read_only_69_21": "Both success=true, status=0; final objectives/gradients/outputs finite; retained unchanged",
+    "read_only_69_21_evidence": "correction_69_6_a0_4/69_21_read_only.json"
+  },
+  "historical_review_before_authorized_correction": {
+    "goal_contract": "FAIL execution initializer; current code corrected, no rerun",
+    "qa": "PASS saved probabilities/NLL/means exact; optimizer convergence not asserted",
+    "code": "PASS computations; initializer discrepancy recorded",
+    "security": "PASS scoped",
+    "source_provenance": "PASS official function bodies/center transfer; initializer difference recorded"
+  },
+  "numerical_warning": "69#21 matched_w0 official softplus overflow/invalid derivative during line search, endpoint finite; no mitigation/restart",
+  "evidence": [
+    "summary.md",
+    "results.json",
+    "per_cell.csv",
+    "group_summary.csv",
+    "initialization_count_check.json",
+    "output_verification.json",
+    "preflight.json"
+  ]
+}

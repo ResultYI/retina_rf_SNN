@@ -1,0 +1,24 @@
+{
+  "source_sha256": {
+    "before_count": 262,
+    "after_count": 262,
+    "changed": [],
+    "added": [],
+    "unchanged": true
+  },
+  "checkpoint_sha256": {
+    "before_count": 22,
+    "after_count": 22,
+    "changed": [],
+    "added": [],
+    "unchanged": true
+  },
+  "existing_lineage_artifact_sha256": {
+    "before_count": 213,
+    "after_count": 213,
+    "changed": [],
+    "added": [],
+    "unchanged": true
+  },
+  "git_status_equal": true
+}

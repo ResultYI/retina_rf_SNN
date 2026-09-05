@@ -1,0 +1,26 @@
+{
+  "phase": "before_production_patch",
+  "command": "PYTHONDONTWRITEBYTECODE=1 D:/anaconda/python.exe -B -m pytest tests/test_canonical_geometry_entry_correctness.py -q -p no:cacheprovider",
+  "exit_code": 1,
+  "failed": 13,
+  "passed": 8,
+  "elapsed_seconds": 1.55,
+  "failure_reason": "Expected rejection was absent, not import or setup failures",
+  "failure_cases": [
+    "custom geometry interior hole",
+    "custom geometry arbitrary contour with outer cone",
+    "custom geometry nonbinary support",
+    "legacy public builder",
+    "legacy direct constructor",
+    "validator legacy architecture",
+    "validator missing architecture mode",
+    "validator wrong causal contract",
+    "validator wrong spatial contract",
+    "validator missing current config field",
+    "validator wrong model revision",
+    "validator missing model revision",
+    "validator missing causal state identity"
+  ],
+  "production_files_modified_at_test_time": false,
+  "training_run": false
+}

@@ -1,0 +1,1313 @@
+{
+  "aggregate_parameter_counts": {
+    "constant_rate": {
+      "optimizer_listed": 0,
+      "requires_grad": 0,
+      "total": 22
+    },
+    "glm": {
+      "optimizer_listed": 101838,
+      "requires_grad": 101838,
+      "total": 101838
+    },
+    "retinal": {
+      "optimizer_listed": 1144,
+      "requires_grad": 3256,
+      "total": 3256
+    }
+  },
+  "cell_count": 22,
+  "cells": [
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "67#4",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.5226954221725464,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 9.181450877804309e-06,
+      "glm_gradients_finite": true,
+      "glm_nll": 2.2070603370666504,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 320,
+      "glm_solver_iterations": 289,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": true,
+      "glm_train_nll_initial": 0.5273032784461975,
+      "glm_train_nll_trained": 0.006571103818714619,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "OFF",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01071"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.47445762157440186,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\67_4\\model-trained.pt",
+      "source_checkpoint_sha256_after": "0c2327644ee4139b1ce7a1b7ab0e9f6aec03ad9b366a3aa8400a8e29957e3809",
+      "source_checkpoint_sha256_before": "0c2327644ee4139b1ce7a1b7ab0e9f6aec03ad9b366a3aa8400a8e29957e3809",
+      "time_segment_disjoint": true,
+      "train_sequences": 16,
+      "train_valid_bins": 1920,
+      "validation_sequences": 4,
+      "validation_valid_bins": 480,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "67#6",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.5222243666648865,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 8.548345067538321e-05,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.2285699844360352,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1628,
+      "glm_solver_iterations": 1475,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": true,
+      "glm_train_nll_initial": 0.5545201301574707,
+      "glm_train_nll_trained": 0.24085474014282227,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "OFF",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01078",
+        "lSS01079"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.4906000792980194,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\67_6\\model-trained.pt",
+      "source_checkpoint_sha256_after": "96211be4dd3a183188a1dbe2e956a82f99419043c92968b3bd406126bfe60469",
+      "source_checkpoint_sha256_before": "96211be4dd3a183188a1dbe2e956a82f99419043c92968b3bd406126bfe60469",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "67#7",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.529005765914917,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 9.38649318413809e-05,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.5690174102783203,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1791,
+      "glm_solver_iterations": 1589,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": true,
+      "glm_train_nll_initial": 0.5512856841087341,
+      "glm_train_nll_trained": 0.21374718844890594,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01086",
+        "lSS01087"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.4750230610370636,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\67_7\\model-trained.pt",
+      "source_checkpoint_sha256_after": "e190ff01466344d38ba52cdcc5e0a17ae7dd853e490fec44cec6e96abcc2192c",
+      "source_checkpoint_sha256_before": "e190ff01466344d38ba52cdcc5e0a17ae7dd853e490fec44cec6e96abcc2192c",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "67#14",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.5105581283569336,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 0.00011216598068131134,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.0734498500823975,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1622,
+      "glm_solver_iterations": 1450,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": false,
+      "glm_train_nll_initial": 0.5495657324790955,
+      "glm_train_nll_trained": 0.22705575823783875,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01110",
+        "lSS01112"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.39362919330596924,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\67_14\\model-trained.pt",
+      "source_checkpoint_sha256_after": "8b8e614a5864c96dea362de8ddc172bb92af5f26bc6152b67215a8a346cfcd2c",
+      "source_checkpoint_sha256_before": "8b8e614a5864c96dea362de8ddc172bb92af5f26bc6152b67215a8a346cfcd2c",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "67#21",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.37004104256629944,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 9.78789830696769e-05,
+      "glm_gradients_finite": true,
+      "glm_nll": 0.8667140603065491,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1944,
+      "glm_solver_iterations": 1740,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": true,
+      "glm_train_nll_initial": 0.4093155860900879,
+      "glm_train_nll_trained": 0.21309959888458252,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01130",
+        "lSS01131"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.32034599781036377,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\67_21\\model-trained.pt",
+      "source_checkpoint_sha256_after": "22691a049e096c4734d3fba16580a013b1aa4d4b9dca0ed26e76cb2bb61ee3ce",
+      "source_checkpoint_sha256_before": "22691a049e096c4734d3fba16580a013b1aa4d4b9dca0ed26e76cb2bb61ee3ce",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "67#26",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.5894726514816284,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 0.00013079193013254553,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.1708706617355347,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1666,
+      "glm_solver_iterations": 1482,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": false,
+      "glm_train_nll_initial": 0.6157017350196838,
+      "glm_train_nll_trained": 0.3927766978740692,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01141",
+        "lSS01142"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.5325149297714233,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\67_26\\model-trained.pt",
+      "source_checkpoint_sha256_after": "c87b8dbdc2708aa00fc26f7579b7fd1cffbeb61bacb9434d7ade70073f051ba3",
+      "source_checkpoint_sha256_before": "c87b8dbdc2708aa00fc26f7579b7fd1cffbeb61bacb9434d7ade70073f051ba3",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "67#33",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.4962886869907379,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 9.407234028913081e-05,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.1858713626861572,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1259,
+      "glm_solver_iterations": 1135,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": true,
+      "glm_train_nll_initial": 0.501226544380188,
+      "glm_train_nll_trained": 0.21238724887371063,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "OFF",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01159",
+        "lSS01160"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.4462091326713562,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\67_33\\model-trained.pt",
+      "source_checkpoint_sha256_after": "fa12872eb42819ada991279b6a6c06d0f2b289bd93f1d20b10d56bfa5c4fc2af",
+      "source_checkpoint_sha256_before": "fa12872eb42819ada991279b6a6c06d0f2b289bd93f1d20b10d56bfa5c4fc2af",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "67#34",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.48460838198661804,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 0.0004019282932858914,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.2119166851043701,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1576,
+      "glm_solver_iterations": 1416,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": false,
+      "glm_train_nll_initial": 0.5053137540817261,
+      "glm_train_nll_trained": 0.2520594894886017,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01167",
+        "lSS01168"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.4020289480686188,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\67_34\\model-trained.pt",
+      "source_checkpoint_sha256_after": "e0041b0cd9d632c596df4b37efeab0282603600fed088f10fbbdf717c0d43f46",
+      "source_checkpoint_sha256_before": "e0041b0cd9d632c596df4b37efeab0282603600fed088f10fbbdf717c0d43f46",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "68#3",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.6051455736160278,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 0.00013402865442913026,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.3167972564697266,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1239,
+      "glm_solver_iterations": 1127,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": false,
+      "glm_train_nll_initial": 0.61268150806427,
+      "glm_train_nll_trained": 0.2927187383174896,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "OFF",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01181",
+        "lSS01183"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.5623210072517395,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\68_3\\model-trained.pt",
+      "source_checkpoint_sha256_after": "5bdf6affea374694c4ff4b10f95babb104bb899f4c5c316bdcd204146a805a5f",
+      "source_checkpoint_sha256_before": "5bdf6affea374694c4ff4b10f95babb104bb899f4c5c316bdcd204146a805a5f",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "68#4",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.45858410000801086,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 0.0002954880183096975,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.1250605583190918,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1249,
+      "glm_solver_iterations": 1139,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": false,
+      "glm_train_nll_initial": 0.4440768361091614,
+      "glm_train_nll_trained": 0.27166247367858887,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01184"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.4299147427082062,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\68_4\\model-trained.pt",
+      "source_checkpoint_sha256_after": "bb8ffd38988482fc887da0159c66eb9000cac9ce205a2704541a3a21d42c07f9",
+      "source_checkpoint_sha256_before": "bb8ffd38988482fc887da0159c66eb9000cac9ce205a2704541a3a21d42c07f9",
+      "time_segment_disjoint": true,
+      "train_sequences": 96,
+      "train_valid_bins": 11520,
+      "validation_sequences": 24,
+      "validation_valid_bins": 2880,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "68#7",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.4731142222881317,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 0.0001524402032373473,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.0098358392715454,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1596,
+      "glm_solver_iterations": 1439,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": false,
+      "glm_train_nll_initial": 0.5360923409461975,
+      "glm_train_nll_trained": 0.2687205672264099,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01194",
+        "lSS01196"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.39208224415779114,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\68_7\\model-trained.pt",
+      "source_checkpoint_sha256_after": "834316825af679f3a897174dbb69038ab6cc76c9c618579ed0b1c779cd81e81b",
+      "source_checkpoint_sha256_before": "834316825af679f3a897174dbb69038ab6cc76c9c618579ed0b1c779cd81e81b",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "68#10",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.44951745867729187,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 8.585904652136378e-06,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.478105068206787,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 273,
+      "glm_solver_iterations": 252,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": true,
+      "glm_train_nll_initial": 0.5192897319793701,
+      "glm_train_nll_trained": 0.001611553831025958,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01221"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.416246622800827,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\68_10\\model-trained.pt",
+      "source_checkpoint_sha256_after": "b23a5ab9765c13dd794ac6ea32ffd7e427dc5ffba6c74de21db5f2dc1502c765",
+      "source_checkpoint_sha256_before": "b23a5ab9765c13dd794ac6ea32ffd7e427dc5ffba6c74de21db5f2dc1502c765",
+      "time_segment_disjoint": true,
+      "train_sequences": 16,
+      "train_valid_bins": 1920,
+      "validation_sequences": 4,
+      "validation_valid_bins": 480,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "68#11",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.45921972393989563,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 7.013601862126961e-05,
+      "glm_gradients_finite": true,
+      "glm_nll": 0.8841984868049622,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1089,
+      "glm_solver_iterations": 988,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": true,
+      "glm_train_nll_initial": 0.41894790530204773,
+      "glm_train_nll_trained": 0.22988957166671753,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "OFF",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01225",
+        "lSS01227"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.3899756371974945,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\68_11\\model-trained.pt",
+      "source_checkpoint_sha256_after": "9858bb4314567cac72065251759156fe1b0f67ddeb66e4dea4626ad1fa2c1509",
+      "source_checkpoint_sha256_before": "9858bb4314567cac72065251759156fe1b0f67ddeb66e4dea4626ad1fa2c1509",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "69#3",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.632579505443573,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 0.00013652379857376218,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.3131072521209717,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1238,
+      "glm_solver_iterations": 1117,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": false,
+      "glm_train_nll_initial": 0.6242168545722961,
+      "glm_train_nll_trained": 0.38970550894737244,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "OFF",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01251",
+        "lSS01252"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.5775392055511475,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\69_3\\model-trained.pt",
+      "source_checkpoint_sha256_after": "29f382538b4a3ebc7586c3fb4132260af3d33402fa27b6af1991fed6920415b7",
+      "source_checkpoint_sha256_before": "29f382538b4a3ebc7586c3fb4132260af3d33402fa27b6af1991fed6920415b7",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "69#4",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.5139977931976318,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 4.763340257341042e-05,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.5493345260620117,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1594,
+      "glm_solver_iterations": 1443,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": true,
+      "glm_train_nll_initial": 0.5288348197937012,
+      "glm_train_nll_trained": 0.17309018969535828,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01254"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.4549644887447357,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\69_4\\model-trained.pt",
+      "source_checkpoint_sha256_after": "0b18425f90149dc4e673f3c0b1d70b3fe108de18e933f82581fa5862987fff29",
+      "source_checkpoint_sha256_before": "0b18425f90149dc4e673f3c0b1d70b3fe108de18e933f82581fa5862987fff29",
+      "time_segment_disjoint": true,
+      "train_sequences": 96,
+      "train_valid_bins": 11520,
+      "validation_sequences": 24,
+      "validation_valid_bins": 2880,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "69#6",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.5116271376609802,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 0.00012052879901602864,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.5206953287124634,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1466,
+      "glm_solver_iterations": 1328,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": false,
+      "glm_train_nll_initial": 0.5306677222251892,
+      "glm_train_nll_trained": 0.24938559532165527,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "OFF",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01256",
+        "lSS01257"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.47513800859451294,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\69_6\\model-trained.pt",
+      "source_checkpoint_sha256_after": "975f79be0caf88d7e73d8709aa198cfaa97524527af500c10c1a504aa561a99d",
+      "source_checkpoint_sha256_before": "975f79be0caf88d7e73d8709aa198cfaa97524527af500c10c1a504aa561a99d",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "69#7",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.5219630002975464,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 8.134415111271665e-05,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.7476801872253418,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1542,
+      "glm_solver_iterations": 1386,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": true,
+      "glm_train_nll_initial": 0.557377278804779,
+      "glm_train_nll_trained": 0.21139830350875854,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01258",
+        "lSS01259"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.4820563495159149,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\69_7\\model-trained.pt",
+      "source_checkpoint_sha256_after": "e0d1c0a76626dd1af6ad0291007042d16312c67640488a2cf105254e76146a61",
+      "source_checkpoint_sha256_before": "e0d1c0a76626dd1af6ad0291007042d16312c67640488a2cf105254e76146a61",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "69#21",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.5310361385345459,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 0.00012080957822035998,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.1832343339920044,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1273,
+      "glm_solver_iterations": 1144,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": false,
+      "glm_train_nll_initial": 0.5348761081695557,
+      "glm_train_nll_trained": 0.33840811252593994,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "OFF",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01270"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.5118799805641174,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\69_21\\model-trained.pt",
+      "source_checkpoint_sha256_after": "cf8a02f2a33fa8c2113bba6fe96342f023fdc0f9a736e8924edb443d83f8a85d",
+      "source_checkpoint_sha256_before": "cf8a02f2a33fa8c2113bba6fe96342f023fdc0f9a736e8924edb443d83f8a85d",
+      "time_segment_disjoint": true,
+      "train_sequences": 96,
+      "train_valid_bins": 11520,
+      "validation_sequences": 24,
+      "validation_valid_bins": 2880,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "70#1",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.5555933117866516,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 0.00043130238191224635,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.3841891288757324,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1482,
+      "glm_solver_iterations": 1339,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": false,
+      "glm_train_nll_initial": 0.5448169708251953,
+      "glm_train_nll_trained": 0.3607562184333801,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01278"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.5522076487541199,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\70_1\\model-trained.pt",
+      "source_checkpoint_sha256_after": "0947064908e487735d3a3d1c171907edc1369a4a52ade87856ac485c2c74ddb2",
+      "source_checkpoint_sha256_before": "0947064908e487735d3a3d1c171907edc1369a4a52ade87856ac485c2c74ddb2",
+      "time_segment_disjoint": true,
+      "train_sequences": 96,
+      "train_valid_bins": 11520,
+      "validation_sequences": 24,
+      "validation_valid_bins": 2880,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "70#7",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.5469987392425537,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 0.00015275021723937243,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.2878921031951904,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1521,
+      "glm_solver_iterations": 1364,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": false,
+      "glm_train_nll_initial": 0.5773396492004395,
+      "glm_train_nll_trained": 0.32235896587371826,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01284",
+        "lSS01285"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.48978567123413086,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\70_7\\model-trained.pt",
+      "source_checkpoint_sha256_after": "7c9a65a9ac626a1a86a916370f9ac55eccd295844d9e0c8a01105344dc7afec2",
+      "source_checkpoint_sha256_before": "7c9a65a9ac626a1a86a916370f9ac55eccd295844d9e0c8a01105344dc7afec2",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "midget",
+      "cell_id": "70#15",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.46590667963027954,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 0.0005872861365787685,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.16682767868042,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1138,
+      "glm_solver_iterations": 1041,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": false,
+      "glm_train_nll_initial": 0.470655620098114,
+      "glm_train_nll_trained": 0.2757219970226288,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 1,
+      "recording_ids": [
+        "lSS01287"
+      ],
+      "retinal_class": "PC",
+      "retinal_nll": 0.43674740195274353,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\70_15\\model-trained.pt",
+      "source_checkpoint_sha256_after": "435a8da45f391fad9e1ea11199afb2fc2bfa7b470b7fb2c73457833a1144b7c5",
+      "source_checkpoint_sha256_before": "435a8da45f391fad9e1ea11199afb2fc2bfa7b470b7fb2c73457833a1144b7c5",
+      "time_segment_disjoint": true,
+      "train_sequences": 96,
+      "train_valid_bins": 11520,
+      "validation_sequences": 24,
+      "validation_valid_bins": 2880,
+      "winner": "retinal"
+    },
+    {
+      "canonical_cell_type": "parasol",
+      "cell_id": "70#34",
+      "constant_parameters": {
+        "optimizer_listed": 0,
+        "requires_grad": 0,
+        "total": 1
+      },
+      "constant_rate_nll": 0.46580201387405396,
+      "glm_actually_updated": [
+        "history",
+        "bias",
+        "kernels.0"
+      ],
+      "glm_converged": true,
+      "glm_final_gradient_max": 0.0002589382929727435,
+      "glm_gradients_finite": true,
+      "glm_nll": 1.187114953994751,
+      "glm_parameters": {
+        "optimizer_listed": 4629,
+        "requires_grad": 4629,
+        "total": 4629
+      },
+      "glm_solver_evaluations": 1721,
+      "glm_solver_iterations": 1559,
+      "glm_solver_terminated_before_budget": true,
+      "glm_strict_gradient_converged": false,
+      "glm_train_nll_initial": 0.504297137260437,
+      "glm_train_nll_trained": 0.19040803611278534,
+      "native_dt_ms": 6.666666666666667,
+      "polarity": "ON",
+      "recording_count": 2,
+      "recording_ids": [
+        "lSS01299",
+        "lSS01300"
+      ],
+      "retinal_class": "MC",
+      "retinal_nll": 0.41188251972198486,
+      "retinal_nll_replay_error": 0.0,
+      "retinal_parameters": {
+        "optimizer_listed": 52,
+        "requires_grad": 148,
+        "total": 148
+      },
+      "retinal_strictly_better_than_constant": true,
+      "source_checkpoint": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2\\cells\\70_34\\model-trained.pt",
+      "source_checkpoint_sha256_after": "f5deda597a74dbdf7c784e4433a30ca6baf6b01a493afc8e078112d9c8464469",
+      "source_checkpoint_sha256_before": "f5deda597a74dbdf7c784e4433a30ca6baf6b01a493afc8e078112d9c8464469",
+      "time_segment_disjoint": true,
+      "train_sequences": 112,
+      "train_valid_bins": 13440,
+      "validation_sequences": 28,
+      "validation_valid_bins": 3360,
+      "winner": "retinal"
+    }
+  ],
+  "comparison_scope": "fixed-a-priori L2 causal GLM prediction comparison on identical data/evaluation; not matched capacity",
+  "dataset": "Schottdorf and Lee 2021, G-Node 10.12751/g-node.xage77",
+  "fairness_anomalies": [],
+  "fairness_checks": {
+    "constant_rate_estimated_from_training_only": true,
+    "future_information_used": false,
+    "glm_all_fits_converged": true,
+    "glm_fit_uses_training_only": true,
+    "glm_spike_history_is_strictly_past_same_cell_only": true,
+    "glm_stimulus_is_current_or_past_only": true,
+    "retinal_checkpoint_modified_or_retrained": false,
+    "same_cells_split_valid_bins_target_and_stimulus": true,
+    "validation_used_for_hyperparameters_or_checkpoint_selection": false
+  },
+  "feature_contract": {
+    "history": "strictly_past_same_cell_spike_events",
+    "history_lags": 4,
+    "stimulus": "current_and_past_l_plus_m_luminance",
+    "stimulus_features": 289,
+    "stimulus_lags": 16
+  },
+  "glm_converged_cells": 22,
+  "glm_finite_gradient_cells": 22,
+  "glm_strict_gradient_converged_cells": 9,
+  "glm_training_contract": {
+    "convergence_definition": "finite gradients and either max|gradient| <= 1e-4 or LBFGS tolerance termination before iteration/evaluation budgets; strict-gradient count is reported separately",
+    "l2_penalty": 0.0001,
+    "maximum_iterations": 2000,
+    "regularization": "fixed_a_priori_L2_on_non_bias_stimulus_and_history_weights",
+    "regularization_selected_using_validation": false,
+    "solver": "LBFGS_strong_wolfe",
+    "validation_used_for_fit_or_selection": false
+  },
+  "group_mean_validation_nll": {
+    "MC_OFF": {
+      "cell_count": 4,
+      "constant_rate": 0.5338214412331581,
+      "glm": 1.3129834830760956,
+      "retinal": 0.493567056953907
+    },
+    "MC_ON": {
+      "cell_count": 5,
+      "constant_rate": 0.49605720639228823,
+      "glm": 1.5062504291534424,
+      "retinal": 0.44803460836410525
+    },
+    "PC_OFF": {
+      "cell_count": 4,
+      "constant_rate": 0.5363826975226402,
+      "glm": 1.3969001024961472,
+      "retinal": 0.4884631112217903
+    },
+    "PC_ON": {
+      "cell_count": 9,
+      "constant_rate": 0.4949863619274563,
+      "glm": 1.1440840628412035,
+      "retinal": 0.43880630864037407
+    }
+  },
+  "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+  "likelihood": "Bernoulli event per native 150 Hz stimulus frame",
+  "maximum_glm_final_gradient": 0.0005872861365787685,
+  "maximum_retinal_replay_error": 0.0,
+  "mean_validation_nll_across_cells": {
+    "constant_rate": 0.5098172656514428,
+    "glm": 1.303070138801228,
+    "retinal": 0.4598886587403037
+  },
+  "nll_differences": {
+    "retinal_minus_constant_rate": -0.049928606911139095,
+    "retinal_minus_glm": -0.8431814800609243
+  },
+  "pooled_validation_nll_weighted_by_valid_bins": {
+    "constant_rate": 0.5120690773873433,
+    "glm": 1.2565924285972205,
+    "retinal": 0.4605322169126385
+  },
+  "recording_count": 37,
+  "retinal_strictly_better_than_constant_count": 22,
+  "schema": "schottdorf_lee_2021_macaque_matched_prediction_baselines_v1",
+  "source_retinal_artifact": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_cellwise_multirecording_v1_local_seed20260828_revision2",
+  "source_retinal_results_sha256": "cd9306c93ce31aca5a788a5232567b368f6041093b7009ad23eb426f50a1d489",
+  "split": "identical held-out contiguous temporal segments",
+  "winner_counts": {
+    "constant_rate": 0,
+    "glm": 0,
+    "retinal": 22
+  }
+}

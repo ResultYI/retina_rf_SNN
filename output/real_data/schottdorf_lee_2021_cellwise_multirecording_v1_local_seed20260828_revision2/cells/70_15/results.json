@@ -1,0 +1,80 @@
+{
+  "biological_trials": 6,
+  "canonical_cell_type": "midget",
+  "cell_id": "70#15",
+  "eccentricity_deg": 3.78,
+  "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+  "native_dt_ms": 6.666666666666667,
+  "nll_improvement": 0.024333029985427856,
+  "polarity": "ON",
+  "prediction_improved": true,
+  "recorded_cell_classes": [
+    "+M-Lon"
+  ],
+  "recording_count": 1,
+  "recording_ids": [
+    "lSS01287"
+  ],
+  "recording_kinds": [
+    "6x1min"
+  ],
+  "recording_metadata": [
+    {
+      "canonical_cell_type": "midget",
+      "catalog_recording_kind": "6x1min",
+      "eccentricity_deg": 3.78,
+      "polarity": "ON",
+      "recorded_cell_class": "+M-Lon",
+      "recording_id": "lSS01287",
+      "recording_kind": "6x1min",
+      "retinal_class": "PC",
+      "spike_sha256": "a983945596e5b67a4752700ce6dd573211d6da5d9e7d1e8e19456243db740d4c"
+    }
+  ],
+  "retinal_class": "PC",
+  "source_sha256": {
+    "lSS01287.txt": "a983945596e5b67a4752700ce6dd573211d6da5d9e7d1e8e19456243db740d4c"
+  },
+  "spike_time_resolution_ms": 0.1,
+  "stimulus_rate_hz": 150.0,
+  "time_segment_disjoint": true,
+  "train_event_rate": 0.17951388657093048,
+  "train_multi_spike_bin_fraction": 0.005381944589316845,
+  "train_sequences": 96,
+  "train_valid_bins": 11520,
+  "training": {
+    "actually_updated": [
+      "h1.raw_tau",
+      "h1.raw_delay",
+      "feature_bank.raw_tau",
+      "feature_bank.raw_delay",
+      "bipolar.raw_weights",
+      "amacrine.raw_tau",
+      "amacrine.raw_weights",
+      "rgc.response_bias",
+      "gates.h1",
+      "gates.ac_local",
+      "gates.ac_transient",
+      "gates.history",
+      "cell_gains.log_bc",
+      "cell_gains.log_ac"
+    ],
+    "gradients_finite": true,
+    "major_parameter_groups_updated": {
+      "aggregate_bc_ac_gains": true,
+      "bounded_explicit_delay": true,
+      "bounded_tau": true,
+      "pathway_gates": true,
+      "pathway_weights": true,
+      "rgc_bias": true
+    },
+    "seed": 20260848,
+    "self_edge_connection_parameter_updated": false
+  },
+  "validation_event_rate": 0.17638888955116272,
+  "validation_multi_spike_bin_fraction": 0.0055555556900799274,
+  "validation_nll_raw": 0.4610804319381714,
+  "validation_nll_trained": 0.43674740195274353,
+  "validation_sequences": 24,
+  "validation_valid_bins": 2880
+}

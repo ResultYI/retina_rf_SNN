@@ -1,0 +1,1072 @@
+{
+  "status": "COMPLETED",
+  "cells": 22,
+  "evaluation_bins_per_mode": 65760,
+  "sensitivity_pass_threshold": null,
+  "training": false,
+  "model_modified": false,
+  "protocol": {
+    "production": "reset each 150-bin segment; score local bins 30..149",
+    "preroll": "60 real preceding bins before first scored bin; 180-bin input; score bins 60..179",
+    "continuous": "one uninterrupted 3000-bin forward per recording/trial from live t=0; score original validation bins only",
+    "history": "unchanged production binary observed spike history, including unscored preceding bins; strictly-past shift remains inside model",
+    "clamps": "each off condition applies throughout that mode's complete context; no normal-state splice",
+    "aggregation": "primary NLL: unweighted 22-cell mean; also report bin-weighted NLL; population logit quantiles/effects pool all 65760 scored bins"
+  },
+  "core_files_different_from_training_manifest": [
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\bipolar_subunits.py",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\canonical_contract.py",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\model.py",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\pathway_rf.py",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\pathway_spatial_geometry.py",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\shared_subunits.py",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\spatial_contract.py",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\support_partition.py"
+  ],
+  "core_source_note": "Current sources recorded without modification. Strict loading and all saved production logits/NLL must match exactly; no checkpoint conversion.",
+  "checks": [
+    {
+      "cell_id": "67#4",
+      "valid_bins": 480,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "9490714bae247dbb734f3a531066221abc1923f7ea6fe7e61e21e08df3a83347",
+      "stream_ids": [
+        [
+          "lSS01071",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "67#6",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "459080d076067b5f8bd56185e470d47dffeadeab918cf9e4cd48eaeb5cff4bcd",
+      "stream_ids": [
+        [
+          "lSS01078",
+          1
+        ],
+        [
+          "lSS01078",
+          2
+        ],
+        [
+          "lSS01078",
+          3
+        ],
+        [
+          "lSS01078",
+          4
+        ],
+        [
+          "lSS01078",
+          5
+        ],
+        [
+          "lSS01078",
+          6
+        ],
+        [
+          "lSS01079",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "67#7",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "edecb75ab160ae1d3c722457e8f17b76a5ea58f2bb054e2fa407402e19e75eeb",
+      "stream_ids": [
+        [
+          "lSS01086",
+          1
+        ],
+        [
+          "lSS01086",
+          2
+        ],
+        [
+          "lSS01086",
+          3
+        ],
+        [
+          "lSS01086",
+          4
+        ],
+        [
+          "lSS01086",
+          5
+        ],
+        [
+          "lSS01086",
+          6
+        ],
+        [
+          "lSS01087",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "67#14",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "da4a1f4d11e1515216918fb8ed300c711ad2a6883118a19448b92d5ff7cc6a91",
+      "stream_ids": [
+        [
+          "lSS01110",
+          1
+        ],
+        [
+          "lSS01110",
+          2
+        ],
+        [
+          "lSS01110",
+          3
+        ],
+        [
+          "lSS01110",
+          4
+        ],
+        [
+          "lSS01110",
+          5
+        ],
+        [
+          "lSS01110",
+          6
+        ],
+        [
+          "lSS01112",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "67#21",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "51106216a23d2c082c94ec05b5c52bfa035e5bad32bf020655b332a855106af3",
+      "stream_ids": [
+        [
+          "lSS01130",
+          1
+        ],
+        [
+          "lSS01130",
+          2
+        ],
+        [
+          "lSS01130",
+          3
+        ],
+        [
+          "lSS01130",
+          4
+        ],
+        [
+          "lSS01130",
+          5
+        ],
+        [
+          "lSS01130",
+          6
+        ],
+        [
+          "lSS01131",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "67#26",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "f6c6bd60abd7c47e09463fd91a8d29ea4270ed6dbc7fb569de1b163082bdf912",
+      "stream_ids": [
+        [
+          "lSS01141",
+          1
+        ],
+        [
+          "lSS01141",
+          2
+        ],
+        [
+          "lSS01141",
+          3
+        ],
+        [
+          "lSS01141",
+          4
+        ],
+        [
+          "lSS01141",
+          5
+        ],
+        [
+          "lSS01141",
+          6
+        ],
+        [
+          "lSS01142",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "67#33",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "03783323ccb8f75d2be3586b761dd14a4507e45b9ca310ff2677a05a4239bb21",
+      "stream_ids": [
+        [
+          "lSS01159",
+          1
+        ],
+        [
+          "lSS01159",
+          2
+        ],
+        [
+          "lSS01159",
+          3
+        ],
+        [
+          "lSS01159",
+          4
+        ],
+        [
+          "lSS01159",
+          5
+        ],
+        [
+          "lSS01159",
+          6
+        ],
+        [
+          "lSS01160",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "67#34",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "c56b0161198123254f17dc5db8870d1507696516bdba1488a1c40795606644ac",
+      "stream_ids": [
+        [
+          "lSS01167",
+          1
+        ],
+        [
+          "lSS01167",
+          2
+        ],
+        [
+          "lSS01167",
+          3
+        ],
+        [
+          "lSS01167",
+          4
+        ],
+        [
+          "lSS01167",
+          5
+        ],
+        [
+          "lSS01167",
+          6
+        ],
+        [
+          "lSS01168",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "68#3",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "554367f494287b2f6e8dc5ab28d52a0fd06581cd83174171211b63521ed1287a",
+      "stream_ids": [
+        [
+          "lSS01181",
+          1
+        ],
+        [
+          "lSS01181",
+          2
+        ],
+        [
+          "lSS01181",
+          3
+        ],
+        [
+          "lSS01181",
+          4
+        ],
+        [
+          "lSS01181",
+          5
+        ],
+        [
+          "lSS01181",
+          6
+        ],
+        [
+          "lSS01183",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "68#4",
+      "valid_bins": 2880,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "fa6b3dfa0c689eab9d94398bb6068e6eab7dc7b941f66e8138b64a2e40146293",
+      "stream_ids": [
+        [
+          "lSS01184",
+          1
+        ],
+        [
+          "lSS01184",
+          2
+        ],
+        [
+          "lSS01184",
+          3
+        ],
+        [
+          "lSS01184",
+          4
+        ],
+        [
+          "lSS01184",
+          5
+        ],
+        [
+          "lSS01184",
+          6
+        ]
+      ]
+    },
+    {
+      "cell_id": "68#7",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "71c88d377dcebb7429d8828f997d8c0adabf34a6f826e6404d25d1f025890fbc",
+      "stream_ids": [
+        [
+          "lSS01194",
+          1
+        ],
+        [
+          "lSS01194",
+          2
+        ],
+        [
+          "lSS01194",
+          3
+        ],
+        [
+          "lSS01194",
+          4
+        ],
+        [
+          "lSS01194",
+          5
+        ],
+        [
+          "lSS01194",
+          6
+        ],
+        [
+          "lSS01196",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "68#10",
+      "valid_bins": 480,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "f7575b2f2f55d9ed7f7333e8d6fc43e80499392e8f8d19cd57285686d357fede",
+      "stream_ids": [
+        [
+          "lSS01221",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "68#11",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "91a52fb9d57e10d81c4e0cc3f8bad052cb3544bf2055a3cfc8818557d7806022",
+      "stream_ids": [
+        [
+          "lSS01225",
+          1
+        ],
+        [
+          "lSS01225",
+          2
+        ],
+        [
+          "lSS01225",
+          3
+        ],
+        [
+          "lSS01225",
+          4
+        ],
+        [
+          "lSS01225",
+          5
+        ],
+        [
+          "lSS01225",
+          6
+        ],
+        [
+          "lSS01227",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "69#3",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "684eda5f026d24681cb29d7241f5371c264a6b716f202710dff105bda5ac1285",
+      "stream_ids": [
+        [
+          "lSS01251",
+          1
+        ],
+        [
+          "lSS01251",
+          2
+        ],
+        [
+          "lSS01251",
+          3
+        ],
+        [
+          "lSS01251",
+          4
+        ],
+        [
+          "lSS01251",
+          5
+        ],
+        [
+          "lSS01251",
+          6
+        ],
+        [
+          "lSS01252",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "69#4",
+      "valid_bins": 2880,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "1d4c699ad853725811e2d181f04555d6627c51aff4abcf8ce90ac4fe5942a9e6",
+      "stream_ids": [
+        [
+          "lSS01254",
+          1
+        ],
+        [
+          "lSS01254",
+          2
+        ],
+        [
+          "lSS01254",
+          3
+        ],
+        [
+          "lSS01254",
+          4
+        ],
+        [
+          "lSS01254",
+          5
+        ],
+        [
+          "lSS01254",
+          6
+        ]
+      ]
+    },
+    {
+      "cell_id": "69#6",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "a435e705bf609be5e91028b3abe84fd44487a115c05761e3a4e3f560d37db1b4",
+      "stream_ids": [
+        [
+          "lSS01256",
+          1
+        ],
+        [
+          "lSS01256",
+          2
+        ],
+        [
+          "lSS01256",
+          3
+        ],
+        [
+          "lSS01256",
+          4
+        ],
+        [
+          "lSS01256",
+          5
+        ],
+        [
+          "lSS01256",
+          6
+        ],
+        [
+          "lSS01257",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "69#7",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "bd176757d2ff0d5ba99c9ea705c7cd114cdf2930eec755a93505cd582cfc0964",
+      "stream_ids": [
+        [
+          "lSS01258",
+          1
+        ],
+        [
+          "lSS01258",
+          2
+        ],
+        [
+          "lSS01258",
+          3
+        ],
+        [
+          "lSS01258",
+          4
+        ],
+        [
+          "lSS01258",
+          5
+        ],
+        [
+          "lSS01258",
+          6
+        ],
+        [
+          "lSS01259",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "69#21",
+      "valid_bins": 2880,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "b1450634baa62a5e9bf9b8165535040ddd37b0896f288820d864cb15d14f7d9f",
+      "stream_ids": [
+        [
+          "lSS01270",
+          1
+        ],
+        [
+          "lSS01270",
+          2
+        ],
+        [
+          "lSS01270",
+          3
+        ],
+        [
+          "lSS01270",
+          4
+        ],
+        [
+          "lSS01270",
+          5
+        ],
+        [
+          "lSS01270",
+          6
+        ]
+      ]
+    },
+    {
+      "cell_id": "70#1",
+      "valid_bins": 2880,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "487e4a937389f7e0cfd9161f1fb5521d7cd84dac64cc1c70373451c28784dcbc",
+      "stream_ids": [
+        [
+          "lSS01278",
+          1
+        ],
+        [
+          "lSS01278",
+          2
+        ],
+        [
+          "lSS01278",
+          3
+        ],
+        [
+          "lSS01278",
+          4
+        ],
+        [
+          "lSS01278",
+          5
+        ],
+        [
+          "lSS01278",
+          6
+        ]
+      ]
+    },
+    {
+      "cell_id": "70#7",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "1bd2cf0e25597fa5736edcb303fa783007d51ba73e31471f2d3f6193d57db1a1",
+      "stream_ids": [
+        [
+          "lSS01284",
+          1
+        ],
+        [
+          "lSS01284",
+          2
+        ],
+        [
+          "lSS01284",
+          3
+        ],
+        [
+          "lSS01284",
+          4
+        ],
+        [
+          "lSS01284",
+          5
+        ],
+        [
+          "lSS01284",
+          6
+        ],
+        [
+          "lSS01285",
+          1
+        ]
+      ]
+    },
+    {
+      "cell_id": "70#15",
+      "valid_bins": 2880,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "142eac8dcbe40b35ca5bdebe204991ff35a0e6687d0c9febf34c99db4b2b09c3",
+      "stream_ids": [
+        [
+          "lSS01287",
+          1
+        ],
+        [
+          "lSS01287",
+          2
+        ],
+        [
+          "lSS01287",
+          3
+        ],
+        [
+          "lSS01287",
+          4
+        ],
+        [
+          "lSS01287",
+          5
+        ],
+        [
+          "lSS01287",
+          6
+        ]
+      ]
+    },
+    {
+      "cell_id": "70#34",
+      "valid_bins": 3360,
+      "checkpoint_strict_load": true,
+      "production_logits_bitwise_equal_saved": true,
+      "original_target_mask_identity_exact": true,
+      "all_modes_same_scored_stimulus_target_bins": true,
+      "no_cross_recording_trial_or_gap": true,
+      "real_observed_history": true,
+      "exact_zero_clamps": true,
+      "model_state_dict_unchanged": true,
+      "all_outputs_finite": true,
+      "no_parameter_gradients": true,
+      "scored_identity_sha256": "30ee5ca2e4aa8a8c74ecfd8d5953e8db1a8fe1be9efdcc5317d2530fd5b28530",
+      "stream_ids": [
+        [
+          "lSS01299",
+          1
+        ],
+        [
+          "lSS01299",
+          2
+        ],
+        [
+          "lSS01299",
+          3
+        ],
+        [
+          "lSS01299",
+          4
+        ],
+        [
+          "lSS01299",
+          5
+        ],
+        [
+          "lSS01299",
+          6
+        ],
+        [
+          "lSS01300",
+          1
+        ]
+      ]
+    }
+  ],
+  "source_sha256": {
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01071.txt": "b912e43cb384d511a364de6ac216225664fcc0f76b209fb83d938547496fff56",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01078.txt": "8ea079af74184c5b699a55452ab689947b37ca56accc3cd3110eceb36fe76fa5",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01079.txt": "b5c9c293f7c6a7457319c482b23a42b52560256c0e2a8e97304f506ac4b32a9a",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01086.txt": "6a0b1802d861a71b17188feb938b6860100fc84bb818109212a9abfa28d46139",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01087.txt": "b14ae8121e35329a00ffeb3964f433ad753e8bb092427b30c062bfe715b011b8",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01110.txt": "a26245459dd0af5422c3e2e4075d02b787943734aa80432246802b8efa07270a",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01112.txt": "2f235ecdb35fef636dee5644cb956f20f416db86482b5fc2e3ab607ab84f8e08",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01130.txt": "8aa1e7cd3e84de3728485173d7fd40fe23f4c1ef47a32b18e9028a2567a0e4cc",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01131.txt": "88d200c534da7179f47611feb976716a46eaa349f26a1f1200e377dcbed9e727",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01141.txt": "a72d545a2c71eac7f14d4fad5408629076566d1e3b94f43a1fc63763d473b914",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01142.txt": "4aebc3b4e76eff4b58f85b2227c33a2e0b7a2cc7435e739509bed197ebbfdc74",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01159.txt": "28b5a076d39ad1bba8a71f3d9d6f5732882229eb4b21fdf5e02f7f1a54e5aae6",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01160.txt": "74e5456b5d65c45d4c5c99f1d962c390b6f63c4a11ea83391cb744ee2f4350a5",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01167.txt": "f530368663d7869b757211daf26ac0b239bcc51fb85c0d69c775471d94cdb6bf",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01168.txt": "3124a9a8003a1eac28495a817d385e7aca74a8d0daed8a29a9b14bdd85e50add",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01181.txt": "5f63376c7b52f9e4aea3a60488ef81caeb6d0b8fc4361b0c7cf8969bdb6e3404",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01183.txt": "834cd5c12c8f734ffe6c073579a52f46f608dec04be96b93ef2cb378cc3222ab",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01184.txt": "e6f873105275ba94c9bdb48447651e93d9ec77eb5f107bf3ef9a176946bc3710",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01194.txt": "f7ff1b87e8bc0220d1c875e8b738957733fff6d41c524c5517d075b4be054e3f",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01196.txt": "2a314def8f0b1b3db16ec4928f4317ccc1f9bbbfdf59241dc545110215da83b1",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01221.txt": "7a892d39d3decf76d50705175ca5ed31ae8141b4a859deedfec1e115d8f35e53",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01225.txt": "77b8590967d4c87443f9a2051cc615e96c3d789aa88d6159e4ea0dc1d1ed6a4c",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01227.txt": "f968087b85a4584a9c75e8d8a24c8da5e8a724b856aa1cc14f06131998026b99",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01251.txt": "7accbb5ca931a6dab0a0abc31d3fa26c2e7c64f0a282bc6199d93196cdd9464b",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01252.txt": "15124cd47349640fe0a9b0436cce5a4ca57d9dbfc552d8d334c723aac0d4fc71",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01254.txt": "4069314bcafe9a28f8e329bb4d72f77773ebc0d5523c4e1a355cc09ea89bdf12",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01256.txt": "74790a90e633d2f76ab35e58937d3ea60c56587bff1050061d3cc150c99dbf68",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01257.txt": "56f59ff3df7839be095d5d6329a27e771b5fe8f0ee5d3b4169f43bb3ad2cf2e0",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01258.txt": "926b3ef523f3dd10bab6e003bd47645f5b4065c960eb1353d3d5b1fed3c6fb16",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01259.txt": "ff52fe98da0b5e734ee5cb20e9664be30fc1a1125957c49f1d4bbcbf63682c61",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01270.txt": "f63f15687683b0d53365e57304ea91649279eaef92a978a1c91f03ca227d6b46",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01278.txt": "86f4dff94fa25c167d0515090a2902a992c9db1944734980a6dbc0d8a014ac86",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01284.txt": "29d57670e3f9e33143d46770d5caf6410cfae6e4a1407497fdfe1be946635112",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01285.txt": "ded8786133475525b9e7bdcd3999e0c8c108437715bb92d96ec4abde3f374f29",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01287.txt": "a983945596e5b67a4752700ce6dd573211d6da5d9e7d1e8e19456243db740d4c",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01299.txt": "f26bdf244b693b5dff575392e2a886878f3ad677baaed185b500db12ad17005b",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01300.txt": "ade77687b9c32bf2ad6d80bb92a1dc29617fb860a643b770e793c43282c2afe6",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_macaque\\1x10_256.mpg": "328e229e160eab35028f063468cc2e167045fc8c9fcdbe4a8e7823142a752a67",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_4\\model-trained.pt": "f9ab8103f00d42703c31f8a96d57b76b25893d97c94cb9f72f534741021829a7",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_6\\model-trained.pt": "02f6b00debb45d64c91a7b1017068b18c7b9e852bc4dab6dd049e50e6e96ccef",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_7\\model-trained.pt": "d9e78dbed900229fea46b440ea93695147b0cb0866d5f90b35b2f0d345147cdb",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_14\\model-trained.pt": "16255822b90ab992e2afb655fa065546536653986348a31a20b63e0f4514f4e2",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_21\\model-trained.pt": "b0fe331387572fd14d020ca1ec294f14163f30b9cfcfad50f01d39497554fd0a",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_26\\model-trained.pt": "fb3e3c5227acac5632338f334a25c45fc9e61c1400bfb2e7fe777c0bbe4fd873",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_33\\model-trained.pt": "a519568baef8aacf9e549956d1728260f26262d11971cd3e91b7e6cb23195955",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_34\\model-trained.pt": "4ec9c3f8bbe1557a0873c95039459b738f34d6fc3d6236d8cda992c922f9f06c",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_3\\model-trained.pt": "d7cd8f67ebd8b7997492255457af8acbf7b236bcd597e7c14ba8ec0711c1a6de",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_4\\model-trained.pt": "0fc06f738cec84b855d2c0c7f7ca48907cd98ab11cd6d10be027ce8e5a4ff67f",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_7\\model-trained.pt": "479abfdf9dc3766b317f96581db9628fa17cf81913eee9020db78cb69f7944d3",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_10\\model-trained.pt": "c394ffbd7c303df2025e5dc4176007f088ab1e9b488ac5b2564aa56c57352bfd",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_11\\model-trained.pt": "ae5ea08ce4140e1561d9930e4d1c2bcff28d2d5c8618e04eadedef69e3ecf23f",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_3\\model-trained.pt": "50b334692cbfb5ba8e8feaedac885c75a30860f5406b0414d831916754afae65",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_4\\model-trained.pt": "b40878f31dca0434259a6bc6affe5c3793daf3adf7d541ce205c226a2e91473b",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_6\\model-trained.pt": "336e3d8e2de8282f9134fe057e1c91c021b6bf4f47c0eb25840f492f322fc21d",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_7\\model-trained.pt": "e2c234c61343d1050b20793f5c09a5927e9ec62061a30949d339271843ced80e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_21\\model-trained.pt": "3a8e2d91dc71b321de8ca03aa8da0ae1cbabdb7a1eed9778ba982022dba2f42d",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\70_1\\model-trained.pt": "e4d15d07d2accb218dce44b5a0f5ab4f3dab7124dceb0082dcec886ce0236309",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\70_7\\model-trained.pt": "f58a9ed77ca1132cfab909b661449ece0fd185c57c2146ddecdf23d2dc1c49ce",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\70_15\\model-trained.pt": "2f6178198ae6591cefaca37dedaaa707a60116f73ad966a72899dce0eb4d338a",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\70_34\\model-trained.pt": "ae01dfe02d83ca87cd19c6e3da9d3e76a2d3389b4773178b9d488b44b599ecfa",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\schottdorf_lee_2021.py": "ae07cb57443ce95fcef2208060638c1cc12168ec9e1a1f3f9e58c82e24ddf764",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\schottdorf_lee_multirecording.py": "3b6b1ae2ddb2c35d1c9ae133017ff5016b79960d56a194f1722b0079ec1716db",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\schottdorf_lee_spikes.py": "04993cd009000dab362c352530e5a68d5dfda39403785e25aa6a53dcd9c2b6d4",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\schottdorf_lee_catalog.py": "3d1ca53ab11f57f98f452e95af96b51651510e289bf2aef14cff109b9b52a513",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\retinal_recording.py": "a05bf2f3cb094f26491ae0284f62d863e55956ee6792c0a8d6cbec1dee855c75",
+    "D:\\PythonProject\\retina_rf_SNN\\training\\mechanistic_retina\\losses.py": "6e26f7b0ac7d08b681d2b4a291e457d8159e170afc41c6b39aba4166fb9cc91a",
+    "D:\\PythonProject\\retina_rf_SNN\\training\\mechanistic_retina\\r4_development.py": "1bf301b0684a87ad714e51e3ccc886db9ff4b7fe277b2ffacfac60bb69b637ba",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\amacrine_pathways.py": "dc8c3ce543b4af2412f53a57fbcc60785433de7a61d7e169e1094d1d7e247631",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\bipolar_subunits.py": "c14cff98435e3d5401ac5307fe4af080d04a7321f572adefcfdd1b04305751e5",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\canonical_contract.py": "344e87ec2544ac49c12ef704a20fc428c7a5f308f1f9baacfcd425b62aee1ebb",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\causal_contract.py": "0aacee1e4b98f144f082d87eb77abe03912cb086cca6dd2d86802dd49bceb726",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\cell_specific_gains.py": "72fe52688e5c04211a711a720f443e361fc4e59f25d9ca4f25735f39cbbe01db",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\contracts.py": "3050e2efa26490a0d6ac36564d184dfe3d7ac99f9b5280ed912e33a7bd4ee843",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\delay_parameters.py": "083816a26aa1d94d620b2460d6e1c7efd0b04e5825aa01775272d2bf5bd37c02",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\graph.py": "d647c5d042383772a675f5a9b59120bd5c783d931c92523578811634270153bd",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\h1_pathway.py": "dab8e1a687c3ec9ced59e29ee0b1ffb49d93bd2d7732049eb06c265a4321d156",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\model.py": "040b631f93aff307d06f5d354d971ea9e9d00bf1eb5595a0ecba1c2be76828ef",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\neural_operators.py": "13b63e667cddb54f17b0b0d1f1906180d71155fa7cdffd26fdffc81e0b86efef",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\pathway_gates.py": "14c38959e47205546e029a2ba0fa826fd5cde45d467834ae66597a0ee9476c11",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\pathway_rf.py": "211d3fdaae9f5c0fab17f2332098948bbd2a7c6a0d22cc46e1fae17ca4dba521",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\pathway_spatial_geometry.py": "dbd9c432668f6194cfc333778cfa178a2d2332230e9b4e11c571dc9e31ed9708",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\pathway_temporal.py": "bd0096acc4138e26953cade22d347c13ad0d4f3807ceca5f0e4a30ebc695a265",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\phase1_run_contract.py": "939474d43bf05dd85d4dd152b48abd636a686a489df8ecb1749c75491a972e3a",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\rgc_state.py": "859d29f65d2df0a8785fa8087f873404aba0f15585441d1db251e69fee8d7540",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\shared_subunits.py": "78a9d7af1c572851953bd8917f94e3149fa8823b33363fa04b903a575b25004d",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\spatial_contract.py": "718923e8112175a2469460fb41d23ce974437a88670db00ef75263daf41a1a11",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\state.py": "fb20576fa7c277deb01261d0ad7f743211a7aab2643986d8bffd2ba47b3e486b",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\support_partition.py": "e049de5e3ab44f5089936eaa94904ea2b27ef43d043169c4d6baddaafacc36b4",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\temporal_parameters.py": "3230165b0c7a86c340e76467b4bc2eb965add94b20f8832b5e99d6d973bf3505",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\__init__.py": "4f0b9e668c2ddc3c9bae13553aec50a52a133401db6e9b2f2a2127f085882390",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\results.json": "8df815f65905d2b50a4a5b00a387497148eb8daf00d1959650d1a52070223373",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\run-manifest.json": "95d90b6adde1ece46882012985946bc0f59168699509ca09751cae94261703e3",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\comparison.json": "85154e9f1c60cb3090c1c56707551b94a11e4275049f1ba0563b8a8843b2c362",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\schottdorf_lee_150hz_multispike_sanity\\compute.py": "4e294191c939f5665fd968c12ae7ae9a04f132d650845c0c3bd423eebd447e15",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\schottdorf_lee_reset_preroll_sensitivity\\inputs.py": "3df2cdae72319573552cc5943f7253bfb1b87bf64ee77b6d6f0fff9273359278",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\schottdorf_lee_reset_preroll_sensitivity\\report.py": "60057021a9843447bb26ce860eb365061ab8462ebf0ad1c3ef7c0c0ff8d7b6e8",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\schottdorf_lee_reset_preroll_sensitivity\\run.py": "79493d7dce5abce1099ce240f8b74cf3e64cc49cff0153e72288403376b61e12",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_4\\validation-predictions.pt": "0aa8b3209b54145b66e393714bf1ad5c559347fda0d17c7a70c9aeb9c9482ce4",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_6\\validation-predictions.pt": "761c2eb958eb7e80aa31c251bc660fa307779a2b525ea213b0e7304c1d08731e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_7\\validation-predictions.pt": "7ead852359810c27315006607ed1365b46457c5bc4296a815fe8490978f88535",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_14\\validation-predictions.pt": "97eac4776eb7012ac9876ae42fa83d6bf936a490654621d555c74d0cf29db224",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_21\\validation-predictions.pt": "ef2a39416793fbd4263380b69bcb3ce024f30c3d9a3f5cf6d058050ba3fe2855",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_26\\validation-predictions.pt": "4d3d6e08c63f24c5b2f7c4d0697f530a430533b4b98cfb57d27aa40b6ea68cfb",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_33\\validation-predictions.pt": "95371542a2e5de59176466b2a6d2a5e0a0c32c326b6ef7423c6505588e6fcea1",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_34\\validation-predictions.pt": "a1fe76b8712799a2072d476ea92fdfec4c5ea1bea5e9d3a3d46815a5cac39c02",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_3\\validation-predictions.pt": "0701911387d5467f7602304ed3b2a0cde9a6ab50c9f4f150bb2b74aeffb6c3d8",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_4\\validation-predictions.pt": "51c75d1dfcc4008844f85168fc4ddc201509f88d565433783cabd56ccafce464",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_7\\validation-predictions.pt": "c910218ce37c621c8f84ef191666d19a56d078a92d0388b3018c37aac3c456dd",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_10\\validation-predictions.pt": "89297b61162d6c8fc9acf226e866b017a4020a40c7981fd296346fc7cb2e699e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_11\\validation-predictions.pt": "6ba8628c9b7bfca8e60d30a6607c47220f8bb545383dff72c73b77f15191ee5b",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_3\\validation-predictions.pt": "0f430c98bf25fe9b8fbbb83eab941c173bae9e5b188b3429fdcbd35719da01bf",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_4\\validation-predictions.pt": "8e956ab3b279686a4eb71a69152e6e6d561321480bb4bde2001c0dd878fbb2b2",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_6\\validation-predictions.pt": "c41029fbb86d541cac2d84175272df7ecf71fcd5a3f0d1079b3c39bc602b9c1d",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_7\\validation-predictions.pt": "324d33a56ae616f6d14d47ea0f58aa56082f3790f0705287f3354390a9f75921",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_21\\validation-predictions.pt": "ecef978328d093db95ee5ce1f04754ad14bdf3c787a2aa60b1174adbf8d01d7f",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\70_1\\validation-predictions.pt": "ade92c8b570e186d780e4ed76268fa6f5f5e44d0a5d32036cced30698dd7f4b3",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\70_7\\validation-predictions.pt": "d247dc4b55e820c0ddb06cce19189cd385233bd64b1632ec4bdf4ead1ebe8506",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\70_15\\validation-predictions.pt": "22f8c0aa2afffbaf285fd2a2f640b45609a33f15c4334cf276b82bd9dac79b14",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\70_34\\validation-predictions.pt": "dd574e1372d80931430f9151d0d3c4348f09c9c6e31e22414a523789e9b2e6fa"
+  }
+}

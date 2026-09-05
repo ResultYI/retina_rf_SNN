@@ -1,0 +1,706 @@
+{
+  "by_cell_class": {
+    "OFF midget": {
+      "constant_rate": 0.4209564864635468,
+      "glm": 0.4010186016559601,
+      "retinal": 0.4180727481842041
+    },
+    "OFF parasol": {
+      "constant_rate": 0.17109021668632826,
+      "glm": 0.17346767832835516,
+      "retinal": 0.1698548125723998
+    },
+    "ON midget": {
+      "constant_rate": 0.06394559933015934,
+      "glm": 0.05381280885866055,
+      "retinal": 0.061084491558946095
+    },
+    "ON parasol": {
+      "constant_rate": 0.1347163605193297,
+      "glm": 0.1222109568339807,
+      "retinal": 0.13350826074127797
+    }
+  },
+  "comparison_scope": {
+    "claim": "prediction/capacity comparison only",
+    "matched_capacity": false,
+    "retinal_model_retrained": false,
+    "validation_used_for_glm_fit_or_selection": false
+  },
+  "dataset": "Karamanlis/Gollisch marmoset 60-cell RF-QC population",
+  "evaluation_contract": {
+    "nll": "mean binary cross-entropy over identical valid bins",
+    "source_image_disjoint": true,
+    "target": "Bernoulli spike event per native 85 Hz bin",
+    "train_sequences": 1290,
+    "train_source_images": 176,
+    "train_valid_bins": 5263200,
+    "validation_sequences": 327,
+    "validation_source_images": 44,
+    "validation_valid_bins": 1334160
+  },
+  "exact_tie_cell_count": 0,
+  "glm_contract": {
+    "actually_updated": [
+      "history",
+      "bias",
+      "kernels.0",
+      "kernels.1",
+      "kernels.2",
+      "kernels.3",
+      "kernels.4",
+      "kernels.5",
+      "kernels.6",
+      "kernels.7",
+      "kernels.8",
+      "kernels.9",
+      "kernels.10",
+      "kernels.11",
+      "kernels.12",
+      "kernels.13",
+      "kernels.14",
+      "kernels.15",
+      "kernels.16",
+      "kernels.17",
+      "kernels.18",
+      "kernels.19",
+      "kernels.20",
+      "kernels.21",
+      "kernels.22",
+      "kernels.23",
+      "kernels.24",
+      "kernels.25",
+      "kernels.26",
+      "kernels.27",
+      "kernels.28",
+      "kernels.29",
+      "kernels.30",
+      "kernels.31",
+      "kernels.32",
+      "kernels.33",
+      "kernels.34",
+      "kernels.35",
+      "kernels.36",
+      "kernels.37",
+      "kernels.38",
+      "kernels.39",
+      "kernels.40",
+      "kernels.41",
+      "kernels.42",
+      "kernels.43",
+      "kernels.44",
+      "kernels.45",
+      "kernels.46",
+      "kernels.47",
+      "kernels.48",
+      "kernels.49",
+      "kernels.50",
+      "kernels.51",
+      "kernels.52",
+      "kernels.53",
+      "kernels.54",
+      "kernels.55",
+      "kernels.56",
+      "kernels.57",
+      "kernels.58",
+      "kernels.59"
+    ],
+    "cross_cell_coupling": false,
+    "gradients_finite": true,
+    "history_features": "4 strictly-past same-cell spike-event lags",
+    "maximum_iterations": 500,
+    "optimizer": "full-batch L-BFGS strong-Wolfe, train split only",
+    "seed": 20260302,
+    "solver_converged": true,
+    "solver_iterations": 253,
+    "stimulus_features": "measured white-noise RF contour union over the identical canonical cone drive x 16 current/past causal lags",
+    "support_count_max": 49,
+    "support_count_mean": 31.6,
+    "support_count_min": 16,
+    "support_radius_deg": null,
+    "train_nll_initial": 0.13460679352283478,
+    "train_nll_trained": 0.11235705018043518,
+    "validation_used_for_fit_or_selection": false
+  },
+  "lineage": {
+    "cell_count": 60,
+    "edge_count": 268,
+    "rf_graph_sha256": "daf98676d14f829e079ebd5b8f1666f30892bc3ed12a654ef3f9033768edf743",
+    "source_retinal_nll": 0.15061677992343903
+  },
+  "parameter_counts": {
+    "constant_rate": {
+      "fitted": 60
+    },
+    "glm": {
+      "optimizer_listed": 30636,
+      "requires_grad": 30636,
+      "total": 30636
+    },
+    "retinal": {
+      "optimizer_listed_in_source_fit": 568,
+      "requires_grad": 664,
+      "total": 664
+    }
+  },
+  "per_cell": [
+    {
+      "constant_rate_nll": 0.09359893202781677,
+      "glm_nll": 0.1048937663435936,
+      "id": "456",
+      "polarity": "ON",
+      "retinal_nll": 0.08912971615791321,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.1735582947731018,
+      "glm_nll": 0.18154659867286682,
+      "id": "8123",
+      "polarity": "OFF",
+      "retinal_nll": 0.17461909353733063,
+      "type": "parasol",
+      "winner": "constant_rate"
+    },
+    {
+      "constant_rate_nll": 0.18046621978282928,
+      "glm_nll": 0.1467493623495102,
+      "id": "1717",
+      "polarity": "ON",
+      "retinal_nll": 0.18144740164279938,
+      "type": "midget",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.10389503091573715,
+      "glm_nll": 0.10319730639457703,
+      "id": "4152",
+      "polarity": "ON",
+      "retinal_nll": 0.10472884029150009,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.03295539319515228,
+      "glm_nll": 0.032161325216293335,
+      "id": "8259",
+      "polarity": "ON",
+      "retinal_nll": 0.03102754056453705,
+      "type": "midget",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.26675736904144287,
+      "glm_nll": 0.240321546792984,
+      "id": "8715",
+      "polarity": "OFF",
+      "retinal_nll": 0.2603597044944763,
+      "type": "midget",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.5698539614677429,
+      "glm_nll": 0.569646954536438,
+      "id": "4084",
+      "polarity": "OFF",
+      "retinal_nll": 0.5694141387939453,
+      "type": "midget",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.14422614872455597,
+      "glm_nll": 0.14127162098884583,
+      "id": "8823",
+      "polarity": "ON",
+      "retinal_nll": 0.14487090706825256,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.15397563576698303,
+      "glm_nll": 0.16475220024585724,
+      "id": "9916",
+      "polarity": "OFF",
+      "retinal_nll": 0.15346485376358032,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.1198650524020195,
+      "glm_nll": 0.10215942561626434,
+      "id": "1743",
+      "polarity": "ON",
+      "retinal_nll": 0.1223653182387352,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.17943333089351654,
+      "glm_nll": 0.17755188047885895,
+      "id": "396",
+      "polarity": "OFF",
+      "retinal_nll": 0.1803898960351944,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.08628008514642715,
+      "glm_nll": 0.07869593054056168,
+      "id": "118",
+      "polarity": "ON",
+      "retinal_nll": 0.08508457988500595,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.06395674496889114,
+      "glm_nll": 0.04210584610700607,
+      "id": "298",
+      "polarity": "ON",
+      "retinal_nll": 0.05687372386455536,
+      "type": "midget",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.554362416267395,
+      "glm_nll": 0.5437880158424377,
+      "id": "1806",
+      "polarity": "OFF",
+      "retinal_nll": 0.5532641410827637,
+      "type": "midget",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.35447633266448975,
+      "glm_nll": 0.32569414377212524,
+      "id": "1821",
+      "polarity": "OFF",
+      "retinal_nll": 0.3499576449394226,
+      "type": "midget",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.07072858512401581,
+      "glm_nll": 0.046068351715803146,
+      "id": "98",
+      "polarity": "ON",
+      "retinal_nll": 0.048646342009305954,
+      "type": "midget",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.0708608478307724,
+      "glm_nll": 0.06317410618066788,
+      "id": "21059",
+      "polarity": "ON",
+      "retinal_nll": 0.06971842795610428,
+      "type": "midget",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.22680024802684784,
+      "glm_nll": 0.2210322618484497,
+      "id": "3176",
+      "polarity": "ON",
+      "retinal_nll": 0.22697247564792633,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.05461626499891281,
+      "glm_nll": 0.04232671111822128,
+      "id": "11185",
+      "polarity": "ON",
+      "retinal_nll": 0.052619896829128265,
+      "type": "midget",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.13551290333271027,
+      "glm_nll": 0.12873627245426178,
+      "id": "116",
+      "polarity": "OFF",
+      "retinal_nll": 0.13643579185009003,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.10770750790834427,
+      "glm_nll": 0.09661474078893661,
+      "id": "1842",
+      "polarity": "ON",
+      "retinal_nll": 0.10323935002088547,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.09387439489364624,
+      "glm_nll": 0.07985533028841019,
+      "id": "12291",
+      "polarity": "ON",
+      "retinal_nll": 0.09400323033332825,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.23299852013587952,
+      "glm_nll": 0.22433918714523315,
+      "id": "12204",
+      "polarity": "ON",
+      "retinal_nll": 0.23916053771972656,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.11781157553195953,
+      "glm_nll": 0.10239673405885696,
+      "id": "3181",
+      "polarity": "ON",
+      "retinal_nll": 0.11942213028669357,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.14487890899181366,
+      "glm_nll": 0.10775189846754074,
+      "id": "14218",
+      "polarity": "ON",
+      "retinal_nll": 0.14815600216388702,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.11564137786626816,
+      "glm_nll": 0.09875623136758804,
+      "id": "23",
+      "polarity": "ON",
+      "retinal_nll": 0.10255500674247742,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.09635210037231445,
+      "glm_nll": 0.1029411032795906,
+      "id": "101",
+      "polarity": "OFF",
+      "retinal_nll": 0.0953962504863739,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.026861978694796562,
+      "glm_nll": 0.02749914862215519,
+      "id": "3270",
+      "polarity": "ON",
+      "retinal_nll": 0.025353744626045227,
+      "type": "midget",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.24205517768859863,
+      "glm_nll": 0.2448098063468933,
+      "id": "3945",
+      "polarity": "OFF",
+      "retinal_nll": 0.24149805307388306,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.09615115821361542,
+      "glm_nll": 0.09438977390527725,
+      "id": "3310",
+      "polarity": "ON",
+      "retinal_nll": 0.09614399820566177,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.048646990209817886,
+      "glm_nll": 0.0432327538728714,
+      "id": "1587",
+      "polarity": "ON",
+      "retinal_nll": 0.04756994917988777,
+      "type": "midget",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.022384122014045715,
+      "glm_nll": 0.022973086684942245,
+      "id": "143",
+      "polarity": "ON",
+      "retinal_nll": 0.02359127439558506,
+      "type": "midget",
+      "winner": "constant_rate"
+    },
+    {
+      "constant_rate_nll": 0.08437450230121613,
+      "glm_nll": 0.09178201109170914,
+      "id": "8",
+      "polarity": "ON",
+      "retinal_nll": 0.07477270066738129,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.1129312664270401,
+      "glm_nll": 0.11446689814329147,
+      "id": "464",
+      "polarity": "OFF",
+      "retinal_nll": 0.10939111560583115,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.09087369590997696,
+      "glm_nll": 0.09100408107042313,
+      "id": "3388",
+      "polarity": "ON",
+      "retinal_nll": 0.0922539010643959,
+      "type": "parasol",
+      "winner": "constant_rate"
+    },
+    {
+      "constant_rate_nll": 0.07765428721904755,
+      "glm_nll": 0.07899516820907593,
+      "id": "11493",
+      "polarity": "OFF",
+      "retinal_nll": 0.07666150480508804,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.11043849587440491,
+      "glm_nll": 0.09451929479837418,
+      "id": "102",
+      "polarity": "ON",
+      "retinal_nll": 0.10294929891824722,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.04960888251662254,
+      "glm_nll": 0.06565533578395844,
+      "id": "228",
+      "polarity": "ON",
+      "retinal_nll": 0.04370763525366783,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.05592719092965126,
+      "glm_nll": 0.060629330575466156,
+      "id": "11576",
+      "polarity": "OFF",
+      "retinal_nll": 0.05533803626894951,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.18637703359127045,
+      "glm_nll": 0.18133701384067535,
+      "id": "11651",
+      "polarity": "OFF",
+      "retinal_nll": 0.1848635971546173,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.16415493190288544,
+      "glm_nll": 0.10347911715507507,
+      "id": "3924",
+      "polarity": "ON",
+      "retinal_nll": 0.16424508392810822,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.1874382346868515,
+      "glm_nll": 0.1896822452545166,
+      "id": "5489",
+      "polarity": "ON",
+      "retinal_nll": 0.18705357611179352,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.25568822026252747,
+      "glm_nll": 0.2512047290802002,
+      "id": "11882",
+      "polarity": "OFF",
+      "retinal_nll": 0.2539989650249481,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.09799309819936752,
+      "glm_nll": 0.07762061059474945,
+      "id": "3535",
+      "polarity": "ON",
+      "retinal_nll": 0.09893108159303665,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.03626978024840355,
+      "glm_nll": 0.03906000033020973,
+      "id": "15776",
+      "polarity": "ON",
+      "retinal_nll": 0.035476554185152054,
+      "type": "midget",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.24333688616752625,
+      "glm_nll": 0.23275740444660187,
+      "id": "11895",
+      "polarity": "ON",
+      "retinal_nll": 0.24179302155971527,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.28031790256500244,
+      "glm_nll": 0.28412100672721863,
+      "id": "11943",
+      "polarity": "OFF",
+      "retinal_nll": 0.2776602804660797,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.20951800048351288,
+      "glm_nll": 0.2133806347846985,
+      "id": "19073",
+      "polarity": "OFF",
+      "retinal_nll": 0.20914354920387268,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.13133014738559723,
+      "glm_nll": 0.1285942941904068,
+      "id": "3629",
+      "polarity": "ON",
+      "retinal_nll": 0.12855882942676544,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.08259465545415878,
+      "glm_nll": 0.07188939303159714,
+      "id": "3650",
+      "polarity": "ON",
+      "retinal_nll": 0.08269483596086502,
+      "type": "midget",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.3593323528766632,
+      "glm_nll": 0.32564234733581543,
+      "id": "3698",
+      "polarity": "OFF",
+      "retinal_nll": 0.3573681116104126,
+      "type": "midget",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.250666081905365,
+      "glm_nll": 0.24452932178974152,
+      "id": "3703",
+      "polarity": "OFF",
+      "retinal_nll": 0.2471749186515808,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.07785831391811371,
+      "glm_nll": 0.06746800988912582,
+      "id": "11915",
+      "polarity": "ON",
+      "retinal_nll": 0.0771433487534523,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.07034295052289963,
+      "glm_nll": 0.05915994569659233,
+      "id": "4989",
+      "polarity": "ON",
+      "retinal_nll": 0.0690595954656601,
+      "type": "midget",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.19085782766342163,
+      "glm_nll": 0.16530942916870117,
+      "id": "5238",
+      "polarity": "ON",
+      "retinal_nll": 0.19219622015953064,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.16622865200042725,
+      "glm_nll": 0.13730180263519287,
+      "id": "7205",
+      "polarity": "ON",
+      "retinal_nll": 0.16693447530269623,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.07060825824737549,
+      "glm_nll": 0.06316648423671722,
+      "id": "7219",
+      "polarity": "ON",
+      "retinal_nll": 0.07001910358667374,
+      "type": "midget",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.24638132750988007,
+      "glm_nll": 0.19701795279979706,
+      "id": "80",
+      "polarity": "ON",
+      "retinal_nll": 0.24617627263069153,
+      "type": "parasol",
+      "winner": "glm"
+    },
+    {
+      "constant_rate_nll": 0.15638582408428192,
+      "glm_nll": 0.17301321029663086,
+      "id": "17200",
+      "polarity": "OFF",
+      "retinal_nll": 0.15178628265857697,
+      "type": "parasol",
+      "winner": "retinal"
+    },
+    {
+      "constant_rate_nll": 0.11273779720067978,
+      "glm_nll": 0.10215003788471222,
+      "id": "3731",
+      "polarity": "ON",
+      "retinal_nll": 0.11217550188302994,
+      "type": "parasol",
+      "winner": "glm"
+    }
+  ],
+  "population_validation_nll": {
+    "constant_rate": 0.15232950448989868,
+    "glm": 0.14343951642513275,
+    "retinal": 0.15061677992343903
+  },
+  "retinal_delta_nll": {
+    "versus_constant_rate": -0.0017127245664596558,
+    "versus_glm": 0.007177263498306274
+  },
+  "schema": "karamanlis_2024_population_prediction_baselines_v1",
+  "session_id": "20220301_252MEA_marmoset_left_n1",
+  "source_checkpoint": "output\\real_data\\karamanlis_2024_population_rf_geometry_cell_gains_seed20260302\\model-best.pt",
+  "source_checkpoint_stage": "best_trained",
+  "winner_cell_counts": {
+    "constant_rate": 3,
+    "glm": 39,
+    "retinal": 18
+  }
+}

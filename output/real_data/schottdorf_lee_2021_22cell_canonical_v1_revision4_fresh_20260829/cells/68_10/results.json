@@ -1,0 +1,80 @@
+{
+  "biological_trials": 1,
+  "canonical_cell_type": "parasol",
+  "cell_id": "68#10",
+  "eccentricity_deg": 4.89,
+  "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+  "native_dt_ms": 6.666666666666667,
+  "nll_improvement": 0.02319711446762085,
+  "polarity": "ON",
+  "prediction_improved": true,
+  "recorded_cell_classes": [
+    "MC on"
+  ],
+  "recording_count": 1,
+  "recording_ids": [
+    "lSS01221"
+  ],
+  "recording_kinds": [
+    "10min"
+  ],
+  "recording_metadata": [
+    {
+      "canonical_cell_type": "parasol",
+      "catalog_recording_kind": "10min",
+      "eccentricity_deg": 4.89,
+      "polarity": "ON",
+      "recorded_cell_class": "MC on",
+      "recording_id": "lSS01221",
+      "recording_kind": "10min",
+      "retinal_class": "MC",
+      "spike_sha256": "7a892d39d3decf76d50705175ca5ed31ae8141b4a859deedfec1e115d8f35e53"
+    }
+  ],
+  "retinal_class": "MC",
+  "source_sha256": {
+    "lSS01221.txt": "7a892d39d3decf76d50705175ca5ed31ae8141b4a859deedfec1e115d8f35e53"
+  },
+  "spike_time_resolution_ms": 0.1,
+  "stimulus_rate_hz": 150.0,
+  "time_segment_disjoint": true,
+  "train_event_rate": 0.21406249701976776,
+  "train_multi_spike_bin_fraction": 0.08906249701976776,
+  "train_sequences": 16,
+  "train_valid_bins": 1920,
+  "training": {
+    "actually_updated": [
+      "h1.raw_tau",
+      "h1.raw_delay",
+      "feature_bank.raw_tau",
+      "feature_bank.raw_delay",
+      "bipolar.raw_weights",
+      "amacrine.raw_tau",
+      "amacrine.raw_weights",
+      "rgc.response_bias",
+      "gates.raw_h1_amplitude",
+      "gates.ac_local",
+      "gates.ac_transient",
+      "gates.history",
+      "cell_gains.log_bc",
+      "cell_gains.log_ac"
+    ],
+    "gradients_finite": true,
+    "major_parameter_groups_updated": {
+      "aggregate_bc_ac_gains": true,
+      "bounded_explicit_delay": true,
+      "bounded_tau": true,
+      "pathway_gates": true,
+      "pathway_weights": true,
+      "rgc_bias": true
+    },
+    "seed": 20260839,
+    "self_edge_connection_parameter_updated": false
+  },
+  "validation_event_rate": 0.16041666269302368,
+  "validation_multi_spike_bin_fraction": 0.05833333358168602,
+  "validation_nll_raw": 0.44886794686317444,
+  "validation_nll_trained": 0.4256708323955536,
+  "validation_sequences": 4,
+  "validation_valid_bins": 480
+}

@@ -1,0 +1,114 @@
+{
+  "source_sha256": {
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\per_cell.csv": "c8e1d71f7d86bd4a33ce55ac6678038d25fbcb8c6c02245b0eaebf9a2dbe55eb",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\results.json": "a6f019dc487f69cec1035c09185cd8036e7b6e3dc7f04c9fbd463cc88dbe7035",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\preflight.json": "3c4c01d3f8288ad72208575b8b603c4c8b7bfd047d5ff3e668b023a624a6ff1b",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\training_complete.json": "ddef3ffa2711af575c5bfa1d840182804b6560e6af07874cb81726c880c06e6b",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\results.json": "e4836ce5ba8d452d4d0f2153445763d0cbf97734726a666063d1ba215ad2dda9",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\results.json": "8df815f65905d2b50a4a5b00a387497148eb8daf00d1959650d1a52070223373",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\spatial_contrast_adapted\\results.json": "5b71eab657e41ed59459f78c016a715f5f794dc8535f6f7bc442399551911c66",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\67_14\\results.json": "118932aa518b2a78419350bc2a40721a32c91f14cbea039353845f5b498ae78d",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\67_21\\results.json": "32c7f8c4d46c171b64118b3410776ad68a6872b12f369a4b4c648b7eac1f05eb",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\67_26\\results.json": "6ec6fcc64de1033064535458c74e5df29466ec6d6013b417a070fc84f3b6e52c",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\67_33\\results.json": "01780955070ad6ecdffe23b29a56969d19a4ba9ca40e14f77d49cfc05e32f157",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\67_34\\results.json": "d69118c090d922d880a7126b9982c11dab1b35adf3103ee2679703e369414aab",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\67_4\\results.json": "08af8ffbc8194fc4c2b0a68eb7108265b55766c39ad40507f671429d7af6f228",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\67_6\\results.json": "60d3b7b361003660d9405176bed8b7de114428fbce8764c689fa943b9c78c9bb",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\67_7\\results.json": "f435e1e87c67f2bc989b5611580b1c27be958f9acce630177b8e46ef850103d1",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\68_10\\results.json": "d9a7593b4ae40cf401cc62be2f608a548170eac70e6978a9ba08f55a10fb1958",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\68_11\\results.json": "57650ffd66e32b04a28bdda127ce8211c11a73085c8df042002154710642df13",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\68_3\\results.json": "0d69d14d82651e05934d0de8d11530031ed0627e385ea070a02238cb81c808fc",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\68_4\\results.json": "bfe84b5dce4ac914ed2deb414a5f6c6b804c7695c15116fa9c7a8448eb8f0367",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\68_7\\results.json": "2aef074d0d85eebfa8538ba08af6aa6ad23a9a19351b64461bf5268af6f7b908",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\69_21\\results.json": "4c26487b6b90ac0981a2e8787b23076447bde92050bb6b620e214ea330ddda92",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\69_3\\results.json": "aa62f0639dbac030ce42ba61e48770612db1075543c9aeba76b12f48fbbf3dc9",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\69_4\\results.json": "734317e9ec52db23046d783fd7f655de7a2f57ddca5bf64e1871f106a014e9e4",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\69_6\\results.json": "b6b917d4ce56847151148506d6294eafb7b7e8a6785f00a06017b68b05fd1eed",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\69_7\\results.json": "7116496d8c7c1327cf387f58564441db807512dfac9de8ac00c11509ac7be1c3",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\70_1\\results.json": "513cd2fcf6e5efdbb79bf42b533f36dfbd17cb8252368f266e15fa1859a113df",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\70_15\\results.json": "7a16ee3e854e157218612676dd9c4f8f9537c95c25bedf442358160cc2332e79",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\70_34\\results.json": "862db5573065e8ffd8e113691fe05f362cff7f800ae59388cbe2c5629bfe5334",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\compact_causal_cnn_baseline\\cells\\70_7\\results.json": "d21f4b424c2cf2ee1701e256b5d82a4c1615c21d03c4368391c4d39360d823ad"
+  },
+  "producer_sha256": "ef75393953100992a9d44af43c7df69a2edbccbb6bf0f2eccab65c0ac2ac8cdc",
+  "git_head": "7dc00b1e9f2902186891a97c022e5d04fab6d1d4",
+  "git_tracked_status": " M .gitignore\n M README.md\n M configs/experiment.yaml\n M configs/synthetic_smoke.yaml\n M docs/architecture.md\n M docs/parameter_evidence_human_macaque_v1.md\n M evaluation/parameter_audit.py\n M models/cells/bipolar_types.py\n M models/cells/temporal.py\n M models/cells/typed_rgc.py\n M models/response_snn.py\n M report/retina_snn_progress_report_ja_2026-07-26.pdf\n M report/retina_snn_progress_report_ja_2026-07-26.tex\n D \"report/\\344\\270\\255\\351\\226\\223\\345\\240\\261\\345\\221\\212.pdf\"\n M \"report/\\344\\270\\255\\351\\226\\223\\345\\240\\261\\345\\221\\212.tex\"\n M requirements.txt\n M scripts/run_experiment.py\n M tests/test_response_checkpoint_lineage.py\n M tests/test_response_training_contract.py\n M tests/test_typed_rgc_population.py\n M training/response_checkpointing.py\n M training/response_config.py\n M training/response_trainer.py\n",
+  "runtime": {
+    "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+    "numpy": "2.2.6"
+  },
+  "source_contract": {
+    "model": "compact causal CNN",
+    "convolutions": [
+      {
+        "channels": [
+          1,
+          4
+        ],
+        "kernel": [
+          12,
+          5,
+          5
+        ],
+        "temporal_dilation": 1
+      },
+      {
+        "channels": [
+          4,
+          4
+        ],
+        "kernel": [
+          9,
+          3,
+          3
+        ],
+        "temporal_dilation": 6
+      }
+    ],
+    "activation": "ReLU after each Conv3D",
+    "spatial_padding": 0,
+    "spatial_shapes": [
+      17,
+      13,
+      11
+    ],
+    "temporal_left_padding": [
+      11,
+      48
+    ],
+    "receptive_field_bins": 60,
+    "readout": "learned 4x11x11 spatial/channel linear weights, one scalar logit per bin",
+    "head": "LN: stimulus logit + history_weight * fixed_one_bin_history_state + bias",
+    "history_tau": "unchanged per-cell LN artifact metadata",
+    "sequence_reset": "original 150-bin sequences; score bins 30..149",
+    "loss": "unregularized Bernoulli NLL on identical masks",
+    "optimizer": "Adam; default betas/eps; weight_decay=0",
+    "learning_rates": [
+      0.001,
+      0.0003
+    ],
+    "batch_size": 8,
+    "seed": 61001,
+    "max_steps": 1000,
+    "patience": 200,
+    "min_delta": 1e-07,
+    "dev_interval": 1,
+    "best_step_zero_eligible": true,
+    "inner_split": "exact make_inner_dev from LN: per-trial 80/20 with 60-bin guard",
+    "selection": "lowest inner-dev NLL; first LR in declared order on exact tie",
+    "refit": "fresh initialization and optimizer; selected LR and best-step count on full train",
+    "initialization": "seeded PyTorch Conv3D defaults; readout U(-1/sqrt(484),+1/sqrt(484)); history weight=0; fitting-only constant logit bias",
+    "original_validation_used_for_selection": false,
+    "architecture_sweep": false,
+    "parameters_per_cell": 2990,
+    "source_ln_parameters": 128,
+    "sc_inherited_plus_fitted_raw": 68,
+    "canonical_parameters_total": 129,
+    "canonical_parameters_trainable": 33,
+    "data_runtime": {
+      "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+      "torch": "2.6.0+cpu",
+      "numpy": "2.2.6"
+    }
+  }
+}

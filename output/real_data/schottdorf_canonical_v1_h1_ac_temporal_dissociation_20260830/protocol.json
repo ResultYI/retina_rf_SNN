@@ -1,0 +1,809 @@
+{
+  "source": "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830",
+  "names": [
+    "slow_step",
+    "slow_1Hz",
+    "slow_2Hz",
+    "rapid_10Hz",
+    "rapid_20Hz",
+    "transient_50ms",
+    "large_field_50ms"
+  ],
+  "dt_ms": 6.666666666666667,
+  "time_bins": 450,
+  "onset_ms": 300.0,
+  "active_ms": 2000.0,
+  "total_ms": 3000,
+  "L_plus_M": "L(t)/L0 = 1 + Weber cone_drive; common pedestal L0=1; polarity matched center",
+  "weber_peak_contrast": 0.25,
+  "periodic_waveform": "bipolar square wave, 50% duty; 1,2,10,20 Hz",
+  "slow_step": "+contrast for 1000 ms then -contrast for 1000 ms",
+  "transient": "+contrast 50 ms at 300 ms; counterbalancing -contrast 50 ms at 1300 ms",
+  "large_field": "same balanced transient over all 289 input locations; requested spatial exception, reported separately",
+  "center": "same preferred-polarity 2000-ms step in all six annular conditions; large-field reference uses matched center transient",
+  "geometry": "center=checkpoint BC disk; stimulus annulus=AC disk minus BC disk; no model support changed",
+  "mean_matching": "six annular probes have identical per-cone time mean and identical center trace; surround mean is zero",
+  "contrast_matching": "same continuous-time +/-0.25 Weber extrema; native-bin averaging attenuates boundary bins",
+  "rms_matching": false,
+  "energy_note": "RMS/exposure differs for step, flicker, transient; no amplitude normalization",
+  "intervals": [
+    [
+      {
+        "onset_ms": 300.0,
+        "duration_ms": 1000.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1300.0,
+        "duration_ms": 1000.0,
+        "sign": -1.0
+      }
+    ],
+    [
+      {
+        "onset_ms": 300.0,
+        "duration_ms": 500.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 800.0,
+        "duration_ms": 500.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1300.0,
+        "duration_ms": 500.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1800.0,
+        "duration_ms": 500.0,
+        "sign": -1.0
+      }
+    ],
+    [
+      {
+        "onset_ms": 300.0,
+        "duration_ms": 250.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 550.0,
+        "duration_ms": 250.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 800.0,
+        "duration_ms": 250.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1050.0,
+        "duration_ms": 250.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1300.0,
+        "duration_ms": 250.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1550.0,
+        "duration_ms": 250.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1800.0,
+        "duration_ms": 250.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 2050.0,
+        "duration_ms": 250.0,
+        "sign": -1.0
+      }
+    ],
+    [
+      {
+        "onset_ms": 300.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 350.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 400.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 450.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 500.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 550.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 600.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 650.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 700.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 750.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 800.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 850.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 900.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 950.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1000.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1050.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1100.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1150.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1200.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1250.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1300.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1350.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1400.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1450.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1500.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1550.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1600.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1650.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1700.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1750.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1800.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1850.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1900.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1950.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 2000.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 2050.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 2100.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 2150.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 2200.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 2250.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      }
+    ],
+    [
+      {
+        "onset_ms": 300.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 325.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 350.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 375.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 400.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 425.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 450.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 475.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 500.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 525.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 550.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 575.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 600.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 625.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 650.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 675.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 700.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 725.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 750.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 775.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 800.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 825.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 850.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 875.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 900.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 925.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 950.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 975.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1000.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1025.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1050.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1075.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1100.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1125.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1150.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1175.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1200.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1225.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1250.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1275.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1300.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1325.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1350.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1375.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1400.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1425.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1450.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1475.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1500.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1525.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1550.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1575.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1600.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1625.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1650.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1675.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1700.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1725.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1750.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1775.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1800.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1825.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1850.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1875.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1900.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1925.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 1950.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1975.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 2000.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 2025.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 2050.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 2075.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 2100.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 2125.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 2150.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 2175.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 2200.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 2225.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      },
+      {
+        "onset_ms": 2250.0,
+        "duration_ms": 25.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 2275.0,
+        "duration_ms": 25.0,
+        "sign": -1.0
+      }
+    ],
+    [
+      {
+        "onset_ms": 300.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1300.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      }
+    ],
+    [
+      {
+        "onset_ms": 300.0,
+        "duration_ms": 50.0,
+        "sign": 1.0
+      },
+      {
+        "onset_ms": 1300.0,
+        "duration_ms": 50.0,
+        "sign": -1.0
+      }
+    ]
+  ],
+  "history": "all-zero strictly-past observed history, identical for all conditions; new zero-state forward each call",
+  "conditions": [
+    "normal",
+    "H1_off",
+    "AC_off"
+  ],
+  "references": [
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    8
+  ],
+  "source_sha256": {
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\amacrine_pathways.py": "38fc2c8b01ab7414ebbd344ed84d250bb3efd27e269a663c193750faedd81349",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\bipolar_subunits.py": "7419b03e8aa63ecf175fd5c1a3c5cb5c2c317c01f5b8972eb04b24d8c110ce75",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\cell_specific_gains.py": "72fe52688e5c04211a711a720f443e361fc4e59f25d9ca4f25735f39cbbe01db",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\contracts.py": "77bd90b13c335d69f061d088421216cdea4a08c5fdbc0d11211b78a1a9ae3441",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\delay_parameters.py": "083816a26aa1d94d620b2460d6e1c7efd0b04e5825aa01775272d2bf5bd37c02",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\graph.py": "d647c5d042383772a675f5a9b59120bd5c783d931c92523578811634270153bd",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\h1_pathway.py": "dab8e1a687c3ec9ced59e29ee0b1ffb49d93bd2d7732049eb06c265a4321d156",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\model.py": "45d36432bf42e312f35fe94adb7ee852187bd2b33d087610edbb8e1e068c95c3",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\neural_operators.py": "13b63e667cddb54f17b0b0d1f1906180d71155fa7cdffd26fdffc81e0b86efef",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\pathway_gates.py": "14c38959e47205546e029a2ba0fa826fd5cde45d467834ae66597a0ee9476c11",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\pathway_spatial_geometry.py": "dcf34f50d7cf8889917d1027aa7386d38033988088c311861d72476494810389",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\pathway_temporal.py": "bd0096acc4138e26953cade22d347c13ad0d4f3807ceca5f0e4a30ebc695a265",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\phase1_run_contract.py": "939474d43bf05dd85d4dd152b48abd636a686a489df8ecb1749c75491a972e3a",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\rgc_state.py": "859d29f65d2df0a8785fa8087f873404aba0f15585441d1db251e69fee8d7540",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\shared_subunits.py": "c50488654f516f38e05c76d0d8808a651a9e5115861cad16be178e7050a56d3d",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\spatial_contract.py": "4f272111b5070256e3259aa82cac72b4ae6d1a4f60e46946a8aa6952d8feb319",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\state.py": "fb20576fa7c277deb01261d0ad7f743211a7aab2643986d8bffd2ba47b3e486b",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\support_partition.py": "6a90f9a42f4f60287438e6d1f47dbdda04b85eda0ef67a1983af835711f23881",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\temporal_parameters.py": "3230165b0c7a86c340e76467b4bc2eb965add94b20f8832b5e99d6d973bf3505",
+    "D:\\PythonProject\\retina_rf_SNN\\models\\mechanistic_retina\\__init__.py": "4f0b9e668c2ddc3c9bae13553aec50a52a133401db6e9b2f2a2127f085882390",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_h1_ac_temporal_dissociation_20260830\\probe.py": "97447d1770d64835f4c1b48b1ea6c187bd917390ff18e214dbc85ea418497c60",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_h1_ac_temporal_dissociation_20260830\\report.py": "6195212120abef9d01ce7f4326c90c34e801d953e43c28a506a1df60bbfc81bd",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_h1_ac_temporal_dissociation_20260830\\run.py": "9380512a41e7065145258b6650a793c82cc85ea8966f6b2b03f0cab417df22b3",
+    "D:\\PythonProject\\retina_rf_SNN\\evaluation\\mechanistic_retina\\temporal_center_surround.py": "8623eb93e8fc224b923dd5255d705ad826da8d4ada4c50d57909bc09f640f261",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\results.json": "1cebeb29c343a90459a95e55b710e2333b5fef41f7f4b15b22d0bcee21a01985",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\67_4\\model-trained.pt": "42524f6c73fd0b8ba1306371154396815d676498de5c33ea2b8c12b6a8632e68",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\67_6\\model-trained.pt": "f3aefe07295ab857d95d3f6bb81b8e7c6920c4bfaef78aa96837efbc9b308393",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\67_7\\model-trained.pt": "22aca89e1768b5fa5891908c59f3227084bf6ba178b78cbfbcf4fe539a586bb4",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\67_14\\model-trained.pt": "b75926bf09ec60165eeee5a6762f80ec0e3a000bba53f6d4d7104dc01f541365",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\67_21\\model-trained.pt": "573e0c838fa0f113e8667955fa3a1ff1b88e212a6e5c7e2db026eeda2a09b877",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\67_26\\model-trained.pt": "028936caf139e0b8e927935eebaaefa2aa779854ce7cc2fdca00abdb7ce22968",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\67_33\\model-trained.pt": "de8310417b1dac0c1a6594a96fed7f9d4c1063bdbaf9192628c818d1c0c98f09",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\67_34\\model-trained.pt": "3e1faa617f1e17e071d172359b2ab6e23019c16ce5de5c6901781629b4f1c298",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\68_3\\model-trained.pt": "6e195b441c3cdbb7c86b3e70b7fe14ed94be8a1fab41dbc6fb297d1a64610fd7",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\68_4\\model-trained.pt": "0f05c1a10538419013fe13107c4a92d26ec2eda8155a2056c7579bff57ee92ee",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\68_7\\model-trained.pt": "b05761b0a8e9b4f7ff5ddbf440c935a46cc196cc8409ff06937a3a1e352aeabe",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\68_10\\model-trained.pt": "dd8c46e41b6c365778fcd0c492970425916429714f1c3496614253697f846421",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\68_11\\model-trained.pt": "4c7bb058e27483883fe5538b19bbe9716c1ab7b27f3d180eaac3454b5c75b4a4",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\69_3\\model-trained.pt": "90bf6176839be553519ddd0fd7a938c439732291d312e45c55c4171431ab84cc",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\69_4\\model-trained.pt": "7e58ab37f0d3e9a6423f43b772cfdd10892d562095b44a23c770fb6bf6e85002",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\69_6\\model-trained.pt": "46b73d6595022389b3ff2be460daed93141bc88f184f0f1cce9bd1af5c184646",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\69_7\\model-trained.pt": "dab669057b05be214d5bccf9f39a02fc3f02a9a1519cdf288efc832d5edabf63",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\69_21\\model-trained.pt": "bdceb4cc7b8a9c9f7ec8fd9945d3ba49d9b6c364bf858efb7ac9735a069e3ece",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\70_1\\model-trained.pt": "8bd86d371fc832f1e589400d490500e6fc7054c6e1034d4a89f6579d2935a2e1",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\70_7\\model-trained.pt": "0b08fceb0546ce2d9c16fb6b5bfc2376005fe865b3522ddbf8db9d41be8142e0",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\70_15\\model-trained.pt": "e27ba5fd3112b48e3f7a70d929b6124ec8d9944279afc007dd031554ebdbe9e9",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_overlapping_support_development_22cell_20260830\\cells\\70_34\\model-trained.pt": "48b8c208e37b4d5bd28031fd3d95fcb8277c1c2fc2508ce15b27ee6fcfdb5d32"
+  },
+  "inputs_sha256": "d13bb86ed0d3bfcdd04da8030f3b9e8e77a5eaa8296e725dd6e9e11f1cf61557",
+  "frozen_before_inference": true,
+  "metrics": {
+    "response": "same-clamp blank-subtracted logit/probability",
+    "peak_integral_latency": "unmodified summarize_response; peak is signed maximum-absolute deviation; integral over full 3 s",
+    "suppression": "condition minus same-clamp center-only peak/integral; negative difference denotes smaller response",
+    "onset_offset": "unmodified summarize_response, 50-ms windows for each signed event; at high frequency windows may include later transitions",
+    "clamp_effect": "off minus normal raw response; mean absolute difference in common 300-2300-ms window; no baseline subtraction",
+    "no_new_mechanism_index": true
+  }
+}

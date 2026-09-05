@@ -1,0 +1,1146 @@
+\documentclass[UTF8,12pt,a4paper]{ctexart}
+
+\usepackage[a4paper,margin=2.25cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{booktabs,longtable,tabularx,array,multirow}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{microtype}
+
+\definecolor{codeblue}{RGB}{30,82,132}
+\definecolor{projectgreen}{RGB}{34,112,82}
+\definecolor{caveatred}{RGB}{155,48,48}
+\definecolor{adaptedgold}{RGB}{139,94,20}
+\definecolor{standardgray}{RGB}{80,86,92}
+\definecolor{lightgray}{RGB}{245,247,249}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=codeblue,
+  citecolor=projectgreen,
+  urlcolor=codeblue,
+  pdftitle={Mechanism-Identifiable Retina 数学公式、推导与文献来源},
+  pdfauthor={retina-rf-SNN project}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Mechanism-Identifiable Retina 数学公式}
+\rhead{当前唯一研究主线}
+\cfoot{\thepage}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.32em}
+\setlength{\tabcolsep}{4pt}
+\Urlmuskip=0mu plus 1mu
+\setlist{nosep,leftmargin=2em}
+\numberwithin{equation}{section}
+\sloppy
+
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\sigmoid}{\operatorname{sigmoid}}
+\newcommand{\softplus}{\operatorname{softplus}}
+\newcommand{\GELU}{\operatorname{GELU}}
+\newcommand{\CE}{\operatorname{CE}}
+\newcommand{\NLL}{\operatorname{NLL}}
+\newcommand{\mean}{\operatorname{mean}}
+\newcommand{\std}{\operatorname{std}}
+\newcommand{\clip}{\operatorname{clip}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\argmax}{\operatorname*{arg\,max}}
+\newcommand{\code}[1]{\textcolor{codeblue}{\path{#1}}}
+\newcommand{\purpose}[1]{\par\noindent\textbf{作用：}#1}
+\newcommand{\explain}[1]{\par\noindent\textbf{说明：}#1}
+\newcommand{\tracecode}[1]{\par\noindent\textbf{实现核对：}\code{#1}}
+\newcommand{\provenance}[1]{\par\noindent\textbf{来源边界：}#1}
+\newcommand{\LitDirect}{\textcolor{caveatred}{\textbf{[L1] 文献数学等价}}}
+\newcommand{\LitAdapted}{\textcolor{adaptedgold}{\textbf{[L2] 文献原理改写}}}
+\newcommand{\StandardMath}{\textcolor{standardgray}{\textbf{[M] 标准数学工具}}}
+\newcommand{\OurOriginal}{\textcolor{projectgreen}{\textbf{[O] 本项目定义}}}
+
+\title{\textbf{Mechanism-Identifiable Retina}\
+\textbf{数学公式、推导与文献来源}\\
+\large 当前架构的完整自验证手册}
+\author{基于 \texttt{retina\_rf\_SNN} 当前实现整理}
+\date{2026 年 8 月 26 日}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+本文档给出当前唯一研究主线 \texttt{mechanism\_identifiable} Retina model 的完整数学规范。内容覆盖 cone 输入、H1 横向反馈、分区化 bipolar/amacrine 基函数、同类共享 subunit、RGC 动态状态、Bernoulli 观测模型、训练目标、Candidate0 合成 teacher、条件动态感受野、通路分解、机制 held-out 证据、模型比较基线以及全部主要评价指标。每组公式均标注作用、符号、实现位置和学术来源边界。
+
+全文使用四类来源标签：\LitDirect{} 表示与文献中的数学方法直接对应；\LitAdapted{} 表示文献支持生理现象或建模原则，但精确方程由本项目规定；\StandardMath{} 表示通用数学、统计或数值工具；\OurOriginal{} 表示本项目定义的精确组合、约束、估计量或实验判据。当前证据属于合成方法验证，不等同于真实猕猴视网膜的生物学验证。
+\end{abstract}
+
+\tableofcontents
+\clearpage
+
+\section{范围、权威入口与阅读规则}
+
+当前前向链路为
+\begin{equation}
+\begin{aligned}
+\vect x
+&\longrightarrow \text{H1 feedback}
+\longrightarrow \text{partitioned BC/AC basis bank}\\
+&\longrightarrow \text{shared subunits}
+\longrightarrow \text{BC/AC currents}
+\longrightarrow \text{RGC states}
+\longrightarrow z
+\longrightarrow p(y=1).
+\end{aligned}
+\label{eq:pipeline}
+\end{equation}
+\purpose{规定本文所有推导的唯一数据流。}
+\explain{模型的 interneuron 状态是连续值；输出以每个时间 bin 的 Bernoulli 事件概率表示。因此更准确的名称是生理约束的 retinal state-space point-process model，而不是“所有层都离散放电”的网络。}
+\provenance{\OurOriginal。链路的生理层级受经典 retinal circuit 研究启发\cite{WerblinDowling1969,Roska2000,Roska2006}，但式 \eqref{eq:pipeline} 的精确模块组合属于本项目。}
+
+权威实现入口为 \code{models/mechanistic_retina/}、\code{training/mechanistic_retina/}、\code{evaluation/mechanistic_retina/} 与 \code{evaluation/model_comparison/}。Canonical benchmark 使用 Candidate0、$T=2$ trials、banks $31001/31002/31003$、model seeds $19/20/21$，且不使用 final test 计算科学指标或选择模型。
+
+\subsection{来源标签的严格含义}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.76\textwidth}}
+\toprule
+标签 & 可作出的陈述 \\
+\midrule
+\LitDirect & 公式、概率模型或算法与引用文献数学等价，仅改变符号、索引或张量化实现。\\
+\LitAdapted & 文献支持某种生理组织或建模传统；当前精确差分式、半径、时间常数、参数共享和门控不是该论文的原公式。\\
+\StandardMath & 线性代数、微积分、概率、优化与常用统计指标；不归属于单一视网膜论文。\\
+\OurOriginal & 当前代码规定的精确架构、时序、RF estimand、分解方式、identity 判据或 scientific gate。\\
+\bottomrule
+\end{longtable}
+
+\section{统一符号与张量约定}
+
+\subsection{索引}
+
+\begin{longtable}{>{\centering\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.77\textwidth}}
+\toprule
+符号 & 含义 \\
+\midrule
+$b$ & batch 中的 stimulus 或 trial 样本，$b=1,\ldots,B$。\\
+$t$ & 离散时间 bin；$\Delta t=5\,\mathrm{ms}$。\\
+$c$ & cone 索引，$c=1,\ldots,C$；Candidate0 中 $C=29$。\\
+$i,j$ & recorded RGC/output cell 索引；Candidate0 中 $N=16$。\\
+$g$ & 固定 cell group，即 $(\text{type},\text{polarity})$ 的组合。\\
+$p$ & pathway，$p\in\{0,1,2,3\}$，依次为 BC-sustained、BC-transient、AC-local、AC-transient。\\
+$s$ & spatial basis mode，$s\in\{0,1\}$。\\
+$r$ & temporal basis mode，$r\in\{0,1,2\}$。\\
+$\ell$ & stimulus lag，$\ell=0$ 是当前 bin，$\ell=L-1$ 是最早 bin；$L=16$。\\
+$k$ & observed spike-history lag，$k=1$ 表示严格过去一个 bin。\\
+\bottomrule
+\end{longtable}
+
+\subsection{主要变量}
+
+\begin{longtable}{>{\centering\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.70\textwidth}}
+\toprule
+符号 & 统一含义 \\
+\midrule
+$x_{b,t,c}$ & 输入 cone response。\\
+$W^H$ & cone 邻域上的固定 H1 图算子。\\
+$h_{b,t,c}$ & H1 一阶低通状态。\\
+$x^H_{b,t,c}$ & H1 surround 调制后的 cone response。\\
+$S_{i,p,s,c}$ & cell/pathway-specific spatial basis。\\
+$T_{p,r,\ell}$ & pathway-specific temporal basis。\\
+$K_{i,p,s,r,\ell,c}$ & 完整时空 basis kernel。\\
+$F_{b,t,i,p,s,r}$ & basis 与 lagged stimulus 的卷积特征。\\
+$M_{ij}$ & 同 type、同 polarity 的非负 row-normalized shared-subunit mixer。\\
+$B_{b,t,i,p}$ & $p=0,1$ 的 bipolar path output。\\
+$A_{b,t,i,p}$ & $p=2,3$ 的 amacrine low-pass state。\\
+$I_{b,t,i}$ & 四条 pathway 合成的 RGC current。\\
+$D,V,A,H$ & RGC divisive、membrane、adaptation 与 observed-history 状态。\\
+$z_{b,t,i}$ & RGC Bernoulli logit；$\pi_{b,t,i}=\sigmoid(z_{b,t,i})$。\\
+$q_{b,t,i}$ & teacher spike probability；$y_{b,t,i}\in\{0,1\}$ 是 sampled/observed event。\\
+$v_{b,t,i}$ & valid mask。\\
+\bottomrule
+\end{longtable}
+
+\section{共用数学构件}
+
+\subsection{距离、有限支撑与 row-normalized Gaussian 图}
+
+对节点位置 $\vect r_i,\vect r_j\in\RR^2$，定义
+\begin{align}
+d_{ij} &= \lVert \vect r_i-\vect r_j\rVert_2, \label{eq:distance}\\
+\widetilde W_{ij}(R)
+&=\exp\!\left[-\frac12\left(\frac{d_{ij}}{R/2}\right)^2\right]
+\mathbf 1[d_{ij}\le R], \label{eq:graph-raw}\\
+W_{ij}(R)&=\frac{\widetilde W_{ij}(R)}{\sum_{j'}\widetilde W_{ij'}(R)}. \label{eq:graph-row}
+\end{align}
+\purpose{构造局部、非负、行和为 $1$ 的固定空间传播算子。}
+\explain{式 \eqref{eq:distance} 给出欧氏邻近关系；式 \eqref{eq:graph-raw} 在半径外严格为零；式 \eqref{eq:graph-row} 使常量输入在图传播后保持常量。代码要求每一行至少有一个 support。}
+\provenance{\LitAdapted{}+\OurOriginal。局部 center--surround 与 Gaussian 尺度有经典 RF 建模和 primate P/M 测量背景\cite{Rodieck1965,CronerKaplan1995}；硬半径、$R/2$ 尺度和 row normalization 是本项目选择。}
+\tracecode{models/mechanistic_retina/graph.py}
+
+\subsection{Softplus 非负参数化及其逆}
+
+\begin{align}
+\softplus(a)&=\log(1+e^a), \label{eq:softplus}\\
+a_0&=\log(e^{w_0}-1),\qquad w_0>0. \label{eq:inv-softplus}
+\end{align}
+\purpose{让 pathway 权重和 shared-subunit 连接始终非负，同时可由指定的正初值精确初始化。}
+\explain{优化变量是无界 raw value $a$，物理权重是 $w=\softplus(a)>0$。式 \eqref{eq:inv-softplus} 是初始化时的解析逆；数值实现对极小值做稳定保护。}
+\provenance{\StandardMath。Softplus 作为平滑正部函数在神经网络文献中已有明确使用\cite{Dugas2000}；本项目只规定它用于哪些参数。}
+
+\subsection{一阶因果低通的递推式与闭式}
+
+对时间常数 $\tau>0$，
+\begin{align}
+\alpha(\tau)&=\exp(-\Delta t/\tau), \label{eq:alpha}\\
+s_t&=\alpha s_{t-1}+(1-\alpha)u_t,\qquad s_{-1}=0, \label{eq:lowpass-rec}\\
+s_t&=(1-\alpha)\sum_{a=0}^{t}\alpha^{t-a}u_a. \label{eq:lowpass-closed}
+\end{align}
+\purpose{统一表示 H1、AC、divisive、membrane、adaptation 与 history 的有因果状态。}
+\explain{式 \eqref{eq:lowpass-rec} 是代码递推；式 \eqref{eq:lowpass-closed} 可由重复代入得到，便于手工核验。若 $u_t=u$ 为常量，则 $s_t=u(1-\alpha^{t+1})\to u$。}
+\provenance{\StandardMath。它是连续一阶系统 $\tau\dot s=u-s$ 在 bin 内常输入假设下的精确离散形式；具体状态分配和零初态属于本项目。}
+\tracecode{models/mechanistic_retina/state.py::causal_lowpass}
+
+\subsection{严格因果的 observed-spike history}
+
+\begin{align}
+\bar y_t&=\begin{cases}0,&t=0,\\ y_{t-1},&t\ge1,\end{cases} \label{eq:previous-event}\\
+H_t&=\alpha_H H_{t-1}+(1-\alpha_H)\bar y_t. \label{eq:history-state}
+\end{align}
+\purpose{让当前 logit 只依赖过去 observed events，不使用同一 bin 或未来 spike。}
+\explain{式 \eqref{eq:previous-event} 使用固定、不可学习的一-bin RGC history shift，再用式 \eqref{eq:history-state} 低通。因而给定刺激与 $y_{<t}$ 时，改变 $y_t$ 不会改变 $z_t$。它既不是 H1/BC/AC explicit pathway delay，也不是 RF lag window。}
+\provenance{\LitAdapted{}+\OurOriginal。Spike-history encoding 是 point-process/retinal spiking model 的常见组成\cite{Pillow2005,Pillow2008}；当前一-bin shift、低通核和状态注入位置由本项目规定。}
+\tracecode{models/mechanistic_retina/state.py::fixed_one_bin_history_state}
+
+\section{固定几何与 pathway support partition}
+
+\subsection{BC 中心与 AC 环形支撑}
+
+令 $d_{ic}$ 是 cell $i$ 与 cone $c$ 的距离。按 cell type $\kappa_i$ 选择半径
+\begin{align}
+R^{BC}_i&=\begin{cases}0.06,&\kappa_i=\mathrm{midget},\\0.10,&\kappa_i=\mathrm{parasol},\end{cases} \label{eq:bc-radius}\\
+R^{AC}_i&=\begin{cases}0.13,&\kappa_i=\mathrm{midget},\\0.15,&\kappa_i=\mathrm{parasol},\end{cases} \label{eq:ac-radius}\\
+\chi^{BC}_{ic}&=\mathbf1[d_{ic}\le R^{BC}_i],\qquad
+\chi^{AC}_{ic}=\mathbf1[R^{BC}_i<d_{ic}\le R^{AC}_i]. \label{eq:support-masks}
+\end{align}
+\purpose{把兴奋性 BC center 与抑制性 AC annulus 在空间上结构化分离。}
+\explain{式 \eqref{eq:support-masks} 使两类 support 不重叠；$p=0,1$ 使用 $\chi^{BC}$，$p=2,3$ 使用 $\chi^{AC}$。这些半径使用与 position 相同的归一化坐标单位。}
+\provenance{\LitAdapted{}+\OurOriginal。Center--surround 和 lateral inhibition 有实验基础\cite{Rodieck1965,Roska2000}；精确半径与不重叠 annulus 是本项目的可辨识性约束。}
+\tracecode{models/mechanistic_retina/support_partition.py}
+
+\subsection{两尺度归一化 spatial basis}
+
+对 $s\in\{0,1\}$，
+\begin{align}
+\widetilde S_{i,p,s,c}
+&=\chi^p_{ic}\exp\!\left(-\frac{d_{ic}^2}{2\sigma_{\kappa_i,s}^2}\right), \label{eq:spatial-raw}\\
+S_{i,p,s,c}&=\frac{\widetilde S_{i,p,s,c}}
+{\sum_{c'}\widetilde S_{i,p,s,c'}}. \label{eq:spatial-normalized}
+\end{align}
+其中
+\begin{equation}
+(\sigma_{\mathrm{midget},0},\sigma_{\mathrm{midget},1})=(0.05,0.14),\qquad
+(\sigma_{\mathrm{parasol},0},\sigma_{\mathrm{parasol},1})=(0.09,0.20).
+\label{eq:spatial-scales}
+\end{equation}
+\purpose{在每条 pathway 内提供窄/宽两种固定 spatial modes，并保持每个非空 basis 的 cone 权重和为 $1$。}
+\explain{$p=0,1$ 的两条 BC path 共享 BC support；$p=2,3$ 的两条 AC path 共享 AC support。尺度不是从当前合成数据拟合得到的自由 RF 图。}
+\provenance{\LitAdapted{}+\OurOriginal。多尺度 Gaussian RF 与 midget/parasol 尺度差异受 primate RF 测量支持\cite{CronerKaplan1995}；式 \eqref{eq:spatial-raw}--\eqref{eq:spatial-scales} 的离散 basis bank 是本项目定义。}
+\tracecode{models/mechanistic_retina/bipolar_subunits.py; models/mechanistic_retina/support_partition.py}
+
+\section{H1 horizontal feedback}
+
+使用 $R_H=0.18$ 的图算子 $W^H=W(R_H)$：
+\begin{align}
+u^H_{t,i}&=\sum_c W^H_{ic}x_{t,c}, \label{eq:h1-drive}\\
+h_{t,i}&=\alpha_H h_{t-1,i}+(1-\alpha_H)u^H_{t,i},
+\qquad \alpha_H=e^{-\Delta t/\tau_H}, \label{eq:h1-state}\\
+s^H_{t,c}&=a_H\sum_i W^H_{ic}h_{t,i}, \label{eq:h1-surround}\\
+x^H_{t,c}&=x_{t,c}-s^H_{t,c}. \label{eq:h1-output}
+\end{align}
+当前 $\tau_H$ 以 $50\,\mathrm{ms}$ 初始化，并由 sigmoid 参数化约束在
+$[10,200]\,\mathrm{ms}$ 内学习；$a_H$ 是初始化为 $0.01$、限制在 $[0,0.2]$ 的单一 bounded-learnable H1 effective amplitude。
+\purpose{以低通 lateral pooling 和回投减法形成 cone-level H1 surround。}
+\explain{式 \eqref{eq:h1-drive} 在 cone graph 上聚合；graph drive 先经过初始化 $5\,\mathrm{ms}$、限制在 $[0,20]\,\mathrm{ms}$ 的 bounded-learnable explicit H1 delay，再由式 \eqref{eq:h1-state} 的 $\tau_H$ 低通；式 \eqref{eq:h1-surround} 用转置图回投；式 \eqref{eq:h1-output} 从原 cone response 中减去 surround。explicit delay 与 $\tau_H$ 是不同参数；structural clamp 在 $a_H$ 变换后乘 exact-zero mask。}
+\provenance{\LitAdapted{}+\OurOriginal。Horizontal-cell/lateral interaction 的生理动机来自 retinal circuit 研究\cite{WerblinDowling1969,Roska2000}；双向同一图算子、一阶状态与 bounded effective amplitude 是本项目精确化。}
+\tracecode{models/mechanistic_retina/h1_pathway.py; evaluation/mechanistic_retina/mechanism_runtime.py}
+
+\section{时空 basis bank}
+
+\subsection{三尺度 temporal basis}
+
+对 semantic lag $\ell=0,\ldots,L-1$，令 $u_{p,r,\ell}=\ell\Delta t/\tau_{p,r}$，定义
+\begin{align}
+\widetilde T_{p,r,\ell}&=u_{p,r,\ell}\exp(1-u_{p,r,\ell}), \label{eq:temporal-alpha}\\
+T_{p,r,\ell}&=\frac{\widetilde T_{p,r,\ell}}
+{\sqrt{\sum_{a=0}^{L-1}\widetilde T_{p,r,a}^2}}. \label{eq:temporal-normalized}
+\end{align}
+时间常数初始化表为
+\begin{equation}
+\begin{array}{c|ccc}
+p&\tau_{p,0}&\tau_{p,1}&\tau_{p,2}\\\hline
+0&35&60&100\\
+1&10&20&35\\
+2&20&40&70\\
+3&8&15&30
+\end{array}\quad\mathrm{ms}.
+\label{eq:temporal-taus}
+\end{equation}
+BC sustained/transient 的范围分别为 $[20,200]$ 与 $[5,120]\,\mathrm{ms}$；
+AC local/transient basis 的范围分别为 $[15,250]$ 与 $[5,180]\,\mathrm{ms}$。
+每个 slow/fast pair 使用有序 bounded 参数化，始终满足
+$\tau_{0,r}>\tau_{1,r}$ 与 $\tau_{2,r}>\tau_{3,r}$。
+\purpose{为四条 pathway 提供因果、不同快慢且在生理范围内可学习的 temporal modes。}
+\explain{式 \eqref{eq:temporal-alpha} 在 $u=1$ 达峰，$\ell=0$ 为零；式 \eqref{eq:temporal-normalized} 进行 $\ell_2$ 归一化，使权重尺度不被 basis norm 主导。实现张量按 oldest-to-current 存储，但本文始终用 $\ell=0$ 表示当前 bin。时间常数 $\tau$ 控制 basis 形状；独立的 explicit pathway delay 以相邻 timestep 线性插值平移因果 basis。BC sustained/transient delay 初始化为 $10/5\,\mathrm{ms}$、范围为 $[0,30]/[0,20]\,\mathrm{ms}$；AC local/transient 初始化为 $15/7.5\,\mathrm{ms}$、范围为 $[0,40]/[0,25]\,\mathrm{ms}$，两组均保持 slow/local delay 大于 transient delay。固定 $L=16$ 的 RF lag window 不是 delay 参数。}
+\provenance{\LitAdapted{}+\OurOriginal。Sustained/transient parallel organization 有经典实验依据\cite{Cleland1971}；alpha-shaped basis、四组时间常数及三 mode bank 是本项目设定。}
+\tracecode{models/mechanistic_retina/bipolar_subunits.py}
+
+\subsection{polarity、完整 kernel 与 lagged feature}
+
+令 cell polarity sign 为
+\begin{equation}
+\eta_i=\begin{cases}+1,&i\text{ is ON},\\-1,&i\text{ is OFF},\end{cases}
+\label{eq:polarity-sign}
+\end{equation}
+则
+\begin{align}
+K_{i,p,s,r,\ell,c}&=\eta_i\,T_{p,r,\ell}S_{i,p,s,c}, \label{eq:basis-kernel}\\
+F_{t,i,p,s,r}&=\sum_{\ell=0}^{L-1}\sum_c
+x^H_{t-\ell,c}K_{i,p,s,r,\ell,c}, \label{eq:lagged-feature}
+\end{align}
+其中 $t-\ell<0$ 的输入按零处理。
+\purpose{把固定空间 support、时间动力学与 ON/OFF 符号组合成可解释的时空 feature bank。}
+\explain{式 \eqref{eq:basis-kernel} 的每个坐标都可还原到一条 cell/path/space/time basis；式 \eqref{eq:lagged-feature} 是因果有限冲激响应卷积。}
+\provenance{\LitAdapted{}+\OurOriginal。ON/OFF 与 nonlinear subunit 组织有实验与建模背景\cite{WerblinDowling1969,HochsteinShapley1976}；当前可分离 basis 与精确索引结构属于本项目。}
+\tracecode{models/mechanistic_retina/bipolar_subunits.py::basis_kernels}
+
+\section{同类 shared subunits}
+
+\subsection{允许连接、非负连接与 row normalization}
+
+允许矩阵为
+\begin{equation}
+\chi^{share}_{ij}=\mathbf1[i=j\ \lor\ (g_i=g_j\ \land\ d_{ij}\le0.08)].
+\label{eq:share-support}
+\end{equation}
+对 raw matrix $a_{ij}$，
+\begin{align}
+\widetilde M_{ij}&=\chi^{share}_{ij}\softplus(a_{ij}), \label{eq:share-positive}\\
+M_{ij}&=\frac{\widetilde M_{ij}}{\sum_{j'}\widetilde M_{ij'}}. \label{eq:share-row}
+\end{align}
+初始化的对角物理权重为 $1$，允许的非对角权重为 $0.1$。
+\purpose{只允许相同 type、相同 polarity、空间邻近的 cell 共享 subunit evidence。}
+\explain{式 \eqref{eq:share-support} 是结构零；式 \eqref{eq:share-positive} 防止用负连接抵消；式 \eqref{eq:share-row} 防止连接数改变整体增益。}
+\provenance{\LitAdapted{}+\OurOriginal。局部 nonlinear subunit 的生理/功能背景见 Hochstein--Shapley 与 retinal population work\cite{HochsteinShapley1976,Pillow2008}；type/polarity equality、$0.08$ radius 与 row-stochastic mixing 是本项目可辨识性约束。}
+\tracecode{models/mechanistic_retina/shared_subunits.py}
+
+\subsection{feature 与 kernel 的同构混合}
+
+\begin{align}
+\bar F_{t,i,p,s,r}&=\sum_jM_{ij}F_{t,j,p,s,r}, \label{eq:feature-mix}\\
+\bar K_{i,p,s,r,\ell,c}&=\sum_jM_{ij}K_{j,p,s,r,\ell,c}. \label{eq:kernel-mix}
+\end{align}
+\purpose{使前向计算与解析 base-RF 使用完全相同的 shared-subunit 变换。}
+\explain{如果只混合 feature 而不混合 kernel，前向响应与报告的 base RF 会不一致。式 \eqref{eq:feature-mix}--\eqref{eq:kernel-mix} 保证线性层面的闭合。}
+\provenance{\OurOriginal。该同构约束是本项目的实现一致性定义。}
+
+\section{Bipolar 与 amacrine pathways}
+
+\subsection{group-shared nonnegative pathway weights}
+
+每个 group $g$ 的物理权重为
+\begin{equation}
+\omega^B_{g,p,s,r}=\softplus(a^B_{g,p,s,r}),\quad p\in\{0,1\},
+\qquad
+\omega^A_{g,p,s,r}=\softplus(a^A_{g,p,s,r}),\quad p\in\{2,3\}.
+\label{eq:pathway-weights}
+\end{equation}
+\purpose{让相同 type/polarity 的 recorded cells 共享 pathway composition，并保持每个 basis coefficient 非负。}
+\explain{符号不由 $\omega$ 决定，而由 ON/OFF 的 $\eta_i$、BC/AC 的电流方向和固定 support 决定，减少 weight cancellation 造成的机制不可辨识。}
+\provenance{\OurOriginal。Nonnegative factorization 是标准约束思想，但当前 group 结构和 pathway assignment 是项目设计。}
+\tracecode{models/mechanistic_retina/bipolar_subunits.py; models/mechanistic_retina/amacrine_pathways.py}
+
+\subsection{两条 bipolar 输出}
+
+\begin{align}
+B^{S}_{t,i}&=\sum_{s=0}^{1}\sum_{r=0}^{2}
+\omega^B_{g_i,0,s,r}\bar F_{t,i,0,s,r}, \label{eq:bc-sustained}\\
+B^{T}_{t,i}&=\sum_{s=0}^{1}\sum_{r=0}^{2}
+\omega^B_{g_i,1,s,r}\bar F_{t,i,1,s,r}. \label{eq:bc-transient}
+\end{align}
+\purpose{把 BC center 的慢、快 basis modes 分别汇总成 sustained 与 transient excitatory currents。}
+\explain{两式都直接读取 H1-modulated cone features；当前主线的所有乘子均为 $1$，没有额外 temporal operator。}
+\provenance{\LitAdapted{}+\OurOriginal。S/T 功能分流受实验分类支持\cite{Cleland1971}；当前 basis summation 与 group-shared coefficients 是项目定义。}
+\tracecode{models/mechanistic_retina/bipolar_subunits.py::forward}
+
+\subsection{两条 amacrine 状态与抑制性电流}
+
+先构造 drives
+\begin{align}
+u^{A,L}_{t,i}&=\sum_{s,r}\omega^A_{g_i,2,s,r}\bar F_{t,i,2,s,r}, \label{eq:ac-local-drive}\\
+u^{A,T}_{t,i}&=\sum_{s,r}\omega^A_{g_i,3,s,r}\bar F_{t,i,3,s,r}. \label{eq:ac-transient-drive}
+\end{align}
+再低通
+\begin{align}
+A^L_{t,i}&=\alpha_{AL}A^L_{t-1,i}+(1-\alpha_{AL})u^{A,L}_{t,i},
+&\tau_{AL}^{init}&=35\,\mathrm{ms}, \label{eq:ac-local-state}\\
+A^T_{t,i}&=\alpha_{AT}A^T_{t-1,i}+(1-\alpha_{AT})u^{A,T}_{t,i},
+&\tau_{AT}^{init}&=18\,\mathrm{ms}. \label{eq:ac-transient-state}
+\end{align}
+其中 $\tau_{AL}\in[20,250]\,\mathrm{ms}$、
+$\tau_{AT}\in[15,180]\,\mathrm{ms}$，并由有序 bounded 参数化保持
+$\tau_{AL}>\tau_{AT}$。
+对应电流为
+\begin{equation}
+I^{A,L}_{t,i}=-\gamma_{AL}A^L_{t,i},\qquad
+I^{A,T}_{t,i}=-\gamma_{AT}A^T_{t,i}.
+\label{eq:ac-currents}
+\end{equation}
+\purpose{把 AC annulus feature 转成慢局部抑制和快瞬态抑制。}
+\explain{负号只在式 \eqref{eq:ac-currents} 引入；$\gamma_{AL},\gamma_{AT}\in[0,1]$ 控制两条机制是否存在。该符号分离避免用负 basis weight 模拟 AC。}
+\provenance{\LitAdapted{}+\OurOriginal。视网膜中的多尺度 inhibition 与 excitation/inhibition integration 有实验依据\cite{Roska2000,Roska2006}；当前 annulus、两时间常数、低通和门控是项目方程。}
+\tracecode{models/mechanistic_retina/amacrine_pathways.py}
+
+\subsection{四通路总电流与结构消融}
+
+\begin{equation}
+I_{t,i}=B^S_{t,i}+B^T_{t,i}+I^{A,L}_{t,i}+I^{A,T}_{t,i}.
+\label{eq:total-current}
+\end{equation}
+门控投影和 structural clamp 为
+\begin{align}
+\gamma_m&\leftarrow\clip(\gamma_m,0,1),\qquad
+m\in\{H,AL,AT,Hist\}, \label{eq:gate-project}\\
+\gamma_m^{(\mathcal C)}&=0\quad\text{if pathway }m\text{ is clamped in intervention }\mathcal C. \label{eq:structural-clamp}
+\end{align}
+\purpose{式 \eqref{eq:total-current} 形成 RGC 输入；式 \eqref{eq:gate-project}--\eqref{eq:structural-clamp} 给出可训练 gate 与机制消融的确定性语义。}
+\explain{Structural clamp 的零覆盖优先于参数值。BC-only、no-H1、no-AC 等 intervention 因而可以通过同一模型、同一数据和同一状态方程比较。}
+\provenance{\OurOriginal。通路合成顺序、可投影 gate 与 clamp 契约属于项目的机制可辨识性设计。}
+\tracecode{models/mechanistic_retina/pathway_gates.py; models/mechanistic_retina/model.py}
+
+\section{RGC 动态状态与 Bernoulli 输出}
+
+\subsection{Divisive state 与电流归一化}
+
+\begin{align}
+D_{t,i}&=\alpha_DD_{t-1,i}+(1-\alpha_D)|I_{t,i}|,
+&\tau_D&=40\,\mathrm{ms}, \label{eq:div-state}\\
+\widetilde I_{t,i}&=\frac{I_{t,i}}{1+g_DD_{t,i}}. \label{eq:div-current}
+\end{align}
+\purpose{让近期大幅电流提高分母，从而限制当前 generator drive。}
+\explain{绝对值保证 $D\ge0$；若 $g_D=0$，式 \eqref{eq:div-current} 退化为恒等映射。分母始终不小于 $1$。}
+\provenance{\LitAdapted{}+\OurOriginal。Divisive normalization 是经典神经编码思想\cite{Heeger1992}，视网膜也存在 temporal contrast adaptation\cite{ShapleyVictor1978,ChanderChichilnisky2001}；当前绝对电流低通和同-bin 分母是项目形式。}
+\tracecode{models/mechanistic_retina/rgc_state.py}
+
+\subsection{Membrane、adaptation 与 observed history}
+
+\begin{align}
+V_{t,i}&=\alpha_VV_{t-1,i}+(1-\alpha_V)\widetilde I_{t,i},
+&\tau_V&=5\,\mathrm{ms}, \label{eq:membrane}\\
+A_{t,i}&=\alpha_AA_{t-1,i}+(1-\alpha_A)V_{t,i},
+&\tau_A&=80\,\mathrm{ms}, \label{eq:adaptation}\\
+H_{t,i}&=\alpha_{Hist}H_{t-1,i}+(1-\alpha_{Hist})y_{t-1,i},
+&\tau_{Hist}&=30\,\mathrm{ms}. \label{eq:rgc-history}
+\end{align}
+\purpose{分别表示快速 membrane smoothing、较慢的自适应状态和严格因果的 observed spike-history state。}
+\explain{式 \eqref{eq:rgc-history} 在 $t=0$ 使用零事件。Noise-free expected-probability 训练中 history 固定为零；sampled 训练与评估才使用实际 sampled/observed event sequence。}
+\provenance{\LitAdapted{}+\OurOriginal。Leaky dynamics 与 spike-history response models 有既有理论与 retinal application\cite{Paninski2004,Pillow2005}；三种时间常数和注入位置由项目规定。}
+
+\subsection{Logit、概率与条件独立观测}
+
+\begin{align}
+z_{t,i}&=a_z(V_{t,i}-\theta_z)-g_AA_{t,i}
+-\gamma_{Hist}g_{Hist}H_{t,i}+b_i, \label{eq:rgc-logit}\\
+\pi_{t,i}&=\sigmoid(z_{t,i})=\frac{1}{1+e^{-z_{t,i}}}, \label{eq:rgc-prob}\\
+y_{t,i}\mid \mathcal F_t&\sim\operatorname{Bernoulli}(\pi_{t,i}). \label{eq:bernoulli-observation}
+\end{align}
+当前 $a_z=1$、$\theta_z=0$；$b_i$ 是 cell-specific response bias。
+\purpose{把连续 generator states 映射为每 bin 的 spike/event probability。}
+\explain{$\mathcal F_t$ 包含当前及过去 stimulus、过去 observed events 和确定性模型状态，但不包含 $y_t$。式 \eqref{eq:bernoulli-observation} 是观测层，不表示 interneuron 也采用 Bernoulli spikes。}
+\provenance{\LitDirect{}+\OurOriginal。Bernoulli/logistic point-process likelihood 与神经响应最大似然建模直接相关\cite{Paninski2004,Pillow2005,Pillow2008}；当前 generator 的内部组成是项目定义。}
+\tracecode{models/mechanistic_retina/rgc_state.py}
+
+\subsection{完整单步因果映射}
+
+把所有状态写成 $\vect s_t=(\vect h_t,\vect A^L_t,\vect A^T_t,\vect D_t,\vect V_t,\vect A_t,\vect H_t)$，则
+\begin{align}
+(\vect z_t,\vect s_t)
+&=f_{\theta}(\vect x_{\le t},\vect y_{<t},\vect s_{t-1}), \label{eq:causal-map}\\
+\frac{\partial z_{t,i}}{\partial y_{t,j}}&=0,
+\qquad
+\frac{\partial z_{t,i}}{\partial x_{a,c}}=0\quad(a>t). \label{eq:causality}
+\end{align}
+\purpose{给出全部 RF、likelihood 与 intervention 分析依赖的因果契约。}
+\explain{前向顺序是 H1 $\to$ basis bank $\to$ shared subunits $\to$ BC/AC $\to$ total current $\to$ RGC states $\to$ logit。式 \eqref{eq:causality} 是实现应满足的导数不变量。}
+\provenance{\OurOriginal。}
+\tracecode{models/mechanistic_retina/model.py::forward}
+
+\section{训练目标、采样与参数自由度}
+
+\subsection{Expected Bernoulli CE 与 sampled NLL}
+
+对 target $r_{b,t,i}\in[0,1]$，统一稳定形式为
+\begin{equation}
+\mathcal L_{Bern}(r,z)=
+\frac{\sum_{b,t,i}v_{b,t,i}\left[\softplus(z_{b,t,i})-r_{b,t,i}z_{b,t,i}\right]}
+{\sum_{b,t,i}v_{b,t,i}}.
+\label{eq:bernoulli-loss}
+\end{equation}
+Noise-free 时 $r=q$，这是 expected CE；sampled 时 $r=y\in\{0,1\}$，这是 observed NLL。
+\purpose{用同一可微表达式训练 teacher probabilities 或 sampled spikes。}
+\explain{当 $r=1$ 时单点损失为 $\softplus(-z)$；当 $r=0$ 时为 $\softplus(z)$。Valid mask 保证 burn-in 或 padding 不进入分母。}
+\provenance{\LitDirect{}+\StandardMath。它是 Bernoulli negative log-likelihood 的数值稳定等价式，属于 logistic point-process maximum likelihood\cite{Paninski2004,Pillow2005}。}
+\tracecode{training/mechanistic_retina/losses.py}
+
+\subsection{Adam 更新}
+
+对实际进入 optimizer 的参数 $\theta$，
+\begin{align}
+g_n&=\nabla_{\theta}\mathcal L_n,\\
+m_n&=\beta_1m_{n-1}+(1-\beta_1)g_n,\\
+v_n&=\beta_2v_{n-1}+(1-\beta_2)g_n^2,\\
+\theta_n&=\theta_{n-1}-\eta
+\frac{m_n/(1-\beta_1^n)}{\sqrt{v_n/(1-\beta_2^n)}+\epsilon}.
+\label{eq:adam}
+\end{align}
+\purpose{优化当前协议明确列入的参数，而不是所有 \texttt{requires\_grad=True} 张量。}
+\explain{Canonical comparison 使用 $400$ steps、learning rate $0.03$、batch size $8$。Sampled training 每步均匀抽取 stimulus/trial；sample-efficiency subsets 在不同模型间完全相同且 nested。}
+\provenance{\LitDirect。Adam 公式采用 Kingma--Ba\cite{KingmaBa2015}；batch 抽样与当前超参数是项目协议。}
+\tracecode{training/mechanistic_retina/optimizer.py; training/mechanistic_retina/sampled.py}
+
+\subsection{264/136/128 的严格参数解释}
+
+\begin{align}
+P_{total}&=P_{requires\_grad}=264, \label{eq:param-total}\\
+P_{optimizer\_listed}&=48_{BC}+48_{AC}+16_{bias}+4_{gates}+15_{\tau}+5_{delay}=136,
+\label{eq:param-updated}\\
+P_{frozen}^{protocol}&=264-136=128
+=32_{share}+96_{declared\ but\ inactive}. \label{eq:param-frozen}
+\end{align}
+\purpose{区分声明可微参数、optimizer-listed 参数和当前协议中的有效冻结参数。}
+\explain{264 不能称为 ``effective trainable DoF''，136 也不能称为 actually updated。当前 optimizer 接收 $a^B$、$a^A$、$b$、四个 gates、15 个 bounded $\tau$ raw parameters 与 5 个 bounded explicit-delay raw parameters；32 个 shared connections 和 96 个当前禁用乘子的声明参数不在 optimizer 中。实际 nonzero-gradient 与 actually-updated 数量必须在具体训练后独立报告。}
+\provenance{\OurOriginal。它是当前实现的参数审计结果，不是通用理论自由度。}
+\tracecode{training/mechanistic_retina/optimizer.py; .omo/evidence/sample-efficiency-active-dof-t2/parameter-counts.json}
+
+机制可辨识性训练的参数集合更宽：
+\begin{equation}
+\Theta_{mech}=\{a^B,a^A,b,a_H,\gamma_{AL},\gamma_{AT},\gamma_{Hist},a^{share},a^{\tau}_{AC\ state}\}
+\setminus\{\text{clamped gates}\}.
+\label{eq:mechanism-optimizer-set}
+\end{equation}
+无 clamp 时其参数数为
+\begin{equation}
+P_{optimizer\_listed}^{mech}=48_{BC}+48_{AC}+2_{\tau,AC\ state}+16_{bias}+4_{gates}+32_{share}=150;
+\label{eq:mechanism-active-count}
+\end{equation}
+每个被 clamp 的 scalar gate 再从该集合中移除。
+\purpose{说明 held-out mechanism recovery 与 canonical comparison 的 active parameter count 不可混用。}
+\explain{这里的 historical noise-free structural optimizer 不列入 H1 或 BC/AC basis 的 bounded $\tau$，也不列入任何 explicit pathway delay；它与本轮 clean sampled-spike optimizer 是不同训练合同。RF lag window 和 RGC history shift 在两个合同中都不是 optimizer 参数。}
+\provenance{\OurOriginal。}
+\tracecode{evaluation/mechanistic_retina/structural_ablation.py}
+
+\section{Candidate0 teacher 与数据生成数学}
+
+\subsection{Static base RF drive 与训练集标准化}
+
+给定 frozen Candidate0 base RF $R^0_{i,\ell,c}$，
+\begin{align}
+d_{s,t,i}&=\sum_{\ell=0}^{L-1}\sum_c x_{s,t-\ell,c}R^0_{i,\ell,c}, \label{eq:teacher-drive}\\
+\mu_i&=\mean_{(s,t)\in\mathcal T}d_{s,t,i},\qquad
+\sigma_i=\std_{(s,t)\in\mathcal T}d_{s,t,i}, \label{eq:teacher-standardize}\\
+z^*_{s,t,i}&=\frac{d_{s,t,i}-\mu_i}{\max(\sigma_i,\epsilon)}+b_i^*,
+\qquad q_{s,t,i}=\sigmoid(z^*_{s,t,i}). \label{eq:teacher-prob}
+\end{align}
+\purpose{从固定 RF 生成具有受控 firing rate 的 Candidate0 Bernoulli teacher。}
+\explain{$\mu_i,\sigma_i$ 只在 training split 的 valid/non-burn-in 样本上计算；validation 复用同一统计量。$b_i^*$ 通过单调二分使平均 firing probability 匹配目标。}
+\provenance{\LitDirect{}+\OurOriginal。Linear filter 加 logistic observation 属于经典 neural encoding 模型\cite{Chichilnisky2001,Paninski2004}；Candidate0 RF、标准化集合与 bias matching 是项目数据协议。}
+\tracecode{evaluation/candidate0_likelihood_math.py}
+
+\subsection{Sampled spike bank 与 bias-only baseline}
+
+\begin{align}
+y^{(k)}_{s,t,i}&\sim\operatorname{Bernoulli}(q_{s,t,i}), \label{eq:spike-bank}\\
+\bar q_i&=\frac{\sum_{s,t}v_{s,t,i}q_{s,t,i}}{\sum_{s,t}v_{s,t,i}},\qquad
+b_i^{bias}=\log\frac{\bar q_i}{1-\bar q_i}, \label{eq:bias-logit}\\
+\CE_{bias}&=-\mean_v\left[q\log\bar q+(1-q)\log(1-\bar q)\right]. \label{eq:bias-ce}
+\end{align}
+\purpose{生成固定 identity 的重复 spike banks，并定义不使用 stimulus 的最小预测基线。}
+\explain{Bank seed 决定 Bernoulli draws；相同 bank 在所有模型间复用。Bias-only 只学习每 cell 的常数 firing probability。}
+\provenance{\StandardMath{}+\OurOriginal。Bernoulli sampling 与 intercept-only logistic model 是标准统计；固定 seed/bank identity 是项目协议。}
+\tracecode{evaluation/mechanistic_retina/spike_banks.py; evaluation/mechanistic_retina/mechanism_run_data.py}
+
+\section{感受野定义、分解与投影}
+
+\subsection{Canonical conditional total-dynamic logit RF}
+
+在指定 operating sample $b$、指定 observed history $\vect y^{obs}$ 下，
+\begin{equation}
+R^{dyn}_{b,i,\ell,c}
+=\left.
+\frac{\partial z_{b,t^*,i}}
+{\partial x_{b,t^*-\ell,c}}
+\right|_{\vect x=\vect x^{(b)},\,\vect y=\vect y^{obs}},
+\qquad \ell=0,\ldots,15.
+\label{eq:dynamic-rf}
+\end{equation}
+\purpose{度量当前完整模型在指定 stimulus/history operating point 的 logit sensitivity。}
+\explain{外部 observed history 固定，但由 stimulus 驱动的 H1、AC、divisive、membrane 与 adaptation states 允许随 perturbation 传播。因此它既不是 frozen-state Jacobian，也不是 STA、probability RF 或 marginal response RF。}
+\provenance{\LitAdapted{}+\OurOriginal。Input-gradient sensitivity 在可微模型解释中广泛使用\cite{Simonyan2013}；固定 history、允许生理 state 动态传播的 estimand 是项目定义。}
+\tracecode{evaluation/mechanistic_retina/rf_effective.py; evaluation/model_comparison/rf.py}
+
+概率 RF 由链式法则给出
+\begin{equation}
+R^{prob}_{b,i,\ell,c}
+=\frac{\partial \pi_{b,t^*,i}}{\partial x_{b,t^*-\ell,c}}
+=\pi_{b,t^*,i}(1-\pi_{b,t^*,i})R^{dyn}_{b,i,\ell,c}.
+\label{eq:probability-rf}
+\end{equation}
+\purpose{说明 logit RF 与 probability RF 的区别；当前 canonical 报告使用前者。}
+\provenance{\StandardMath。}
+
+\subsection{解析 base RF}
+
+令 pathway signs $\xi=(+1,+1,-1,-1)$，则忽略 RGC nonlinear states 时的 base RF 为
+\begin{equation}
+R^{base}_{i,\ell,c}
+=\sum_{p=0}^{3}\xi_p\sum_{s,r}
+\omega_{g_i,p,s,r}\bar K_{i,p,s,r,\ell,c}.
+\label{eq:base-rf}
+\end{equation}
+\purpose{从固定 basis 与 pathway weights 直接重建 linearized pathway kernel。}
+\explain{式 \eqref{eq:base-rf} 不包含 H1 动态、AC 低通、RGC divisive/adaptation/history 或 operating-point derivative；它不能替代式 \eqref{eq:dynamic-rf}。}
+\provenance{\OurOriginal。}
+\tracecode{evaluation/mechanistic_retina/rf_base.py}
+
+\subsection{Candidate0 到 basis 的投影}
+
+把每个 cell 的 basis 展平为矩阵 $\Phi_i\in\RR^{LC\times 24}$、target RF 展平为 $\vect r_i^0$，则
+\begin{align}
+\widehat{\vect w}_i^{LS}&=\arg\min_{\vect w}\lVert\Phi_i\vect w-\vect r_i^0\rVert_2^2, \label{eq:rf-ls}\\
+\widehat{\vect w}_i^{NN}&=\arg\min_{\vect w\ge0}\lVert\Phi_i\vect w-\vect r_i^0\rVert_2^2. \label{eq:rf-nnls}
+\end{align}
+可辨识性诊断使用奇异值分解
+\begin{equation}
+\Phi_i=U_i\Sigma_iV_i^\top,\qquad
+\kappa_i=\frac{\sigma_{i,\max}}{\sigma_{i,\min>0}},\qquad
+\operatorname{rank}(\Phi_i)=\#\{\sigma_{i,a}>\epsilon\}.
+\label{eq:basis-svd}
+\end{equation}
+\purpose{判断 frozen Candidate0 是否可由当前非负 pathway basis 表达，以及 basis 是否退化。}
+\explain{LS 给出无符号约束的最优投影，NNLS 对应当前非负权重假设；rank/condition number 只诊断线性 basis，不证明动态机制可恢复。}
+\provenance{\StandardMath{}+\OurOriginal。Least squares、NNLS 与 SVD 是标准线性代数；把它们用于当前 basis/teacher compatibility 是项目诊断。}
+\tracecode{evaluation/candidate0_projection_solver.py; evaluation/mechanistic_retina/rf_base.py}
+
+\subsection{Ablation-difference pathway RF}
+
+对完整、H1-off 与 BC-only 三个模型状态，
+\begin{align}
+R^{BC}&=R^{BC\text{-}only}, \label{eq:ablation-bc-rf}\\
+R^{AC}&=R^{H1\text{-}off}-R^{BC\text{-}only}, \label{eq:ablation-ac-rf}\\
+R^{H1}&=R^{full}-R^{H1\text{-}off}. \label{eq:ablation-h1-rf}
+\end{align}
+\purpose{用 nested structural interventions 分离 H1、AC 与 BC 对完整 dynamic RF 的净贡献。}
+\explain{这是有限差分意义的机制贡献，不是对内部电流求偏导。三式依赖相同 input/history/parameters 和严格 nested clamp。}
+\provenance{\OurOriginal。}
+\tracecode{evaluation/mechanistic_retina/mechanism_runtime.py::decompose_pathway_rfs}
+
+\subsection{Current-sensitivity pathway RF 与闭合}
+
+令 $I^m_{t,i}$ 是 pathway $m$ 的电流，定义 RGC 对总电流的局部灵敏度
+\begin{equation}
+S^I_{t,i}=\frac{\partial z_{t^*,i}}{\partial I_{t,i}}.
+\label{eq:current-sensitivity}
+\end{equation}
+则 pathway RF 为
+\begin{equation}
+R^m_{i,\ell,c}
+=\frac{\partial}{\partial x_{t^*-\ell,c}}
+\left(\sum_tS^I_{t,i}I^m_{t,i}\right),
+\label{eq:pathway-rf}
+\end{equation}
+闭合误差为
+\begin{equation}
+E_{close}=\frac{\left\|R^{dyn}-\sum_mR^m\right\|_2}
+{\lVert R^{dyn}\rVert_2+\epsilon}.
+\label{eq:pathway-closure}
+\end{equation}
+\purpose{把完整 RF 归因到内部 currents，并检验分解总和能否恢复完整 RF。}
+\explain{式 \eqref{eq:pathway-rf} 保留 downstream RGC sensitivity；式 \eqref{eq:pathway-closure} 的当前 pass threshold 为 $2\times10^{-6}$。}
+\provenance{\StandardMath{}+\OurOriginal。链式法则是标准微积分；current attribution 与 closure contract 是项目定义。}
+\tracecode{evaluation/mechanistic_retina/pathway_decomposition.py}
+
+\section{Prediction 与 RF 评价指标}
+
+\subsection{Validation CE/NLL、bits/spike、RMSE 与 Brier}
+
+\begin{align}
+\CE_{val}&=-\mean_v\left[q\log\pi+(1-q)\log(1-\pi)\right], \label{eq:val-ce}\\
+\NLL_{sampled}&=-\mean_v\left[y\log\pi+(1-y)\log(1-\pi)\right], \label{eq:sampled-nll}\\
+\operatorname{bits/spike}
+&=\frac{\mathcal L_{null}^{sum}-\mathcal L_{model}^{sum}}
+{(\sum_v y)\log2}, \label{eq:bits-spike}\\
+\operatorname{RMSE}_{logit}&=\sqrt{\mean_v[(z-z^*)^2]}, \label{eq:logit-rmse}\\
+\operatorname{Brier}&=\mean_v[(\pi-q)^2]. \label{eq:brier}
+\end{align}
+\purpose{分别评价 expected prediction、sampled prediction、每 spike 信息增益、generator 误差和概率误差。}
+\explain{Canonical model selection 以 validation CE 为预测主指标；$T=2$ 不足以支持可靠 repeated-validation PSTH，因此 PSTH 不参与当前裁决。}
+\provenance{\LitDirect{}+\StandardMath。CE/NLL 来自 Bernoulli likelihood；bits/spike 是 point-process 模型常用相对信息刻度\cite{Pillow2005,Pillow2008}；RMSE/Brier 是标准误差指标。}
+\tracecode{evaluation/model_comparison/prediction.py; evaluation/mechanistic_retina/metrics.py}
+
+\subsection{Cosine 与 RF 分量}
+
+对同形张量 $A,B$，
+\begin{equation}
+\cos(A,B)=\frac{\langle\operatorname{vec}A,\operatorname{vec}B\rangle}
+{\lVert A\rVert_2\lVert B\rVert_2+\epsilon}.
+\label{eq:cosine}
+\end{equation}
+定义 spatial 与 temporal collapse：
+\begin{align}
+S_i(c)&=\sum_{\ell}R_{i,\ell,c}, \label{eq:spatial-collapse}\\
+T_i(\ell)&=\sum_cR_{i,\ell,c}. \label{eq:temporal-collapse}
+\end{align}
+于是
+\begin{align}
+C_{global}&=\cos(R, R^0), \label{eq:global-cosine}\\
+C_{spatial}&=\frac1N\sum_i\cos(S_i,S_i^0), \label{eq:spatial-cosine}\\
+C_{temporal}&=\frac1N\sum_i\cos(T_i,T_i^0), \label{eq:temporal-cosine}\\
+E_{norm}&=\frac{|\lVert R\rVert_2-\lVert R^0\rVert_2|}{\lVert R^0\rVert_2+\epsilon}. \label{eq:norm-error}
+\end{align}
+\purpose{分开评价整体 RF、空间形状、时间形状与幅度。}
+\explain{Global cosine 把全部 cell/lag/cone 联合展平；spatial/temporal cosine 先按 cell collapse 再平均，不能与 global cosine 互换。}
+\provenance{\StandardMath{}+\OurOriginal。Cosine 是标准相似度；具体 collapse、平均和阈值是项目 estimand。}
+\tracecode{evaluation/mechanistic_retina/metrics.py; evaluation/model_comparison/rf.py}
+
+\subsection{Exact-cell 与 type--polarity identity}
+
+构造 pairwise matrix
+\begin{equation}
+C_{ij}=\cos(R_i,R_j^0).
+\label{eq:pairwise-cell-cosine}
+\end{equation}
+Exact-cell recovery 指示量为
+\begin{equation}
+e_i^{exact}=\mathbf1\left[C_{ii}>\max_{j\ne i}C_{ij}\right],
+\qquad E^{exact}=\sum_{i=1}^{N}e_i^{exact}.
+\label{eq:exact-cell}
+\end{equation}
+Type--polarity recovery 则为
+\begin{equation}
+e_i^{group}=\mathbf1\left[g_i=g_{\argmax_jC_{ij}}\right],
+\qquad E^{group}=\sum_i e_i^{group}.
+\label{eq:group-identity}
+\end{equation}
+\purpose{判断预测 RF 是否恢复正确 recorded-cell identity，并用 type/polarity 作为次级宽松判据。}
+\explain{Exact-cell 是当前主要 identity 指标；group identity 不能替代 exact-cell。}
+\provenance{\OurOriginal。}
+\tracecode{evaluation/mechanistic_retina/metrics.py}
+
+\subsection{RF 几何中心与半径}
+
+令 cone position 为 $\vect r_c$，RF energy 为
+\begin{align}
+e_{ic}&=\sum_{b,\ell}R_{b,i,\ell,c}^2, \label{eq:rf-energy}\\
+\widehat{\vect\mu}_i&=\frac{\sum_ce_{ic}\vect r_c}{\sum_ce_{ic}+\epsilon}, \label{eq:rf-center}\\
+\widehat\rho_i&=\sqrt{\frac{\sum_ce_{ic}\lVert\vect r_c-\widehat{\vect\mu}_i\rVert_2^2}
+{\sum_ce_{ic}+\epsilon}}. \label{eq:rf-radius}
+\end{align}
+\purpose{用 RF energy 定义对正负 lobes 都稳定的空间中心与 RMS radius。}
+\explain{平方后 ON/OFF 符号不会相互抵消；该几何描述不等价于 Gaussian fit。}
+\provenance{\StandardMath{}+\OurOriginal。加权质心与二阶矩是标准统计；使用 RF energy 和当前聚合轴是项目定义。}
+\tracecode{evaluation/rf_geometry_metrics.py}
+
+\subsection{Cross-seed 与 cross-bank stability}
+
+对同一条件下的 $M$ 个 RF estimates $R^{(1)},\ldots,R^{(M)}$，
+\begin{equation}
+\operatorname{Stab}(\mathcal R)=
+\frac{2}{M(M-1)}\sum_{a<b}\cos(R^{(a)},R^{(b)}).
+\label{eq:pairwise-stability}
+\end{equation}
+Cross-seed 固定 bank、改变 model seed；cross-bank 固定 model seed、改变 spike bank。Per-cell variance 为
+\begin{equation}
+V_i^{RF}=\mean_{\ell,c}\operatorname{Var}_{m}[R^{(m)}_{i,\ell,c}].
+\label{eq:rf-variance}
+\end{equation}
+\purpose{区分优化初始化不稳定与 sampled-data 不稳定。}
+\explain{Stability 高不代表 RF 正确，必须与 teacher cosine 和 exact-cell 同时报告。}
+\provenance{\StandardMath{}+\OurOriginal。Pairwise cosine/variance 是标准统计；seed/bank conditioning contract 是项目协议。}
+\tracecode{evaluation/model_comparison/stability.py}
+
+\section{Held-out mechanism evidence}
+
+\subsection{Probe effect 与方向恢复}
+
+对机制 $m\in\{H1,AC\}$，teacher/student 的消融概率差为
+\begin{equation}
+\Delta\vect\pi_m^{(T/S)}
+=\vect\pi_{full}^{(T/S)}-\vect\pi_{-m}^{(T/S)}.
+\label{eq:probe-delta}
+\end{equation}
+平均 effect 和方向 cosine 为
+\begin{align}
+E_m&=\mean|\Delta\vect\pi_m|, \label{eq:probe-effect}\\
+C_m^{dir}&=\cos(\Delta\vect\pi_m^{S},\Delta\vect\pi_m^{T}). \label{eq:probe-direction}
+\end{align}
+\purpose{检验学生是否不仅激活某通路，而且在 held-out probes 上复现 teacher 的机制方向。}
+\explain{Effect magnitude 回答“是否产生可测变化”，direction cosine 回答“变化方向是否一致”。两者都不能只由 training loss 替代。}
+\provenance{\StandardMath{}+\OurOriginal。Intervention difference 与 cosine 是标准工具；probe 集合和判据是项目定义。}
+\tracecode{evaluation/mechanistic_retina/mechanism_heldout_metrics.py}
+
+\subsection{通路激活、电流与 RF 证据}
+
+\begin{align}
+G_m&=\gamma_m, \label{eq:gate-evidence}\\
+J_m&=\mean|I^m|, \label{eq:current-evidence}\\
+Q_m&=\mean\left|\frac{\partial z}{\partial I^m}\right|, \label{eq:sensitivity-evidence}\\
+N_m^{RF}&=\lVert R^m\rVert_2,\qquad
+C_m^{RF}=\cos(R_m^S,R_m^T). \label{eq:pathway-rf-evidence}
+\end{align}
+\purpose{从 gate、实际 current、downstream sensitivity 与 RF 四个层面排除“gate 看起来开了但通路没有作用”的假阳性。}
+\explain{$G_m$ 是结构参数，$J_m$ 是 forward activation，$Q_m$ 是 downstream use，$N_m^{RF}$ 和 $C_m^{RF}$ 是 input-space 机制结果。}
+\provenance{\OurOriginal。}
+
+\subsection{Removal loss fraction 与 present/absent 判据}
+
+\begin{equation}
+F_m^{remove}=\frac{\CE_{-m}-\CE_{full}}{\CE_{bias}-\CE_{full}}.
+\label{eq:removal-fraction}
+\end{equation}
+Present mechanism 的核心阈值包括
+\begin{equation}
+F_m^{remove}\ge0.20,\qquad
+G_m\ge0.50,\qquad
+C_m^{RF}\ge0.50,\qquad
+\CE_{retrain,-m}>\CE_{full}.
+\label{eq:present-gates}
+\end{equation}
+Absent-control 的核心阈值包括
+\begin{equation}
+G_m\le0.10,\qquad
+N_m^{RF}\le0.25\,\operatorname{median}(N_{present}^{RF}),\qquad
+|\Delta\CE_m|\le0.25\,\operatorname{median}(\Delta\CE_{present}).
+\label{eq:absence-gates}
+\end{equation}
+完整 RF 恢复还使用
+\begin{equation}
+\begin{aligned}
+C_{global}&\ge
+\begin{cases}0.85,&\text{noise-free},\\0.80,&\text{sampled},\end{cases}
+& C_{temporal}&\ge0.85,\\
+E^{exact}&\ge12,
+& E^{group}&\ge15,\\
+E_{close}&\le2\times10^{-6},
+& \CE_{full}&<\CE_{bias}.
+\end{aligned}
+\label{eq:rf-recovery-gates}
+\end{equation}
+跨 seed 的多数规则为
+\begin{equation}
+\sum_{s=1}^{3}\mathbf1[\operatorname{pass}_{m,s}]\ge2,
+\qquad
+\sum_{a=1}^{9}\mathbf1[\operatorname{RFgate}_a]\ge6.
+\label{eq:majority-gates}
+\end{equation}
+\purpose{把机制存在与机制缺失分别转化为可复算的正证据和 false-positive 控制。}
+\explain{Removal fraction 以 full 对 bias-only 的可解释改进为分母。式 \eqref{eq:rf-recovery-gates} 同时约束形状、identity、分解闭合与预测；式 \eqref{eq:majority-gates} 防止单一 seed 独立裁决。}
+\provenance{\OurOriginal。所有阈值都是预先固定的实验 gate，不是生理常数。}
+\tracecode{evaluation/mechanistic_retina/mechanism_scoring.py}
+
+\section{当前模型比较中的四类参照模型}
+
+本节公式只定义 canonical benchmark 的参照模型；它们不属于 Mechanistic Retina 的内部前向链路。
+
+\subsection{Bias-only}
+
+\begin{equation}
+z_{t,i}=b_i,\qquad \pi_{t,i}=\sigmoid(b_i).
+\label{eq:bias-model}
+\end{equation}
+\purpose{提供完全不使用 stimulus 的不可约常率参照。}
+\provenance{\StandardMath。}
+
+\subsection{GLM-SH}
+
+\begin{equation}
+z_{t,i}=b_i+\sum_{\ell=0}^{15}\sum_cK^{stim}_{i,\ell,c}x_{t-\ell,c}
++\sum_{k=1}^{4}h_{i,k}y_{t-k,i}.
+\label{eq:glm-sh}
+\end{equation}
+\purpose{比较一个具有完整 stimulus filter 和严格因果 spike-history filter 的线性 logistic baseline。}
+\explain{SH 表示 stimulus+history。History 从 $k=1$ 开始，不泄漏当前 event。}
+\provenance{\LitDirect{}+\OurOriginal。该形式属于经典 neural GLM/point-process encoding\cite{Paninski2004,Pillow2008}；lag 数和 cell-wise parameterization 是项目配置。}
+\tracecode{evaluation/model_comparison/baseline_runs.py}
+
+\subsection{LN--LN subunit baseline}
+
+令 $S$ 是 subunit 数，group-shared temporal filters 为 $k_{g,s,\ell}$，局部 spatial kernel 为 $G_{i,s,c}$：
+\begin{align}
+u_{t,i,s}&=\sum_{\ell,c}k_{g_i,s,\ell}G_{i,s,c}x_{t-\ell,c}, \label{eq:lnln-linear1}\\
+\phi(u)&=\softplus(u)-\log2, \label{eq:lnln-nonlinearity}\\
+\bar\phi_{t,i,s}&=\sum_jM_{ij}\phi(u_{t,j,s}), \label{eq:lnln-share}\\
+z_{t,i}&=b_i+\sum_{s=1}^{S}a_{i,s}\bar\phi_{t,i,s}
++\sum_{k=1}^{4}h_{i,k}y_{t-k,i}. \label{eq:lnln-readout}
+\end{align}
+\purpose{提供“局部线性 filter--非线性 subunit--线性 readout”的结构化非生理参照。}
+\explain{$\phi(0)=0$；shared matrix 使用与主模型相同的 type/polarity/locality identity 约束。Architecture-size 使用 $S=2$、240 参数；active-DoF 采用确定性的最近可行配置 $S=1$、160 参数。}
+\provenance{\LitAdapted{}+\OurOriginal。Retinal nonlinear spatial subunits 有经典证据\cite{HochsteinShapley1976}，LN cascade/retinal encoding 有既有传统\cite{Chichilnisky2001,Pillow2008}；当前 Gaussian bank、共享和 parameter matching 是项目实现。}
+\tracecode{baselines/lnln_subunit.py}
+
+\subsection{Graph--TCN baseline}
+
+Cone graph mixing 后的输入为
+\begin{equation}
+\vect h_t^{(0)}=W^{cone}\vect x_t\vect w_{in}+\vect b_{in}.
+\label{eq:tcn-input}
+\end{equation}
+对 block $a\in\{1,2\}$，dilation $d_1=1,d_2=7$、kernel size $3$：
+\begin{align}
+\vect u_t^{(a)}&=\sum_{r=0}^{2}\vect k_r^{(a)}\odot
+\vect h_{t-d_ar}^{(a-1)}+\vect b_d^{(a)}, \label{eq:tcn-depthwise}\\
+\vect h_t^{(a)}&=\vect h_t^{(a-1)}+
+W_p^{(a)}\GELU(\vect u_t^{(a)})+\vect b_p^{(a)}. \label{eq:tcn-residual}
+\end{align}
+Cell pooling 与 readout 为
+\begin{equation}
+z_{t,i}=b_i+\vect a_i^\top\left(\sum_cP_{ic}\vect h_{t,c}^{(2)}\right)
++\sum_{k=1}^{4}h_{i,k}y_{t-k,i}.
+\label{eq:tcn-readout}
+\end{equation}
+\purpose{比较一个利用图邻域与 causal dilated temporal convolution 的灵活时空模型。}
+\explain{两层感受域为 $1+2(1+7)=17$ bins，覆盖主任务的 16-lag RF。Architecture-size 使用 width $w=5$、270 参数；active-DoF 使用 $w=2$、144 参数。}
+\provenance{\LitAdapted{}+\OurOriginal。图卷积和 causal dilated TCN 的一般思想分别见 Kipf--Welling 与 Bai--Kolter--Koltun\cite{KipfWelling2017,Bai2018}；当前 depthwise/pointwise residual block、图半径和 readout 是项目 baseline。}
+\tracecode{baselines/graph_tcn.py}
+
+\subsection{两种公平性口径}
+
+Architecture-size 距离与 active-DoF 距离分别为
+\begin{align}
+\Delta_{size}(m)&=|P_{total}(m)-264|, \label{eq:size-match}\\
+\Delta_{active}(m)&=|P_{optimized}(m)-136|. \label{eq:active-match}
+\end{align}
+\purpose{避免把主模型 264 个声明可微参数或 136 个 optimizer-listed 参数误称为实际更新自由度。}
+\explain{当前确定性配置是 LN--LN $(240,160)$ 与 Graph--TCN $(270,144)$，括号分别对应 size-matched 与 active-matched。LN--LN 与 Graph--TCN 都使用确定性最近参数数目的控制，不进行 sweep 或按结果选宽度。}
+\provenance{\OurOriginal。}
+\tracecode{evaluation/model_comparison/parameters.py; evaluation/model_comparison/sample_efficiency_profiles.py}
+
+\section{Sample-efficiency 协议的数学约束}
+
+令 training stimulus identity 集合为 $\mathcal S$，固定随机排列为 $\pi$。对 $f\in\{0.25,0.50,1.00\}$，
+\begin{equation}
+\mathcal S_f=\{\pi_1,\ldots,\pi_{\lfloor f|\mathcal S|\rfloor}\},
+\qquad
+\mathcal S_{0.25}\subset\mathcal S_{0.50}\subset\mathcal S_{1.00}.
+\label{eq:nested-subsets}
+\end{equation}
+当前数量为 $28/56/112$ independent training stimuli；validation set 始终为同一 $\mathcal V$ 且
+\begin{equation}
+\mathcal S_f\cap\mathcal V=\varnothing.
+\label{eq:split-disjoint}
+\end{equation}
+\purpose{让 fraction 的变化只改变独立 training stimuli 数量，不改变 validation、RF estimand、bank 或模型间数据 identity。}
+\explain{同一 $f$ 下所有模型、所有公平性配置使用同一 subset；100\% 若 identity 完全一致则复用 canonical result。}
+\provenance{\OurOriginal。}
+\tracecode{evaluation/model_comparison/sample_efficiency_protocol.py}
+
+\section{逐式手工推导与验证清单}
+
+\begin{enumerate}[label=\textbf{V\arabic*.}]
+\item \textbf{图权重：}任选一行复算式 \eqref{eq:distance}--\eqref{eq:graph-row}，确认半径外为零、行和为 $1$。
+\item \textbf{低通：}由式 \eqref{eq:lowpass-rec} 连续展开得到式 \eqref{eq:lowpass-closed}；检查 constant-input limit。
+\item \textbf{因果 history：}替换 $y_t$ 而固定 $y_{<t}$，验证 $z_t$ 不变。
+\item \textbf{support：}对每个 cell 检查 $\chi^{BC}\chi^{AC}=0$，并核对 BC/AC 非空。
+\item \textbf{basis norm：}检查 $\sum_cS_{i,p,s,c}=1$ 与 $\sum_\ell T_{p,r,\ell}^2=1$。
+\item \textbf{polarity：}对同一正 contrast，手算 ON/OFF 的 $\eta_i$ 符号是否相反。
+\item \textbf{共享：}检查式 \eqref{eq:share-support} 的 type/polarity/radius，验证 $M\vect1=\vect1$。
+\item \textbf{AC 符号：}确认 $\omega^A>0$，抑制只来自式 \eqref{eq:ac-currents} 的负号。
+\item \textbf{H1 消融：}在 $a_H$ 变换后施加 exact-zero structural mask，验证 $x^H=x$；令 AC gates 为零，验证总电流只含 BC。
+\item \textbf{RGC 分母：}验证 $D\ge0$、$1+g_DD\ge1$，并检查 $g_D=0$ 的恒等极限。
+\item \textbf{Bernoulli：}分别代入 $r=0,1$，验证式 \eqref{eq:bernoulli-loss} 的两个 softplus 极限。
+\item \textbf{参数审计：}逐张量相加复算 $48+48+16=112$ 和 $32+4+96=132$。
+\item \textbf{动态 RF：}用中心有限差分
+\[
+\frac{z(x+\delta e_{\ell c})-z(x-\delta e_{\ell c})}{2\delta}
+\]
+抽查自动微分的式 \eqref{eq:dynamic-rf}。
+\item \textbf{通路闭合：}复算式 \eqref{eq:pathway-closure}，同时检查每条 $R^m$ 的符号与 norm。
+\item \textbf{identity：}显式构造 $16\times16$ 的式 \eqref{eq:pairwise-cell-cosine}，不要只看对角均值。
+\item \textbf{数据边界：}核对式 \eqref{eq:nested-subsets}--\eqref{eq:split-disjoint}、bank seeds 和 Candidate0/data hashes。
+\end{enumerate}
+
+\section{公式谱系与项目贡献边界}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.31\textwidth}>{\raggedright\arraybackslash}p{0.35\textwidth}}
+\toprule
+模块 & 前人已有或相近部分 & 本项目精确规定 \\
+\midrule
+H1/空间组织 & center--surround、horizontal/lateral interaction\cite{Rodieck1965,CronerKaplan1995,WerblinDowling1969} & 固定 graph、转置回投、低通、bounded effective amplitude、support 半径。\\
+BC/AC & ON/OFF、S/T、nonlinear subunits、lateral inhibition\cite{Cleland1971,HochsteinShapley1976,Roska2000,Roska2006} & 四 pathway、BC/AC 不重叠 partition、basis bank、非负 group weights。\\
+共享约束 & 局部 subunit 与 population RF 建模传统\cite{HochsteinShapley1976,Pillow2008} & 同 type/polarity、半径 $0.08$、row-stochastic feature/kernel 同构混合。\\
+RGC state & adaptation、normalization、history-dependent spiking\cite{ShapleyVictor1978,ChanderChichilnisky2001,Heeger1992,Pillow2005} & 具体 $D/V/A/H$ 状态、更新顺序、时间常数和 logit 组合。\\
+Likelihood/优化 & Bernoulli point-process ML 与 Adam\cite{Paninski2004,Pillow2005,KingmaBa2015} & expected-vs-sampled target、mask、参数组、bank/subset 协议。\\
+RF/机制证据 & input gradient 与标准相似度工具\cite{Simonyan2013} & conditional total-dynamic estimand、两种 pathway 分解、closure、exact-cell 和 mechanism gates。\\
+比较模型 & GLM、LN cascade、GCN、TCN\cite{Pillow2008,KipfWelling2017,Bai2018} & 当前 baseline 的 precise widths/subunits、history、pooling 与双口径 parameter matching。\\
+\bottomrule
+\end{longtable}
+
+\section{实现核对索引}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.42\textwidth}>{\raggedright\arraybackslash}p{0.48\textwidth}}
+\toprule
+当前代码 & 对应公式 \\
+\midrule
+\code{models/mechanistic_retina/contracts.py} & 统一形状、常数与输出字段。\\
+\code{models/mechanistic_retina/state.py} & 式 \eqref{eq:alpha}--\eqref{eq:history-state}。\\
+\code{models/mechanistic_retina/graph.py} & 式 \eqref{eq:distance}--\eqref{eq:graph-row}。\\
+\code{models/mechanistic_retina/support_partition.py} & 式 \eqref{eq:bc-radius}--\eqref{eq:support-masks}。\\
+\code{models/mechanistic_retina/h1_pathway.py} & 式 \eqref{eq:h1-drive}--\eqref{eq:h1-output}。\\
+\code{models/mechanistic_retina/bipolar_subunits.py} & 式 \eqref{eq:spatial-raw}--\eqref{eq:bc-transient}。\\
+\code{models/mechanistic_retina/shared_subunits.py} & 式 \eqref{eq:share-support}--\eqref{eq:kernel-mix}。\\
+\code{models/mechanistic_retina/amacrine_pathways.py} & 式 \eqref{eq:ac-local-drive}--\eqref{eq:ac-currents}。\\
+\code{models/mechanistic_retina/pathway_gates.py} & 式 \eqref{eq:gate-project}--\eqref{eq:structural-clamp}。\\
+\code{models/mechanistic_retina/rgc_state.py} & 式 \eqref{eq:div-state}--\eqref{eq:rgc-prob}。\\
+\code{models/mechanistic_retina/model.py} & 式 \eqref{eq:pipeline}、\eqref{eq:total-current}、\eqref{eq:causal-map}。\\
+\code{training/mechanistic_retina/losses.py} & 式 \eqref{eq:bernoulli-loss}。\\
+\code{training/mechanistic_retina/optimizer.py} & 式 \eqref{eq:param-updated}。\\
+\code{evaluation/candidate0_likelihood_math.py} & 式 \eqref{eq:teacher-drive}--\eqref{eq:teacher-prob}。\\
+\code{evaluation/mechanistic_retina/rf_effective.py} & 式 \eqref{eq:dynamic-rf}。\\
+\code{evaluation/mechanistic_retina/rf_base.py} & 式 \eqref{eq:base-rf}、\eqref{eq:rf-ls}--\eqref{eq:basis-svd}。\\
+\code{evaluation/mechanistic_retina/pathway_decomposition.py} & 式 \eqref{eq:current-sensitivity}--\eqref{eq:pathway-closure}。\\
+\code{evaluation/mechanistic_retina/mechanism_scoring.py} & 式 \eqref{eq:removal-fraction}--\eqref{eq:absence-gates}。\\
+\code{evaluation/model_comparison/} & 式 \eqref{eq:val-ce}--\eqref{eq:nested-subsets}。\\
+\bottomrule
+\end{longtable}
+
+\section{当前科学状态与解释边界}
+
+\begin{enumerate}
+\item 当前架构结论为 \texttt{MECHANISM-IDENTIFIABLE-RETINA-SUPPORTED}；canonical $T=2$ 比较结论为 \texttt{MECHANISTIC-BALANCED-ADVANTAGE}。
+\item H1/AC 机制证据来自独立 held-out probes、结构消融、current/sensitivity 与 false-positive controls；不能把它写成 $T=2$ 静态 benchmark 自身恢复了活跃 H1/AC gates。
+\item 当前证据是 synthetic method validation，不是 macaque biological validation。时间常数、半径和 gates 是可检验先验，不是从真实猕猴数据估计出的生理常数。
+\item $T=2$ 不支持可靠 repeated-validation PSTH，因此当前评价使用 expected CE、sampled NLL、bits/spike 与 RF metrics。
+\item Candidate0 RF SHA-256 为
+\texttt{d21a877e80b70755\allowbreak{}325a0d909f6033c1\allowbreak{}dddb4f35dfb0bb28\allowbreak{}cbf16c16ad422921}；dataset identity 为
+\texttt{c9ebf38760b67657\allowbreak{}6d4269e1eb003b53\allowbreak{}9766a71691ebc766\allowbreak{}5826d9601ae23962}。
+\item Final test 只做 identity 边界确认，未用于 inference metrics、model selection 或 scientific conclusions。
+\end{enumerate}
+
+\clearpage
+\begin{thebibliography}{99}
+
+\bibitem{Rodieck1965}
+R. W. Rodieck.
+Quantitative analysis of cat retinal ganglion cell response to visual stimuli.
+\emph{Vision Research}, 5:583--601, 1965.
+\href{https://doi.org/10.1016/0042-6989(65)90033-7}{doi:10.1016/0042-6989(65)90033-7}.
+
+\bibitem{CronerKaplan1995}
+L. J. Croner and E. Kaplan.
+Receptive fields of P and M ganglion cells across the primate retina.
+\emph{Vision Research}, 35(1):7--24, 1995.
+\href{https://doi.org/10.1016/0042-6989(94)E0066-T}{doi:10.1016/0042-6989(94)E0066-T}.
+
+\bibitem{WerblinDowling1969}
+F. S. Werblin and J. E. Dowling.
+Organization of the retina of the mudpuppy, Necturus maculosus. II. Intracellular recording.
+\emph{Journal of Neurophysiology}, 32(3):339--355, 1969.
+\href{https://doi.org/10.1152/jn.1969.32.3.339}{doi:10.1152/jn.1969.32.3.339}.
+
+\bibitem{Cleland1971}
+B. G. Cleland, M. W. Dubin, and W. R. Levick.
+Sustained and transient neurones in the cat's retina and lateral geniculate nucleus.
+\emph{Journal of Physiology}, 217(2):473--496, 1971.
+\href{https://doi.org/10.1113/jphysiol.1971.sp009581}{doi:10.1113/jphysiol.1971.sp009581}.
+
+\bibitem{HochsteinShapley1976}
+S. Hochstein and R. M. Shapley.
+Linear and nonlinear spatial subunits in Y cat retinal ganglion cells.
+\emph{Journal of Physiology}, 262(2):265--284, 1976.
+\href{https://doi.org/10.1113/jphysiol.1976.sp011595}{doi:10.1113/jphysiol.1976.sp011595}.
+
+\bibitem{Roska2000}
+B. Roska, E. Nemeth, L. Orzo, and F. S. Werblin.
+Three levels of lateral inhibition: A space-time study of the retina of the tiger salamander.
+\emph{Journal of Neuroscience}, 20(5):1941--1951, 2000.
+\href{https://doi.org/10.1523/JNEUROSCI.20-05-01941.2000}{doi:10.1523/JNEUROSCI.20-05-01941.2000}.
+
+\bibitem{Roska2006}
+B. Roska, A. Molnar, and F. S. Werblin.
+Parallel processing in retinal ganglion cells: How integration of space-time patterns of excitation and inhibition form the spiking output.
+\emph{Journal of Neurophysiology}, 95(6):3810--3822, 2006.
+\href{https://doi.org/10.1152/jn.00113.2006}{doi:10.1152/jn.00113.2006}.
+
+\bibitem{ShapleyVictor1978}
+R. M. Shapley and J. D. Victor.
+The effect of contrast on the transfer properties of cat retinal ganglion cells.
+\emph{Journal of Physiology}, 285:275--298, 1978.
+\href{https://doi.org/10.1113/jphysiol.1978.sp012571}{doi:10.1113/jphysiol.1978.sp012571}.
+
+\bibitem{ChanderChichilnisky2001}
+D. Chander and E. J. Chichilnisky.
+Adaptation to temporal contrast in primate and salamander retina.
+\emph{Journal of Neuroscience}, 21(24):9904--9916, 2001.
+\href{https://doi.org/10.1523/JNEUROSCI.21-24-09904.2001}{doi:10.1523/JNEUROSCI.21-24-09904.2001}.
+
+\bibitem{Heeger1992}
+D. J. Heeger.
+Normalization of cell responses in cat striate cortex.
+\emph{Visual Neuroscience}, 9(2):181--197, 1992.
+\href{https://doi.org/10.1017/S0952523800009640}{doi:10.1017/S0952523800009640}.
+
+\bibitem{Chichilnisky2001}
+E. J. Chichilnisky.
+A simple white noise analysis of neuronal light responses.
+\emph{Network: Computation in Neural Systems}, 12(2):199--213, 2001.
+\href{https://doi.org/10.1080/713663221}{doi:10.1080/713663221}.
+
+\bibitem{Dugas2000}
+C. Dugas, Y. Bengio, F. B\'elisle, C. Nadeau, and R. Garcia.
+Incorporating second-order functional knowledge for better option pricing.
+\emph{Advances in Neural Information Processing Systems 13}, 2000.
+\href{https://proceedings.neurips.cc/paper/2000/hash/44968aece94f667e4095002d140b5896-Abstract.html}{NeurIPS proceedings}.
+
+\bibitem{Paninski2004}
+L. Paninski.
+Maximum likelihood estimation of cascade point-process neural encoding models.
+\emph{Network: Computation in Neural Systems}, 15(4):243--262, 2004.
+\href{https://doi.org/10.1088/0954-898X/15/4/002}{doi:10.1088/0954-898X/15/4/002}.
+
+\bibitem{Pillow2005}
+J. W. Pillow, L. Paninski, V. J. Uzzell, E. P. Simoncelli, and E. J. Chichilnisky.
+Prediction and decoding of retinal ganglion cell responses with a probabilistic spiking model.
+\emph{Journal of Neuroscience}, 25(47):11003--11013, 2005.
+\href{https://doi.org/10.1523/JNEUROSCI.3305-05.2005}{doi:10.1523/JNEUROSCI.3305-05.2005}.
+
+\bibitem{Pillow2008}
+J. W. Pillow, J. Shlens, L. Paninski, A. Sher, A. M. Litke, E. J. Chichilnisky, and E. P. Simoncelli.
+Spatio-temporal correlations and visual signalling in a complete neuronal population.
+\emph{Nature}, 454:995--999, 2008.
+\href{https://doi.org/10.1038/nature07140}{doi:10.1038/nature07140}.
+
+\bibitem{Simonyan2013}
+K. Simonyan, A. Vedaldi, and A. Zisserman.
+Deep inside convolutional networks: Visualising image classification models and saliency maps.
+\emph{arXiv:1312.6034}, 2013.
+\href{https://doi.org/10.48550/arXiv.1312.6034}{doi:10.48550/arXiv.1312.6034}.
+
+\bibitem{KingmaBa2015}
+D. P. Kingma and J. Ba.
+Adam: A method for stochastic optimization.
+\emph{International Conference on Learning Representations}, 2015.
+\href{https://doi.org/10.48550/arXiv.1412.6980}{doi:10.48550/arXiv.1412.6980}.
+
+\bibitem{KipfWelling2017}
+T. N. Kipf and M. Welling.
+Semi-supervised classification with graph convolutional networks.
+\emph{International Conference on Learning Representations}, 2017.
+\href{https://doi.org/10.48550/arXiv.1609.02907}{doi:10.48550/arXiv.1609.02907}.
+
+\bibitem{Bai2018}
+S. Bai, J. Z. Kolter, and V. Koltun.
+An empirical evaluation of generic convolutional and recurrent networks for sequence modeling.
+\emph{arXiv:1803.01271}, 2018.
+\href{https://doi.org/10.48550/arXiv.1803.01271}{doi:10.48550/arXiv.1803.01271}.
+
+\end{thebibliography}
+
+\end{document}

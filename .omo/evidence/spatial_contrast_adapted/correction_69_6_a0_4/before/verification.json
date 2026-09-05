@@ -1,0 +1,47 @@
+{
+  "status": "STOP_INIT_CONTRACT_MISMATCH",
+  "implementation_current_tests": "8 passed (after correcting initializer scope)",
+  "compile_import": "PASS",
+  "scoped_rules_check": "no violations in 4 non-vendored files",
+  "executed_run": {
+    "cells": 22,
+    "fits": 44,
+    "restarts": 0,
+    "all_endpoints_finite": true,
+    "optimizer_success_count": 44,
+    "relative_objective_stops": 39,
+    "projected_gradient_stops": 5
+  },
+  "frozen_contract": {
+    "filter_recovery": "PASS 22/22",
+    "center_activation": "PASS 22/22",
+    "same_data_split_target_mask": "PASS 22/22",
+    "fit_only_zscore": "PASS",
+    "no_history_smoothing": "PASS",
+    "official_function_bodies": "PASS",
+    "official_initialization": "FAIL for 69#6 only; both models a0=3 instead of4",
+    "full_benchmark_accepted": false
+  },
+  "post_run_correction": {
+    "code": "baselines/spatial_contrast_adapted.py: FittingData.maximum_count now uses counts.max() over entire training response",
+    "test": "test_given_fit_mask_when_standardizing_then_only_fitting_bins_are_used includes unmasked initializer max",
+    "rerun": false
+  },
+  "review": {
+    "goal_contract": "FAIL execution initializer; current code corrected, no rerun",
+    "qa": "PASS saved probabilities/NLL/means exact; optimizer convergence not asserted",
+    "code": "PASS computations; initializer discrepancy recorded",
+    "security": "PASS scoped",
+    "source_provenance": "PASS official function bodies/center transfer; initializer difference recorded"
+  },
+  "numerical_warning": "69#21 matched_w0 official softplus overflow/invalid derivative during line search, endpoint finite; no mitigation/restart",
+  "evidence": [
+    "summary.md",
+    "results.json",
+    "per_cell.csv",
+    "group_summary.csv",
+    "initialization_count_check.json",
+    "output_verification.json",
+    "preflight.json"
+  ]
+}

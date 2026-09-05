@@ -1,0 +1,12 @@
+{
+  "python": "3.11.15 | packaged by conda-forge | (main, Mar  5 2026, 16:36:00) [MSC v.1944 64 bit (AMD64)]",
+  "torch": "2.10.0+cu126",
+  "numpy": "1.26.4",
+  "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+  "dtype": "float32",
+  "amp": false,
+  "tf32": false,
+  "deterministic_algorithms": true,
+  "cudnn_benchmark": false,
+  "preflight_sha256": "3c4c01d3f8288ad72208575b8b603c4c8b7bfd047d5ff3e668b023a624a6ff1b"
+}

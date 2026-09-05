@@ -1,0 +1,7 @@
+{
+  "canonical_config_path": "configs/model_comparison_t2.yaml",
+  "output_dir": ".omo/evidence/sample-efficiency-active-dof-t2",
+  "run_dir": "runs/sample_efficiency_active_dof_t2",
+  "selection_seed": 19,
+  "fractions": [0.25, 0.5, 1.0]
+}

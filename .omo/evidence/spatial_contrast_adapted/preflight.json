@@ -1,0 +1,632 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "cell_id": "67#4",
+      "train": {
+        "center_activation_double_max_abs_error": 1.7763568394002505e-15,
+        "center_activation_native_max_abs_error": 1.6166362399872014e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 1.3322676295501878e-15,
+        "center_activation_native_max_abs_error": 6.915220251979548e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "8f18c7351ee07fe4b4f0efbaba92a2ecb9ba70b28a46340fbf9fcb163297d93c",
+      "train_target_sha256": "4814e4cf3c5f0e56df8164f8e8114ceb7d192ba51dfd14a4f9d34fa1f36f53d5",
+      "train_mask_sha256": "190571e9c4f51c3205a6dbbf1290cb4a994a9880a18266739ca95ce3b5d5dcfe",
+      "validation_input_sha256": "9b75b4b14c9aa92f351a1153b53d8bbc8b2c9778d5f57bcf4dfd42660d7d9066",
+      "validation_target_sha256": "5443a330aa4dc12d19d22d67c18f0d620baf5e371256a9f11ef079e7feed6885",
+      "validation_mask_sha256": "c9e5ce6beb6a9a8ec9301bd6753fde49897a099d46b362d9a1cd96614f8ea02c"
+    },
+    {
+      "cell_id": "67#6",
+      "train": {
+        "center_activation_double_max_abs_error": 2.6645352591003757e-15,
+        "center_activation_native_max_abs_error": 1.5970431133105478e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 1.7763568394002505e-15,
+        "center_activation_native_max_abs_error": 9.56226013926198e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "b413393aaf2497cc33c59b9c5de02f3df0aba776e34986e53358db1b33e60432",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "810e0813f18a1c33d1154d250a1124c08590b80f80fba9374b446edec86d8ed7",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "67#7",
+      "train": {
+        "center_activation_double_max_abs_error": 5.329070518200751e-15,
+        "center_activation_native_max_abs_error": 1.8984168610458596e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 5.329070518200751e-15,
+        "center_activation_native_max_abs_error": 9.109757539427221e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "ef67e55cc03fbe555e9e2ff832d3e2fd7898475ec2f4d65ab4033690b889e299",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "c27d388e55a625da9d9fa73267907109677c14c0e796f2e7dd182a65916ac917",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "67#14",
+      "train": {
+        "center_activation_double_max_abs_error": 3.9968028886505635e-15,
+        "center_activation_native_max_abs_error": 2.245645779552774e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 2.6645352591003757e-15,
+        "center_activation_native_max_abs_error": 1.1017775634059035e-06
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "61eedaf81bac839439bcb13b49a70fa841333c0167a08d6f2ef0797dd5b87371",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "d235ac7ca0514740b19a425d6ca73f1b4638c6762e6710e0ec6def4bba512187",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "67#21",
+      "train": {
+        "center_activation_double_max_abs_error": 2.6645352591003757e-15,
+        "center_activation_native_max_abs_error": 1.2518040732600877e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 1.3322676295501878e-15,
+        "center_activation_native_max_abs_error": 9.023795026763537e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "5cc802073b21b0d7a91dd40d94099043343543e6713a4adb0434538978dcbe5b",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "2624fb31a751fdce51fb692fbfa328c1a315a8036ce4ec4f7b66065dddaf8645",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "67#26",
+      "train": {
+        "center_activation_double_max_abs_error": 2.6645352591003757e-15,
+        "center_activation_native_max_abs_error": 1.255449866066627e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 1.3322676295501878e-15,
+        "center_activation_native_max_abs_error": 8.011290040244035e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "d51884964f8911f31604aba745f3c2162b27641b002f5483a0b11ce8b53a9b22",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "170422c77bd3a00fdd589694bc3f9d1f53fbf9b9fb1fdeb43dcc408705fc3d7e",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "67#33",
+      "train": {
+        "center_activation_double_max_abs_error": 3.552713678800501e-15,
+        "center_activation_native_max_abs_error": 1.4787109048342018e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 1.7763568394002505e-15,
+        "center_activation_native_max_abs_error": 8.849748267536484e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "064bcd6aa26c4bb5b5c5f321819af51f7ad7b15f24909ecd0ee764417724ca66",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "480ce7549e822b6625783610cdcd507f0090b39ce1d88cdad34e652a23c6b256",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "67#34",
+      "train": {
+        "center_activation_double_max_abs_error": 3.552713678800501e-15,
+        "center_activation_native_max_abs_error": 1.1665336714372643e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 2.6645352591003757e-15,
+        "center_activation_native_max_abs_error": 1.36860196331412e-06
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "ec7799b5647cc49590d321fbb598c3a974efb53b3562da1c5424f6c8206bf37f",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "18b885ca4c6f1a0f749508f4e2751f12b2e301af5b73e505cc8cd1b3bfcde846",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "68#3",
+      "train": {
+        "center_activation_double_max_abs_error": 2.6645352591003757e-15,
+        "center_activation_native_max_abs_error": 2.503729258584997e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 1.7763568394002505e-15,
+        "center_activation_native_max_abs_error": 4.781565221545492e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "aa91c400672a762d98fd490c35525f14ebbc40db51c44caa50d5fbc89570f41d",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "31c4316a24cf73e29d994ee6d7eaf9ada67fe4a577ec5599c3c97c38d985dc0e",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "68#4",
+      "train": {
+        "center_activation_double_max_abs_error": 2.6645352591003757e-15,
+        "center_activation_native_max_abs_error": 1.2553876196363944e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 2.6645352591003757e-15,
+        "center_activation_native_max_abs_error": 1.3207092415257193e-06
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "01edf67e8de23751f6d46d14216252debfcde64960e6439c2e39bf8b6dcf2593",
+      "train_target_sha256": "3603eacf23326c7fe66068c645e24e4c697d6e18b32412878c871e060876d37d",
+      "train_mask_sha256": "38ad459f24e37e319d370bc39a59c67fca417d72417aad614d2fbe42b531e668",
+      "validation_input_sha256": "496487de750889903350256819640c14370a98887543f6d92e509cea2f9eedfa",
+      "validation_target_sha256": "afb396338b87888421d33e3bf14f9009f6d54e6e45fb8c0b0b60ec8641a3a7c5",
+      "validation_mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a"
+    },
+    {
+      "cell_id": "68#7",
+      "train": {
+        "center_activation_double_max_abs_error": 3.552713678800501e-15,
+        "center_activation_native_max_abs_error": 1.3920336137118738e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 2.6645352591003757e-15,
+        "center_activation_native_max_abs_error": 5.713189015210673e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "6c99d0b09c9b4575d6ed0c5c7fb8b51b44b956b5997109e885f55dcc2200593c",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "d63b18777af69817b88413affc7348fca31b47fac33d19daccfcd406855ab2c8",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "68#10",
+      "train": {
+        "center_activation_double_max_abs_error": 5.329070518200751e-15,
+        "center_activation_native_max_abs_error": 1.6110971969851562e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 2.6645352591003757e-15,
+        "center_activation_native_max_abs_error": 9.68050689387212e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "8f18c7351ee07fe4b4f0efbaba92a2ecb9ba70b28a46340fbf9fcb163297d93c",
+      "train_target_sha256": "02285c3dc43a16488d211ed4ab706b1e9062fcd9a428aa18134cee80d9ac250c",
+      "train_mask_sha256": "190571e9c4f51c3205a6dbbf1290cb4a994a9880a18266739ca95ce3b5d5dcfe",
+      "validation_input_sha256": "9b75b4b14c9aa92f351a1153b53d8bbc8b2c9778d5f57bcf4dfd42660d7d9066",
+      "validation_target_sha256": "ffde42ff092b54b02a067a1ec50bd6393593af8b529695fd2d5f28a765888504",
+      "validation_mask_sha256": "c9e5ce6beb6a9a8ec9301bd6753fde49897a099d46b362d9a1cd96614f8ea02c"
+    },
+    {
+      "cell_id": "68#11",
+      "train": {
+        "center_activation_double_max_abs_error": 2.6645352591003757e-15,
+        "center_activation_native_max_abs_error": 1.2273677683083406e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 1.7763568394002505e-15,
+        "center_activation_native_max_abs_error": 8.50372642968722e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "00560146ee26060e6f337912318670d1a0383a7f0501359cdd96307e900ecdb5",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "d361bc1c6178b4b9324df6d2eef21c938b33a2462b4bbf85a9e73d6386b5a36b",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "69#3",
+      "train": {
+        "center_activation_double_max_abs_error": 2.6645352591003757e-15,
+        "center_activation_native_max_abs_error": 9.10948902976827e-07
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 1.3322676295501878e-15,
+        "center_activation_native_max_abs_error": 4.2024507318494386e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "71e3bbf0ce47e7cf3b2eb8dc859175608606c7e9a97fbae75de0202ef8e7659b",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "a11f3bd7efc15e7a4e08affba6f34c528e9996ee551a793bfc6388118c1e7cf4",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "69#4",
+      "train": {
+        "center_activation_double_max_abs_error": 5.329070518200751e-15,
+        "center_activation_native_max_abs_error": 2.5154888678713405e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 3.552713678800501e-15,
+        "center_activation_native_max_abs_error": 1.2587329720759044e-06
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "01edf67e8de23751f6d46d14216252debfcde64960e6439c2e39bf8b6dcf2593",
+      "train_target_sha256": "3d57c5b303d169001ed307b7387c8288f74900436fcaef012569d19aa2c4ea58",
+      "train_mask_sha256": "38ad459f24e37e319d370bc39a59c67fca417d72417aad614d2fbe42b531e668",
+      "validation_input_sha256": "496487de750889903350256819640c14370a98887543f6d92e509cea2f9eedfa",
+      "validation_target_sha256": "49426b5c093ef4357d83093b13127e45e150941b28b6e5404586b20f284acb83",
+      "validation_mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a"
+    },
+    {
+      "cell_id": "69#6",
+      "train": {
+        "center_activation_double_max_abs_error": 2.220446049250313e-15,
+        "center_activation_native_max_abs_error": 1.6065351600147437e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 1.7763568394002505e-15,
+        "center_activation_native_max_abs_error": 5.639691458281249e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "ac1ef6f5b63d1a9019c35fccd235492291f7245965affd6e7a256c66a6aff885",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "283513195757ecdd6aafb949c089e2f3543d4e37a3561047405850675422b283",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "69#7",
+      "train": {
+        "center_activation_double_max_abs_error": 7.105427357601002e-15,
+        "center_activation_native_max_abs_error": 2.5678937678463853e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 3.552713678800501e-15,
+        "center_activation_native_max_abs_error": 1.5914121114235513e-06
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "300ce21f186c5ca73c5acc7eed867dd3d0bb604cb824c309679b63279c059938",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "432848c29c017321319950b0f6bc183b9077ab3ca7a93bcab528c0bb4ba6fdf5",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "69#21",
+      "train": {
+        "center_activation_double_max_abs_error": 1.5543122344752192e-15,
+        "center_activation_native_max_abs_error": 5.804571314715901e-07
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 1.1102230246251565e-15,
+        "center_activation_native_max_abs_error": 5.316959865719895e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "01edf67e8de23751f6d46d14216252debfcde64960e6439c2e39bf8b6dcf2593",
+      "train_target_sha256": "28c9214472f2f959d63e88558ba6a9f8e9388e77c7f059f5918a77ddbc1abeb1",
+      "train_mask_sha256": "38ad459f24e37e319d370bc39a59c67fca417d72417aad614d2fbe42b531e668",
+      "validation_input_sha256": "496487de750889903350256819640c14370a98887543f6d92e509cea2f9eedfa",
+      "validation_target_sha256": "d7c8980a75cc83aea1e9d5d047ba5831390fcb3cc3d54b8830539d7401c2c4e1",
+      "validation_mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a"
+    },
+    {
+      "cell_id": "70#1",
+      "train": {
+        "center_activation_double_max_abs_error": 1.7763568394002505e-15,
+        "center_activation_native_max_abs_error": 1.1640681645275208e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 1.7763568394002505e-15,
+        "center_activation_native_max_abs_error": 6.245815455940829e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "01edf67e8de23751f6d46d14216252debfcde64960e6439c2e39bf8b6dcf2593",
+      "train_target_sha256": "3aaca44bf63795e267f0c51cd66f72fe260798f62e44da1b94954f0e02b8f813",
+      "train_mask_sha256": "38ad459f24e37e319d370bc39a59c67fca417d72417aad614d2fbe42b531e668",
+      "validation_input_sha256": "496487de750889903350256819640c14370a98887543f6d92e509cea2f9eedfa",
+      "validation_target_sha256": "0a6ecf9de7e8d53c2a370ec3fae57974d9c091db8fbddef5695eb4a819f88a73",
+      "validation_mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a"
+    },
+    {
+      "cell_id": "70#7",
+      "train": {
+        "center_activation_double_max_abs_error": 3.552713678800501e-15,
+        "center_activation_native_max_abs_error": 1.1636669015047119e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 1.3322676295501878e-15,
+        "center_activation_native_max_abs_error": 6.918620494289485e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "28faa41c5507354ab857433c52dfc519312f5a829cd4e7a2976d6db55c998cc2",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "7a71cb92343aa0a0ad4e094ebf528e9497aab714eaeeb2140ee944e8fd852c6d",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    },
+    {
+      "cell_id": "70#15",
+      "train": {
+        "center_activation_double_max_abs_error": 1.7763568394002505e-15,
+        "center_activation_native_max_abs_error": 9.638215997531674e-07
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 1.7763568394002505e-15,
+        "center_activation_native_max_abs_error": 9.659479456303188e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "01edf67e8de23751f6d46d14216252debfcde64960e6439c2e39bf8b6dcf2593",
+      "train_target_sha256": "f99d4f5704ec58593d1552a2118b8b8f7bc33050a975eb763ddc8dca14db8b9d",
+      "train_mask_sha256": "38ad459f24e37e319d370bc39a59c67fca417d72417aad614d2fbe42b531e668",
+      "validation_input_sha256": "496487de750889903350256819640c14370a98887543f6d92e509cea2f9eedfa",
+      "validation_target_sha256": "16a0c5a59b82939d0400cee6c4b66be21eb46b4557e7f13d593805c0b01d3f7c",
+      "validation_mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a"
+    },
+    {
+      "cell_id": "70#34",
+      "train": {
+        "center_activation_double_max_abs_error": 6.217248937900877e-15,
+        "center_activation_native_max_abs_error": 2.1265034059192445e-06
+      },
+      "validation": {
+        "center_activation_double_max_abs_error": 3.552713678800501e-15,
+        "center_activation_native_max_abs_error": 9.954433046743816e-07
+      },
+      "target_mask_and_order_exact": true,
+      "center_state_recovered_exactly": true,
+      "full_ln_replay_max_abs_error": 0.0,
+      "train_input_sha256": "cd5eabe33543489a4599a7ab0add4b9342864a69d6d5ba9ff83c79df296f9b6a",
+      "train_target_sha256": "af22e2ed49cf005dc4818a018876bd4e893e9e72b3f1e170786e8eaf13f56b94",
+      "train_mask_sha256": "d3af11c33534f2158979746816b438ca50d64680ba2887ade811469339dc7ebf",
+      "validation_input_sha256": "736cf9849d9de5a4f351103905a79d3a93b9a752f97381d4175f82d2c28a7473",
+      "validation_target_sha256": "98933a5a8b3f57c606fab61927c5aceb4d6787a87b0c4acae056193a64f0be63",
+      "validation_mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a"
+    }
+  ],
+  "contract": {
+    "model_name": "SC-adapted; not faithful original SC",
+    "n_cells": 22,
+    "n_recordings": 37,
+    "official_commit": "76b733421cc16131c2229e66a7714d8892de39d7",
+    "official_smoothing": null,
+    "spike_history": false,
+    "new_filter_training": false,
+    "new_hyperparameter_search": false,
+    "restarts": 0,
+    "fitting_split": "complete original training split, original valid bins only",
+    "selection": "inherit final center-surround LN training-only selected/refitted center; no further selection",
+    "zscore": "mean/std(ddof=0) of full-train fitting-mask Imean/LSC only, counting each trial/bin once",
+    "initialization": "[max(fitting raw counts), -2, 1, 0]; matched control omits the fixed last zero",
+    "bounds": "a >= 0; b,w1,w2 unbounded; matched control w2=0 fixed",
+    "optimizer": "scipy.optimize.minimize L-BFGS-B; official defaults, options=None; analytic chain gradient",
+    "objective": "sum Bernoulli NLL / sum fitting binary events, preserving official response-sum normalization",
+    "reported_nll": "sum Bernoulli NLL / number of valid bins; population/group equal-cell mean",
+    "link": "lambda=official a*log(1+exp(b+w1*Z(Imean)+w2*Z(LSC))); p=-expm1(-lambda)",
+    "filter_transfer": "spatial=LN amplitude*Gaussian evaluated in native float32; official_temporal=LN unit temporal*sum(spatial); no sign flip",
+    "reset": "59 zero prepadding bins per native 150-bin sequence; score indices 30..149 unchanged",
+    "parameter_accounting": {
+      "source_ln_raw": 128,
+      "inherited_center_raw": 64,
+      "inherited_center_effective": 63,
+      "sc_new_fitted": 4,
+      "control_new_fitted": 3,
+      "sc_total_raw": 68,
+      "control_total_raw": 67,
+      "sc_effective_dimensions": 67,
+      "control_effective_dimensions": 66,
+      "zscore_statistics": "4 fixed fitting-only statistics; not trainable parameters"
+    },
+    "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+    "torch": "2.6.0+cpu",
+    "numpy": "2.2.6",
+    "scipy": "1.17.1",
+    "git_head": "7dc00b1e9f2902186891a97c022e5d04fab6d1d4",
+    "git_status": " M .gitignore\n M README.md\n M configs/experiment.yaml\n M configs/synthetic_smoke.yaml\n M docs/architecture.md\n M docs/parameter_evidence_human_macaque_v1.md\n M evaluation/parameter_audit.py\n M models/cells/bipolar_types.py\n M models/cells/temporal.py\n M models/cells/typed_rgc.py\n M models/response_snn.py\n M report/retina_snn_progress_report_ja_2026-07-26.pdf\n M report/retina_snn_progress_report_ja_2026-07-26.tex\n D \"report/\\344\\270\\255\\351\\226\\223\\345\\240\\261\\345\\221\\212.pdf\"\n M \"report/\\344\\270\\255\\351\\226\\223\\345\\240\\261\\345\\221\\212.tex\"\n M requirements.txt\n M scripts/run_experiment.py\n M tests/test_response_checkpoint_lineage.py\n M tests/test_response_training_contract.py\n M tests/test_typed_rgc_population.py\n M training/response_checkpointing.py\n M training/response_config.py\n M training/response_trainer.py\n"
+  },
+  "source_sha256": {
+    "D:\\PythonProject\\retina_rf_SNN\\data\\retinal_recording.py": "a05bf2f3cb094f26491ae0284f62d863e55956ee6792c0a8d6cbec1dee855c75",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\schottdorf_lee_2021.py": "ae07cb57443ce95fcef2208060638c1cc12168ec9e1a1f3f9e58c82e24ddf764",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\schottdorf_lee_catalog.py": "3d1ca53ab11f57f98f452e95af96b51651510e289bf2aef14cff109b9b52a513",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\schottdorf_lee_multirecording.py": "3b6b1ae2ddb2c35d1c9ae133017ff5016b79960d56a194f1722b0079ec1716db",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\schottdorf_lee_spikes.py": "04993cd009000dab362c352530e5a68d5dfda39403785e25aa6a53dcd9c2b6d4",
+    "D:\\PythonProject\\retina_rf_SNN\\training\\mechanistic_retina\\r4_development.py": "1bf301b0684a87ad714e51e3ccc886db9ff4b7fe277b2ffacfac60bb69b637ba",
+    "D:\\PythonProject\\retina_rf_SNN\\training\\mechanistic_retina\\losses.py": "6e26f7b0ac7d08b681d2b4a291e457d8159e170afc41c6b39aba4166fb9cc91a",
+    "D:\\PythonProject\\retina_rf_SNN\\training\\mechanistic_retina\\real_sampled.py": "91ee5abc3c6afb204c6142f52cb3675045e7e2b4e19be8760b7581bd29513d20",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_macaque\\1x10_256.mpg": "328e229e160eab35028f063468cc2e167045fc8c9fcdbe4a8e7823142a752a67",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01071.txt": "b912e43cb384d511a364de6ac216225664fcc0f76b209fb83d938547496fff56",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01078.txt": "8ea079af74184c5b699a55452ab689947b37ca56accc3cd3110eceb36fe76fa5",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01079.txt": "b5c9c293f7c6a7457319c482b23a42b52560256c0e2a8e97304f506ac4b32a9a",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01086.txt": "6a0b1802d861a71b17188feb938b6860100fc84bb818109212a9abfa28d46139",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01087.txt": "b14ae8121e35329a00ffeb3964f433ad753e8bb092427b30c062bfe715b011b8",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01110.txt": "a26245459dd0af5422c3e2e4075d02b787943734aa80432246802b8efa07270a",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01112.txt": "2f235ecdb35fef636dee5644cb956f20f416db86482b5fc2e3ab607ab84f8e08",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01130.txt": "8aa1e7cd3e84de3728485173d7fd40fe23f4c1ef47a32b18e9028a2567a0e4cc",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01131.txt": "88d200c534da7179f47611feb976716a46eaa349f26a1f1200e377dcbed9e727",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01141.txt": "a72d545a2c71eac7f14d4fad5408629076566d1e3b94f43a1fc63763d473b914",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01142.txt": "4aebc3b4e76eff4b58f85b2227c33a2e0b7a2cc7435e739509bed197ebbfdc74",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01159.txt": "28b5a076d39ad1bba8a71f3d9d6f5732882229eb4b21fdf5e02f7f1a54e5aae6",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01160.txt": "74e5456b5d65c45d4c5c99f1d962c390b6f63c4a11ea83391cb744ee2f4350a5",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01167.txt": "f530368663d7869b757211daf26ac0b239bcc51fb85c0d69c775471d94cdb6bf",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01168.txt": "3124a9a8003a1eac28495a817d385e7aca74a8d0daed8a29a9b14bdd85e50add",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01181.txt": "5f63376c7b52f9e4aea3a60488ef81caeb6d0b8fc4361b0c7cf8969bdb6e3404",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01183.txt": "834cd5c12c8f734ffe6c073579a52f46f608dec04be96b93ef2cb378cc3222ab",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01184.txt": "e6f873105275ba94c9bdb48447651e93d9ec77eb5f107bf3ef9a176946bc3710",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01194.txt": "f7ff1b87e8bc0220d1c875e8b738957733fff6d41c524c5517d075b4be054e3f",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01196.txt": "2a314def8f0b1b3db16ec4928f4317ccc1f9bbbfdf59241dc545110215da83b1",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01221.txt": "7a892d39d3decf76d50705175ca5ed31ae8141b4a859deedfec1e115d8f35e53",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01225.txt": "77b8590967d4c87443f9a2051cc615e96c3d789aa88d6159e4ea0dc1d1ed6a4c",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01227.txt": "f968087b85a4584a9c75e8d8a24c8da5e8a724b856aa1cc14f06131998026b99",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01251.txt": "7accbb5ca931a6dab0a0abc31d3fa26c2e7c64f0a282bc6199d93196cdd9464b",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01252.txt": "15124cd47349640fe0a9b0436cce5a4ca57d9dbfc552d8d334c723aac0d4fc71",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01254.txt": "4069314bcafe9a28f8e329bb4d72f77773ebc0d5523c4e1a355cc09ea89bdf12",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01256.txt": "74790a90e633d2f76ab35e58937d3ea60c56587bff1050061d3cc150c99dbf68",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01257.txt": "56f59ff3df7839be095d5d6329a27e771b5fe8f0ee5d3b4169f43bb3ad2cf2e0",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01258.txt": "926b3ef523f3dd10bab6e003bd47645f5b4065c960eb1353d3d5b1fed3c6fb16",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01259.txt": "ff52fe98da0b5e734ee5cb20e9664be30fc1a1125957c49f1d4bbcbf63682c61",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01270.txt": "f63f15687683b0d53365e57304ea91649279eaef92a978a1c91f03ca227d6b46",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01278.txt": "86f4dff94fa25c167d0515090a2902a992c9db1944734980a6dbc0d8a014ac86",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01284.txt": "29d57670e3f9e33143d46770d5caf6410cfae6e4a1407497fdfe1be946635112",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01285.txt": "ded8786133475525b9e7bdcd3999e0c8c108437715bb92d96ec4abde3f374f29",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01287.txt": "a983945596e5b67a4752700ce6dd573211d6da5d9e7d1e8e19456243db740d4c",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01299.txt": "f26bdf244b693b5dff575392e2a886878f3ad677baaed185b500db12ad17005b",
+    "D:\\PythonProject\\retina_rf_SNN\\data\\real\\schottdorf_lee_2021_repository\\data\\lSS01300.txt": "ade77687b9c32bf2ad6d80bb92a1dc29617fb860a643b770e793c43282c2afe6",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\results.json": "8df815f65905d2b50a4a5b00a387497148eb8daf00d1959650d1a52070223373",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\run-manifest.json": "95d90b6adde1ece46882012985946bc0f59168699509ca09751cae94261703e3",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\results.json": "e4836ce5ba8d452d4d0f2153445763d0cbf97734726a666063d1ba215ad2dda9",
+    "D:\\PythonProject\\retina_rf_SNN\\baselines\\center_surround_ln.py": "3b8a32f61a272d05f36f8c3ff2a3c4d428d5a8674ea840339927d0ad44364ddd",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_4\\ln-trained.pt": "340a5214b33a3135eabf234a076fda7744ee50f832f066713956e4eea0e4bb63",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\results.json": "57612eef913970c67bc5e86468d676375784ab11b79f5186af036863382cd1be",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_4\\model-trained.pt": "eb7e12ce64f8b3c1697336a31ca412742bab1522a91ce8f1a59a939baf414558",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_4\\validation-predictions.pt": "0aa8b3209b54145b66e393714bf1ad5c559347fda0d17c7a70c9aeb9c9482ce4",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_4\\validation-predictions.pt": "cbd444c26e98f05813b10093bd2811a01f0e667d5426cd5370179406e98b36a6",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_6\\ln-trained.pt": "8c001a97989696651f314c1970b024eee8f188526b79b7cb85b8d6728722a014",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_6\\model-trained.pt": "92c42f628914007c5a5ffedc6dd1d6122360334e292938f52b44176a6b98e3c2",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_6\\validation-predictions.pt": "761c2eb958eb7e80aa31c251bc660fa307779a2b525ea213b0e7304c1d08731e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_6\\validation-predictions.pt": "7f81db480ab458a64f6df50ee268f897e26f87cc96e6e44d72a98c069d59aac0",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_7\\ln-trained.pt": "9574ed9c694567a308fa70ac2848ec34ad81732f921677f72c80234cf64ba02a",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_7\\model-trained.pt": "6f2310d8f8345eafaab1442135ed20ff0b14b9ce5824c5d2c794efd33ba6aa6b",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_7\\validation-predictions.pt": "7ead852359810c27315006607ed1365b46457c5bc4296a815fe8490978f88535",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_7\\validation-predictions.pt": "9b70b28fe218f7b3ad09e6ecb014e4e7a44ae38f40571ae2504f4bb23f3580a5",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_14\\ln-trained.pt": "3ad6fb22061de698c814643cf91c2af1e54ebb4eefe9321370af2930d5988419",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_14\\model-trained.pt": "f247bb3ee61b4d40e935e8999a7c49880d5b6c9d2c31b1c82002363218756fc6",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_14\\validation-predictions.pt": "97eac4776eb7012ac9876ae42fa83d6bf936a490654621d555c74d0cf29db224",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_14\\validation-predictions.pt": "f7fdce6b2239751cdef9ce039d4397fa7d7fe41c6ff7a48e9a01e446c9e1ce0b",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_21\\ln-trained.pt": "d06d5daaabe0a6de3fe44ad21d0902ab9103d461a0f8dc10e43103498fc54876",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_21\\model-trained.pt": "2b6f0a0100564ffa5979eba51fa2d50dc5c36941826dbef0e68b9a56b8d3f7cd",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_21\\validation-predictions.pt": "ef2a39416793fbd4263380b69bcb3ce024f30c3d9a3f5cf6d058050ba3fe2855",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_21\\validation-predictions.pt": "35747da77b115ccd9353da5c08d1faed6fe9f902c5aae021dcc0a736922cbf26",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_26\\ln-trained.pt": "3925fe635ee84d0b2dc72a20a1484ba296881b937f7143b557187d9f53b09869",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_26\\model-trained.pt": "b0be15f47a2e188944d18b4f22daad8e636d45de4eb65adcb40f0618139c7646",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_26\\validation-predictions.pt": "4d3d6e08c63f24c5b2f7c4d0697f530a430533b4b98cfb57d27aa40b6ea68cfb",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_26\\validation-predictions.pt": "ed3ec3db37e07552955e11238b2b459cf80d650a80355f13fd398e38e2cfc48b",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_33\\ln-trained.pt": "2214095516353e591e483d020a0c7726a1c3fdba30199738479487fa1d2c06f4",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_33\\model-trained.pt": "97d27b24a0f83e962e80a2ffd7c6a0a9124779f25505e655ae2f089eb0906d0d",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_33\\validation-predictions.pt": "95371542a2e5de59176466b2a6d2a5e0a0c32c326b6ef7423c6505588e6fcea1",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_33\\validation-predictions.pt": "494a7accbfb44c932d1a5826f4ac26c10c0aa6d39c4b33670b85f8d49d144a34",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_34\\ln-trained.pt": "5d01db4758014227145034352a3aa21df71120e7ab26cef2b191147565447e8e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\67_34\\model-trained.pt": "cbf3d60438f792a168ac28ad97d87565bba42c1d9661a471f415905e2e46558e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\67_34\\validation-predictions.pt": "a1fe76b8712799a2072d476ea92fdfec4c5ea1bea5e9d3a3d46815a5cac39c02",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\67_34\\validation-predictions.pt": "2c84f6208658bac4093f48115e5a8d5cc3710ef63f865a9e8bce34cf5f5a44cf",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_3\\ln-trained.pt": "547f727d8f54359e16ac42e49b721a17709d7393c10e484d3bb5af4dd5c21bdb",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\68_3\\model-trained.pt": "e131771d986e59e8ede50198c2603091ba7bd4a594bcbafc0215ca5b48783973",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_3\\validation-predictions.pt": "0701911387d5467f7602304ed3b2a0cde9a6ab50c9f4f150bb2b74aeffb6c3d8",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_3\\validation-predictions.pt": "5bd318d8846e7080595e7ff305175643aa74162eea56941393be829f5ca45611",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_4\\ln-trained.pt": "bae348332843fa56c4a05a3c769790e73c45e04e7e06ed8bb37f0115bb4e4281",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\68_4\\model-trained.pt": "2e469e2d3fc2de7d58d81faa8e5dfc51d783b8bdc18d8640a28d5c99c640ac6a",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_4\\validation-predictions.pt": "51c75d1dfcc4008844f85168fc4ddc201509f88d565433783cabd56ccafce464",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_4\\validation-predictions.pt": "aa744f4b29ac47930d54d7e40a86fc5f9127f8f05548610e728a3ce2dad11e99",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_7\\ln-trained.pt": "97d77bc59873a07af799eb5ea7473316aeae7ba97541de3b2585ae09a8e8b44d",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\68_7\\model-trained.pt": "30866e70612720c8f53e75e86539128ec96a3cfde6eb1e923ff6951f8d197d18",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_7\\validation-predictions.pt": "c910218ce37c621c8f84ef191666d19a56d078a92d0388b3018c37aac3c456dd",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_7\\validation-predictions.pt": "aca39226aa116b00227bf81e38d1488eae16777c6286575497bc864f222751b4",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_10\\ln-trained.pt": "521e5ea0af1296f890f0fb367dc6a054bf6f823ace15841cb8f8b46cdee7b83c",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\68_10\\model-trained.pt": "532408610406aa1e45e9a356f0ec3ca5b6d1545a100db2d29843b4cb906c271f",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_10\\validation-predictions.pt": "89297b61162d6c8fc9acf226e866b017a4020a40c7981fd296346fc7cb2e699e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_10\\validation-predictions.pt": "af532bb3e2943f1c75bdc9988f902b740856105f72e659718e1b1c253b2701d7",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_11\\ln-trained.pt": "f2c09690356c273980032537fad0e40d787b22c2df8956540fdd969274d9267e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\68_11\\model-trained.pt": "a8d51accf6023648e236f78c6d0c4366a707b03afb643b9c9cdb7626345c0dba",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\68_11\\validation-predictions.pt": "6ba8628c9b7bfca8e60d30a6607c47220f8bb545383dff72c73b77f15191ee5b",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\68_11\\validation-predictions.pt": "0f7e81aeecfb427636dbb8dfb6bbbdb94e108212db7f551cd9e5ed1fcebcad96",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_3\\ln-trained.pt": "a18f14a6f06f044023fc6f049f5237c3e48173f9434706edce70a054ba1a5857",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\69_3\\model-trained.pt": "607375a34506a61e32a24de765cce90001a7255d450de4b0994d278dff7238f3",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_3\\validation-predictions.pt": "0f430c98bf25fe9b8fbbb83eab941c173bae9e5b188b3429fdcbd35719da01bf",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_3\\validation-predictions.pt": "8625653421171638d8723a08ab6f984bacb1944fe0fa0b7992484e64aee8c69e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_4\\ln-trained.pt": "a57ba32aa6c5e2bb948479947a979b08888872f3e37ea67f64c276b9d6836bb8",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\69_4\\model-trained.pt": "96de6816d151e87333e55ed1630d691b0313cdd400936615a10720030a5a6fc6",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_4\\validation-predictions.pt": "8e956ab3b279686a4eb71a69152e6e6d561321480bb4bde2001c0dd878fbb2b2",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_4\\validation-predictions.pt": "43ff9bfbfc733ad2cdc41ee688719b9f82b779652b7267ddd09f70e88392752a",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_6\\ln-trained.pt": "55c5d91f0647261d7ba6ede81ea482fe8b97aa14f0c941e1c99f94cf906af61a",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\69_6\\model-trained.pt": "61f7c561702fa56da2e7b0a3688fe8a9f7c096e9de0b9d8b5ac7b3670beb945c",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_6\\validation-predictions.pt": "c41029fbb86d541cac2d84175272df7ecf71fcd5a3f0d1079b3c39bc602b9c1d",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_6\\validation-predictions.pt": "f8d34188785badcf33c42ccd129baaad8e59b9ff74aa116128561ed29cff449e",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_7\\ln-trained.pt": "5198fb2a42694de36b4df06547dfaec2ee2c5bff5d244c9d9ed6da62e26f1270",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\69_7\\model-trained.pt": "4a55835ac6f9295891446706da08f016a3846060e01c026119572e9acdff4299",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_7\\validation-predictions.pt": "324d33a56ae616f6d14d47ea0f58aa56082f3790f0705287f3354390a9f75921",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_7\\validation-predictions.pt": "dc78daaedfc98fc25adac564214229fb41db80824df2e53e6873f08f181c91aa",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_21\\ln-trained.pt": "09132054d57c37b5bd59a1be882fad02abf4d94c9d3c280561ff44ee2aaaa8be",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\69_21\\model-trained.pt": "0a3747f99460e46105e79a3f0633c03082d0da324fab115df3d2dda4040655ce",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\69_21\\validation-predictions.pt": "ecef978328d093db95ee5ce1f04754ad14bdf3c787a2aa60b1174adbf8d01d7f",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\69_21\\validation-predictions.pt": "2f7764785ede7796df05b6eb5cd7ac887c20d2c93bcecc0c4bf4552090187b81",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\70_1\\ln-trained.pt": "977615eae5f2cccdd5755e0326dbf5e6a2350fd491bf7703f21c66f71756ebfa",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\70_1\\model-trained.pt": "f9d86d6acd1f8a7941dbc2860c6fbd65b0a1d46c06103b19f36eeff0607a981c",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\70_1\\validation-predictions.pt": "ade92c8b570e186d780e4ed76268fa6f5f5e44d0a5d32036cced30698dd7f4b3",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\70_1\\validation-predictions.pt": "a664d52985d6349d6ff9bfc280815246957755803ffc365ed09653e61e1e10ea",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\70_7\\ln-trained.pt": "c8db43261c52822ff864d3a8f1f9d2184538df2c17f193bb4e37fac6d2b76faf",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\70_7\\model-trained.pt": "8e612a90578e73b5fef5009e31ac0f5ef0201c4629635e084d19baa2cffa4ec2",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\70_7\\validation-predictions.pt": "d247dc4b55e820c0ddb06cce19189cd385233bd64b1632ec4bdf4ead1ebe8506",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\70_7\\validation-predictions.pt": "30c230c4d321d205b0d9ac38b8a580083a6921cb23ab279c7ec8740898151d54",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\70_15\\ln-trained.pt": "385b580a8f97e5b1c039c7bc3b670bb8b6e20b4885675cb0334d46a5ea867308",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\70_15\\model-trained.pt": "b24854882e1d7fe363cf465035e0c0e3083a4ed91a23ca136521ae919f6b5e86",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\70_15\\validation-predictions.pt": "22f8c0aa2afffbaf285fd2a2f640b45609a33f15c4334cf276b82bd9dac79b14",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\70_15\\validation-predictions.pt": "499eebb8f115a20fba86d37dd7331f78726db15367772d954caa61b57eae89f2",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\70_34\\ln-trained.pt": "45f85e951ca4af71236b8526ffbe83c1bc1dbabe4bb47ae7f81f06e41c978447",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_lee_2021_22cell_canonical_v1_revision4_fresh_20260829\\cells\\70_34\\model-trained.pt": "c3e6dd25cbc6ce85c7e1dc07ce64066c07c0d6e1cdc94338a9fd193bb8ffc7fa",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_canonical_v1_shared_bc_development_22cell_20260830\\cells\\70_34\\validation-predictions.pt": "dd574e1372d80931430f9151d0d3c4348f09c9c6e31e22414a523789e9b2e6fa",
+    "D:\\PythonProject\\retina_rf_SNN\\output\\real_data\\schottdorf_center_surround_ln_22cell_seed61001_20260830\\cells\\70_34\\validation-predictions.pt": "dfc2eef2859fd4c1a8acda43f9c801bc55b326de09ccad2e44cadace07aeaa5f",
+    "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\spatial_contrast_adapted\\run.py": "8cffd835f2429b8879beddc866c22a76565e7a13d2ec525af704618bf0beeb29",
+    "D:\\PythonProject\\retina_rf_SNN\\baselines\\spatial_contrast_adapted.py": "7686cee1aa2e6032862d5fd54499b0ebba1f3c3f73b6a4f7da37c24612799112",
+    "D:\\PythonProject\\retina_rf_SNN\\baselines\\spatial_contrast_official.py": "4e7aeba5098922590a2556c00d3d43ebb62036b71632a185980ca68427c35028",
+    "D:\\PythonProject\\retina_rf_SNN\\baselines\\spatial_contrast_LICENSE.txt": "3539593abea646079640f91a7e3a125e692ce03dfeb7c09dd6a2aad787ec5313",
+    "D:\\PythonProject\\retina_rf_SNN\\evaluation\\mechanistic_retina\\spatial_contrast_source.py": "5aa62ff50c4a3cf1dae55f7439800bd7c8256865f230f7cdd93caca67c9d1cfd",
+    "D:\\PythonProject\\retina_rf_SNN\\tests\\test_spatial_contrast_adapted.py": "dca63977c21fa763acd235a793ea48f89f55ceeb7e74c2418762965a3f4246e8"
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "checkpoint_count": 22,
+  "all_pass": true,
+  "inference_run": false,
+  "training_run": false,
+  "checkpoint_conversion": false,
+  "rows": [
+    {
+      "cell_id": "67#14",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "67#21",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "67#26",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "67#33",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "67#34",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "67#4",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "67#6",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "67#7",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "68#10",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "68#11",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "68#3",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "68#4",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "68#7",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "69#21",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "69#3",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "69#4",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "69#6",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "69#7",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "70#1",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "70#15",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "70#34",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    },
+    {
+      "cell_id": "70#7",
+      "schema": "schottdorf_canonical_v1_shared_bc_development",
+      "revision": 4,
+      "exact_current_config_fields": true,
+      "canonical_config_valid": true,
+      "state_contract_markers_valid": true
+    }
+  ]
+}

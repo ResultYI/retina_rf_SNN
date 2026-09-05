@@ -1,0 +1,5192 @@
+{
+  "model_name": "Canonical V1",
+  "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+  "causal_contract": "h1-shared-bc-direct-broad-ac",
+  "cell_count": 22,
+  "recording_count": 37,
+  "cells": [
+    {
+      "cell_id": "67#4",
+      "retinal_class": "PC",
+      "polarity": "OFF",
+      "recording_ids": [
+        "lSS01071"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260828,
+        "minibatch_seed": 21260831,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 140,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 140,
+      "stopping_step": 340,
+      "best_inner_dev_nll": 0.5209306478500366,
+      "inner_train_nll_raw": 0.5573391914367676,
+      "inner_train_nll_best": 0.4343791902065277,
+      "full_train_nll_raw": 0.5757259130477905,
+      "full_train_nll_refit": 0.4591398239135742,
+      "validation_nll_raw": 0.5925148129463196,
+      "validation_nll_trained": 0.46489620208740234,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 16,
+      "validation_sequences": 4,
+      "train_valid_bins": 1920,
+      "validation_valid_bins": 480,
+      "support": {
+        "bc": 5,
+        "ac": 21,
+        "overlap": 5
+      }
+    },
+    {
+      "cell_id": "67#6",
+      "retinal_class": "MC",
+      "polarity": "OFF",
+      "recording_ids": [
+        "lSS01078",
+        "lSS01079"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260829,
+        "minibatch_seed": 21260832,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 369,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 369,
+      "stopping_step": 569,
+      "best_inner_dev_nll": 0.4993385076522827,
+      "inner_train_nll_raw": 0.9817999005317688,
+      "inner_train_nll_best": 0.4700816869735718,
+      "full_train_nll_raw": 0.9308817386627197,
+      "full_train_nll_refit": 0.48074010014533997,
+      "validation_nll_raw": 0.7596559524536133,
+      "validation_nll_trained": 0.4422644376754761,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        369,
+        369,
+        369,
+        369,
+        369,
+        369,
+        369,
+        369,
+        369,
+        369,
+        369,
+        369,
+        369,
+        369
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 9,
+        "ac": 21,
+        "overlap": 9
+      }
+    },
+    {
+      "cell_id": "67#7",
+      "retinal_class": "MC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01086",
+        "lSS01087"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260830,
+        "minibatch_seed": 21260833,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 276,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 276,
+      "stopping_step": 476,
+      "best_inner_dev_nll": 0.48893263936042786,
+      "inner_train_nll_raw": 1.2002217769622803,
+      "inner_train_nll_best": 0.46272942423820496,
+      "full_train_nll_raw": 1.09538996219635,
+      "full_train_nll_refit": 0.4600899815559387,
+      "validation_nll_raw": 0.7811102867126465,
+      "validation_nll_trained": 0.45688679814338684,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        276,
+        276,
+        276,
+        276,
+        276,
+        276,
+        276,
+        276,
+        276,
+        276,
+        276,
+        276,
+        276,
+        276
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 9,
+        "ac": 21,
+        "overlap": 9
+      }
+    },
+    {
+      "cell_id": "67#14",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01110",
+        "lSS01112"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260831,
+        "minibatch_seed": 21260834,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 250,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 250,
+      "stopping_step": 450,
+      "best_inner_dev_nll": 0.3937285840511322,
+      "inner_train_nll_raw": 0.7875339388847351,
+      "inner_train_nll_best": 0.4188849925994873,
+      "full_train_nll_raw": 0.7159466743469238,
+      "full_train_nll_refit": 0.4042660593986511,
+      "validation_nll_raw": 0.6056341528892517,
+      "validation_nll_trained": 0.3729247450828552,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        250,
+        250,
+        250,
+        250,
+        250,
+        250,
+        250,
+        250,
+        250,
+        250,
+        250,
+        250,
+        250,
+        250
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 5,
+        "ac": 21,
+        "overlap": 5
+      }
+    },
+    {
+      "cell_id": "67#21",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01130",
+        "lSS01131"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260832,
+        "minibatch_seed": 21260835,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 432,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 432,
+      "stopping_step": 632,
+      "best_inner_dev_nll": 0.2762279808521271,
+      "inner_train_nll_raw": 0.9156290888786316,
+      "inner_train_nll_best": 0.37647193670272827,
+      "full_train_nll_raw": 0.8087384104728699,
+      "full_train_nll_refit": 0.34908702969551086,
+      "validation_nll_raw": 0.6185030937194824,
+      "validation_nll_trained": 0.30912548303604126,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        432,
+        432,
+        432,
+        432,
+        432,
+        432,
+        432,
+        432,
+        432,
+        432,
+        432,
+        432,
+        432,
+        432
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 5,
+        "ac": 21,
+        "overlap": 5
+      }
+    },
+    {
+      "cell_id": "67#26",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01141",
+        "lSS01142"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260833,
+        "minibatch_seed": 21260836,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 264,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 264,
+      "stopping_step": 464,
+      "best_inner_dev_nll": 0.49918386340141296,
+      "inner_train_nll_raw": 0.9229052066802979,
+      "inner_train_nll_best": 0.5622468590736389,
+      "full_train_nll_raw": 0.8574513792991638,
+      "full_train_nll_refit": 0.5430617332458496,
+      "validation_nll_raw": 0.7386364340782166,
+      "validation_nll_trained": 0.5125158429145813,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        264,
+        264,
+        264,
+        264,
+        264,
+        264,
+        264,
+        264,
+        264,
+        264,
+        264,
+        264,
+        264,
+        264
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 5,
+        "ac": 21,
+        "overlap": 5
+      }
+    },
+    {
+      "cell_id": "67#33",
+      "retinal_class": "MC",
+      "polarity": "OFF",
+      "recording_ids": [
+        "lSS01159",
+        "lSS01160"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260834,
+        "minibatch_seed": 21260837,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 581,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 581,
+      "stopping_step": 781,
+      "best_inner_dev_nll": 0.3928305506706238,
+      "inner_train_nll_raw": 0.7557060122489929,
+      "inner_train_nll_best": 0.37194177508354187,
+      "full_train_nll_raw": 0.7298756241798401,
+      "full_train_nll_refit": 0.38218262791633606,
+      "validation_nll_raw": 0.718409538269043,
+      "validation_nll_trained": 0.36991727352142334,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        581,
+        581,
+        581,
+        581,
+        581,
+        581,
+        581,
+        581,
+        581,
+        581,
+        581,
+        581,
+        581,
+        581
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 9,
+        "ac": 21,
+        "overlap": 9
+      }
+    },
+    {
+      "cell_id": "67#34",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01167",
+        "lSS01168"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260835,
+        "minibatch_seed": 21260838,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 384,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 384,
+      "stopping_step": 584,
+      "best_inner_dev_nll": 0.4131239354610443,
+      "inner_train_nll_raw": 0.8761619925498962,
+      "inner_train_nll_best": 0.41593968868255615,
+      "full_train_nll_raw": 0.783430278301239,
+      "full_train_nll_refit": 0.4048752784729004,
+      "validation_nll_raw": 0.6322758793830872,
+      "validation_nll_trained": 0.3863816261291504,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        384,
+        384,
+        384,
+        384,
+        384,
+        384,
+        384,
+        384,
+        384,
+        384,
+        384,
+        384,
+        384,
+        384
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 5,
+        "ac": 21,
+        "overlap": 5
+      }
+    },
+    {
+      "cell_id": "68#3",
+      "retinal_class": "MC",
+      "polarity": "OFF",
+      "recording_ids": [
+        "lSS01181",
+        "lSS01183"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260836,
+        "minibatch_seed": 21260839,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 140,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 140,
+      "stopping_step": 340,
+      "best_inner_dev_nll": 0.5134643316268921,
+      "inner_train_nll_raw": 1.1562026739120483,
+      "inner_train_nll_best": 0.5236035585403442,
+      "full_train_nll_raw": 1.0791372060775757,
+      "full_train_nll_refit": 0.5257678627967834,
+      "validation_nll_raw": 0.9433391690254211,
+      "validation_nll_trained": 0.5194198489189148,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 9,
+        "ac": 21,
+        "overlap": 9
+      }
+    },
+    {
+      "cell_id": "68#4",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01184"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260837,
+        "minibatch_seed": 21260840,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 193,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 193,
+      "stopping_step": 393,
+      "best_inner_dev_nll": 0.43126511573791504,
+      "inner_train_nll_raw": 1.4646810293197632,
+      "inner_train_nll_best": 0.37096521258354187,
+      "full_train_nll_raw": 1.333484172821045,
+      "full_train_nll_refit": 0.39058321714401245,
+      "validation_nll_raw": 1.002394437789917,
+      "validation_nll_trained": 0.4271003007888794,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        193,
+        193,
+        193,
+        193,
+        193,
+        193,
+        193,
+        193,
+        193,
+        193,
+        193,
+        193,
+        193,
+        193
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 96,
+      "validation_sequences": 24,
+      "train_valid_bins": 11520,
+      "validation_valid_bins": 2880,
+      "support": {
+        "bc": 5,
+        "ac": 21,
+        "overlap": 5
+      }
+    },
+    {
+      "cell_id": "68#7",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01194",
+        "lSS01196"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260838,
+        "minibatch_seed": 21260841,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 79,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 79,
+      "stopping_step": 279,
+      "best_inner_dev_nll": 0.44929566979408264,
+      "inner_train_nll_raw": 0.8048087954521179,
+      "inner_train_nll_best": 0.45361006259918213,
+      "full_train_nll_raw": 0.7323808073997498,
+      "full_train_nll_refit": 0.44400376081466675,
+      "validation_nll_raw": 0.6003968715667725,
+      "validation_nll_trained": 0.38521772623062134,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        79,
+        79,
+        79,
+        79,
+        79,
+        79,
+        79,
+        79,
+        79,
+        79,
+        79,
+        79,
+        79,
+        79
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 5,
+        "ac": 21,
+        "overlap": 5
+      }
+    },
+    {
+      "cell_id": "68#10",
+      "retinal_class": "MC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01221"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260839,
+        "minibatch_seed": 21260842,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 211,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 211,
+      "stopping_step": 411,
+      "best_inner_dev_nll": 0.4946584403514862,
+      "inner_train_nll_raw": 1.0986491441726685,
+      "inner_train_nll_best": 0.4833119511604309,
+      "full_train_nll_raw": 0.9901925921440125,
+      "full_train_nll_refit": 0.4782603681087494,
+      "validation_nll_raw": 0.7502798438072205,
+      "validation_nll_trained": 0.42107105255126953,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        211,
+        211,
+        211,
+        211,
+        211,
+        211,
+        211,
+        211,
+        211,
+        211,
+        211,
+        211,
+        211,
+        211
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 16,
+      "validation_sequences": 4,
+      "train_valid_bins": 1920,
+      "validation_valid_bins": 480,
+      "support": {
+        "bc": 9,
+        "ac": 21,
+        "overlap": 9
+      }
+    },
+    {
+      "cell_id": "68#11",
+      "retinal_class": "PC",
+      "polarity": "OFF",
+      "recording_ids": [
+        "lSS01225",
+        "lSS01227"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260840,
+        "minibatch_seed": 21260843,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 151,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 151,
+      "stopping_step": 351,
+      "best_inner_dev_nll": 0.3800375163555145,
+      "inner_train_nll_raw": 0.3570474088191986,
+      "inner_train_nll_best": 0.29555264115333557,
+      "full_train_nll_raw": 0.3801876902580261,
+      "full_train_nll_refit": 0.3246306777000427,
+      "validation_nll_raw": 0.4641529321670532,
+      "validation_nll_trained": 0.3728216588497162,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        151,
+        151,
+        151,
+        151,
+        151,
+        151,
+        151,
+        151,
+        151,
+        151,
+        151,
+        151,
+        151,
+        151
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 5,
+        "ac": 21,
+        "overlap": 5
+      }
+    },
+    {
+      "cell_id": "69#3",
+      "retinal_class": "PC",
+      "polarity": "OFF",
+      "recording_ids": [
+        "lSS01251",
+        "lSS01252"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260841,
+        "minibatch_seed": 21260844,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 573,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 573,
+      "stopping_step": 773,
+      "best_inner_dev_nll": 0.5220721364021301,
+      "inner_train_nll_raw": 0.953971803188324,
+      "inner_train_nll_best": 0.5115615725517273,
+      "full_train_nll_raw": 0.9113060235977173,
+      "full_train_nll_refit": 0.522445559501648,
+      "validation_nll_raw": 0.8692424297332764,
+      "validation_nll_trained": 0.5531577467918396,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        573,
+        573,
+        573,
+        573,
+        573,
+        573,
+        573,
+        573,
+        573,
+        573,
+        573,
+        573,
+        573,
+        573
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 5,
+        "ac": 21,
+        "overlap": 5
+      }
+    },
+    {
+      "cell_id": "69#4",
+      "retinal_class": "MC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01254"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260842,
+        "minibatch_seed": 21260845,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 133,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 133,
+      "stopping_step": 333,
+      "best_inner_dev_nll": 0.4741953909397125,
+      "inner_train_nll_raw": 1.257103681564331,
+      "inner_train_nll_best": 0.4273042380809784,
+      "full_train_nll_raw": 1.141242504119873,
+      "full_train_nll_refit": 0.43233543634414673,
+      "validation_nll_raw": 0.8180467486381531,
+      "validation_nll_trained": 0.4332510530948639,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        133,
+        133,
+        133,
+        133,
+        133,
+        133,
+        133,
+        133,
+        133,
+        133,
+        133,
+        133,
+        133,
+        133
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 96,
+      "validation_sequences": 24,
+      "train_valid_bins": 11520,
+      "validation_valid_bins": 2880,
+      "support": {
+        "bc": 9,
+        "ac": 21,
+        "overlap": 9
+      }
+    },
+    {
+      "cell_id": "69#6",
+      "retinal_class": "MC",
+      "polarity": "OFF",
+      "recording_ids": [
+        "lSS01256",
+        "lSS01257"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260843,
+        "minibatch_seed": 21260846,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 288,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 288,
+      "stopping_step": 488,
+      "best_inner_dev_nll": 0.44429662823677063,
+      "inner_train_nll_raw": 0.9625217318534851,
+      "inner_train_nll_best": 0.4638337790966034,
+      "full_train_nll_raw": 0.9013278484344482,
+      "full_train_nll_refit": 0.462697297334671,
+      "validation_nll_raw": 0.7310258150100708,
+      "validation_nll_trained": 0.435077965259552,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        288,
+        288,
+        288,
+        288,
+        288,
+        288,
+        288,
+        288,
+        288,
+        288,
+        288,
+        288,
+        288,
+        288
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 9,
+        "ac": 21,
+        "overlap": 9
+      }
+    },
+    {
+      "cell_id": "69#7",
+      "retinal_class": "MC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01258",
+        "lSS01259"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260844,
+        "minibatch_seed": 21260847,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 207,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 207,
+      "stopping_step": 407,
+      "best_inner_dev_nll": 0.5057259202003479,
+      "inner_train_nll_raw": 1.275626301765442,
+      "inner_train_nll_best": 0.4775313138961792,
+      "full_train_nll_raw": 1.1664985418319702,
+      "full_train_nll_refit": 0.4767368733882904,
+      "validation_nll_raw": 0.8465859293937683,
+      "validation_nll_trained": 0.46330294013023376,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        207,
+        207,
+        207,
+        207,
+        207,
+        207,
+        207,
+        207,
+        207,
+        207,
+        207,
+        207,
+        207,
+        207
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 9,
+        "ac": 21,
+        "overlap": 9
+      }
+    },
+    {
+      "cell_id": "69#21",
+      "retinal_class": "PC",
+      "polarity": "OFF",
+      "recording_ids": [
+        "lSS01270"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260845,
+        "minibatch_seed": 21260848,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 252,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 252,
+      "stopping_step": 452,
+      "best_inner_dev_nll": 0.5444465279579163,
+      "inner_train_nll_raw": 0.7214980721473694,
+      "inner_train_nll_best": 0.4878772795200348,
+      "full_train_nll_raw": 0.7146574854850769,
+      "full_train_nll_refit": 0.5057172775268555,
+      "validation_nll_raw": 0.6884992122650146,
+      "validation_nll_trained": 0.5064647197723389,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        252,
+        252,
+        252,
+        252,
+        252,
+        252,
+        252,
+        252,
+        252,
+        252,
+        252,
+        252,
+        252,
+        252
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 96,
+      "validation_sequences": 24,
+      "train_valid_bins": 11520,
+      "validation_valid_bins": 2880,
+      "support": {
+        "bc": 5,
+        "ac": 21,
+        "overlap": 5
+      }
+    },
+    {
+      "cell_id": "70#1",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01278"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260846,
+        "minibatch_seed": 21260849,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 413,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 413,
+      "stopping_step": 613,
+      "best_inner_dev_nll": 0.5371159315109253,
+      "inner_train_nll_raw": 1.3017545938491821,
+      "inner_train_nll_best": 0.5482680201530457,
+      "full_train_nll_raw": 1.189544439315796,
+      "full_train_nll_refit": 0.5414289832115173,
+      "validation_nll_raw": 0.9895117282867432,
+      "validation_nll_trained": 0.5456011891365051,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        413,
+        413,
+        413,
+        413,
+        413,
+        413,
+        413,
+        413,
+        413,
+        413,
+        413,
+        413,
+        413,
+        413
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 96,
+      "validation_sequences": 24,
+      "train_valid_bins": 11520,
+      "validation_valid_bins": 2880,
+      "support": {
+        "bc": 5,
+        "ac": 21,
+        "overlap": 5
+      }
+    },
+    {
+      "cell_id": "70#7",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01284",
+        "lSS01285"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260847,
+        "minibatch_seed": 21260850,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 222,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 222,
+      "stopping_step": 422,
+      "best_inner_dev_nll": 0.476606547832489,
+      "inner_train_nll_raw": 0.9573913216590881,
+      "inner_train_nll_best": 0.5099487900733948,
+      "full_train_nll_raw": 0.8782761096954346,
+      "full_train_nll_refit": 0.4966515898704529,
+      "validation_nll_raw": 0.701984167098999,
+      "validation_nll_trained": 0.4724014699459076,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        222,
+        222,
+        222,
+        222,
+        222,
+        222,
+        222,
+        222,
+        222,
+        222,
+        222,
+        222,
+        222,
+        222
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 5,
+        "ac": 21,
+        "overlap": 5
+      }
+    },
+    {
+      "cell_id": "70#15",
+      "retinal_class": "PC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01287"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260848,
+        "minibatch_seed": 21260851,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 57,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 57,
+      "stopping_step": 257,
+      "best_inner_dev_nll": 0.3970763385295868,
+      "inner_train_nll_raw": 0.9818580746650696,
+      "inner_train_nll_best": 0.4621758759021759,
+      "full_train_nll_raw": 0.8803228735923767,
+      "full_train_nll_refit": 0.44302859902381897,
+      "validation_nll_raw": 0.7041160464286804,
+      "validation_nll_trained": 0.43921318650245667,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        57,
+        57,
+        57,
+        57,
+        57,
+        57,
+        57,
+        57,
+        57,
+        57,
+        57,
+        57,
+        57,
+        57
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 96,
+      "validation_sequences": 24,
+      "train_valid_bins": 11520,
+      "validation_valid_bins": 2880,
+      "support": {
+        "bc": 5,
+        "ac": 21,
+        "overlap": 5
+      }
+    },
+    {
+      "cell_id": "70#34",
+      "retinal_class": "MC",
+      "polarity": "ON",
+      "recording_ids": [
+        "lSS01299",
+        "lSS01300"
+      ],
+      "native_dt_ms": 6.666666666666667,
+      "input_representation": "macaque_experiment_calibrated_l_plus_m_weber_drive_v1",
+      "model_config": {
+        "architecture_mode": "mechanism_identifiable",
+        "cell_specific_gains": true,
+        "cell_specific_pathway_mixture": false,
+        "lag_steps": 16,
+        "dt_ms": 6.666666666666667,
+        "graph_radius_deg": 0.11,
+        "h1_radius_deg": 0.18,
+        "shared_subunit_radius_deg": 0.08,
+        "h1_tau_ms": 50.0,
+        "h1_tau_bounds_ms": [
+          10.0,
+          200.0
+        ],
+        "h1_delay_ms": 5.0,
+        "h1_delay_bounds_ms": [
+          0.0,
+          20.0
+        ],
+        "h1_amplitude": 0.01,
+        "h1_amplitude_bounds": [
+          0.0,
+          0.2
+        ],
+        "bc_basis_tau_ms": [
+          [
+            35.0,
+            60.0,
+            100.0
+          ],
+          [
+            10.0,
+            20.0,
+            35.0
+          ]
+        ],
+        "bc_basis_tau_bounds_ms": [
+          [
+            20.0,
+            200.0
+          ],
+          [
+            5.0,
+            120.0
+          ]
+        ],
+        "bc_delay_ms": [
+          10.0,
+          5.0
+        ],
+        "bc_delay_bounds_ms": [
+          [
+            0.0,
+            30.0
+          ],
+          [
+            0.0,
+            20.0
+          ]
+        ],
+        "ac_delay_ms": [
+          15.0,
+          7.5
+        ],
+        "ac_delay_bounds_ms": [
+          [
+            0.0,
+            40.0
+          ],
+          [
+            0.0,
+            25.0
+          ]
+        ],
+        "amacrine_tau_ms": [
+          35.0,
+          18.0
+        ],
+        "amacrine_tau_bounds_ms": [
+          [
+            20.0,
+            250.0
+          ],
+          [
+            15.0,
+            180.0
+          ]
+        ],
+        "divisive_tau_ms": 40.0,
+        "divisive_gain": 0.01,
+        "membrane_tau_ms": 5.0,
+        "adaptation_tau_ms": 80.0,
+        "adaptation_gain": 0.01,
+        "history_tau_ms": 30.0,
+        "history_gain": 0.02,
+        "logit_slope": 1.0,
+        "threshold": 0.0,
+        "operator_epsilon": 0.1,
+        "spatial_contract": "bc-central-disk_ac-overlapping-full-disk",
+        "causal_contract": "h1-shared-bc-direct-broad-ac"
+      },
+      "training_contract": {
+        "optimizer": "Adam",
+        "learning_rate": 0.03,
+        "batch_size": 4,
+        "maximum_inner_steps": 1000,
+        "patience": 200,
+        "min_delta": 1e-07,
+        "seed": 20260849,
+        "minibatch_seed": 21260852,
+        "regularizer": null,
+        "likelihood": "Bernoulli sampled measured spike events",
+        "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+        "raw_step_zero_is_eligible": true,
+        "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+        "original_validation_used_for_selection": false,
+        "fresh_full_train_refit_steps": 171,
+        "fresh_optimizer_per_fit": true,
+        "retinal_projection_after_each_update": true,
+        "old_checkpoint_loaded_for_training": false,
+        "fresh_initializations_identical": true
+      },
+      "best_step": 171,
+      "stopping_step": 371,
+      "best_inner_dev_nll": 0.43249422311782837,
+      "inner_train_nll_raw": 1.0999308824539185,
+      "inner_train_nll_best": 0.42651280760765076,
+      "full_train_nll_raw": 0.988253653049469,
+      "full_train_nll_refit": 0.4213908612728119,
+      "validation_nll_raw": 0.7025208473205566,
+      "validation_nll_trained": 0.3680219352245331,
+      "gradients_finite": true,
+      "actually_updated": [
+        "h1.raw_tau",
+        "h1.raw_delay",
+        "feature_bank.raw_tau",
+        "feature_bank.raw_delay",
+        "bipolar.raw_weights",
+        "amacrine.raw_tau",
+        "amacrine.raw_delay",
+        "gates.raw_h1_amplitude",
+        "gates.ac_local",
+        "gates.ac_transient",
+        "gates.history",
+        "cell_gains.log_bc",
+        "cell_gains.log_ac",
+        "rgc.response_bias"
+      ],
+      "optimizer_steps": [
+        171,
+        171,
+        171,
+        171,
+        171,
+        171,
+        171,
+        171,
+        171,
+        171,
+        171,
+        171,
+        171,
+        171
+      ],
+      "parameter_counts": {
+        "total": 129,
+        "requires_grad": 33,
+        "optimizer_listed": 33
+      },
+      "inner_boundaries": [
+        {
+          "trial_index": 0,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 1,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 2,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 3,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 4,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 5,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        },
+        {
+          "trial_index": 6,
+          "trial_start": 0,
+          "fit_stop": 1860,
+          "dev_start": 1920,
+          "trial_stop": 2400
+        }
+      ],
+      "train_sequences": 112,
+      "validation_sequences": 28,
+      "train_valid_bins": 13440,
+      "validation_valid_bins": 3360,
+      "support": {
+        "bc": 9,
+        "ac": 21,
+        "overlap": 9
+      }
+    }
+  ],
+  "adapter_config": {
+    "train_sequence_count": 16,
+    "validation_sequence_count": 4,
+    "sequence_steps": 150,
+    "warmup_steps": 30,
+    "crop_pixels": 51,
+    "pool_factor": 3
+  },
+  "training_contract": {
+    "optimizer": "Adam",
+    "learning_rate": 0.03,
+    "batch_size": 4,
+    "maximum_inner_steps": 1000,
+    "patience": 200,
+    "min_delta": 1e-07,
+    "seed": 20260828,
+    "minibatch_seed": 21260831,
+    "regularizer": null,
+    "likelihood": "Bernoulli sampled measured spike events",
+    "split": "same make_inner_dev as center-surround LN; 80/20 per training trial; 60-bin guard",
+    "raw_step_zero_is_eligible": true,
+    "best_checkpoint": "exact lowest inner-dev NLL; min_delta controls patience reset only",
+    "original_validation_used_for_selection": false,
+    "fresh_full_train_refit_steps": 140,
+    "fresh_optimizer_per_fit": true,
+    "retinal_projection_after_each_update": true,
+    "old_checkpoint_loaded_for_training": false,
+    "fresh_initializations_identical": true
+  }
+}

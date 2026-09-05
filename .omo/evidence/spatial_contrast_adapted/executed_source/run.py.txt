@@ -1,0 +1,193 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = ["torch==2.6.0", "numpy==2.2.6", "scipy==1.17.1", "pydantic==2.8.2", "opencv-python", "tqdm"]
+# ///
+# How to run: PYTHONPATH=.tmp/spatial-contrast-scipy D:/anaconda/python.exe -B -u .omo/evidence/spatial_contrast_adapted/run.py
+from __future__ import annotations
+
+import csv
+from dataclasses import asdict, dataclass
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+import sys
+from typing import Final
+
+import numpy as np
+import scipy
+import torch
+
+ROOT: Final = Path(__file__).resolve().parents[3]
+OUT: Final = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT))
+
+from baselines.center_surround_ln import LNError
+from baselines.spatial_contrast_adapted import CenterFilter, FittingData, FloatArray, features_for_sequences, fit_output, reported_nll
+from data.schottdorf_lee_multirecording import SchottdorfCellwiseData, load_schottdorf_cell
+from evaluation.mechanistic_retina.spatial_contrast_source import (
+    CellSource, LNCheckpoint, compare_saved_predictions, load_center_source,
+    load_sources, prediction_nll, verify_split,
+)
+from evaluation.mechanistic_retina.schottdorf_multirecording_reporting import sha256_file
+
+
+@dataclass(frozen=True, slots=True)
+class PreparedCell:
+    cell: CellSource
+    data: SchottdorfCellwiseData
+    checkpoint: LNCheckpoint
+    training_features: FloatArray
+    validation_features: FloatArray
+    ln_nll: float
+    retinal_nll: float
+
+
+def tensor_sha(value: torch.Tensor) -> str:
+    return hashlib.sha256(value.numpy().tobytes()).hexdigest()
+
+
+def main() -> None:
+    if (OUT / "preflight.json").exists() or (OUT / "cells").exists():
+        raise LNError("STOP: output already contains a prepared/fitted run; no restart allowed")
+    torch.set_num_threads(2)
+    sources = load_sources(ROOT)
+    prepared, checks = [], []
+    for cell in sources.population.cells:
+        selected = tuple(r for r in sources.recordings if r.cell_id == cell.cell_id)
+        if tuple(r.recording_id for r in selected) != cell.recording_ids:
+            raise LNError("STOP: recording order differs")
+        data = load_schottdorf_cell(selected, sources.movie, sources.population.adapter_config)
+        if (data.dt_ms, data.retinal_classes[0], data.polarities[0]) != (cell.native_dt_ms, cell.retinal_class, cell.polarity):
+            raise LNError("STOP: cell metadata differs")
+        verify_split(data.train, cell.train_valid_bins)
+        verify_split(data.validation, cell.validation_valid_bins)
+        if set(data.train.source_image_ids) & set(data.validation.source_image_ids):
+            raise LNError("STOP: source segments overlap")
+        model, checkpoint = load_center_source(sources, cell)
+        center = CenterFilter.from_ln(model)
+        training_features, train_check = features_for_sequences(center, data.train.cone_drive)
+        validation_features, val_check = features_for_sequences(center, data.validation.cone_drive)
+        cell_dir = cell.cell_id.replace("#", "_")
+        retinal_path = sources.retinal_root / "cells" / cell_dir / "validation-predictions.pt"
+        ln_path = sources.ln_root / "cells" / cell_dir / "validation-predictions.pt"
+        retinal_saved = compare_saved_predictions(retinal_path, data.validation)
+        ln_saved = compare_saved_predictions(ln_path, data.validation)
+        sources.hashes[str(retinal_path)] = sha256_file(retinal_path)
+        sources.hashes[str(ln_path)] = sha256_file(ln_path)
+        with torch.no_grad():
+            replay = torch.cat([model(data.validation.cone_drive[i:i+8], data.validation.spike_events[i:i+8])
+                                for i in range(0, cell.validation_sequences, 8)])
+        torch.testing.assert_close(replay, ln_saved.logits_trained, atol=1e-6, rtol=1e-6)
+        retinal_nll, ln_nll = prediction_nll(retinal_saved), prediction_nll(ln_saved)
+        if abs(retinal_nll-cell.validation_nll_trained) > 1e-7:
+            raise LNError("STOP: saved Canonical NLL differs from the current manifest")
+        prepared.append(PreparedCell(cell, data, checkpoint, training_features, validation_features, ln_nll, retinal_nll))
+        checks.append(dict(cell_id=cell.cell_id, train=train_check, validation=val_check,
+                           target_mask_and_order_exact=True, center_state_recovered_exactly=True,
+                           full_ln_replay_max_abs_error=float((replay-ln_saved.logits_trained).abs().max()),
+                           train_input_sha256=tensor_sha(data.train.cone_drive),
+                           train_target_sha256=tensor_sha(data.train.spike_events),
+                           train_mask_sha256=tensor_sha(data.train.valid_mask),
+                           validation_input_sha256=tensor_sha(data.validation.cone_drive),
+                           validation_target_sha256=tensor_sha(data.validation.spike_events),
+                           validation_mask_sha256=tensor_sha(data.validation.valid_mask)))
+        destination = OUT / "filters" / f"{cell_dir}.npz"
+        destination.parent.mkdir(exist_ok=True)
+        np.savez_compressed(destination, spatial=center.spatial, gaussian=center.gaussian,
+                            amplitude=center.amplitude, unit_temporal=center.temporal,
+                            official_temporal=center.official_temporal)
+        print(f"PREFLIGHT {cell.cell_id}: recovered center; train/validation activation and target/mask PASS", flush=True)
+    for path in [Path(__file__), ROOT / "baselines/spatial_contrast_adapted.py",
+                 ROOT / "baselines/spatial_contrast_official.py", ROOT / "baselines/spatial_contrast_LICENSE.txt",
+                 ROOT / "evaluation/mechanistic_retina/spatial_contrast_source.py",
+                 ROOT / "tests/test_spatial_contrast_adapted.py"]:
+        sources.hashes[str(path)] = sha256_file(path)
+    contract = dict(
+        model_name="SC-adapted; not faithful original SC", n_cells=22, n_recordings=37,
+        official_commit="76b733421cc16131c2229e66a7714d8892de39d7", official_smoothing=None,
+        spike_history=False, new_filter_training=False, new_hyperparameter_search=False, restarts=0,
+        fitting_split="complete original training split, original valid bins only",
+        selection="inherit final center-surround LN training-only selected/refitted center; no further selection",
+        zscore="mean/std(ddof=0) of full-train fitting-mask Imean/LSC only, counting each trial/bin once",
+        initialization="[max(fitting raw counts), -2, 1, 0]; matched control omits the fixed last zero",
+        bounds="a >= 0; b,w1,w2 unbounded; matched control w2=0 fixed",
+        optimizer="scipy.optimize.minimize L-BFGS-B; official defaults, options=None; analytic chain gradient",
+        objective="sum Bernoulli NLL / sum fitting binary events, preserving official response-sum normalization",
+        reported_nll="sum Bernoulli NLL / number of valid bins; population/group equal-cell mean",
+        link="lambda=official a*log(1+exp(b+w1*Z(Imean)+w2*Z(LSC))); p=-expm1(-lambda)",
+        filter_transfer="spatial=LN amplitude*Gaussian evaluated in native float32; official_temporal=LN unit temporal*sum(spatial); no sign flip",
+        reset="59 zero prepadding bins per native 150-bin sequence; score indices 30..149 unchanged",
+        parameter_accounting=dict(source_ln_raw=128, inherited_center_raw=64, inherited_center_effective=63,
+                                  sc_new_fitted=4, control_new_fitted=3, sc_total_raw=68, control_total_raw=67,
+                                  sc_effective_dimensions=67, control_effective_dimensions=66,
+                                  zscore_statistics="4 fixed fitting-only statistics; not trainable parameters"),
+        python=sys.version, torch=str(torch.__version__), numpy=np.__version__, scipy=scipy.__version__,
+        git_head=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+        git_status=subprocess.check_output(["git", "status", "--short", "--untracked-files=no"], cwd=ROOT, text=True),
+    )
+    (OUT / "preflight.json").write_text(json.dumps(dict(status="PASS", checks=checks, contract=contract,
+                source_sha256=sources.hashes), indent=2), encoding="utf-8")
+    rows = []
+    for item in prepared:
+        cell, data = item.cell, item.data
+        fitting = FittingData.from_arrays(item.training_features, data.train.spike_counts.numpy(), data.train.valid_mask.numpy())
+        destination = OUT / "cells" / cell.cell_id.replace("#", "_")
+        destination.mkdir(parents=True)
+        row = dict(cell_id=cell.cell_id, group=f"{cell.retinal_class}_{cell.polarity}",
+                   train_bins=cell.train_valid_bins, validation_bins=cell.validation_valid_bins,
+                   center_surround_ln_nll=item.ln_nll, canonical_v1_nll=item.retinal_nll,
+                   inherited_ln_lambda=item.checkpoint.selected_lambda, inherited_ln_refit_steps=item.checkpoint.refit_steps)
+        for name, contrast in (("sc_adapted", True), ("matched_w0", False)):
+            fit = fit_output(fitting, spatial_contrast=contrast)
+            rate = fit.expected_counts(item.validation_features)
+            nll = reported_nll(rate, data.validation.spike_events, data.validation.valid_mask)
+            row[f"{name}_nll"] = nll
+            row[f"{name}_success"] = fit.optimizer_success
+            row[f"{name}_iterations"] = fit.iterations
+            row[f"{name}_new_parameters"] = len(fit.parameters)
+            payload = dict(fit=asdict(fit), validation_nll=nll, cell_id=cell.cell_id,
+                           ln_checkpoint=str(sources.ln_root / "cells" / destination.name / "ln-trained.pt"),
+                           inherited_center_raw_parameters=64, source_ln_parameters=128,
+                           total_raw_parameter_count=64+len(fit.parameters), history=False,
+                           smoothing=None, validation_used_for_fitting_or_selection=False)
+            (destination / f"{name}.json").write_text(json.dumps(payload, indent=2, allow_nan=False), encoding="utf-8")
+            np.savez_compressed(destination / f"{name}-validation.npz", expected_counts=rate,
+                                probabilities=-np.expm1(-rate), target=data.validation.spike_events.numpy(),
+                                valid_mask=data.validation.valid_mask.numpy(),
+                                source_image_ids=np.asarray(data.validation.source_image_ids),
+                                trial_indices=data.validation.trial_indices)
+            print(f"FIT {cell.cell_id} {name}: validation={nll:.12f} success={fit.optimizer_success} iterations={fit.iterations}", flush=True)
+        rows.append(row)
+    if any(sha256_file(Path(p)) != h for p, h in sources.hashes.items()):
+        raise LNError("STOP: source changed during fitting")
+    metrics = ("sc_adapted_nll", "matched_w0_nll", "center_surround_ln_nll", "canonical_v1_nll")
+    summaries = []
+    for group in ("overall", "MC_ON", "MC_OFF", "PC_ON", "PC_OFF"):
+        selected = rows if group == "overall" else [row for row in rows if row["group"] == group]
+        summaries.append(dict(group=group, cells=len(selected),
+                              **{key: float(np.mean([r[key] for r in selected])) for key in metrics}))
+    for name, values in (("per_cell.csv", rows), ("group_summary.csv", summaries)):
+        with (OUT / name).open("w", encoding="utf-8", newline="") as stream:
+            writer = csv.DictWriter(stream, fieldnames=list(values[0]))
+            writer.writeheader()
+            writer.writerows(values)
+    success = all(row[f"{name}_success"] for row in rows for name in ("sc_adapted", "matched_w0"))
+    status = "COMPLETED" if success else "COMPLETED_WITH_OPTIMIZER_WARNINGS"
+    (OUT / "results.json").write_text(json.dumps(dict(status=status, contract=contract, summary=summaries,
+                  cells=rows, source_hashes_unchanged=True), indent=2, allow_nan=False), encoding="utf-8")
+    lines = ["# SC-adapted 22-cell comparison", "", f"STATUS: {status}", "",
+             "| Group | Cells | SC-adapted | Matched w=0 | Center-surround LN | Canonical V1 |",
+             "|---|---:|---:|---:|---:|---:|"]
+    lines += [f"| {r['group']} | {r['cells']} | " + " | ".join(f"{r[k]:.12f}" for k in metrics) + " |" for r in summaries]
+    lines += ["", "Each population/group value is the arithmetic mean of per-cell validation NLL.",
+              "No original validation information enters fitting or selection. No restarts or hyperparameter searches.",
+              "Detailed filter transfer, initialization, bounds, parameter accounting and source hashes: preflight.json.",
+              "Inherited center filters: filters/*.npz. Individual fits and held-out predictions: cells/.",
+              "Per-cell NLLs: per_cell.csv. Complete machine-readable output: results.json."]
+    (OUT / "summary.md").write_text("\n".join(lines)+"\n", encoding="utf-8")
+
+
+if __name__ == "__main__":
+    main()
