@@ -1,0 +1,5 @@
+group,n_raw_eligible,n_scored,retinal_reliability,canonical_score,ln_score,cnn_score,ceiling_gap,status,exclusion_reason
+MC_ON,4,0,,,,,,NOT_RUN_OFFICIAL_PROTOCOL_UNVERIFIED,
+MC_OFF,4,0,,,,,,NOT_RUN_OFFICIAL_PROTOCOL_UNVERIFIED,
+PC_ON,9,0,,,,,,NOT_RUN_OFFICIAL_PROTOCOL_UNVERIFIED,
+PC_OFF,3,0,,,,,,NOT_RUN_OFFICIAL_PROTOCOL_UNVERIFIED,

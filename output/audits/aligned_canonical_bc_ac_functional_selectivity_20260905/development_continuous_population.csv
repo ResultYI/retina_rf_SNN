@@ -1,0 +1,5 @@
+split,feature,pathway,cells,defined_cells,available,mean,median,positive,negative,zero
+development,S,BC,22,22,True,-0.02981997254660471,-0.07137526546979672,9,13,0
+development,S,AC,22,22,True,0.032569845635461496,0.030303780464617916,15,7,0
+development,U,BC,22,22,True,0.03342731741695784,0.021994908302125457,14,8,0
+development,U,AC,22,22,True,0.030559203835427682,0.06178288532418244,15,7,0

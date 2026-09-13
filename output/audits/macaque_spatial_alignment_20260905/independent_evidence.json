@@ -1,0 +1,1175 @@
+{
+  "source_scope": "Local repository materials only; no remote acquisition or contact",
+  "statistical_crosscheck": {
+    "pearson_stdlib": 0.8272604668136098,
+    "spearman_stdlib": 0.7267080745341615
+  },
+  "official_model_offset_transform": "get_RF uses linspace(-128,128,256); decoded index=127.5+255/256*offset; current crop center=index127; pooled offset=(0.5+255/256*offset)/3; Cartesian y flips sign.",
+  "official_model_centers": [
+    {
+      "cell_id": "68#3",
+      "recording_suffix": 181,
+      "notebook": "data/real/schottdorf_lee_2021_repository/run_model/MC_off.ipynb",
+      "code_cell_zero_based": 3,
+      "xoff_native": -10.0,
+      "yoff_native": -3.4,
+      "x_offset_pooled_pixels": -3.1536458333333335,
+      "y_offset_pooled_pixels_image_down": -0.9622395833333334,
+      "distance_to_ln_final_pixels": 0.50295862910593,
+      "evidence_type": "official model parameter, not physiological RF ground truth"
+    },
+    {
+      "cell_id": "67#6",
+      "recording_suffix": 78,
+      "notebook": "data/real/schottdorf_lee_2021_repository/run_model/MC_off.ipynb",
+      "code_cell_zero_based": 8,
+      "xoff_native": -8.4,
+      "yoff_native": 2.5,
+      "x_offset_pooled_pixels": -2.6223958333333335,
+      "y_offset_pooled_pixels_image_down": 0.9967447916666666,
+      "distance_to_ln_final_pixels": 0.33848744618039406,
+      "evidence_type": "official model parameter, not physiological RF ground truth"
+    },
+    {
+      "cell_id": "69#6",
+      "recording_suffix": 256,
+      "notebook": "data/real/schottdorf_lee_2021_repository/run_model/MC_off.ipynb",
+      "code_cell_zero_based": 13,
+      "xoff_native": 1.1,
+      "yoff_native": 4.1,
+      "x_offset_pooled_pixels": 0.5319010416666666,
+      "y_offset_pooled_pixels_image_down": 1.5279947916666667,
+      "distance_to_ln_final_pixels": 0.28482735760190053,
+      "evidence_type": "official model parameter, not physiological RF ground truth"
+    },
+    {
+      "cell_id": "69#4",
+      "recording_suffix": 254,
+      "notebook": "data/real/schottdorf_lee_2021_repository/run_model/MC_on.ipynb",
+      "code_cell_zero_based": 3,
+      "xoff_native": 3.5,
+      "yoff_native": -2.0,
+      "x_offset_pooled_pixels": 1.3287760416666667,
+      "y_offset_pooled_pixels_image_down": -0.4973958333333333,
+      "distance_to_ln_final_pixels": 0.3515561689089409,
+      "evidence_type": "official model parameter, not physiological RF ground truth"
+    },
+    {
+      "cell_id": "70#34",
+      "recording_suffix": 299,
+      "notebook": "data/real/schottdorf_lee_2021_repository/run_model/MC_on.ipynb",
+      "code_cell_zero_based": 8,
+      "xoff_native": -2.5,
+      "yoff_native": -5.5,
+      "x_offset_pooled_pixels": -0.6634114583333334,
+      "y_offset_pooled_pixels_image_down": -1.6595052083333333,
+      "distance_to_ln_final_pixels": 0.3722777263924128,
+      "evidence_type": "official model parameter, not physiological RF ground truth"
+    },
+    {
+      "cell_id": "69#7",
+      "recording_suffix": 258,
+      "notebook": "data/real/schottdorf_lee_2021_repository/run_model/MC_on.ipynb",
+      "code_cell_zero_based": 13,
+      "xoff_native": 3.4,
+      "yoff_native": 1.0,
+      "x_offset_pooled_pixels": 1.2955729166666667,
+      "y_offset_pooled_pixels_image_down": 0.4986979166666667,
+      "distance_to_ln_final_pixels": 0.2060199895269015,
+      "evidence_type": "official model parameter, not physiological RF ground truth"
+    },
+    {
+      "cell_id": "70#7",
+      "recording_suffix": 284,
+      "notebook": "data/real/schottdorf_lee_2021_repository/run_model/PC_Gon.ipynb",
+      "code_cell_zero_based": 3,
+      "xoff_native": 0.0,
+      "yoff_native": -1.0,
+      "x_offset_pooled_pixels": 0.16666666666666666,
+      "y_offset_pooled_pixels_image_down": -0.16536458333333334,
+      "distance_to_ln_final_pixels": 0.16340831269967576,
+      "evidence_type": "official model parameter, not physiological RF ground truth"
+    },
+    {
+      "cell_id": "67#21",
+      "recording_suffix": 130,
+      "notebook": "data/real/schottdorf_lee_2021_repository/run_model/PC_Gon.ipynb",
+      "code_cell_zero_based": 8,
+      "xoff_native": 2.9,
+      "yoff_native": -2.2,
+      "x_offset_pooled_pixels": 1.1295572916666667,
+      "y_offset_pooled_pixels_image_down": -0.5638020833333334,
+      "distance_to_ln_final_pixels": 0.21081852452590938,
+      "evidence_type": "official model parameter, not physiological RF ground truth"
+    },
+    {
+      "cell_id": "70#15",
+      "recording_suffix": 287,
+      "notebook": "data/real/schottdorf_lee_2021_repository/run_model/PC_Gon.ipynb",
+      "code_cell_zero_based": 13,
+      "xoff_native": -5.7,
+      "yoff_native": 2.9,
+      "x_offset_pooled_pixels": -1.7259114583333333,
+      "y_offset_pooled_pixels_image_down": 1.1295572916666667,
+      "distance_to_ln_final_pixels": 0.7090413132716192,
+      "evidence_type": "official model parameter, not physiological RF ground truth"
+    },
+    {
+      "cell_id": "67#34",
+      "recording_suffix": 167,
+      "notebook": "data/real/schottdorf_lee_2021_repository/run_model/PC_Ron.ipynb",
+      "code_cell_zero_based": 3,
+      "xoff_native": -1.6,
+      "yoff_native": 6.0,
+      "x_offset_pooled_pixels": -0.3645833333333333,
+      "y_offset_pooled_pixels_image_down": 2.1588541666666665,
+      "distance_to_ln_final_pixels": 0.5773954449833586,
+      "evidence_type": "official model parameter, not physiological RF ground truth"
+    },
+    {
+      "cell_id": "68#7",
+      "recording_suffix": 194,
+      "notebook": "data/real/schottdorf_lee_2021_repository/run_model/PC_Ron.ipynb",
+      "code_cell_zero_based": 8,
+      "xoff_native": -6.8,
+      "yoff_native": -6.5,
+      "x_offset_pooled_pixels": -2.0911458333333335,
+      "y_offset_pooled_pixels_image_down": -1.9915364583333333,
+      "distance_to_ln_final_pixels": 0.4647085382419896,
+      "evidence_type": "official model parameter, not physiological RF ground truth"
+    },
+    {
+      "cell_id": "67#14",
+      "recording_suffix": 110,
+      "notebook": "data/real/schottdorf_lee_2021_repository/run_model/PC_Ron.ipynb",
+      "code_cell_zero_based": 13,
+      "xoff_native": 2.9,
+      "yoff_native": -1.8,
+      "x_offset_pooled_pixels": 1.1295572916666667,
+      "y_offset_pooled_pixels_image_down": -0.4309895833333333,
+      "distance_to_ln_final_pixels": 0.07661894157805106,
+      "evidence_type": "official model parameter, not physiological RF ground truth"
+    },
+    {
+      "cell_id": "68#11",
+      "recording_suffix": 225,
+      "notebook": "data/real/schottdorf_lee_2021_repository/run_model/PC_off.ipynb",
+      "code_cell_zero_based": 2,
+      "xoff_native": -1,
+      "yoff_native": 1,
+      "x_offset_pooled_pixels": -0.16536458333333334,
+      "y_offset_pooled_pixels_image_down": 0.4986979166666667,
+      "distance_to_ln_final_pixels": 1.598779546861583,
+      "evidence_type": "official model parameter, not physiological RF ground truth"
+    }
+  ],
+  "docx_catalogs": [
+    {
+      "path": "data/real/schottdorf_lee_2021_repository/data/Cell List.docx",
+      "text": "Cell List File Cell Type Record type Cell key Lss01071.txt - M+Loff 10 min 67#4 Lss01078.txt MC off 6x1min 67#6 Lss01079.txt MC off 10min 67#6 Lss01086.txt MC on 6x1min 67#7 Lss01087.txt MC on 10min 67#7 Lss01110.txt +L-Mon 6x1min 67#14 Lss0 1112.txt +L-Mon 10min 67#14 Lss01130.txt +M-Lon 6x1 min 67#21 L ss01131.txt +M-Lon 10min 67#21 Lss01141.txt +M-Lon 6x1min 67#26 Lss01142.txt +M-Lon 10min 67#26 Lss01159.txt MC off 6x1min 67#33 Lss01160 .txt MC off 10min 67#33 Lss01167.txt +L-Mon 6x1min 67#34 Lss01168.txt +L-Mon 10min 67#34 Lss01178.txt S on 6x1min 68#1 Lss01180 .txt S on 10 min 68#1 Lss01181.txt MC off 6x1 min 68#3 Lss01183.txt MC off 10min  68#3 Lss01184.txt +L-Mon 10min  68#4 Lss01221.txt MC on 10 min 68#10 Lss01225.txt - M+Loff 6x1 min 68#11 Lss01227.txt - M+Loff 10 min 68#11 Lss01229.txt S on 6x1 min 68#12 Lss01231 .txt S on 10 min 68#12 Lss01251.txt +M- Loff 6x1 min 69#3 Lss01252.txt +M- Loff 10 min 69#3 Lss01254.txt MC on 6x1 min 69#4 Lss01256.txt M off 6x1 min 69#6 Lss01257.txt M off 10 min 69#6 Lss01258.txt M on 6x1 min 69#7 Lss01259.txt M on 10 min 69#7 Lss01270.txt - L+Moff 6x1 min 69#21 Lss01278.txt +M-Lon 6x1 min 70#1 Lss01284.txt +M-Lon 6x1 min 70 #7 Lss01285.txt +M-Lon 10 min 70 #7 Lss01287.txt +M-Lon 6x1 min 70#15 Lss01299.txt MC on 6x1 min 70#34 Lss01300.txt MC on 10 min 70#34 Lss01302.txt S on 6x1 min 71#9 Lss01303.txt S on 10  min 71#9",
+      "sha256": "515dd0c69fe51818fea77040bd1cdb798725d2883157255ad331fcb44c2f9c5f"
+    },
+    {
+      "path": "data/real/schottdorf_lee_2021_repository/data/CellsList.docx",
+      "text": "T he  6x 1 min segments were all in  on e  file  bu t  the up to 6 10 min runs are separate files ER67U 1  goff 6x1 48 6x1 53 LL RR corr Repeat centered 6x 1 0 54-59 LL RR ER67 U 3 ron 1 min 61 C LL RR corr Lost bad 1 x10 65 LL RR ER67 U4 goff 6x1 69 C LL RR poor bad ML resp 6x10 70-75 LL RR 6x1 128 77 er67u6 moff 6x1 78 C LL RR 6x10 79-84 LL RR ER67U8 mon 6x1 86 C LL RR 6x10 87-92 LL RR 6x1 94 C LL RR 128x128 6x1 95 256x256 ,1 /2 6x1 96 128x128 ,1 /2 6x1 97 256x256 ,1nd 6x1 98 repeat 99 ER67U9 ron 6x1 100 C LL RR 1x10 101 LL RR 1ND 6x1 102 only  103 ok 6x10 103 LL RR ER67U14 ron 6x1 110 C LL RR Cts  also 6x10 111-116 LL RR ER67U15 Ron? 6x1 118 C LL RR 1x10 119 LL RR ER67U12 Mon dirt? 6x1 120 C LL RR ER67U18 Mon 6x1 121 C LL RR 1x10 122 LL RR 6x10 123-128 LL RR ER67U21 Gon 6x1 130   C LL RR Last 2-3  odd 6x10 131-136 LL RR ER67U23 Ron 6x1 138 C LL RR 2x10 139-140 LL RR ER67U26 Gon 6x1 141 C LL RR 14 4, 5 dirty 3x10 142-144  LL RR 128x128 6x1 147 1nd 6x1 148 2nd 6x1 149 2 nd   rpt 6x1 150 ER67U28 Mon 6x1 151 C LL RR Cts  also 6x10 152-157 LL RR ER67U33 Moff 6x1 159      C LL RR cts  also 1x10 160 LL RR nd1 6x1 161 nd2 6x1 162 nd2 1x10 163 nd2 1x10 164 6x1 min 165 C LR RR 128x128 6x1 min 166 ER67U34 Ron 6x1 167 C LR RR 1x10 168 LL RR 1nd 6x1 169 2nd 6x1 170 4x10 171-174 LR RR ER68U2 Bon 6x1 178 C LR RR BAR ,BNR 6x1time 179 C 1x10 180 LR SR ER68U3 Moff 6x1 181 C LR RR 6x1time 182 C 1x10 183 LR RR ER68U4 Ron 6x1 184 C LR RR   poor dirtend 6x1time 185 6x1 186 C LR RR  poor ER68U5 Goff 1x10 188 LR RR 6x1 189 C LR RR  poor ER68U6 Bon 6x1 190 C LR RR BAR ,BNR 6x1time 191 C gating  bad 1x10 192 lum  poor 1x10 193 LR Sabs ER68U7 Ron 6x1 194 C LR RR 6x1 time 195 C 1x10 196 LR RR 6x10 197-202 LR RR ER68U8 Bon 6x1 204 C LR RR BAR ,BN Not Bon Lost after 2 repeats Boff  or Goff N ogood -- 1x10 205 6x1time 206 C 211bad 5x10 207-211 LR ER68U9 Roff 6x1 212 C LR RR  poor Poor  chr   resp 1x10 213 LR RR Scrub cell 6x1 time 214 C also  poor 3x10 215-217 LR RR ER68U10 Mon 6x1 218 C LR RR 6x1time 220 C 4x10 221-224 LR RR ER68U11 Goff  poor 6x1 225 C LR RR   poor Bad  resp 6x1time 226 C 2x10 227-228 LR RR ER68U12 Bon 6x1 229 C LR RR BAR Not good 6x1time 230 C 1x10 231 LR SC ER68U13 Ron 6x1 232 C LR RR Run 4 bad 6x1time 233 C 1x10 234 LR RR ER68U18 gon NG 6x1 235 C LR RR 6x1time 236 C NG 1x10 237 LR RR ER68U19 Ron 6x1 238 C LR RR 6x1time 239 C 4x10 240-243 LR CR ER68U20 Ron weak 6x1 244 C LR RR 6x1time 245 C 1x10 246 LR RR ER69U1 Moff poor 6x1 247 C LR RR First run poor 1x10 248 LR RR ER69U2 Goff 6x1 249 C LR RR Few spikes dirty ? 1x10 250 LR RR ER69U3 Roff 6x1 251 C LR RR ????? 1x10 252 LR RR 6x1time 253 C ER69U4 Mon 6x1 254 C LR RR also   cts 6x1time 255   C ER69U6 Moff 6x1 256 C LR RR 1x10 257 LR RR ER69U7 Mon 6x1 258 C LR RR also   cts 1x10 259 LR RR ER69U10 Mon  3rpts 6x1 260-262 C LR RR 3NDs? 6x1time 263 C also   cts 3x10 264-266 LR RR ER69U21 Roff 6x1 267 C LR RR  poor  chr Or  ron ? 1x10 269 LR RR repeat 6x1 270 C LR RR  better low  correlation ER69U22 Goff 6x1 271 C LR RR Low correlation 1x10 272 LR RR ER69U26 Ron poor 6x1 273 C LR RR dirty 1x10 274 LR RR ER70 U1 Gon 6x1 278 C LR RR ER70U5 Roff poor 6x1 281 C LR RR poor 2x10 282-283 LR RR ER70U7 Gon 6x1 284 C LR RR 2x10 285-286 LR RR ER70U13 Gon 6x1 287 C LR RR 1x10 288 ? ER70U 17 Gon 6x1 288 LR RR Poor correlation 2x10 289-290 LR RR ER70U24 Gon 6x1 291 C LR RR ER70U25 Gon ? 1x10 292 LR RR 6x1 293 C LL RR poor  correlation ER70U27 Moff 6x1 297 C LL RR 1x10 298 LL RR ER70U34 Mon 6x1 299 C LL RR 5 th  run  bad 1x10 300 LL RR ER71U9 Bon 6x1 302 C LL RR BAR , BNR 2 nd  bad 2x10 303-304 LL RR",
+      "sha256": "dc2ef780a2a31a1b4e01ff63072c2f524389d2604ad03503860d931e6966ec67"
+    }
+  ],
+  "Fig3": {
+    "path": "data/real/schottdorf_lee_2021_repository/exampleRFs/Fig3publication.xlsx",
+    "sha256": "d9d02a8927c1bf20609d9d5e2214cfb05f2a9a41464a2c015ddc721ddcf753f2",
+    "sheets": [
+      {
+        "sheet": "rn101lum",
+        "rows": 151,
+        "columns": 135,
+        "text_labels": [
+          {
+            "cell": "A1",
+            "value": "MxFr"
+          },
+          {
+            "cell": "B1",
+            "value": "MxX"
+          },
+          {
+            "cell": "C1",
+            "value": "MxY"
+          },
+          {
+            "cell": "D1",
+            "value": "Max"
+          },
+          {
+            "cell": "F1",
+            "value": "TimConst"
+          },
+          {
+            "cell": "G1",
+            "value": "Space const"
+          },
+          {
+            "cell": "H1",
+            "value": "Regul"
+          },
+          {
+            "cell": "J1",
+            "value": "Maxbin"
+          },
+          {
+            "cell": "K1",
+            "value": "Peak"
+          },
+          {
+            "cell": "L1",
+            "value": "SD"
+          },
+          {
+            "cell": "A5",
+            "value": "RevCorrPeak Profiles, x,y"
+          },
+          {
+            "cell": "DZ6",
+            "value": "csd"
+          },
+          {
+            "cell": "EA6",
+            "value": "camp"
+          },
+          {
+            "cell": "EB6",
+            "value": "ssd"
+          },
+          {
+            "cell": "EC6",
+            "value": "samp"
+          },
+          {
+            "cell": "ED6",
+            "value": "x"
+          },
+          {
+            "cell": "EE6",
+            "value": "base"
+          },
+          {
+            "cell": "DZ10",
+            "value": "csd"
+          },
+          {
+            "cell": "EA10",
+            "value": "camp"
+          },
+          {
+            "cell": "EB10",
+            "value": "ssd"
+          },
+          {
+            "cell": "EC10",
+            "value": "samp"
+          },
+          {
+            "cell": "ED10",
+            "value": "x"
+          },
+          {
+            "cell": "EE10",
+            "value": "base"
+          },
+          {
+            "cell": "DZ12",
+            "value": "sum"
+          },
+          {
+            "cell": "A16",
+            "value": "RevCorr"
+          },
+          {
+            "cell": "A18",
+            "value": "IR, space and time"
+          },
+          {
+            "cell": "A23",
+            "value": "Frame"
+          }
+        ],
+        "A1_L3_values": [
+          {
+            "cell": "A1",
+            "value": "MxFr"
+          },
+          {
+            "cell": "B1",
+            "value": "MxX"
+          },
+          {
+            "cell": "C1",
+            "value": "MxY"
+          },
+          {
+            "cell": "D1",
+            "value": "Max"
+          },
+          {
+            "cell": "F1",
+            "value": "TimConst"
+          },
+          {
+            "cell": "G1",
+            "value": "Space const"
+          },
+          {
+            "cell": "H1",
+            "value": "Regul"
+          },
+          {
+            "cell": "J1",
+            "value": "Maxbin"
+          },
+          {
+            "cell": "K1",
+            "value": "Peak"
+          },
+          {
+            "cell": "L1",
+            "value": "SD"
+          },
+          {
+            "cell": "A2",
+            "value": 67
+          },
+          {
+            "cell": "B2",
+            "value": 126
+          },
+          {
+            "cell": "C2",
+            "value": 131
+          },
+          {
+            "cell": "D2",
+            "value": 203703
+          },
+          {
+            "cell": "F2",
+            "value": 0.001
+          },
+          {
+            "cell": "G2",
+            "value": 0.001
+          },
+          {
+            "cell": "H2",
+            "value": 1e-05
+          },
+          {
+            "cell": "J2",
+            "value": 67
+          },
+          {
+            "cell": "K2",
+            "value": 249.845
+          },
+          {
+            "cell": "L2",
+            "value": 4.24223
+          },
+          {
+            "cell": "A3",
+            "value": 71
+          },
+          {
+            "cell": "B3",
+            "value": 127
+          },
+          {
+            "cell": "C3",
+            "value": 129
+          },
+          {
+            "cell": "D3",
+            "value": -48527.2
+          }
+        ]
+      },
+      {
+        "sheet": "Fig",
+        "rows": 46,
+        "columns": 19,
+        "text_labels": [
+          {
+            "cell": "A2",
+            "value": " A"
+          },
+          {
+            "cell": "G2",
+            "value": "B"
+          },
+          {
+            "cell": "M2",
+            "value": "C"
+          },
+          {
+            "cell": "S2",
+            "value": "D"
+          },
+          {
+            "cell": "A46",
+            "value": "E"
+          }
+        ],
+        "A1_L3_values": [
+          {
+            "cell": "A2",
+            "value": " A"
+          },
+          {
+            "cell": "G2",
+            "value": "B"
+          }
+        ]
+      },
+      {
+        "sheet": "231 S cone",
+        "rows": 284,
+        "columns": 128,
+        "text_labels": [
+          {
+            "cell": "A2",
+            "value": "Lum"
+          },
+          {
+            "cell": "A3",
+            "value": "Frame 69"
+          },
+          {
+            "cell": "A134",
+            "value": "Scone"
+          },
+          {
+            "cell": "A264",
+            "value": "Scone"
+          },
+          {
+            "cell": "A265",
+            "value": "RevCorrPeak Profiles, x,y"
+          },
+          {
+            "cell": "A272",
+            "value": "IR, space and time"
+          },
+          {
+            "cell": "A277",
+            "value": "Lum"
+          },
+          {
+            "cell": "A278",
+            "value": "RevCorrPeak Profiles, x,y"
+          },
+          {
+            "cell": "A282",
+            "value": "IR, space and time"
+          }
+        ],
+        "A1_L3_values": [
+          {
+            "cell": "A1",
+            "value": 231
+          },
+          {
+            "cell": "A2",
+            "value": "Lum"
+          },
+          {
+            "cell": "A3",
+            "value": "Frame 69"
+          }
+        ]
+      },
+      {
+        "sheet": "Time fit",
+        "rows": 74,
+        "columns": 19,
+        "text_labels": [
+          {
+            "cell": "B2",
+            "value": "Ms "
+          },
+          {
+            "cell": "C2",
+            "value": "Amp"
+          },
+          {
+            "cell": "F2",
+            "value": "Ms "
+          },
+          {
+            "cell": "G2",
+            "value": "Amp"
+          },
+          {
+            "cell": "I2",
+            "value": "Ms "
+          },
+          {
+            "cell": "J2",
+            "value": "Amp"
+          },
+          {
+            "cell": "L2",
+            "value": "Ms "
+          },
+          {
+            "cell": "M2",
+            "value": "Amp"
+          },
+          {
+            "cell": "O2",
+            "value": "Ms "
+          },
+          {
+            "cell": "P2",
+            "value": "Amp"
+          },
+          {
+            "cell": "R2",
+            "value": "Ms "
+          },
+          {
+            "cell": "S2",
+            "value": "Amp"
+          },
+          {
+            "cell": "A3",
+            "value": "Temporal fits"
+          },
+          {
+            "cell": "E3",
+            "value": "Temporal fits"
+          },
+          {
+            "cell": "H3",
+            "value": "Temporal fits"
+          },
+          {
+            "cell": "K3",
+            "value": "Temporal fits"
+          },
+          {
+            "cell": "N3",
+            "value": "Temporal fits"
+          },
+          {
+            "cell": "Q3",
+            "value": "Temporal fits"
+          },
+          {
+            "cell": "A5",
+            "value": "ron lum 101"
+          },
+          {
+            "cell": "E5",
+            "value": "gon 292 lum"
+          },
+          {
+            "cell": "H5",
+            "value": "101 rg"
+          },
+          {
+            "cell": "K5",
+            "value": "292 rg"
+          },
+          {
+            "cell": "N5",
+            "value": "bon scone"
+          },
+          {
+            "cell": "Q5",
+            "value": "bon scone"
+          },
+          {
+            "cell": "N6",
+            "value": "231 lum"
+          },
+          {
+            "cell": "Q6",
+            "value": "231 scone"
+          }
+        ],
+        "A1_L3_values": [
+          {
+            "cell": "B2",
+            "value": "Ms "
+          },
+          {
+            "cell": "C2",
+            "value": "Amp"
+          },
+          {
+            "cell": "F2",
+            "value": "Ms "
+          },
+          {
+            "cell": "G2",
+            "value": "Amp"
+          },
+          {
+            "cell": "I2",
+            "value": "Ms "
+          },
+          {
+            "cell": "J2",
+            "value": "Amp"
+          },
+          {
+            "cell": "L2",
+            "value": "Ms "
+          },
+          {
+            "cell": "A3",
+            "value": "Temporal fits"
+          },
+          {
+            "cell": "B3",
+            "value": 1.9999999999242846e-05
+          },
+          {
+            "cell": "C3",
+            "value": 0
+          },
+          {
+            "cell": "E3",
+            "value": "Temporal fits"
+          },
+          {
+            "cell": "F3",
+            "value": 1.9999999999242846e-05
+          },
+          {
+            "cell": "G3",
+            "value": 0
+          },
+          {
+            "cell": "H3",
+            "value": "Temporal fits"
+          },
+          {
+            "cell": "I3",
+            "value": 1.9999999999242846e-05
+          },
+          {
+            "cell": "J3",
+            "value": 0
+          },
+          {
+            "cell": "K3",
+            "value": "Temporal fits"
+          },
+          {
+            "cell": "L3",
+            "value": 1.9999999999242846e-05
+          }
+        ]
+      },
+      {
+        "sheet": "gn292rg",
+        "rows": 142,
+        "columns": 128,
+        "text_labels": [
+          {
+            "cell": "A1",
+            "value": "MxFr"
+          },
+          {
+            "cell": "B1",
+            "value": "MxX"
+          },
+          {
+            "cell": "C1",
+            "value": "MxY"
+          },
+          {
+            "cell": "D1",
+            "value": "Max"
+          },
+          {
+            "cell": "F1",
+            "value": "TimConst"
+          },
+          {
+            "cell": "G1",
+            "value": "Space const"
+          },
+          {
+            "cell": "H1",
+            "value": "Regul"
+          },
+          {
+            "cell": "J1",
+            "value": "Maxbin"
+          },
+          {
+            "cell": "K1",
+            "value": "Peak"
+          },
+          {
+            "cell": "L1",
+            "value": "SD"
+          },
+          {
+            "cell": "A5",
+            "value": "RevCorrPeak Profiles, x,y"
+          },
+          {
+            "cell": "A8",
+            "value": "RevCorr"
+          },
+          {
+            "cell": "A10",
+            "value": "IR, space and time"
+          },
+          {
+            "cell": "A14",
+            "value": "Frame 68"
+          }
+        ],
+        "A1_L3_values": [
+          {
+            "cell": "A1",
+            "value": "MxFr"
+          },
+          {
+            "cell": "B1",
+            "value": "MxX"
+          },
+          {
+            "cell": "C1",
+            "value": "MxY"
+          },
+          {
+            "cell": "D1",
+            "value": "Max"
+          },
+          {
+            "cell": "F1",
+            "value": "TimConst"
+          },
+          {
+            "cell": "G1",
+            "value": "Space const"
+          },
+          {
+            "cell": "H1",
+            "value": "Regul"
+          },
+          {
+            "cell": "J1",
+            "value": "Maxbin"
+          },
+          {
+            "cell": "K1",
+            "value": "Peak"
+          },
+          {
+            "cell": "L1",
+            "value": "SD"
+          },
+          {
+            "cell": "A2",
+            "value": 72
+          },
+          {
+            "cell": "B2",
+            "value": 125
+          },
+          {
+            "cell": "C2",
+            "value": 129
+          },
+          {
+            "cell": "D2",
+            "value": 129.984
+          },
+          {
+            "cell": "F2",
+            "value": 0.001
+          },
+          {
+            "cell": "G2",
+            "value": 0.001
+          },
+          {
+            "cell": "H2",
+            "value": 0.05
+          },
+          {
+            "cell": "J2",
+            "value": 68
+          },
+          {
+            "cell": "K2",
+            "value": -3.47703
+          },
+          {
+            "cell": "L2",
+            "value": 0.280344
+          },
+          {
+            "cell": "A3",
+            "value": 68
+          },
+          {
+            "cell": "B3",
+            "value": 127
+          },
+          {
+            "cell": "C3",
+            "value": 127
+          },
+          {
+            "cell": "D3",
+            "value": -420.36
+          }
+        ]
+      },
+      {
+        "sheet": "gn292lum",
+        "rows": 143,
+        "columns": 128,
+        "text_labels": [
+          {
+            "cell": "A1",
+            "value": "MxFr"
+          },
+          {
+            "cell": "B1",
+            "value": "MxX"
+          },
+          {
+            "cell": "C1",
+            "value": "MxY"
+          },
+          {
+            "cell": "D1",
+            "value": "Max"
+          },
+          {
+            "cell": "F1",
+            "value": "TimConst"
+          },
+          {
+            "cell": "G1",
+            "value": "Space const"
+          },
+          {
+            "cell": "H1",
+            "value": "Regul"
+          },
+          {
+            "cell": "J1",
+            "value": "Maxbin"
+          },
+          {
+            "cell": "K1",
+            "value": "Peak"
+          },
+          {
+            "cell": "L1",
+            "value": "SD"
+          },
+          {
+            "cell": "A5",
+            "value": "RevCorrPeak Profiles, x,y"
+          },
+          {
+            "cell": "A8",
+            "value": "RevCorr"
+          },
+          {
+            "cell": "A10",
+            "value": "IR, space and time"
+          },
+          {
+            "cell": "A15",
+            "value": "Frame"
+          }
+        ],
+        "A1_L3_values": [
+          {
+            "cell": "A1",
+            "value": "MxFr"
+          },
+          {
+            "cell": "B1",
+            "value": "MxX"
+          },
+          {
+            "cell": "C1",
+            "value": "MxY"
+          },
+          {
+            "cell": "D1",
+            "value": "Max"
+          },
+          {
+            "cell": "F1",
+            "value": "TimConst"
+          },
+          {
+            "cell": "G1",
+            "value": "Space const"
+          },
+          {
+            "cell": "H1",
+            "value": "Regul"
+          },
+          {
+            "cell": "J1",
+            "value": "Maxbin"
+          },
+          {
+            "cell": "K1",
+            "value": "Peak"
+          },
+          {
+            "cell": "L1",
+            "value": "SD"
+          },
+          {
+            "cell": "A2",
+            "value": 68
+          },
+          {
+            "cell": "B2",
+            "value": 127
+          },
+          {
+            "cell": "C2",
+            "value": 128
+          },
+          {
+            "cell": "D2",
+            "value": 186874
+          },
+          {
+            "cell": "F2",
+            "value": 0.001
+          },
+          {
+            "cell": "G2",
+            "value": 0.001
+          },
+          {
+            "cell": "H2",
+            "value": 1e-05
+          },
+          {
+            "cell": "J2",
+            "value": 68
+          },
+          {
+            "cell": "K2",
+            "value": 184.764
+          },
+          {
+            "cell": "L2",
+            "value": 5.10826
+          },
+          {
+            "cell": "A3",
+            "value": 72
+          },
+          {
+            "cell": "B3",
+            "value": 126
+          },
+          {
+            "cell": "C3",
+            "value": 127
+          },
+          {
+            "cell": "D3",
+            "value": -73343.2
+          }
+        ]
+      },
+      {
+        "sheet": "rn101rg",
+        "rows": 149,
+        "columns": 128,
+        "text_labels": [
+          {
+            "cell": "A1",
+            "value": "MxFr"
+          },
+          {
+            "cell": "B1",
+            "value": "MxX"
+          },
+          {
+            "cell": "C1",
+            "value": "MxY"
+          },
+          {
+            "cell": "D1",
+            "value": "Max"
+          },
+          {
+            "cell": "F1",
+            "value": "TimConst"
+          },
+          {
+            "cell": "G1",
+            "value": "Space const"
+          },
+          {
+            "cell": "H1",
+            "value": "Regul"
+          },
+          {
+            "cell": "J1",
+            "value": "Maxbin"
+          },
+          {
+            "cell": "K1",
+            "value": "Peak"
+          },
+          {
+            "cell": "L1",
+            "value": "SD"
+          },
+          {
+            "cell": "A5",
+            "value": "RevCorrPeak Profiles, x,y"
+          },
+          {
+            "cell": "A11",
+            "value": "RevCorr"
+          },
+          {
+            "cell": "A13",
+            "value": "IR, space and time"
+          },
+          {
+            "cell": "A18",
+            "value": "Frame"
+          },
+          {
+            "cell": "DX149",
+            "value": "      "
+          }
+        ],
+        "A1_L3_values": [
+          {
+            "cell": "A1",
+            "value": "MxFr"
+          },
+          {
+            "cell": "B1",
+            "value": "MxX"
+          },
+          {
+            "cell": "C1",
+            "value": "MxY"
+          },
+          {
+            "cell": "D1",
+            "value": "Max"
+          },
+          {
+            "cell": "F1",
+            "value": "TimConst"
+          },
+          {
+            "cell": "G1",
+            "value": "Space const"
+          },
+          {
+            "cell": "H1",
+            "value": "Regul"
+          },
+          {
+            "cell": "J1",
+            "value": "Maxbin"
+          },
+          {
+            "cell": "K1",
+            "value": "Peak"
+          },
+          {
+            "cell": "L1",
+            "value": "SD"
+          },
+          {
+            "cell": "A2",
+            "value": 69
+          },
+          {
+            "cell": "B2",
+            "value": 120
+          },
+          {
+            "cell": "C2",
+            "value": 133
+          },
+          {
+            "cell": "D2",
+            "value": 210.547
+          },
+          {
+            "cell": "F2",
+            "value": 0.001
+          },
+          {
+            "cell": "G2",
+            "value": 0.001
+          },
+          {
+            "cell": "H2",
+            "value": 0.05
+          },
+          {
+            "cell": "J2",
+            "value": 69
+          },
+          {
+            "cell": "K2",
+            "value": 2.32071
+          },
+          {
+            "cell": "L2",
+            "value": 0.248164
+          },
+          {
+            "cell": "A3",
+            "value": 61
+          },
+          {
+            "cell": "B3",
+            "value": 128
+          },
+          {
+            "cell": "C3",
+            "value": 123
+          },
+          {
+            "cell": "D3",
+            "value": -125.945
+          }
+        ]
+      }
+    ],
+    "cohort_applicability": "Examples 101,292,231 do not provide independent RF positions for current 22 MC/PC cells; 231 maps to excluded S-cone cell 68#12."
+  },
+  "unavailable": [
+    {
+      "path": "data/real/schottdorf_lee_2021_repository/exampleRFs/Fig2publication.xlsx",
+      "reason": "64-byte annex pointer, not materialized xlsx",
+      "pointer": "/annex/objects/MD5-s20606799--d23fd7777e29a2c74fb9221fd2d33b7f"
+    },
+    {
+      "item": "original Schottdorf-Lee paper full text",
+      "reason": "No local primary paper full text found in inspected repository materials; statement about imperfect experimental centering remains UNVERIFIED."
+    }
+  ]
+}

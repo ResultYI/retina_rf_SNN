@@ -8,6 +8,7 @@ from torch import nn
 
 from models.mechanistic_retina.amacrine_pathways import AmacrinePathways
 from models.mechanistic_retina.bipolar_subunits import (
+    BipolarOutput,
     BipolarSubunits,
     PathFeatureBank,
     PathwaySpatialGeometry,
@@ -73,7 +74,7 @@ class MechanisticGraphTemporalRetina(nn.Module):
         match mode:
             case ArchitectureMode.MECHANISM_IDENTIFIABLE:
                 register_causal_contract(self)
-                register_spatial_contract(self)
+                register_spatial_contract(self, config.spatial_contract)
                 mechanism_mode = True
                 gate_initial = 0.5
                 shared_radius = config.shared_subunit_radius_deg
@@ -103,6 +104,10 @@ class MechanisticGraphTemporalRetina(nn.Module):
             trainable=mechanism_mode,
         )
         self.bipolar = BipolarSubunits(cell_types, polarities, shared=mechanism_mode)
+        if config.external_geometry_sha256 is not None:
+            from models.mechanistic_retina.external_geometry import register_external_geometry
+            register_external_geometry(self, cone_positions, cell_positions, pathway_spatial_geometry,
+                                       shared_subunit_edge_index, config.external_geometry_sha256)
         self.amacrine = AmacrinePathways(config, cell_types, polarities)
         self.gates = PathwayGates(
             gate_initial,
@@ -142,12 +147,7 @@ class MechanisticGraphTemporalRetina(nn.Module):
             raise MechanisticModelError("Canonical V1 uses only the shared BC encoder; independent pathway operators are disabled")
         gates = self.gates.values(clamps)
         h1 = self.h1(cones, amplitude=gates.h1)
-        features = self.feature_bank(h1.modulated_cones, mixer=self.shared_subunits)
-        modulation = self.operator(features, enabled=operators_enabled)
-        bipolar = self.bipolar(
-            features[:, :, :, :2], modulation[:, :, :, :2],
-        )
-        broad = self.bipolar(features[:, :, :, 2:], modulation[:, :, :, 2:])
+        bipolar, broad = self._bipolar_outputs(h1.modulated_cones, operators_enabled)
         bc_direct = torch.stack((bipolar.sustained, bipolar.transient), dim=-1)
         bc_broad = torch.stack((broad.sustained, broad.transient), dim=-1)
         amacrine = self.amacrine(
@@ -204,6 +204,17 @@ class MechanisticGraphTemporalRetina(nn.Module):
             bc_direct,
             bc_broad,
         )
+
+    def _bipolar_outputs(
+        self, cones: torch.Tensor, operators_enabled: bool
+    ) -> tuple[BipolarOutput, BipolarOutput]:
+        features = self.feature_bank(cones, mixer=self.shared_subunits)
+        modulation = self.operator(features, enabled=operators_enabled)
+        bipolar = self.bipolar(
+            features[:, :, :, :2], modulation[:, :, :, :2],
+        )
+        broad = self.bipolar(features[:, :, :, 2:], modulation[:, :, :, 2:])
+        return bipolar, broad
 
     def pathway_basis_features(
         self,

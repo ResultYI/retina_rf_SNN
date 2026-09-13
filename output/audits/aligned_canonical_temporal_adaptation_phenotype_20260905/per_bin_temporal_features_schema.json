@@ -1,0 +1,26 @@
+{
+  "format": "NumPy compressed NPZ; allow_pickle=False",
+  "files": [
+    "per_bin_temporal_features_development.npz",
+    "per_bin_temporal_features_consumed.npz"
+  ],
+  "key_format": "cell_id replacing # with _ + __ + field",
+  "row_order": "original sequence/time order restricted to phenotype mask",
+  "row_fields": "A,C,M,U,A_quintile,C_quintile,U_quintile,source_image_id,recording,local_trial_one_based,global_trial_zero_based,sequence_index,time_bin,live_frame,decoded_frame,time_seconds,target,aligned_loss,LN_loss,CNN_loss",
+  "metadata_fields": "weights,center,A_edges,C_edges,U_edges,cell_id,group",
+  "full_shape_mask_fields": "phenotype_mask,original_valid_mask",
+  "A": "sqrt(mean of M[t-45:t]^2), strictly past45,300ms",
+  "C": "abs(M[t]-M[t-5]),33.333ms",
+  "phenotype_mask": "original mask AND local t>=45; no padding/cross-sequence history",
+  "feature_unit": "dimensionless Weber drive",
+  "loss_unit": "nats/phenotype bin",
+  "frame_zero_provenance": "UNKNOWN; frozen decoded origin751 preserved",
+  "consumed_thresholds": "exact numerical development thresholds",
+  "bootstrap": {
+    "existing_seed": 2026090501,
+    "reused": true,
+    "draws": 100000,
+    "columns": 22,
+    "index_sha256": "e7c2af0a9e6c1c54358f3f64513ad92790ea4bcc7647e92f2c9ab3a9da901528"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "status": "COMPLETE",
+  "protocol_sha256": "3652c48aa4293f2c3503e15099b40657f6d3b396f4a06f4434c4f0e27167bb08",
+  "completed_cells": 22,
+  "start_utc": "2026-09-05T10:23:12.865714+00:00",
+  "new_training_runs": 0,
+  "production_modifications": 0,
+  "completed_utc": "2026-09-05T10:25:00.145424+00:00",
+  "predictions_per_cell": 7,
+  "valid_bins": 657600,
+  "sequences": 5480,
+  "checkpoint_states_unchanged": true
+}

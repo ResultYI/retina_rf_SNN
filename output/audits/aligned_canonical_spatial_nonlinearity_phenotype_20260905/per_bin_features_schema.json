@@ -1,0 +1,26 @@
+{
+  "format": "NumPy compressed NPZ; allow_pickle=False",
+  "files": [
+    "per_bin_features_development.npz",
+    "per_bin_features_consumed.npz"
+  ],
+  "key_format": "cell_id with # replaced by _ + __ + field",
+  "rows": "scored bins in original sequence/time order",
+  "fields": "LSC,local_mean,local_RMS,LSC_quantile,mean_stratum,live_frame,decoded_frame,time_seconds,recording,local_trial_one_based,global_trial_zero_based,sequence_index,time_bin,target,aligned_loss,LN_loss,CNN_loss",
+  "non_row_metadata_fields": [
+    "lsc_edges",
+    "mean_edges",
+    "weights"
+  ],
+  "target": "binary spike event",
+  "loss_unit": "nats per scored bin",
+  "feature_unit": "dimensionless Weber drive",
+  "source_frame_origin_provenance": "UNKNOWN; frozen decoded origin751 preserved",
+  "bootstrap": {
+    "seed": 2026090501,
+    "existing_seed_reused": true,
+    "draws": 100000,
+    "cells": 22,
+    "index_sha256": "e7c2af0a9e6c1c54358f3f64513ad92790ea4bcc7647e92f2c9ab3a9da901528"
+  }
+}

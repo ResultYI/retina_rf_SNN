@@ -1,0 +1,1498 @@
+[
+  {
+    "cell_id": "67#4",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_4/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      4,
+      150,
+      1
+    ],
+    "target_sha256": "5443a330aa4dc12d19d22d67c18f0d620baf5e371256a9f11ef079e7feed6885",
+    "mask_sha256": "c9e5ce6beb6a9a8ec9301bd6753fde49897a099d46b362d9a1cd96614f8ea02c",
+    "source_order_sha256": "66064cdb18923dd667608afdd92be7a1fe79442b005cf0015ada7424039fb31e",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#4",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_4/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      4,
+      150,
+      1
+    ],
+    "target_sha256": "5443a330aa4dc12d19d22d67c18f0d620baf5e371256a9f11ef079e7feed6885",
+    "mask_sha256": "c9e5ce6beb6a9a8ec9301bd6753fde49897a099d46b362d9a1cd96614f8ea02c",
+    "source_order_sha256": "66064cdb18923dd667608afdd92be7a1fe79442b005cf0015ada7424039fb31e",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#4",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_4/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      4,
+      150,
+      1
+    ],
+    "target_sha256": "5443a330aa4dc12d19d22d67c18f0d620baf5e371256a9f11ef079e7feed6885",
+    "mask_sha256": "c9e5ce6beb6a9a8ec9301bd6753fde49897a099d46b362d9a1cd96614f8ea02c",
+    "source_order_sha256": "66064cdb18923dd667608afdd92be7a1fe79442b005cf0015ada7424039fb31e",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#4",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/67_4/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      4,
+      150,
+      1
+    ],
+    "target_sha256": "5443a330aa4dc12d19d22d67c18f0d620baf5e371256a9f11ef079e7feed6885",
+    "mask_sha256": "c9e5ce6beb6a9a8ec9301bd6753fde49897a099d46b362d9a1cd96614f8ea02c",
+    "source_order_sha256": "66064cdb18923dd667608afdd92be7a1fe79442b005cf0015ada7424039fb31e",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#6",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_6/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "810e0813f18a1c33d1154d250a1124c08590b80f80fba9374b446edec86d8ed7",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "349299fb2eb20f151aec8616c9d163a9092ca6389bf5d5b4187ac3f8fe486b3f",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#6",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_6/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "810e0813f18a1c33d1154d250a1124c08590b80f80fba9374b446edec86d8ed7",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "349299fb2eb20f151aec8616c9d163a9092ca6389bf5d5b4187ac3f8fe486b3f",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#6",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_6/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "810e0813f18a1c33d1154d250a1124c08590b80f80fba9374b446edec86d8ed7",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "349299fb2eb20f151aec8616c9d163a9092ca6389bf5d5b4187ac3f8fe486b3f",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#6",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/67_6/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "810e0813f18a1c33d1154d250a1124c08590b80f80fba9374b446edec86d8ed7",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "349299fb2eb20f151aec8616c9d163a9092ca6389bf5d5b4187ac3f8fe486b3f",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#7",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "c27d388e55a625da9d9fa73267907109677c14c0e796f2e7dd182a65916ac917",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "2878184472890398cffe9162832f330f4b1b87f136b94e2b6090b54444abdf20",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#7",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "c27d388e55a625da9d9fa73267907109677c14c0e796f2e7dd182a65916ac917",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "2878184472890398cffe9162832f330f4b1b87f136b94e2b6090b54444abdf20",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#7",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "c27d388e55a625da9d9fa73267907109677c14c0e796f2e7dd182a65916ac917",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "2878184472890398cffe9162832f330f4b1b87f136b94e2b6090b54444abdf20",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#7",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/67_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "c27d388e55a625da9d9fa73267907109677c14c0e796f2e7dd182a65916ac917",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "2878184472890398cffe9162832f330f4b1b87f136b94e2b6090b54444abdf20",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#14",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_14/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "d235ac7ca0514740b19a425d6ca73f1b4638c6762e6710e0ec6def4bba512187",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "5a0b9a8aeecdf9210656dbed6644737fe356a054ef3d41102e1539b9d0bc7d85",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#14",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_14/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "d235ac7ca0514740b19a425d6ca73f1b4638c6762e6710e0ec6def4bba512187",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "5a0b9a8aeecdf9210656dbed6644737fe356a054ef3d41102e1539b9d0bc7d85",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#14",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_14/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "d235ac7ca0514740b19a425d6ca73f1b4638c6762e6710e0ec6def4bba512187",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "5a0b9a8aeecdf9210656dbed6644737fe356a054ef3d41102e1539b9d0bc7d85",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#14",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/67_14/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "d235ac7ca0514740b19a425d6ca73f1b4638c6762e6710e0ec6def4bba512187",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "5a0b9a8aeecdf9210656dbed6644737fe356a054ef3d41102e1539b9d0bc7d85",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#21",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_21/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "2624fb31a751fdce51fb692fbfa328c1a315a8036ce4ec4f7b66065dddaf8645",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "b6e4f1b8f2c04bf4c1e42924cab4b98b57e4f53579e786acbc2c97ac2c47f362",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#21",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_21/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "2624fb31a751fdce51fb692fbfa328c1a315a8036ce4ec4f7b66065dddaf8645",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "b6e4f1b8f2c04bf4c1e42924cab4b98b57e4f53579e786acbc2c97ac2c47f362",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#21",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_21/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "2624fb31a751fdce51fb692fbfa328c1a315a8036ce4ec4f7b66065dddaf8645",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "b6e4f1b8f2c04bf4c1e42924cab4b98b57e4f53579e786acbc2c97ac2c47f362",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#21",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/67_21/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "2624fb31a751fdce51fb692fbfa328c1a315a8036ce4ec4f7b66065dddaf8645",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "b6e4f1b8f2c04bf4c1e42924cab4b98b57e4f53579e786acbc2c97ac2c47f362",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#26",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_26/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "170422c77bd3a00fdd589694bc3f9d1f53fbf9b9fb1fdeb43dcc408705fc3d7e",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "25e9e09dad0818deb1237fd8d57b346e5e00f6813722615f0381413a90c6ee8a",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#26",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_26/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "170422c77bd3a00fdd589694bc3f9d1f53fbf9b9fb1fdeb43dcc408705fc3d7e",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "25e9e09dad0818deb1237fd8d57b346e5e00f6813722615f0381413a90c6ee8a",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#26",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_26/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "170422c77bd3a00fdd589694bc3f9d1f53fbf9b9fb1fdeb43dcc408705fc3d7e",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "25e9e09dad0818deb1237fd8d57b346e5e00f6813722615f0381413a90c6ee8a",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#26",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/67_26/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "170422c77bd3a00fdd589694bc3f9d1f53fbf9b9fb1fdeb43dcc408705fc3d7e",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "25e9e09dad0818deb1237fd8d57b346e5e00f6813722615f0381413a90c6ee8a",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#33",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_33/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "480ce7549e822b6625783610cdcd507f0090b39ce1d88cdad34e652a23c6b256",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "d7eee25309522daa49159f3445617ec3782f6c956a7c95c9544b705bf5fe045e",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#33",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_33/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "480ce7549e822b6625783610cdcd507f0090b39ce1d88cdad34e652a23c6b256",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "d7eee25309522daa49159f3445617ec3782f6c956a7c95c9544b705bf5fe045e",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#33",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_33/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "480ce7549e822b6625783610cdcd507f0090b39ce1d88cdad34e652a23c6b256",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "d7eee25309522daa49159f3445617ec3782f6c956a7c95c9544b705bf5fe045e",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#33",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/67_33/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "480ce7549e822b6625783610cdcd507f0090b39ce1d88cdad34e652a23c6b256",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "d7eee25309522daa49159f3445617ec3782f6c956a7c95c9544b705bf5fe045e",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#34",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_34/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "18b885ca4c6f1a0f749508f4e2751f12b2e301af5b73e505cc8cd1b3bfcde846",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "415063d57f6cd16157619cd7fd3fd32710e4ef0d4e7ddb2fa9df867a962ac924",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#34",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_34/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "18b885ca4c6f1a0f749508f4e2751f12b2e301af5b73e505cc8cd1b3bfcde846",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "415063d57f6cd16157619cd7fd3fd32710e4ef0d4e7ddb2fa9df867a962ac924",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#34",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_34/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "18b885ca4c6f1a0f749508f4e2751f12b2e301af5b73e505cc8cd1b3bfcde846",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "415063d57f6cd16157619cd7fd3fd32710e4ef0d4e7ddb2fa9df867a962ac924",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "67#34",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/67_34/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "18b885ca4c6f1a0f749508f4e2751f12b2e301af5b73e505cc8cd1b3bfcde846",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "415063d57f6cd16157619cd7fd3fd32710e4ef0d4e7ddb2fa9df867a962ac924",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#3",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/68_3/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "31c4316a24cf73e29d994ee6d7eaf9ada67fe4a577ec5599c3c97c38d985dc0e",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "5e37a0b30283f9b13ad6880dab6bc359604c6ab742c9fd7c7757305181a4265f",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#3",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_3/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "31c4316a24cf73e29d994ee6d7eaf9ada67fe4a577ec5599c3c97c38d985dc0e",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "5e37a0b30283f9b13ad6880dab6bc359604c6ab742c9fd7c7757305181a4265f",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#3",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/68_3/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "31c4316a24cf73e29d994ee6d7eaf9ada67fe4a577ec5599c3c97c38d985dc0e",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "5e37a0b30283f9b13ad6880dab6bc359604c6ab742c9fd7c7757305181a4265f",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#3",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/68_3/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "31c4316a24cf73e29d994ee6d7eaf9ada67fe4a577ec5599c3c97c38d985dc0e",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "5e37a0b30283f9b13ad6880dab6bc359604c6ab742c9fd7c7757305181a4265f",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#4",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/68_4/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "afb396338b87888421d33e3bf14f9009f6d54e6e45fb8c0b0b60ec8641a3a7c5",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "31da8517445545d84c3131f865e44daad4b875978f82bbeb7a779fe2e0be8aa9",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#4",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_4/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "afb396338b87888421d33e3bf14f9009f6d54e6e45fb8c0b0b60ec8641a3a7c5",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "31da8517445545d84c3131f865e44daad4b875978f82bbeb7a779fe2e0be8aa9",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#4",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/68_4/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "afb396338b87888421d33e3bf14f9009f6d54e6e45fb8c0b0b60ec8641a3a7c5",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "31da8517445545d84c3131f865e44daad4b875978f82bbeb7a779fe2e0be8aa9",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#4",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/68_4/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "afb396338b87888421d33e3bf14f9009f6d54e6e45fb8c0b0b60ec8641a3a7c5",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "31da8517445545d84c3131f865e44daad4b875978f82bbeb7a779fe2e0be8aa9",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#7",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/68_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "d63b18777af69817b88413affc7348fca31b47fac33d19daccfcd406855ab2c8",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "1332bf82a8e527fde0324976e46e9c787fa2b21851ba16c61190e93a84248b6d",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#7",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "d63b18777af69817b88413affc7348fca31b47fac33d19daccfcd406855ab2c8",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "1332bf82a8e527fde0324976e46e9c787fa2b21851ba16c61190e93a84248b6d",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#7",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/68_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "d63b18777af69817b88413affc7348fca31b47fac33d19daccfcd406855ab2c8",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "1332bf82a8e527fde0324976e46e9c787fa2b21851ba16c61190e93a84248b6d",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#7",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/68_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "d63b18777af69817b88413affc7348fca31b47fac33d19daccfcd406855ab2c8",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "1332bf82a8e527fde0324976e46e9c787fa2b21851ba16c61190e93a84248b6d",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#10",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/68_10/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      4,
+      150,
+      1
+    ],
+    "target_sha256": "ffde42ff092b54b02a067a1ec50bd6393593af8b529695fd2d5f28a765888504",
+    "mask_sha256": "c9e5ce6beb6a9a8ec9301bd6753fde49897a099d46b362d9a1cd96614f8ea02c",
+    "source_order_sha256": "6e611b44b293755f315990882790ecb53a8a39cef4ea07781a88f6b1c14e9709",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#10",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_10/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      4,
+      150,
+      1
+    ],
+    "target_sha256": "ffde42ff092b54b02a067a1ec50bd6393593af8b529695fd2d5f28a765888504",
+    "mask_sha256": "c9e5ce6beb6a9a8ec9301bd6753fde49897a099d46b362d9a1cd96614f8ea02c",
+    "source_order_sha256": "6e611b44b293755f315990882790ecb53a8a39cef4ea07781a88f6b1c14e9709",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#10",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/68_10/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      4,
+      150,
+      1
+    ],
+    "target_sha256": "ffde42ff092b54b02a067a1ec50bd6393593af8b529695fd2d5f28a765888504",
+    "mask_sha256": "c9e5ce6beb6a9a8ec9301bd6753fde49897a099d46b362d9a1cd96614f8ea02c",
+    "source_order_sha256": "6e611b44b293755f315990882790ecb53a8a39cef4ea07781a88f6b1c14e9709",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#10",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/68_10/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      4,
+      150,
+      1
+    ],
+    "target_sha256": "ffde42ff092b54b02a067a1ec50bd6393593af8b529695fd2d5f28a765888504",
+    "mask_sha256": "c9e5ce6beb6a9a8ec9301bd6753fde49897a099d46b362d9a1cd96614f8ea02c",
+    "source_order_sha256": "6e611b44b293755f315990882790ecb53a8a39cef4ea07781a88f6b1c14e9709",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#11",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/68_11/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "d361bc1c6178b4b9324df6d2eef21c938b33a2462b4bbf85a9e73d6386b5a36b",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "a2b2f783cdb52fc5513405b0a881ed8235affd355ae629632b9c1fe13549423c",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#11",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_11/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "d361bc1c6178b4b9324df6d2eef21c938b33a2462b4bbf85a9e73d6386b5a36b",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "a2b2f783cdb52fc5513405b0a881ed8235affd355ae629632b9c1fe13549423c",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#11",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/68_11/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "d361bc1c6178b4b9324df6d2eef21c938b33a2462b4bbf85a9e73d6386b5a36b",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "a2b2f783cdb52fc5513405b0a881ed8235affd355ae629632b9c1fe13549423c",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "68#11",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/68_11/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "d361bc1c6178b4b9324df6d2eef21c938b33a2462b4bbf85a9e73d6386b5a36b",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "a2b2f783cdb52fc5513405b0a881ed8235affd355ae629632b9c1fe13549423c",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#3",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/69_3/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "a11f3bd7efc15e7a4e08affba6f34c528e9996ee551a793bfc6388118c1e7cf4",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "46b38cbb9098d477cb622ebb4c0f2a1b22cf0b5e1595da2dec451592749ce49c",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#3",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_3/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "a11f3bd7efc15e7a4e08affba6f34c528e9996ee551a793bfc6388118c1e7cf4",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "46b38cbb9098d477cb622ebb4c0f2a1b22cf0b5e1595da2dec451592749ce49c",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#3",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/69_3/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "a11f3bd7efc15e7a4e08affba6f34c528e9996ee551a793bfc6388118c1e7cf4",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "46b38cbb9098d477cb622ebb4c0f2a1b22cf0b5e1595da2dec451592749ce49c",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#3",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/69_3/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "a11f3bd7efc15e7a4e08affba6f34c528e9996ee551a793bfc6388118c1e7cf4",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "46b38cbb9098d477cb622ebb4c0f2a1b22cf0b5e1595da2dec451592749ce49c",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#4",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/69_4/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "49426b5c093ef4357d83093b13127e45e150941b28b6e5404586b20f284acb83",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "39348ab269236229a243ecd3ca941df6a9a94052f544440c859ee1466f493067",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#4",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_4/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "49426b5c093ef4357d83093b13127e45e150941b28b6e5404586b20f284acb83",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "39348ab269236229a243ecd3ca941df6a9a94052f544440c859ee1466f493067",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#4",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/69_4/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "49426b5c093ef4357d83093b13127e45e150941b28b6e5404586b20f284acb83",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "39348ab269236229a243ecd3ca941df6a9a94052f544440c859ee1466f493067",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#4",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/69_4/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "49426b5c093ef4357d83093b13127e45e150941b28b6e5404586b20f284acb83",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "39348ab269236229a243ecd3ca941df6a9a94052f544440c859ee1466f493067",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#6",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/69_6/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "283513195757ecdd6aafb949c089e2f3543d4e37a3561047405850675422b283",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "9a0ff05403d59d30c03741781caf67c37575af7192a893dd3f52f5f649276bc4",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#6",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_6/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "283513195757ecdd6aafb949c089e2f3543d4e37a3561047405850675422b283",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "9a0ff05403d59d30c03741781caf67c37575af7192a893dd3f52f5f649276bc4",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#6",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/69_6/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "283513195757ecdd6aafb949c089e2f3543d4e37a3561047405850675422b283",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "9a0ff05403d59d30c03741781caf67c37575af7192a893dd3f52f5f649276bc4",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#6",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/69_6/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "283513195757ecdd6aafb949c089e2f3543d4e37a3561047405850675422b283",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "9a0ff05403d59d30c03741781caf67c37575af7192a893dd3f52f5f649276bc4",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#7",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/69_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "432848c29c017321319950b0f6bc183b9077ab3ca7a93bcab528c0bb4ba6fdf5",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "4fa5b3f72dfdb9995707a1576a497d5cb69911715ecb9d58a17804220ffaf4d1",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#7",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "432848c29c017321319950b0f6bc183b9077ab3ca7a93bcab528c0bb4ba6fdf5",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "4fa5b3f72dfdb9995707a1576a497d5cb69911715ecb9d58a17804220ffaf4d1",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#7",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/69_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "432848c29c017321319950b0f6bc183b9077ab3ca7a93bcab528c0bb4ba6fdf5",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "4fa5b3f72dfdb9995707a1576a497d5cb69911715ecb9d58a17804220ffaf4d1",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#7",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/69_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "432848c29c017321319950b0f6bc183b9077ab3ca7a93bcab528c0bb4ba6fdf5",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "4fa5b3f72dfdb9995707a1576a497d5cb69911715ecb9d58a17804220ffaf4d1",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#21",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/69_21/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "d7c8980a75cc83aea1e9d5d047ba5831390fcb3cc3d54b8830539d7401c2c4e1",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "9fb0bbd05b41a83b79383c608dddf3d92f4b4708d081a0a7e293fb8b6ff6ea4b",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#21",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_21/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "d7c8980a75cc83aea1e9d5d047ba5831390fcb3cc3d54b8830539d7401c2c4e1",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "9fb0bbd05b41a83b79383c608dddf3d92f4b4708d081a0a7e293fb8b6ff6ea4b",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#21",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/69_21/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "d7c8980a75cc83aea1e9d5d047ba5831390fcb3cc3d54b8830539d7401c2c4e1",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "9fb0bbd05b41a83b79383c608dddf3d92f4b4708d081a0a7e293fb8b6ff6ea4b",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "69#21",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/69_21/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "d7c8980a75cc83aea1e9d5d047ba5831390fcb3cc3d54b8830539d7401c2c4e1",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "9fb0bbd05b41a83b79383c608dddf3d92f4b4708d081a0a7e293fb8b6ff6ea4b",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#1",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/70_1/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "0a6ecf9de7e8d53c2a370ec3fae57974d9c091db8fbddef5695eb4a819f88a73",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "84144af394eaf1967f222ad18bece388c6c5beaf82b1f0d8ea8e3dfb84f3a6f0",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#1",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/70_1/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "0a6ecf9de7e8d53c2a370ec3fae57974d9c091db8fbddef5695eb4a819f88a73",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "84144af394eaf1967f222ad18bece388c6c5beaf82b1f0d8ea8e3dfb84f3a6f0",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#1",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/70_1/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "0a6ecf9de7e8d53c2a370ec3fae57974d9c091db8fbddef5695eb4a819f88a73",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "84144af394eaf1967f222ad18bece388c6c5beaf82b1f0d8ea8e3dfb84f3a6f0",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#1",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/70_1/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "0a6ecf9de7e8d53c2a370ec3fae57974d9c091db8fbddef5695eb4a819f88a73",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "84144af394eaf1967f222ad18bece388c6c5beaf82b1f0d8ea8e3dfb84f3a6f0",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#7",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/70_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "7a71cb92343aa0a0ad4e094ebf528e9497aab714eaeeb2140ee944e8fd852c6d",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "cacb5cb8fcfb529ee28f4fd95d560ff15e4def976a6829ca93461d3e374c75a1",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#7",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/70_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "7a71cb92343aa0a0ad4e094ebf528e9497aab714eaeeb2140ee944e8fd852c6d",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "cacb5cb8fcfb529ee28f4fd95d560ff15e4def976a6829ca93461d3e374c75a1",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#7",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/70_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "7a71cb92343aa0a0ad4e094ebf528e9497aab714eaeeb2140ee944e8fd852c6d",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "cacb5cb8fcfb529ee28f4fd95d560ff15e4def976a6829ca93461d3e374c75a1",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#7",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/70_7/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "7a71cb92343aa0a0ad4e094ebf528e9497aab714eaeeb2140ee944e8fd852c6d",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "cacb5cb8fcfb529ee28f4fd95d560ff15e4def976a6829ca93461d3e374c75a1",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#15",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/70_15/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "16a0c5a59b82939d0400cee6c4b66be21eb46b4557e7f13d593805c0b01d3f7c",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "e75ad8e211e9c6916212abd2c81476253673eb8896b973b6b390f7b9c5530701",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#15",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/70_15/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "16a0c5a59b82939d0400cee6c4b66be21eb46b4557e7f13d593805c0b01d3f7c",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "e75ad8e211e9c6916212abd2c81476253673eb8896b973b6b390f7b9c5530701",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#15",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/70_15/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "16a0c5a59b82939d0400cee6c4b66be21eb46b4557e7f13d593805c0b01d3f7c",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "e75ad8e211e9c6916212abd2c81476253673eb8896b973b6b390f7b9c5530701",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#15",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/70_15/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      24,
+      150,
+      1
+    ],
+    "target_sha256": "16a0c5a59b82939d0400cee6c4b66be21eb46b4557e7f13d593805c0b01d3f7c",
+    "mask_sha256": "722508d4fa8d21f47f46e714097cf699ba32d7067a8ce8342568dee08915aa7a",
+    "source_order_sha256": "e75ad8e211e9c6916212abd2c81476253673eb8896b973b6b390f7b9c5530701",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#34",
+    "model": "zero",
+    "path": "output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/70_34/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "98933a5a8b3f57c606fab61927c5aceb4d6787a87b0c4acae056193a64f0be63",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "c11a6d4bbbdb10392d2a6adfc9311f9b5c19b98d64d581913f0fac6ecde83b48",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#34",
+    "model": "aligned",
+    "path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/70_34/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "98933a5a8b3f57c606fab61927c5aceb4d6787a87b0c4acae056193a64f0be63",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "c11a6d4bbbdb10392d2a6adfc9311f9b5c19b98d64d581913f0fac6ecde83b48",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#34",
+    "model": "LN",
+    "path": "output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/70_34/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "98933a5a8b3f57c606fab61927c5aceb4d6787a87b0c4acae056193a64f0be63",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "c11a6d4bbbdb10392d2a6adfc9311f9b5c19b98d64d581913f0fac6ecde83b48",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  },
+  {
+    "cell_id": "70#34",
+    "model": "CNN",
+    "path": ".omo/evidence/compact_causal_cnn_baseline/cells/70_34/validation-predictions.pt",
+    "start_frame": 2400,
+    "stop_exclusive": 3000,
+    "target_shape": [
+      28,
+      150,
+      1
+    ],
+    "target_sha256": "98933a5a8b3f57c606fab61927c5aceb4d6787a87b0c4acae056193a64f0be63",
+    "mask_sha256": "ab6d16109dd83b1bbe0b95f955a659033bb292c69210990324b2232f459fd31a",
+    "source_order_sha256": "c11a6d4bbbdb10392d2a6adfc9311f9b5c19b98d64d581913f0fac6ecde83b48",
+    "target_mask_order_equal": true,
+    "new_predictions_computed": false
+  }
+]

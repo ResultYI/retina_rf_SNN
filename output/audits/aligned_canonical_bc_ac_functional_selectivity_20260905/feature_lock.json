@@ -1,0 +1,518 @@
+{
+  "status": "LOCKED_BEFORE_SELECTIVITY",
+  "utc": "2026-09-05T12:38:15.337764+00:00",
+  "features_sha256": {
+    "development_features_67_4.npz": "d88907df3915a3ceb51d9b8d829aeee9a466b06fd042b9e7a38ef6ca8f5d01a9",
+    "development_features_67_6.npz": "14f1931f551823806465681f20f759b8af61815011879addb3f1efe60ae153e7",
+    "development_features_67_7.npz": "ef5f316d16e84ca455dcf884335e3800aed138b726a014e1fb04e5541c355fbc",
+    "development_features_67_14.npz": "05682d76ea96f5cc316856ab36d992c5eb1dc1efefa6d40cfb5d9689b94e63d5",
+    "development_features_67_21.npz": "f3057867c75a1524f1bc078aead789544f31513113d1728fd22735857fae9878",
+    "development_features_67_26.npz": "24b0d63030e5034f8b141f8a300d967401e3157edb267be9eff8607525572f79",
+    "development_features_67_33.npz": "ed655b8a2ab13de9b166267c49cac4387e3f4a6c941597cb1a701e3645d813cd",
+    "development_features_67_34.npz": "b32ab9d238dab7f5e88bfed31cc762de44305c7835ce3dcdf6989a59cbf8d900",
+    "development_features_68_3.npz": "516fb86955bfdeeff860669c37291f765320149c5df364edf51f5b62aa5ae903",
+    "development_features_68_4.npz": "a82bf869800f4353ce200fc71aec65e81ff2caf6b3f02505be41fbc967d4d73e",
+    "development_features_68_7.npz": "e8517534c620ce66350a932965785f3d6fafe3c5c81f1e5583d4c136387f49f2",
+    "development_features_68_10.npz": "1048118a91147dc5d2739aa29a40c5132ee15a4771641143039761a683844f07",
+    "development_features_68_11.npz": "18bac8046c3030a7ace91225dfa7723ad49b37f47f06061f7bceb3939d9751e6",
+    "development_features_69_3.npz": "44fc849fa09e3f2b6cc555c3d5bb4cc27094bf94c524d39c0bfc20e92a6dcce0",
+    "development_features_69_4.npz": "5af2836d355b270697a4817579ea3b90cb31bc4e87c43dc7d25833d811c7626a",
+    "development_features_69_6.npz": "67f644cf54cbf6e8718a9730fb1ed52f21b55e971eee6c7289878b6cf37bc77b",
+    "development_features_69_7.npz": "d13d45785ec7d1c30cd1c9e901693f9faa7980a027d3c42f8eb10952fac37eae",
+    "development_features_69_21.npz": "58958699d273034c8132eae3f3a96e06aac435e0b72c65e48525fb42fc6229fe",
+    "development_features_70_1.npz": "af68a5b171c70d9966fbb44e3e266c9944ae186d9e8d5c322bd1d6c41127121b",
+    "development_features_70_7.npz": "fcf200fbe04582b7729dc5501599e49d67e3979084ad9100e1e7220fb23a7cd6",
+    "development_features_70_15.npz": "501551765ef4b278b81d39532cd62ebf6276000effc30814bea1c8c6c454a647",
+    "development_features_70_34.npz": "b4bab557de53ac4585a3ace9d8def3e80d1c635632b443b992fa20075e8cdbbb"
+  },
+  "thresholds_sha256": "5ba96b6dd70c78caccb436c587c50005212d8bbcdf9aed75e9c4e73ffe30caca",
+  "geometry": [
+    {
+      "cell_id": "67#4",
+      "BC_samples": 4,
+      "AC_samples": 17,
+      "context_samples": 13,
+      "center": [
+        [
+          0.07636404037475586,
+          -0.05951613187789917
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 32,
+      "tensor_sha256": {
+        "BC_support": "8b7f472491c2fc82e9f970f4db94aef5336e05e7c9e4262ee90c503fe3a2f66a",
+        "AC_support": "40e82571fd5947d128ffc069fdf466a9a8efebc88eef6666f9ff5e7cc3e5c5b8",
+        "weights_BC": "97d6a1ea4a0ad9a5ae869e4242d1e929e30577f4093922b50c14fb40a7b8df10",
+        "weights_context": "0f173de6ba40eafba29a32057aec180bdd39c66ed2f70a8c707cb17bc98fc6db",
+        "weights_AC": "c32434bb2c1413a5bc9bf8bbd335abb38687d0acf30f326a40f1db640de6b853",
+        "center": "730f345ff299d9e04add42e4b40320f6f0e25bc1e89de7bef96ea397af0a00fe"
+      }
+    },
+    {
+      "cell_id": "67#6",
+      "BC_samples": 10,
+      "AC_samples": 24,
+      "context_samples": 14,
+      "center": [
+        [
+          -0.12376083433628082,
+          -0.04892627149820328
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 322,
+      "tensor_sha256": {
+        "BC_support": "cd9268cf4c69c89d41fc7d456ca2fcca850712e0a1dce719eba83c5c62384024",
+        "AC_support": "6e1a15009f16a275b5abdaeabea6b3d56768e007fe0bfc0669d6705cff86c13d",
+        "weights_BC": "c2d9084ffda814c252bd9514c409fb3f1343ba1561b5baa36c67e51fcd263072",
+        "weights_context": "1e22dbbbea9cc397854fdc44d7aaa66f471851849b96ee466e3eaed66fe94281",
+        "weights_AC": "8821f0254d99a4e02610feb6528db7f3908af0f029458a94fb6277773548fc5c",
+        "center": "4243c6a028a13d2d599f3f4e8a2efcb151ed29af6eb2347221eda3d83f0c4161"
+      }
+    },
+    {
+      "cell_id": "67#7",
+      "BC_samples": 12,
+      "AC_samples": 24,
+      "context_samples": 12,
+      "center": [
+        [
+          0.08704902231693268,
+          0.026340056210756302
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 280,
+      "tensor_sha256": {
+        "BC_support": "af35ccb974b199e66201502780ba969af72582d3c24fb8e79b55b48610edafe5",
+        "AC_support": "527222f58e2249405bd6e1715503506822fac8351d10b01a542089029ac3b8cf",
+        "weights_BC": "1bac2635c3996af638bae5e28ec545a1bd5929c57c5bd3e613df5f73403733d2",
+        "weights_context": "52dfc19a99144050db7ca59ae79046ddb296841cdacf34a3e03b4aea52bdbcda",
+        "weights_AC": "5f2d8a6fc12e17d8340da3754518e9e2057824426aed71e1f8806262744ec209",
+        "center": "2adddf16f6ce1e0aa4306478de3303bfb6f508fde2cab296663a1b26f981c5a4"
+      }
+    },
+    {
+      "cell_id": "67#14",
+      "BC_samples": 4,
+      "AC_samples": 16,
+      "context_samples": 12,
+      "center": [
+        [
+          0.05767524242401123,
+          0.025825897231698036
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 343,
+      "tensor_sha256": {
+        "BC_support": "ec23a26ce018a1f66d722ddf0dc434dfceb9fed68f8652587453b0f83da696b9",
+        "AC_support": "02e91302e4c284cb27ff2acd751540eb79f82f8eaa4626d5a79e44ff846a0723",
+        "weights_BC": "47d1a64849254649b69fc3837eb89e104043ef734ff3eeb69037f006d787118d",
+        "weights_context": "fc70aca6ab9f50621b9397fec796da27295fbead5759e250986afe75650ef316",
+        "weights_AC": "ea0eb3dc560e45d8c4a6f78ca1ef54176e197365ce7e8673168a4981eda15a93",
+        "center": "1bd0f59acfcebec1cb92cf364dab7f1caa3400411af5d3a30142d671ab326834"
+      }
+    },
+    {
+      "cell_id": "67#21",
+      "BC_samples": 4,
+      "AC_samples": 19,
+      "context_samples": 15,
+      "center": [
+        [
+          0.05670304223895073,
+          0.04095740616321564
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 315,
+      "tensor_sha256": {
+        "BC_support": "6055d529a1671268e45241c2af0097d67ef7f6729cf6b09bbcc087868f74843d",
+        "AC_support": "a7114409e8b370c6ce906ffdadb4f4f9fb989efac1ad2aa5cbbc4c1f76569559",
+        "weights_BC": "c274efe31efe5606f29fea923428ec1124c08c3227dea20dae2a95440c602c39",
+        "weights_context": "630b886a2a00a152935b1a31d1b18019e0de076ed99010616aeb825bb62b62c2",
+        "weights_AC": "0bbb997b283a6b0880f3c6a57abc4e6f03d573ea4f2b7215de38c9c9b3db9088",
+        "center": "1f8bc57b63661c2585caec321fcd60e80dadd0d6c4641ce0eb85829a00137ac9"
+      }
+    },
+    {
+      "cell_id": "67#26",
+      "BC_samples": 5,
+      "AC_samples": 21,
+      "context_samples": 16,
+      "center": [
+        [
+          0.05267868936061859,
+          -0.0012681199004873633
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 273,
+      "tensor_sha256": {
+        "BC_support": "fc96abd34ee29bf990da38dd8d0129edd6eea004db8fd30b7e6b7d3320d852e3",
+        "AC_support": "43ff1171e03046608c971b91bc8b130aeabf21b95359099d27838176953b48f0",
+        "weights_BC": "1012f058e21e053bc82d3ca9c4700eab6aee9697629921186e1982774e50b7b9",
+        "weights_context": "e119b22e26241a879bcf4eb736a2f50fec3ee97c4a8ebbb6871ea91963c65adc",
+        "weights_AC": "34363d988bea7b7e13fac8ab2a7c9b30e6050f6aeaccf277c94866842d9f425e",
+        "center": "d975df47cbdf9cbad570bc09f480f683299be7ff3e6edfff2773d321ffdbad6e"
+      }
+    },
+    {
+      "cell_id": "67#33",
+      "BC_samples": 10,
+      "AC_samples": 23,
+      "context_samples": 13,
+      "center": [
+        [
+          -0.001988058676943183,
+          0.09824352711439133
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 329,
+      "tensor_sha256": {
+        "BC_support": "7420ff5a5eb64316771f0dcd98c6c318fb368840adf97e27a7113b8c567540da",
+        "AC_support": "49d51f547cfb0277f1b796cec835dfd99486f4c33e978213a66f6498e7a84872",
+        "weights_BC": "a6ce158ea8bcfc8ac20090868e48cdec3c3bf4e3dfab63fe8ed09ed06d9e1c9d",
+        "weights_context": "39cee03a1b186c0c0aabf3d66c57a7797a46a6eadc78b24c5e6e1d6bee809d76",
+        "weights_AC": "66af5ee2277be504953d313e9f1e94d7f49fcf009788d20b2b8ee7cf6a5ab4a0",
+        "center": "f6dc5fcf83bcb58dd7a387047e6541f087b5221ab2b19809d73e1bd112de5fee"
+      }
+    },
+    {
+      "cell_id": "67#34",
+      "BC_samples": 4,
+      "AC_samples": 18,
+      "context_samples": 14,
+      "center": [
+        [
+          -0.01541306171566248,
+          -0.08554068952798843
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 287,
+      "tensor_sha256": {
+        "BC_support": "5d8f2f31893e04ca349e55b5c5d48933578a6a5cdc1c57382062d9e711eaf033",
+        "AC_support": "1513bf7efb951783958862fcc866063004595cdd822730591ded95225e229909",
+        "weights_BC": "cbc80e95dd89f22e877994ffc45e66515ec84fb33cf2e63fd21c7c0b812c3d6c",
+        "weights_context": "2be9d932b46f32c35ab351aac08f7e9d4ddf586964f0d17fc18d134f312a38c9",
+        "weights_AC": "65894bbb713cc7f6e1c90b35d10e42620a592a21029688137db48a31a683b6a9",
+        "center": "8f6a64f1f9e66e1176baf49178f7ba29f641ac29d721b65bdfac8c343a3d89d0"
+      }
+    },
+    {
+      "cell_id": "68#3",
+      "BC_samples": 12,
+      "AC_samples": 25,
+      "context_samples": 13,
+      "center": [
+        [
+          -0.15077504515647888,
+          0.03275403380393982
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 280,
+      "tensor_sha256": {
+        "BC_support": "7803133267c87a93da0ae27ebc19998e98ea53df5c910fc7f7e5e0612d96de73",
+        "AC_support": "bceabd230d6f54dc7b1ccd1375502588f7e80b9e8bcdffffb57b6ae009cd6ba2",
+        "weights_BC": "a01dd5ae0a099d6c46b8b4871f58423c5bba0cd47aac17950d9eddbe6f5eeca0",
+        "weights_context": "89a9944ccc76077a106f4d95e85259a575bd7dd8097ea6d12e559d8798973ff7",
+        "weights_AC": "fcae17a4cffc5ffb2dcb45e56c7ec58bb28300176561dcafe7ff0107eeb22261",
+        "center": "99bc66e861b1e436f5419733e3dbd6680b8e452591e19f21e5259dfff5651c2e"
+      }
+    },
+    {
+      "cell_id": "68#4",
+      "BC_samples": 3,
+      "AC_samples": 19,
+      "context_samples": 16,
+      "center": [
+        [
+          -0.008139648474752903,
+          0.00870480202138424
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 276,
+      "tensor_sha256": {
+        "BC_support": "688b06039d21de698c2e03d9e0057db69f56857071db54de2c4f79cd838b93e2",
+        "AC_support": "9facece90a26e156dfde6abd888e747bbf8c70c9a5088b554d163a731c84325e",
+        "weights_BC": "6651db9618a122fad04d49e24fa8e06cdfd335f0b5cfbddc90e7c39b593be7cb",
+        "weights_context": "aca71179f29b8ac912943a517dd5ecaa4d7acf94fb147f096702db231f05183e",
+        "weights_AC": "6e595ee25a13c2566e910f2f7ea515acb61cb77d2a14524b8890964992e36833",
+        "center": "2b2233de7358830e53acf5ee03cda7f24909ab4bbfde96f0637c342d910bb5ad"
+      }
+    },
+    {
+      "cell_id": "68#7",
+      "BC_samples": 4,
+      "AC_samples": 18,
+      "context_samples": 14,
+      "center": [
+        [
+          -0.0877300351858139,
+          0.10569870471954346
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 336,
+      "tensor_sha256": {
+        "BC_support": "56d31e39b8e93c01a119bae31d1d4894f928c9c08b020e74b832f446da881d5a",
+        "AC_support": "e8c253eadd3e60715bded77028661d287a59a36b1efb3eb4ada0823fb45462eb",
+        "weights_BC": "67d68c1337fe6a9b2ebf40dce382a4b4345681aab341c04175feb3de01493004",
+        "weights_context": "e18576663a98239df81a8e9686aa24b060cf7c0196ddfdad613f701bcdf99144",
+        "weights_AC": "06ed6a5dec79fa124d331bab2d7113645956dd6e1a1ae292ab799bc247ce6a4f",
+        "center": "cab4e715eb323798715db7cb5e3a2581f3df50c578d807350547ac24a3f3c49a"
+      }
+    },
+    {
+      "cell_id": "68#10",
+      "BC_samples": 11,
+      "AC_samples": 25,
+      "context_samples": 14,
+      "center": [
+        [
+          -0.24637316167354584,
+          0.33450740575790405
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 37,
+      "tensor_sha256": {
+        "BC_support": "f07f20946c4506e1887f1dd348ff223a481e660e2a96b8a260a1693402306f28",
+        "AC_support": "efa85bb1dd6fe3ff9a912fd741606dd5788e0982b423e0d65dca14f3f6f5bf9a",
+        "weights_BC": "e5310dfea1dc5a8b2a08dcbd192a65353b172b680af1d60cf99c611eaba9cc6f",
+        "weights_context": "e8f527cc2628005f5940b2fc4293313e5ab666dbfca6a472bca62acb228c8690",
+        "weights_AC": "6840e94cdc34cb730042e5299c81bbc829f4c8c9a1cf58aaee6d1503d6bf2580",
+        "center": "0146e075bdd8076080b23097e9a9a7defbcd87cbdc8245778edfe04d5e1347d5"
+      }
+    },
+    {
+      "cell_id": "68#11",
+      "BC_samples": 3,
+      "AC_samples": 19,
+      "context_samples": 16,
+      "center": [
+        [
+          -0.011630845256149769,
+          0.05925844982266426
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 280,
+      "tensor_sha256": {
+        "BC_support": "a28e6ebeb3f9b5ed2bc3993f9742a772c07b285bb071b1133412ebf4810453d7",
+        "AC_support": "3f52ade8f4dea3635f8eb80bafc694b0224ff32179c0710878cad769d391c4a3",
+        "weights_BC": "b392c46856174911169c2c9adebbe2cbff8f7a0746bb19f926d07cdf9dd35ac2",
+        "weights_context": "4dfc9df9bcd5c5893df549e1e2dafb08e242ddc900c8db3fb4f028f485077598",
+        "weights_AC": "a20d18aaed2fec3be4913376943bac3c5e56f9536e0483adf46df8476a48ab61",
+        "center": "1a8fa5dad0c1216cd7366175fad685de08063b19e038a5afa15881a3e8d2e7b6"
+      }
+    },
+    {
+      "cell_id": "69#3",
+      "BC_samples": 4,
+      "AC_samples": 19,
+      "context_samples": 15,
+      "center": [
+        [
+          0.014486526139080524,
+          -0.03396669775247574
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 259,
+      "tensor_sha256": {
+        "BC_support": "d45a1e89707aa00a0f079024e98f3df2630f53922c429db8d8fa3d2c66f026c6",
+        "AC_support": "50f969ccf78a79301e7255e31bb4f2c46c671b69ac721d77eeac92f598b014f3",
+        "weights_BC": "b7d95e52edbd1862edf6130311748e7f525df3966ae11ca71ac384a693281858",
+        "weights_context": "5698ed3d4aa2817110d16fef0b0f052141d544af3da954c0ccd60542cefffdc4",
+        "weights_AC": "e2dc9b01ebab31bf1c7816eb452efaca2b2c4dad13a8e58e34779d147fb4066b",
+        "center": "5a7ca6d5089a2a2591b6631a0c91fe92d960dd231c0c102be6910e16d5bbf93c"
+      }
+    },
+    {
+      "cell_id": "69#4",
+      "BC_samples": 10,
+      "AC_samples": 22,
+      "context_samples": 12,
+      "center": [
+        [
+          0.06092890724539757,
+          0.011171641759574413
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 234,
+      "tensor_sha256": {
+        "BC_support": "07baf4d22c08d42223953772d8a9bde538bc93e1ae6847259747497fe5613f5b",
+        "AC_support": "aba7590cb644dc79e1025b8a55eaaadff9dbc53aa465419f1b8ace9b655e24a8",
+        "weights_BC": "cdcd2defa9032d09b96cc130c9b74d38d04d6780ab755eeaf725317a1b9cd6d6",
+        "weights_context": "a2527d164831acc9d5c4471a31289bbccc4c42b72e32b935b1cafadf6160b53a",
+        "weights_AC": "c1b47cfdb4d605a96300a58d0129b39e2f418caf0a7cac71d0767ffbe1050df1",
+        "center": "087960e76b87fff9b88f958f793c7694d74f909b1c10b4446095b7aee61f92a7"
+      }
+    },
+    {
+      "cell_id": "69#6",
+      "BC_samples": 13,
+      "AC_samples": 24,
+      "context_samples": 11,
+      "center": [
+        [
+          0.03793558478355408,
+          -0.07012326270341873
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 280,
+      "tensor_sha256": {
+        "BC_support": "0173019ec6fb0ba99ba399f9f552b0c9da093399ba3cac33a8f7ec11acc9d002",
+        "AC_support": "1962b323811ed9fae08cc44be1dbeafc1449a511bb4a935d4db80516c6850c9c",
+        "weights_BC": "8aa1cd8c119f6865c6fe0f26162ba2da308d07c28e59b7a4bd3143358231fe19",
+        "weights_context": "b15e083c3a1df8ce45a4776e3ce526681f4b7c828190430706d706ee16ad3128",
+        "weights_AC": "73de3342f8b8d1fae286b636e1f531fe0703599b15bca8b4c66ca837ae88275d",
+        "center": "9298bb6352f200c92f8648b182795176ad0319379dd26964f01648ec2875c77f"
+      }
+    },
+    {
+      "cell_id": "69#7",
+      "BC_samples": 12,
+      "AC_samples": 24,
+      "context_samples": 12,
+      "center": [
+        [
+          0.06919917464256287,
+          -0.037970226258039474
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 315,
+      "tensor_sha256": {
+        "BC_support": "14b102f2d428ab4e1f01d5225db673bff2b7be7560b48c0a5074cece4505bbe8",
+        "AC_support": "24a170e4b516552f967bbd34ee51963de36dfb82e3727f83ea26534ab0ebfa1d",
+        "weights_BC": "42d3c4d63b1835e0936cfd0f4d5aa3d546e2d3804ea3d64ec999966e4c0df9a6",
+        "weights_context": "ce5cb7be5fd3315b56531b55ac5777f555281c5d8faeb31bd531b434f825692e",
+        "weights_AC": "da4c69455745100904b1ba70f4b56617baaffd823609b0c7bfaf96ccb38fa812",
+        "center": "950513d27f0bd51af0361a11fd572db14017ccafb68f65a1da029623eb6bf803"
+      }
+    },
+    {
+      "cell_id": "69#21",
+      "BC_samples": 4,
+      "AC_samples": 18,
+      "context_samples": 14,
+      "center": [
+        [
+          0.24542899429798126,
+          -0.06411007046699524
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 258,
+      "tensor_sha256": {
+        "BC_support": "87b407ce84bb933d88d08a51ad9b3e33400c181082903254458d53c146ac0198",
+        "AC_support": "726c262a6391e55ff49f0d53b4bf5581ae824cf4aa813f36476b958ab39a4cd6",
+        "weights_BC": "88d84025afc1d564758a830986e6e0897dbefd9bfe0f6440b599d5282cd73ae3",
+        "weights_context": "852fb653d77ff2dcea42a5727f044bf55d60766d57b64893a097d852625db0cb",
+        "weights_AC": "5b6434e65165ae213dade4df104a394df3e9bb0d70875384edf5e31db14c7567",
+        "center": "f87dc24c63a2de96b15a5295ebfb5291beee6a3296bea57fe9bd74e380898266"
+      }
+    },
+    {
+      "cell_id": "70#1",
+      "BC_samples": 4,
+      "AC_samples": 18,
+      "context_samples": 14,
+      "center": [
+        [
+          0.007984467782080173,
+          -0.30396997928619385
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 252,
+      "tensor_sha256": {
+        "BC_support": "60e2dd05e92b5785fbb2bf9dd561d1b00b24f81c578393dbe855b80016f3c8a3",
+        "AC_support": "ca90d4abfb75a5512de29f1fbfb3a047c98ba0f59257ee3c4ab2b05a32a28bb3",
+        "weights_BC": "e4fb342d05f568499aefc74cbf4d098f6c6a712449f85bfcf5e5b0fa4d8dc3e7",
+        "weights_context": "d7c2c076e5e2b762861694444e09fb55e540dc3bef5998590aa0d3799bc4932c",
+        "weights_AC": "8e8409b0da976510a729d0d53d8a4e818724fcd37eaa3c1d2295da39010135da",
+        "center": "7e951c9d4aad2ef26979850b5a1f2f217aaf412a8ef7a0f26b14507b343d0056"
+      }
+    },
+    {
+      "cell_id": "70#7",
+      "BC_samples": 3,
+      "AC_samples": 18,
+      "context_samples": 15,
+      "center": [
+        [
+          0.01667848974466324,
+          0.004625324159860611
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 280,
+      "tensor_sha256": {
+        "BC_support": "0de778d238c0b50192b61794394c76bdbeef8aaff1411088176015b0f9d5f5ff",
+        "AC_support": "ad2aee7ecde2af0e3e0f00fed3b6b3986b64507328bb24cce81857a1ea721293",
+        "weights_BC": "11d1266f1eb7c90a94a59cad5947a15c4949adec789aec7000e82d4dc481296b",
+        "weights_context": "eb890d7d0aa10f85daa19e95d212fffd2607345268039ea33019cdf5ef4767d1",
+        "weights_AC": "9c9384710e660ab299202d54c53eeed43b38febceabd32aaed9d0bab51daaf4d",
+        "center": "ae690680758beb4b6afa9783afee84b7b84692197fde0f78b5b93e4e535287e8"
+      }
+    },
+    {
+      "cell_id": "70#15",
+      "BC_samples": 4,
+      "AC_samples": 20,
+      "context_samples": 16,
+      "center": [
+        [
+          -0.10541605949401855,
+          -0.0970519483089447
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 288,
+      "tensor_sha256": {
+        "BC_support": "bcca346b65e23f35534aca10b25ea8a4a81126747ea302cdd9f6ed844ee822f4",
+        "AC_support": "232a5816e67074424eb54e424823bb35959b3561cbf5dc995f463b2d4d44581f",
+        "weights_BC": "9c6fc01c11a6eee11e5ff64786d0183fd96e04b1f8ddecadc043b23589e3dc14",
+        "weights_context": "b9f4eaadd5b26acc3d2c615bc91ceb2b06ac699e94a89cc42ac868e3b6dff9fa",
+        "weights_AC": "e7a8ccc6c4bd96304a66517d8aba57f1cfecd498d67cb4ad6f8510453737b54c",
+        "center": "a63933544e4a20a89bd41c0a7728ffea6ca5e93a6f25b351cefb5ea7d4780362"
+      }
+    },
+    {
+      "cell_id": "70#34",
+      "BC_samples": 11,
+      "AC_samples": 25,
+      "context_samples": 14,
+      "center": [
+        [
+          -0.05031580850481987,
+          0.0756404772400856
+        ]
+      ],
+      "support_exact": true,
+      "U_overlap_mass": 343,
+      "tensor_sha256": {
+        "BC_support": "52c53ea7d8d59318ce305a1a323cd072846ef0caf8cccb807e513072368e6b37",
+        "AC_support": "d1d8f003535670adf74c116725aa1a7b93c589096d8e489ad88301097710c779",
+        "weights_BC": "27877f9a4763c8eef755bc16026735e9548465c526adcbf35f8d7530602a0449",
+        "weights_context": "4c48fe6139e08e22912e1a70384a2c7b7645203c4e1b891231208bbfb2a35f1d",
+        "weights_AC": "9f031946e37a7459935f452a464008593b0de4dafbee3539e8e1c3e06bf16d1e",
+        "center": "218851ba6d774b000755bc81df057d35d4ea84b9daa68357d8d72b1582be7884"
+      }
+    }
+  ],
+  "derived_lock_sha256": "cb7470cf690f812d0c2420cc6a28c046dd9a50432f75849ab0f142a363e77da0",
+  "stimulus_sha256": "a56a5c54ecd72afd41e39b6bbd35fea2caa5d06eeb9b2d7be6df70985c07b6f0",
+  "output_or_spikes_used_for_features": false
+}

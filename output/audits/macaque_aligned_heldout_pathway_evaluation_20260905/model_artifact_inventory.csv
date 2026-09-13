@@ -1,0 +1,89 @@
+cell_id,model,path,metadata_identity_pass,fresh_refit_steps,reported_trainable_scalars,strict_model_load,center_trainable
+67#4,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_4/model-trained.pt,True,140,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#4,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_4/model-trained.pt,True,75,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#4,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_4/ln-trained.pt,True,435,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#4,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/67_4/cnn-trained.pt,True,179,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#6,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_6/model-trained.pt,True,369,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#6,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_6/model-trained.pt,True,623,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#6,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_6/ln-trained.pt,True,858,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#6,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/67_6/cnn-trained.pt,True,290,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#7,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_7/model-trained.pt,True,276,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#7,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_7/model-trained.pt,True,251,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#7,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_7/ln-trained.pt,True,917,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#7,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/67_7/cnn-trained.pt,True,110,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#14,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_14/model-trained.pt,True,250,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#14,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_14/model-trained.pt,True,293,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#14,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_14/ln-trained.pt,True,935,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#14,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/67_14/cnn-trained.pt,True,216,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#21,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_21/model-trained.pt,True,432,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#21,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_21/model-trained.pt,True,565,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#21,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_21/ln-trained.pt,True,953,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#21,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/67_21/cnn-trained.pt,True,508,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#26,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_26/model-trained.pt,True,264,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#26,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_26/model-trained.pt,True,266,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#26,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_26/ln-trained.pt,True,905,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#26,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/67_26/cnn-trained.pt,True,372,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#33,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_33/model-trained.pt,True,581,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#33,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_33/model-trained.pt,True,581,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#33,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_33/ln-trained.pt,True,900,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#33,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/67_33/cnn-trained.pt,True,214,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#34,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/67_34/model-trained.pt,True,384,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#34,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_34/model-trained.pt,True,383,33,NOT_RUN_IN_USAGE_AUDIT,False
+67#34,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/67_34/ln-trained.pt,True,914,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+67#34,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/67_34/cnn-trained.pt,True,144,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+68#3,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/68_3/model-trained.pt,True,140,33,NOT_RUN_IN_USAGE_AUDIT,False
+68#3,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_3/model-trained.pt,True,362,33,NOT_RUN_IN_USAGE_AUDIT,False
+68#3,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/68_3/ln-trained.pt,True,920,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+68#3,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/68_3/cnn-trained.pt,True,282,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+68#4,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/68_4/model-trained.pt,True,193,33,NOT_RUN_IN_USAGE_AUDIT,False
+68#4,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_4/model-trained.pt,True,195,33,NOT_RUN_IN_USAGE_AUDIT,False
+68#4,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/68_4/ln-trained.pt,True,990,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+68#4,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/68_4/cnn-trained.pt,True,73,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+68#7,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/68_7/model-trained.pt,True,79,33,NOT_RUN_IN_USAGE_AUDIT,False
+68#7,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_7/model-trained.pt,True,231,33,NOT_RUN_IN_USAGE_AUDIT,False
+68#7,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/68_7/ln-trained.pt,True,936,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+68#7,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/68_7/cnn-trained.pt,True,312,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+68#10,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/68_10/model-trained.pt,True,211,33,NOT_RUN_IN_USAGE_AUDIT,False
+68#10,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_10/model-trained.pt,True,469,33,NOT_RUN_IN_USAGE_AUDIT,False
+68#10,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/68_10/ln-trained.pt,True,996,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+68#10,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/68_10/cnn-trained.pt,True,96,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+68#11,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/68_11/model-trained.pt,True,151,33,NOT_RUN_IN_USAGE_AUDIT,False
+68#11,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_11/model-trained.pt,True,328,33,NOT_RUN_IN_USAGE_AUDIT,False
+68#11,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/68_11/ln-trained.pt,True,820,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+68#11,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/68_11/cnn-trained.pt,True,207,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+69#3,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/69_3/model-trained.pt,True,573,33,NOT_RUN_IN_USAGE_AUDIT,False
+69#3,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_3/model-trained.pt,True,846,33,NOT_RUN_IN_USAGE_AUDIT,False
+69#3,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/69_3/ln-trained.pt,True,858,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+69#3,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/69_3/cnn-trained.pt,True,121,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+69#4,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/69_4/model-trained.pt,True,133,33,NOT_RUN_IN_USAGE_AUDIT,False
+69#4,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_4/model-trained.pt,True,131,33,NOT_RUN_IN_USAGE_AUDIT,False
+69#4,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/69_4/ln-trained.pt,True,880,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+69#4,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/69_4/cnn-trained.pt,True,174,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+69#6,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/69_6/model-trained.pt,True,288,33,NOT_RUN_IN_USAGE_AUDIT,False
+69#6,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_6/model-trained.pt,True,288,33,NOT_RUN_IN_USAGE_AUDIT,False
+69#6,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/69_6/ln-trained.pt,True,1000,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+69#6,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/69_6/cnn-trained.pt,True,130,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+69#7,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/69_7/model-trained.pt,True,207,33,NOT_RUN_IN_USAGE_AUDIT,False
+69#7,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_7/model-trained.pt,True,552,33,NOT_RUN_IN_USAGE_AUDIT,False
+69#7,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/69_7/ln-trained.pt,True,979,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+69#7,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/69_7/cnn-trained.pt,True,142,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+69#21,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/69_21/model-trained.pt,True,252,33,NOT_RUN_IN_USAGE_AUDIT,False
+69#21,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_21/model-trained.pt,True,547,33,NOT_RUN_IN_USAGE_AUDIT,False
+69#21,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/69_21/ln-trained.pt,True,967,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+69#21,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/69_21/cnn-trained.pt,True,296,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+70#1,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/70_1/model-trained.pt,True,413,33,NOT_RUN_IN_USAGE_AUDIT,False
+70#1,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/70_1/model-trained.pt,True,709,33,NOT_RUN_IN_USAGE_AUDIT,False
+70#1,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/70_1/ln-trained.pt,True,955,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+70#1,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/70_1/cnn-trained.pt,True,48,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+70#7,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/70_7/model-trained.pt,True,222,33,NOT_RUN_IN_USAGE_AUDIT,False
+70#7,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/70_7/model-trained.pt,True,261,33,NOT_RUN_IN_USAGE_AUDIT,False
+70#7,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/70_7/ln-trained.pt,True,932,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+70#7,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/70_7/cnn-trained.pt,True,89,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+70#15,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/70_15/model-trained.pt,True,57,33,NOT_RUN_IN_USAGE_AUDIT,False
+70#15,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/70_15/model-trained.pt,True,435,33,NOT_RUN_IN_USAGE_AUDIT,False
+70#15,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/70_15/ln-trained.pt,True,564,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+70#15,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/70_15/cnn-trained.pt,True,67,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable
+70#34,zero,output/real_data/schottdorf_canonical_v1_shared_bc_development_22cell_20260830/cells/70_34/model-trained.pt,True,171,33,NOT_RUN_IN_USAGE_AUDIT,False
+70#34,aligned,output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/70_34/model-trained.pt,True,226,33,NOT_RUN_IN_USAGE_AUDIT,False
+70#34,LN,output/real_data/schottdorf_center_surround_ln_22cell_seed61001_20260830/cells/70_34/ln-trained.pt,True,976,128,NOT_RUN_IN_USAGE_AUDIT,not applicable
+70#34,CNN,.omo/evidence/compact_causal_cnn_baseline/cells/70_34/cnn-trained.pt,True,137,2990,NOT_RUN_IN_USAGE_AUDIT,not applicable

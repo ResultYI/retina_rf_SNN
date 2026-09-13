@@ -1,0 +1,138 @@
+{
+  "status": "APPLIED_VERIFIED",
+  "scope": "13 existing Markdown instruction files; no scripts, activation flags, permissions, models or experiment artifacts changed",
+  "files": [
+    {
+      "key": "project-agents",
+      "target": "D:/PythonProject/retina_rf_SNN/AGENTS.md",
+      "proposed": "proposed/project-agents.md",
+      "original": "original/project-agents.md",
+      "sha256_before": "e28dc5fb84e1a51ed97b7b63d6fa4fac13ca30e748a1529a727d160b21c91926",
+      "sha256_proposed": "4d8b2c6ca43b7915dd5049236c84a74946b9213088b99209e34e3529f3918692",
+      "bytes_before": 1520,
+      "bytes_proposed": 2064
+    },
+    {
+      "key": "hephaestus",
+      "target": "C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/components/rules/bundled-rules/hephaestus.md",
+      "proposed": "proposed/hephaestus.md",
+      "original": "original/hephaestus.md",
+      "sha256_before": "95aac379b0604012284c103281e52cd2ceec7320e8808389742a2ae381387990",
+      "sha256_proposed": "454972cbe20200b339c16c83affff0e072ce55515bfbca67773c1d8696c7662a",
+      "bytes_before": 18242,
+      "bytes_proposed": 4377
+    },
+    {
+      "key": "programming",
+      "target": "C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/programming/SKILL.md",
+      "proposed": "proposed/programming/SKILL.md",
+      "original": "original/programming.md",
+      "sha256_before": "fefad29efbaa565ca915b10f3f3a0715174bfd6dd766f9a4b41ce3c033d7f1d8",
+      "sha256_proposed": "4fd9a5e5959d50cf4585261aa9d31d9d7eacb71408fa5ad4779616e1a2cbb81e",
+      "bytes_before": 34966,
+      "bytes_proposed": 2944
+    },
+    {
+      "key": "debugging",
+      "target": "C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/debugging/SKILL.md",
+      "proposed": "proposed/debugging/SKILL.md",
+      "original": "original/debugging.md",
+      "sha256_before": "88765cc98a9d95ce6991485227dc9d5955f1b88764cf4ed0e269d722139eff3f",
+      "sha256_proposed": "1b8da9f83fe97e1537cb103989928084470d486e738091913efca66db1eb632c",
+      "bytes_before": 12116,
+      "bytes_proposed": 2904
+    },
+    {
+      "key": "ulw-plan",
+      "target": "C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/ulw-plan/SKILL.md",
+      "proposed": "proposed/ulw-plan/SKILL.md",
+      "original": "original/ulw-plan.md",
+      "sha256_before": "422fb2d9b04c1c51dbe6120b70cb21a6340b0ae7cdbd52cc3be6de55cbf827d7",
+      "sha256_proposed": "f925bb5e226610835a85e4a58cc8362c74d166f47a5c5464a0750b69a2271b8a",
+      "bytes_before": 10048,
+      "bytes_proposed": 3122
+    },
+    {
+      "key": "review-work",
+      "target": "C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/review-work/SKILL.md",
+      "proposed": "proposed/review-work/SKILL.md",
+      "original": "original/review-work.md",
+      "sha256_before": "6b50ccce1aeef756f6147ffec3d861c58c7cedde77b8ee42a94676e1acbd0d9b",
+      "sha256_proposed": "4d43e5e6386c633bdd6184133208646b6a2b95cc7621a1e490936f5eb69ece6e",
+      "bytes_before": 28892,
+      "bytes_proposed": 2990
+    },
+    {
+      "key": "frontend",
+      "target": "C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/frontend/SKILL.md",
+      "proposed": "proposed/frontend/SKILL.md",
+      "original": "original/frontend.md",
+      "sha256_before": "1fab4c555bdcff62eb5fe4edae1ca6f8288ce3b7043e71463fdb1f450771b5f5",
+      "sha256_proposed": "80b6b3c4b9fba31df500d1c7ae8a3ae81e5e8b87c6339cd83076352cecbf9753",
+      "bytes_before": 10244,
+      "bytes_proposed": 2487
+    },
+    {
+      "key": "visual-qa",
+      "target": "C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/visual-qa/SKILL.md",
+      "proposed": "proposed/visual-qa/SKILL.md",
+      "original": "original/visual-qa.md",
+      "sha256_before": "0103b00f198f8b234123f93ca062635c8aa7a51a654228d502e3f7afef402dbb",
+      "sha256_proposed": "bc857100bebac398d794e2db4c1d0b7f106ec02db919f6f1e83b2113a1979d36",
+      "bytes_before": 16331,
+      "bytes_proposed": 2876
+    },
+    {
+      "key": "ponytail",
+      "target": "C:/Users/win11-pc/.codex/plugins/cache/ponytail/ponytail/4.9.0/skills/ponytail/SKILL.md",
+      "proposed": "proposed/ponytail/SKILL.md",
+      "original": "original/ponytail.md",
+      "sha256_before": "46a57e26a2632e7fa40eae6a3cf3011ccdc4d8db19d8f8617907d6b5deef055e",
+      "sha256_proposed": "2b03874064bea8e8361e0fdcc80cd2c15048185a3aa73254cac94f2d32854247",
+      "bytes_before": 6757,
+      "bytes_proposed": 2180
+    },
+    {
+      "key": "paper-reading-zh",
+      "target": "C:/Users/win11-pc/.codex/skills/paper-reading-zh/SKILL.md",
+      "proposed": "proposed/paper-reading-zh/SKILL.md",
+      "original": "original/paper-reading-zh.md",
+      "sha256_before": "e46365c4d1c65cf71be5a5d00da0a9853873245ac04a1927d735035d8be7be6c",
+      "sha256_proposed": "b365ccf420faf811a9c071a2764a9d5cccd49ab4917d07e3a3d9b571ea0de35f",
+      "bytes_before": 2346,
+      "bytes_proposed": 1538
+    },
+    {
+      "key": "study",
+      "target": "C:/Users/win11-pc/.codex/skills/study.skill/SKILL.md",
+      "proposed": "proposed/study/SKILL.md",
+      "original": "original/study.md",
+      "sha256_before": "e826ac826003177164c0296ac87aaa44f4e6aba287f110482f050c404b72c1a3",
+      "sha256_proposed": "95cd1bfb2152ed2489d846d939e71d5e3cebced616a00afb670670a9343233ad",
+      "bytes_before": 10429,
+      "bytes_proposed": 4066
+    },
+    {
+      "key": "paper-full-review",
+      "target": "C:/Users/win11-pc/.codex/skills/paper-reading-zh/references/full-review.md",
+      "proposed": "proposed/paper-reading-zh/references/full-review.md",
+      "original": "original/paper-full-review.md",
+      "sha256_before": "3818c166f5638e1dac9f2af2731d03d0acaf47a14ee7db4f38df1f1a2d9cea54",
+      "sha256_proposed": "92ca8110d03f1f8ea4182df20e41ce24cc002742093e4e200faf973b8af5138b",
+      "bytes_before": 5673,
+      "bytes_proposed": 5855
+    },
+    {
+      "key": "remove-ai-slops",
+      "target": "C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/remove-ai-slops/SKILL.md",
+      "proposed": "proposed/remove-ai-slops/SKILL.md",
+      "original": "original/remove-ai-slops.md",
+      "sha256_before": "b84518b4dbb7b39a90a6e71841d340811d5bed9141ceeb02da44351b56f4a21a",
+      "sha256_proposed": "9b30ef39abdc3d6f5cbe485e6098daebd5259068ebaa9fff9080d20600b82090",
+      "bytes_before": 21659,
+      "bytes_proposed": 20942
+    }
+  ],
+  "write_receipt": "written.json",
+  "approved_manifest_snapshot": "approved-manifest.json"
+}

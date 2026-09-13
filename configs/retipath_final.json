@@ -1,0 +1,11 @@
+{
+  "model_name": "RetiPath",
+  "architecture_id": "retipath_spatial_conductance_v1",
+  "entry_point": "models.mechanistic_retina.retipath.RetiPath",
+  "backend": "spatial_conductance",
+  "spatial_modes": 2,
+  "normalization": "fixed initial-training RMS from the selected refit checkpoint",
+  "checkpoint_registry": "output/evaluations/retipath_final_model_evidence_20260913/model_registry.json",
+  "migration_protocol": "output/evaluations/retipath_final_model_evidence_20260913/MIGRATION_PROTOCOL.md",
+  "historical_checkpoint_paths_and_names_unchanged": true
+}

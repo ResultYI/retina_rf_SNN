@@ -1,0 +1,608 @@
+{
+  "status": "VERIFIED DERIVATION INPUTS \u2014 development recalibrated logits newly derived deterministically from frozen training-only biases",
+  "all_passed": true,
+  "cells": [
+    {
+      "cell_id": "67#4",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 4.440892098500626e-16,
+          "subtraction_rounding_bound": 6.700534597385132e-15
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 1.7763568394002505e-15,
+          "subtraction_rounding_bound": 1.5501678716708933e-14
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "67#6",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 8.881784197001252e-16,
+          "subtraction_rounding_bound": 1.039759963105671e-14
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 8.881784197001252e-16,
+          "subtraction_rounding_bound": 1.6847766535826522e-14
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "67#7",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 1.1102230246251565e-16,
+          "subtraction_rounding_bound": 1.412635640244981e-14
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 8.881784197001252e-16,
+          "subtraction_rounding_bound": 1.2202141491776848e-14
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "67#14",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 6.661338147750939e-16,
+          "subtraction_rounding_bound": 1.178644482631875e-14
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 8.881784197001252e-16,
+          "subtraction_rounding_bound": 1.0717506187542768e-14
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "67#21",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 1.1102230246251565e-16,
+          "subtraction_rounding_bound": 1.007167236438157e-14
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 0.0,
+          "subtraction_rounding_bound": 8.3489377927402e-15
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "67#26",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 6.661338147750939e-16,
+          "subtraction_rounding_bound": 8.382229575699084e-15
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 0.0,
+          "subtraction_rounding_bound": 8.618382361393583e-15
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "67#33",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 0.0,
+          "subtraction_rounding_bound": 8.20919599116808e-15
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 1.4432899320127035e-15,
+          "subtraction_rounding_bound": 1.9197656160076237e-14
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "67#34",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 7.771561172376096e-16,
+          "subtraction_rounding_bound": 1.0102473870475526e-14
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 4.440892098500626e-16,
+          "subtraction_rounding_bound": 8.22322963303819e-15
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "68#3",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 6.661338147750939e-16,
+          "subtraction_rounding_bound": 1.0418111380907421e-14
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 3.3306690738754696e-16,
+          "subtraction_rounding_bound": 1.701295659526595e-14
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "68#4",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 2.7755575615628914e-16,
+          "subtraction_rounding_bound": 1.3290673696688717e-14
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 4.440892098500626e-16,
+          "subtraction_rounding_bound": 4.450140004218749e-15
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "68#7",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 4.440892098500626e-16,
+          "subtraction_rounding_bound": 1.0611854920998792e-14
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 8.881784197001252e-16,
+          "subtraction_rounding_bound": 9.605837277676648e-15
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "68#10",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 1.1102230246251565e-16,
+          "subtraction_rounding_bound": 7.019046937640008e-15
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 4.440892098500626e-16,
+          "subtraction_rounding_bound": 5.837309344794645e-15
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "68#11",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 0.0,
+          "subtraction_rounding_bound": 3.2589914518129162e-15
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 1.5126788710517758e-15,
+          "subtraction_rounding_bound": 1.8122991578576816e-14
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "69#3",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 2.220446049250313e-16,
+          "subtraction_rounding_bound": 3.820810194518328e-15
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 2.220446049250313e-16,
+          "subtraction_rounding_bound": 1.0482103026006589e-14
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "69#4",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 3.3306690738754696e-16,
+          "subtraction_rounding_bound": 1.4539779631477477e-14
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 4.440892098500626e-16,
+          "subtraction_rounding_bound": 1.1069040107246353e-14
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "69#6",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 0.0,
+          "subtraction_rounding_bound": 8.698230463265351e-15
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 1.1102230246251565e-16,
+          "subtraction_rounding_bound": 1.2585015630528842e-14
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "69#7",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 0.0,
+          "subtraction_rounding_bound": 1.4100921697109657e-14
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 4.440892098500626e-16,
+          "subtraction_rounding_bound": 1.1135357704818681e-14
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "69#21",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 4.440892098500626e-16,
+          "subtraction_rounding_bound": 4.909462678108706e-15
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 6.661338147750939e-16,
+          "subtraction_rounding_bound": 1.2823610412210276e-14
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "70#1",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 2.220446049250313e-16,
+          "subtraction_rounding_bound": 8.076793730083919e-15
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 2.220446049250313e-16,
+          "subtraction_rounding_bound": 5.301463596867366e-15
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "70#7",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 6.661338147750939e-16,
+          "subtraction_rounding_bound": 9.580371232117448e-15
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 4.440892098500626e-16,
+          "subtraction_rounding_bound": 8.690985790467485e-15
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "70#15",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 4.440892098500626e-16,
+          "subtraction_rounding_bound": 9.70414138043614e-15
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 4.440892098500626e-16,
+          "subtraction_rounding_bound": 8.598339867795651e-15
+        }
+      ],
+      "passed": true
+    },
+    {
+      "cell_id": "70#34",
+      "strict_load": true,
+      "normal_input_target_mask_order_logits_nll_exact": true,
+      "state_unchanged": true,
+      "checks": [
+        {
+          "pathway": "direct-BC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 6.661338147750939e-16,
+          "subtraction_rounding_bound": 1.3296320018315114e-14
+        },
+        {
+          "pathway": "AC",
+          "raw_bitwise_exact": true,
+          "raw_nll_exact": true,
+          "bias_hash_exact": true,
+          "addition_bitwise_exact": true,
+          "subtraction_max_error": 8.881784197001252e-16,
+          "subtraction_rounding_bound": 1.0449628629841806e-14
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "started_utc": "2026-09-05T12:36:30.682531+00:00",
+  "fitting_performed": false,
+  "model_inference_rerun": true,
+  "classification": "NEW_DETERMINISTIC_DERIVED_ARTIFACT",
+  "historical_recalibrated_replay": false,
+  "completed_utc": "2026-09-05T12:36:41.173784+00:00",
+  "derived_cells": 22,
+  "derived_pathways": 44
+}

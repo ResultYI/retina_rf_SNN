@@ -1,0 +1,15 @@
+# Execution provenance
+
+PROTOCOL.md在任何aligned训练前保存并以SHA256 `31bf610be2217913ace3ec265a57becca8fb17a24ddfe771d2ddea64654cf3ab`冻结。22个reference checkpoint的精确回放及geometry/initialization gate全部通过后，启动唯一一次22-cell aligned运行；run.py在启动时另行冻结，SHA256见run-manifest.json。
+
+需要披露的时间差：完整analyze.py是在aligned训练进行期间完成，而非在第一个aligned validation输出之前完成。analysis-code-freeze.json记录冻结时已有4个conditions完成、第五个已开始。所有统计公式、bootstrap seed/重复数、offset分组、RF定义及主要判定阈值已在训练前PROTOCOL.md固定；未根据新结果修改。不能声称完整分析代码已在新结果产生前注册。PROTOCOL.md保持原文件不变，此处记录其“分析代码提前固定”措辞与实际执行之间的差异。
+
+源代码检查发现分析wrapper漏写reference analyzer已有的causal `all_passed` gate；在任何本轮机制分析执行前补齐同一断言，并先保存逐条件验证记录。这不改变训练、指标定义或判定阈值。freeze记录包含补齐后的代码hash。
+
+运行环境为原D:/anaconda/python.exe，torch 2.6.0+cpu，threads=2。未安装或修复依赖，未改变production源码。所有新写入局限于本轮两个输出目录。
+
+训练期间的独立检查：goal/constraint检查确认preflight与runner符合要求，但最终输出待完成；代码、文件安全及lineage/context检查通过；独立QA重跑10个坐标构造、rank ties、全部22个初始trainable tensor对照，并核对一个已完成checkpoint的33参数、36固定buffers、预测NLL与inner/refit轨迹。最终22-cell结果必须另以实际完成的verification及REPORT为准。
+
+完成后的独立QA通过：全部22个fits/44次优化过程、metadata、fixed centers、33参数计数及全部inner/refit轨迹核对一致；重新逐cell执行原DevelopmentStop复核。独立重算mean/median/wins、100,000次配对bootstrap、Pearson/Spearman及16个eligible cells的三种gap recovery统计，与summary精确一致。独立直接对比110个zero RF tensors及352个zero parameter tensors，全部与旧frozen artifacts相同；836行mechanism CSV的delta一致，266个production Python文件哈希相同。全过程没有额外训练。
+
+最终五个检查视角均通过：goal/constraint、实际QA、代码正确性、文件安全、lineage/context。goal reviewer确认报告五问与结果一致，并接受如实披露的代码冻结时间限制；其快照中尚未完成的artifact manifest及最终git status随后已补齐。315项最终artifact hashes已逐一验证，571项历史输入哈希无变化。

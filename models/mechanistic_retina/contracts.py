@@ -11,7 +11,7 @@ from models.mechanistic_retina.phase1_run_contract import (
     Phase1RunConfig,
     load_phase1_run_config,
 )
-from models.mechanistic_retina.spatial_contract import CANONICAL_SPATIAL_CONTRACT
+from models.mechanistic_retina.spatial_contract import CANONICAL_SPATIAL_CONTRACT, EXTERNAL_SPATIAL_CONTRACT
 from models.mechanistic_retina.causal_contract import CANONICAL_CAUSAL_CONTRACT
 
 
@@ -33,6 +33,11 @@ class PathwayClamp(StrEnum):
 class ArchitectureMode(StrEnum):
     LEGACY = "legacy"
     MECHANISM_IDENTIFIABLE = "mechanism_identifiable"
+
+
+class GeometryMode(StrEnum):
+    RADIUS_DEFINED = "RADIUS_DEFINED"
+    EXTERNAL_RF_DERIVED = "EXTERNAL_RF_DERIVED"
 
 
 class MechanisticConfigError(ValueError):
@@ -89,6 +94,8 @@ class MechanisticRetinaConfig:
     threshold: float = 0.0
     operator_epsilon: float = 0.10
     spatial_contract: str = CANONICAL_SPATIAL_CONTRACT
+    geometry_mode: GeometryMode = GeometryMode.RADIUS_DEFINED
+    external_geometry_sha256: str | None = None
     causal_contract: str = CANONICAL_CAUSAL_CONTRACT
 
     def __post_init__(self) -> None:
@@ -96,10 +103,18 @@ class MechanisticRetinaConfig:
             raise MechanisticConfigError(
                 f"unsupported Canonical V1 causal contract: {self.causal_contract}"
             )
-        if self.spatial_contract != CANONICAL_SPATIAL_CONTRACT:
+        mode = GeometryMode(self.geometry_mode)
+        expected_spatial = CANONICAL_SPATIAL_CONTRACT if mode == GeometryMode.RADIUS_DEFINED else EXTERNAL_SPATIAL_CONTRACT
+        if self.spatial_contract != expected_spatial:
             raise MechanisticConfigError(
                 f"unsupported Canonical V1 spatial contract: {self.spatial_contract}"
             )
+        digest = self.external_geometry_sha256
+        if mode == GeometryMode.EXTERNAL_RF_DERIVED:
+            if digest is None or len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+                raise MechanisticConfigError("external geometry requires a lowercase SHA256")
+        elif digest is not None:
+            raise MechanisticConfigError("radius geometry cannot carry an external geometry hash")
         if self.cell_specific_gains and self.cell_specific_pathway_mixture:
             raise MechanisticConfigError("cell-specific gain modes are mutually exclusive")
         if not math.isfinite(self.dt_ms) or self.dt_ms <= 0:

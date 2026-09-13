@@ -1,0 +1,268 @@
+[
+  {
+    "artifact": "run_model/.ipynb_checkpoints/BlueOn-checkpoint.ipynb",
+    "cell_index": 3,
+    "source": "fitparameters = {'xoff': -1.0, 'yoff': 7.0, 'rcenterB': 12.5, 'rcenterY': 15.0, \\\n                 'tau1': 7.5, 'tau2': 120, 'delay': 0, 'beta': 2.0, 'alpha': 2.5, \\\n                 'tau3': 1400, 'kL': 0.09, 'kM': 0.053, 'kB': 0.17, 'offset': -0.049, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/BlueOn-checkpoint.ipynb",
+    "cell_index": 8,
+    "source": "fitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\\n                 'tau1': 10.2, 'tau2': 86, 'delay': 29, 'beta': 0.0, 'alpha': 4.9,  \\\n                 'tau3': 280, 'kL': 0.01, 'kM': 0.051, 'kB': 0.12, 'offset': 0.025, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/BlueOn-checkpoint.ipynb",
+    "cell_index": 13,
+    "source": "fitparameters = {'xoff': 2.1, 'yoff': 4.7, 'rcenterB': 4.9, 'rcenterY': 6.2,\n                 'tau1': 7.8, 'tau2': 75, 'delay': 24, 'beta': 1.9, 'alpha': 2.5, \\\n                 'tau3': 550, 'kL': 0.070, 'kM': 0.068, 'kB': 0.28, 'offset': -0.065, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/MC_off-checkpoint.ipynb",
+    "cell_index": 3,
+    "source": "fitparameters = {'xoff': -10.0, 'yoff': -3.4, 'rcenter': 4.6, 'rsurr': 33, 'ksurr': 0.43, 'surround_delay': 9, \\\n                 'lum_factor': 90, 'tau1': 5.6, 'tau2': 30, 'k1': 0.00088, 'c1': 0.0032, 'tauplus': 22, \\\n                 'tauA': 47, 'k2': 410, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/MC_off-checkpoint.ipynb",
+    "cell_index": 8,
+    "source": "fitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\\n                 'lum_factor': 1000, 'tau1': 5.0, 'tau2': 16, 'k1': 0.00048, 'c1': 0.0024, 'tauplus': 22, \\\n                 'tauA': 33, 'k2': 560, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/MC_off-checkpoint.ipynb",
+    "cell_index": 16,
+    "source": "fitparameters = {'xoff': 1.1, 'yoff': 4.1, 'rcenter': 3.5, 'rsurr': 17, 'ksurr': 0.52, 'surround_delay': 10, \\\n                 'lum_factor': 500, 'tau1': 10.8, 'tau2': 25, 'k1': 0.0020, 'c1': 0.0032, 'tauplus': 17, \\\n                 'tauA': 14, 'k2': 380, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/MC_on-checkpoint.ipynb",
+    "cell_index": 3,
+    "source": "fitparameters = {'xoff': 3.5, 'yoff':-2.0, 'rcenter': 7.5, 'rsurr': 13.0, 'ksurr': 0.49, 'surround_delay': 3.7, \\\n                 'lum_factor': 500, 'tau1': 7.6, 'tau2': 42, 'k1': 0.014, 'c1': 0.017, 'tauplus': 81, \\\n                 'tauA': 23, 'k2': 42, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/MC_on-checkpoint.ipynb",
+    "cell_index": 8,
+    "source": "fitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\\n                 'lum_factor': 60, 'tau1': 7.3, 'tau2': 38, 'k1': 0.019, 'c1': 0.016, 'tauplus': 110, \\\n                 'tauA': 20, 'k2': 50, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/MC_on-checkpoint.ipynb",
+    "cell_index": 14,
+    "source": "fitparameters = {'xoff': 3.4, 'yoff': 1.0, 'rcenter': 3.4, 'rsurr': 14.0, 'ksurr': 0.41, 'surround_delay': 15, \\\n                 'lum_factor': 800, 'tau1': 7.0, 'tau2': 33, 'k1': 0.0088, 'c1': 0.0095, 'tauplus': 110, \\\n                 'tauA': 14, 'k2': 56, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/PC_Gon-checkpoint.ipynb",
+    "cell_index": 3,
+    "source": "fitparameters = {'xoff': 0.0, 'yoff': -1.0, 'rcenterM': 3.5, 'rcenterL': 29, \\\n                 'lum_factor': 200, 'tau1': 7.4, 'tau2': 76, 'k1': 0.040, 'tau3': 1400,\\\n                 'alpha': 0.68, 'k2': 2.9, 'o1': 0.18, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/PC_Gon-checkpoint.ipynb",
+    "cell_index": 8,
+    "source": "fitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\\n                 'lum_factor': 290, 'tau1': 7.8, 'tau2': 100, 'k1': 0.018, 'tau3': 2000,\\\n                 'alpha': 0.71, 'k2': 3.0, 'o1': 0.06, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/PC_Gon-checkpoint.ipynb",
+    "cell_index": 13,
+    "source": "fitparameters = {'xoff': -5.7, 'yoff': 2.9, 'rcenterM': 4.6, 'rcenterL': 26, \\\n                 'lum_factor': 330, 'tau1': 8.1, 'tau2': 72, 'k1': 0.024, 'tau3': 3000,\\\n                 'alpha': 0.78, 'k2': 1.0, 'o1': 0.04, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/PC_off-checkpoint.ipynb",
+    "cell_index": 2,
+    "source": "fitparameters   = {'xoff': -1, 'yoff': 1, 'rcenterM': 8.0, 'rcenterL': 10, \\\n                 'lum_factor': 870, 'tau1': 7.6, 'tau2': 44, 'k1': 0.082, 'tau3': 800,\\\n                 'alpha': 0.7, 'k2': -5, 'o1': 0.1, 'dt': 1000/150.}\n\nfile            =  './data/File225+L-Moff.txt';  # yes, +L-M",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/PC_Ron-checkpoint.ipynb",
+    "cell_index": 3,
+    "source": "fitparameters = {'xoff': -1.6, 'yoff': 6.0, 'rcenterM': 14, 'rcenterL': 7.0, \\\n                 'lum_factor': 900, 'tau1': 7.5, 'tau2': 60, 'k1': 0.017, 'tau3': 450,\\\n                 'alpha': 0.69, 'k2': 7, 'o1': 0.19, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/PC_Ron-checkpoint.ipynb",
+    "cell_index": 8,
+    "source": "fitparameters = {'xoff': -6.8, 'yoff': -6.5, 'rcenterM': 21, 'rcenterL': 4.5, \\\n                 'lum_factor': 600, 'tau1': 7.6, 'tau2': 70, 'k1': 0.017, 'tau3': 700,\\\n                 'alpha': 0.65, 'k2': 8.3, 'o1': 0.20, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/PC_Ron-checkpoint.ipynb",
+    "cell_index": 13,
+    "source": "fitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\\n                 'lum_factor': 1200, 'tau1': 6.9, 'tau2': 60, 'k1': 0.017, 'tau3': 400,\\\n                 'alpha': 0.68, 'k2': 4, 'o1': 0.07, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/Piecharts-checkpoint.ipynb",
+    "cell_index": 5,
+    "source": "for cell in [\"110Ron\", \"130Gon\"]:\n    \n    if cell == \"110Ron\":\n        fitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\\n                         'lum_factor': 1200, 'tau1': 6.9, 'tau2': 60, 'k1': 0.017, 'tau3': 400,\\\n                         'alpha': 0.68, 'k2': 4, 'o1': 0.07, 'dt': 1000/150.}\n        filename = './data/File110Ron.txt'\n        celltype = \"Ron\"\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rcenterM'] = fitparameters_s['rcenterL']\n        retinal_reliability = 0.91**2 # From Barry for 110Ron\n\n    elif cell == \"130Gon\":\n        fitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\\n                         'lum_factor': 290, 'tau1': 7.8, 'tau2': 100, 'k1': 0.018, 'tau3': 2000,\\\n                         'alpha': 0.71, 'k2': 3.0, 'o1': 0.06, 'dt': 1000/150.}\n        filename = './data/File130Gn.txt'\n        celltype = \"Gon\"\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rcenterL'] = fitparameters_s['rcenterM']\n        retinal_reliability = 0.80**2 # From Barry for 130Gon\n\n\n    # full model\n    lum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\n    RpcF = get_PC_response(lum_signalM, lum_signalL, fitparameters, celltype)\n\n    # no-surround model\n    lum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\n    RpcS = get_PC_response(lum_signalM, lum_signalL, fitparameters_s, celltype)\n    \n    make_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 1, column = 0, retinal_reliability = retinal_reliability)",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/Piecharts-checkpoint.ipynb",
+    "cell_index": 8,
+    "source": "for cell in [\"299Mon\", \"078Moff\"]:\n    \n    if cell == \"299Mon\":\n        fitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\\n                         'lum_factor': 60, 'tau1': 7.3, 'tau2': 38, 'k1': 0.019, 'c1': 0.016, 'tauplus': 110, \\\n                         'tauA': 20, 'k2': 50, 'dt': 1000/150.}\n        filename = './data/File299Mon.txt'\n        celltype = 'on-cell'\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rsurr'] = fitparameters_s['rcenter']\n        retinal_reliability = 0.92**2 # From 299 MC on cell\n\n    elif cell == \"078Moff\":\n        fitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\\n                         'lum_factor': 1000, 'tau1': 5.0, 'tau2': 16, 'k1': 0.00048, 'c1': 0.0024, 'tauplus': 22, \\\n                         'tauA': 33, 'k2': 560, 'dt': 1000/150.}\n        filename = './data/File078Moff.txt'\n        celltype = 'off-cell'\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rsurr'] = fitparameters_s['rcenter']\n        retinal_reliability = 0.89**2 # From 78 MC off cell\n\n\n    # full model\n    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\n    RpcF = get_MC_response(rates_center, rates_surround, fitparameters, type = celltype)\n\n    # no-surround model\n    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\n    RpcS = get_MC_response(rates_center, rates_surround, fitparameters_s, type = celltype)\n    \n    make_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 2, column = 0, retinal_reliability = retinal_reliability)",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/Piecharts-checkpoint.ipynb",
+    "cell_index": 11,
+    "source": "cell = \"178Bon\"\n\nfitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\\n                 'tau1': 10.2, 'tau2': 86, 'delay': 29, 'beta': 0.0, 'alpha': 4.9,  \\\n                 'tau3': 280, 'kL': 0.01, 'kM': 0.051, 'kB': 0.12, 'offset': 0.025, 'dt': 1000/150.}\n\nfilename = './data/File178Bon.txt'\nfitparameters_s = fitparameters.copy()\nfitparameters_s['rcenterY'] = fitparameters_s['rcenterB']\nretinal_reliability = 0.91**2 # From barry 178 Bon cell\n\n\n# full model\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpcF = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters)\n\n# no-surround model\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\nRpcS = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters_s)\n\nmake_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 2, column = 0, retinal_reliability = retinal_reliability)",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/BlueOn.ipynb",
+    "cell_index": 3,
+    "source": "fitparameters = {'xoff': -1.0, 'yoff': 7.0, 'rcenterB': 12.5, 'rcenterY': 15.0, \\\n                 'tau1': 7.5, 'tau2': 120, 'delay': 0, 'beta': 2.0, 'alpha': 2.5, \\\n                 'tau3': 1400, 'kL': 0.09, 'kM': 0.053, 'kB': 0.17, 'offset': -0.049, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/BlueOn.ipynb",
+    "cell_index": 8,
+    "source": "fitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\\n                 'tau1': 10.2, 'tau2': 86, 'delay': 29, 'beta': 0.0, 'alpha': 4.9,  \\\n                 'tau3': 280, 'kL': 0.01, 'kM': 0.051, 'kB': 0.12, 'offset': 0.025, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/BlueOn.ipynb",
+    "cell_index": 13,
+    "source": "fitparameters = {'xoff': 2.1, 'yoff': 4.7, 'rcenterB': 4.9, 'rcenterY': 6.2,\n                 'tau1': 7.8, 'tau2': 75, 'delay': 24, 'beta': 1.9, 'alpha': 2.5, \\\n                 'tau3': 550, 'kL': 0.070, 'kM': 0.068, 'kB': 0.28, 'offset': -0.065, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/MC_off.ipynb",
+    "cell_index": 3,
+    "source": "fitparameters = {'xoff': -10.0, 'yoff': -3.4, 'rcenter': 4.6, 'rsurr': 33, 'ksurr': 0.43, 'surround_delay': 9, \\\n                 'lum_factor': 90, 'tau1': 5.6, 'tau2': 30, 'k1': 0.00088, 'c1': 0.0032, 'tauplus': 22, \\\n                 'tauA': 47, 'k2': 410, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/MC_off.ipynb",
+    "cell_index": 8,
+    "source": "fitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\\n                 'lum_factor': 1000, 'tau1': 5.0, 'tau2': 16, 'k1': 0.00048, 'c1': 0.0024, 'tauplus': 22, \\\n                 'tauA': 33, 'k2': 560, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/MC_off.ipynb",
+    "cell_index": 13,
+    "source": "fitparameters = {'xoff': 1.1, 'yoff': 4.1, 'rcenter': 3.5, 'rsurr': 17, 'ksurr': 0.52, 'surround_delay': 10, \\\n                 'lum_factor': 500, 'tau1': 10.8, 'tau2': 25, 'k1': 0.0020, 'c1': 0.0032, 'tauplus': 17, \\\n                 'tauA': 14, 'k2': 380, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/MC_on.ipynb",
+    "cell_index": 3,
+    "source": "fitparameters = {'xoff': 3.5, 'yoff':-2.0, 'rcenter': 7.5, 'rsurr': 13.0, 'ksurr': 0.49, 'surround_delay': 3.7, \\\n                 'lum_factor': 500, 'tau1': 7.6, 'tau2': 42, 'k1': 0.014, 'c1': 0.017, 'tauplus': 81, \\\n                 'tauA': 23, 'k2': 42, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/MC_on.ipynb",
+    "cell_index": 8,
+    "source": "fitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\\n                 'lum_factor': 60, 'tau1': 7.3, 'tau2': 38, 'k1': 0.019, 'c1': 0.016, 'tauplus': 110, \\\n                 'tauA': 20, 'k2': 50, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/MC_on.ipynb",
+    "cell_index": 13,
+    "source": "fitparameters = {'xoff': 3.4, 'yoff': 1.0, 'rcenter': 3.4, 'rsurr': 14.0, 'ksurr': 0.41, 'surround_delay': 15, \\\n                 'lum_factor': 800, 'tau1': 7.0, 'tau2': 33, 'k1': 0.0088, 'c1': 0.0095, 'tauplus': 110, \\\n                 'tauA': 14, 'k2': 56, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/PC_Gon.ipynb",
+    "cell_index": 3,
+    "source": "fitparameters = {'xoff': 0.0, 'yoff': -1.0, 'rcenterM': 3.5, 'rcenterL': 29, \\\n                 'lum_factor': 200, 'tau1': 7.4, 'tau2': 76, 'k1': 0.040, 'tau3': 1400,\\\n                 'alpha': 0.68, 'k2': 2.9, 'o1': 0.18, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/PC_Gon.ipynb",
+    "cell_index": 8,
+    "source": "fitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\\n                 'lum_factor': 290, 'tau1': 7.8, 'tau2': 100, 'k1': 0.018, 'tau3': 2000,\\\n                 'alpha': 0.71, 'k2': 3.0, 'o1': 0.06, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/PC_Gon.ipynb",
+    "cell_index": 13,
+    "source": "fitparameters = {'xoff': -5.7, 'yoff': 2.9, 'rcenterM': 4.6, 'rcenterL': 26, \\\n                 'lum_factor': 330, 'tau1': 8.1, 'tau2': 72, 'k1': 0.024, 'tau3': 3000,\\\n                 'alpha': 0.78, 'k2': 1.0, 'o1': 0.04, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/PC_off.ipynb",
+    "cell_index": 2,
+    "source": "fitparameters   = {'xoff': -1, 'yoff': 1, 'rcenterM': 8.0, 'rcenterL': 10, \\\n                 'lum_factor': 870, 'tau1': 7.6, 'tau2': 44, 'k1': 0.082, 'tau3': 800,\\\n                 'alpha': 0.7, 'k2': -5, 'o1': 0.1, 'dt': 1000/150.}\n\nfile            =  './data/File225+L-Moff.txt';  # yes, +L-M",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/PC_Ron.ipynb",
+    "cell_index": 3,
+    "source": "fitparameters = {'xoff': -1.6, 'yoff': 6.0, 'rcenterM': 14, 'rcenterL': 7.0, \\\n                 'lum_factor': 900, 'tau1': 7.5, 'tau2': 60, 'k1': 0.017, 'tau3': 450,\\\n                 'alpha': 0.69, 'k2': 7, 'o1': 0.19, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/PC_Ron.ipynb",
+    "cell_index": 8,
+    "source": "fitparameters = {'xoff': -6.8, 'yoff': -6.5, 'rcenterM': 21, 'rcenterL': 4.5, \\\n                 'lum_factor': 600, 'tau1': 7.6, 'tau2': 70, 'k1': 0.017, 'tau3': 700,\\\n                 'alpha': 0.65, 'k2': 8.3, 'o1': 0.20, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/PC_Ron.ipynb",
+    "cell_index": 13,
+    "source": "fitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\\n                 'lum_factor': 1200, 'tau1': 6.9, 'tau2': 60, 'k1': 0.017, 'tau3': 400,\\\n                 'alpha': 0.68, 'k2': 4, 'o1': 0.07, 'dt': 1000/150.}",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/Piecharts.ipynb",
+    "cell_index": 5,
+    "source": "for cell in [\"110Ron\", \"130Gon\"]:\n    \n    if cell == \"110Ron\":\n        fitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\\n                         'lum_factor': 1200, 'tau1': 6.9, 'tau2': 60, 'k1': 0.017, 'tau3': 400,\\\n                         'alpha': 0.68, 'k2': 4, 'o1': 0.07, 'dt': 1000/150.}\n        filename = './data/File110Ron.txt'\n        celltype = \"Ron\"\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rcenterM'] = fitparameters_s['rcenterL']\n        retinal_reliability = 0.91**2 # From Barry for 110Ron\n\n    elif cell == \"130Gon\":\n        fitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\\n                         'lum_factor': 290, 'tau1': 7.8, 'tau2': 100, 'k1': 0.018, 'tau3': 2000,\\\n                         'alpha': 0.71, 'k2': 3.0, 'o1': 0.06, 'dt': 1000/150.}\n        filename = './data/File130Gn.txt'\n        celltype = \"Gon\"\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rcenterL'] = fitparameters_s['rcenterM']\n        retinal_reliability = 0.80**2 # From Barry for 130Gon\n\n\n    # full model\n    lum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\n    RpcF = get_PC_response(lum_signalM, lum_signalL, fitparameters, celltype)\n\n    # no-surround model\n    lum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\n    RpcS = get_PC_response(lum_signalM, lum_signalL, fitparameters_s, celltype)\n    \n    make_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 1, column = 0, retinal_reliability = retinal_reliability)",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/Piecharts.ipynb",
+    "cell_index": 8,
+    "source": "for cell in [\"299Mon\", \"078Moff\"]:\n    \n    if cell == \"299Mon\":\n        fitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\\n                         'lum_factor': 60, 'tau1': 7.3, 'tau2': 38, 'k1': 0.019, 'c1': 0.016, 'tauplus': 110, \\\n                         'tauA': 20, 'k2': 50, 'dt': 1000/150.}\n        filename = './data/File299Mon.txt'\n        celltype = 'on-cell'\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rsurr'] = fitparameters_s['rcenter']\n        retinal_reliability = 0.92**2 # From 299 MC on cell\n\n    elif cell == \"078Moff\":\n        fitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\\n                         'lum_factor': 1000, 'tau1': 5.0, 'tau2': 16, 'k1': 0.00048, 'c1': 0.0024, 'tauplus': 22, \\\n                         'tauA': 33, 'k2': 560, 'dt': 1000/150.}\n        filename = './data/File078Moff.txt'\n        celltype = 'off-cell'\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rsurr'] = fitparameters_s['rcenter']\n        retinal_reliability = 0.89**2 # From 78 MC off cell\n\n\n    # full model\n    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\n    RpcF = get_MC_response(rates_center, rates_surround, fitparameters, type = celltype)\n\n    # no-surround model\n    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\n    RpcS = get_MC_response(rates_center, rates_surround, fitparameters_s, type = celltype)\n    \n    make_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 2, column = 0, retinal_reliability = retinal_reliability)",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  },
+  {
+    "artifact": "run_model/Piecharts.ipynb",
+    "cell_index": 11,
+    "source": "cell = \"178Bon\"\n\nfitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\\n                 'tau1': 10.2, 'tau2': 86, 'delay': 29, 'beta': 0.0, 'alpha': 4.9,  \\\n                 'tau3': 280, 'kL': 0.01, 'kM': 0.051, 'kB': 0.12, 'offset': 0.025, 'dt': 1000/150.}\n\nfilename = './data/File178Bon.txt'\nfitparameters_s = fitparameters.copy()\nfitparameters_s['rcenterY'] = fitparameters_s['rcenterB']\nretinal_reliability = 0.91**2 # From barry 178 Bon cell\n\n\n# full model\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpcF = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters)\n\n# no-surround model\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\nRpcS = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters_s)\n\nmake_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 2, column = 0, retinal_reliability = retinal_reliability)",
+    "classification": "AUTHOR_PREDICTION_MODEL_PARAMETERS",
+    "eligible_independent_rc_center": false
+  }
+]

@@ -1,0 +1,3 @@
+split,comparator,cells,available,mean,median,positive,negative,zero,mean_ci_low,mean_ci_high,median_ci_low,median_ci_high
+consumed,LN,22,True,-0.011657086525647113,-0.007927165180748945,6,16,0,,,,
+consumed,CNN,22,True,-0.06547413963596656,-0.059371232009744805,2,20,0,,,,

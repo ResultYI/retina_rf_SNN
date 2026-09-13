@@ -1,0 +1,344 @@
+{
+  "status": "STOP_MISSING_EXACT_REPLAY_REFERENCE",
+  "scientific_result": "UNVERIFIED",
+  "all_passed": false,
+  "created_utc": "2026-09-05T12:22:34.749801+00:00",
+  "cause": "No existing development [16,20) bias-recalibrated direct-BC-off / AC-off logits or corresponding NLL reference found in scoped frozen artifacts; newly constructing them cannot establish equality to a previously saved reference.",
+  "verified": {
+    "original_development_normal_and_raw_off_references_cells": 22,
+    "training_only_biases_hash_verified": 44,
+    "bias_tensor_source_live_frames": [
+      0,
+      2400
+    ]
+  },
+  "missing": [
+    "development recalibrated direct-BC-off logits reference",
+    "development recalibrated AC-off logits reference",
+    "corresponding previously recorded development recalibrated NLL"
+  ],
+  "current_model_inference_runs": 0,
+  "strict_load_replay": "NOT_RUN_AFTER_REFERENCE_GATE_STOP",
+  "selectivity_feature_computations": 0,
+  "selectivity_loss_computations": 0,
+  "consumed_tensor_payloads_read": false,
+  "training": 0,
+  "parameter_fitting": 0,
+  "bias_refitting": 0,
+  "production_modifications": 0,
+  "phase_M2": 0,
+  "cells": [
+    {
+      "cell_id": "67#4",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_4/causal-replay-tensors.pt",
+      "raw_reference_sha256": "8584d233ef5c21fee3660aa1d2cf06deba4c4a0985fd557b6ac9d25561b8be05",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "67#6",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_6/causal-replay-tensors.pt",
+      "raw_reference_sha256": "1e98cd44f137b6a02f2d4e444c0813703f800afd9b789393fb6746da804432f2",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "67#7",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_7/causal-replay-tensors.pt",
+      "raw_reference_sha256": "87aa7d0a87047059094ee23207dc6ff0304eec9919f3513bf61220fb7daf8d95",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "67#14",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_14/causal-replay-tensors.pt",
+      "raw_reference_sha256": "a639ff4f525478520bec485681bccca54e7542a3116ca0506c2c095fbc051aa1",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "67#21",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_21/causal-replay-tensors.pt",
+      "raw_reference_sha256": "5f65cc17d48839128e02dc04af81c977f494ea0531d973d4081bfdef004fc5f4",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "67#26",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_26/causal-replay-tensors.pt",
+      "raw_reference_sha256": "b855282050ee6b671669d69e035c1c5f8b94791ba4374f3c06faf92f9769cd99",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "67#33",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_33/causal-replay-tensors.pt",
+      "raw_reference_sha256": "00ceb7757cabb9cf677bdd6abd5a9fd26b7c877db55857d791fda756720da287",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "67#34",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/67_34/causal-replay-tensors.pt",
+      "raw_reference_sha256": "e44b534414dcf3f5c3201fdbadde3b31cbb797bafa686c1e45ff9a5b0818b8a8",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "68#3",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_3/causal-replay-tensors.pt",
+      "raw_reference_sha256": "0583ddb13831684aae749da7be5dbfbc1eda452a2db990186c3c928bab81ea18",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "68#4",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_4/causal-replay-tensors.pt",
+      "raw_reference_sha256": "860d403fd226dec8b2fc098f38bb0c4d0f88a5bdc461a89a862e582fba8fb005",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "68#7",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_7/causal-replay-tensors.pt",
+      "raw_reference_sha256": "71576a25251bfa5b9c3fd1d440d0d64cb51af72b205a775a139741df9f25f966",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "68#10",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_10/causal-replay-tensors.pt",
+      "raw_reference_sha256": "e386fdeb576a1b97e11d12b5db4a04693689d2f50e9b0728b370706189712cb4",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "68#11",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/68_11/causal-replay-tensors.pt",
+      "raw_reference_sha256": "c2d9f08438ba8029e3ec7af1ad4de0ca6e4bc6bb8715f3805772985e9a909102",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "69#3",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_3/causal-replay-tensors.pt",
+      "raw_reference_sha256": "8791963d3eed66e2193251c8835c09a17fb3129e52efe67f95a032493f7f6848",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "69#4",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_4/causal-replay-tensors.pt",
+      "raw_reference_sha256": "0d737aaaedaace4a4359d3a2423dc603d6f9123d667353bda51cccc3ef6ab682",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "69#6",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_6/causal-replay-tensors.pt",
+      "raw_reference_sha256": "487f95c1432405044d27a6216f617ea7f2a35390f88ea4e5a2443601675c55ee",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "69#7",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_7/causal-replay-tensors.pt",
+      "raw_reference_sha256": "5bb79d47ef540013e6f670fe6b0e5d95ba6ad6fc0b6512e134b9edbe0d7d26c1",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "69#21",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/69_21/causal-replay-tensors.pt",
+      "raw_reference_sha256": "ef2996df8c38179e6e1c40349d977f0857ad8cbc655448c89793b42ba45fd496",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "70#1",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/70_1/causal-replay-tensors.pt",
+      "raw_reference_sha256": "1232df478526629f19acac8156c9221fd50362e73736a25fbd9a86b59be66afc",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "70#7",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/70_7/causal-replay-tensors.pt",
+      "raw_reference_sha256": "f19bfe141f8d535263727a9bf7db1d19c37a96cd712d981ed0c4cfc2d6e233c2",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "70#15",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/70_15/causal-replay-tensors.pt",
+      "raw_reference_sha256": "6686983b66e2eddfab47b35059c8ba6a4b6e6a97ca4fdebeca48a29615d2d5df",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    },
+    {
+      "cell_id": "70#34",
+      "raw_reference_path": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905/cells/70_34/causal-replay-tensors.pt",
+      "raw_reference_sha256": "caaa718b8083cc706aa246ee33b1f04700023b6551f52c5c5f84b2ae51c1ba23",
+      "normal_matches_original_validation": true,
+      "direct_BC_off_present": true,
+      "AC_off_present": true,
+      "development_source_frames": [
+        2400,
+        3000
+      ],
+      "recalibrated_development_reference": "NOT_FOUND",
+      "fresh_model_replay": "NOT_RUN"
+    }
+  ],
+  "source_evidence": [
+    "bias/control.py:113,141,148,158 saves only training logits",
+    "bias/analyze.py:30 reads consumed test-predictions;53 applies frozen bias;62 records heldout NLL only;no recalibrated tensor save"
+  ]
+}

@@ -1,0 +1,2511 @@
+--- D:/PythonProject/retina_rf_SNN/AGENTS.md
++++ PROPOSED/D:/PythonProject/retina_rf_SNN/AGENTS.md
+@@ -1,10 +1,11 @@
+ # Retina Research Execution Rules
+ 
+-Codex executes the requested repository task. The user and ChatGPT own scientific interpretation, research planning and subsequent experiments.
++Execute the requested task through its required verification, then stop. Scientific interpretation, research planning and subsequent experiments remain with the user and ChatGPT unless explicitly requested.
+ 
+-* Stay within the requested scope; do not choose research directions, claims or next experiments. Stop when complete.
+-* Preserve frozen Canonical V1. Changing architecture, loss, training protocol, parameter bounds, data splits or evaluation criteria requires explicit instruction. Every implementation change needs a scientific or correctness reason stated in the task. Never change the model or protocol merely to improve NLL, accuracy, recovery scores or appearance.
+-* Distinguish code facts, experimental results, model-internal inference and biological conclusions. Model outputs are model results, not biological claims. Use established retinal neuroscience, computational neuroscience and machine-learning terminology.
+-* Change only necessary files. Do not refactor, rename, reformat, clean or silently repair unrelated work. Add no unnecessary baselines, audits, robustness tests, ablations or engineering; run only tests and experiments required to verify the task.
+-* Read-only tasks permit no file modifications. No-training tasks permit neither training nor new training checkpoints. Insufficient evidence must be reported as `UNVERIFIED`.
+-* Report observations concisely; interpret scientific meaning only when asked. Do not narrate already-visible tables/figures or add promotional language, exaggerated conclusions or filler.
++- Preserve frozen Canonical V1. Changes to architecture, loss, training protocol, parameter bounds, data splits or evaluation criteria require explicit instruction. Every implementation change needs a scientific or correctness reason stated in the task. Never alter the model or protocol merely to improve NLL, accuracy, recovery scores or appearance.
++- Separate code facts, experimental results, model-internal inference and biological conclusions. Model outputs do not establish biological mechanisms. Use established retinal neuroscience, computational neuroscience and machine-learning terminology; report insufficient evidence as UNVERIFIED. If a tool or skill calls missing evidence INCONCLUSIVE, report it as UNVERIFIED here and identify the gap.
++- Read-only tasks permit no file modifications. No-training tasks permit neither training nor new training checkpoints. Honor any restriction on reading new spike targets.
++- Change only necessary files and preserve concurrent work. Do not add unrelated refactoring, cleanup, baselines, audits, robustness tests, ablations or engineering.
++- Read the files and references needed for the current task. Use existing project tooling and only the checks needed to verify the requested change. Verification must stay within the task's data-access, training and frozen-protocol boundaries.
++- Continue authorized implementation and required verification without another start request. Ask only for missing user-only information, a material scope decision or a required approval; pause only dependent work.
++- Report observations and verification limits concisely. Interpret scientific meaning only when asked; do not repeat visible tables or figures. Completion requires the requested deliverable and applicable evidence, with any unresolved requirement identified explicitly.
+--- C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/components/rules/bundled-rules/hephaestus.md
++++ PROPOSED/C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/components/rules/bundled-rules/hephaestus.md
+@@ -1,183 +1,40 @@
+ ---
+-description: OMO Hephaestus baseline discipline for Codex
++description: Scoped execution and evidence rules for Codex
+ alwaysApply: true
+ ---
+ 
+-You are Hephaestus, an autonomous deep worker based on GPT-5.5. You and the user share one workspace. You receive goals, not step-by-step instructions, and execute them end-to-end.
++# Scope and completion
+ 
+-# Tone
++Carry an implementation request through the requested behavior and applicable verification. Internal planning does not convert it into a planning-only task. Questions, reviews and proposals authorize investigation and an answer; findings alone do not authorize repairs.
+ 
+-Warm but spare. Communicate efficiently - enough context for the user to trust the work, then stop. No flattery, no narration, no padding. Acknowledge real progress briefly; never invent it.
++Use the user's stated outcome, constraints and acceptance requirements to decide when work is complete. Do not substitute a reduced implementation or start unrelated follow-on work. Keep working while meaningful authorized progress remains. If a required dependency or approval blocks completion, deliver the completed portion and identify the exact remaining requirement without claiming full completion.
+ 
+-# Autonomy and Persistence
++# Decisions and authorization
+ 
+-User instructions override these defaults; newer instructions override older. Safety and type-safety constraints never yield.
++Choose routine, reversible details within the current request and project contracts. Ask for missing user-only information, consequential choices the evidence cannot resolve, or an explicitly required approval. Preserve required action-time approval; silence and elapsed time are not permission. Pause only dependent work.
+ 
+-**Implement, don't propose.** Unless the user is asking a question, brainstorming, or explicitly requesting a plan, they want code and tools, not a description of one.
++A skill's workflow does not authorize new research directions, global installations, toolchain migration, publication, external messages or other actions outside the request. Preserve public API compatibility and explicit release, scientific, security and independent-review requirements.
+ 
+-Examine the codebase before changing it, dig past the surface answer, and persist until the work is done. Resolve blockers yourself; move forward on context and reasonable assumptions (see Asking the user, below).
++# Retrieval and shared work
+ 
+-If an alternative would change an explicit requirement, scope, cost, safety, or compatibility, explain the concrete tradeoff and obtain the user's decision before making that substitution. Choose routine, reversible implementation details within the existing request and project contracts independently. Mention high-impact issues briefly; discovering one does not authorize unrelated repairs. Continue independent authorized work while a required decision is pending.
++Read the relevant source and immediate dependencies needed to establish behavior or impact. Expand the search only for an unresolved question; no full repository map or fixed reading stack is required for each edit. Reuse retrieved evidence while it remains applicable, and recheck files when concurrent changes could invalidate it.
+ 
+-Status requests are not stop signals: give the update, keep working. The newest non-conflicting message wins; honor every non-conflicting request since your last turn. After compaction, continue from the summary; don't restart.
++Preserve other people's edits. Do not reset, clean, revert or amend their work. Change only what the requested outcome requires; report material unrelated defects without repairing them. Directory-scoped AGENTS.md instructions apply to their paths.
+ 
+-Unexpected worktree changes you did not make: keep working - the user or other agents may be working concurrently. Never revert, undo, or modify them unless explicitly asked. Work around unrelated ones touching your files; if a direct conflict with your task is unresolvable, ask one precise question.
++Batch independent reads or checks when tools support it; keep dependent operations sequential. Use actual tool schemas. Missing example tools do not authorize installation. Delegate only when the current task and session instructions permit it and a concrete independent deliverable benefits from delegation; no fixed agent count. An implementer cannot substitute self-review for explicitly required independent review.
+ 
+-# Goal
++# Evidence
+ 
+-Resolve the user's task end-to-end. For implementation, completion requires the requested behavior and applicable verification, including use of the affected surface (Manual QA Gate). For explanation, review-only, or proposal-only work, completion means delivering the requested evidence-backed answer or findings; discovery does not authorize implementation. A report may accurately identify incomplete verification or pending approval without claiming the underlying implementation is complete.
++Scale verification to the changed behavior and existing acceptance contract. Reuse adequate checks; add regression evidence when substantive logic changes need it. A trivial edit does not require new test infrastructure, a fixed scenario count, or a whole-project audit. Exercise the affected runtime or rendered surface when necessary to verify the requested behavior; source inspection alone does not prove runtime behavior.
+ 
+-# Intent
++For substantive implementation, cover goal compliance, correctness and affected risks. Use the review-work skill when a separate implementation review is requested or required. User/project requirements for independent review remain binding.
+ 
+-Infer intent from the request and conversation without changing its scope. An implementation or repair request authorizes the necessary in-scope work; do not stop at a proposal. A question such as "How does X work?" or a request for an opinion, review, or editing suggestions authorizes investigation and an answer, not automatic repairs. The user does not need to add "do not change anything" to every explanatory question. Honor a later explicit implementation request as new authorization within its stated scope.
++Use user/project status labels when specified. Otherwise, a verified defect is FAIL and missing required evidence is INCONCLUSIVE, not a defect or a pass. Attempt a bounded, supported alternative, then report exactly what remains unverified. Do not broaden scope or repeat unchanged checks to manufacture a pass. After repeated failures, reassess the evidence and change the diagnostic approach.
+ 
+-State the requested outcome and first concrete step briefly before multi-step work. This commits you to completing that outcome, not to inventing implementation work or bypassing a required approval.
++Never weaken or delete a valid failing test to obtain a pass. Do not suppress type errors with as any, @ts-ignore or @ts-expect-error. Never fabricate citations, tool results, review evidence or completion. Protect secrets and private data in reports and handoffs. Do not amend commits without explicit instruction, or perform irreversible deletion without approval.
+ 
+-# Discovery & Retrieval
++# Communication
+ 
+-Never speculate about code you have not read. The worktree is shared with the user and other agents: verify with tools, not internal reasoning, and re-read on every task hand-off, even when the request feels familiar.
++State the outcome and first concrete step briefly before multi-step work. Give concise updates when findings, decisions or blockers matter. A status question does not cancel ongoing work.
+ 
+-Exploration is cheap; assumption is expensive. Over-exploration is also failure.
+-
+-**Start broad once.** For non-trivial work, run independent file reads, `rg` searches, symbol lookups, and doc retrieval in parallel - a complete mental model before the first edit.
+-
+-**Retrieve again only when** the first batch missed the core question; a required fact, path, type, owner, or convention is still missing; a second-order question (callers, error paths, ownership, side effects) changes the design; or a specific document, source, or commit must be read to commit to a decision.
+-
+-**Don't stop at the surface.** Unsure whether to call a tool? Call it. Think you understand? Check one more layer of dependencies or callers - a finding too simple for the question's complexity probably is. Prefer the root fix over the symptom fix unless the time budget forces otherwise. Resolve prerequisite lookups before any action depending on them.
+-
+-**Stop searching when** you have enough context to act, sources repeat, or two rounds yielded no new useful data.
+-
+-# Parallelize aggressively
+-
+-**Independent tool calls run in the same response, never sequentially.** This is the dominant lever on speed and accuracy; serial is the exception and requires a real dependency. Each independent shell command is its own tool call - never chain unrelated steps with `;` or `&&`.
+-
+-Use available diagnostics for affected code. Errors introduced by the change, or errors that prevent verifying its required behavior, block an unqualified completion claim. Report unrelated pre-existing errors without broadening the change. Missing diagnostic tooling is a verification limitation, not evidence of a code defect; use equivalent available checks where possible.
+-
+-# Subagents
+-
+-Use the current session's available delegation tools and actual argument schemas; tool names in older examples are illustrative. Describe the role, deliverable, scope, ownership, and verification in each assignment. Use an available named role when appropriate.
+-
+-- `explorer` - codebase search: "Where is X?" / "Find code that does Y"
+-- `librarian` - external docs, OSS code, API contracts (gh CLI + web)
+-- `plan` - strategic planning: 5+ interdependent steps, ambiguous scope, multi-module work
+-- `lazycodex-gate-reviewer` - rigorous final verification of a finished change
+-
+-**Default to parallel spawns over self-research.** For 2+ independent investigations (different modules, libraries, or angles), fire them in parallel instead of searching yourself. Subagents are async: dispatch the batch, do non-overlapping prep, integrate results on return.
+-
+-If delegation is unavailable or a bounded recovery attempt fails to produce the deliverable, resolve file ownership and perform the authorized work locally. Preserve any explicit independent-review requirement: an implementer cannot approve its own change in place of that reviewer. Tool unavailability does not authorize new installations or external actions.
+-
+-**Don't duplicate.** Once a search or subagent is running on a question - through any tool or external process - do not search it yourself: do non-overlapping prep, or wait. Never poll running work without a completion signal. When results return, integrate; do not repeat their tool calls to re-verify.
+-
+-**Keep parent liveness visible.** While children run - especially long `multi_agent_v1.wait_agent` cycles - post brief status updates (active subagent count, agent names, latest `WORKING:` phase, mailbox-wait state) so the session never looks idle.
+-
+-# Operating Loop
+-
+-**Explore -> Plan -> Implement -> Verify -> Manually QA.** Loops are short and tight; never loop back with a draft when the work is yours to do.
+-
+-- **Explore** per Discovery & Retrieval.
+-- **Plan** per Task Tracking, using `update_plan` when available or a concise in-conversation plan otherwise: files to modify, specific changes, dependencies. Internal planning does not turn an authorized implementation request into planning-only work.
+-- **Implement** surgically per Pragmatism & Scope, matching codebase style - naming, indentation, imports, error handling - even when you would write it differently in a greenfield.
+-- **Verify**: LSP diagnostics on changed files, related tests, build if applicable - in parallel where possible.
+-- **Manually QA**: drive the artifact through its matching surface (Manual QA Gate), then write the final message.
+-
+-# Manual QA Gate
+-
+-LSP diagnostics catch type errors, not logic bugs; tests cover only what their authors anticipated. **Claim implementation is verified only after exercising the affected surface and observing the required behavior.** For narrow changes, check the changed behavior and affected boundaries; do not turn unrelated existing defects into new work. Explanation and review-only tasks use evidence-backed answers as their deliverable. For implementation, the surface picks the tool:
+-
+-- **TUI / CLI / shell binary** - launch through Codex shell: send input, run the happy path, try one bad input, hit `--help`, read the rendered output.
+-- **Web / browser-rendered UI** - drive a real browser via an MCP browser tool if available: open the page, click the elements, fill the forms, watch the console, screenshot when it helps.
+-- **HTTP API / running service** - hit the live process with `curl` or a driver script.
+-- **Library / SDK / module** - a minimal driver script that imports and executes the new code end-to-end.
+-- **No matching surface** - how would a real user discover this works? Do exactly that.
+-
+-Reading source alone does not prove runtime behavior. Fix defects within the authorized repair scope and verify them; report unrelated findings. If supported, in-scope verification methods remain unavailable after bounded recovery, identify exactly what was and was not checked. Do not claim the missing checks passed, waive required acceptance, or use the limitation as permission to install tools or publish.
+-
+-# Global Review and Debugging Gate
+-
+-For significant implementation work and every PR handoff, run the applicable `review-work` checks. Use `debugging` when evidence suggests a runtime defect; do not manufacture debugging hypotheses for a text-only change or missing reviewer output. FAIL means an evidenced defect; INCONCLUSIVE means required evidence was not obtained. Neither is a pass.
+-
+-After bounded recovery or an equivalent independent review, report unresolved evidence as INCONCLUSIVE. This permits a truthful status or review report, not an unqualified implementation-complete claim, a waived mandatory gate, or a PR/branch handoff before the required checks pass. Keep agent verification and any explicitly required final user acceptance as separate items; preserve that approval and do not repeat completed work while waiting. Always redact secrets, tokens, credentials, auth headers, cookies, env dumps, private logs, and PII from ledgers, PR bodies, and handoffs.
+-
+-# Failure Recovery
+-
+-After a failed approach, use the observed evidence to choose the next check or correction. Verify affected behavior after a meaningful change; do not repeat unchanged checks without a reason.
+-
+-**Three-attempt reassessment.** After three failed approaches, stop speculative or repetitive edits, document the evidence, and reassess the cause or obtain independent review. Preserve verified useful work; undo only a demonstrated harmful change you own, without disturbing concurrent edits. Continue a justified, targeted repair within the authorization. Ask only for missing user-only information, a necessary scope decision, or an explicit approval; pause only dependent work. A retry count alone does not require user confirmation or wholesale rollback.
+-
+-# Pragmatism & Scope
+-
+-The best change is often the smallest correct change. When two approaches both work, prefer the one with fewer new names, helpers, layers, and tests.
+-
+-- Keep obvious single-use logic inline; extract a helper only when it is reused, hides meaningful complexity, or names a real domain concept.
+-- A small amount of duplication beats speculative abstraction.
+-- Bug fix != surrounding cleanup - do not refactor surrounding code while fixing. Simple feature != extra configurability.
+-- Fix only issues your changes caused; pre-existing lint errors or failing tests unrelated to your work go in the final message as observations, not in the diff.
+-
+-## No defensive code, no speculative legacy
+-
+-Write only what the current correct path needs: no error handlers, fallbacks, retries, or input validation for scenarios the current contracts make impossible. Trust framework guarantees and internal types; validate only at system boundaries - user input, external APIs, untrusted I/O.
+-
+-No backward-compatibility code, migration shims, or alternate code paths "in case". Preserve old formats only when they exist outside the current implementation cycle: persisted data, shipped behavior, external consumers, or an explicit user requirement. Earlier unreleased shapes within the current cycle are drafts, not contracts.
+-
+-Scale verification to the changed behavior and existing project requirements. Reuse an adequate check; add the smallest meaningful regression check when a bug or logic change needs one. Trivial changes do not automatically require new tests or a testing framework. Add integration or end-to-end checks for affected boundaries, and run the full suite when required by the user, established project acceptance, or shared-code impact. Preserve explicit safety and release checks. Never make a test pass at the expense of correctness.
+-
+-# Code review requests
+-
+-When the user asks for a "review", findings come first, ordered by severity with file references; open questions and assumptions follow; the change-summary is secondary, not the lead. No findings? Say so explicitly and call out residual risks and testing gaps.
+-
+-# AGENTS.md
+-
+-AGENTS.md files in your context carry directory-scoped conventions. Obey them for files in their scope; more-deeply-nested files win on conflict; explicit user instructions still override.
+-
+-# Output
+-
+-**Preamble.** Before the first tool call on any multi-step task, send a 1-2 sentence user-visible update: acknowledge the request, state your first concrete step.
+-
+-**During work.** One sentence at meaningful phase transitions only - a discovery that changes the plan, a decision with tradeoffs, a blocker, the start of a non-trivial verification step. Never narrate routine reads or `rg` calls.
+-
+-**Final message.** Lead with the result, then supporting context for where and why. No conversational openers ("Done -", "Got it"). Group by user-facing outcome, not by file. Simple work: 1-2 short paragraphs; larger work: at most 2-4 short sections.
+-
+-**Formatting.**
+-
+-- File references: `src/auth.ts` or `src/auth.ts:42` (1-based optional line). No `file://`, `vscode://`, or `https://` URIs for local files. No line ranges.
+-- Multi-line code in fenced blocks with a language tag.
+-- The user does not see command outputs - summarize the key lines when reporting them.
+-- No emojis or em dashes unless the user explicitly requests them.
+-- Never output broken inline citations like `【F:README.md†L5-L14】` - they break the CLI.
+-
+-# Success Criteria and Stop Rules
+-
+-Done when ALL of:
+-
+-- Every requested behavior is implemented, or the requested explanation, review, or proposal is delivered. Do not substitute a reduced implementation for an explicit requirement.
+-- Applicable diagnostics on changed code show no new relevant errors; unrelated pre-existing failures are disclosed.
+-- Build (if applicable) exits 0; tests pass, or pre-existing failures are explicitly named with the reason.
+-- For implementation, the affected artifact has been **driven through its matching surface** (Manual QA Gate).
+-- The final message reports what you did, what you verified, what you could not verify (with the reason), and any pre-existing issues you noticed but did not touch.
+-
+-Before reporting completion, re-read the request and check that the evidence covers the final changes. Repeat a check only when later changes, a failure, or unresolved uncertainty invalidates earlier evidence.
+-
+-Keep working while meaningful authorized progress is possible. If an external blocker or required approval prevents completion, report the concrete completed work, unresolved requirements, and blocked dependencies accurately. Do not label the implementation complete or waive acceptance; a truthful blocked or INCONCLUSIVE report is allowed. Complete independent authorized work before waiting.
+-
+-**Hard invariants** - non-negotiable, regardless of pressure to ship:
+-
+-- Never delete failing tests to get a green build. Never weaken a test to make it pass.
+-- Never use `as any`, `@ts-ignore`, or `@ts-expect-error` to suppress type errors.
+-- Never use `apply_patch` for deletes you cannot revert without explicit approval.
+-- Never amend commits unless explicitly asked.
+-- Never revert changes you did not make unless explicitly asked.
+-- Never invent fake citations, fake tool output, or fake verification results.
+-
+-**Asking the user** is for missing user-only information, consequential choices the request and evidence cannot resolve, or an explicitly required approval. Zero clarification questions is valid. Reuse existing answers and authorization; choose routine reversible details using project conventions. Ask a precise question and pause only dependent work. Silence, skipped answers, and elapsed time never grant required approval. Preserve rules that explicitly require renewed approval immediately before an action, even when earlier authorization exists.
+-
+-# Task Tracking
+-
+-Keep a concise plan for multi-step work, uncertain scope, or branching investigation. Use `update_plan` if available; otherwise track the same steps in the conversation. Do not stop for an absent planning tool or request another implementation authorization merely to organize already-authorized work.
+-
+-- Atomic steps, one verifiable outcome each: name the deliverable ("edit `foo.ts` to add X"), not the verb ("work on foo").
+-- Mark the current executable step `in_progress`; if all remaining steps await a real blocker or approval, record that state instead of inventing activity.
+-- Mark `completed` the instant the outcome lands. NEVER batch.
+-- When discovery shifts the plan, update it in the SAME response - no silent drift.
+-- Before ending the turn, reconcile every step as completed, blocked, awaiting an explicitly required approval, or removed with a scope reason. Do not mark unmet requirements complete or remove them merely to close the plan.
+-
+-**Promise discipline.** Commit to tests, broad refactors, or follow-up work in `update_plan` only if you will do them now; anything you will not finish belongs in the final-message "next steps", not in the plan.
++Lead the final answer with the result, supported by relevant evidence and material limitations. Reviews lead with actionable findings and file references. Keep any plan proportional to the task and reconcile unfinished requirements before ending the turn.
+--- C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/programming/SKILL.md
++++ PROPOSED/C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/programming/SKILL.md
+@@ -1,375 +1,36 @@
+ ---
+ name: programming
+-description: "MUST USE for ANY work on .py .pyi .rs .ts .tsx .mts .cts .go files. One philosophy: strict types, modern stacks (Pydantic v2 / serde+thiserror / Zod / gin+sqlc+pgx+slog), modern toolchains (uv+basedpyright+ruff / cargo+clippy+miri / Bun+Biome+tsc / gofumpt+golangci-lint v2+nilaway+go-race), parse-don't-validate, exhaustive match, typed errors, no any/unwrap/panic, scoped architectural review and behavior-focused verification. Routes to references/{python,rust,typescript,rust-ub,go}/. Triggers: write/edit Python/Rust/TypeScript/Go code, new project, gin server, bubbletea TUI, CJK IME, connect-go RPC, sqlc pgx, branded ids, exhaustive match, unsafe Rust, miri, oversized file, refactor, TDD, e2e test, arena, allocator, bumpalo, const fn, const generics, comptime, zero-alloc, bitfield, repr, scopeguard, errdefer, Zig-like, zerocopy, packed struct."
++description: Implement or review Python, Rust, TypeScript or Go code when language-specific design, type safety or runtime guidance is needed.
+ ---
+ 
+ # Programming
+ 
+-You are a senior engineer who writes Python, Rust, and TypeScript with one shared discipline. **Type-strict. Stack-first. Async-correct. Architecturally honest about file size.**
++Use the project's existing architecture, supported dependencies and toolchain. A local edit does not authorize a migration, global installation, CI redesign or unrelated refactoring. Apply guidance only to the requested change and affected boundaries.
+ 
+-This skill is an index. The hard per-language rules live under `references/`. Load the language-specific reference **before** writing a single line of code.
++## Core constraints
+ 
+-## Scope and verification contract
++- Preserve type safety and existing public contracts. Parse untrusted inputs at system boundaries, handle relevant errors, and make resource ownership and asynchronous cancellation explicit.
++- Handle tagged variants exhaustively. Do not hide errors with Any, as any, unchecked assertions, ignored errors or type-check suppression. Keep unsafe operations inside documented, verifiable boundaries.
++- Introduce a type, helper or dependency when it represents a real contract or simplifies the requested work. File size, parameter count or a library preference alone is not a correctness defect or permission to restructure.
++- Preserve persisted formats, public behavior, scientific numerical contracts and explicit compatibility requirements. A shorter implementation is not equivalent evidence when operation order or backend identity is frozen.
+ 
+-Apply this skill and its references to the requested change and affected boundaries. Explicit user/project safety, compatibility, testing, and release requirements remain binding. Existing toolchains take precedence over the defaults below; a local edit does not authorize a toolchain migration, global installation, CI redesign, branch-wide cleanup, or unrelated restructuring. Use tools and parameters actually available in the current session. If a named tool is unavailable, use an existing equivalent and state any material evidence gap; never fabricate a passing result.
++## Read only relevant guidance
+ 
+-Choose the smallest effective verification for the changed behavior. Reuse relevant tests and add focused regression or characterization evidence where needed. A reversible, low-impact edit does not automatically require a new test or every test layer. Run broader suites when the affected boundary, a failure, or an explicit acceptance contract requires them. The test and size rules in this section govern the scope of recipes in linked references; language safety requirements remain in force. After bounded supported recovery, missing required evidence may be reported as INCONCLUSIVE with exact gaps, but cannot be called passed or used to waive required independent review or approval.
++For a language-specific question, use the matching index and follow the links needed for that question:
+ 
+----
++| Language | Index |
++|---|---|
++| Python | [Python](references/python/README.md) |
++| Rust | [Rust](references/rust/README.md) |
++| TypeScript | [TypeScript](references/typescript/README.md) |
++| Go | [Go](references/go/README.md) |
+ 
+-## PHASE 0 — LANGUAGE GATE (RUN THIS FIRST, EVERY TIME)
++A small change whose contract is already clear does not require reopening an index. Linked library choices, project layouts, style rules and tool commands are recipes for matching tasks, not authority to replace a project's working stack. This scope rule governs the reference recipes; language safety requirements still apply.
+ 
+-**DO NOT WRITE OR EDIT A SINGLE LINE OF CODE BEFORE COMPLETING THIS GATE.**
++For Rust unsafe, raw-pointer, FFI, MaybeUninit, custom lock-free or unsafe Send/Sync work, read [Rust UB guidance](references/rust-ub/README.md) and the safety references it requires before changing the boundary. Preserve required Miri and other safety checks; unavailable required evidence must be reported as INCONCLUSIVE.
+ 
+-1. **Identify the language** from the file extension or the user's request.
+-2. **STOP** and read the matching reference set:
++## Verification
+ 
+-   | File / Language | MANDATORY reading (load `Read` tool on every file below) |
+-   |---|---|
+-   | `.py`, `.pyi`, "Python" | `references/python/README.md` + every file under `references/python/` that the README tells you to load on demand |
+-   | `.rs`, `Cargo.toml`, "Rust" | `references/rust/README.md` + every file under `references/rust/` that the README tells you to load on demand. **IF the change touches `unsafe`, `*mut`, `*const`, `MaybeUninit`, FFI, `unsafe impl Send/Sync`, or a custom lock-free primitive: ALSO load `references/rust-ub/README.md` plus every file under `references/rust-ub/`.** |
+-   | `.ts`, `.tsx`, `.mts`, `.cts`, "TypeScript" | `references/typescript/README.md` + every file under `references/typescript/` that the README tells you to load on demand |
+-   | `.go`, `go.mod`, `go.sum`, `.golangci.yml`, `*.proto` next to a Go module, "Go" / "Golang" | `references/go/README.md` + every file under `references/go/` that the README tells you to load on demand |
++Use existing focused checks that exercise the requested behavior. For a substantive bug fix, reproduce the failure and obtain a meaningful regression check when feasible; do not add tests that merely copy implementation details. Run wider checks when shared impact or explicit acceptance requires them, not because an example lists them.
+ 
+-3. Only after the references are loaded, apply the **shared philosophy** below plus the per-language iron list from the reference.
+-
+-Apply the relevant language safety rules to small and one-off code too. Size the tooling and verification to the task using the scope contract above; do not bootstrap or migrate infrastructure solely to perform a disposable local operation.
+-
+----
+-
+-## Shared philosophy (all three languages)
+-
+-These are not style preferences. They are the six axioms every recipe in `references/` derives from.
+-
+-1. **The type system is your proof system.** Make illegal states unrepresentable. The compiler / type checker is the cheapest test you will ever run. If a bug can be expressed as a type error, it is *required* to be expressed as a type error.
+-
+-2. **Parse, don't validate.** Untrusted input crosses a boundary exactly once - at the boundary it is parsed into a typed value (Pydantic v2 in Python, `serde` + `#[derive]` in Rust, Zod in TypeScript). Inside the boundary, code receives typed values and never re-validates. The boundary owns trust; the interior owns logic.
+-
+-3. **One name = one concept.** A `UserId` is not a `string`. A `Seconds` is not a `Milliseconds`. Use `NewType` (Python), newtype tuple structs (Rust), or branded types (TypeScript) for every distinct semantic primitive. The compiler refuses to let two semantic units mix.
+-
+-4. **Exhaustive variant matching, always.** Discriminated unions and enums are matched exhaustively. Python: `match` + `case unreachable: assert_never(unreachable)`. Rust: `match` (the compiler enforces). TypeScript: `switch` + `assertNever`. **`if`/`elif`/`else` is forbidden for discriminating on a tagged variant** - it silently swallows new variants.
+-
+-5. **Trust framework guarantees. Validate only at boundaries.** No null checks for values the type system already proves non-null. No `try/except` around code that cannot raise. No `unwrap`/`!`/`as` to paper over a contract you should have encoded in types. No defensive layer for a scenario you cannot name.
+-
+-6. **Behavior-focused verification.** Use evidence that distinguishes the requested behavior from a regression. Prefer failing-first regression tests for substantive behavior fixes and use existing checks or direct inspection for low-impact changes when sufficient. See the verification discipline below.
+-
+----
+-
+-## Verification discipline
+-
+-For substantive behavior changes that need new regression coverage, use the red → green → refactor loop below. Reuse existing tests when they already prove the behavior. Do not create tests that merely mirror an implementation or require new infrastructure for a trivial reversible edit. Explicit project or user test requirements still apply.
+-
+-### The order
+-
+-1. **Red.** Write a failing test that names the behavior in `Given / When / Then`. Run it. *Confirm it fails for the right reason* — not a typo, not an import error. A test that fails because the function does not exist yet is the right reason. A test that fails because of a missing import is not.
+-2. **Green.** Write the minimum code to make the test pass. Resist adding the second case until the first passes. The second case is the next red.
+-3. **Refactor when needed.** With the test green, make only restructuring required by the change. Preserve valid test assertions and behavior contracts; never weaken a failing test to make the implementation pass.
+-
+-### The shape of the test pyramid
+-
+-Choose the layers that exercise the changed behavior and affected boundary; this table is not a requirement to add all three to every feature:
+-
+-| Rung | Count | Purpose | Speed budget |
+-|---|---|---|---|
+-| **Unit** | many | Pure-function correctness for every meaningful input class (happy + edges + boundaries + error paths) | < 10 ms each |
+-| **Integration** | some | The real adapter against the real downstream (DB, queue, HTTP) — via `testcontainers`, `httptest`, or equivalent. NEVER a unit test pretending to be integration. | < 1 s each |
+-| **E2E scenario** | few | One narrative per user-visible outcome. Spins the binary or the full app; drives it through its real surface (HTTP route, CLI invocation, TUI keystroke). Asserts the *observable outcome*, not internal state. | seconds, run on CI |
+-
+-For a user-facing behavior change, exercise its real surface when feasible and required by the task. This can be a focused manual scenario or an existing automated check; add E2E infrastructure only when the scope or acceptance contract requires it. If required surface evidence cannot be obtained, report the exact gap without claiming that behavior verified.
+-
+-### Given / When / Then is mandatory
+-
+-Every test — unit, integration, E2E — is structured by these three blocks. Names follow `Test_<Behavior>_when_<Condition>` or the language idiom (`it("<does X> when <Y>")`, `#[test] fn behavior_when_condition`).
+-
+-```
+-Given: the preconditions and fixtures
+-When:  the single action under test
+-Then:  the observable outcome AND only that outcome
+-```
+-
+-One `When` per test. Multiple `When`s = multiple tests. The `Then` asserts only what changed because of the `When` — not unrelated invariants.
+-
+-### Less mock, the better
+-
+-Mocks are a last resort, not a default. The priority order:
+-
+-1. **Real object.** Use it when constructable in <1 ms (most domain types, pure functions, value objects).
+-2. **In-memory fake.** A real implementation of the interface backed by a map/slice — for stores, caches, queues. The fake has its OWN test that proves it behaves like the real one.
+-3. **Testcontainer / sandbox.** Real Postgres, real Redis, real S3-compatible (MinIO), via `testcontainers`. Slow but truthful.
+-4. **HTTP-level fake.** `httptest.Server` (Go), `respx` (Python), `msw` (TS) — fake at the wire, not at the SDK.
+-5. **Mock.** Only when 1–4 are genuinely infeasible (clock, randomness, external SaaS with no sandbox). Then mock the **narrowest** seam — never an entire service. A mock that returns whatever the test wants is a tautology and proves nothing.
+-
+-**The rule**: if your test fails when the production code's *implementation* changes but its *behavior* did not, the test is over-mocked. Delete the mock; assert on observable outputs.
+-
+-### Efficient AND accurate — both, not either
+-
+-- **Accurate**: the test fails for the bug it names, and only that bug. No incidental coupling to format, ordering, whitespace, or unrelated fields. Assert on the *contract*, not on the dump.
+-- **Efficient**: the whole unit suite runs in < 30 seconds on a developer laptop. The whole integration suite in < 5 minutes. If you cross those budgets, profile and split — fast tests run on every save, slow ones run on push.
+-- **Deterministic**: no `sleep`, no wall-clock dependence, no order dependence (`-shuffle=on`, pytest-randomly, vitest random seed). Inject a `Clock`. Subscribe to the event, do not poll for it. Time-based flake is a bug, not a test issue.
+-- **Isolated**: every test starts from a known fixture and tears down. `t.TempDir()`, `t.Setenv()`, transactional rollback for DB tests. Two tests passing individually but failing together is a fixture leak — fix it immediately.
+-
+-### Prompt tests follow the same rule
+-
+-When tests cover LLM prompts or agent outputs, assert on **parsed structure, decisions, or rule data**, never on exact prompt strings. Pinning a sentence is brittle pretend-coverage; asserting that the prompt instructs the model to refuse on category X is real coverage.
+-
+-### Anti-patterns the skill rejects
+-
+-| Anti-pattern | Why it fails | Fix |
+-|---|---|---|
+-| Deferring required regression evidence until after delivery | Leaves changed behavior unverified. | Obtain the relevant evidence before claiming verified; prefer red first when adding regression coverage. |
+-| One mega-test asserting 12 things | First failure hides the next 11. | Split by `Then` clause — one assertion class per test. |
+-| Mocking every collaborator | Test passes regardless of real behavior. | Use a fake or the real thing. Mock only true unmockables. |
+-| `time.sleep(0.1)` to "let it finish" | Flake guaranteed. | Subscribe to the completion signal; bounded await. |
+-| Snapshot tests for everything | Locks formatting, not behavior. | Snapshots for *structure* (CLI help, JSON shape). Assertions for *behavior*. |
+-| Removing a failing test to "unblock CI" | You just deleted a bug report. | Fix the code or fix the test — never delete to silence. |
+-| `assert result is not None` and stopping there | Passes when result is garbage. | Assert the *value*, not its existence. |
+-| Ignoring affected error paths | Regressions often appear at boundaries. | Cover relevant edges with the narrowest useful check; use E2E when the whole interaction matters. |
+-
+----
+-
+-## Cross-language iron list
+-
+-Apply the language safety rules together with the scope and verification contract above.
+-
+-| Rule | Python | Rust | TypeScript | Go |
+-|---|---|---|---|---|
+-| Immutable by default | `@dataclass(frozen=True, slots=True)` / Pydantic `frozen=True` | every binding is `let` (not `let mut`) unless mutation is the documented purpose | every field is `readonly`; arrays are `readonly T[]` | value types, unexported fields, no mutation methods unless mutation is the purpose |
+-| Branded primitives | `UserId = NewType("UserId", int)` | `struct UserId(u64);` (newtype tuple) | `type UserId = Brand<string, "UserId">` | `type UserID string` + smart constructor with unexported field |
+-| Exhaustive variant matching | `match` + `assert_never` | `match` (compiler-enforced) | `switch` + `assertNever` | sealed interface + type switch + **`exhaustive` linter** (the compiler will not help) |
+-| No untyped escape hatches | no `Any` in public sigs, no `cast`, no `# type: ignore` | no `unwrap`/`expect` outside `main`/tests, no `as` for narrowing, no `#[allow]` to silence real warnings | no `any`, no `as` (except `as const`, `satisfies`), no `!`, no `@ts-ignore`, no `@ts-expect-error` | no `interface{}` / bare `any` in domain sigs; no `_ = err`; no `//nolint` without reason |
+-| No bare error strings | typed exception dataclass with `__str__` | `thiserror` enum (lib) or `anyhow` with `.context(...)` (app) | `Error` subclass with typed fields | sentinel `errors.New` + typed `*XError` struct; wrap with `%w`; check via `errors.Is/As` |
+-| Boundary catch only | catch the exact exception you expect; broad `except Exception` only in `main()`, with logging + re-raise | `?` everywhere; never `panic!` in library code | `catch` must narrow with `instanceof` and re-throw or convert; no empty catch | every `(T, error)` checked; `panic` only in `main`/tests; one `httperr.Write` funnel in handlers |
+-| Resources via RAII | `with` (sync) / `async with` (async) | `Drop` impl or RAII guard | `using`/`await using` (TC39 explicit resource management) | `defer x.Close()` immediately after acquisition; `bodyclose`/`sqlclosecheck` linters enforce |
+-| Async runtime is mandatory | `anyio` (NEVER bare `asyncio`) | `tokio` (`async-std` is unmaintained) | platform-native async (Bun/Node) with structured cancellation via `AbortSignal` | `context.Context` as first param + `errgroup` for structured concurrency; `-race` on every test |
+-| Modern HTTP client | [`httpx2`](https://github.com/pydantic/httpx2) with HTTP/2 + brotli + zstd | `reqwest` with rustls | `ky` (default) / `undici` direct API (Node perf) - NEVER bare `fetch` in prod | stdlib `net/http.Client` with tuned `Transport` + `go-retryablehttp` for retry/backoff |
+-| No parameter mutation | params are inputs; produce a new value | `&mut` only when mutation is the documented purpose | parameters never reassigned (`noParameterAssign`) | value receivers when not mutating; pointer receivers only for genuine mutation; `copylocks` vet enforces |
+-| No helpers for one-off | inline a 3-line operation; do not abstract until the second caller | same | same | same |
+-
+----
+-
+-## Modern ecosystem - canonical libraries (2026)
+-
+-Use these unless the project's manifest explicitly picks something else.
+-
+-| Domain | Python | Rust | TypeScript | Go |
+-|---|---|---|---|---|
+-| Data validation / boundary parse | **Pydantic v2** | **serde** + `#[derive(Deserialize)]` + `validator` | **Zod v4** (Standard Schema) | `validator/v10` (HTTP) + `protovalidate` (proto) + smart constructors (domain) |
+-| Internal value object | `@dataclass(frozen=True, slots=True)` | newtype tuple struct or plain `struct` | `type` alias with `readonly` | struct with unexported fields + `NewX(...)` constructor |
+-| Error types | typed exception dataclass | `thiserror` (lib) + `anyhow` (app) | `Error` subclass + Result pattern | sentinel `errors.New` + typed `*XError` struct + `%w` wrap |
+-| HTTP client | [`httpx2`](https://github.com/pydantic/httpx2) | `reqwest` | `ky` / `undici` | stdlib `net/http` + `go-retryablehttp` |
+-| Web framework | **FastAPI** | **axum** | **Hono** + `hono-openapi` | **gin** (de facto, ~48%) / `chi` (minimalist) / `connect-go` (RPC) |
+-| ORM / DB | SQLAlchemy 2.x async + `asyncpg` | `sqlx` (compile-time checked) | **Drizzle** | **sqlc** (codegen from `.sql`) + `pgx/v5` + `goose` migrations |
+-| CLI | **typer** + `rich` | **clap** (derive) + `color-eyre` + `indicatif` | `@clack/prompts` + `commander` | **cobra** + `huh` (prompts) + `slog` |
+-| Logging / observability | `structlog` (prod) or `rich.logging` (dev) | **tracing** + `tracing-subscriber` | `pino` (structured JSON) | stdlib **`log/slog`** (NEVER logrus/zap/zerolog for new code) |
+-| Testing | `pytest` | `cargo nextest` + `proptest` + `insta` | `bun test` / `vitest` | stdlib `testing` + `testify/require` + `goleak` + `autogold` + `rapid` + `testcontainers` |
+-| Data / analytics | **polars** + **duckdb** + `numpy` (NEVER pandas) | `polars-rs` or `arrow` | (defer to backend service) | `arrow-go` + DuckDB-Go bindings + `gonum` |
+-| LLM / agent | **pydantic-ai** | (call out to Python via subprocess) | **Vercel AI SDK** | direct `net/http` + Connect (langchaingo not recommended) |
+-| TUI | **textual** | `ratatui` | `@clack/prompts` or ink | **bubbletea v2 RC** + `bubbles/v2` + `lipgloss/v2` (v2 mandatory for CJK IME) |
+-| Config from env | **pydantic-settings** | `figment` or `config` | `zod` + `process.env` | `caarlos0/env/v11` (struct-tag env) |
+-
+-A bare default constructor for any of these (no timeouts, no pool tuning, no schema) is a bug. See the per-language reference for the canonical production defaults.
+-
+----
+-
+-## Modern toolchain - defaults for new setup
+-
+-Use the project's existing supported toolchain for existing work. These defaults do not independently authorize installation or migration and do not turn every listed whole-project command into a mandatory check for a scoped edit.
+-
+-| Tool category | Python | Rust | TypeScript | Go |
+-|---|---|---|---|---|
+-| Package / project manager | **uv** (NEVER pip/poetry/conda) | **cargo** + `cargo-nextest` + `cargo-machete` + `cargo-deny` | **Bun** (runtime + package manager); pnpm if Node is forced | **`go modules`** + `go work` for monorepos |
+-| Type checker | **basedpyright** with `typeCheckingMode = "all"` | the Rust compiler with `-D warnings` + clippy `pedantic` + `nursery` + `cargo` groups | `tsc --noEmit` (or `tsgo` when available) with `strict` + `noUncheckedIndexedAccess` + `exactOptionalPropertyTypes` + `verbatimModuleSyntax` | the Go compiler + **`golangci-lint v2`** with the strict bundle + **`nilaway`** (nil-deref static analysis) |
+-| Linter + formatter | **ruff** with `select = ["ALL"]` | `clippy` + `rustfmt` | **Biome** (single binary - replaces ESLint + Prettier) | **`gofumpt`** (stricter gofmt) + `goimports -local` + `golangci-lint v2` |
+-| Test runner | **pytest** | **cargo-nextest** | `bun test` / `vitest` | stdlib `go test -race -shuffle=on -count=1` + `goleak` |
+-| UB / soundness gate | (n/a) | **nightly miri** with strict provenance + Tree Borrows pass | (n/a) | **`nilaway`** + `-race` detector + `goleak` are the equivalent gate |
+-| Disposable scripts | **PEP 723** inline metadata + `uv run script.py` | **rust-script** with inline `Cargo.toml` block | `bun run script.ts` | `//go:build ignore` + `go run script.go` |
+-| Bootstrap a new project | `scripts/python/new-project.py` | `scripts/rust/new-project.py` | `scripts/typescript/new-project.ts` | `scripts/go/new-project.py` |
+-| Pre-commit / CI gate | `ruff check . && basedpyright && pytest` | `cargo +nightly clippy -- -D warnings && cargo nextest run && cargo +nightly miri test` | `bunx biome check . && bunx tsc --noEmit && bun test` | `gofumpt -l . && golangci-lint run ./... && nilaway ./... && go test -race -shuffle=on -count=1 ./...` |
+-
+-A `tsconfig.json` with `"strict": true` alone is **not** strict. The reference enumerates the additional flags. Same for `pyproject.toml` and `Cargo.toml` - the references contain the canonical full configuration.
+-
+----
+-
+-## CODE SMELLS — AUTOMATIC REVIEW TRIGGERS
+-
+-The smells below are prompts to inspect the changed code and its affected boundaries. A file exceeding 250 pure LOC or an unrelated pre-existing smell is not by itself a defect or a prerequisite refactor. Restructure only when necessary for the requested behavior or an explicit project rule; otherwise note a material concern briefly and keep the change scoped. These scope rules also apply when consulting `references/code-smells.md`.
+-
+-Full rationale, measurement methods, workaround detection, and split examples: **[`references/code-smells.md`](references/code-smells.md)**.
+-
+-### Smell 1 — File exceeds 250 pure LOC
+-
+-A source file past 250 non-blank, non-comment lines warrants a responsibility check when relevant to the change. Length alone does not prove that splitting is useful. Measure: `awk '!/^[[:space:]]*$/ && !/^[[:space:]]*(\/\/|#|--)/' <file> | wc -l`.
+-
+-**When relevant:** Identify the file's responsibilities and whether the requested change needs a boundary adjustment. Load `/refactor` if a structural change is needed. Do not require a split or an exemption comment solely to cross a line-count threshold.
+-
+-### Smell 2 — Function with more than 3 parameters
+-
+-More than 3 arguments signals the function is doing too much, or that related parameters belong in a typed struct. **Workarounds count as the same smell** — passing `dict`/`Record<string, unknown>`/`map[string]any`/`**kwargs`/`...args` to smuggle parameters through one argument, or a throwaway "config" object with 6+ fields that exists solely to wrap what would otherwise be positional args (genuine reusable domain types like `HttpClientConfig` are fine).
+-
+-**When detected:** Group related parameters into a typed value object with a domain name. If 4+ independent inputs are genuinely required, the justification must be SPECIFIC. See [`references/code-smells.md` Smell 2](references/code-smells.md#smell-2--function-with-more-than-3-parameters) for examples in every language.
+-
+-### Smell 3 — Redundant verification after a destructive action
+-
+-In production code, repeating an assertion already guaranteed by an operation can be redundant. This does not apply to task-level verification of an external effect, uncertain tool results, destructive-action safeguards, or user/project-required evidence.
+-
+-**When relevant:** Remove a redundant production check only when its contract is established and the removal is within scope. Preserve checks that address a real failure mode or a required safety/evidence contract. See [`references/code-smells.md` Smell 3](references/code-smells.md#smell-3--redundant-verification-after-a-destructive-action) for examples subject to this boundary.
+-
+-### Smell 4 — Negative-form names and conditions
+-
+-Naming variables, functions, or flags by the **absence** of a quality (`isNotValid`, `noErrors`, `cannotProceed`, `DisableLogging`) instead of its **presence** (`isValid`, `isClean`, `canProceed`, `LoggingEnabled`). Every negation forces the reader to invert mentally; two negations (`if !isNotReady`) become a logic puzzle nobody reviews confidently.
+-
+-**When detected:** Rename to the positive form and invert the branch logic. Negation IS appropriate in guard clauses (`if !authorized { return }`) and filters (`items.filter(|x| !x.is_expired())`) — the negative form is the intent there. See [`references/code-smells.md` Smell 4](references/code-smells.md#smell-4--negative-form-names-and-conditions) for the full naming table and examples.
+-
+----
+-
+-## MANDATORY POST-WRITE REVIEW LOOP
+-
+-Review the changed code before claiming the task complete. Scale the review to its behavior and affected boundaries; existing unrelated smells are not automatic repair work.
+-
+-### Step 1 — measure
+-
+-For every file you created or modified:
+-
+-```bash
+-awk '!/^[[:space:]]*$/ && !/^[[:space:]]*(\/\/|#|--)/' <file> | wc -l
+-```
+-
+-Or run the per-language checker the skill ships:
+-
+-```bash
+-# Python
+-uv run scripts/python/check-no-excuse-rules.py <changed paths>
+-# Rust
+-bash scripts/rust/check-no-excuse-rules.sh <changed paths>
+-# TypeScript
+-bun run scripts/typescript/check-no-excuse-rules.ts <changed paths>
+-```
+-
+-### Step 2 — interpret
+-
+-| Pure LOC | Verdict | Required action |
+-|---|---|---|
+-| ≤ 200 | Healthy | continue |
+-| 200 - 250 | Review cue | Inspect responsibilities if relevant to this change. |
+-| > 250 | Review cue | Assess the touched unit; split only when required by the change or an explicit project rule. |
+-
+-### Step 3 — architectural self-review (always, even at 80 LOC)
+-
+-Assess these questions for the changed code. Report material findings and verification results, without reciting the entire checklist:
+-
+-1. **Single responsibility?** Does the changed unit have a clear responsibility, and is a structural change necessary to fulfill the task safely?
+-2. **Boundary purity?** Did I parse untrusted input into a typed value at the boundary, or did I pass `dict[str, Any]` / `serde_json::Value` / `unknown` past the boundary? If the latter, fix it.
+-3. **Variant discrimination?** Did I use `if`/`elif`/`else` (or `switch` without `assertNever`, or `match` without `assert_never`) anywhere to discriminate on a tagged type or enum? If yes, rewrite as exhaustive match.
+-4. **Escape hatches?** Any `Any`, `# type: ignore`, `unwrap`, `expect` outside `main`/tests, `as` numeric cast, `!`, `@ts-ignore`, `@ts-expect-error`, `#[allow]` on a real warning? If yes, fix the type or document why with a comment.
+-5. **Defensive layer?** Any null check, try/except, or `isinstance` guarding a value the type system already proves? If yes, delete.
+-6. **Helpers for one-off?** Any function, class, or trait introduced for a single caller that will never get a second caller? If yes, inline.
+-7. **Verification?** Does the selected evidence cover the changed behavior and affected boundary under the scope contract above?
+-8. **Parameter bloat?** Any function I wrote or modified that takes more than 3 parameters — or smuggles them through a dict/kwargs/`...args`/throwaway options object? If yes, group related params into a typed value object. See [Smell 2](references/code-smells.md#smell-2--function-with-more-than-3-parameters).
+-9. **Redundant verification?** Does production code repeat a guaranteed contract without a real purpose? Remove only scoped redundancy; retain external-effect verification and explicit safety/evidence checks. See [Smell 3](references/code-smells.md#smell-3--redundant-verification-after-a-destructive-action).
+-10. **Negative naming?** Any variable, function, or flag named by the absence of a quality (`isNotValid`, `noErrors`, `DisableX`) when a positive name (`isValid`, `isClean`, `EnableX`) would work? If yes, rename to positive form and invert the branch. See [Smell 4](references/code-smells.md#smell-4--negative-form-names-and-conditions).
+-
+-Fix defects introduced by the change and unmet requirements within the authorized scope before claiming complete. Report material pre-existing issues separately; their discovery does not authorize unrelated repair or prevent a scoped task from completing. Preserve all explicit safety and acceptance requirements.
+-
+-### Step 4 — if you need to refactor right now, invoke the right skill
+-
+-- The user requested restructuring, or a structural change is necessary to fulfill the authorized task: **load the `refactor` skill** and apply its safe-refactor protocol to that scope.
+-- The user requested branch cleanup: **load the `remove-ai-slops` skill** for that authorized scope. Merely inheriting a branch with AI-generated patterns does not authorize branch-wide cleanup.
+-
+-Use these skills when their scoped work is needed; a count of smells or lines alone does not require invoking them.
+-
+----
+-
+-## Companion skills - explicit invocation triggers
+-
+-| Trigger | Skill to load | Why |
+-|---|---|---|
+-| The user requests restructuring, or it is necessary to fulfill the authorized task | `refactor` | Safe refactoring within the requested boundary, with relevant behavior verification. |
+-| The user requests "remove slop", "clean AI code", "deslop", or equivalent branch cleanup | `remove-ai-slops` | Behavior-preserving cleanup within the authorized scope. |
+-| Rust code touches `unsafe`, `*mut`, `*const`, `MaybeUninit`, FFI, `unsafe impl Send/Sync`, or a custom lock-free primitive | `references/rust-ub/` | Full UB taxonomy + Miri strictness escalation. Every `unsafe` block must survive Miri Level 3 (strict provenance + symbolic alignment + preemption) before it ships. |
+-
+----
+-
+-## Per-language jump table
+-
+-**Stop. Read the matching reference fully before writing code.**
+-
+-### Python (`.py`, `.pyi`)
+-
+-**READ `references/python/README.md` FIRST.** Then load on demand:
+-
+-| Need | Load |
+-|---|---|
+-| Strict pyproject.toml / basedpyright / ruff config | `references/python/pyproject-strict.md` |
+-| Type patterns (`NewType`, `Final`, `TypeGuard`, `Protocol`) | `references/python/type-patterns.md` |
+-| Data modeling (Pydantic vs dataclass vs TypedDict vs StrEnum) | `references/python/data-modeling.md` |
+-| Error handling (typed exceptions, exhaustive match, union returns) | `references/python/error-handling.md` |
+-| Async with anyio (task groups, cancel scopes, channels) | `references/python/async-anyio.md` |
+-| httpx2 production defaults (HTTP/2, brotli+zstd, pool tuning) | `references/python/httpx2-optimization.md` |
+-| **orjson** in hot paths (FastAPI integration, Pydantic v2 `model_dump_json` vs orjson, Redis/queue/log) | `references/python/orjson-stack.md` |
+-| Data processing with polars + duckdb (NEVER pandas) | `references/python/data-processing.md` |
+-| FastAPI + SQLAlchemy 2.x async stack | `references/python/fastapi-stack.md` |
+-| pydantic-ai agents | `references/python/pydantic-ai.md` |
+-| Textual TUI | `references/python/textual-tui.md` |
+-| Disposable PEP 723 scripts | `references/python/one-liners.md` |
+-| Canonical library defaults | `references/python/libraries.md` |
+-
+-### Rust (`.rs`, `Cargo.toml`)
+-
+-**READ `references/rust/README.md` FIRST.** It defines the five pillars (explicit allocation, compile-time proof, zero hidden cost, type-encoded invariants, deterministic cleanup) and the post-write review checklist. Then load on demand:
+-
+-| Need | Load |
+-|---|---|
+-| **Arena allocation, const fn, zero-alloc APIs, bitfield, scopeguard, errdefer, Zig-like patterns** | **`references/rust/zero-cost-safety.md`** |
+-| Strict `Cargo.toml` lints + profile + workspace config | `references/rust/cargo-strict.md` |
+-| Type-state and newtype patterns (Chris Allen's `Point<Screen>` rule) | `references/rust/type-state.md` |
+-| `unsafe` discipline (safe wrapper + SAFETY comment + miri proof) | `references/rust/unsafe-discipline.md` |
+-| Async with tokio (JoinSet, cancellation, select, blocking work) | `references/rust/async-tokio.md` |
+-| Concurrency primitives (locks, atomics, channels, loom) | `references/rust/concurrency.md` |
+-| axum + sqlx + tracing + tower HTTP stack | `references/rust/axum-stack.md` |
+-| clap + color-eyre + tracing + indicatif CLI stack | `references/rust/clap-stack.md` |
+-| Property tests (proptest) + snapshot tests (insta) | `references/rust/proptest-insta.md` |
+-| Disposable `rust-script` scripts | `references/rust/one-liners.md` |
+-| Canonical library defaults | `references/rust/libraries.md` |
+-| **ANY `unsafe` / FFI / `MaybeUninit` / lock-free work** | **`references/rust-ub/` (full directory)** |
+-
+-### TypeScript (`.ts`, `.tsx`, `.mts`, `.cts`)
+-
+-**READ `references/typescript/README.md` FIRST.** Then load on demand:
+-
+-| Need | Load |
+-|---|---|
+-| Strict tsconfig + Biome config | `references/typescript/tsconfig-strict.md` |
+-| Type patterns (branded types, `as const`, `satisfies`, narrowing, `assertNever`) | `references/typescript/type-patterns.md` |
+-| Data modeling (type vs interface vs Zod, readonly, parse-don't-validate) | `references/typescript/data-modeling.md` |
+-| Error handling (Result, typed errors, union vs throw, AbortSignal timeouts) | `references/typescript/error-handling.md` |
+-| Bootstrapping a new project (Bun, pnpm, Hono, Vite) | `references/typescript/bootstrap.md` |
+-| Hono backend stack (hono-openapi, Scalar, Swagger, Zod v4) | `references/typescript/backend-hono.md` |
+-
+-### Go (`.go`, `go.mod`, `go.sum`, `.golangci.yml`, `*.proto`)
+-
+-**READ `references/go/README.md` FIRST.** Then load on demand:
+-
+-| Need | Load |
+-|---|---|
+-| Library defaults (gin vs chi, sqlc, slog, the 2026 stack reasoning) | `references/go/libraries.md` |
+-| Canonical strict `.golangci.yml` (v2) with per-linter rationale | `references/go/golangci-strict.md` |
+-| Project layout, Taskfile, CI, `go.mod` template | `references/go/bootstrap.md` |
+-| Type patterns (named types, smart constructors, sealed interfaces, generics) | `references/go/type-patterns.md` |
+-| Data modeling — the three layers of validation (validator/v10 → smart ctor → sqlc) | `references/go/data-modeling.md` |
+-| Error handling (`errors.Is/As`, typed errors, `%w` wrapping, no panic) | `references/go/error-handling.md` |
+-| Concurrency (`context.Context`, `errgroup`, channels, locks, `-race`, `goleak`) | `references/go/concurrency.md` |
+-| HTTP backend stack (gin + slog + validator + pgx, middleware ordering, SSE, WS) | `references/go/backend-stack.md` |
+-| RPC stack (Connect-Go default, grpc-go fallback, protovalidate, Buf) | `references/go/grpc-connect.md` |
+-| CLI stack (cobra + slog + huh) | `references/go/cobra-stack.md` |
+-| Database stack (sqlc + pgx + goose + testcontainers) | `references/go/sqlc-pgx.md` |
+-| TUI stack (bubbletea v2 + bubbles v2 + lipgloss v2; **CJK / IME support**) | `references/go/bubbletea-v2.md` |
+-| Testing (Given/When/Then, table-driven, fakes-over-mocks, autogold, rapid) | `references/go/testing.md` |
+-| Disposable `go run` scripts | `references/go/one-liners.md` |
+-
+----
+-
+-## Activation
+-
+-This skill activates whenever you are writing or modifying any `.py`, `.pyi`, `.rs`, `.ts`, `.tsx`, `.mts`, `.cts`, `.go` file, or any project manifest (`pyproject.toml`, `Cargo.toml`, `package.json`, `tsconfig.json`, `biome.json`, `go.mod`, `go.sum`, `.golangci.yml`, `Taskfile.yml`, `buf.yaml`, `sqlc.yaml`). Apply relevant language safety rules to one-off scripts too, with tooling and checks scaled by the scope contract above.
+-
+-The references contain the recipes. **Read them before writing code. Re-read them when the model drifts.** The post-write review loop is non-negotiable.
++Do not weaken valid assertions or suppress errors to make checks pass. Missing tooling is an evidence gap, not a code defect. Report observed results and exact limitations; complete all required in-scope verification before claiming the implementation verified.
+--- C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/debugging/SKILL.md
++++ PROPOSED/C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/debugging/SKILL.md
+@@ -1,116 +1,35 @@
+ ---
+ name: debugging
+-description: "MUST USE for any real runtime debugging across ANY language or binary — crashes, silent failures, wrong responses, stuck processes, memory leaks, async misbehavior, unexplained timing, reverse engineering. Runs a hypothesis-driven loop: form ≥3 hypotheses, investigate in parallel, after 2 failed rounds spawn Oracles from orthogonal angles, confirm root cause, lock with a failing test, fix minimally, QA by actually USING the system, scrub artifacts. The actual HOW lives in `references/` — READ THEM. Triggers: 'debug this', 'why is X not working', 'hanging', 'attach a debugger', 'reverse engineer', 'pwndbg', 'gdb', 'lldb', 'node inspect', 'tsx debug', 'pdb', 'dlv', 'delve', 'rust-gdb', 'set a breakpoint', 'context window exploded', 'why is the response empty', 'attach the debugger', 'debug it', 'why is this happening', 'trace this bug', 'reproduce and fix', 'silent failure', 'HTTP 200 but empty', 'why did it stop', 'inspect the binary', 'reverse engineering', 'playwright'."
++description: Diagnose and fix observed runtime failures, hangs, incorrect outputs or unexplained performance, including binary investigation.
+ ---
+ 
+ # Debugging
+ 
+-You are a hypothesis-driven debugger. Two disciplines apply regardless of language, runtime, or whether you have source:
++Ground the diagnosis in observed behavior. A plausible explanation from source alone remains a hypothesis. An environment limitation or missing reviewer output is not automatically a product defect.
+ 
+-1. **Runtime truth beats code reading.** Every claim about why the bug happens must come from observed state — never from a plausible story spun from reading code.
+-2. **Leave no trace.** Debugging creates artifacts. Every artifact is journaled and removed before you call the task done.
++## Investigation
+ 
+-The rest of this file is a map. **The knowledge is in `references/`.** This file cannot teach you how to debug — it can only tell you which reference will, for your exact situation.
++Reproduce the reported failure with the narrowest permitted scenario. Compare expected and actual behavior, identify plausible causes, and choose checks that distinguish them. Do not invent a minimum number of hypotheses or repeat unchanged checks. If evidence remains contradictory, reassess the approach and use an independent perspective when useful and permitted.
+ 
+----
++Read the matching runtime reference before attaching a debugger or relying on runtime-specific capture semantics:
+ 
+-# 🚨 READ THE REFERENCES. THIS IS NOT OPTIONAL.
++| Runtime | Reference |
++|---|---|
++| Python | [Python](references/runtimes/python.md) |
++| Node, Bun, Deno source | [Node](references/runtimes/node.md) |
++| Rust | [Rust](references/runtimes/rust.md) |
++| Go | [Go](references/runtimes/go.md) |
++| Native binary | [Native binary](references/runtimes/native-binary.md) |
++| Packaged JS or bundled application | [Bundled application](references/runtimes/bundled-js-binary.md) |
+ 
+-> **This skill is intentionally small.** Ninety percent of what you need to know lives in `references/`. If you skim this file and start working without opening the references, you will reattach a debugger the wrong way, miss a silent-failure pattern you've never seen before, waste an hour on a source-map gotcha, or invent a worse version of a tool that already solves your problem.
+->
+-> **Every reference below is mandatory when its scenario applies.** "I know this language" is not an exemption. The references exist because every runtime and every specialist tool has at least one gotcha that silently wastes hours, and you will not know which gotcha until you read the file.
+->
+-> **The gate rule**: before you run a command from a given reference's domain, you must have read that reference in this session. Re-reading across sessions is cheap. Guessing is expensive.
++A familiar failure with adequate logs or an existing reproducer does not require a debugger attachment or every reference. Choose an available tool suited to the evidence; specialist tools are not universal prerequisites.
+ 
+----
++For a difficult investigation, load only the needed method: [environment and artifacts](references/methodology/00-setup.md), [hypothesis investigation](references/methodology/02-investigate.md), [cause and repair](references/methodology/06-fix.md), [runtime QA](references/methodology/08-qa.md), or [partial runtime evidence](references/methodology/partial-runtime-evidence.md). These procedures support the current task; their example phase counts, agent counts and tools do not impose extra work or authority.
+ 
+-## Runtime Setup — MANDATORY READING BEFORE ATTACHING
++## Repair and finish
+ 
+-The methodology is language-agnostic. The commands to launch, attach, breakpoint, and inspect are not. **Open the matching reference before Phase 0. Not during. Not after.**
++Confirm the cause with evidence that distinguishes it from alternatives. Make the smallest authorized repair, then rerun the reported scenario and affected checks. Preserve failing-first regression evidence when practical and required; if the failure cannot be reproduced, state the limit instead of claiming a confirmed fix.
+ 
+-| Your runtime is… | Open this before attaching anything | Non-negotiable because… |
+-|---|---|---|
+-| Python (CPython, pytest, asyncio, Django, FastAPI) | 📖 **[references/runtimes/python.md](references/runtimes/python.md)** | pdb vs ipdb vs debugpy vs pytest --pdb all have different attach semantics. Async code needs special breakpoint handling. Wrappers like `poetry run` swallow flags. |
+-| Node.js / tsx / ts-node / Bun / Deno (running source) | 📖 **[references/runtimes/node.md](references/runtimes/node.md)** | `tsx` + `node inspect` CLI has a **silent source-map failure** — breakpoints by line number do not fire. You will not notice unless you read this first. |
+-| Rust (cargo, tokio, panics) | 📖 **[references/runtimes/rust.md](references/runtimes/rust.md)** | Release builds strip symbols. Tokio tasks need `tokio-console`. The borrow checker makes `dbg!` the faster tool most of the time. |
+-| Go (goroutines, dlv, pprof, race) | 📖 **[references/runtimes/go.md](references/runtimes/go.md)** | Goroutine leaks and recovered panics are silent by default. `dlv` has a specific port convention. `go test -race` is the first thing to run, not the last. |
+-| Native binary / stripped C/C++ / no source | 📖 **[references/runtimes/native-binary.md](references/runtimes/native-binary.md)** | The workflow (triage → dynamic → static → scripted repro) is counterintuitive if you've never done it. `strings -n 8` silently drops short interpolations like `${x}` — read bytes directly for any extraction that matters. macOS adds SIP / Mach-O / lldb specifics that don't apply on Linux. |
+-| **Bundled-app binary** (Bun SEA, Node SEA, Deno compile, pkg, nexe, Electron, Tauri, PyInstaller) | 📖 **[references/runtimes/bundled-js-binary.md](references/runtimes/bundled-js-binary.md)** | These look like Mach-O / ELF but their *high-level* source is recoverable with the right per-bundler tool — Ghidra is overkill. Source-format reality varies: Bun/pkg/nexe/Electron-asar are usually plaintext; Node SEA with code-cache, PyInstaller `.pyc`, and Deno eszip need extra tooling; Tauri's Rust core still needs native-binary.md. Workflow: identify bundler → locate bundle → extract with the bundler-specific tool → grep. |
++Track temporary probes and altered runtime state so they can be removed or restored safely. Preserve useful evidence, user artifacts and concurrent edits. Do not globally roll back after a failed attempt.
+ 
+-**If you cannot honestly say you just opened the reference for your runtime, open it now.**
+-
+-> 🚨 **Native binary vs bundled binary — check before committing**: `file ./target` calls them both Mach-O / ELF. The 30-second discriminator is `du -h ./target` (50 MB+ suspect bundled) plus `strings -n 12 ./target | rg -iE 'bun|node_modules|webpack|esbuild|deno|pkg/lib|electron|pyinstaller|nexe|NODE_SEA_FUSE|tauri'`. If hits → bundled-js-binary.md. If clean → native-binary.md.
+-
+----
+-
+-## Specialist Tools — ACTIVELY USE WHEN THE SCENARIO FITS
+-
+-These are not "optional extras". They are the correct tool in their domain, and anything else is slower and less reliable. **If the bug fits the domain, you MUST use the tool. Read the reference first to know how.**
+-
+-| Tool | Use when | Reference |
+-|---|---|---|
+-| **Playwright CLI** | Any browser-served web UI bug. Any flow that requires clicking/typing/navigating. Any "works locally, breaks in prod" where the browser or viewport is the variable. **For Phase 8 QA of any browser product, you MUST drive a real browser via Playwright — not curl, not imagination.** | 📖 **[references/tools/playwright-cli.md](references/tools/playwright-cli.md)** |
+-| **Ghidra** | Any binary without trustworthy source — third-party closed libs, malware, vendored binaries whose behavior contradicts docs, CTF, firmware. **Use Ghidra's decompiler before `strings`/`objdump` guessing. It turns machine code into readable C.** | 📖 **[references/tools/ghidra.md](references/tools/ghidra.md)** |
+-| **pwndbg** | Any native binary debugging session. It is GDB with the useful views (registers, stack, disasm, heap) always visible. **If you'd reach for plain `gdb`, reach for `pwndbg` instead — it is strictly a superset.** | 📖 **[references/tools/pwndbg.md](references/tools/pwndbg.md)** |
+-| **pwntools** | Any time you need a reproducible interaction with a binary or network service — crafted payloads, exploit automation, fuzz harness, CTF scripting. | 📖 **[references/tools/pwntools.md](references/tools/pwntools.md)** |
+-
+-**Failing to use these tools in their domain is a process failure, not a stylistic choice.** If the bug is in a browser and you did Phase 8 without Playwright, you are doing it wrong. If the bug is in a stripped binary and you read hex with `xxd`, you are doing it wrong. The references tell you how. Read them.
+-
+----
+-
+-## The Phase Loop — READ THE REFERENCE FOR THE PHASE YOU ARE ENTERING
+-
+-Each phase has exactly one reference. Read it as you enter the phase — not in advance, not from memory. The references are self-contained and short.
+-
+-| # | Phase | 📖 Open this when entering |
+-|---|---|---|
+-| 0 | **Environment assessment** — know the runtime, ports, symbols, env vars, watchers before attaching | [references/methodology/00-setup.md](references/methodology/00-setup.md) |
+-| 1 | **Journal setup** — single `.debug-journal.md` tracks every artifact for guaranteed revert | [references/methodology/00-setup.md](references/methodology/00-setup.md) |
+-| 2 | **Hypothesis formation** — minimum three, across orthogonal axes, each with distinguishing evidence | [references/methodology/02-investigate.md](references/methodology/02-investigate.md) |
+-| 3 | **Parallel investigation** — team mode `debug-squad` when enabled, async subagents otherwise | [references/methodology/02-investigate.md](references/methodology/02-investigate.md) |
+-| 4 | **Oracle Triple** — after 2 consecutive failed rounds, spawn three Oracles with orthogonal framings and synthesize | [references/methodology/04-oracle-triple.md](references/methodology/04-oracle-triple.md) |
+-| 5 | **User decision escalation** — only when evidence exhausted and the call has policy implications | [references/methodology/05-escalate.md](references/methodology/05-escalate.md) |
+-| 6 | **Root cause confirmation** — confirmed only when toggling the suspected cause toggles the bug | [references/methodology/06-fix.md](references/methodology/06-fix.md) |
+-| 7 | **TDD fix** — red test first, minimal green, no scope expansion | [references/methodology/06-fix.md](references/methodology/06-fix.md) |
+-| 8 | **Manual QA** — actually use the system (tmux for CLI, Playwright for browser, real curl for API, real repro for binary) | [references/methodology/08-qa.md](references/methodology/08-qa.md) |
+-| 9 | **Cleanup** — walk the journal, revert every artifact, verify `git diff` shows only fix + test | [references/methodology/09-cleanup.md](references/methodology/09-cleanup.md) |
+-| 10 | **Final verification** — four evidence gates before declaring done | [references/methodology/09-cleanup.md](references/methodology/09-cleanup.md) |
+-
+-**Phase references are short by design.** Reading one takes a minute. Skipping one costs an hour.
+-
+-### Cross-cutting methodology references
+-
+-These are not phases — read them when the situation calls for them:
+-
+-| Situation | Reference |
+-|---|---|
+-| You cannot run the actual operation (paid API, blocked network, missing hardware) but still need runtime evidence | 📖 **[references/methodology/partial-runtime-evidence.md](references/methodology/partial-runtime-evidence.md)** |
+-| You're about to declare an extraction / audit / reverse-engineering task done and want a skeptical pass | 📖 **[references/methodology/partial-runtime-evidence.md#verification-oracle-pattern-for-non-debug-tasks](references/methodology/partial-runtime-evidence.md#verification-oracle-pattern-for-non-debug-tasks)** (Verification Oracle is *not* the same as Oracle Triple — read the file) |
+-
+----
+-
+-## Non-Negotiable Safety Invariants
+-
+-<safety>
+-1. **Runtime state is the only source of truth.** A hypothesis without an observed value is a guess. Do not fix guesses.
+-2. **Every debug artifact is journaled before it is created.** Journal-then-modify, not modify-then-remember-maybe.
+-3. **Never ship a fix without a failing-first test.** Red→green transition required, or the fix is unverified.
+-4. **Never declare done on type-check/compile alone.** Types catch declaration bugs. Only running the actual user scenario catches the actual user bug.
+-5. **Never ask the user a question that runtime evidence can already answer.** Escalation is for genuine ambiguity.
+-6. **Never silently swallow errors while debugging.** If the system swallows errors, that is often the bug itself. Make them loud temporarily; restore at cleanup.
+-7. **Never `git commit` from inside this skill.** Commits belong to `/git-master` after the user confirms the fix.
+-8. **Never attach without having read the runtime reference.** The gate rule.
+-</safety>
+-
+----
+-
+-## What to Do Right Now
+-
+-1. Read the user's bug description.
+-2. Identify the runtime.
+-3. **Open `references/runtimes/<runtime>.md`.** Read it.
+-4. Identify which specialist tools apply. **Open each matching `references/tools/*.md`.** Read them.
+-5. Open `references/methodology/00-setup.md` and start Phase 0.
+-6. Follow the phase loop. Read each methodology reference as you enter the phase.
+-
+-**The references are the skill. This file is an index.**
++Read-only or diagnosis-only requests do not authorize repairs. Debugging does not authorize commits, installations, production changes or external actions. Preserve user/project approval, data-access and verification boundaries. Report an evidenced defect as FAIL and missing required evidence as INCONCLUSIVE.
+--- C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/ulw-plan/SKILL.md
++++ PROPOSED/C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/ulw-plan/SKILL.md
+@@ -1,70 +1,34 @@
+ ---
+ name: ulw-plan
+-description: "Use for planning before coding when work needs 5+ steps, spans modules, has ambiguous scope or architecture decisions, or the user requests a plan or interview. Explicit planning-only requests and $ulw-plan retain plan-write approval and execution handoff. Automatic use during an already-authorized implementation preserves that authorization: research and plan, then return to execution without another start request. Triggers: ulw-plan, plan this, make a plan, plan before coding, interview me, break this down, start planning, plan mode, just make it good, figure out what to build."
++description: Develop an implementation plan when the user requests planning or unresolved scope and dependencies need a separate planning pass.
+ metadata:
+-  short-description: Explore-first planning with explicit authorization boundaries
++  short-description: Scoped planning with explicit authorization boundaries
+ ---
+ 
+-# ulw-plan
++# Planning
+ 
+-You are **Prometheus**, a planning consultant. You turn a vague or large request into ONE **decision-complete** work plan a downstream worker executes with zero further interview. You read, search, run read-only analysis, and write ONLY plan artifacts under `.omo/`. You are a PLANNER - you never edit product code and never implement.
++Produce one executable plan with the outcome, constraints, affected files, dependencies and observable acceptance evidence. Research only what is needed to resolve those decisions; ordinary implementation details can remain with the executor.
+ 
+-**Record the authorization route.** An explicit planning-only request or `$ulw-plan` uses the plan-write approval and execution handoff below. Automatic use for an already-authorized implementation uses the research and planning methods without downgrading that authorization: the planner returns its plan to the root/execution role, which continues the authorized work. The planner role itself never edits product code. A later explicit request to implement or execute exits planning-only scope; do not reinterpret it as another request merely to plan. This does not approve an otherwise restricted action or waive a required action-time approval.
++## Authorization route
+ 
+-Outcome-first: research to sufficiency and ask only material unresolved questions. Zero clarification questions is valid on either intent path. When the plan is done, return it to the caller or follow the explicit planning-only handoff.
++- Explicit planning-only requests and $ulw-plan remain planning-only. Preserve approval of the brief before writing the formal plan and the later explicit implementation handoff.
++- Planning used inside an already-authorized implementation does not require another start request. Return the plan to the executor, or resume execution in the root role. A delegated planner writes only plan artifacts.
++- Do not use a step-count threshold to turn a small change into a planning ceremony. Preserve any user-requested interview, plan review or action-time approval.
+ 
+-## INTENT ROUTING - pick ONE intent reference
++Use existing answers and repository evidence before asking questions. Ask only unresolved decisions that materially affect outcome, scope, compatibility, cost or authority. Zero clarification questions is valid. Silence does not authorize a required decision.
+ 
+-After grounding, make ONE judgment and load ONE intent reference (you ALSO read `references/full-workflow.md` for the shared mechanics - see below). The test keys on whether the desired **OUTCOME** is clear, NOT on request length.
++## References and artifacts
+ 
+-- **OVERRIDE - explicit ask wins:** if the user explicitly asks to be questioned or interviewed ("ask me", "interview me", "why aren't you asking me" - in any language), route **CLEAR**, run the interview, and turn the adopt-default filter OFF: the user has claimed the forks, so every surviving one is ASKED, not defaulted. This beats the OUTCOME test below, even on a fuzzy brief.
+-- **CLEAR** - the user knows the outcome; the only open items are preferences/tradeoffs the repo cannot answer (genuine owner-decisions). Read **`references/intent-clear.md`**: ask the surviving forks with WHY, run the normal approval gate, high-accuracy review is OPTIONAL (offered as one question).
+-- **UNCLEAR** - the outcome itself is fuzzy (a vague brief, a bootstrap, `$start-work` with no selectable plan, a goal the user cannot yet articulate). Asking would offload your own job onto the user. Read **`references/intent-unclear.md`**: research maximally, adopt and ANNOUNCE best-practice defaults, do NOT ask the user extra questions, and run high-accuracy review AUTOMATICALLY (unless Classify sized the work Trivial).
+-- **ON THE FENCE** - when CLEAR vs UNCLEAR is ambiguous, treat it as CLEAR and apply the two filters. Ask one focused question only if a material decision remains unresolved; do not manufacture a question solely to classify the route.
++For a formal .omo plan, read the relevant sections of [full workflow](references/full-workflow.md), including the plan format and write protocol. Use [clear intent](references/intent-clear.md) for unresolved owner choices, or [unclear intent](references/intent-unclear.md) when the desired outcome needs investigation. Do not load both by default.
+ 
+-WORKED: "add a 5/min-per-IP rate-limit to `/login`" = CLEAR. "make auth better" = UNCLEAR.
++Use the existing scripts/scaffold-plan.mjs helper when producing that formal artifact, with an available supported Node or Bun runtime. Preserve existing plan content; do not reset a user-owned file. For explicit planning-only work, obtain the required brief approval before invoking a helper that writes the formal plan.
+ 
+-Both intent paths ALSO read **`references/full-workflow.md`** for the shared mechanics - the plan template, the final verification wave, the APPEND protocol, and the full delegation/wait syntax. Read the phase you are in.
++The formal workflow's templates support delivery; generic instructions to exhaustively explore, spawn fixed review waves, add a commit per task or ask fixed questions do not create new requirements. Preserve explicitly requested independent review and established acceptance checks.
+ 
+-## RUN THE SCRIPT - do not hand-build the plan files
++## Handoff
+ 
+-Before writing any plan or draft by hand, RUN:
++Each substantive task states what changes, where, dependencies, and how the result will be checked. Use existing project tooling and proportionate verification. Record consequential choices, outstanding approvals and exact blockers. A concise internal plan needs no scaffold or separate artifact unless requested or needed for continuation.
+ 
+-```
+-node "<skill-root>/scripts/scaffold-plan.mjs" <slug> [--clear|--unclear]
+-```
++Delegate only concrete independent questions when useful and permitted, using current tool schemas. Missing delegation tools do not block a plan that can be produced locally; do not self-approve a required independent review.
+ 
+-(Replace `<skill-root>` with this skill's own directory; `bun` is an accepted substitute for `node`.) It creates `.omo/drafts/<slug>.md` (your durable, compaction-safe resume point) and `.omo/plans/<slug>.md` (skeleton with the human `## TL;DR (For humans)` block on top and every plan header below). Then **APPEND** task batches into the marked `## Todos` region with edit/apply_patch - **never rewrite the script-emitted headers**. This replaces ~10 manual file writes and guarantees the human-readable summary always leads the plan.
+-
+-Run it ONCE at plan generation. A plain re-run on an existing plan is a safe no-op - it never overwrites your appended todos - so resuming after compaction cannot crash the turn or clobber the plan. Do NOT hand-build these files; if a structural reset is ever needed, use `--reset` (and `--reset --force` to discard hand edits). If it refuses because a same-named NON-artifact file exists, pick a different `<slug>` - do NOT `--reset` over a human file you did not create.
+-
+-## Universal invariants (hold on every path)
+-
+-- **Decision-complete is the north star.** The executor has NO interview context - spell out the outcome, scope, exact paths, "every X in Y", and an explicit Must-NOT-Have. Resolve material owner decisions; leave routine reversible implementation choices to the executor within those constraints.
+-- **Explore before asking.** Discoverable facts (repo/system/docs truth) -> research and cite, never ask. Use the request, prior authorization, and project conventions for reversible details. Ask only unresolved choices that materially affect outcome, scope, cost, safety, or compatibility.
+-- **CodeGraph first when present.** Use `codegraph_explore` for repo how/where/what/flow questions before wider reads; if codegraph_* tools are absent, inactive/uninitialized, or cold-start unavailable, continue with Read/Grep/Glob/LSP and the ast-grep skill.
+-- **Two filters** on every candidate question, in order: (1) Could collected evidence answer it? -> explore instead. (2) Could the user's stated intent, existing authorization, and a defensible default answer it? -> adopt and record the reversible default. An unresolved owner decision that materially changes outcome, scope, cost, safety, or compatibility still requires an answer; preserve every explicit approval requirement. Do not infer that a topic is unresolved merely because it concerns packaging, dependencies, or schemas. A skipped question, silence, or timeout may select an optional preference default, never approve a required decision or action. Pause only work dependent on a required answer and continue independent authorized work.
+-- **Explore to sufficiency, then STOP.** One research wave per open question; stop when the clearance check is answerable; never re-explore to double-check.
+-- **Parallel-dispatch** independent research in ONE turn and keep working while it runs. Subagent outputs are CLAIMS until you independently verify them.
+-- **Approval has a specific object.** In explicit planning-only mode, approval of the brief authorizes writing the plan; execution needs an explicit implementation request. In automatic planning for already-authorized implementation, record that existing authorization and continue through the root/execution role. ONE request -> ONE plan, however large.
+-- **The durable draft is the resume point.** Record decisions, the approval gate, and the ledgers to `.omo/drafts/<slug>.md` as you go; on any later turn read it and resume at the gate.
+-- **Agent-executed QA per todo** (relevant happy + failure scenarios, available tool + invocation, evidence path). Choose a proportionate test strategy from the request and project conventions; ask only if an unresolved choice materially affects delivery. Keep agent verification separate from any explicit user acceptance or action-time approval.
+-
+-## Approval gate
+-
+-For explicit planning-only requests and `$ulw-plan`, when exploration is sufficient and material unknowns are answered, record the gate in the draft (`status: awaiting-approval`, pending action `write .omo/plans/<slug>.md`, approach), present a short brief once, then **wait for the user's explicit okay**. Do not request it again if the user has already explicitly approved that action and scope. For automatic planning within an authorized implementation, record the request and its scope as the authorization and proceed to plan generation. Neither route waives unresolved owner decisions or other explicit approval gates. Full mechanics: `references/full-workflow.md`.
+-
+-## Delegation (Codex-native)
+-
+-Fan out independent read-only research when useful. Use the delegation tool and parameter schema actually exposed in the current session. Every spawn names DELIVERABLE / SCOPE / VERIFY and the role inside `message`; pass a supported `agent_type` when available. Prefer a self-contained prompt with no inherited history unless history is required. For example, when the session exposes `collaboration.spawn_agent`:
+-
+-```
+-collaboration.spawn_agent({"task_name":"explore_scope","message":"TASK: act as an explorer. DELIVERABLE: ... SCOPE: ... VERIFY: ...","agent_type":"explorer","fork_turns":"none"})
+-```
+-
+-Roles: `explorer` (internal patterns/conventions/tests), `librarian` (external docs/contracts), `metis` (gap analysis), `momus` (high-accuracy plan review). Full spawn/wait/fallback discipline is in `references/full-workflow.md`.
+-
+-## Stop rules
+-
+-- Plan file exists, template filled, every todo has references + acceptance + QA + commit, dependency matrix consistent: return the plan. Explicit planning-only mode follows the delivery/approval handoff; automatic planning returns control to the root/execution role to continue already-authorized work. A planner never implements product code.
+-- Brief presented and a required approval is still pending: pause dependent work. Do not re-explore or repeat completed work merely to wait; continue independent authorized work where available.
++Deliver when the requested plan is complete. Continue an authorized implementation; stop after a planning-only deliverable or at a required approval, with independent authorized preparation completed.
+--- C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/review-work/SKILL.md
++++ PROPOSED/C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/review-work/SKILL.md
+@@ -1,613 +1,36 @@
+ ---
+ name: review-work
+-description: "Post-implementation review orchestrator. Launches 5 parallel background sub-agents: Oracle (goal/constraint verification), Oracle (code quality), Oracle (security), unspecified-high (hands-on QA execution), unspecified-high (context mining from GitHub/git/Slack/Notion). All must pass for review to pass. MUST USE after completing any significant implementation work. Triggers: 'review work', 'review my work', 'review changes', 'QA my work', 'verify implementation', 'check my work', 'validate changes', 'post-implementation review'."
+----
+-## Codex Harness Tool Compatibility
+-
+-Use the tools and argument schemas actually available in the current session. The OpenCode and `multi_agent_v1` names below are examples, not required APIs: map them to available equivalents such as `collaboration` when exposed, including the actual history and wait parameters. Do not install tooling or stop the entire task merely because an example tool name is absent.
+-
+-| OpenCode example | Codex tool to use |
+-| --- | --- |
+-| `call_omo_agent(subagent_type="explore", ...)` | `multi_agent_v1.spawn_agent({"message":"TASK: act as an explorer. ...","agent_type":"explorer","fork_context":false})` |
+-| `call_omo_agent(subagent_type="librarian", ...)` | `multi_agent_v1.spawn_agent({"message":"TASK: act as a librarian. ...","agent_type":"librarian","fork_context":false})` |
+-| `task(subagent_type="plan", ...)` | `multi_agent_v1.spawn_agent({"message":"TASK: act as a planning agent. ...","agent_type":"plan","fork_context":false})` |
+-| `task(subagent_type="oracle", ...)` for final verification | `multi_agent_v1.spawn_agent({"message":"TASK: act as a rigorous reviewer. ...","agent_type":"lazycodex-gate-reviewer","fork_context":false})` |
+-| `task(category="...", ...)` for implementation or QA | `multi_agent_v1.spawn_agent({"message":"TASK: act as an implementation or QA worker. ...","fork_context":false})` |
+-| `background_output(task_id="...")` | `multi_agent_v1.wait_agent(...)` for mailbox signals |
+-| `team_*(...)` | Use Codex native subagents via `multi_agent_v1.spawn_agent`, `multi_agent_v1.send_input`, `multi_agent_v1.wait_agent`, and `multi_agent_v1.close_agent` |
+-
+-Role-specific behavior must be described in a self-contained `message`. Use the current tool's supported history option, and include needed context, files, diffs, constraints, and skill names. Select an available named role when appropriate; otherwise describe the role in the assignment. If delegation is unavailable or a bounded recovery attempt cannot produce a deliverable, root may perform authorized review work only where it satisfies the required independence: an implementer cannot replace its own independent reviewer. Otherwise record that lane as INCONCLUSIVE. This section governs all tool examples below; unavailable examples do not grant installation or external-action authority.
+-
+-For work likely to exceed one wait cycle, require the child to send `WORKING: <task> - <current phase>` before long passes and `BLOCKED: <reason>` only when progress stops. A `multi_agent_v1.wait_agent` timeout only means no new mailbox update arrived. Treat a running child as alive. Fallback only when the child is completed without the deliverable, ack-only after followup, explicitly `BLOCKED:`, or no longer running.
+-
+-## Codex Subagent Reliability
+-
+-Every `multi_agent_v1.spawn_agent` message must be self-contained. Start with
+-`TASK: <imperative assignment>`, then name `DELIVERABLE`, `SCOPE`, and
+-`VERIFY`. State that it is an executable assignment, not a context
+-handoff. Role or specialty instructions belong inside `message`.
+-Use `fork_context: false` unless full history is truly
+-required; paste only the review context that worker needs.
+-
+-Plan and reviewer agents may run for a long time; spawn them in the background, keep doing independent root work, and poll with short `multi_agent_v1.wait_agent` cycles sized to the work. Never use a single long blocking wait for them, and never spin on tiny timeouts as a failure budget.
+-
+-Treat child status as a progress signal, not a timeout counter. For
+-work likely to exceed one wait cycle, require the child to send
+-`WORKING: <task> - <current phase>` before long reading, testing, or
+-review passes, and `BLOCKED: <reason>` only when it cannot progress.
+-While any child is active, keep the parent visibly alive with active
+-subagent count, agent names, latest `WORKING:` phase, and whether the
+-parent is waiting for mailbox updates. Track spawned agent names
+-locally. Use `multi_agent_v1.wait_agent` for mailbox signals, not proof of completion.
+-A timeout only means no new mailbox update arrived. Treat a running child as alive.
+-Fallback only when the child is
+-completed without the deliverable, ack-only after followup, explicitly
+-`BLOCKED:`, or no longer running. Then mark that review lane
+-`INCONCLUSIVE`, do not count it as PASS or approval, close if safe, and
+-respawn a smaller `fork_context: false` reviewer with the missing
+-deliverable. Preserve completed lane results immediately. If the retry
+-budget is exhausted, keep the lane `INCONCLUSIVE` and still emit a final
+-aggregate result.
+-
+-# Review Work - 5-Agent Parallel Review Orchestrator
+-
+-Cover the five review perspectives below, using independent subagents in parallel when available. Each required perspective must have adequate evidence and the required independence for the review to pass. If even one finds a verified defect, the review fails; a missing perspective is INCONCLUSIVE, not a defect. Explicit user or project requirements for separate independent reviewers remain binding.
+-
+-When `review-work` is a final implementation, PR, or `$start-work` gate,
+-required evidence remains blocking for approval. FAIL means an evidenced
+-defect; INCONCLUSIVE means the evidence was not obtained. A timeout,
+-missing deliverable, ack-only response, or external blocker is not a pass
+-and does not by itself justify product changes or a debugging loop.
+-After the bounded recovery below or an equivalent independent review,
+-report any unresolved lane as INCONCLUSIVE. This permits ending the review
+-report, not declaring all verification passed, waiving a mandatory gate,
+-or handing off a PR before the required checks pass. Preserve any explicit
+-final user-acceptance or action-time approval as a separate pending item.
+-For a review-only request, delivering supported findings completes the
+-requested review report; discovery alone does not authorize repairs.
+-
+-Review evidence must be safe to share. Redact or mask secrets and sensitive
+-user data before including evidence in logs, PR bodies, or handoffs. Never
+-include raw tokens, credentials, auth headers, cookies, API keys, env dumps,
+-private logs, or PII; summarize with lengths, hashes, and short non-sensitive
+-prefixes when identity is needed.
+-
+-The 5 agents cover complementary concerns - together they form a comprehensive review that no single reviewer could match:
+-
+-| # | Agent | Type | Role | Focus Level |
+-|---|-------|------|------|-------------|
+-| 1 | Goal Verifier | Oracle | Did we build what was asked? | MAIN |
+-| 2 | QA Executor | unspecified-high | Does it actually work? | MAIN |
+-| 3 | Code Reviewer | Oracle | Is the code well-written? | MAIN |
+-| 4 | Security Auditor | Oracle | Is it secure? | SUB |
+-| 5 | Context Miner | unspecified-high | Did we miss any context? | MAIN |
+-
++description: Review a completed implementation against its requirements, changed behavior and affected risks, with evidence-backed findings.
+ ---
+ 
+-## Phase 0: Gather Review Context
++# Implementation review
+ 
+-Before launching agents, collect these inputs. Extract from conversation history first - the user's original request, constraints discussed, and decisions made are usually already in the thread. Only ask if truly missing.
++Review the actual requested change. Establish the goal, constraints, relevant revision or file set, and available verification evidence. Do not assume HEAD~1 or main is the correct comparison base; preserve concurrent work and use an isolated worktree if another checkout is necessary.
+ 
+-<required_inputs>
++## Select the relevant perspectives
+ 
+-- **GOAL**: The original objective. What was the user trying to achieve? Pull from the initial request in this conversation.
+-- **CONSTRAINTS**: Rules, requirements, or limitations. Tech stack restrictions, performance targets, API contracts, design patterns to follow, backward compatibility needs.
+-- **BACKGROUND**: Why this work was needed. Business context, user stories, related systems, prior decisions that informed the approach.
+-- **CHANGED_FILES**: Auto-collect via `git diff --name-only HEAD~1` or against the appropriate base (branch point, specific commit).
+-- **DIFF**: Auto-collect via `git diff HEAD~1` or against the appropriate base.
+-- **FILE_CONTENTS**: Read the full content of each changed file (not just the diff). Oracle agents cannot read files - they need full context in the prompt.
+-- **RUN_COMMAND**: How to start/run the application. Check `package.json` scripts, `Makefile`, `docker-compose.yml`, or ask the user.
++| Perspective | Evidence to inspect |
++|---|---|
++| Goal and constraints | Requested behavior, omissions, scope and compatibility |
++| Correctness | Changed logic, relevant callers, error paths and regression checks |
++| Runtime QA | The affected user scenario and observable result |
++| Security | Changed trust boundaries, permissions, data exposure or dependencies |
++| Context | Specific unresolved requirements or prior decisions relevant to this change |
+ 
+-</required_inputs>
++Cover applicable perspectives with adequate evidence. No fixed agent count, minimum scenario count or whole-repository context search is required. Start with the request, source and existing checks; search history or connected services only for a concrete relevant gap.
+ 
++Use independent reviewers when required by the user/project or when material risk warrants them and delegation is permitted. Specify the exact scope, evidence and deliverable; use current tool schemas and keep ownership separate. The implementer cannot replace a required independent reviewer. A requested comprehensive review retains all of its specified perspectives and independence.
+ 
+-**NEVER CHECKOUT A PR BRANCH IN THE MAIN WORKTREE. ALWAYS CREATE A NEW GIT WORKTREE (`git worktree add`) AND WORK THERE. THIS PREVENTS CONTAMINATING THE USER'S WORKING DIRECTORY WITH UNRELATED BRANCH STATE.**
++## Evidence and outcome
+ 
+-**Auto-collection sequence:**
++Exercise relevant runtime behavior when the review requires runtime evidence. Source inspection cannot establish that a live scenario passed. For text-only changes, inspect the affected document and its meaningful constraints instead of inventing application scenarios.
+ 
+-```bash
+-# 1. Get changed files
+-git diff --name-only HEAD~1  # or: git diff --name-only main...HEAD
++- PASS: all applicable required checks have supporting evidence and no blocking defect remains.
++- FAIL: a concrete defect is supported by evidence.
++- INCONCLUSIVE: required evidence or independence is missing.
+ 
+-# 2. Get diff
+-git diff HEAD~1  # or: git diff main...HEAD
++A timeout, silent reviewer or unavailable tool is not a defect or a pass. Try a bounded supported alternative and preserve completed results. Report exact remaining gaps; do not waive an explicit gate, start a debugging loop without a defect, or invent product changes.
+ 
+-# 3. Detect run command
+-# Check package.json -> "scripts.dev" or "scripts.start"
+-# Check Makefile -> default target
+-# Check docker-compose.yml -> services
+-```
++Lead with actionable findings, ordered by severity and supported by file locations, observed behavior and practical impact. State the scope and verification limits. With no findings, say so without claiming untested behavior verified. Keep secrets and private data out of reports.
+ 
+-For GOAL, CONSTRAINTS, BACKGROUND - review the full conversation history. The user's original message almost always contains the goal. Constraints often emerge during discussion. If anything critical is ambiguous, ask ONE focused question - not a checklist.
+-
+----
+-
+-## Phase 1: Launch 5 Agents
+-
+-Dispatch independent available review lanes together, using the current delegation API's supported options. If a tool or reviewer is unavailable, follow the compatibility and independence rules above instead of calling unsupported parameters.
+-
+-**Oracle agents receive everything in the prompt** (they cannot read files or run commands). Include DIFF + FILE_CONTENTS + all context directly in the prompt text.
+-
+-**unspecified-high agents are autonomous** - they can read files, run commands, and use tools. Give them goals and pointers, not raw content dumps.
+-
+----
+-
+-### Agent 1: Goal & Constraint Verification (Oracle) - MAIN
+-
+-This agent answers: "Did we build exactly what was asked, within the rules we were given?"
+-
+-```
+-task(
+-  subagent_type="oracle",
+-  run_in_background=true,
+-  load_skills=[],
+-  description="Verify implementation against original goal and constraints",
+-  prompt="""
+-<review_type>GOAL & CONSTRAINT VERIFICATION</review_type>
+-
+-<original_goal>
+-{GOAL - paste the user's original request and any clarifications}
+-</original_goal>
+-
+-<constraints>
+-{CONSTRAINTS - every rule, requirement, or limitation discussed}
+-</constraints>
+-
+-<background>
+-{BACKGROUND - why this work was needed, broader context}
+-</background>
+-
+-<changed_files>
+-{CHANGED_FILES - list of modified file paths}
+-</changed_files>
+-
+-<file_contents>
+-{FILE_CONTENTS - full content of every changed file, clearly delimited per file}
+-</file_contents>
+-
+-<diff>
+-{DIFF - the actual git diff}
+-</diff>
+-
+-Review whether this implementation correctly and completely achieves the stated goal within the given constraints. Be obsessively thorough - the point of this review is to catch what the implementer missed.
+-
+-REVIEW CHECKLIST:
+-
+-1. **Goal Completeness**: Break the goal into every sub-requirement (explicit AND implied). For each, mark ACHIEVED / MISSED / PARTIAL. Missing even one implied requirement that a reasonable engineer would have addressed = PARTIAL at minimum.
+-
+-2. **Constraint Compliance**: List every constraint. For each, verify compliance with specific code evidence. A constraint violated = automatic FAIL.
+-
+-3. **Requirement Gaps**: Requirements the user clearly wanted but didn't spell out. Things implied by the goal or background that a thoughtful engineer would have included.
+-
+-4. **Over-Engineering**: Anything added that wasn't requested - unnecessary abstractions, extra features, premature optimizations, speculative generality. Flag these as scope creep.
+-
+-5. **Edge Cases**: Given the goal, what inputs or scenarios would break this? Trace through at least 5 edge cases mentally.
+-
+-6. **Behavioral Correctness**: Walk through the code logic for 3+ representative scenarios. Does the code actually produce the expected behavior in each case?
+-
+-OUTPUT FORMAT:
+-<verdict>PASS, FAIL, or INCONCLUSIVE</verdict>
+-<confidence>HIGH / MEDIUM / LOW</confidence>
+-<summary>1-3 sentence overall assessment</summary>
+-<goal_breakdown>
+-  For each sub-requirement:
+-  - [ACHIEVED/MISSED/PARTIAL] Requirement description
+-  - Evidence: specific code reference or gap
+-</goal_breakdown>
+-<constraint_compliance>
+-  For each constraint:
+-  - [ACHIEVED/MISSED] Constraint description - evidence
+-</constraint_compliance>
+-<findings>
+-  - [PASS/FAIL/WARN] Category: Description
+-  - File: path (line range if applicable)
+-  - Evidence: specific code or logic reference
+-</findings>
+-<blocking_issues>Issues that MUST be fixed. Empty if PASS.</blocking_issues>
+-""")
+-```
+-
+----
+-
+-### Agent 2: QA via App Execution (unspecified-high) - MAIN
+-
+-This agent answers: "Does it actually work when you run it?"
+-
+-The QA agent follows a structured process: brainstorm scenarios exhaustively first, then self-review and augment, then create a task list, then execute systematically.
+-
+-```
+-task(
+-  category="unspecified-high",
+-  run_in_background=true,
+-  load_skills=["playwright", "dev-browser"],
+-  description="QA by actually running and using the application",
+-  prompt="""
+-<review_type>QA - HANDS-ON APP EXECUTION</review_type>
+-
+-<original_goal>
+-{GOAL}
+-</original_goal>
+-
+-<constraints>
+-{CONSTRAINTS}
+-</constraints>
+-
+-<changed_files>
+-{CHANGED_FILES}
+-</changed_files>
+-
+-<run_command>
+-{RUN_COMMAND - how to start the application, or "unknown" if not determined}
+-</run_command>
+-
+-You are a QA engineer. Your job is to RUN the application and verify it works through hands-on testing. You do not review code - you test behavior.
+-
+-MANDATORY PROCESS (follow in order):
+-
+-### Step 1: Scenario Brainstorm
+-
+-Before touching the app, write down EVERY test scenario you can think of. Be exhaustive. Think about:
+-
+-- **Happy paths**: The primary use cases this implementation enables. What's the main thing the user wanted to do?
+-- **Boundary conditions**: Empty inputs, maximum-length inputs, zero values, negative numbers, special characters, unicode, very large datasets.
+-- **Error paths**: Invalid inputs, network failures, missing files, permission denied, timeout conditions.
+-- **Regression scenarios**: Existing features that touch the same code paths. Things that worked before and must still work.
+-- **State transitions**: What happens when you do things out of order? Rapid repeated actions? Concurrent usage?
+-- **UX scenarios** (if applicable): Layout on different sizes, keyboard navigation, screen reader compatibility, loading states, error messages.
+-- **Integration points**: Does this feature interact with external services, databases, or other modules? Test those boundaries.
+-
+-Write each scenario as a one-liner with expected behavior. Aim for 15-30 scenarios minimum.
+-
+-### Step 2: Scenario Augmentation
+-
+-Review your scenario list with fresh eyes. For each scenario, ask:
+-- "What could go wrong here that I haven't considered?"
+-- "What would a malicious or careless user do?"
+-- "What environmental conditions could affect this?" (disk full, slow network, expired tokens)
+-
+-Add scenarios only for demonstrated risks or affected boundaries that the existing checks miss. Group them by priority: P0 (must pass), P1 (should pass), P2 (nice to pass). Do not manufacture a scenario count or expand the implementation scope.
+-
+-### Step 3: Create Task List
+-
+-Convert your augmented scenario list into a structured task list (use TaskCreate/TaskUpdate or your todo system). Each task = one test scenario with:
+-- Test name
+-- Steps to execute
+-- Expected result
+-- Priority (P0/P1/P2)
+-
+-### Step 4: Execute Systematically
+-
+-Work through the task list in priority order (P0 first). For each test:
+-
+-1. Execute the test steps
+-2. Record actual result
+-3. Compare with expected result
+-4. Mark PASS or FAIL
+-5. If FAIL: capture evidence (screenshot, terminal output, error message)
+-6. Mark the task complete
+-
+-**Execution guidance by app type:**
+-- **Web app**: Use playwright/dev-browser to navigate, click, fill forms, verify visual output.
+-- **CLI tool**: Run commands with various arguments, pipe inputs, check exit codes and output.
+-- **Library/SDK**: Write and execute a test script that imports and exercises the public API.
+-- **Backend API**: Use curl/httpie to hit endpoints with various payloads, verify response codes and bodies.
+-- **Mobile/Desktop**: If not directly runnable, write integration tests and execute them.
+-
+-If the app cannot be started, distinguish an evidenced product/build defect from unavailable environment, credentials, or tooling. Report a defect as FAIL and missing runtime evidence as INCONCLUSIVE; continue independent applicable checks without claiming runtime success.
+-
+-### Step 5: Compile Results
+-
+-OUTPUT FORMAT:
+-<verdict>PASS, FAIL, or INCONCLUSIVE</verdict>
+-<confidence>HIGH / MEDIUM / LOW</confidence>
+-<summary>1-3 sentence overall assessment</summary>
+-<scenario_coverage>
+-  Total scenarios: N
+-  P0: X tested, Y passed
+-  P1: X tested, Y passed
+-  P2: X tested, Y passed
+-</scenario_coverage>
+-<test_results>
+-  For each test:
+-  - [PASS/FAIL] Test name (Priority)
+-  - Steps: What you did
+-  - Expected: What should happen
+-  - Actual: What actually happened
+-  - Evidence: Screenshot path or terminal output snippet (if FAIL)
+-</test_results>
+-<blocking_issues>P0 or P1 failures only. Empty if PASS.</blocking_issues>
+-""")
+-```
+-
+----
+-
+-### Agent 3: Code Quality Review (Oracle) - MAIN
+-
+-This agent answers: "Is the code well-written, maintainable, and consistent with the codebase?"
+-
+-```
+-task(
+-  subagent_type="oracle",
+-  run_in_background=true,
+-  load_skills=[],
+-  description="Review overall code quality, patterns, and architecture",
+-  prompt="""
+-<review_type>CODE QUALITY REVIEW</review_type>
+-
+-<changed_files>
+-{CHANGED_FILES}
+-</changed_files>
+-
+-<file_contents>
+-{FILE_CONTENTS - full content of changed files AND neighboring files that show existing patterns}
+-</file_contents>
+-
+-<diff>
+-{DIFF}
+-</diff>
+-
+-<background>
+-{BACKGROUND}
+-</background>
+-
+-You are a senior staff engineer conducting a code review. Your standard: "Would I approve this PR without comments?"
+-
+-REVIEW DIMENSIONS (examine each):
+-
+-1. **Correctness**: Logic errors, off-by-one, null/undefined handling, race conditions, resource leaks, unhandled promise rejections.
+-
+-2. **Pattern Consistency**: Does new code follow the codebase's established patterns? Compare with the neighboring files provided. Introducing a new pattern where one already exists = finding.
+-
+-3. **Naming & Readability**: Clear variable/function/type names? Self-documenting code? Would another engineer understand this without explanation?
+-
+-4. **Error Handling**: Errors properly caught, logged, and propagated? No empty catch blocks? No swallowed errors? User-facing errors are helpful?
+-
+-5. **Type Safety**: Any `as any`, `@ts-ignore`, `@ts-expect-error`? Proper generic usage? Correct type narrowing? (If TypeScript/typed language)
+-
+-6. **Performance**: N+1 queries? Unnecessary re-renders? Blocking I/O on hot paths? Memory leaks? Unbounded growth?
+-
+-7. **Abstraction Level**: Right level of abstraction? No copy-paste duplication? But also no premature over-abstraction?
+-
+-8. **Testing**: New behaviors covered by tests? Tests are meaningful, not just coverage padding? Test names describe scenarios?
+-
+-9. **API Design**: Public interfaces clean and consistent with existing APIs? Breaking changes flagged?
+-
+-10. **Tech Debt**: Does this introduce new tech debt? Or create coupling that will be painful to change?
+-
+-Categorize each finding by severity:
+-- **CRITICAL**: Will cause bugs, data loss, or crashes in production
+-- **MAJOR**: Significant quality issue that should be fixed before merge
+-- **MINOR**: Improvement worth making but not blocking
+-- **NITPICK**: Style preference, optional
+-
+-OUTPUT FORMAT:
+-<verdict>PASS, FAIL, or INCONCLUSIVE</verdict>
+-<confidence>HIGH / MEDIUM / LOW</confidence>
+-<summary>1-3 sentence overall assessment</summary>
+-<findings>
+-  - [CRITICAL/MAJOR/MINOR/NITPICK] Category: Description
+-  - File: path (line range)
+-  - Current: what the code does now
+-  - Suggestion: how to improve
+-</findings>
+-<blocking_issues>CRITICAL and MAJOR items only. Empty if PASS.</blocking_issues>
+-""")
+-```
+-
+----
+-
+-### Agent 4: Security Review (Oracle) - SUB
+-
+-This agent answers: "Are there security vulnerabilities in these changes?"
+-
+-This is supplementary - it focuses exclusively on security. It does NOT comment on code style, architecture, or functionality unless those directly create a security risk.
+-
+-```
+-task(
+-  subagent_type="oracle",
+-  run_in_background=true,
+-  load_skills=[],
+-  description="Security-focused review of implementation changes",
+-  prompt="""
+-<review_type>SECURITY REVIEW (supplementary)</review_type>
+-
+-<changed_files>
+-{CHANGED_FILES}
+-</changed_files>
+-
+-<file_contents>
+-{FILE_CONTENTS - full content of changed files}
+-</file_contents>
+-
+-<diff>
+-{DIFF}
+-</diff>
+-
+-You are a security engineer. Review this diff exclusively for security vulnerabilities and anti-patterns. Ignore code style, naming, architecture - unless it directly creates a security risk.
+-
+-SECURITY CHECKLIST:
+-
+-1. **Input Validation**: User inputs sanitized? SQL injection, XSS, command injection, SSRF vectors?
+-2. **Auth & AuthZ**: Authentication checks where needed? Authorization verified for each action? Privilege escalation paths?
+-3. **Secrets & Credentials**: Hardcoded secrets, API keys, tokens in code or config? Secrets in logs?
+-4. **Data Exposure**: Sensitive data in logs? PII in error messages? Over-exposed API responses?
+-5. **Dependencies**: New dependencies added? Known CVEs? Suspicious or unnecessary packages?
+-6. **Cryptography**: Proper algorithms? No custom crypto? Secure random? Proper key management?
+-7. **File & Path**: Path traversal? Unsafe file operations? Symlink following?
+-8. **Network**: CORS configured correctly? Rate limiting? TLS enforced? Certificate validation?
+-9. **Error Leakage**: Stack traces exposed to users? Internal details in error responses?
+-10. **Supply Chain**: Lockfile updated consistently? Dependency pinning?
+-
+-OUTPUT FORMAT:
+-<verdict>PASS, FAIL, or INCONCLUSIVE</verdict>
+-<severity>CRITICAL / HIGH / MEDIUM / LOW / NONE</severity>
+-<summary>1-3 sentence overall assessment</summary>
+-<findings>
+-  - [CRITICAL/HIGH/MEDIUM/LOW] Category: Description
+-  - File: path (line range)
+-  - Risk: What could an attacker do?
+-  - Remediation: Specific fix
+-</findings>
+-<blocking_issues>CRITICAL and HIGH items only. Empty if PASS.</blocking_issues>
+-""")
+-```
+-
+----
+-
+-### Agent 5: Context Mining (unspecified-high) - MAIN
+-
+-This agent answers: "Did we miss any context that should have informed this implementation?"
+-
+-```
+-task(
+-  category="unspecified-high",
+-  run_in_background=true,
+-  load_skills=["git-master"],
+-  description="Mine all accessible contexts for missed requirements or background knowledge",
+-  prompt="""
+-<review_type>CONTEXT MINING - MISSED REQUIREMENTS & BACKGROUND</review_type>
+-
+-<original_goal>
+-{GOAL}
+-</original_goal>
+-
+-<constraints>
+-{CONSTRAINTS}
+-</constraints>
+-
+-<changed_files>
+-{CHANGED_FILES}
+-</changed_files>
+-
+-<background>
+-{BACKGROUND}
+-</background>
+-
+-You are an investigator. Your mission: search every accessible information source to find context that should have informed this implementation but might have been missed. The question: "Is there something we should have known but didn't?"
+-
+-SOURCES TO SEARCH (use every available tool):
+-
+-1. **Git History** (ALWAYS search):
+-   - `git log --oneline -20 -- {each changed file}` - recent changes and their reasons
+-   - `git blame {critical sections}` - who wrote what and when
+-   - `git log --all --grep="{keywords from goal}"` - related commits
+-   - Look for reverted commits, TODO/FIXME/HACK comments in history
+-
+-2. **GitHub** (if `gh` CLI available):
+-   - `gh issue list --search "{keywords}"` - related open/closed issues
+-   - `gh pr list --search "{keywords}" --state all` - related PRs and their review comments
+-   - Check if any issue is specifically linked to this work
+-   - Look at review comments on past PRs touching these files
+-
+-3. **Communication Channels** (if MCP tools available):
+-   - Slack: search for messages mentioning the feature, file names, or related keywords
+-   - Notion: search for design docs, RFCs, ADRs related to this feature
+-   - Discord: relevant discussions
+-
+-4. **Codebase Cross-References** (ALWAYS search):
+-   - Files that import or reference the changed modules
+-   - Tests that might need updating due to behavior changes
+-   - Documentation (README, docs/, comments) that references changed behavior
+-   - Config files that might need corresponding updates
+-   - Related features in the same domain
+-
+-WHAT TO LOOK FOR:
+-
+-- Requirements mentioned in issues/PRs that the implementation misses
+-- Past decisions explaining WHY code was written a certain way - and whether new changes respect those reasons
+-- Related systems or features affected by these changes
+-- Warnings from previous developers (PR review comments, inline TODOs, commit messages)
+-- Migration or deprecation notes that affect the changed code
+-- Design decisions documented outside the codebase (Notion, Slack, ADRs)
+-
+-OUTPUT FORMAT:
+-<verdict>PASS, FAIL, or INCONCLUSIVE</verdict>
+-<confidence>HIGH / MEDIUM / LOW</confidence>
+-<summary>1-3 sentence overall assessment</summary>
+-<sources_searched>
+-  - [SEARCHED/SKIPPED] Source name - what was searched (or why it wasn't accessible)
+-</sources_searched>
+-<discovered_context>
+-  For each discovery:
+-  - Source: Where found (git commit abc123, GitHub issue #42, Slack message, etc.)
+-  - Finding: What was found
+-  - Relevance: How it relates to the current work
+-  - Impact: [BLOCKING / IMPORTANT / FYI]
+-</discovered_context>
+-<missed_requirements>Requirements the implementation should address but doesn't. Empty if none.</missed_requirements>
+-<blocking_issues>BLOCKING items only. Empty if PASS.</blocking_issues>
+-""")
+-```
+-
+----
+-
+-## Phase 2: Wait & Collect
+-
+-After launching all 5 agents in one turn, wait for completions in bounded
+-cycles. Do not treat a timeout, ack-only reply, or empty child result as
+-a PASS.
+-
+-As each completes, collect via the Codex mapping above (`multi_agent_v1.wait_agent`,
+-then the child's substantive final result). Preserve completed lane
+-results immediately; never lose a PASS/FAIL because another lane is
+-still running. Store each verdict independently:
+-
+-| Agent | Verdict | Notes |
+-|-------|---------|-------|
+-| 1. Goal Verification | pending/PASS/FAIL/INCONCLUSIVE | - |
+-| 2. QA Execution | pending/PASS/FAIL/INCONCLUSIVE | - |
+-| 3. Code Quality | pending/PASS/FAIL/INCONCLUSIVE | - |
+-| 4. Security | pending/PASS/FAIL/INCONCLUSIVE | - |
+-| 5. Context Mining | pending/PASS/FAIL/INCONCLUSIVE | - |
+-
+-Do NOT deliver the final report until ALL 5 lanes have a terminal state:
+-PASS, FAIL, or INCONCLUSIVE.
+-If a lane remains silent after the reliability followup, record it as
+-inconclusive and respawn a smaller reviewer/worker for that exact lane.
+-If it still remains unfinished after that retry, close the still-running
+-agent if safe, keep the lane INCONCLUSIVE, and emit the final aggregate
+-review result with the incomplete lane named. Do not spin in repeated
+-wait/followup cycles. Do not use `multi_agent_v1.send_input` as an interrupt; queued
+-followups are not cancellation.
+-
+----
+-
+-## Phase 3: Deliver Verdict
+-
+-<verdict_logic>
+-
+-ALL 5 required perspectives have independent PASS evidence → **REVIEW PASSED**
+-ANY perspective has an evidenced FAIL → **REVIEW FAILED - criteria not met**
+-ANY lane is INCONCLUSIVE and none failed → **REVIEW INCONCLUSIVE - not approved**
+-
+-</verdict_logic>
+-
+-Compile the final report in this format:
+-
+-```markdown
+-# Review Work - Final Report
+-
+-## Overall Verdict: PASSED / FAILED / INCONCLUSIVE
+-
+-| # | Review Area | Agent Type | Verdict | Confidence |
+-|---|------------|------------|---------|------------|
+-| 1 | Goal & Constraint Verification | Oracle | PASS/FAIL/INCONCLUSIVE | HIGH/MED/LOW |
+-| 2 | QA Execution | unspecified-high | PASS/FAIL/INCONCLUSIVE | HIGH/MED/LOW |
+-| 3 | Code Quality | Oracle | PASS/FAIL/INCONCLUSIVE | HIGH/MED/LOW |
+-| 4 | Security (supplementary) | Oracle | PASS/FAIL/INCONCLUSIVE | Severity |
+-| 5 | Context Mining | unspecified-high | PASS/FAIL/INCONCLUSIVE | HIGH/MED/LOW |
+-
+-## Blocking Issues
+-[Aggregated from all agents - deduplicated, prioritized]
+-
+-## Key Findings
+-[Top 5-10 most important findings across all agents, grouped by theme]
+-
+-## Recommendations
+-[If FAILED: exactly what to fix, in priority order]
+-[If PASSED: non-blocking suggestions worth considering]
+-```
+-
+-If FAILED - be specific. The user should know exactly what to fix and in what order. No vague "consider improving X" - state the problem, the file, and the fix.
+-
+-If PASSED - keep it short. Highlight any non-blocking suggestions, but don't turn a passing review into a lecture.
++A review-only request ends with the report and does not authorize fixes. An implementation request includes correction of its own defects within scope. Review completion does not grant publication, merge, installation or external messaging authority, and does not replace required user acceptance.
+--- C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/frontend/SKILL.md
++++ PROPOSED/C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/frontend/SKILL.md
+@@ -1,115 +1,30 @@
+ ---
+ name: frontend
+-description: "MUST USE for frontend, web UI, UX, or visual work. Routes design references, verification of affected surfaces, and style lookups. Reuse project design conventions and tooling; apply Lighthouse targets and wider quality gates when requested or required by the established acceptance contract. Never weaken UX to improve a score."
++description: Build or revise web interfaces, layouts and interactions, or investigate frontend design, accessibility and performance.
+ ---
+ 
+ # Frontend
+ 
+-This file is a router, not a rulebook. The rules live in three rulesets under `references/`; your first job is to load the smallest set of files that covers the request, state which you loaded in one sentence, then execute under their guidance. Loading nothing and freestyling produces the generic AI-slop output this skill exists to prevent; loading everything wastes context and creates contradictory instructions.
++Match the requested outcome and the project's existing tokens, components and tooling. A local UI edit does not require a new design system, broad redesign, dependency installation or whole-site audit.
+ 
+-Apply every referenced workflow within the user's authorized scope and the project's established acceptance contract. A local UI change does not automatically require a new design-system document, dependency or skill installation, CI changes, deployment, or a whole-site audit. Use current session tool schemas; examples below are not permission to invent missing tools. Preserve explicit user/project release checks and approval requirements. Missing verification evidence is INCONCLUSIVE, not a demonstrated product defect: attempt bounded recovery, continue independent work, and report the exact unverified items without claiming PASS or waiving a required check.
++## Route by the actual task
+ 
+-## Phase 0 — Route (before any UI work)
++| Need | Reference |
++|---|---|
++| New design direction or substantial redesign | [Design index](references/design/README.md); follow the relevant style or brand link |
++| Performance, accessibility, SEO or broad quality audit | [Quality guidance](references/perfection/README.md) |
++| A specific palette, font, component or UX lookup | [UI/UX database](references/ui-ux-db/README.md) |
++| Image-only web concept | [Web image workflow](references/design/imagegen-frontend-web.md) |
++| Image-only mobile concept | [Mobile image workflow](references/design/imagegen-frontend-mobile.md) |
+ 
+-| Request involves… | Read |
+-|---|---|
+-| ANY UI implementation, styling, redesign, mockup, or visual decision | `references/design/README.md` FIRST. Reuse existing tokens, components, and tooling, then route to relevant taste and brand references. |
+-| Writing or modifying frontend code, OR auditing performance / SEO / accessibility / quality | ALSO `references/perfection/README.md`. Verify affected behavior and applicable quality targets through representative browser evidence; do not drop features or hide content to improve scores. |
+-| Looking up a concrete style, color palette, font pairing, chart type, landing-page structure, or UX guideline — or generating a project design system from keywords | `references/ui-ux-db/README.md`. A searchable CSV database with a CLI; a lookup tool, not a posture. Load on demand; `design` stays the source of truth for taste and the `DESIGN.md` contract. |
++For a small change to an established component, use its existing design conventions directly. Load another reference only when it resolves a real design or implementation decision. Linked design and audit recipes apply within this scope; they do not impose a full design library or Lighthouse run on every edit.
+ 
+-**For implementation work, design + perfection load together.** Apply design fidelity and performance checks to the affected surface; neither visual polish nor a synthetic score alone proves the requested behavior works.
++Preserve the user's requested features and content. Do not hide UI, remove accessibility, or reduce interactions to improve a score. Keep image-only requests separate from requests for working controls.
+ 
+-## Ruleset 1 — design (`references/design/`)
++## Verify the affected surface
+ 
+-The reference library has one architecture file, 12 taste skills (Layer A — *how to execute*), and 69 brand design systems (Layer B — *what it should look like*). Most non-trivial tasks load **one Layer A + one Layer B**. `README.md` carries the full routing flow, stacking rules, anti-patterns, and the mandatory browser-based Design QA phase; `_INDEX.md` catalogs all 81 files with mood-to-brand mappings — read it whenever routing is not obvious from the tables below.
++Use available browser tooling to inspect changed states and relevant viewport sizes. Check interactions, loading/error states and accessibility affected by the change. Reuse valid evidence; broaden checks only for shared impact, failures or explicit acceptance requirements.
+ 
+-### Layer 0 — architecture
++For a UI clone or design port, load visual-qa and satisfy its independent visual-comparison and code-fidelity checks. For other tasks, use visual-qa when structured visual comparison is needed. A screenshot proves appearance, not all functionality; a passing test or score does not prove appearance. If required browser evidence is unavailable after supported recovery, report INCONCLUSIVE and the exact gap, using a project-specific status label when required.
+ 
+-| File | Read when |
+-|---|---|
+-| `design-system-architecture.md` | Creating a design system is requested or materially needed for a new product or broad redesign; absence of `DESIGN.md` alone does not trigger it for a local edit. |
+-
+-### Layer A — taste skills (pick AT MOST ONE style skill; they encode opposing philosophies)
+-
+-| File | Read when the user says… |
+-|---|---|
+-| `taste-skill.md` | Nothing style-specific — "make a good UI". The default all-rounder. |
+-| `gpt-tasteskill.md` | "Awwwards-tier", "wow factor", "cinematic", "scroll-triggered", or `taste-skill` results felt too safe. |
+-| `minimalist-skill.md` | "minimal", "clean", "Notion-like", "Linear-like", "editorial". |
+-| `brutalist-skill.md` | "brutalist", "raw", "Swiss", "experimental", "anti-design". |
+-| `soft-skill.md` | "premium", "luxury", "calm", "expensive", "spa", "boutique", "elegant". |
+-| `redesign-skill.md` | Improving EXISTING UI — "this looks bad", "fix the design". Audit-first workflow; never use on greenfield. |
+-| `image-to-code-skill.md` | "Generate the design first, then code it." Pair with one imagegen file below. |
+-| `output-skill.md` | Stacks on any style skill when output is incomplete — placeholders, `// TODO`, half-done components. |
+-| `stitch-skill.md` | Stacks on any style skill for Google Stitch compatibility or a `DESIGN.md` doc export. |
+-| `imagegen-frontend-web.md` / `imagegen-frontend-mobile.md` / `imagegen-brandkit.md` | Image-only output (mockup, app-screen concepts, brand board). These NEVER write code — switch to `image-to-code-skill.md` if code is wanted. |
+-
+-### Layer B — brand design systems (orthogonal to Layer A; stack freely)
+-
+-When the user names a brand or site — "Linear-style", "like Stripe's landing" — load `references/design/<brand>.md` as the token source of truth (palette, type scale, components, do/don'ts). Coverage includes `apple` `stripe` `linear.app` `notion` `vercel` `claude` `figma` `airbnb` `nike` `tesla` `spotify` `raycast` `revolut` and ~56 more; the full list with mood shortcuts is in `_INDEX.md`. Extract the tokens and apply them to the project's own content — never copy logos or trademarked imagery. If the named brand is missing, fall back to a Layer A mood match or the `open-design` skill.
+-
+-### React dev tooling
+-
+-| File | Read when |
+-|---|---|
+-| `react-dev-tooling-skill.md` | React tooling setup is in scope, or an affected performance issue needs instrumentation beyond existing tools. Use its recipes only when the installation itself is authorized and needed. |
+-
+-## Ruleset 2 — perfection (`references/perfection/`)
+-
+-| File | Read when |
+-|---|---|
+-| `README.md` | Any frontend code is written or audited. Defines representative browser checks, applicable acceptance targets, root-cause diagnosis, UX preservation, and accurate evidence reporting. |
+-| `react-perf-tooling.md` | A React performance investigation requires render instrumentation. Use relevant recipes and established budgets; do not create new tooling or blanket failure thresholds for unrelated edits. |
+-
+-When a Lighthouse audit is in scope, an available audit helper may be used (build for production first; do not present dev-server scores as production performance):
+-
+-```bash
+-uv run $SKILL_DIR/scripts/perfection/lighthouse-audit.py https://localhost:3000
+-```
+-
+-For a full performance audit, use the device profiles required by the acceptance contract and repeat noisy measurements as needed. Routine UI edits use focused browser and regression checks instead of automatically starting a full audit.
+-
+-## Ruleset 3 — ui-ux-db (`references/ui-ux-db/`)
+-
+-`README.md` documents the search CLI and the master-plus-overrides persistence pattern. The CLI (run from the ruleset directory so it finds `data/`):
+-
+-```bash
+-python3 $SKILL_DIR/references/ui-ux-db/scripts/search.py "<query>" --design-system -p "Project"   # full design-system generation
+-python3 $SKILL_DIR/references/ui-ux-db/scripts/search.py "<query>" --domain <domain>             # targeted lookup
+-python3 $SKILL_DIR/references/ui-ux-db/scripts/search.py "<query>" --stack <stack>               # stack best practices
+-```
+-
+-Domains: `product` `style` `typography` `color` `landing` `chart` `ux` `react` `web` `prompt`. Stacks: `html-tailwind` (default) `react` `nextjs` `vue` `svelte` `astro` `swiftui` `react-native` `flutter` `shadcn` `jetpack-compose`.
+-
+-## Quick routes — most common requests
+-
+-| Request | Load |
+-|---|---|
+-| "Build a landing page" (no direction given) | `design/README.md` + `design/taste-skill.md` + `perfection/README.md` |
+-| "Linear-style landing page" | `design/README.md` + `design/linear.app.md` + `design/taste-skill.md` + `perfection/README.md` |
+-| "Premium SaaS hero like Stripe" | `design/README.md` + `design/stripe.md` + `design/soft-skill.md` + `perfection/README.md` |
+-| "Improve this existing dashboard" | `design/README.md` + `design/redesign-skill.md` + `perfection/README.md` |
+-| "Audit my site" / "make this page faster" | `perfection/README.md` (+ `perfection/react-perf-tooling.md` when React render instrumentation is relevant) |
+-| "Mockup image of a fintech app" — no code | `design/imagegen-frontend-mobile.md` (+ a Layer B brand if named) |
+-| "What palette/fonts fit a wellness brand?" | `ui-ux-db/README.md` → search CLI |
+-| "Set up this React project" | `design/README.md` + `design/react-dev-tooling-skill.md` |
+-
+-## Shared axioms (all three rulesets agree — apply always)
+-
+-- **Reuse the project's design system.** Follow existing tokens and component conventions, whether documented in `DESIGN.md` or expressed in code; create or expand documentation when the requested scope needs it.
+-- **Never weaken UX to buy points.** No dropping animations, hiding content, or simplifying interactions for a score or a deadline.
+-- **No emojis as icons.** SVG icon sets only (Lucide, Heroicons, Radix, Phosphor).
+-- **GPU-composited animation only** — `transform`, `opacity`, `filter`; never animate layout properties.
+-- **Verify the affected UI in a real browser before claiming it verified.** Exercise relevant states and representative affected breakpoints. Missing browser access must be reported as unverified after bounded recovery, not silently skipped or treated as a product defect.
+-
+-## When to load something else instead
+-
+-| Situation | Load |
+-|---|---|
+-| Brand/style not among the 69 in `references/design/`, or the user says "Open Design" | `open-design` skill — the local nexu-io/open-design library (137+ design skills, 150+ design systems) |
+-| Driving a browser for the Design QA phase | An available browser skill/tool using its current schema; `agent-browser` if actually available and applicable |
+-| Pure TypeScript/logic work with zero visual surface | `programming` skill alone — this skill adds nothing there |
+-
+-## Activation
+-
+-Use for any frontend, web UI, UX, visual, design, styling, layout, animation, performance, accessibility, or SEO work — building, redesigning, auditing, or generating mockups. Not for backend, CLI, or pure-logic tasks with no visual surface.
++Preserve release and action-time approvals. This skill does not authorize publication, CI redesign, installing tools, or unrelated fixes. Backend or pure logic work without a UI consequence does not need this skill.
+--- C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/visual-qa/SKILL.md
++++ PROPOSED/C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/visual-qa/SKILL.md
+@@ -1,241 +1,35 @@
+ ---
+ name: visual-qa
+-description: "Rigorous visual QA for any UI you built or changed, across BOTH web/page UIs and TUI/terminal UIs. MUST USE after building or changing any UI to verify it visually before declaring it done. Captures objective reference evidence with a bundled diff script (image-diff for screenshots, tui-check for terminal captures), then runs two parallel read-only oracle passes (design-system and functional integrity; visual fidelity and CJK precision) and synthesizes one good/bad verdict. Triggers: visual QA, visual regression, screenshot diff, pixel diff, image comparison, UI looks wrong, design system check, is this really a design system or just an image, alpha channel breakage, responsive check, CJK text, Korean/Japanese/Chinese text clipping, baseline drop, glyph drop, TUI alignment, terminal UI, tmux capture, box-drawing border misalignment, wide-character column drift. Use it even when the user does not say visual QA but asks whether a page, component, or terminal layout looks right."
++description: Inspect rendered web or terminal interfaces for visual regressions, reference fidelity, responsive layout and text clipping.
+ ---
+ 
+-## Codex Harness Tool Compatibility
++# Visual QA
+ 
+-Examples below describe roles and workflow, not guaranteed tool names or schemas. Use the current session's available spawn, message, wait, browser, terminal, and image tools with their documented parameters. Select a named reviewer only if that role is available; otherwise give an available independent reviewer the same self-contained charter, evidence, files, and constraints. Do not pass stale `fork_context`, model, or role parameters that the live schema does not support.
++Inspect the affected rendered surface against the user's request and existing design conventions. Capture actual output with available browser or terminal tools. Check changed states, relevant viewport or terminal sizes, and affected interactions. Do not invent a reference image when none was provided.
+ 
+-A wait timeout alone does not prove failure. When evidence or a reviewer is unavailable, try a bounded supported alternative and report any remaining gap as INCONCLUSIVE. This permits an accurate status report, not a passing verdict. The implementer cannot self-approve a required independent review. Fallback does not authorize global tool installation, CI changes, publication, or bypass of explicit user/project safety and release approvals.
++For an ordinary UI edit, direct inspection and focused interaction checks may suffice. No fixed reviewer count is required. Preserve any explicit independent-review or release requirement.
+ 
+-# Visual QA - Dual-Oracle Web and TUI Verification
++## Comparison tools
+ 
+-Verify the affected rendered UI against intent using objective evidence plus two parallel read-only review passes, then synthesize GOOD, NEEDS WORK, or INCONCLUSIVE. The script numbers focus the reviewers. They are not the verdict. Keep the review within the changed behavior and its affected boundaries; a scoped UI edit does not require inventing a site-wide design system or repairing unrelated styles.
++Use the bundled scripts/cli.ts helper when a comparison is useful and its runtime is available:
+ 
+-## Purpose and when to use
++    bun "<skill-dir>/scripts/cli.ts" image-diff <reference.png> <actual.png>
++    bun "<skill-dir>/scripts/cli.ts" tui-check <capture.txt> --cols <actual-width>
+ 
+-- Use after you build or change any UI, before calling it done. Covers web/page UIs and TUI/terminal UIs.
+-- Use when output must match a mock, a baseline, or a stated design intent; when you suspect a regression; when CJK (Korean/Japanese/Chinese) text may clip, misalign, or wrap awkwardly; when a claimed design system might actually be a flat image; when a terminal layout may overflow or its borders may break.
+-- Skip when there is no rendered surface (pure backend or library logic with no visual or terminal output). For broad post-implementation review use review-work; this skill is the visual specialist.
++Match viewports for image comparison. Capture terminal output with the actual width and ANSI information when relevant; tmux is an option, not a prerequisite. Do not install a global capture tool solely to follow an example.
+ 
+-In the commands below, `$SKILL_DIR` is this skill's own directory (the folder containing this SKILL.md). The bundled script lives at `scripts/cli.ts` inside it.
++The image diff reports dimensionsMatch, diffRatio, similarityScore, alphaChannelIntact and hotspots. The terminal check reports overflowLines, borderMisaligned and wideCharColumns. Use these to locate issues; numeric similarity alone is not a passing verdict.
+ 
+-## Step 1 - Detect the surface
++Inspect layout, spacing, type, contrast and transparency as affected. For CJK text, look for missing glyphs, clipped baselines, unnatural line breaks and wide-character column drift. Check that requested controls function and resize correctly.
+ 
+-- Web/page UI: renders in a browser (HTML/CSS/JS, components, canvas, SVG). Evidence is screenshots.
+-- TUI/terminal UI: renders as text in a terminal (box-drawing, panes, status lines, REPL/TUI apps). Evidence is terminal captures.
++## Clone or design port
+ 
+-If the change touches both, run both capture tracks and feed both into the passes.
++When the request requires matching a source design, compare corresponding regions of the actual and reference output at matching dimensions. Also inspect the component and token implementation: a pasted image cannot stand in for requested live controls.
+ 
+-## Step 2 - Capture objective reference evidence
++For every clone/design-port task, obtain independent visual comparison and independent code-level fidelity review. A reviewer who did not implement the change may cover both tracks unless the user/project requires separate reviewers. Use current available roles and schemas; no model is hardcoded. Both tracks must cover the same revision. A missing track is INCONCLUSIVE, not a completed clone; use a project-specific status label when required.
+ 
+-### Web
++## Report
+ 
+-1. Capture a REFERENCE image when the user supplied a mock/target or a known-good baseline is available. Otherwise use the stated intent and existing design conventions; do not invent a reference or block a simple change solely because no baseline image exists.
+-2. Capture the ACTUAL affected surface using existing project or session browser tooling. Match the reference viewport when comparing images. If a named tool is unavailable, use an available equivalent. Do not automatically install a global browser tool; missing capture capability requires bounded recovery and an exact unverified-gap report.
+-3. When a reference and the diff tool are available, run the diff and keep the JSON. Otherwise record the available direct visual evidence and the comparison limitation:
++Report located defects and supporting captures or source locations. GOOD requires the requested visual and functional checks; NEEDS WORK requires an observed mismatch; INCONCLUSIVE identifies missing evidence. Recheck affected evidence after fixes, not every unchanged surface.
+ 
+-```
+-bun "$SKILL_DIR/scripts/cli.ts" image-diff <reference.png> <actual.png>
+-```
+-
+-Key fields: `dimensionsMatch`, `diffRatio` (0..1), `similarityScore` (0..100), `alphaChannelIntact`, `hotspots[]` (grid regions ranked by `diffRatio`).
+-
+-### TUI
+-
+-1. Capture plain text and an ANSI-preserving copy:
+-
+-```
+-tmux capture-pane -p > capture.txt
+-tmux capture-pane -e -p > capture-ansi.txt
+-```
+-
+-2. Run the check with the REAL terminal width and keep the JSON:
+-
+-```
+-bun "$SKILL_DIR/scripts/cli.ts" tui-check capture.txt --cols <N>
+-```
+-
+-Key fields: `maxWidth`, `overflowLines[]`, `borderMisaligned`, `wideCharColumns[]`, `hasAnsi`.
+-
+-This JSON (diff ratio, similarity score, hotspots or overflow lines, border alignment, wide-char columns, alpha) is REFERENCE evidence to aim the reviewers. It is not the verdict by itself.
+-
+-## Step 3 - Dispatch two read-only QA subagents in parallel
+-
+-Send both review requests concurrently when supported. Each reviewer is read-only and returns PASS, REVISE, FAIL, or INCONCLUSIVE with concrete evidence or exact missing evidence. Pass A checks the requested implementation and existing design conventions; Pass B directly opens captures and inspects source/content for visual and CJK defects. Keep both passes scoped to affected surfaces and preserve any explicitly required independent review.
+-
+-Paste evidence directly into each prompt: source code, the plain-text TUI captures, the script JSON, and the screenshot paths plus your described observations for web. The two passes differ in depth by charter, not by any model or effort setting, which cannot be pinned per call.
+-
+-### Pass A - Design-system and functional integrity (deeper, strict)
+-
+-```
+-task(subagent_type="oracle",
+-  run_in_background=true,
+-  load_skills=[],
+-  description="Visual QA pass A: design-system and functional integrity",
+-  prompt="""
+-REVIEW TYPE: DESIGN-SYSTEM AND FUNCTIONAL INTEGRITY (read-only)
+-TIER INTENT: Treat this as the deeper, stricter pass. Reason exhaustively before concluding. Assume a plausible-looking surface may be faked or mock-only until the source proves otherwise.
+-
+-INTENT:
+-{What the user asked for, the mock or baseline, and the constraints.}
+-
+-SURFACE: {web | tui | both}
+-
+-SOURCE CODE:
+-{Full source of the UI: components, styles/tokens, layout, render code. Include neighboring files that show existing patterns.}
+-
+-CAPTURES:
+-{Web: actual screenshot path(s) plus your described observations. TUI: paste capture.txt and capture-ansi.txt inline.}
+-
+-SHARED SCRIPT EVIDENCE (reference, not verdict):
+-{Paste the image-diff or tui-check JSON. Use alphaChannelIntact for the transparency check.}
+-
+-CHECK EACH:
+-1. Implementation and design conventions: does the changed surface follow the existing tokens/primitives and satisfy the user's requested interactions? A pasted image standing in for requested live controls is a defect. Lack of a site-wide reusable system is not by itself blocking for a scoped UI edit or requested static artifact; require a new design system only when it is part of the user/project acceptance contract.
+-2. Faked-with-an-image anti-pattern: is the UI a real DOM/component tree, or a pasted raster/screenshot or background-image standing in for live elements? For TUI: a real layout that reflows, or hardcoded pre-rendered text at fixed widths?
+-3. Alpha and transparency: handled correctly, with no unexpected opaque or black fills and correct PNG/CSS alpha? Cross-check alphaChannelIntact.
+-4. Code style and implementation quality.
+-5. Responsive and resize behavior across viewport sizes (web) or terminal resize (TUI).
+-6. Do the user-intended FEATURES actually work: interactions, states, navigation (web); input handling, resize, scroll (TUI)? Trace the code paths.
+-
+-OUTPUT:
+-VERDICT: PASS | REVISE | FAIL | INCONCLUSIVE
+-CONFIDENCE: HIGH | MEDIUM | LOW
+-SUMMARY: 1-3 sentences
+-FINDINGS: for each, [dimension] [severity] what is wrong, where (file/line or capture region), and the concrete fix
+-WHAT IS GOOD: correct aspects that must not regress
+-BLOCKING: items that must be fixed; empty if PASS
+-"""
+-)
+-```
+-
+-### Pass B - Visual fidelity and CJK precision (focused)
+-
+-```
+-task(subagent_type="oracle",
+-  run_in_background=true,
+-  load_skills=[],
+-  description="Visual QA pass B: visual fidelity and CJK precision",
+-  prompt="""
+-REVIEW TYPE: VISUAL FIDELITY AND CJK PRECISION (read-only)
+-TIER INTENT: Treat this as the focused visual pass. Directly open the screenshots with the available image-viewing tool (`view_image`, `look_at`, or browser inspection) before judging. Anchor every claim to the script evidence, source code, and captures.
+-
+-INTENT:
+-{What the user requested and the mock or baseline to match.}
+-
+-SURFACE: {web | tui | both}
+-
+-CAPTURES:
+-{Web: actual and reference screenshot paths plus your described observations. TUI: paste capture.txt and capture-ansi.txt inline.}
+-
+-SOURCE CODE:
+-{For web: include the rendered text/content, components, typography, layout, and style code. For TUI: include render code that controls wrapping, width, and wide-character handling.}
+-
+-SCRIPT EVIDENCE (consume available fields; state missing comparisons):
+-{Paste available image-diff or tui-check JSON, or the direct capture evidence and exact tool/reference limitation.}
+-
+-USE THE EVIDENCE:
+-- Web (image-diff): start from diffRatio and similarityScore, then directly open every screenshot path and inspect every hotspots[] entry (gridX, gridY, x, y, width, height, diffRatio). Explain the visual cause of each flagged region from the pixels and source/content together.
+-- TUI (tui-check): inspect maxWidth vs expectedColumns, every overflowLines[] entry, borderMisaligned, and wideCharColumns[].
+-
+-CHECK:
+-1. Does the rendered output match what the user requested: layout, spacing, color, type, alignment?
+-2. CJK precision:
+-   - Web: natural CJK line breaking for display and body text. Flag oversized headings that create orphaned one-character or final-syllable lines, split Korean/Japanese/Chinese semantic phrases unnaturally, detach labels such as `[Image #1]` from their content, clip baselines/descenders, drop glyphs (tofu), or show font metric mismatch. Treat the screenshot pattern `에이전트 오케스트 / 레이션 현황 및 미 / 래` as REVISE/FAIL, not acceptable wrapping.
+-   - TUI: wide-character column drift (CJK cells counted as 1 instead of 2), box-drawing border misalignment, content overflowing past the terminal width.
+-
+-OUTPUT:
+-VERDICT: PASS | REVISE | FAIL | INCONCLUSIVE
+-CONFIDENCE: HIGH | MEDIUM | LOW
+-SUMMARY: 1-3 sentences
+-EVIDENCE TRACE: each hotspot or overflow line mapped to its visual cause
+-FINDINGS: for each, [severity] what is wrong, where (hotspot grid or capture line:col), and the concrete fix
+-BLOCKING: items that must be fixed; empty if PASS
+-"""
+-)
+-```
+-
+-## Step 4 - Synthesize one verdict
+-
+-When both passes return, merge them into a single report. Per dimension, mark good, bad, or unverified with evidence. For each bad item, state what is wrong, where (file/line, hotspot grid, or capture line), and the concrete fix. Missing evidence is unverified, not a product defect. Preserve correct behavior.
+-
+-Completion gate: do not declare the affected UI verified and complete until both required passes are satisfied, OR the remaining gaps are explicitly listed and accepted by the user where that acceptance is permitted by the governing requirements. A high `similarityScore` with a broken requested feature is still a FAIL. After bounded supported recovery, an INCONCLUSIVE report is allowed and must state exactly what remains unverified; it does not waive independent review, approve leftovers, or satisfy a release gate.
+-
+-```markdown
+-# Visual QA - Verdict: GOOD | NEEDS WORK | INCONCLUSIVE
+-
+-| Dimension | Pass | Verdict | Evidence |
+-|---|---|---|---|
+-| Design system real vs faked | A | good/bad | ... |
+-| Features work | A | good/bad | ... |
+-| Responsive / resize | A | good/bad | ... |
+-| Alpha / transparency | A+B | good/bad | ... |
+-| Visual fidelity to intent | B | good/bad | ... |
+-| CJK precision | B | good/bad | ... |
+-
+-## Must fix
+-[Blocking items, each with location and fix, in priority order]
+-
+-## Good, keep it
+-[Correct aspects that must not regress]
+-
+-## Completion gate
+-[Satisfied, or the exact remaining gaps and who accepted them]
+-```
+-
+-## Step 5 - Clone-coding mode (when the task was a clone or design port)
+-
+-Run this step IN ADDITION to Steps 1-4, but ONLY when the original user task was a clone or design port: "clone this site", "move this Figma design to code", "rebuild this screen", "make it look exactly like X". For these tasks run the following two additional verifications against the requested fidelity criteria. Repair concrete mismatches within scope; missing evidence follows the INCONCLUSIVE recovery/reporting rule above.
+-
+-1. Pixel-perfect design-compare subagent (visual oracle). Dispatch a focused, read-only design-compare reviewer (recommend `gpt-5.5` with medium reasoning). It must crop/zoom BOTH the reference (the target / Figma export / source-site screenshot) and the ACTUAL screenshot into matching regions and read them **pixel-by-pixel** - header, nav, each card, spacing, type ramp, color tokens - not at a glance. Anchor every claim with the bundled tool:
+-
+-```
+-bun "$SKILL_DIR/scripts/cli.ts" image-diff <reference.png> <actual.png>
+-```
+-
+-   It judges whether layout geometry, spacing, design tokens (color, type, radius, shadow), and the design itself are identical to the target, region by region. Anything off by more than rounding is a finding.
+-
+-2. Code-level design-system fidelity (code oracle). Use `lazycodex-clone-fidelity-reviewer` when available, or another independent reviewer with the same charter. It verifies a real component tree, design tokens and reused primitives appropriate to the requested clone, and no pasted image standing in for requested live UI. A named-role fallback does not waive independence; if no independent reviewer can run, report that required review as INCONCLUSIVE.
+-
+-RULE: a clone is not verified until both the visual comparison and independent code review confirm the requested layer, design-system, and visual fidelity criteria on the same revision. Repair located mismatches and rerun the affected checks; broaden re-verification when a change affects prior evidence. Repeated failed attempts trigger diagnosis or an independent perspective, not blind full-loop retries. If a required comparison remains unavailable after bounded supported remedies, report INCONCLUSIVE and the exact gap. Do not claim a complete clone from one evidence track or self-approve a required independent review; preserve explicit user acceptance and release requirements.
+-
+-## Reference evidence is not the verdict
+-
+-The script quantifies pixels and columns. It cannot judge whether the result is a real design system, whether features work, or whether intent was met. A 99/100 `similarityScore` can still hide a pasted-image fake, a broken interaction, or clipped CJK descenders. Use the numbers to aim the oracles, then trust the synthesized review.
+-
+-Illustrative output (locked field names):
+-
+-```json
+-{
+-  "command": "image-diff",
+-  "dimensionsMatch": true,
+-  "reference": { "width": 1440, "height": 900 },
+-  "actual": { "width": 1440, "height": 900 },
+-  "totalPixels": 1296000,
+-  "diffPixels": 38880,
+-  "diffRatio": 0.03,
+-  "similarityScore": 97,
+-  "alphaChannelIntact": true,
+-  "hotspots": [
+-    { "gridX": 2, "gridY": 0, "x": 960, "y": 0, "width": 480, "height": 300, "diffRatio": 0.21 }
+-  ],
+-  "summary": "97/100 similarity; one hotspot in the top-right header region."
+-}
+-```
+-
+-```json
+-{
+-  "command": "tui-check",
+-  "expectedColumns": 80,
+-  "lineCount": 24,
+-  "lineWidths": [80, 80, 82, 80],
+-  "maxWidth": 82,
+-  "overflowLines": [ { "line": 3, "width": 82 } ],
+-  "borderMisaligned": true,
+-  "wideCharColumns": [12, 13],
+-  "hasAnsi": false,
+-  "summary": "Line 3 overflows 80 cols by 2; borders misaligned at wide-char columns 12-13."
+-}
+-```
++A review-only request does not authorize repairs. Do not treat missing tools as a product defect or waive required independent review, user acceptance or publication approval.
+--- C:/Users/win11-pc/.codex/plugins/cache/ponytail/ponytail/4.9.0/skills/ponytail/SKILL.md
++++ PROPOSED/C:/Users/win11-pc/.codex/plugins/cache/ponytail/ponytail/4.9.0/skills/ponytail/SKILL.md
+@@ -1,120 +1,34 @@
+ ---
+ name: ponytail
+-description: >
+-  Forces the laziest solution that actually works, simplest, shortest, most
+-  minimal. Channels a senior dev who has seen everything: question whether the
+-  task needs to exist at all (YAGNI), reach for the standard library before
+-  custom code, native platform features before dependencies, one line before
+-  fifty. Supports intensity levels: lite, full (default), ultra. Use on ANY
+-  coding task: writing, adding, refactoring, fixing, reviewing, or designing
+-  code, and choosing libraries or dependencies. Also use whenever the user
+-  says "ponytail", "be lazy", "lazy mode", "simplest solution", "minimal
+-  solution", "yagni", "do less", or "shortest path", or complains about
+-  over-engineering, bloat, boilerplate, or unnecessary dependencies. Do NOT
+-  use for non-coding requests (general knowledge, prose, translation,
+-  summaries, recipes).
++description: Find a simpler implementation when the user requests minimal code, fewer dependencies, YAGNI or an overengineering check.
+ argument-hint: "[lite|full|ultra]"
+ license: MIT
+ ---
+ 
+ # Ponytail
+ 
+-You are a lazy senior developer. Lazy means efficient, not careless. You have
+-seen every over-engineered codebase and been paged at 3am for one. The best
+-code is the code never written.
++Satisfy the complete requested outcome with the simplest correct implementation. Reuse project code, the standard library, native platform features and installed dependencies before adding new machinery.
+ 
+-## Persistence
++Apply to the relevant task. If the user explicitly requests a continuing mode, retain it until changed; implicit selection does not create an every-response mode.
+ 
+-ACTIVE EVERY RESPONSE. No drift back to over-building. Still active if
+-unsure. Off only: "stop ponytail" / "normal mode". Default: **full**.
+-Switch: `/ponytail lite|full|ultra`.
++## Choices
+ 
+-## The ladder
++Inspect the changed path and callers needed to understand behavior and impact. Do not scan every caller or the whole repository without a concrete dependency question.
+ 
+-Stop at the first rung that holds:
++Avoid speculative abstractions, configuration, scaffolding and dependencies. Prefer clear local code over a clever one-liner. Existing persistence, compatibility, security, accessibility and scientific contracts are requirements, not optional complexity.
+ 
+-1. **Does this need to exist at all?** Speculative need = skip it, say so in one line. (YAGNI)
+-2. **Already in this codebase?** A helper, util, type, or pattern that already lives here → reuse it. Look before you write; re-implementing what's a few files over is the most common slop.
+-3. **Stdlib does it?** Use it.
+-4. **Native platform feature covers it?** `<input type="date">` over a picker lib, CSS over JS, DB constraint over app code.
+-5. **Already-installed dependency solves it?** Use it. Never add a new one for what a few lines can do.
+-6. **Can it be one line?** One line.
+-7. **Only then:** the minimum code that works.
+-
+-The ladder is a reflex, not a research project — but it runs *after* you
+-understand the problem, not instead of it. Read the task and the code it
+-touches first, trace the real flow end to end, then climb. Two rungs work →
+-take the higher one and move on. The first lazy solution that works is the
+-right one — once you actually know what the change has to touch.
+-
+-**Bug fix = root cause, not symptom.** A report names a symptom. Before you
+-edit, grep every caller of the function you're about to touch. The lazy fix IS
+-the root-cause fix: one guard in the shared function is a smaller diff than a
+-guard in every caller — and patching only the path the ticket names leaves
+-every sibling caller still broken. Fix it once, where all callers route through.
+-
+-## Rules
+-
+-- No unrequested abstractions: no interface with one implementation, no factory for one product, no config for a value that never changes.
+-- No boilerplate, no scaffolding "for later", later can scaffold for itself.
+-- Deletion over addition. Boring over clever, clever is what someone decodes at 3am.
+-- Fewest files possible. Shortest working diff wins — but only once you understand the problem. The smallest change in the wrong place isn't lazy, it's a second bug.
+-- Complex request? Ship the lazy version and question it in the same response, "Did X; Y covers it. Need full X? Say so." Never stall on an answer you can default.
+-- Two stdlib options, same size? Take the one that's correct on edge cases. Lazy means writing less code, not picking the flimsier algorithm.
+-- Mark deliberate simplifications that cut a real corner with a known ceiling (global lock, O(n²) scan, naive heuristic) with a `ponytail:` comment naming the ceiling and upgrade path (`# ponytail: global lock, per-account locks if throughput matters`).
+-
+-## Output
+-
+-Code first. Then at most three short lines: what was skipped, when to add it.
+-No essays, no feature tours, no design notes. If the explanation is longer
+-than the code, delete the explanation, every paragraph defending a
+-simplification is complexity smuggled back in as prose. Explanation the user
+-explicitly asked for (a report, a walkthrough, per-phase notes) is not debt,
+-give it in full, the rule is only against unrequested prose.
+-
+-Pattern: `[code] → skipped: [X], add when [Y].`
++Do not ship a reduced feature and ask whether the user still wants the original. If a simpler substitute changes an explicit requirement, present the concrete tradeoff and obtain a decision before substituting it. Review findings do not authorize cleanup.
+ 
+ ## Intensity
+ 
+-| Level | What change |
+-|-------|------------|
+-| **lite** | Build what's asked, but name the lazier alternative in one line. User picks. |
+-| **full** | The ladder enforced. Stdlib and native first. Shortest diff, shortest explanation. Default. |
+-| **ultra** | YAGNI extremist. Deletion before addition. Ship the one-liner and challenge the rest of the requirement in the same breath. |
++- lite: implement the requested behavior; mention a materially useful simpler alternative.
++- full: prefer the simplest adequate design within the agreed requirements.
++- ultra: question speculative additions more aggressively, while preserving every explicit requirement.
+ 
+-Example: "Add a cache for these API responses."
+-- lite: "Done, cache added. FYI: `functools.lru_cache` covers this in one line if you'd rather not own a cache class."
+-- full: "`@lru_cache(maxsize=1000)` on the fetch function. Skipped custom cache class, add when lru_cache measurably falls short."
+-- ultra: "No cache until a profiler says so. When it does: `@lru_cache`. A hand-rolled TTL cache class is a bug farm with a hit rate."
++The default is full. No level grants permission to remove requested features or skip required evidence.
+ 
+-## When NOT to be lazy
++## Verification and output
+ 
+-Never simplify away: input validation at trust boundaries, error handling
+-that prevents data loss, security measures, accessibility basics, anything
+-explicitly requested. User insists on the full version → build it, no
+-re-arguing.
++Use the project's existing focused checks. Add a meaningful regression check when substantive changed logic needs one; neither a mandatory new demo nor a new testing framework is required for each edit. Never weaken valid tests.
+ 
+-Never lazy about understanding the problem. The ladder shortens the
+-solution, never the reading. Trace the whole thing first — every file the
+-change touches, the actual flow — before picking a rung. Laziness that skips
+-comprehension to ship a small diff is the dangerous kind: it dresses up as
+-efficiency and ships a confident wrong fix. Read fully, then be lazy.
+-
+-Hardware is never the ideal on paper: a real clock drifts, a real sensor
+-reads off, a PCA9685 runs a few percent fast. Leave the calibration knob, not
+-just less code, the physical world needs tuning a minimal model can't see.
+-
+-Lazy code without its check is unfinished. Non-trivial logic (a branch, a
+-loop, a parser, a money/security path) leaves ONE runnable check behind, the
+-smallest thing that fails if the logic breaks: an `assert`-based
+-`demo()`/`__main__` self-check or one small `test_*.py`. No frameworks, no
+-fixtures, no per-function suites unless asked. Trivial one-liners need no
+-test, YAGNI applies to tests too.
+-
+-## Boundaries
+-
+-Ponytail governs what you build, not how you talk (pair with Caveman for
+-terse prose). "stop ponytail" / "normal mode": revert. Level persists until
+-changed or session end.
+-
+-The shortest path to done is the right path.
++Document a deliberate shortcut only when its real limit affects maintenance or the user's decision; keep any useful ponytail: marker accurate. Explain the result and material limitations concisely. Provide requested reports or walkthroughs in full.
+--- C:/Users/win11-pc/.codex/skills/paper-reading-zh/SKILL.md
++++ PROPOSED/C:/Users/win11-pc/.codex/skills/paper-reading-zh/SKILL.md
+@@ -1,49 +1,22 @@
+ ---
+ name: paper-reading-zh
+-description: 用于用户明确要求中文深度阅读、分析、批判或延展研究论文。仅出现论文链接、标题或学科关键词不触发；简单事实查询不触发。
++description: 用中文深入解读或批判研究论文；适用于完整精读或指定方法、实验、公式分析，不因仅出现论文链接而触发。
+ ---
+ 
+ # 论文深度阅读
+ 
+-## 准备工作
++先确认用户要求完整精读还是指定问题。按其范围交付；单个方法或公式问题不自动展开整篇论文评审、复现计划或后续研究。
+ 
+-先获取用户提供的论文全文，再开始总结。
++## 原文和证据
+ 
+-用户可能提供：
++获取论文的权威全文版本，按问题阅读相关章节、图表及必要附录。完整精读应覆盖背景、方法、实验和局限；局部问题读够论证所需上下文即可。只有摘要时，明确全文未取得及无法核验的部分，不把摘要包装成完整精读。
+ 
+-- URL，如arXiv、ACLAnthology、OpenReview、PapersWithCode、出版社页面或实验室主页
+-- PDF或文件附件
+-- 论文标题
+-- 论文标题加abstract
++先辨明核心主张、支撑证据和关键对照。仅在评价新颖性、来源或替代解释需要时检索相关文献，不规定固定篇数，也不编造文献或研究结果。
+ 
+-如果用户提供URL，先fetch全文。如果用户只提供标题，先web search找到论文的canonical版本，优先使用arXiv或官方会议版本。如果只能找到abstract，必须说明当前分析是临时的，并指出哪些部分无法验证。
++区分论文原文主张、相关文献事实、基于证据的推断和不确定假设；结论紧邻来源。推断作者的思考路径时，明确这是重建而非作者自述。
+ 
+-不要只凭abstract作答。方法、实验细节、图表、limitations和appendix经常包含真正的贡献和真正的问题。
++## 输出
+ 
+-拿到全文后，先完整读一遍abstract、introduction、related work、method、experiments、conclusion，必要时阅读appendix。开始写之前，先确定三件事：
++完整精读使用 [完整输出结构与风格](references/full-review.md)。指定问题直接采用适合该问题的结构。用户要求的数学推导、实验解释和细节不得因精简入口而省略。
+ 
+-1. 论文的核心技术claim是什么。
+-2. 支撑这个claim的关键实验或关键论证是什么。
+-3. 最重要的baseline或prior work对比是什么。
+-
+-如果novelty不清楚，先搜索2到3篇紧密相关的论文，用来校准这篇论文真正新在哪里。不要凭感觉宣布它novel，也不要为了生成follow-upidea而编造相关工作。
+-
+----
+-
+-## 交付入口
+-
+-开始撰写深度分析前，必须读取 [完整输出结构与风格](references/full-review.md)。沿用其完整 12 节顺序，只有第 6 节在没有形式化数学时可以跳过；不得因入口精简而减少交付内容。具体子问题按用户指定范围回答。
+-
+-## 信息来源纪律
+-
+-整个分析过程中，严格区分四类信息：
+-
+-- **论文原文明确声称**：作者显式 claim 或展示了这一点
+-- **相关文献中的已有结论**：这是现有文献中的记录结果（尽可能引用）
+-- **基于证据的合理推断**：从论文展示的内容逻辑推出，但未被显式声明
+-- **仍然不确定的猜测**：你的假设，没有直接证据支撑
+-
+-不要把推断写成事实，不要把猜测写成推断。如果不确定某个 claim 属于哪一类，直接说出来。
+-
+----
+-
++默认中文；用清晰的术语和具体例子解释方法。复现方案、反例实验和后续研究建议仅在用户要求这些内容时展开。论文分析不授权训练、拟合、访问新数据或实际开展实验。
+--- C:/Users/win11-pc/.codex/skills/study.skill/SKILL.md
++++ PROPOSED/C:/Users/win11-pc/.codex/skills/study.skill/SKILL.md
+@@ -1,135 +1,48 @@
+ ---
+ name: study
+-description: |
+-  Use when user wants to learn a new skill, technology, language, or topic.
+-  Use when user asks "teach me", "help me learn", "I want to study",
+-  "鎴戞兂瀛?, "鏁欐垜", "瀛︿範璺嚎", "浠庨浂寮€濮嬪", "甯垜瀛?, "鎬庝箞瀛?.
+-  Do not use for one-off factual questions, debugging help, or code review.
++description: Teach a topic, create a structured course or continue an existing learning program; not for isolated factual answers or code review.
+ ---
+ 
+-# study
++# Study
+ 
+-> 璇蜂釜甯堝倕锛屽闂ㄦ墜鑹恒€備綘涓嶆槸涓㈢粰鐢ㄦ埛涓€浠芥暀绋嬶紝鑰屾槸甯︿粬瀹屾垚涓€娈佃兘缁х画銆佽兘澶嶄範銆佽兘璋冩暣鑺傚鐨勫涔犺繃绋嬨€?
++Teach toward the learner's stated goal with reliable material, concrete explanations, examples and evidence of understanding. Use existing answers and learning preferences; ask only for information needed to choose a useful learning route.
+ 
+-## Role
++A focused lesson or question can be taught directly in chat. It does not require creating a course, migrating unrelated state or opening a viewer. Do not infer mastery from merely viewing a lesson.
+ 
+-You are an experienced teacher and course designer. Your job is not to summarize materials, but to turn them into learnable lessons: clarify the learner's goal, research reliable sources, split content into teachable units, explain with examples, ask for evidence of understanding, and preserve learning state.
++## Route by the requested work
+ 
+-## Load The Right Reference First
++| Request | Read when needed |
++|---|---|
++| Choose a new learning goal, scope, level or schedule | [Anchoring](references/phase-0-anchoring.md) |
++| Research material for a new course | [Research](references/phase-1-research.md) |
++| Generate course or module files | [Generation](references/phase-2-generation.md), then its format and language references |
++| Continue a course, evaluate exercises or adjust pace | [Learning](references/phase-3-learning.md) |
++| Review or consolidation | [Consolidation](references/phase-4-consolidation.md) and [scheduler](references/fsrs-scheduler.md) |
++| Skill tree, XP or progress map | [Skill tree](references/skill-tree.md) |
++| Read or write persisted learning state | [State schema](references/state-schema.md) |
++| Old state must be used or updated | [Migration](references/migration-guide.md) before writes that depend on it |
++| Start or operate a course viewer | [Viewer](references/learning-viewer.md) |
+ 
+-Most agents only read the first ~160 lines. Use this table before substantial work.
++Load only the active workflow and its necessary dependencies. Do not reopen the full reference set for each response.
+ 
+-| Situation | Must load |
+-| --- | --- |
+-| Existing `.learning-profile/progress.json` or `review-schedule.json` | `references/migration-guide.md`; migration is blocking |
+-| Existing state with `schema_version` lower than `references/state-schema.md` | `references/migration-guide.md`; upgrade before writing state |
+-| Any state read/write, progress update, mode switch, speed/depth feedback | `references/state-schema.md` |
+-| Broad topic such as "瀛?AI/蹇冪悊瀛?鍓嶇" | `references/phase-0-anchoring.md` + `references/skill-tree.md` |
+-| Goal anchoring, mode choice, materials, baseline, time, storage path | `references/phase-0-anchoring.md` |
+-| Research before new course generation | `references/phase-1-research.md` |
+-| Course/module generation | `references/phase-2-generation.md`; it is the generation source of truth |
+-| Courseware format, diagrams, images, code examples, `study-*` blocks | `references/courseware-format.md`; Phase 2 loads it before writing course files |
+-| Learner-facing Chinese course prose | `references/chinese-tutorial-guide.md`; only after Phase 2 routes here |
+-| Learner-facing English course prose | `references/english-tutorial-guide.md`; only after Phase 2 routes here |
+-| Local viewer startup or exact session/runtime behavior | `references/learning-viewer.md` |
+-| Continue an existing course, teach, answer exercises, adjust pace | `references/phase-3-learning.md` |
+-| Review check, review session, learning bulletin | `references/phase-4-consolidation.md` + `references/fsrs-scheduler.md` |
+-| Skill tree, XP, levels, achievements, quests | `references/skill-tree.md` |
++## New course
+ 
+-Script shortcuts: run the scripts from this skill directory, not from the learning directory. Use `{skill_dir}/scripts/check-reviews.py` for due reviews, `{skill_dir}/scripts/record-review.py` for review ratings, `{skill_dir}/scripts/write-state.py` for JSON state writes, and `{skill_dir}/scripts/migrate-profile.py` for old state migration. Use `{skill_dir}/scripts/check-course-depth.py` only as an advisory post-generation length diagnostic; never as a hard course validator.
++Establish the route, materials, baseline, time and storage path from the current request and existing answers. Preserve route confirmation, research-scope confirmation and the Module 00 review required by the course workflow. If the user has approved the route and explicitly asked to skip further confirmations, continue within that approved scope; silence does not grant that exception.
+ 
+-## Language And Terminology
++Use real sources before generation. Initialize state using the current schema without overwriting existing courses. The generation reference owns the course format: one section question per section page, a module preface and section pages, with scope sized to the learning goal. Length checks are advisory, not a substitute for content quality.
+ 
+-When teaching in Chinese, prefer Chinese technical terms first. On first use, write `中文术语（English term）` and give a one-sentence plain-language meaning before using the abbreviation alone. Avoid unexplained English-only terms such as `primal`, `dual`, `margin`, `hinge loss`, `KKT`, or `slack variable`. If a course slide uses English labels, preserve the English in parentheses after the Chinese term.
+-## Core Contract
++## Existing course
+ 
+-Pipeline:
++Continue from local course content and current metadata rather than restarting research. For full interactive lessons with course files, follow the viewer workflow; use chat for targeted questions, an explicit chat preference or unavailable viewer.
+ 
+-```text
+-閿氬畾 -> 璋冪爺 -> 鐢熸垚 -> 瀛︿範 -> 宸╁浐
+-```
++Read the learning record before grading or recording progress. Clear questions only after answering them, and update pace/depth feedback through the authorized state path. Add explanations and practice under 99-content-supplements/ after generation unless the user asks to revise original course content.
+ 
+-Units:
++Check due reviews once at the first formal learning session of the day, with at most one compact notice. Local review dates do not create automations, notifications or wakeups.
+ 
+-- **涓€灏忚妭 (Section / 鍗曟瀛︿範椤?**: one main question or concept, stored as its own `{module}/{section}/content.md`.
+-- **涓€妯″潡 (Module / 鍙姌鍙犵珷鑺?**: a short preface in `{module}/content.md` plus 2-7 section pages.
+-- **涓€闂ㄨ (Course / 瀹屾暣璇剧▼)**: usually <=12 modules and <=60 section pages; split larger topics.
++## State and language
+ 
+-Iron Law:
++The state schema is the source of truth. Use scripts/write-state.py or its documented atomic write method; JSON write failure is not success. Use the existing migration and review helpers from this skill directory. Do not rebuild or overwrite state to hide an error.
+ 
+-```text
+-NO TEACHING WITHOUT ANCHORING FIRST.
+-NO GENERATION WITHOUT RESEARCH FIRST.
+-NO STATE WRITE WITHOUT THE CURRENT SCHEMA.
+-NO COMPLETION CLAIMS WITHOUT VERIFICATION.
+-NO LEARNER-FACING COURSE FILES WITH AGENT/RUNTIME CAVEATS.
+-```
++Keep meta.json as the source for skill-tree and RPG settings, params.json for pacing/review preferences, and concepts.json for stored difficulty and stability; retrievability is computed. Preserve the current defaults and user choices.
+ 
+-Escape hatch: for explicitly tiny requests such as "just teach useState in 5 minutes", confirm the narrow scope in one sentence and teach directly. The rule prevents sloppiness, not speed.
+-
+-## Request Router
+-
+-Before answering any learning request:
+-
+-1. If old state files exist, migrate first. Do not teach from `progress.json` or `review-schedule.json`.
+-2. If state exists, read active course metadata before deciding whether this is continuation, review, or a new course.
+-3. If a generated course exists and the user says "缁х画瀛︿範", use local course files first. Do not restart research just because the topic involves a library or tool.
+-4. At the first formal learning session of each day, check due reviews once and show at most one compact line. Review reminders are part of daily session start only; this skill does not create platform automations, scheduled tasks, hooks, push notifications, or wakeups.
+-5. If there is no confirmed learning goal, enter Phase 0.
+-
+-### New Course
+-
+-1. Load `phase-0-anchoring.md`.
+-2. For broad topics, show a domain skill tree before narrowing the route.
+-3. Establish scope, materials, baseline, time, and storage path from the current request and existing user answers; ask only for unresolved information needed to confirm the learning route.
+-4. After route confirmation, initialize state from `state-schema.md` without overwriting existing courses.
+-5. Load `phase-1-research.md`; use real sources before generation. Keep its default research-scope confirmation unless the user has approved the route and explicitly asked to skip further confirmations; that exception permits continuing only within the approved route and authorized scope.
+-6. Load `phase-2-generation.md`; generate Module 00 first, then wait for confirmation by default. If the user has approved the route and explicitly asked to skip further confirmations, continue generating and verifying all remaining modules within that route. Keep the course structure guard and use length diagnostics only after generation. A material change to scope or required authority still needs user approval; a skipped, unanswered, or timed-out question is not approval.
+-
+-### Existing Course
+-
+-1. Load `phase-3-learning.md` and `learning-viewer.md`.
+-2. Prefer the local viewer in `interactive` mode when course files exist.
+-3. If the viewer starts successfully, do not duplicate the lesson in chat. Give the URL, the current course/module, and one sentence telling the learner to read, submit exercises, then come back for feedback.
+-4. Use chat teaching only when the viewer cannot start, the learner refuses the viewer, or the learner asks a targeted question while reading.
+-5. When the learner returns, read the course `learning-record.json` before deciding progress, feedback, XP, or review items. If you answer `questions_for_llm`, clear the answered questions in `learning-record.json`.
+-6. Persist pace/depth feedback immediately in `params.json`.
+-7. After a course has been generated, do not casually rewrite mainline course files during learning. Add deeper explanations, extra practice, wrong-answer reviews, or retellings under `99-content-supplements/` unless the user explicitly asks to revise the original course content.
+-
+-### Review Or Progress Request
+-
+-1. Load `phase-4-consolidation.md`.
+-2. Use the skill directory's `check-reviews.py` for due items and `record-review.py` for ratings.
+-3. Load `skill-tree.md` for progress maps, XP, levels, achievements, and current quests.
+-
+-## State Rules
+-
+-- Current schema is defined only in `references/state-schema.md`.
+-- Use the skill directory's `write-state.py` or the atomic write rule from `state-schema.md`.
+-- JSON write failure is a real failure. Do not silently overwrite, rebuild, or fake success.
+-- `meta.json` is the source of truth for `skill_tree_enabled`, `rpg_enabled`, and `rpg_preference_asked`.
+-- `params.json` owns pacing and review parameters such as `target_retention`.
+-- `concepts.json` stores D (difficulty / 闅惧害) and S (stability / 绋冲畾鎬?; R (retrievability / 璁板繂鍙彁鍙栫巼) is computed, not stored.
+-
+-## Red Flags
+-
+-| If you think... | Reality |
+-| --- | --- |
+-| "This is simple; skip anchoring/research." | Only explicitly tiny requests can skip the full flow. |
+-| "User said continue, so I should research the topic again." | Continue from local course files first. |
+-| "The user probably wants depth X." | Ask or use `params.json`. |
+-| "I can keep using old progress files." | Old state migration is blocking. |
+-| "RPG needs explicit opt-in." | RPG is on by default unless state or user says false. |
+-| "I can hand-write state quickly." | Use the schema and atomic write path. |
+-| "next_review means the user will be reminded automatically." | It is local review state only; no platform automation exists in this skill. |
+-| "The viewer saved a learning record, so progress is complete." | The agent must judge evidence before updating mastery, XP, or completed modules. |
+-| "The code was not run locally, so I should warn learners in `content.md`." | Tell the user in chat if needed; course files are not audit logs for the agent's environment. |
+-| "Every chapter needs the same heading template." | Keep the learning loop, not fixed headings. Do not force phrases such as "鍏堣浣忎竴鍙ヨ瘽". |
+-| "蹇€熷鑰?means I should make every point short." | Fast exam prep means removing non-priority material, not thinning named test points. |
+-| "The learner wants more detail, so I should patch the original section." | After generation, append supplements under `99-content-supplements/` unless the user explicitly asks to revise the original file. |
+-| "More praise means more motivation." | Use concrete progress, not empty praise. |
+-
+-## Motivation
+-
+-Learning is becoming, not consuming. Progress markers help only when they reflect real capability. Keep the tone warm, specific, and honest: show what changed, what is still weak, and what to do next.
+-
++In Chinese teaching, explain a term in Chinese and introduce its English name or abbreviation on first use. Preserve the requested depth and named exam points. Keep runtime caveats in the conversation instead of inserting them into learner-facing course content. Report progress only when supported by learning evidence.
+--- C:/Users/win11-pc/.codex/skills/paper-reading-zh/references/full-review.md
++++ PROPOSED/C:/Users/win11-pc/.codex/skills/paper-reading-zh/references/full-review.md
+@@ -1,125 +1,125 @@
+-# 完整论文阅读交付规范
+-
+-## 输出结构
+-
+-你的任务是清晰、易懂、深入、详细地总结这篇论文。
+-
+-按顺序完整输出以下12个环节。顺序有意义：先背景，再方法；先方法，再实验；先理解，再批评。除第6节外，不得跳过任何环节。
+-
+-输出以流畅段落为主。只有在结构确实有帮助时才使用bullet points，例如实验设计、pipeline步骤或最小复现实验。避免滥用破折号、引号、括号和低信息量转折。每句话都要有信息量。
+-
+----
+-
+-### § 1 — 研究问题与重要性
+-
+-论文提出并解决的研究问题是什么？为什么这个问题是重要的？解决这个问题能带来哪些价值？
+-如果重要性不显而易见，做一个简单的背景调研补充上下文。
+-
+----
+-
+-### § 2 — 前人工作与不足
+-
+-这个问题之前被解决了吗？之前的研究为什么存在不足？
+-
+-点名最相关的prior methods、systems、datasets或theoretical results，并简要说明它们已经能做到什么。然后精确解释它们为什么不够：是方法本身的限制、关键假设失效、工程成本太高、评测缺口，还是当时问题还没有被清楚定义？
+-
+-避免泛泛说prior work没有考虑X。要解释为什么X没有被考虑：技术上做不到、成本太高、被忽视了，还是当时这个问题还没有出现。
+-
+----
+-
+-### § 3 — 重建作者的思考路径
+-
+-在正式讲方法之前，先逆向重建作者可能的思考路径。
+-
+-这个部分不要用论文自己的贡献作为前提。只能使用这篇论文之前已经存在的背景、失败模式、经验观察、理论线索和相关工作。目标是模拟一个认真研究这个问题的人，如何从已有知识走到这篇论文的idea。
+-
+----
+-
+-### § 4 — 核心 Intuition
+-
+-用 2–4 句话说清楚这篇论文提出方法的 Intuition 是什么。去掉所有形式化、消融实验和工程细节。
+-
+-让先前方法失效、让这个方法奏效的那个核心是什么？如果用普通语言说不清楚，说明理解还没到位。
+-
+----
+-
+-### § 5 — 具体方法与完整 Pipeline
+-
+-这篇论文的具体方法是什么？结合一个真实的例子讲解：输入、处理、输出完整的 pipeline。分点说明，清晰易懂。
+-
+----
+-
+-### § 6 — 核心数学推导（无形式化数学则跳过）
+-
+-这篇论文的核心数学推导过程是什么（一步步从0让我从理论视角理解方法）？
+-如果有，请补充理论背景（面向数学基础较弱的读者），告诉我理论的基础和每个公式的intuition；如果没有，可以说明并跳过这一点。
+-
+----
+-
+-### § 7 — 实验设计与结论
+-
+-这篇论文是如何设计实验来验证提出的方法和claim 的？按照下面格式总结：提出了什么问题 → 设计了什么实验验证这个问题 → 问题的答案是什么。不需要很多数据细节，只需要核心思路。
+-
+----
+-
+-### § 8 — Take-aways
+-
+-总结这篇论文的 take-aways。
+-
+----
+-
+-### § 9 — 最脆弱的假设
+-
+-每个方法都建立在假设之上。找出最关键的那一个：如果它不成立，核心贡献会直接失效。
+-
+-精确解释这个假设在实际中可能不成立的原因，以及论文为这个假设提供了什么证据（或缺少什么证据）。
+-
+-不要列举所有局限性。找那个失败代价最大的假设。
+-
+----
+-
+-### § 10 — 最小复现实验
+-
+-如果我有1周时间，能做一个最小复现实验验证它的哪一点？
+-
+-说清楚：用什么数据，实现什么，测量什么，什么结果算是支持或反驳了这个claim。优先选择不需要复现完整系统的方案。
+-
+----
+-
+-### § 11 — 最强反例设计
+-
+-如果我反对它，我会怎么设计反例？
+-
+-设计对这篇论文最有力的攻击。找一个实验、一个理论论证，或一类真实世界的场景，能真正挑战这个方法是否按声称的那样有效。
+-一个好的反例要么提出对结果的具体替代解释，要么识别出方法会可预测地失败的条件。
+-
+----
+-
+-### § 12 — Follow-up Research Idea
+-
+-调研顶会best paper的research taste和问题影响力。
+-
+-基于对方法核心局限（§9）的理解，提出一个非增量的novel research idea。不是"把方法扩展到领域 X"或"加一个模块处理情况 Y"，而是一个新的 framing、新的目标，或与相邻问题的新连接，能打开一个真正不同的研究方向。
+-
+-说清楚：（a）什么局限或未满足的需求驱动了这个想法，（b）可以借鉴哪个相邻领域的方法或工具，（c）第一个实验大概长什么样。明确区分你的提议和已有工作。
+-
+----
+-
+-## 风格
+-
+-输出语言默认为中文。专业术语保留英文原词，例如attention、fine-tuning、ablation、retrieval、policy gradient、representation、benchmark，不要机械翻译。
+-
+-风格参考Andrej Karpathy和Kaiming He，但只学习可迁移的技术写作特征。
+-
+-具体要求：
+-
+-- 从具体技术情境出发，不要悬空总结。
+-- 直接点名问题，先展示失败模式，再解释方法。
+-- 使用具体名词、动作和数字，少用抽象形容词。
+-- 先写claim，再写evidence。
+-- 保留不确定性，不要装作什么都确定。
+-- 每句话都要有信息量，避免大空话和泛泛而谈。
+-- 使用流畅段落，少用模板化bullet points。
+-- 避免滥用破折号、引号、括号和分号。
+-- 避免低信息量句式，例如不是A而是B，重要的是，值得注意的是，总而言之。
+-- 不要使用groundbreakin
++# 完整论文阅读交付规范
++
++## 输出结构
++
++你的任务是清晰、易懂、深入、详细地总结这篇论文。
++
++完整精读按背景、方法、实验、批评的顺序组织以下环节；用户指定局部问题时只采用相关环节，并保留其要求的深度。第6节在没有形式化数学时可跳过。第10—12节属于复现、反例实验和研究延展，仅在用户要求这些内容时展开；它们是建议，不授权实际实验或训练。
++
++输出以流畅段落为主。只有在结构确实有帮助时才使用bullet points，例如实验设计、pipeline步骤或最小复现实验。避免滥用破折号、引号、括号和低信息量转折。每句话都要有信息量。
++
++---
++
++### § 1 — 研究问题与重要性
++
++论文提出并解决的研究问题是什么？为什么这个问题是重要的？解决这个问题能带来哪些价值？
++如果重要性不显而易见，做一个简单的背景调研补充上下文。
++
++---
++
++### § 2 — 前人工作与不足
++
++这个问题之前被解决了吗？之前的研究为什么存在不足？
++
++点名最相关的prior methods、systems、datasets或theoretical results，并简要说明它们已经能做到什么。然后精确解释它们为什么不够：是方法本身的限制、关键假设失效、工程成本太高、评测缺口，还是当时问题还没有被清楚定义？
++
++避免泛泛说prior work没有考虑X。要解释为什么X没有被考虑：技术上做不到、成本太高、被忽视了，还是当时这个问题还没有出现。
++
++---
++
++### § 3 — 重建作者的思考路径
++
++在正式讲方法之前，先逆向重建作者可能的思考路径。
++
++这个部分不要用论文自己的贡献作为前提。只能使用这篇论文之前已经存在的背景、失败模式、经验观察、理论线索和相关工作。目标是模拟一个认真研究这个问题的人，如何从已有知识走到这篇论文的idea。
++
++---
++
++### § 4 — 核心 Intuition
++
++用 2–4 句话说清楚这篇论文提出方法的 Intuition 是什么。去掉所有形式化、消融实验和工程细节。
++
++让先前方法失效、让这个方法奏效的那个核心是什么？如果用普通语言说不清楚，说明理解还没到位。
++
++---
++
++### § 5 — 具体方法与完整 Pipeline
++
++这篇论文的具体方法是什么？结合一个真实的例子讲解：输入、处理、输出完整的 pipeline。分点说明，清晰易懂。
++
++---
++
++### § 6 — 核心数学推导（无形式化数学则跳过）
++
++这篇论文的核心数学推导过程是什么（一步步从0让我从理论视角理解方法）？
++如果有，请补充理论背景（面向数学基础较弱的读者），告诉我理论的基础和每个公式的intuition；如果没有，可以说明并跳过这一点。
++
++---
++
++### § 7 — 实验设计与结论
++
++这篇论文是如何设计实验来验证提出的方法和claim 的？按照下面格式总结：提出了什么问题 → 设计了什么实验验证这个问题 → 问题的答案是什么。不需要很多数据细节，只需要核心思路。
++
++---
++
++### § 8 — Take-aways
++
++总结这篇论文的 take-aways。
++
++---
++
++### § 9 — 最脆弱的假设
++
++每个方法都建立在假设之上。找出最关键的那一个：如果它不成立，核心贡献会直接失效。
++
++精确解释这个假设在实际中可能不成立的原因，以及论文为这个假设提供了什么证据（或缺少什么证据）。
++
++不要列举所有局限性。找那个失败代价最大的假设。
++
++---
++
++### § 10 — 最小复现实验
++
++如果我有1周时间，能做一个最小复现实验验证它的哪一点？
++
++说清楚：用什么数据，实现什么，测量什么，什么结果算是支持或反驳了这个claim。优先选择不需要复现完整系统的方案。
++
++---
++
++### § 11 — 最强反例设计
++
++如果我反对它，我会怎么设计反例？
++
++设计对这篇论文最有力的攻击。找一个实验、一个理论论证，或一类真实世界的场景，能真正挑战这个方法是否按声称的那样有效。
++一个好的反例要么提出对结果的具体替代解释，要么识别出方法会可预测地失败的条件。
++
++---
++
++### § 12 — Follow-up Research Idea
++
++调研顶会best paper的research taste和问题影响力。
++
++基于对方法核心局限（§9）的理解，提出一个非增量的novel research idea。不是"把方法扩展到领域 X"或"加一个模块处理情况 Y"，而是一个新的 framing、新的目标，或与相邻问题的新连接，能打开一个真正不同的研究方向。
++
++说清楚：（a）什么局限或未满足的需求驱动了这个想法，（b）可以借鉴哪个相邻领域的方法或工具，（c）第一个实验大概长什么样。明确区分你的提议和已有工作。
++
++---
++
++## 风格
++
++输出语言默认为中文。专业术语保留英文原词，例如attention、fine-tuning、ablation、retrieval、policy gradient、representation、benchmark，不要机械翻译。
++
++风格参考Andrej Karpathy和Kaiming He，但只学习可迁移的技术写作特征。
++
++具体要求：
++
++- 从具体技术情境出发，不要悬空总结。
++- 直接点名问题，先展示失败模式，再解释方法。
++- 使用具体名词、动作和数字，少用抽象形容词。
++- 先写claim，再写evidence。
++- 保留不确定性，不要装作什么都确定。
++- 每句话都要有信息量，避免大空话和泛泛而谈。
++- 使用流畅段落，少用模板化bullet points。
++- 避免滥用破折号、引号、括号和分号。
++- 避免低信息量句式，例如不是A而是B，重要的是，值得注意的是，总而言之。
++- 不要使用groundbreakin
+--- C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/remove-ai-slops/SKILL.md
++++ PROPOSED/C:/Users/win11-pc/.codex/plugins/cache/sisyphuslabs/omo/4.13.0/skills/remove-ai-slops/SKILL.md
+@@ -1,6 +1,6 @@
+ ---
+ name: remove-ai-slops
+-description: "Remove AI-generated code smells (slop) from branch changes or an explicit file list. Locks behavior with regression tests FIRST, then runs categorized cleanup via parallel `deep` agents in batches of 5, then verifies with quality gates. Covers 10 slop categories including performance equivalences, excessive complexity (object annotations, if/elif variant chains), and oversized modules (250+ pure LOC with mandatory modular refactoring). MUST USE when the user asks to \"remove slop\", \"clean AI code\", \"deslop\", \"clean up AI-generated code\", \"remove AI slop\", or wants to clean up AI-generated patterns from recent changes. Triggers - \"remove ai slops\", \"clean ai code\", \"deslop\", \"cleanup AI generated\", \"remove AI slop\", \"clean up AI-generated code\", \"strip slop\", \"ai-slop cleanup\"."
++description: Clean AI-generated clutter in an explicitly requested diff or file set while preserving behavior.
+ ---
+ 
+ ## Codex Harness Tool Compatibility

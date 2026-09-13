@@ -1,0 +1,19 @@
+{
+  "status": "PASSED",
+  "all_passed": true,
+  "comparisons": 15840,
+  "cells": 20,
+  "repeats": 120,
+  "total_live_bins_per_repeat": 9000,
+  "scored_bins_per_repeat": 7200,
+  "total_repeat_scored_observations": 864000,
+  "stimulus_identity_exact": true,
+  "original_20s_movie_exact": true,
+  "frame_zero": 751,
+  "FRAME_ZERO_ACQUISITION_PROVENANCE": "UNKNOWN",
+  "training_saved_targets": "NOT_PERSISTED; exact current adapter replay, not historical tensor comparison",
+  "training": 0,
+  "parameter_fitting": 0,
+  "model_inference": 0,
+  "protocol_sha256": "e132b11799544e0b9e6eac081b2d8454f13e8ebf0a58442bb6d42fb156f3113f"
+}

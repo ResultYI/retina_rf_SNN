@@ -1,0 +1,13 @@
+# Audit runner startup correction
+
+The first invocation stopped at the audit-local version assertion, before preflight.json creation, source loading, model construction or any forward pass. It required literal `2.6.0`, while the original and current CPU runtimes report `2.6.0+cpu`.
+
+Distinguished hypotheses: wrong interpreter (refuted by sys.executable = D:/anaconda/python.exe); environment drift (refuted by exact agreement with original zero run-manifest, alignment manifest and CNN reporting_runtime); audit-local expected-string error (confirmed: current literal equality to 2.6.0 is false, equality to the original artifact runtime 2.6.0+cpu is true).
+
+The exact observed failure was `AssertionError` at replay_preflight.py's version comparison. The sole correction below this record is to compare with the existing CNN reporting runtime, which is also checked against the original Canonical manifest. No numeric comparison, backend, checkpoint, model parameter or frozen protocol is changed. The protocol's abbreviated version 2.6.0 means this original CPU build; the complete build is retained in preflight.json.
+
+No instrumentation, debugger process, environment override or temporary production edit was created. This record and the audit-local correction are retained as requested experiment provenance. The subsequent actual replay command is the focused end-to-end verification. Shell wrapper exit status was not treated as success when its output contained an exception.
+
+The corrected startup check passed, followed by 88 exact frozen validation NLL replays. All held-out inference later completed successfully at 2026-09-05T10:25:00.145424+00:00, with consumption already recorded.
+
+Postprocessing-only startup failure: summarize_heldout.py initially imported scipy.stats.rankdata, whose SciPy sparse extension was built against NumPy 1.x; the current original CPU environment has NumPy 2.2.6. The observed error was `ImportError: numpy.core.multiarray failed to import`, before main(), table reading, resampling or statistics output. Candidate hypotheses were bad result data (ruled out before any data read), wrong interpreter (explicit original CPU path), and compiled dependency ABI mismatch (the explicit import traceback confirms it). No environment/package changes or further model inference were made. Remove this unnecessary compiled dependency and compute the same average rank using NumPy unique counts/cumulative counts. Verify ties directly and retain this postprocessing correction as provenance; the immutable protocol, evaluation results and consumption record are unchanged.

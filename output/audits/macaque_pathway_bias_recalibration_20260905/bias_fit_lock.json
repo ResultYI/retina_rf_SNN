@@ -1,0 +1,11 @@
+{
+  "timestamp_utc": "2026-09-05T10:55:14.440715+00:00",
+  "protocol_sha256": "740349691eb4247f2ab1990531b802aca2c57a2e954f35948dbb5913dafecfe2",
+  "bias_fit_per_cell_sha256": "725ce82c992f09c2e31122165bb26bc9b554cf0141ed468b95a7c412109f4e14",
+  "fitted_scalar_count": 88,
+  "calibration_inputs_only": [
+    "training_only_logits.pt"
+  ],
+  "heldout_targets_read_by_solver": false,
+  "before_any_recalibrated_test_NLL": true
+}

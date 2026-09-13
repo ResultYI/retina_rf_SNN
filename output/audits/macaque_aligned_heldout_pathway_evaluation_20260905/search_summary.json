@@ -1,0 +1,131 @@
+{
+  "text_files_scanned": 7896,
+  "macaque_referencing_files": 1324,
+  "range_hit_count": 24905,
+  "adapter_config_count": 68,
+  "archive_member_count": 1836,
+  "post20_configs": [],
+  "scan_exclusions": [
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".venv",
+    "__pycache__",
+    "node_modules",
+    "venv"
+  ],
+  "raw_recording_text": "only file identity hashed; not included in scientific-text search",
+  "inaccessible": [
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\ac-temporal-gate-final-pytest-tmp-20260827\\pytest-of-win11-pc",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\evidence\\\\ac-temporal-gate-final-pytest-tmp-20260827\\\\pytest-of-win11-pc'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\ac-temporal-incremental-qa\\pytest-tmp\\pytest-of-win11-pc",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\evidence\\\\ac-temporal-incremental-qa\\\\pytest-tmp\\\\pytest-of-win11-pc'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\ac-temporal-qa-review\\pytest-tmp\\pytest-of-win11-pc",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\evidence\\\\ac-temporal-qa-review\\\\pytest-tmp\\\\pytest-of-win11-pc'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\review-pytest-tmp",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\evidence\\\\review-pytest-tmp'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\rgc-response-evidence-closure\\todo3-reverify-pytest-tmp",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\evidence\\\\rgc-response-evidence-closure\\\\todo3-reverify-pytest-tmp'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\rgc-response-evidence-closure\\verify-todo1-pytest-tmp",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\evidence\\\\rgc-response-evidence-closure\\\\verify-todo1-pytest-tmp'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\evidence\\rgc-response-evidence-closure\\verify-todo3-pytest-tmp",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\evidence\\\\rgc-response-evidence-closure\\\\verify-todo3-pytest-tmp'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\tmp\\audit-corrections",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\tmp\\\\audit-corrections'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\tmp\\audit-focused",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\tmp\\\\audit-focused'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\tmp\\audit-focused-2",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\tmp\\\\audit-focused-2'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\tmp\\audit-focused-3",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\tmp\\\\audit-focused-3'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\tmp\\final-minimal",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\tmp\\\\final-minimal'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\tmp\\gate-pytest\\pytest-of-win11-pc",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\tmp\\\\gate-pytest\\\\pytest-of-win11-pc'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\tmp\\mechanistic-direct-final-20260825",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\tmp\\\\mechanistic-direct-final-20260825'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\tmp\\mechanistic-direct-pytest",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\tmp\\\\mechanistic-direct-pytest'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\tmp\\pytest-reporting-loc-fix-gate",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\tmp\\\\pytest-reporting-loc-fix-gate'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\tmp\\pytest-sample-efficiency-final-gate",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\tmp\\\\pytest-sample-efficiency-final-gate'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\tmp\\quick-report-removal-pytest\\pytest-of-win11-pc",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\tmp\\\\quick-report-removal-pytest\\\\pytest-of-win11-pc'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\tmp\\todo4-repair-review-pytest-20260826",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\tmp\\\\todo4-repair-review-pytest-20260826'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.omo\\tmp\\verify_todo2_pytest\\pytest-of-win11-pc",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.omo\\\\tmp\\\\verify_todo2_pytest\\\\pytest-of-win11-pc'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.pytest-tmp\\locality",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.pytest-tmp\\\\locality'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.pytest-tmp\\locality-final",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.pytest-tmp\\\\locality-final'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.pytest-tmp\\locality-refactor",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.pytest-tmp\\\\locality-refactor'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.tmp\\pytest\\pytest-of-win11-pc",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.tmp\\\\pytest\\\\pytest-of-win11-pc'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\.tmp\\pytest-of-win11-pc",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\.tmp\\\\pytest-of-win11-pc'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\gate-pytest-temp\\phase1-final",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\gate-pytest-temp\\\\phase1-final'"
+    },
+    {
+      "path": "D:\\PythonProject\\retina_rf_SNN\\tmp\\review-pytest-tmp\\pytest-of-win11-pc",
+      "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PythonProject\\\\retina_rf_SNN\\\\tmp\\\\review-pytest-tmp\\\\pytest-of-win11-pc'"
+    }
+  ],
+  "source_only_not_execution": "A config or script hit alone does not establish actual training or evaluation; adjudication required",
+  "new_model_inference": 0
+}

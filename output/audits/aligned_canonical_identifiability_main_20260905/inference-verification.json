@@ -1,0 +1,338 @@
+{
+  "checks": [
+    {
+      "cell": "67#4",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "67#6",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "67#7",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "67#14",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "67#21",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "67#26",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "67#33",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "67#34",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "68#3",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "68#4",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "68#7",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "68#10",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "68#11",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "69#3",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "69#4",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "69#6",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "69#7",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "69#21",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "70#1",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "70#7",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "70#15",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "70#34",
+      "kind": "aligned",
+      "rf_max_error": {
+        "global": 0.0,
+        "H1": 0.0,
+        "direct_BC": 0.0,
+        "AC": 0.0
+      },
+      "state_unchanged": true
+    },
+    {
+      "cell": "67#4",
+      "kind": "primary",
+      "strict_load": true,
+      "data_identity": true,
+      "state_unchanged": true
+    },
+    {
+      "cell": "67#4",
+      "kind": "fresh_1",
+      "strict_load": true,
+      "data_identity": true,
+      "state_unchanged": true
+    },
+    {
+      "cell": "67#4",
+      "kind": "fresh_2",
+      "strict_load": true,
+      "data_identity": true,
+      "state_unchanged": true
+    },
+    {
+      "cell": "67#6",
+      "kind": "primary",
+      "strict_load": true,
+      "data_identity": true,
+      "state_unchanged": true
+    },
+    {
+      "cell": "67#6",
+      "kind": "fresh_1",
+      "strict_load": true,
+      "data_identity": true,
+      "state_unchanged": true
+    },
+    {
+      "cell": "67#6",
+      "kind": "fresh_2",
+      "strict_load": true,
+      "data_identity": true,
+      "state_unchanged": true
+    },
+    {
+      "cell": "68#4",
+      "kind": "primary",
+      "strict_load": true,
+      "data_identity": true,
+      "state_unchanged": true
+    },
+    {
+      "cell": "68#4",
+      "kind": "fresh_1",
+      "strict_load": true,
+      "data_identity": true,
+      "state_unchanged": true
+    },
+    {
+      "cell": "68#4",
+      "kind": "fresh_2",
+      "strict_load": true,
+      "data_identity": true,
+      "state_unchanged": true
+    },
+    {
+      "cell": "69#4",
+      "kind": "primary",
+      "strict_load": true,
+      "data_identity": true,
+      "state_unchanged": true
+    },
+    {
+      "cell": "69#4",
+      "kind": "fresh_1",
+      "strict_load": true,
+      "data_identity": true,
+      "state_unchanged": true
+    },
+    {
+      "cell": "69#4",
+      "kind": "fresh_2",
+      "strict_load": true,
+      "data_identity": true,
+      "state_unchanged": true
+    }
+  ],
+  "all_passed": true,
+  "source_sha256": {
+    "inference_diagnostics.py": "6e6a94db51443831848229cdbcf0d9de6fbb323a7015869896a2ed9ffe6784aa",
+    "PROTOCOL.md": "8a2da53e1251b67415b51eb77a06b17af0b8ba78f921a6de7e86f3a6ccc1b127"
+  },
+  "training_runs": 0,
+  "synthetic_current_full_forward_exact": false,
+  "synthetic_archived_current_reconstruction_exact": true
+}

@@ -1,0 +1,472 @@
+{
+  "status": "LOCKED_BEFORE_PER_BIN_LOSS",
+  "utc": "2026-09-05T11:20:13.017928+00:00",
+  "thresholds_sha256": "51df98b3fc4e070c1580df8816708d44d46c9b44d98439c462b4bc3d7c60b146",
+  "features_sha256": {
+    "development_features_67_4.npz": "1b7b185237e8e057e23a39deaa7484c25d17ad08e9171e913ebede32b4b46783",
+    "development_features_67_6.npz": "81768dc156024563b3ef681fafaa13f3ad5b818bed4c88495bd7b991fd23be5a",
+    "development_features_67_7.npz": "95e7b30f98654687def6002e4f3503e189182ed0330fc5d94dd3b0821ff94e79",
+    "development_features_67_14.npz": "6191eb0c2ad687b1d8185779c1876d0ed4b10a1445e56c5bba6580d18602438e",
+    "development_features_67_21.npz": "986619bb88b84fdaff4466753594e60e95d5e0541befd148e9a69d4555d0f81f",
+    "development_features_67_26.npz": "4114a0846dcc2803a0471036c35f7fb12f28ad072225eec8c2c6c66a7cc13bbf",
+    "development_features_67_33.npz": "22c8f2d7163ab50e9327013c824222169e1d4b2342a66b2a614cae9bc66a4b95",
+    "development_features_67_34.npz": "b0ce190e03d0ea5c61f0dabf11740e4ba09d23f45be8be0329b6e600e7e6c6aa",
+    "development_features_68_3.npz": "144c08b6b447bedc7952fd8096b22f4ec7f319f6d8dbdd34b1289a725b159e28",
+    "development_features_68_4.npz": "2fa3f46f40ad7d1c16b1dc307c56940a182026974c431991f05feb5dd6af0581",
+    "development_features_68_7.npz": "f252bbd8c024ef7918004813a1cc32436d6232b923c759f0678e32c11f7adcf7",
+    "development_features_68_10.npz": "2ce50af45c4a5764e775c17f25a72c236071398f54c34cd8acb21bf3e3f0c428",
+    "development_features_68_11.npz": "df35f124f13abbe22effeb310f0760b96802182ad2b53ff8ee6d0eea17994c63",
+    "development_features_69_3.npz": "030b5fd98da0728413d8c38e7391c5f2a42da89b02c7dd358f13d029ac6f213f",
+    "development_features_69_4.npz": "41072355e1012fc9a8436ea79bfeac895eefb61a9253ccbe496c8a50ca3fd978",
+    "development_features_69_6.npz": "df5580de8b592577c617bbc0cfff63ca77a44cc8f66ef454e4df9320cc502cff",
+    "development_features_69_7.npz": "9e286829bb1c37cdcc7af0b0879ff5cf6b5af4a4366bb038619a87bf1402d203",
+    "development_features_69_21.npz": "4124ff87164861e9a5d69dc10fb2fe208d88b7e66cfb7b9b057493c8558ac427",
+    "development_features_70_1.npz": "c1726094e81f5b2b9f2c074e8eb8f92dcd17a0dd3bd31206281cb802d559e902",
+    "development_features_70_7.npz": "28403101524aa6127b9e4d0a8df287f2d587ddeef413516411eb921912cdeb8e",
+    "development_features_70_15.npz": "9419695d75e360acf3aa23059dc3b120f98cdb101372e4539ce920f84ce032d8",
+    "development_features_70_34.npz": "c88d2636212bc7b09db90cb2b09a26010425a536c52da1bc81556f7c5ecf8a7f"
+  },
+  "support_geometry": [
+    {
+      "cell_id": "67#4",
+      "samples": 4,
+      "center": [
+        [
+          0.07636404037475586,
+          -0.05951613187789917
+        ]
+      ],
+      "support_sha256": "e57b8ddb67a31d709f33a53d9a7d05af18b55ccc6af6479e9fcf4d2d01891cd4",
+      "weight_sha256": "97d6a1ea4a0ad9a5ae869e4242d1e929e30577f4093922b50c14fb40a7b8df10",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        1,
+        4,
+        18,
+        0
+      ]
+    },
+    {
+      "cell_id": "67#6",
+      "samples": 10,
+      "center": [
+        [
+          -0.12376083433628082,
+          -0.04892627149820328
+        ]
+      ],
+      "support_sha256": "dd63c80c249cd8993f5c66ec2b32e57d931b40be755a0a7fc2dc86a04f395a8d",
+      "weight_sha256": "c2d9084ffda814c252bd9514c409fb3f1343ba1561b5baa36c67e51fcd263072",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        14,
+        56,
+        147,
+        0
+      ]
+    },
+    {
+      "cell_id": "67#7",
+      "samples": 12,
+      "center": [
+        [
+          0.08704902231693268,
+          0.026340056210756302
+        ]
+      ],
+      "support_sha256": "a92cfabba8fc18f0503c8271a5243f8ba9f7596fe4c25868cfe5580af26520bc",
+      "weight_sha256": "1bac2635c3996af638bae5e28ec545a1bd5929c57c5bd3e613df5f73403733d2",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        0,
+        28,
+        84,
+        0
+      ]
+    },
+    {
+      "cell_id": "67#14",
+      "samples": 4,
+      "center": [
+        [
+          0.05767524242401123,
+          0.025825897231698036
+        ]
+      ],
+      "support_sha256": "6effb0b73f11bffd082036be412a311a5071b690b6401d92f0e84c0b4581a9a5",
+      "weight_sha256": "47d1a64849254649b69fc3837eb89e104043ef734ff3eeb69037f006d787118d",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        7,
+        7,
+        91,
+        0
+      ]
+    },
+    {
+      "cell_id": "67#21",
+      "samples": 4,
+      "center": [
+        [
+          0.05670304223895073,
+          0.04095740616321564
+        ]
+      ],
+      "support_sha256": "eb31f12c2bc22fdbd006eede1e45956edfa7a64aa50979301b25457d3e002d32",
+      "weight_sha256": "c274efe31efe5606f29fea923428ec1124c08c3227dea20dae2a95440c602c39",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        0,
+        42,
+        84,
+        0
+      ]
+    },
+    {
+      "cell_id": "67#26",
+      "samples": 5,
+      "center": [
+        [
+          0.05267868936061859,
+          -0.0012681199004873633
+        ]
+      ],
+      "support_sha256": "3b75b71080b2d53ef9c523aaa303212aa3d7907012d6aabc8d32a183d3475aa2",
+      "weight_sha256": "1012f058e21e053bc82d3ca9c4700eab6aee9697629921186e1982774e50b7b9",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        7,
+        42,
+        98,
+        0
+      ]
+    },
+    {
+      "cell_id": "67#33",
+      "samples": 10,
+      "center": [
+        [
+          -0.001988058676943183,
+          0.09824352711439133
+        ]
+      ],
+      "support_sha256": "b92cf3e0cff1059241c007a98b71cc6fef2a336a4838cf1a25f0d9d9e94e5e04",
+      "weight_sha256": "a6ce158ea8bcfc8ac20090868e48cdec3c3bf4e3dfab63fe8ed09ed06d9e1c9d",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        7,
+        14,
+        77,
+        0
+      ]
+    },
+    {
+      "cell_id": "67#34",
+      "samples": 4,
+      "center": [
+        [
+          -0.01541306171566248,
+          -0.08554068952798843
+        ]
+      ],
+      "support_sha256": "7310e28267f2a5a5e5aabf78acb4b6cf776e16b89a5353cd8663f86a3cb73d55",
+      "weight_sha256": "cbc80e95dd89f22e877994ffc45e66515ec84fb33cf2e63fd21c7c0b812c3d6c",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        21,
+        63,
+        161,
+        0
+      ]
+    },
+    {
+      "cell_id": "68#3",
+      "samples": 12,
+      "center": [
+        [
+          -0.15077504515647888,
+          0.03275403380393982
+        ]
+      ],
+      "support_sha256": "15c485bd797f96297671163694a6c32fe26ba1724a34b5580317a2c5005b6524",
+      "weight_sha256": "a01dd5ae0a099d6c46b8b4871f58423c5bba0cd47aac17950d9eddbe6f5eeca0",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        14,
+        42,
+        112,
+        0
+      ]
+    },
+    {
+      "cell_id": "68#4",
+      "samples": 3,
+      "center": [
+        [
+          -0.008139648474752903,
+          0.00870480202138424
+        ]
+      ],
+      "support_sha256": "9c0d7451087ee56c8082c3f40f8c25bf0fbcaa236bf7c854f13eea280dbedb91",
+      "weight_sha256": "6651db9618a122fad04d49e24fa8e06cdfd335f0b5cfbddc90e7c39b593be7cb",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        6,
+        36,
+        78,
+        0
+      ]
+    },
+    {
+      "cell_id": "68#7",
+      "samples": 4,
+      "center": [
+        [
+          -0.0877300351858139,
+          0.10569870471954346
+        ]
+      ],
+      "support_sha256": "5d3d2c6c39bc7f25432fb0ad49fcc5c352037c9d88d531b5cdd50333f5ca52bb",
+      "weight_sha256": "67d68c1337fe6a9b2ebf40dce382a4b4345681aab341c04175feb3de01493004",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        7,
+        14,
+        63,
+        0
+      ]
+    },
+    {
+      "cell_id": "68#10",
+      "samples": 11,
+      "center": [
+        [
+          -0.24637316167354584,
+          0.33450740575790405
+        ]
+      ],
+      "support_sha256": "713d6cebe5188b3f6eff36d570ccde95eee38879c4392d7babc33a6d257ad29a",
+      "weight_sha256": "e5310dfea1dc5a8b2a08dcbd192a65353b172b680af1d60cf99c611eaba9cc6f",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        1,
+        6,
+        6,
+        0
+      ]
+    },
+    {
+      "cell_id": "68#11",
+      "samples": 3,
+      "center": [
+        [
+          -0.011630845256149769,
+          0.05925844982266426
+        ]
+      ],
+      "support_sha256": "d22899912d7c6d19dc1cad0b359d165220c7684a3a6136574f8ef5e3c321e6f7",
+      "weight_sha256": "b392c46856174911169c2c9adebbe2cbff8f7a0746bb19f926d07cdf9dd35ac2",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        7,
+        63,
+        77,
+        0
+      ]
+    },
+    {
+      "cell_id": "69#3",
+      "samples": 4,
+      "center": [
+        [
+          0.014486526139080524,
+          -0.03396669775247574
+        ]
+      ],
+      "support_sha256": "8354baddf8a0b21da3d0d3820198d09f6d89257f17a2bfc7068034f62bfa6a48",
+      "weight_sha256": "b7d95e52edbd1862edf6130311748e7f525df3966ae11ca71ac384a693281858",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        7,
+        49,
+        84,
+        0
+      ]
+    },
+    {
+      "cell_id": "69#4",
+      "samples": 10,
+      "center": [
+        [
+          0.06092890724539757,
+          0.011171641759574413
+        ]
+      ],
+      "support_sha256": "099e03a9658358b847e0d7688267520df956a39e9c8263f011452faecde51197",
+      "weight_sha256": "cdcd2defa9032d09b96cc130c9b74d38d04d6780ab755eeaf725317a1b9cd6d6",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        0,
+        36,
+        72,
+        0
+      ]
+    },
+    {
+      "cell_id": "69#6",
+      "samples": 13,
+      "center": [
+        [
+          0.03793558478355408,
+          -0.07012326270341873
+        ]
+      ],
+      "support_sha256": "dbb81d4b1cb317e7defe1285e6a3631a9c56524ca6335c2b6caee8ac238bb8cf",
+      "weight_sha256": "8aa1cd8c119f6865c6fe0f26162ba2da308d07c28e59b7a4bd3143358231fe19",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        0,
+        42,
+        133,
+        0
+      ]
+    },
+    {
+      "cell_id": "69#7",
+      "samples": 12,
+      "center": [
+        [
+          0.06919917464256287,
+          -0.037970226258039474
+        ]
+      ],
+      "support_sha256": "1a88e50d42975a36c5adfacba8c6355f4a1352c9865fd1d1e7ade1d1772c7c8e",
+      "weight_sha256": "42d3c4d63b1835e0936cfd0f4d5aa3d546e2d3804ea3d64ec999966e4c0df9a6",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        0,
+        49,
+        105,
+        0
+      ]
+    },
+    {
+      "cell_id": "69#21",
+      "samples": 4,
+      "center": [
+        [
+          0.24542899429798126,
+          -0.06411007046699524
+        ]
+      ],
+      "support_sha256": "e766d6aa98d29d9fd48eb67424c9a40d33a73fa709ee11e6ee96adcb17f207ac",
+      "weight_sha256": "88d84025afc1d564758a830986e6e0897dbefd9bfe0f6440b599d5282cd73ae3",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        0,
+        24,
+        78,
+        0
+      ]
+    },
+    {
+      "cell_id": "70#1",
+      "samples": 4,
+      "center": [
+        [
+          0.007984467782080173,
+          -0.30396997928619385
+        ]
+      ],
+      "support_sha256": "d8d9afeac38977758bb7fcb7d38cd9f3de78148f7e5de725c8f59af4f7941b05",
+      "weight_sha256": "e4fb342d05f568499aefc74cbf4d098f6c6a712449f85bfcf5e5b0fa4d8dc3e7",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        18,
+        24,
+        78,
+        0
+      ]
+    },
+    {
+      "cell_id": "70#7",
+      "samples": 3,
+      "center": [
+        [
+          0.01667848974466324,
+          0.004625324159860611
+        ]
+      ],
+      "support_sha256": "d6f8af9f184d4b4596bba3e0391a60961ba5d6fb52c52d699e6e0055562b19e3",
+      "weight_sha256": "11d1266f1eb7c90a94a59cad5947a15c4949adec789aec7000e82d4dc481296b",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        21,
+        21,
+        63,
+        0
+      ]
+    },
+    {
+      "cell_id": "70#15",
+      "samples": 4,
+      "center": [
+        [
+          -0.10541605949401855,
+          -0.0970519483089447
+        ]
+      ],
+      "support_sha256": "b2cf8d67fff2971599d472368dc6f96fb3b91a22e19c90027f4adb9dedc95d78",
+      "weight_sha256": "9c6fc01c11a6eee11e5ff64786d0183fd96e04b1f8ddecadc043b23589e3dc14",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        30,
+        24,
+        132,
+        0
+      ]
+    },
+    {
+      "cell_id": "70#34",
+      "samples": 11,
+      "center": [
+        [
+          -0.05031580850481987,
+          0.0756404772400856
+        ]
+      ],
+      "support_sha256": "b65be8dba20d5a2d7a2f27b784d4e1cfe3423c68f3b22ca180e9c5cf17a84511",
+      "weight_sha256": "27877f9a4763c8eef755bc16026735e9548465c526adcbf35f8d7530602a0449",
+      "coordinate_sha256": "79ba63eb0976818070976a20cb8865245ec4252c6fc69d89c624c5c3f1093a96",
+      "overlap_counts": [
+        0,
+        0,
+        49,
+        77,
+        0
+      ]
+    }
+  ],
+  "outputs_accessed_for_feature_definition": false
+}

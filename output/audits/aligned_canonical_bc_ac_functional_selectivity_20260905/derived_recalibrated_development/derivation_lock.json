@@ -1,0 +1,8 @@
+{
+  "locked_utc": "2026-09-05T12:36:41.163598+00:00",
+  "sha256": {
+    "derivation_manifest.json": "495494f62e33bcfcc4bb18b42c534691298ca1ec9d9093bb797ad96e5d87b644",
+    "recalibrated_development_logits.pt": "2a812f21e620b859a291a1e89ab5a4887d5010cca0d85ce45b62eea94c9864bc",
+    "recalibrated_development_nll.csv": "88be6ae56a81de02fd1c10d846c92478cfaa67f944ccbd6db2412458343ac234"
+  }
+}

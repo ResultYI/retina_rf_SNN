@@ -9,6 +9,7 @@ from torch import nn
 
 
 CANONICAL_SPATIAL_CONTRACT: Final = "bc-central-disk_ac-overlapping-full-disk"
+EXTERNAL_SPATIAL_CONTRACT: Final = "external-rf-derived-fixed-spatial-geometry"
 _STATE_KEY: Final = "_spatial_contract_id"
 
 
@@ -20,10 +21,10 @@ class SpatialContractError(RuntimeError):
         return self.message
 
 
-def register_spatial_contract(model: nn.Module) -> None:
+def register_spatial_contract(model: nn.Module, identity: str = CANONICAL_SPATIAL_CONTRACT) -> None:
     model.register_buffer(
         _STATE_KEY,
-        torch.tensor(list(CANONICAL_SPATIAL_CONTRACT.encode()), dtype=torch.uint8),
+        torch.tensor(list(identity.encode()), dtype=torch.uint8),
     )
     model.register_load_state_dict_pre_hook(_check_spatial_contract)
 
@@ -50,6 +51,15 @@ def _check_spatial_contract(
             "legacy or unlabelled spatial checkpoints cannot be loaded"
         )
     _check_loaded_geometry(module, state_dict, prefix)
+    if bytes(expected.cpu().tolist()).decode() == EXTERNAL_SPATIAL_CONTRACT:
+        names = ("_external_geometry_sha256", "feature_bank.spatial_basis",
+                 "feature_bank.path_spatial_basis", "feature_bank.h1_support",
+                 "shared_subunits.edge_index", "shared_subunits.cell_order",
+                 "h1.graph.edge_index", "h1.graph.edge_weight", "h1.graph.node_order")
+        for name in names:
+            incoming = state_dict.get(prefix + name)
+            if incoming is None or not torch.equal(incoming.cpu(), module.get_buffer(name).cpu()):
+                raise SpatialContractError(f"external fixed geometry mismatch: {name}")
 
 
 def _check_loaded_geometry(

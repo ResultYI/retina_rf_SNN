@@ -1,0 +1,28 @@
+{
+  "cell_count": 22,
+  "recording_count": 37,
+  "trial_count": 137,
+  "production_train_live_frames": [
+    0,
+    2400
+  ],
+  "production_validation_live_frames": [
+    2400,
+    3000
+  ],
+  "bounds": "half-open",
+  "warmup_bins_per_sequence": 30,
+  "scored_bins_per_sequence": 120,
+  "saved_prediction_families_checked": 4,
+  "saved_prediction_files_checked": 88,
+  "all_target_mask_order_checks_pass": true,
+  "checkpoint_metadata_files_checked": 88,
+  "aligned_root_resolved_from_analysis_manifest": "output/real_data/schottdorf_canonical_v1_fixed_ln_center_22cell_20260905",
+  "candidate_physical_availability": true,
+  "common_movie_duration_s": 60,
+  "movie_decoded_frame_count_metadata": 91505,
+  "frozen_live_start_frame": 751,
+  "new_inference_runs": 0,
+  "new_metrics": 0,
+  "data_usage_clean_gate": "NOT_YET_ADJUDICATED"
+}

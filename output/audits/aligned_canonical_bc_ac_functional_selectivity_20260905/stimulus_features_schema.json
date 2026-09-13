@@ -1,0 +1,22 @@
+{
+  "format": "Parquet zstd",
+  "path": "stimulus_features.parquet",
+  "rows": 723360,
+  "development_rows": 65760,
+  "consumed_rows": 657600,
+  "row_order": "split then original cell/sequence/time scored order",
+  "geometry_files": "development_features_*.npz exact masks/weights/centers",
+  "C": "BC uniform drive",
+  "R": "AC minus BC uniform context drive",
+  "S": "abs(R-C)",
+  "Q": "R-C",
+  "U": "abs(C)",
+  "V": "abs(R)",
+  "LSC": "fullAC uniform spatial standard deviation",
+  "feature_units": "dimensionless Weber drive",
+  "loss_units": "nats per scored bin",
+  "provenance": "Historical raw predictions/frozen biases; newly derived development calibrated outputs and selectivity statistics",
+  "normal_calibrated": false,
+  "consumed_thresholds": "fixed numerical development thresholds",
+  "decoded_frame_origin_provenance": "UNKNOWN; frozen751 preserved"
+}

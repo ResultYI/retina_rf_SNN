@@ -1,0 +1,1355 @@
+[
+  {
+    "artifact": "data/Cell List.docx",
+    "hits": [],
+    "all_text": "Cell List\nFile\nCell Type\nRecord type\nCell key\nLss01071.txt\n-\nM+Loff\n10 min\n67#4\nLss01078.txt\nMC off\n6x1min\n67#6\nLss01079.txt\nMC off\n10min\n67#6\nLss01086.txt\nMC on\n6x1min\n67#7\nLss01087.txt\nMC on\n10min\n67#7\nLss01110.txt\n+L-Mon\n6x1min\n67#14\nLss0\n1112.txt\n+L-Mon\n10min\n67#14\nLss01130.txt\n+M-Lon\n6x1\nmin\n67#21\nL\nss01131.txt\n+M-Lon\n10min\n67#21\nLss01141.txt\n+M-Lon\n6x1min\n67#26\nLss01142.txt\n+M-Lon\n10min\n67#26\nLss01159.txt\nMC off\n6x1min\n67#33\nLss01160\n.txt\nMC off\n10min\n67#33\nLss01167.txt\n+L-Mon\n6x1min\n67#34\nLss01168.txt\n+L-Mon\n10min\n67#34\nLss01178.txt\nS on\n6x1min\n68#1\nLss01180\n.txt\nS on\n10\nmin\n68#1\nLss01181.txt\nMC off\n6x1\nmin\n68#3\nLss01183.txt\nMC off\n10min \n68#3\nLss01184.txt\n+L-Mon\n10min \n68#4\nLss01221.txt\nMC on\n10 min\n68#10\nLss01225.txt\n-\nM+Loff\n6x1 min\n68#11\nLss01227.txt\n-\nM+Loff\n10 min\n68#11\nLss01229.txt\nS on\n6x1 min\n68#12\nLss01231\n.txt\nS on\n10 min\n68#12\nLss01251.txt\n+M-\nLoff\n6x1 min\n69#3\nLss01252.txt\n+M-\nLoff\n10 min\n69#3\nLss01254.txt\nMC on\n6x1 min\n69#4\nLss01256.txt\nM off\n6x1 min\n69#6\nLss01257.txt\nM off\n10 min\n69#6\nLss01258.txt\nM on\n6x1 min\n69#7\nLss01259.txt\nM on\n10 min\n69#7\nLss01270.txt\n-\nL+Moff\n6x1 min\n69#21\nLss01278.txt\n+M-Lon\n6x1 min\n70#1\nLss01284.txt\n+M-Lon\n6x1 min\n70\n#7\nLss01285.txt\n+M-Lon\n10 min\n70\n#7\nLss01287.txt\n+M-Lon\n6x1 min\n70#15\nLss01299.txt\nMC on\n6x1 min\n70#34\nLss01300.txt\nMC on\n10 min\n70#34\nLss01302.txt\nS on\n6x1 min\n71#9\nLss01303.txt\nS on\n10\n min\n71#9"
+  },
+  {
+    "artifact": "data/CellsList.docx",
+    "hits": [
+      {
+        "line": 21,
+        "text": "Repeat centered"
+      }
+    ],
+    "all_text": "T\nhe \n6x\n1 min segments were all in\n on\ne \nfile\n bu\nt\n the up to 6 10 min runs are separate files\nER67U\n1 \ngoff\n6x1\n48\n6x1\n53\nLL\nRR\ncorr\nRepeat centered\n6x\n1\n0\n54-59\nLL\nRR\nER67\nU\n3\nron\n1 min\n61\nC\nLL\nRR\ncorr\nLost bad\n1\nx10\n65\nLL\nRR\nER67\nU4\ngoff\n6x1\n69\nC\nLL\nRR\npoor\nbad\nML\nresp\n6x10\n70-75\nLL\nRR\n6x1 128\n77\ner67u6\nmoff\n6x1\n78\nC\nLL\nRR\n6x10\n79-84\nLL\nRR\nER67U8\nmon\n6x1\n86\nC\nLL\nRR\n6x10\n87-92\nLL\nRR\n6x1\n94\nC\nLL\nRR\n128x128\n6x1\n95\n256x256\n,1\n/2\n6x1\n96\n128x128\n,1\n/2\n6x1\n97\n256x256\n,1nd\n6x1\n98\nrepeat\n99\nER67U9\nron\n6x1\n100\nC\nLL\nRR\n1x10\n101\nLL\nRR\n1ND\n6x1\n102\nonly\n 103 ok\n6x10\n103\nLL\nRR\nER67U14\nron\n6x1\n110\nC\nLL\nRR\nCts\n also\n6x10\n111-116\nLL\nRR\nER67U15\nRon?\n6x1\n118\nC\nLL\nRR\n1x10\n119\nLL\nRR\nER67U12\nMon\ndirt?\n6x1\n120\nC\nLL\nRR\nER67U18\nMon\n6x1\n121\nC\nLL\nRR\n1x10\n122\nLL\nRR\n6x10\n123-128\nLL\nRR\nER67U21\nGon\n6x1\n130\n \nC\nLL\nRR\nLast 2-3\n odd\n6x10\n131-136\nLL\nRR\nER67U23\nRon\n6x1\n138\nC\nLL\nRR\n2x10\n139-140\nLL\nRR\nER67U26\nGon\n6x1\n141\nC\nLL\nRR\n14\n4,\n5 dirty\n3x10\n142-144 \nLL\nRR\n128x128\n6x1\n147\n1nd\n6x1\n148\n2nd\n6x1\n149\n2\nnd\n \nrpt\n6x1\n150\nER67U28\nMon\n6x1\n151\nC\nLL\nRR\nCts\n also\n6x10\n152-157\nLL\nRR\nER67U33\nMoff\n6x1\n159     \nC\nLL\nRR\ncts\n also\n1x10\n160\nLL\nRR\nnd1\n6x1\n161\nnd2\n6x1\n162\nnd2\n1x10\n163\nnd2\n1x10\n164\n6x1 min\n165\nC\nLR\nRR\n128x128\n6x1 min\n166\nER67U34\nRon\n6x1\n167\nC\nLR\nRR\n1x10\n168\nLL\nRR\n1nd\n6x1\n169\n2nd\n6x1\n170\n4x10\n171-174\nLR\nRR\nER68U2\nBon\n6x1\n178\nC\nLR\nRR\nBAR\n,BNR\n6x1time\n179\nC\n1x10\n180\nLR\nSR\nER68U3\nMoff\n6x1\n181\nC\nLR\nRR\n6x1time\n182\nC\n1x10\n183\nLR\nRR\nER68U4\nRon\n6x1\n184\nC\nLR\nRR\n  poor\ndirtend\n6x1time\n185\n6x1\n186\nC\nLR\nRR\n poor\nER68U5\nGoff\n1x10\n188\nLR\nRR\n6x1\n189\nC\nLR\nRR\n poor\nER68U6\nBon\n6x1\n190\nC\nLR\nRR\nBAR\n,BNR\n6x1time\n191\nC\ngating\n bad\n1x10\n192\nlum\n poor\n1x10\n193\nLR\nSabs\nER68U7\nRon\n6x1\n194\nC\nLR\nRR\n6x1\ntime\n195\nC\n1x10\n196\nLR\nRR\n6x10\n197-202\nLR\nRR\nER68U8\nBon\n6x1\n204\nC\nLR\nRR\nBAR\n,BN\nNot Bon\nLost after 2 repeats\nBoff\n or Goff\nN\nogood\n--\n1x10\n205\n6x1time\n206\nC\n211bad\n5x10\n207-211\nLR\nER68U9\nRoff\n6x1\n212\nC\nLR\nRR\n poor\nPoor \nchr\n \nresp\n1x10\n213\nLR\nRR\nScrub cell\n6x1\ntime\n214\nC\nalso\n poor\n3x10\n215-217\nLR\nRR\nER68U10\nMon\n6x1\n218\nC\nLR\nRR\n6x1time\n220\nC\n4x10\n221-224\nLR\nRR\nER68U11\nGoff\n poor\n6x1\n225\nC\nLR\nRR\n  poor\nBad \nresp\n6x1time\n226\nC\n2x10\n227-228\nLR\nRR\nER68U12\nBon\n6x1\n229\nC\nLR\nRR\nBAR\nNot good\n6x1time\n230\nC\n1x10\n231\nLR\nSC\nER68U13\nRon\n6x1\n232\nC\nLR\nRR\nRun 4 bad\n6x1time\n233\nC\n1x10\n234\nLR\nRR\nER68U18\ngon\nNG\n6x1\n235\nC\nLR\nRR\n6x1time\n236\nC\nNG\n1x10\n237\nLR\nRR\nER68U19\nRon\n6x1\n238\nC\nLR\nRR\n6x1time\n239\nC\n4x10\n240-243\nLR\nCR\nER68U20\nRon\nweak\n6x1\n244\nC\nLR\nRR\n6x1time\n245\nC\n1x10\n246\nLR\nRR\nER69U1\nMoff\npoor\n6x1\n247\nC\nLR\nRR\nFirst run poor\n1x10\n248\nLR\nRR\nER69U2\nGoff\n6x1\n249\nC\nLR\nRR\nFew spikes\ndirty\n?\n1x10\n250\nLR\nRR\nER69U3\nRoff\n6x1\n251\nC\nLR\nRR\n?????\n1x10\n252\nLR\nRR\n6x1time\n253\nC\nER69U4\nMon\n6x1\n254\nC\nLR\nRR\nalso\n \ncts\n6x1time\n255  \nC\nER69U6\nMoff\n6x1\n256\nC\nLR\nRR\n1x10\n257\nLR\nRR\nER69U7\nMon\n6x1\n258\nC\nLR\nRR\nalso\n \ncts\n1x10\n259\nLR\nRR\nER69U10\nMon\n 3rpts\n6x1\n260-262\nC\nLR\nRR\n3NDs?\n6x1time\n263\nC\nalso\n \ncts\n3x10\n264-266\nLR\nRR\nER69U21\nRoff\n6x1\n267\nC\nLR\nRR\n poor \nchr\nOr \nron\n?\n1x10\n269\nLR\nRR\nrepeat\n6x1\n270\nC\nLR\nRR\n better\nlow\n correlation\nER69U22\nGoff\n6x1\n271\nC\nLR\nRR\nLow correlation\n1x10\n272\nLR\nRR\nER69U26\nRon\npoor\n6x1\n273\nC\nLR\nRR\ndirty\n1x10\n274\nLR\nRR\nER70\nU1\nGon\n6x1\n278\nC\nLR\nRR\nER70U5\nRoff\npoor\n6x1\n281\nC\nLR\nRR\npoor\n2x10\n282-283\nLR\nRR\nER70U7\nGon\n6x1\n284\nC\nLR\nRR\n2x10\n285-286\nLR\nRR\nER70U13\nGon\n6x1\n287\nC\nLR\nRR\n1x10\n288\n?\nER70U\n17\nGon\n6x1\n288\nLR\nRR\nPoor correlation\n2x10\n289-290\nLR\nRR\nER70U24\nGon\n6x1\n291\nC\nLR\nRR\nER70U25\nGon\n?\n1x10\n292\nLR\nRR\n6x1\n293\nC\nLL\nRR\npoor\n correlation\nER70U27\nMoff\n6x1\n297\nC\nLL\nRR\n1x10\n298\nLL\nRR\nER70U34\nMon\n6x1\n299\nC\nLL\nRR\n5\nth\n run \nbad\n1x10\n300\nLL\nRR\nER71U9\nBon\n6x1\n302\nC\nLL\nRR\nBAR\n, BNR\n2\nnd\n bad\n2x10\n303-304\nLL\nRR"
+  },
+  {
+    "artifact": "data/lSS01071.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01078.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01079.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01086.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01087.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01110.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01112.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01130.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01131.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01141.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01142.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01159.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01160.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01167.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01168.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01178.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01180.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01181.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01183.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01184.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01194.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01196.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01221.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01225.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01227.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01229.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01231.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01251.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01252.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01254.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01256.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01257.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01258.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01259.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01270.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01278.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01284.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01285.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01287.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01299.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01300.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01302.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "data/lSS01303.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "datacite.yml",
+    "hits": [
+      {
+        "line": 50,
+        "text": "  - \"NIH, 5R01EY013112\""
+      }
+    ],
+    "all_text": null
+  },
+  {
+    "artifact": "exampleRFs/Fig2publication.xlsx",
+    "hits": [
+      {
+        "line": 2,
+        "text": "Data!B1: MxX"
+      },
+      {
+        "line": 3,
+        "text": "Data!C1: MxY"
+      },
+      {
+        "line": 9,
+        "text": "Data!K1: Peak"
+      },
+      {
+        "line": 17,
+        "text": "Data!A5: RevCorrPeak Profiles, x,y"
+      },
+      {
+        "line": 21,
+        "text": "Data!A9: RevCorr"
+      },
+      {
+        "line": 55,
+        "text": "off272!B1: MxX"
+      },
+      {
+        "line": 56,
+        "text": "off272!C1: MxY"
+      },
+      {
+        "line": 62,
+        "text": "off272!K1: Peak"
+      },
+      {
+        "line": 64,
+        "text": "off272!A5: RevCorrPeak Profiles, x,y"
+      },
+      {
+        "line": 65,
+        "text": "off272!A8: RevCorr"
+      },
+      {
+        "line": 87,
+        "text": "off272!A3240: RevMapFFT XY"
+      },
+      {
+        "line": 88,
+        "text": "off272!A3370: RevMapFFT XTime"
+      }
+    ],
+    "all_text": null
+  },
+  {
+    "artifact": "exampleRFs/Fig3publication.xlsx",
+    "hits": [
+      {
+        "line": 2,
+        "text": "rn101lum!B1: MxX"
+      },
+      {
+        "line": 3,
+        "text": "rn101lum!C1: MxY"
+      },
+      {
+        "line": 9,
+        "text": "rn101lum!K1: Peak"
+      },
+      {
+        "line": 11,
+        "text": "rn101lum!A5: RevCorrPeak Profiles, x,y"
+      },
+      {
+        "line": 25,
+        "text": "rn101lum!A16: RevCorr"
+      },
+      {
+        "line": 37,
+        "text": "231 S cone!A265: RevCorrPeak Profiles, x,y"
+      },
+      {
+        "line": 40,
+        "text": "231 S cone!A278: RevCorrPeak Profiles, x,y"
+      },
+      {
+        "line": 69,
+        "text": "gn292rg!B1: MxX"
+      },
+      {
+        "line": 70,
+        "text": "gn292rg!C1: MxY"
+      },
+      {
+        "line": 76,
+        "text": "gn292rg!K1: Peak"
+      },
+      {
+        "line": 78,
+        "text": "gn292rg!A5: RevCorrPeak Profiles, x,y"
+      },
+      {
+        "line": 79,
+        "text": "gn292rg!A8: RevCorr"
+      },
+      {
+        "line": 83,
+        "text": "gn292lum!B1: MxX"
+      },
+      {
+        "line": 84,
+        "text": "gn292lum!C1: MxY"
+      },
+      {
+        "line": 90,
+        "text": "gn292lum!K1: Peak"
+      },
+      {
+        "line": 92,
+        "text": "gn292lum!A5: RevCorrPeak Profiles, x,y"
+      },
+      {
+        "line": 93,
+        "text": "gn292lum!A8: RevCorr"
+      },
+      {
+        "line": 97,
+        "text": "rn101rg!B1: MxX"
+      },
+      {
+        "line": 98,
+        "text": "rn101rg!C1: MxY"
+      },
+      {
+        "line": 104,
+        "text": "rn101rg!K1: Peak"
+      },
+      {
+        "line": 106,
+        "text": "rn101rg!A5: RevCorrPeak Profiles, x,y"
+      },
+      {
+        "line": 107,
+        "text": "rn101rg!A11: RevCorr"
+      }
+    ],
+    "all_text": null
+  },
+  {
+    "artifact": "LICENSE",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "README.md",
+    "hits": [
+      {
+        "line": 8,
+        "text": "Funding for the project: Max-Planck Society, NIH and the National Eye Institute via 5R01EY013112, and a Boehringer Ingelheim Fonds PhD Fellowship."
+      },
+      {
+        "line": 21,
+        "text": "- `\\run_model\\` Contains jupyter-notebooks to run the model, and reproduce the model-figures from the paper. This can be run on a laptop. This folder also contains a subset of the data (N=15), obtained from the spiking raw data by smoothing with first order kernels of 2 ms or 4 ms width (depending on cell type, see paper) and averaged across the 6 x 1min repeats, for measuring model performance."
+      },
+      {
+        "line": 44,
+        "text": "| File name     |  Cell Type      |  Record Duration |   Cell Key   | Eccentricity |"
+      },
+      {
+        "line": 105,
+        "text": "4. Gun spectra. The spectra measured for the 3 display guns are tabulated in `GunSpectra.txt`. Based on the gun spectra and luminance estimates, the gun values were calibrated to deliver the same luminance. However, based on reverse correlation analysis on M cells, it was estimated that, relative to the red gun, the green gun luminance was overestimated by ca. 5% and the blue gun underestimated by ca. 20%. We therefore converged on the following equation to convert gamma-corrected intensities into l/m/s cone signals:"
+      },
+      {
+        "line": 116,
+        "text": "1. The averaged 6 x 1 min responses were best for modeling, while the 10 min runs gave better results for the reverse correlation. "
+      }
+    ],
+    "all_text": null
+  },
+  {
+    "artifact": "retinatools/__init__.py",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "retinatools/library.py",
+    "hits": [
+      {
+        "line": 100,
+        "text": "def receptiveField(x, y, xoff, yoff, rcenter):"
+      },
+      {
+        "line": 101,
+        "text": "    center = np.exp( -((x-xoff)**2 + (y-yoff)**2) / (2*rcenter*rcenter)) /(2*np.pi*rcenter*rcenter)"
+      },
+      {
+        "line": 102,
+        "text": "    return center"
+      },
+      {
+        "line": 104,
+        "text": "def get_RF(xoff, yoff, center):"
+      },
+      {
+        "line": 108,
+        "text": "    RF = receptiveField(x, y, xoff, yoff, center)"
+      },
+      {
+        "line": 114,
+        "text": "    xoff = fitparameters['xoff'] "
+      },
+      {
+        "line": 115,
+        "text": "    yoff = fitparameters['yoff']"
+      },
+      {
+        "line": 116,
+        "text": "    rcenterM = fitparameters['rcenterM']"
+      },
+      {
+        "line": 117,
+        "text": "    rcenterL = fitparameters['rcenterL']"
+      },
+      {
+        "line": 119,
+        "text": "    RFM = get_RF(xoff, yoff, rcenterM)"
+      },
+      {
+        "line": 120,
+        "text": "    RFL = get_RF(xoff, yoff, rcenterL)"
+      },
+      {
+        "line": 147,
+        "text": "    xoff = fitparameters['xoff'] "
+      },
+      {
+        "line": 148,
+        "text": "    yoff = fitparameters['yoff']"
+      },
+      {
+        "line": 149,
+        "text": "    rcenter = fitparameters['rcenter']"
+      },
+      {
+        "line": 152,
+        "text": "    RFcenter = get_RF(xoff, yoff, rcenter)"
+      },
+      {
+        "line": 153,
+        "text": "    RFsurround = get_RF(xoff, yoff, rsurr)"
+      },
+      {
+        "line": 160,
+        "text": "    rates_center = []"
+      },
+      {
+        "line": 169,
+        "text": "        rate_center = np.sum(luminance_frame*RFcenter)"
+      },
+      {
+        "line": 170,
+        "text": "        rates_center.append(rate_center)"
+      },
+      {
+        "line": 177,
+        "text": "    return np.array(rates_center), np.array(rates_surround)"
+      },
+      {
+        "line": 182,
+        "text": "    xoff = fitparameters['xoff'] "
+      },
+      {
+        "line": 183,
+        "text": "    yoff = fitparameters['yoff']"
+      },
+      {
+        "line": 184,
+        "text": "    rcenterY = fitparameters['rcenterY']"
+      },
+      {
+        "line": 185,
+        "text": "    rcenterB = fitparameters['rcenterB']"
+      },
+      {
+        "line": 187,
+        "text": "    RFY = get_RF(xoff, yoff, rcenterY)"
+      },
+      {
+        "line": 188,
+        "text": "    RFB = get_RF(xoff, yoff, rcenterB)"
+      },
+      {
+        "line": 238,
+        "text": "def get_MC_response(rates_center, rates_surround, fitparameters, type):"
+      },
+      {
+        "line": 239,
+        "text": "    rC = SimpleLowpass(fitparameters['lum_factor']*rates_center, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "line": 252,
+        "text": "    #Calculate input signal from center - surround"
+      }
+    ],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/BlueOn-checkpoint.ipynb",
+    "hits": [
+      {
+        "line": 12,
+        "text": "fitparameters = {'xoff': -1.0, 'yoff': 7.0, 'rcenterB': 12.5, 'rcenterY': 15.0, \\"
+      },
+      {
+        "line": 27,
+        "text": "fitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\"
+      },
+      {
+        "line": 42,
+        "text": "fitparameters = {'xoff': 2.1, 'yoff': 4.7, 'rcenterB': 4.9, 'rcenterY': 6.2,"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom retinatools.library import filter_video_BO, get_BO_response, compare_to_file\nCELL 2 markdown\n# Cell 229\nCELL 3 code\nfitparameters = {'xoff': -1.0, 'yoff': 7.0, 'rcenterB': 12.5, 'rcenterY': 15.0, \\\n                 'tau1': 7.5, 'tau2': 120, 'delay': 0, 'beta': 2.0, 'alpha': 2.5, \\\n                 'tau3': 1400, 'kL': 0.09, 'kM': 0.053, 'kB': 0.17, 'offset': -0.049, 'dt': 1000/150.}\nCELL 4 code\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters)\nCELL 5 code\ncompare_to_file('./data/File229Bon.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.7802624476726236\nCELL 6 code\n\nCELL 7 markdown\n# Cell 178\nCELL 8 code\nfitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\\n                 'tau1': 10.2, 'tau2': 86, 'delay': 29, 'beta': 0.0, 'alpha': 4.9,  \\\n                 'tau3': 280, 'kL': 0.01, 'kM': 0.051, 'kB': 0.12, 'offset': 0.025, 'dt': 1000/150.}\nCELL 9 code\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters)\nCELL 10 code\ncompare_to_file('./data/File178Bon.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.8153849801352536\nCELL 11 code\n\nCELL 12 markdown\n# Cell 302\nCELL 13 code\nfitparameters = {'xoff': 2.1, 'yoff': 4.7, 'rcenterB': 4.9, 'rcenterY': 6.2,\n                 'tau1': 7.8, 'tau2': 75, 'delay': 24, 'beta': 1.9, 'alpha': 2.5, \\\n                 'tau3': 550, 'kL': 0.070, 'kM': 0.068, 'kB': 0.28, 'offset': -0.065, 'dt': 1000/150.}\nCELL 14 code\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters)\nCELL 15 code\ncompare_to_file('./data/File302Bon.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.7320091829732691\nCELL 16 code\n\nCELL 17 code\n\nCELL 18 code\n\nCELL 19 code\n\nCELL 20 code\npl.rcParams['figure.figsize'] = [15, 4]\n\ncell_activity = np.loadtxt('./data/File178Bon.txt')\npl.plot(cell_activity[:,0])\n\ncell_activity = np.loadtxt('./data/File229Bon.txt')\npl.plot(cell_activity[:,0])\n\ncell_activity = np.loadtxt('./data/File302Bon.txt')\npl.plot(cell_activity[:,0])\n\npl.xlim([75,150*3])\npl.ylim([0,1.3])\n\n(0.0, 1.3)\n\n<Figure size 1080x288 with 1 Axes>"
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/MC_off-checkpoint.ipynb",
+    "hits": [
+      {
+        "line": 12,
+        "text": "fitparameters = {'xoff': -10.0, 'yoff': -3.4, 'rcenter': 4.6, 'rsurr': 33, 'ksurr': 0.43, 'surround_delay': 9, \\"
+      },
+      {
+        "line": 16,
+        "text": "rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 17,
+        "text": "Rpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"off-cell\")"
+      },
+      {
+        "line": 27,
+        "text": "fitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\"
+      },
+      {
+        "line": 31,
+        "text": "rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 32,
+        "text": "Rpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"off-cell\")"
+      },
+      {
+        "line": 48,
+        "text": "fitparameters = {'xoff': 1.1, 'yoff': 4.1, 'rcenter': 3.5, 'rsurr': 17, 'ksurr': 0.52, 'surround_delay': 10, \\"
+      },
+      {
+        "line": 52,
+        "text": "rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 53,
+        "text": "Rpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"off-cell\")"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom retinatools.library import filter_video_MC, get_MC_response, compare_to_file\nCELL 2 markdown\n# Cell 181\nCELL 3 code\nfitparameters = {'xoff': -10.0, 'yoff': -3.4, 'rcenter': 4.6, 'rsurr': 33, 'ksurr': 0.43, 'surround_delay': 9, \\\n                 'lum_factor': 90, 'tau1': 5.6, 'tau2': 30, 'k1': 0.00088, 'c1': 0.0032, 'tauplus': 22, \\\n                 'tauA': 47, 'k2': 410, 'dt': 1000/150.}\nCELL 4 code\nrates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"off-cell\")\nCELL 5 code\ncompare_to_file('./data/File181Moff.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.8053052204778807\nCELL 6 code\n\nCELL 7 markdown\n# Cell 078\nCELL 8 code\nfitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\\n                 'lum_factor': 1000, 'tau1': 5.0, 'tau2': 16, 'k1': 0.00048, 'c1': 0.0024, 'tauplus': 22, \\\n                 'tauA': 33, 'k2': 560, 'dt': 1000/150.}\nCELL 9 code\nrates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"off-cell\")\nCELL 10 code\ncompare_to_file('./data/File078Moff.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.8036790439827152\nCELL 11 code\n\nCELL 12 code\n\nCELL 13 code\n\nCELL 14 code\n\nCELL 15 markdown\n# Cell 256\nCELL 16 code\nfitparameters = {'xoff': 1.1, 'yoff': 4.1, 'rcenter': 3.5, 'rsurr': 17, 'ksurr': 0.52, 'surround_delay': 10, \\\n                 'lum_factor': 500, 'tau1': 10.8, 'tau2': 25, 'k1': 0.0020, 'c1': 0.0032, 'tauplus': 17, \\\n                 'tauA': 14, 'k2': 380, 'dt': 1000/150.}\nCELL 17 code\nrates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"off-cell\")\nCELL 18 code\ncompare_to_file('./data/File256Moff.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.7935184997426455\nCELL 19 code\n\nCELL 20 code\n\nCELL 21 code\n\nCELL 22 code\n\nCELL 23 code\npl.rcParams['figure.figsize'] = [15, 4]\n\ncell_activity = np.loadtxt('./data/File078Moff.txt')\npl.plot(cell_activity[:,0], label = '#078 Moff')\n\ncell_activity = np.loadtxt('./data/File181Moff.txt')\npl.plot(cell_activity[:,0], label = '#181 Moff')\n\ncell_activity = np.loadtxt('./data/File256Moff.txt')\npl.plot(cell_activity[:,0], label = '#256 Moff')\n\npl.xlim([8000,8300])\npl.ylim([0,1.0])\npl.legend();\n\n<Figure size 1080x288 with 1 Axes>\nCELL 24 code\n"
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/MC_on-checkpoint.ipynb",
+    "hits": [
+      {
+        "line": 12,
+        "text": "fitparameters = {'xoff': 3.5, 'yoff':-2.0, 'rcenter': 7.5, 'rsurr': 13.0, 'ksurr': 0.49, 'surround_delay': 3.7, \\"
+      },
+      {
+        "line": 16,
+        "text": "rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 17,
+        "text": "Rpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"on-cell\")"
+      },
+      {
+        "line": 27,
+        "text": "fitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\"
+      },
+      {
+        "line": 31,
+        "text": "rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 32,
+        "text": "Rpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"on-cell\")"
+      },
+      {
+        "line": 44,
+        "text": "fitparameters = {'xoff': 3.4, 'yoff': 1.0, 'rcenter': 3.4, 'rsurr': 14.0, 'ksurr': 0.41, 'surround_delay': 15, \\"
+      },
+      {
+        "line": 48,
+        "text": "rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 49,
+        "text": "Rpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"on-cell\")"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom retinatools.library import filter_video_MC, get_MC_response, compare_to_file\nCELL 2 markdown\n# Cell 254\nCELL 3 code\nfitparameters = {'xoff': 3.5, 'yoff':-2.0, 'rcenter': 7.5, 'rsurr': 13.0, 'ksurr': 0.49, 'surround_delay': 3.7, \\\n                 'lum_factor': 500, 'tau1': 7.6, 'tau2': 42, 'k1': 0.014, 'c1': 0.017, 'tauplus': 81, \\\n                 'tauA': 23, 'k2': 42, 'dt': 1000/150.}\nCELL 4 code\nrates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"on-cell\")\nCELL 5 code\ncompare_to_file('./data/File254Mon.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.8018102307767926\nCELL 6 code\n\nCELL 7 markdown\n# Cell 299\nCELL 8 code\nfitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\\n                 'lum_factor': 60, 'tau1': 7.3, 'tau2': 38, 'k1': 0.019, 'c1': 0.016, 'tauplus': 110, \\\n                 'tauA': 20, 'k2': 50, 'dt': 1000/150.}\nCELL 9 code\nrates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"on-cell\")\nCELL 10 code\ncompare_to_file('./data/File299Mon.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.8262426182591949\nCELL 11 code\n\nCELL 12 code\n\nCELL 13 markdown\n# Cell 258\nCELL 14 code\nfitparameters = {'xoff': 3.4, 'yoff': 1.0, 'rcenter': 3.4, 'rsurr': 14.0, 'ksurr': 0.41, 'surround_delay': 15, \\\n                 'lum_factor': 800, 'tau1': 7.0, 'tau2': 33, 'k1': 0.0088, 'c1': 0.0095, 'tauplus': 110, \\\n                 'tauA': 14, 'k2': 56, 'dt': 1000/150.}\nCELL 15 code\nrates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"on-cell\")\nCELL 16 code\ncompare_to_file('./data/File258Mon.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.8027547139233095\nCELL 17 code\n\nCELL 18 code\n\nCELL 19 code\n\nCELL 20 code\n\nCELL 21 code\npl.rcParams['figure.figsize'] = [15, 4]\n\ncell_activity = np.loadtxt('./data/File258Mon.txt')\npl.plot(cell_activity[:,0], label = '#258 Mon')\n\ncell_activity = np.loadtxt('./data/File299Mon.txt')\npl.plot(cell_activity[:,0], label = '#299 Mon')\n\ncell_activity = np.loadtxt('./data/File254Mon.txt')\npl.plot(cell_activity[:,0], label = '#254 Mon')\n\npl.xlim([0,300])\npl.ylim([0,1.0])\npl.legend();\n\n<Figure size 1080x288 with 1 Axes>\nCELL 22 code\n\nCELL 23 code\n"
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/PC_Gon-checkpoint.ipynb",
+    "hits": [
+      {
+        "line": 12,
+        "text": "fitparameters = {'xoff': 0.0, 'yoff': -1.0, 'rcenterM': 3.5, 'rcenterL': 29, \\"
+      },
+      {
+        "line": 27,
+        "text": "fitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\"
+      },
+      {
+        "line": 42,
+        "text": "fitparameters = {'xoff': -5.7, 'yoff': 2.9, 'rcenterM': 4.6, 'rcenterL': 26, \\"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom retinatools.library import filter_video_PC, get_PC_response, compare_to_file\nCELL 2 markdown\n# Cell 284\nCELL 3 code\nfitparameters = {'xoff': 0.0, 'yoff': -1.0, 'rcenterM': 3.5, 'rcenterL': 29, \\\n                 'lum_factor': 200, 'tau1': 7.4, 'tau2': 76, 'k1': 0.040, 'tau3': 1400,\\\n                 'alpha': 0.68, 'k2': 2.9, 'o1': 0.18, 'dt': 1000/150.}\nCELL 4 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_PC_response(lum_signalM, lum_signalL, fitparameters, \"Gon\")\nCELL 5 code\ncompare_to_file('./data/File284Gon.txt', Rpc, fitparameters['dt'], 0, 1)\n\n0.77803242901496\nCELL 6 code\n\nCELL 7 markdown\n# Cell 130\nCELL 8 code\nfitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\\n                 'lum_factor': 290, 'tau1': 7.8, 'tau2': 100, 'k1': 0.018, 'tau3': 2000,\\\n                 'alpha': 0.71, 'k2': 3.0, 'o1': 0.06, 'dt': 1000/150.}\nCELL 9 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_PC_response(lum_signalM, lum_signalL, fitparameters, \"Gon\")\nCELL 10 code\ncompare_to_file('./data/File130Gn.txt', Rpc, fitparameters['dt'], 0, 1)\n\n0.7773717115038241\nCELL 11 code\n\nCELL 12 markdown\n# Cell 287\nCELL 13 code\nfitparameters = {'xoff': -5.7, 'yoff': 2.9, 'rcenterM': 4.6, 'rcenterL': 26, \\\n                 'lum_factor': 330, 'tau1': 8.1, 'tau2': 72, 'k1': 0.024, 'tau3': 3000,\\\n                 'alpha': 0.78, 'k2': 1.0, 'o1': 0.04, 'dt': 1000/150.}\nCELL 14 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_PC_response(lum_signalM, lum_signalL, fitparameters, \"Gon\")\nCELL 15 code\ncompare_to_file('./data/File287Gon.txt', Rpc, fitparameters['dt'], 0, 1)\n\n0.7643298886394182\nCELL 16 code\n\nCELL 17 code\n\nCELL 18 code\n\nCELL 19 code\n\nCELL 20 code\npl.rcParams['figure.figsize'] = [15, 4]\n\ncell_activityA = np.loadtxt('./data/File130Gn.txt')\npl.plot(cell_activityA[:,0], label = '#130 Gon')\n\ncell_activityC = np.loadtxt('./data/File284Gon.txt')\npl.plot(cell_activityC[:,0], label = '#284 Gon')\n\ncell_activityC = np.loadtxt('./data/File287Gon.txt')\npl.plot(cell_activityC[:,0], label = '#287 Gon')\n\npl.xlim([0,300])\npl.ylim([0,1.0])\npl.legend();\n\n<Figure size 1080x288 with 1 Axes>"
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/PC_off-checkpoint.ipynb",
+    "hits": [
+      {
+        "line": 12,
+        "text": "fitparameters   = {'xoff': -1, 'yoff': 1, 'rcenterM': 8.0, 'rcenterL': 10, \\"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom scipy.optimize import minimize\n\nfrom retinatools.library import filter_video_PC, SimpleLowpass, LuminanceGainControl, nltan, rec, SimpleHighpass, compare_to_file\nCELL 2 code\nfitparameters   = {'xoff': -1, 'yoff': 1, 'rcenterM': 8.0, 'rcenterL': 10, \\\n                 'lum_factor': 870, 'tau1': 7.6, 'tau2': 44, 'k1': 0.082, 'tau3': 800,\\\n                 'alpha': 0.7, 'k2': -5, 'o1': 0.1, 'dt': 1000/150.}\n\nfile            =  './data/File225+L-Moff.txt';  # yes, +L-M\nCELL 3 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nCELL 4 code\nsignalM = SimpleLowpass(fitparameters['lum_factor']*lum_signalM, fitparameters['dt'], fitparameters['tau1'])\nsignalM = SimpleLowpass(signalM, fitparameters['dt'], fitparameters['tau1'])\nsignalM = SimpleLowpass(signalM, fitparameters['dt'], fitparameters['tau1'])\nsignalM = LuminanceGainControl(signalM, fitparameters['dt'], fitparameters['tau2'])\n\nsignalL = SimpleLowpass(fitparameters['lum_factor']*lum_signalL, fitparameters['dt'], fitparameters['tau1']) \nsignalL = SimpleLowpass(signalL, fitparameters['dt'], fitparameters['tau1'])\nsignalL = SimpleLowpass(signalL, fitparameters['dt'], fitparameters['tau1'])\nsignalL = LuminanceGainControl(signalL, fitparameters['dt'], fitparameters['tau2'])\n\nbM = nltan(signalM, fitparameters['k1'])\nbL = nltan(signalL, fitparameters['k1'])\nout = rec( bM - fitparameters['alpha']*bL )\n\nout = SimpleHighpass(out, fitparameters['dt'], fitparameters['tau3'])\nRpc = rec(fitparameters['k2']*out + fitparameters['o1'])\nCELL 5 code\nshift = 1 #shift 1 - as all PC cells\n\npl.rcParams['figure.figsize'] = [15, 4]\n\ncell_activity = np.loadtxt(file)\nttC = np.arange(0, len(cell_activity[:,0])/150., 1/150.)\npl.plot(ttC, cell_activity[:,0], label = file)\n\nttM = np.arange(-5+shift*0.006, -5+shift*0.006+len(Rpc)/150., 1/150.)\npl.plot(ttM, Rpc, label = 'PC off model')\n\npl.xlim([0, 5])\npl.ylim([0,1.0])\ncc = compare_to_file(file, Rpc, fitparameters['dt'], 0, shift) \npl.title('r=' + str(cc))\npl.xlabel(\"Time [s]\")\npl.ylabel(\"Activity\")\npl.legend();\n\n<Figure size 1080x288 with 1 Axes>\nCELL 6 code\n"
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/PC_Ron-checkpoint.ipynb",
+    "hits": [
+      {
+        "line": 12,
+        "text": "fitparameters = {'xoff': -1.6, 'yoff': 6.0, 'rcenterM': 14, 'rcenterL': 7.0, \\"
+      },
+      {
+        "line": 27,
+        "text": "fitparameters = {'xoff': -6.8, 'yoff': -6.5, 'rcenterM': 21, 'rcenterL': 4.5, \\"
+      },
+      {
+        "line": 42,
+        "text": "fitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom retinatools.library import filter_video_PC, get_PC_response, compare_to_file\nCELL 2 markdown\n# Cell 167\nCELL 3 code\nfitparameters = {'xoff': -1.6, 'yoff': 6.0, 'rcenterM': 14, 'rcenterL': 7.0, \\\n                 'lum_factor': 900, 'tau1': 7.5, 'tau2': 60, 'k1': 0.017, 'tau3': 450,\\\n                 'alpha': 0.69, 'k2': 7, 'o1': 0.19, 'dt': 1000/150.}\nCELL 4 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_PC_response(lum_signalM, lum_signalL, fitparameters, \"Ron\")\nCELL 5 code\ncompare_to_file('./data/File167Ron.txt', Rpc, fitparameters['dt'], 0, 1)\n\n0.8356837630544626\nCELL 6 code\n\nCELL 7 markdown\n# Cell 194\nCELL 8 code\nfitparameters = {'xoff': -6.8, 'yoff': -6.5, 'rcenterM': 21, 'rcenterL': 4.5, \\\n                 'lum_factor': 600, 'tau1': 7.6, 'tau2': 70, 'k1': 0.017, 'tau3': 700,\\\n                 'alpha': 0.65, 'k2': 8.3, 'o1': 0.20, 'dt': 1000/150.}\nCELL 9 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_PC_response(lum_signalM, lum_signalL, fitparameters, \"Ron\")\nCELL 10 code\ncompare_to_file('./data/File194Ron.txt', Rpc, fitparameters['dt'], 0, 1)\n\n0.8421023207571601\nCELL 11 code\n\nCELL 12 markdown\n# Cell 110\nCELL 13 code\nfitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\\n                 'lum_factor': 1200, 'tau1': 6.9, 'tau2': 60, 'k1': 0.017, 'tau3': 400,\\\n                 'alpha': 0.68, 'k2': 4, 'o1': 0.07, 'dt': 1000/150.}\nCELL 14 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_PC_response(lum_signalM, lum_signalL, fitparameters, \"Ron\")\nCELL 15 code\ncompare_to_file('./data/File110Ron.txt', Rpc, fitparameters['dt'], 0, 1)\n\n0.8631643469665483\nCELL 16 code\n\nCELL 17 code\n\nCELL 18 code\n\nCELL 19 code\n\nCELL 20 code\npl.rcParams['figure.figsize'] = [15, 4]\n\ncell_activity = np.loadtxt('./data/File110Ron.txt')\npl.plot(cell_activity[:,0], label = '#110 Ron')\n\ncell_activity = np.loadtxt('./data/File194Ron.txt')\npl.plot(cell_activity[:,1], label = '#194 Ron')\n\ncell_activity = np.loadtxt('./data/File167Ron.txt')\npl.plot(cell_activity[:,1], label = '#167 Ron')\n\npl.xlim([0,300])\npl.ylim([0,1.0])\npl.legend();\n\n<Figure size 1080x288 with 1 Axes>\nCELL 21 code\n"
+  },
+  {
+    "artifact": "run_model/.ipynb_checkpoints/Piecharts-checkpoint.ipynb",
+    "hits": [
+      {
+        "line": 40,
+        "text": "    labels = 'Center-contribution', '\"Surround\"-Contribution', 'Missing in Model', 'Individual variations'"
+      },
+      {
+        "line": 67,
+        "text": "        fitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\"
+      },
+      {
+        "line": 73,
+        "text": "        fitparameters_s['rcenterM'] = fitparameters_s['rcenterL']"
+      },
+      {
+        "line": 77,
+        "text": "        fitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\"
+      },
+      {
+        "line": 83,
+        "text": "        fitparameters_s['rcenterL'] = fitparameters_s['rcenterM']"
+      },
+      {
+        "line": 104,
+        "text": "        fitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\"
+      },
+      {
+        "line": 110,
+        "text": "        fitparameters_s['rsurr'] = fitparameters_s['rcenter']"
+      },
+      {
+        "line": 114,
+        "text": "        fitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\"
+      },
+      {
+        "line": 120,
+        "text": "        fitparameters_s['rsurr'] = fitparameters_s['rcenter']"
+      },
+      {
+        "line": 125,
+        "text": "    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 126,
+        "text": "    RpcF = get_MC_response(rates_center, rates_surround, fitparameters, type = celltype)"
+      },
+      {
+        "line": 129,
+        "text": "    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)"
+      },
+      {
+        "line": 130,
+        "text": "    RpcS = get_MC_response(rates_center, rates_surround, fitparameters_s, type = celltype)"
+      },
+      {
+        "line": 140,
+        "text": "fitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\"
+      },
+      {
+        "line": 146,
+        "text": "fitparameters_s['rcenterY'] = fitparameters_s['rcenterB']"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom retinatools.library import filter_video_PC, get_PC_response, filter_video_MC, get_MC_response, filter_video_BO, get_BO_response, compare_to_file\nCELL 2 code\n# Note: all reliabilities rounded to 2 significant digits, and rounded up\nCELL 3 code\npl.rcParams['figure.figsize'] = [15, 4]\ndef make_plots(cell_name, RpcF, RpfS, filename, dt, shift, column, retinal_reliability): \n    \n    # Calculate the R^2 values / variaces explained\n    rF = compare_to_file(filename, RpcF, dt, column, shift)    \n    rS = compare_to_file(filename, RpcS, dt, column, shift)\n    spatial_factors = rS**2\n    temporal_factors = rF**2 - rS**2\n    missing_in_model = retinal_reliability - rF**2\n    \n    #Get the data for the plot\n    cell_activity = np.loadtxt(filename)\n    time_cell = np.arange(0, len(cell_activity))*dt + 5000 - shift*6.66 \n    time_model = np.arange(0, len(RpcS)*dt, dt)\n\n    #Make the plot\n    pl.figure()\n    pl.subplot(1,2,1)\n    pl.plot(time_model, RpcS/np.std(RpcS), label=\"Model without surround\")\n    pl.plot(time_model, RpcF/np.std(RpcF), label = \"Full model\")\n    pl.plot(time_cell, cell_activity[:,column]/np.std(cell_activity[:,column]), label=\"Cell data\")\n    pl.xlim([10000,11500])\n    pl.ylim([0,8])\n    pl.xlabel(\"Time [ms]\")\n    pl.ylabel(\"Activity [Z-scored]\")\n    pl.legend();\n    pl.title(\"r_model=\" + str(rF))\n    pl.subplot(1,2,2)\n    labels = 'Center-contribution', '\"Surround\"-Contribution', 'Missing in Model', 'Individual variations'\n    sizes = [spatial_factors, temporal_factors, missing_in_model, 1-retinal_reliability]\n    explode = (0.1, 0.1, 0.1, 0.1)\n    pl.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=-60)\n    pl.axis('equal')\n    pl.title(\"Cell: \" +  cell_name);\n\n    #Save figure + data\n    pl.savefig(\"./\"+ cell_name + \".pdf\")\n    \n    # Select data for cell and model, and save it\n    t0 = 5000\n    time_cell = np.arange(0, len(cell_activity))*dt + 5000 - shift*6.66\n    cell = cell_activity[(time_cell>t0) * (time_cell<64980), column]\n    time = np.arange(0, len(RpcF)*dt, dt) \n    model = RpcF[(time>=t0) * (time<64980)]\n    time_file = time[(time>=t0) * (time<64980)]\n    model_data_save = np.transpose([time_file, cell/np.std(cell), model/np.std(model)])\n    np.savetxt(\"./\"+ cell_name + '_time_cell_fit.csv', model_data_save, fmt='%1.5f', delimiter=', ', newline='\\n', header='time [ms], cell, model', footer='', comments = '', encoding=None)\n\n    pl.close()\nCELL 4 markdown\n# PC cells\nCELL 5 code\nfor cell in [\"110Ron\", \"130Gon\"]:\n    \n    if cell == \"110Ron\":\n        fitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\\n                         'lum_factor': 1200, 'tau1': 6.9, 'tau2': 60, 'k1': 0.017, 'tau3': 400,\\\n                         'alpha': 0.68, 'k2': 4, 'o1': 0.07, 'dt': 1000/150.}\n        filename = './data/File110Ron.txt'\n        celltype = \"Ron\"\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rcenterM'] = fitparameters_s['rcenterL']\n        retinal_reliability = 0.91**2 # From Barry for 110Ron\n\n    elif cell == \"130Gon\":\n        fitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\\n                         'lum_factor': 290, 'tau1': 7.8, 'tau2': 100, 'k1': 0.018, 'tau3': 2000,\\\n                         'alpha': 0.71, 'k2': 3.0, 'o1': 0.06, 'dt': 1000/150.}\n        filename = './data/File130Gn.txt'\n        celltype = \"Gon\"\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rcenterL'] = fitparameters_s['rcenterM']\n        retinal_reliability = 0.80**2 # From Barry for 130Gon\n\n\n    # full model\n    lum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\n    RpcF = get_PC_response(lum_signalM, lum_signalL, fitparameters, celltype)\n\n    # no-surround model\n    lum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\n    RpcS = get_PC_response(lum_signalM, lum_signalL, fitparameters_s, celltype)\n    \n    make_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 1, column = 0, retinal_reliability = retinal_reliability)\nCELL 6 code\n\nCELL 7 markdown\n# MC cells\nCELL 8 code\nfor cell in [\"299Mon\", \"078Moff\"]:\n    \n    if cell == \"299Mon\":\n        fitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\\n                         'lum_factor': 60, 'tau1': 7.3, 'tau2': 38, 'k1': 0.019, 'c1': 0.016, 'tauplus': 110, \\\n                         'tauA': 20, 'k2': 50, 'dt': 1000/150.}\n        filename = './data/File299Mon.txt'\n        celltype = 'on-cell'\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rsurr'] = fitparameters_s['rcenter']\n        retinal_reliability = 0.92**2 # From 299 MC on cell\n\n    elif cell == \"078Moff\":\n        fitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\\n                         'lum_factor': 1000, 'tau1': 5.0, 'tau2': 16, 'k1': 0.00048, 'c1': 0.0024, 'tauplus': 22, \\\n                         'tauA': 33, 'k2': 560, 'dt': 1000/150.}\n        filename = './data/File078Moff.txt'\n        celltype = 'off-cell'\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rsurr'] = fitparameters_s['rcenter']\n        retinal_reliability = 0.89**2 # From 78 MC off cell\n\n\n    # full model\n    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\n    RpcF = get_MC_response(rates_center, rates_surround, fitparameters, type = celltype)\n\n    # no-surround model\n    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\n    RpcS = get_MC_response(rates_center, rates_surround, fitparameters_s, type = celltype)\n    \n    make_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 2, column = 0, retinal_reliability = retinal_reliability)\nCELL 9 code\n\nCELL 10 markdown\n# Blue ON \nCELL 11 code\ncell = \"178Bon\"\n\nfitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\\n                 'tau1': 10.2, 'tau2': 86, 'delay': 29, 'beta': 0.0, 'alpha': 4.9,  \\\n                 'tau3': 280, 'kL': 0.01, 'kM': 0.051, 'kB': 0.12, 'offset': 0.025, 'dt': 1000/150.}\n\nfilename = './data/File178Bon.txt'\nfitparameters_s = fitparameters.copy()\nfitparameters_s['rcenterY'] = fitparameters_s['rcenterB']\nretinal_reliability = 0.91**2 # From barry 178 Bon cell\n\n\n# full model\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpcF = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters)\n\n# no-surround model\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\nRpcS = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters_s)\n\nmake_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 2, column = 0, retinal_reliability = retinal_reliability)\nCELL 12 code\n"
+  },
+  {
+    "artifact": "run_model/078Moff.pdf",
+    "hits": [
+      {
+        "line": 16,
+        "text": "Center-contribution"
+      }
+    ],
+    "all_text": "10000 10200 10400 10600 10800 11000 11200 11400\nTime [ms]\n0\n1\n2\n3\n4\n5\n6\n7\n8Activity [Z-scored]\nr_model=0.8036790439827152\nModel without surround\nFull model\nCell data\nCenter-contribution\n58.4%\n\"Surround\"-Contribution\n6.2%\nMissing in Model\n14.6%\nIndividual variations\n20.8%\nCell: 078Moff"
+  },
+  {
+    "artifact": "run_model/078Moff_time_cell_fit.csv",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/110Ron.pdf",
+    "hits": [
+      {
+        "line": 16,
+        "text": "Center-contribution"
+      }
+    ],
+    "all_text": "10000 10200 10400 10600 10800 11000 11200 11400\nTime [ms]\n0\n1\n2\n3\n4\n5\n6\n7\n8Activity [Z-scored]\nr_model=0.8631643469665483\nModel without surround\nFull model\nCell data\nCenter-contribution\n66.1%\n\"Surround\"-Contribution\n8.4%\nMissing in Model\n8.3%\nIndividual variations\n17.2%\nCell: 110Ron"
+  },
+  {
+    "artifact": "run_model/110Ron_time_cell_fit.csv",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/130Gon.pdf",
+    "hits": [
+      {
+        "line": 16,
+        "text": "Center-contribution"
+      }
+    ],
+    "all_text": "10000 10200 10400 10600 10800 11000 11200 11400\nTime [ms]\n0\n1\n2\n3\n4\n5\n6\n7\n8Activity [Z-scored]\nr_model=0.7773717115038241\nModel without surround\nFull model\nCell data\nCenter-contribution\n59.4%\"Surround\"-Contribution\n1.0%Missing in Model\n3.6%\nIndividual variations\n36.0%\nCell: 130Gon"
+  },
+  {
+    "artifact": "run_model/130Gon_time_cell_fit.csv",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/178Bon.pdf",
+    "hits": [
+      {
+        "line": 16,
+        "text": "Center-contribution"
+      }
+    ],
+    "all_text": "10000 10200 10400 10600 10800 11000 11200 11400\nTime [ms]\n0\n1\n2\n3\n4\n5\n6\n7\n8Activity [Z-scored]\nr_model=0.8153849801352536\nModel without surround\nFull model\nCell data\nCenter-contribution\n66.1%\n\"Surround\"-Contribution 0.4%\nMissing in Model\n16.3%\nIndividual variations\n17.2%\nCell: 178Bon"
+  },
+  {
+    "artifact": "run_model/178Bon_time_cell_fit.csv",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/299Mon.pdf",
+    "hits": [
+      {
+        "line": 16,
+        "text": "Center-contribution"
+      }
+    ],
+    "all_text": "10000 10200 10400 10600 10800 11000 11200 11400\nTime [ms]\n0\n1\n2\n3\n4\n5\n6\n7\n8Activity [Z-scored]\nr_model=0.8262426182591949\nModel without surround\nFull model\nCell data\nCenter-contribution\n61.8%\n\"Surround\"-Contribution 6.5%\nMissing in Model\n16.4%\nIndividual variations\n15.4%\nCell: 299Mon"
+  },
+  {
+    "artifact": "run_model/299Mon_time_cell_fit.csv",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/BlueOn.ipynb",
+    "hits": [
+      {
+        "line": 12,
+        "text": "fitparameters = {'xoff': -1.0, 'yoff': 7.0, 'rcenterB': 12.5, 'rcenterY': 15.0, \\"
+      },
+      {
+        "line": 27,
+        "text": "fitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\"
+      },
+      {
+        "line": 42,
+        "text": "fitparameters = {'xoff': 2.1, 'yoff': 4.7, 'rcenterB': 4.9, 'rcenterY': 6.2,"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom retinatools.library import filter_video_BO, get_BO_response, compare_to_file\nCELL 2 markdown\n# Cell 229\nCELL 3 code\nfitparameters = {'xoff': -1.0, 'yoff': 7.0, 'rcenterB': 12.5, 'rcenterY': 15.0, \\\n                 'tau1': 7.5, 'tau2': 120, 'delay': 0, 'beta': 2.0, 'alpha': 2.5, \\\n                 'tau3': 1400, 'kL': 0.09, 'kM': 0.053, 'kB': 0.17, 'offset': -0.049, 'dt': 1000/150.}\nCELL 4 code\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters)\nCELL 5 code\ncompare_to_file('./data/File229Bon.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.7802624476726236\nCELL 6 code\n\nCELL 7 markdown\n# Cell 178\nCELL 8 code\nfitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\\n                 'tau1': 10.2, 'tau2': 86, 'delay': 29, 'beta': 0.0, 'alpha': 4.9,  \\\n                 'tau3': 280, 'kL': 0.01, 'kM': 0.051, 'kB': 0.12, 'offset': 0.025, 'dt': 1000/150.}\nCELL 9 code\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters)\nCELL 10 code\ncompare_to_file('./data/File178Bon.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.8153849801352536\nCELL 11 code\n\nCELL 12 markdown\n# Cell 302\nCELL 13 code\nfitparameters = {'xoff': 2.1, 'yoff': 4.7, 'rcenterB': 4.9, 'rcenterY': 6.2,\n                 'tau1': 7.8, 'tau2': 75, 'delay': 24, 'beta': 1.9, 'alpha': 2.5, \\\n                 'tau3': 550, 'kL': 0.070, 'kM': 0.068, 'kB': 0.28, 'offset': -0.065, 'dt': 1000/150.}\nCELL 14 code\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters)\nCELL 15 code\ncompare_to_file('./data/File302Bon.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.7320091829732691\nCELL 16 code\n\nCELL 17 code\n\nCELL 18 code\n\nCELL 19 code\n\nCELL 20 code\npl.rcParams['figure.figsize'] = [15, 4]\n\ncell_activity = np.loadtxt('./data/File178Bon.txt')\npl.plot(cell_activity[:,0])\n\ncell_activity = np.loadtxt('./data/File229Bon.txt')\npl.plot(cell_activity[:,0])\n\ncell_activity = np.loadtxt('./data/File302Bon.txt')\npl.plot(cell_activity[:,0])\n\npl.xlim([75,150*3])\npl.ylim([0,1.3])\n\n(0.0, 1.3)\n\n<Figure size 1080x288 with 1 Axes>"
+  },
+  {
+    "artifact": "run_model/data/File078Moff.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File110Ron.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File130Gn.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File167Ron.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File178Bon.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File181Moff.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File194Ron.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File225+L-Moff.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File229Bon.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File254Mon.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File256Moff.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File258Mon.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File284Gon.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File287Gon.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File299Mon.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/data/File302Bon.txt",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model/MC_off.ipynb",
+    "hits": [
+      {
+        "line": 12,
+        "text": "fitparameters = {'xoff': -10.0, 'yoff': -3.4, 'rcenter': 4.6, 'rsurr': 33, 'ksurr': 0.43, 'surround_delay': 9, \\"
+      },
+      {
+        "line": 16,
+        "text": "rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 17,
+        "text": "Rpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"off-cell\")"
+      },
+      {
+        "line": 27,
+        "text": "fitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\"
+      },
+      {
+        "line": 31,
+        "text": "rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 32,
+        "text": "Rpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"off-cell\")"
+      },
+      {
+        "line": 42,
+        "text": "fitparameters = {'xoff': 1.1, 'yoff': 4.1, 'rcenter': 3.5, 'rsurr': 17, 'ksurr': 0.52, 'surround_delay': 10, \\"
+      },
+      {
+        "line": 46,
+        "text": "rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 47,
+        "text": "Rpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"off-cell\")"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom retinatools.library import filter_video_MC, get_MC_response, compare_to_file\nCELL 2 markdown\n# Cell 181\nCELL 3 code\nfitparameters = {'xoff': -10.0, 'yoff': -3.4, 'rcenter': 4.6, 'rsurr': 33, 'ksurr': 0.43, 'surround_delay': 9, \\\n                 'lum_factor': 90, 'tau1': 5.6, 'tau2': 30, 'k1': 0.00088, 'c1': 0.0032, 'tauplus': 22, \\\n                 'tauA': 47, 'k2': 410, 'dt': 1000/150.}\nCELL 4 code\nrates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"off-cell\")\nCELL 5 code\ncompare_to_file('./data/File181Moff.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.8053052204778807\nCELL 6 code\n\nCELL 7 markdown\n# Cell 078\nCELL 8 code\nfitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\\n                 'lum_factor': 1000, 'tau1': 5.0, 'tau2': 16, 'k1': 0.00048, 'c1': 0.0024, 'tauplus': 22, \\\n                 'tauA': 33, 'k2': 560, 'dt': 1000/150.}\nCELL 9 code\nrates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"off-cell\")\nCELL 10 code\ncompare_to_file('./data/File078Moff.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.8036790439827152\nCELL 11 code\n\nCELL 12 markdown\n# Cell 256\nCELL 13 code\nfitparameters = {'xoff': 1.1, 'yoff': 4.1, 'rcenter': 3.5, 'rsurr': 17, 'ksurr': 0.52, 'surround_delay': 10, \\\n                 'lum_factor': 500, 'tau1': 10.8, 'tau2': 25, 'k1': 0.0020, 'c1': 0.0032, 'tauplus': 17, \\\n                 'tauA': 14, 'k2': 380, 'dt': 1000/150.}\nCELL 14 code\nrates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"off-cell\")\nCELL 15 code\ncompare_to_file('./data/File256Moff.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.7935184997426455\nCELL 16 code\n\nCELL 17 code\n\nCELL 18 code\n\nCELL 19 code\n\nCELL 20 code\npl.rcParams['figure.figsize'] = [15, 4]\n\ncell_activity = np.loadtxt('./data/File078Moff.txt')\npl.plot(cell_activity[:,0], label = '#078 Moff')\n\ncell_activity = np.loadtxt('./data/File181Moff.txt')\npl.plot(cell_activity[:,0], label = '#181 Moff')\n\ncell_activity = np.loadtxt('./data/File256Moff.txt')\npl.plot(cell_activity[:,0], label = '#256 Moff')\n\npl.xlim([8000,8300])\npl.ylim([0,1.0])\npl.legend();\n\n<Figure size 1080x288 with 1 Axes>"
+  },
+  {
+    "artifact": "run_model/MC_on.ipynb",
+    "hits": [
+      {
+        "line": 12,
+        "text": "fitparameters = {'xoff': 3.5, 'yoff':-2.0, 'rcenter': 7.5, 'rsurr': 13.0, 'ksurr': 0.49, 'surround_delay': 3.7, \\"
+      },
+      {
+        "line": 16,
+        "text": "rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 17,
+        "text": "Rpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"on-cell\")"
+      },
+      {
+        "line": 27,
+        "text": "fitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\"
+      },
+      {
+        "line": 31,
+        "text": "rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 32,
+        "text": "Rpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"on-cell\")"
+      },
+      {
+        "line": 42,
+        "text": "fitparameters = {'xoff': 3.4, 'yoff': 1.0, 'rcenter': 3.4, 'rsurr': 14.0, 'ksurr': 0.41, 'surround_delay': 15, \\"
+      },
+      {
+        "line": 46,
+        "text": "rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 47,
+        "text": "Rpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"on-cell\")"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom retinatools.library import filter_video_MC, get_MC_response, compare_to_file\nCELL 2 markdown\n# Cell 254\nCELL 3 code\nfitparameters = {'xoff': 3.5, 'yoff':-2.0, 'rcenter': 7.5, 'rsurr': 13.0, 'ksurr': 0.49, 'surround_delay': 3.7, \\\n                 'lum_factor': 500, 'tau1': 7.6, 'tau2': 42, 'k1': 0.014, 'c1': 0.017, 'tauplus': 81, \\\n                 'tauA': 23, 'k2': 42, 'dt': 1000/150.}\nCELL 4 code\nrates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"on-cell\")\nCELL 5 code\ncompare_to_file('./data/File254Mon.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.8018102307767926\nCELL 6 code\n\nCELL 7 markdown\n# Cell 299\nCELL 8 code\nfitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\\n                 'lum_factor': 60, 'tau1': 7.3, 'tau2': 38, 'k1': 0.019, 'c1': 0.016, 'tauplus': 110, \\\n                 'tauA': 20, 'k2': 50, 'dt': 1000/150.}\nCELL 9 code\nrates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"on-cell\")\nCELL 10 code\ncompare_to_file('./data/File299Mon.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.8262426182591949\nCELL 11 code\n\nCELL 12 markdown\n# Cell 258\nCELL 13 code\nfitparameters = {'xoff': 3.4, 'yoff': 1.0, 'rcenter': 3.4, 'rsurr': 14.0, 'ksurr': 0.41, 'surround_delay': 15, \\\n                 'lum_factor': 800, 'tau1': 7.0, 'tau2': 33, 'k1': 0.0088, 'c1': 0.0095, 'tauplus': 110, \\\n                 'tauA': 14, 'k2': 56, 'dt': 1000/150.}\nCELL 14 code\nrates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_MC_response(rates_center, rates_surround, fitparameters, type = \"on-cell\")\nCELL 15 code\ncompare_to_file('./data/File258Mon.txt', Rpc, fitparameters['dt'], 0, 2)\n\n0.8027547139233095\nCELL 16 code\n\nCELL 17 code\n\nCELL 18 code\n\nCELL 19 code\n\nCELL 20 code\npl.rcParams['figure.figsize'] = [15, 4]\n\ncell_activity = np.loadtxt('./data/File258Mon.txt')\npl.plot(cell_activity[:,0], label = '#258 Mon')\n\ncell_activity = np.loadtxt('./data/File299Mon.txt')\npl.plot(cell_activity[:,0], label = '#299 Mon')\n\ncell_activity = np.loadtxt('./data/File254Mon.txt')\npl.plot(cell_activity[:,0], label = '#254 Mon')\n\npl.xlim([0,300])\npl.ylim([0,1.0])\npl.legend();\n\n<Figure size 1080x288 with 1 Axes>"
+  },
+  {
+    "artifact": "run_model/PC_Gon.ipynb",
+    "hits": [
+      {
+        "line": 12,
+        "text": "fitparameters = {'xoff': 0.0, 'yoff': -1.0, 'rcenterM': 3.5, 'rcenterL': 29, \\"
+      },
+      {
+        "line": 27,
+        "text": "fitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\"
+      },
+      {
+        "line": 42,
+        "text": "fitparameters = {'xoff': -5.7, 'yoff': 2.9, 'rcenterM': 4.6, 'rcenterL': 26, \\"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom retinatools.library import filter_video_PC, get_PC_response, compare_to_file\nCELL 2 markdown\n# Cell 284\nCELL 3 code\nfitparameters = {'xoff': 0.0, 'yoff': -1.0, 'rcenterM': 3.5, 'rcenterL': 29, \\\n                 'lum_factor': 200, 'tau1': 7.4, 'tau2': 76, 'k1': 0.040, 'tau3': 1400,\\\n                 'alpha': 0.68, 'k2': 2.9, 'o1': 0.18, 'dt': 1000/150.}\nCELL 4 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_PC_response(lum_signalM, lum_signalL, fitparameters, \"Gon\")\nCELL 5 code\ncompare_to_file('./data/File284Gon.txt', Rpc, fitparameters['dt'], 0, 1)\n\n0.77803242901496\nCELL 6 code\n\nCELL 7 markdown\n# Cell 130\nCELL 8 code\nfitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\\n                 'lum_factor': 290, 'tau1': 7.8, 'tau2': 100, 'k1': 0.018, 'tau3': 2000,\\\n                 'alpha': 0.71, 'k2': 3.0, 'o1': 0.06, 'dt': 1000/150.}\nCELL 9 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_PC_response(lum_signalM, lum_signalL, fitparameters, \"Gon\")\nCELL 10 code\ncompare_to_file('./data/File130Gn.txt', Rpc, fitparameters['dt'], 0, 1)\n\n0.7773717115038241\nCELL 11 code\n\nCELL 12 markdown\n# Cell 287\nCELL 13 code\nfitparameters = {'xoff': -5.7, 'yoff': 2.9, 'rcenterM': 4.6, 'rcenterL': 26, \\\n                 'lum_factor': 330, 'tau1': 8.1, 'tau2': 72, 'k1': 0.024, 'tau3': 3000,\\\n                 'alpha': 0.78, 'k2': 1.0, 'o1': 0.04, 'dt': 1000/150.}\nCELL 14 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_PC_response(lum_signalM, lum_signalL, fitparameters, \"Gon\")\nCELL 15 code\ncompare_to_file('./data/File287Gon.txt', Rpc, fitparameters['dt'], 0, 1)\n\n0.7643298886394182\nCELL 16 code\n\nCELL 17 code\n\nCELL 18 code\n\nCELL 19 code\n\nCELL 20 code\npl.rcParams['figure.figsize'] = [15, 4]\n\ncell_activityA = np.loadtxt('./data/File130Gn.txt')\npl.plot(cell_activityA[:,0], label = '#130 Gon')\n\ncell_activityC = np.loadtxt('./data/File284Gon.txt')\npl.plot(cell_activityC[:,0], label = '#284 Gon')\n\ncell_activityC = np.loadtxt('./data/File287Gon.txt')\npl.plot(cell_activityC[:,0], label = '#287 Gon')\n\npl.xlim([0,300])\npl.ylim([0,1.0])\npl.legend();\n\n<Figure size 1080x288 with 1 Axes>"
+  },
+  {
+    "artifact": "run_model/PC_off.ipynb",
+    "hits": [
+      {
+        "line": 12,
+        "text": "fitparameters   = {'xoff': -1, 'yoff': 1, 'rcenterM': 8.0, 'rcenterL': 10, \\"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom scipy.optimize import minimize\n\nfrom retinatools.library import filter_video_PC, SimpleLowpass, LuminanceGainControl, nltan, rec, SimpleHighpass, compare_to_file\nCELL 2 code\nfitparameters   = {'xoff': -1, 'yoff': 1, 'rcenterM': 8.0, 'rcenterL': 10, \\\n                 'lum_factor': 870, 'tau1': 7.6, 'tau2': 44, 'k1': 0.082, 'tau3': 800,\\\n                 'alpha': 0.7, 'k2': -5, 'o1': 0.1, 'dt': 1000/150.}\n\nfile            =  './data/File225+L-Moff.txt';  # yes, +L-M\nCELL 3 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nCELL 4 code\nsignalM = SimpleLowpass(fitparameters['lum_factor']*lum_signalM, fitparameters['dt'], fitparameters['tau1'])\nsignalM = SimpleLowpass(signalM, fitparameters['dt'], fitparameters['tau1'])\nsignalM = SimpleLowpass(signalM, fitparameters['dt'], fitparameters['tau1'])\nsignalM = LuminanceGainControl(signalM, fitparameters['dt'], fitparameters['tau2'])\n\nsignalL = SimpleLowpass(fitparameters['lum_factor']*lum_signalL, fitparameters['dt'], fitparameters['tau1']) \nsignalL = SimpleLowpass(signalL, fitparameters['dt'], fitparameters['tau1'])\nsignalL = SimpleLowpass(signalL, fitparameters['dt'], fitparameters['tau1'])\nsignalL = LuminanceGainControl(signalL, fitparameters['dt'], fitparameters['tau2'])\n\nbM = nltan(signalM, fitparameters['k1'])\nbL = nltan(signalL, fitparameters['k1'])\nout = rec( bM - fitparameters['alpha']*bL )\n\nout = SimpleHighpass(out, fitparameters['dt'], fitparameters['tau3'])\nRpc = rec(fitparameters['k2']*out + fitparameters['o1'])\nCELL 5 code\nshift = 1 #shift 1 - as all PC cells\n\npl.rcParams['figure.figsize'] = [15, 4]\n\ncell_activity = np.loadtxt(file)\nttC = np.arange(0, len(cell_activity[:,0])/150., 1/150.)\npl.plot(ttC, cell_activity[:,0], label = file)\n\nttM = np.arange(-5+shift*0.006, -5+shift*0.006+len(Rpc)/150., 1/150.)\npl.plot(ttM, Rpc, label = 'PC off model')\n\npl.xlim([0, 5])\npl.ylim([0,1.0])\ncc = compare_to_file(file, Rpc, fitparameters['dt'], 0, shift) \npl.title('r=' + str(cc))\npl.xlabel(\"Time [s]\")\npl.ylabel(\"Activity\")\npl.legend();\n\n<Figure size 1080x288 with 1 Axes>\nCELL 6 code\n"
+  },
+  {
+    "artifact": "run_model/PC_Ron.ipynb",
+    "hits": [
+      {
+        "line": 12,
+        "text": "fitparameters = {'xoff': -1.6, 'yoff': 6.0, 'rcenterM': 14, 'rcenterL': 7.0, \\"
+      },
+      {
+        "line": 27,
+        "text": "fitparameters = {'xoff': -6.8, 'yoff': -6.5, 'rcenterM': 21, 'rcenterL': 4.5, \\"
+      },
+      {
+        "line": 42,
+        "text": "fitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom retinatools.library import filter_video_PC, get_PC_response, compare_to_file\nCELL 2 markdown\n# Cell 167\nCELL 3 code\nfitparameters = {'xoff': -1.6, 'yoff': 6.0, 'rcenterM': 14, 'rcenterL': 7.0, \\\n                 'lum_factor': 900, 'tau1': 7.5, 'tau2': 60, 'k1': 0.017, 'tau3': 450,\\\n                 'alpha': 0.69, 'k2': 7, 'o1': 0.19, 'dt': 1000/150.}\nCELL 4 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_PC_response(lum_signalM, lum_signalL, fitparameters, \"Ron\")\nCELL 5 code\ncompare_to_file('./data/File167Ron.txt', Rpc, fitparameters['dt'], 0, 1)\n\n0.8356837630544626\nCELL 6 code\n\nCELL 7 markdown\n# Cell 194\nCELL 8 code\nfitparameters = {'xoff': -6.8, 'yoff': -6.5, 'rcenterM': 21, 'rcenterL': 4.5, \\\n                 'lum_factor': 600, 'tau1': 7.6, 'tau2': 70, 'k1': 0.017, 'tau3': 700,\\\n                 'alpha': 0.65, 'k2': 8.3, 'o1': 0.20, 'dt': 1000/150.}\nCELL 9 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_PC_response(lum_signalM, lum_signalL, fitparameters, \"Ron\")\nCELL 10 code\ncompare_to_file('./data/File194Ron.txt', Rpc, fitparameters['dt'], 0, 1)\n\n0.8421023207571601\nCELL 11 code\n\nCELL 12 markdown\n# Cell 110\nCELL 13 code\nfitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\\n                 'lum_factor': 1200, 'tau1': 6.9, 'tau2': 60, 'k1': 0.017, 'tau3': 400,\\\n                 'alpha': 0.68, 'k2': 4, 'o1': 0.07, 'dt': 1000/150.}\nCELL 14 code\nlum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpc = get_PC_response(lum_signalM, lum_signalL, fitparameters, \"Ron\")\nCELL 15 code\ncompare_to_file('./data/File110Ron.txt', Rpc, fitparameters['dt'], 0, 1)\n\n0.8631643469665483\nCELL 16 code\n\nCELL 17 code\n\nCELL 18 code\n\nCELL 19 code\n\nCELL 20 code\npl.rcParams['figure.figsize'] = [15, 4]\n\ncell_activity = np.loadtxt('./data/File110Ron.txt')\npl.plot(cell_activity[:,0], label = '#110 Ron')\n\ncell_activity = np.loadtxt('./data/File194Ron.txt')\npl.plot(cell_activity[:,1], label = '#194 Ron')\n\ncell_activity = np.loadtxt('./data/File167Ron.txt')\npl.plot(cell_activity[:,1], label = '#167 Ron')\n\npl.xlim([0,300])\npl.ylim([0,1.0])\npl.legend();\n\n<Figure size 1080x288 with 1 Axes>\nCELL 21 code\n"
+  },
+  {
+    "artifact": "run_model/Piecharts.ipynb",
+    "hits": [
+      {
+        "line": 40,
+        "text": "    labels = 'Center-contribution', '\"Surround\"-Contribution', 'Missing in Model', 'Individual variations'"
+      },
+      {
+        "line": 67,
+        "text": "        fitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\"
+      },
+      {
+        "line": 73,
+        "text": "        fitparameters_s['rcenterM'] = fitparameters_s['rcenterL']"
+      },
+      {
+        "line": 77,
+        "text": "        fitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\"
+      },
+      {
+        "line": 83,
+        "text": "        fitparameters_s['rcenterL'] = fitparameters_s['rcenterM']"
+      },
+      {
+        "line": 104,
+        "text": "        fitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\"
+      },
+      {
+        "line": 110,
+        "text": "        fitparameters_s['rsurr'] = fitparameters_s['rcenter']"
+      },
+      {
+        "line": 114,
+        "text": "        fitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\"
+      },
+      {
+        "line": 120,
+        "text": "        fitparameters_s['rsurr'] = fitparameters_s['rcenter']"
+      },
+      {
+        "line": 125,
+        "text": "    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)"
+      },
+      {
+        "line": 126,
+        "text": "    RpcF = get_MC_response(rates_center, rates_surround, fitparameters, type = celltype)"
+      },
+      {
+        "line": 129,
+        "text": "    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)"
+      },
+      {
+        "line": 130,
+        "text": "    RpcS = get_MC_response(rates_center, rates_surround, fitparameters_s, type = celltype)"
+      },
+      {
+        "line": 140,
+        "text": "fitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\"
+      },
+      {
+        "line": 146,
+        "text": "fitparameters_s['rcenterY'] = fitparameters_s['rcenterB']"
+      }
+    ],
+    "all_text": "CELL 0 code\n#Make sure retinatools is in the python path\nimport sys\nsys.path.append('../') \nCELL 1 code\nimport numpy as np\nimport pylab as pl\nfrom retinatools.library import filter_video_PC, get_PC_response, filter_video_MC, get_MC_response, filter_video_BO, get_BO_response, compare_to_file\nCELL 2 code\n# Note: all reliabilities rounded to 2 significant digits, and rounded up\nCELL 3 code\npl.rcParams['figure.figsize'] = [15, 4]\ndef make_plots(cell_name, RpcF, RpfS, filename, dt, shift, column, retinal_reliability): \n    \n    # Calculate the R^2 values / variaces explained\n    rF = compare_to_file(filename, RpcF, dt, column, shift)    \n    rS = compare_to_file(filename, RpcS, dt, column, shift)\n    spatial_factors = rS**2\n    temporal_factors = rF**2 - rS**2\n    missing_in_model = retinal_reliability - rF**2\n    \n    #Get the data for the plot\n    cell_activity = np.loadtxt(filename)\n    time_cell = np.arange(0, len(cell_activity))*dt + 5000 - shift*6.66 \n    time_model = np.arange(0, len(RpcS)*dt, dt)\n\n    #Make the plot\n    pl.figure()\n    pl.subplot(1,2,1)\n    pl.plot(time_model, RpcS/np.std(RpcS), label=\"Model without surround\")\n    pl.plot(time_model, RpcF/np.std(RpcF), label = \"Full model\")\n    pl.plot(time_cell, cell_activity[:,column]/np.std(cell_activity[:,column]), label=\"Cell data\")\n    pl.xlim([10000,11500])\n    pl.ylim([0,8])\n    pl.xlabel(\"Time [ms]\")\n    pl.ylabel(\"Activity [Z-scored]\")\n    pl.legend();\n    pl.title(\"r_model=\" + str(rF))\n    pl.subplot(1,2,2)\n    labels = 'Center-contribution', '\"Surround\"-Contribution', 'Missing in Model', 'Individual variations'\n    sizes = [spatial_factors, temporal_factors, missing_in_model, 1-retinal_reliability]\n    explode = (0.1, 0.1, 0.1, 0.1)\n    pl.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=-60)\n    pl.axis('equal')\n    pl.title(\"Cell: \" +  cell_name);\n\n    #Save figure + data\n    pl.savefig(\"./\"+ cell_name + \".pdf\")\n    \n    # Select data for cell and model, and save it\n    t0 = 5000\n    time_cell = np.arange(0, len(cell_activity))*dt + 5000 - shift*6.66\n    cell = cell_activity[(time_cell>t0) * (time_cell<64980), column]\n    time = np.arange(0, len(RpcF)*dt, dt) \n    model = RpcF[(time>=t0) * (time<64980)]\n    time_file = time[(time>=t0) * (time<64980)]\n    model_data_save = np.transpose([time_file, cell/np.std(cell), model/np.std(model)])\n    np.savetxt(\"./\"+ cell_name + '_time_cell_fit.csv', model_data_save, fmt='%1.5f', delimiter=', ', newline='\\n', header='time [ms], cell, model', footer='', comments = '', encoding=None)\n\n    pl.close()\nCELL 4 markdown\n# PC cells\nCELL 5 code\nfor cell in [\"110Ron\", \"130Gon\"]:\n    \n    if cell == \"110Ron\":\n        fitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\\n                         'lum_factor': 1200, 'tau1': 6.9, 'tau2': 60, 'k1': 0.017, 'tau3': 400,\\\n                         'alpha': 0.68, 'k2': 4, 'o1': 0.07, 'dt': 1000/150.}\n        filename = './data/File110Ron.txt'\n        celltype = \"Ron\"\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rcenterM'] = fitparameters_s['rcenterL']\n        retinal_reliability = 0.91**2 # From Barry for 110Ron\n\n    elif cell == \"130Gon\":\n        fitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\\n                         'lum_factor': 290, 'tau1': 7.8, 'tau2': 100, 'k1': 0.018, 'tau3': 2000,\\\n                         'alpha': 0.71, 'k2': 3.0, 'o1': 0.06, 'dt': 1000/150.}\n        filename = './data/File130Gn.txt'\n        celltype = \"Gon\"\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rcenterL'] = fitparameters_s['rcenterM']\n        retinal_reliability = 0.80**2 # From Barry for 130Gon\n\n\n    # full model\n    lum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\n    RpcF = get_PC_response(lum_signalM, lum_signalL, fitparameters, celltype)\n\n    # no-surround model\n    lum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\n    RpcS = get_PC_response(lum_signalM, lum_signalL, fitparameters_s, celltype)\n    \n    make_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 1, column = 0, retinal_reliability = retinal_reliability)\nCELL 6 code\n\nCELL 7 markdown\n# MC cells\nCELL 8 code\nfor cell in [\"299Mon\", \"078Moff\"]:\n    \n    if cell == \"299Mon\":\n        fitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\\n                         'lum_factor': 60, 'tau1': 7.3, 'tau2': 38, 'k1': 0.019, 'c1': 0.016, 'tauplus': 110, \\\n                         'tauA': 20, 'k2': 50, 'dt': 1000/150.}\n        filename = './data/File299Mon.txt'\n        celltype = 'on-cell'\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rsurr'] = fitparameters_s['rcenter']\n        retinal_reliability = 0.92**2 # From 299 MC on cell\n\n    elif cell == \"078Moff\":\n        fitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\\n                         'lum_factor': 1000, 'tau1': 5.0, 'tau2': 16, 'k1': 0.00048, 'c1': 0.0024, 'tauplus': 22, \\\n                         'tauA': 33, 'k2': 560, 'dt': 1000/150.}\n        filename = './data/File078Moff.txt'\n        celltype = 'off-cell'\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rsurr'] = fitparameters_s['rcenter']\n        retinal_reliability = 0.89**2 # From 78 MC off cell\n\n\n    # full model\n    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\n    RpcF = get_MC_response(rates_center, rates_surround, fitparameters, type = celltype)\n\n    # no-surround model\n    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\n    RpcS = get_MC_response(rates_center, rates_surround, fitparameters_s, type = celltype)\n    \n    make_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 2, column = 0, retinal_reliability = retinal_reliability)\nCELL 9 code\n\nCELL 10 markdown\n# Blue ON \nCELL 11 code\ncell = \"178Bon\"\n\nfitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\\n                 'tau1': 10.2, 'tau2': 86, 'delay': 29, 'beta': 0.0, 'alpha': 4.9,  \\\n                 'tau3': 280, 'kL': 0.01, 'kM': 0.051, 'kB': 0.12, 'offset': 0.025, 'dt': 1000/150.}\n\nfilename = './data/File178Bon.txt'\nfitparameters_s = fitparameters.copy()\nfitparameters_s['rcenterY'] = fitparameters_s['rcenterB']\nretinal_reliability = 0.91**2 # From barry 178 Bon cell\n\n\n# full model\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpcF = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters)\n\n# no-surround model\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\nRpcS = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters_s)\n\nmake_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 2, column = 0, retinal_reliability = retinal_reliability)\nCELL 12 code\n"
+  },
+  {
+    "artifact": "run_model_HPC/data/19796315.out",
+    "hits": [
+      {
+        "line": 1,
+        "text": "Creating profile slurm_19796315_spock-brody02-03"
+      },
+      {
+        "line": 2,
+        "text": "[ProfileCreate] Generating default config file: '/mnt/bucket/people/ms81/.ipython/profile_slurm_19796315_spock-brody02-03/ipython_config.py'"
+      },
+      {
+        "line": 3,
+        "text": "[ProfileCreate] Generating default config file: '/mnt/bucket/people/ms81/.ipython/profile_slurm_19796315_spock-brody02-03/ipython_kernel_config.py'"
+      },
+      {
+        "line": 5,
+        "text": "2020-08-05 11:57:28.653 [scheduler] Scheduler started [leastload]"
+      }
+    ],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model_HPC/data/19796884.out",
+    "hits": [
+      {
+        "line": 1,
+        "text": "Creating profile slurm_19796884_spock-brody01-01"
+      },
+      {
+        "line": 2,
+        "text": "[ProfileCreate] Generating default config file: '/mnt/bucket/people/ms81/.ipython/profile_slurm_19796884_spock-brody01-01/ipython_config.py'"
+      },
+      {
+        "line": 3,
+        "text": "[ProfileCreate] Generating default config file: '/mnt/bucket/people/ms81/.ipython/profile_slurm_19796884_spock-brody01-01/ipython_kernel_config.py'"
+      },
+      {
+        "line": 5,
+        "text": "2020-08-05 14:28:48.558 [scheduler] Scheduler started [leastload]"
+      }
+    ],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model_HPC/data/19829503.out",
+    "hits": [
+      {
+        "line": 1,
+        "text": "Creating profile ms81_19829503_spock-brody02-03"
+      },
+      {
+        "line": 2,
+        "text": "[ProfileCreate] Generating default config file: '/mnt/bucket/people/ms81/.ipython/profile_ms81_19829503_spock-brody02-03/ipython_config.py'"
+      },
+      {
+        "line": 3,
+        "text": "[ProfileCreate] Generating default config file: '/mnt/bucket/people/ms81/.ipython/profile_ms81_19829503_spock-brody02-03/ipython_kernel_config.py'"
+      },
+      {
+        "line": 5,
+        "text": "2020-08-07 23:27:39.804 [scheduler] Scheduler started [leastload]"
+      }
+    ],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model_HPC/make_movie_BO.py",
+    "hits": [
+      {
+        "line": 21,
+        "text": "    xoff = X[idx_x]"
+      },
+      {
+        "line": 22,
+        "text": "    yoff = Y[idx_y]"
+      },
+      {
+        "line": 23,
+        "text": "    RF = get_RF(xoff, yoff, r_RF)"
+      },
+      {
+        "line": 30,
+        "text": "    This transform center/surround signal to activity with standard parameters."
+      },
+      {
+        "line": 42,
+        "text": "fitparameters = {'rcenterB': 10.0, 'rcenterY': 14.0,\\"
+      },
+      {
+        "line": 73,
+        "text": "                r_RF = fitparameters['rcenterB']"
+      },
+      {
+        "line": 77,
+        "text": "                r_RF = fitparameters['rcenterY']"
+      },
+      {
+        "line": 81,
+        "text": "                r_RF = fitparameters['rcenterY']"
+      }
+    ],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model_HPC/make_movie_from_files.ipynb",
+    "hits": [
+      {
+        "line": 4,
+        "text": "Barry's data is mostly from  from 3 deg to 8 deg of eccentricity; most cells around 5 deg eccentricity. There is a nonlinear relationships between retinal eccentricity (in $mm$) and visual angle (in $deg$) in macaque, see see https://www.ncbi.nlm.nih.gov/pmc/articles/PMC50193/. A polynomial fit is given by"
+      },
+      {
+        "line": 8,
+        "text": "with, $a = 0.1$, $b = 4.21$, and $c = 0.038$. Here A is eccentricity in $deg$, and E is eccentricity in $mm$. Using this equation, the cells are situated between $0.7$mm to $1.8$mm, mostly around $1.2$mm."
+      }
+    ],
+    "all_text": "CELL 0 markdown\n# Misc notes\nCELL 1 markdown\nBarry's data is mostly from  from 3 deg to 8 deg of eccentricity; most cells around 5 deg eccentricity. There is a nonlinear relationships between retinal eccentricity (in $mm$) and visual angle (in $deg$) in macaque, see see https://www.ncbi.nlm.nih.gov/pmc/articles/PMC50193/. A polynomial fit is given by\n\\begin{eqnarray}\nA = a + b E + c E^2\n\\end{eqnarray}\nwith, $a = 0.1$, $b = 4.21$, and $c = 0.038$. Here A is eccentricity in $deg$, and E is eccentricity in $mm$. Using this equation, the cells are situated between $0.7$mm to $1.8$mm, mostly around $1.2$mm.\n\nTaking the derivative of the quation, one gets the magnification factor\n\\begin{eqnarray}\n\\frac{dA}{dE} = b + 2cE \\qquad\\text{ in deg/mm}\n\\end{eqnarray}\nEvaluating this at $E=1.2\\,[0.7,\\,1.8]$mm, the range of manification factors is $4.30\\,[4.26,\\,4.35]$deg/mm. Inverting yields \n\\begin{eqnarray}\n    s = 0.232 [0.235,0.230] \\text{mm/deg}\n\\end{eqnarray}\n\nThe field of view is 256 px and 4.6degree across. Therefore\n* 256px are 4.6deg $\\to$ 56px per 1deg\n* 256px are $s*4.6\\text{deg}=1.07[1.06, 1.08]$mm $\\to$ 48px are 0.2mm\nCELL 2 code\nimport numpy as np\nimport cv2 as cv2\nimport pylab as pl\nfrom matplotlib import cm\nCELL 3 code\n# Import the movie to show in comparison\nCELL 4 code\nframe_raw = np.ones((3,256,256,4500))\n\nvidcap = cv2.VideoCapture('../../1x10_256.mpg')\nsuccess, image = vidcap.read()\ncounter = 0\nsuccess = True\nwhile success and (counter < 4500):   # 4500 to only process first 2.5 min *60sec *30fps in the mpg -> 30sec ret video\n    success, image = vidcap.read()\n    \n    #Raw RGB values\n    im_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)\n\n    red   = np.double(im_rgb[:,:,0])\n    green = np.double(im_rgb[:,:,1])\n    blue  = np.double(im_rgb[:,:,2])\n    \n    #Save luminance frame\n    frame_raw[:,:,:,counter] = np.array([red/256., green/256., blue/256.])\n    counter += 1\nCELL 5 code\n# Parse the npy file to show model prediction\nCELL 6 code\nfiltered_frames = np.load(\"./Gon-19829503-frames.npy\")\nCELL 7 code\n\nCELL 8 code\nstartframe = 600 #1sec before video begins at 150fps\n\nfor idx in range(startframe,4500):\n    \n\n    cell_frame = filtered_frames[:,:,idx]\n    cell_frame[230:240,180:(180+48)] = 10  # 0.2 mm\n\n    fig, axes = pl.subplots(nrows=1, ncols=2, figsize=(7, 4))\n    \n    r = np.reshape(frame_raw[0,:,:,idx],(256, 256))\n    g = np.reshape(frame_raw[1,:,:,idx],(256, 256))\n    b = np.reshape(frame_raw[2,:,:,idx],(256, 256))\n\n    img = np.zeros((256,256,3))\n    img[:,:,0] = np.array(r, dtype = np.float)\n    img[:,:,1] = np.array(g, dtype = np.float)\n    img[:,:,2] = np.array(b, dtype = np.float)\n\n    img[230:240,180:(180+56),0] = 1 # 1 deg scale bar\n    img[230:240,180:(180+56),1] = 1\n    img[230:240,180:(180+56),2] = 1\n    \n    axes[0].imshow(img)\n    axes[0].set_title(\"Video\")\n    axes[0].axes.xaxis.set_ticklabels([])\n    axes[0].axes.yaxis.set_ticklabels([])\n    axes[0].text(x=182,y=220, s = \"1 deg\", fontsize=15, color = 'w')\n\n    axes[1].imshow(cell_frame, vmin=0, vmax=1, cmap=cm.Greys_r)\n    axes[1].set_title(\"PC-Gon-cell\")\n    axes[1].axes.xaxis.set_ticklabels([])\n    axes[1].axes.yaxis.set_ticklabels([])\n    axes[1].text(x=20,y=30, s = \"time = \"+str(np.floor((idx-startframe)/150*1000)/1000)+\"s\", fontsize=15,color = 'w')\n    axes[1].text(x=170,y=220, s = \"0.2 mm\", fontsize=15, color = 'w')\n\n    fig.tight_layout()\n\n    pl.savefig(\"./video_frames/file%04d.png\" % (idx-startframe))\n    pl.close()\nCELL 9 markdown\nMake into movie:\n\nffmpeg -r 60 -f image2 -s 504x288 -i ./video_frames/file%04d.png -vcodec libx264 -crf 5  -pix_fmt yuv420p simulation.mp4\nCELL 10 code\n"
+  },
+  {
+    "artifact": "run_model_HPC/make_movie_MC.py",
+    "hits": [
+      {
+        "line": 21,
+        "text": "    xoff = X[idx_x]"
+      },
+      {
+        "line": 22,
+        "text": "    yoff = Y[idx_y]"
+      },
+      {
+        "line": 23,
+        "text": "    RF = get_RF(xoff, yoff, r_RF)"
+      },
+      {
+        "line": 30,
+        "text": "    This transform center/surround signal to activity with standard parameters."
+      },
+      {
+        "line": 34,
+        "text": "    signal_center   = RFstrip[0, idx_x, :]"
+      },
+      {
+        "line": 36,
+        "text": "    R = get_MC_response(signal_center, signal_surround, fitparameters, celltype)"
+      },
+      {
+        "line": 40,
+        "text": "fitparameters = {'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\"
+      },
+      {
+        "line": 45,
+        "text": "# fitparameters = {'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\"
+      },
+      {
+        "line": 66,
+        "text": "    data = np.ones((2, 256, 256, N_MAXFRAME))            # for center & surround   X 256px  X 256px  X N_frames"
+      },
+      {
+        "line": 74,
+        "text": "        for tt in [\"center\", \"surr\"]:"
+      },
+      {
+        "line": 75,
+        "text": "            if tt == \"center\":"
+      },
+      {
+        "line": 76,
+        "text": "                r_RF = fitparameters['rcenter']"
+      }
+    ],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model_HPC/make_movie_PC.py",
+    "hits": [
+      {
+        "line": 21,
+        "text": "    xoff = X[idx_x]"
+      },
+      {
+        "line": 22,
+        "text": "    yoff = Y[idx_y]"
+      },
+      {
+        "line": 23,
+        "text": "    RF = get_RF(xoff, yoff, r_RF)"
+      },
+      {
+        "line": 30,
+        "text": "    This transform center/surround signal to activity with standard parameters."
+      },
+      {
+        "line": 41,
+        "text": "# fitparameters = {'rcenterM': 20, 'rcenterL': 5.0, \\"
+      },
+      {
+        "line": 46,
+        "text": "fitparameters = {'rcenterM': 4.9, 'rcenterL': 32, \\"
+      },
+      {
+        "line": 70,
+        "text": "    data = np.ones((2, 256, 256, N_MAXFRAME))            # for center & surround   X 256px  X 256px  X N_frames"
+      },
+      {
+        "line": 79,
+        "text": "                r_RF = fitparameters['rcenterM']"
+      },
+      {
+        "line": 83,
+        "text": "                r_RF = fitparameters['rcenterL']"
+      }
+    ],
+    "all_text": null
+  },
+  {
+    "artifact": "run_model_HPC/run_python.sh",
+    "hits": [],
+    "all_text": null
+  },
+  {
+    "artifact": "stimuli/GunSpectra.txt",
+    "hits": [],
+    "all_text": null
+  }
+]

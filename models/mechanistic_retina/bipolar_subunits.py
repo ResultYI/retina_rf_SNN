@@ -10,6 +10,7 @@ from torch.nn import functional as F
 
 from models.mechanistic_retina.contracts import (
     ArchitectureMode,
+    GeometryMode,
     MechanisticRetinaConfig,
 )
 from models.mechanistic_retina.delay_parameters import (
@@ -68,14 +69,12 @@ class PathFeatureBank(nn.Module):
         pathway_spatial_geometry: PathwaySpatialGeometry | None = None,
     ) -> None:
         super().__init__()
-        supports = build_support_partition(
-            SupportPartitionRequest(
-                cone_positions,
-                cell_positions,
-                cell_types,
-                config.h1_radius_deg,
-            )
-        )
+        support_request = SupportPartitionRequest(cone_positions, cell_positions, cell_types, config.h1_radius_deg)
+        if config.geometry_mode == GeometryMode.EXTERNAL_RF_DERIVED:
+            from models.mechanistic_retina.external_geometry import external_supports
+            supports = external_supports(pathway_spatial_geometry, support_request)
+        else:
+            supports = build_support_partition(support_request)
         spatial = (
             _spatial_basis(cone_positions, cell_positions, cell_types)
             if pathway_spatial_geometry is None
@@ -175,6 +174,24 @@ class PathFeatureBank(nn.Module):
         features = torch.einsum("btlc,npsrlc->btnpsr", lagged, kernels)
         if mixer is not None and self.bc_support.shape[0] == 1:
             return mixer(features)
+        return features
+
+    def local_features(
+        self, cones: torch.Tensor, *, mixer: SharedSubunitMixer | None = None
+    ) -> torch.Tensor:
+        """Retain spatial input contributions using the forward kernel contract."""
+        lag_count = self.temporal_basis.shape[-1]
+        padded = F.pad(cones, (0, 0, lag_count - 1, 0))
+        lagged = padded.unfold(1, lag_count, 1).permute(0, 1, 3, 2)
+        kernels = self.basis_kernels()
+        if mixer is not None and self.bc_support.shape[0] > 1:
+            target_support = torch.stack(
+                (self.bc_support, self.bc_support, self.ac_support, self.ac_support), dim=1
+            )
+            kernels = mixer.mix_kernels(kernels) * target_support[:, :, None, None, None, :]
+        features = torch.einsum("btlc,npsrlc->btnpsrc", lagged, kernels)
+        if mixer is not None and self.bc_support.shape[0] == 1:
+            return torch.einsum("ij,btjpsrc->btipsrc", mixer.connection_matrix(), features)
         return features
 
 

@@ -1,0 +1,29 @@
+{
+  "phase": "R1",
+  "status": "UNVERIFIED",
+  "official_reliability_reproduction": "UNVERIFIED",
+  "verdict": "UNRESOLVED",
+  "stop_gate": "R1 section 4: official reliability definition insufficient",
+  "raw_eligible_cells": 20,
+  "reliability_scored_cells": 0,
+  "model_scored_cells": 0,
+  "missing_definition": [
+    "raw-response filter discretization and initial state",
+    "edge handling",
+    "repeat pair set and coefficient aggregation"
+  ],
+  "per_repeat_smoothed_response": "NOT_CREATED: no unverified smoothing algorithm substituted",
+  "raw_repeat_artifact": "raw_repeated_spike_times.npz",
+  "metric_tables": "Status-only rows, not numerical results",
+  "normalization_protocol": "NOT_REACHED; no formula introduced",
+  "training": 0,
+  "parameter_fitting": 0,
+  "new_seed": 0,
+  "model_inference": 0,
+  "checkpoint_tensors_loaded": 0,
+  "production_modifications": 0,
+  "pathway_analysis": 0,
+  "synthetic": 0,
+  "illusion": 0,
+  "official_protocol_sha256": "c27e7db7502558a061848f86d97566dfeac027de52b85700fd2e9b9f36075d0b"
+}

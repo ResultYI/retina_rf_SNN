@@ -1,0 +1,19 @@
+{
+  "decision": "NO_GO_NOT_AUTHORIZED_BY_CONDITIONAL_REPRODUCTION_CRITERIA",
+  "raw_current_lineage_movie_spikes_available": true,
+  "separate_author_6x1_video_payload_in_public_snapshot": false,
+  "author_method_sufficiently_fixed": false,
+  "could_avoid_validation_NLL_selection": true,
+  "no_arbitrary_smoothing_peak_or_coordinate_choice_possible": false,
+  "reported_example_reproduced_by_fixed_author_method": false,
+  "missing": [
+    "Executable reverse-correlation/deconvolution pipeline",
+    "Exact MPEG spectral-peak truncation and temporal spectrum/window construction",
+    "Deterministic polarity-aware temporal-peak selection and smoothing rule",
+    "2D DoG fitting implementation and initialization/bounds/fit region",
+    "Verified saved-map coordinate origin and orientation",
+    "Author recording-selection or repeated-recording center-combination rule"
+  ],
+  "PROTOCOL_created": false,
+  "RF_center_recomputations": 0
+}

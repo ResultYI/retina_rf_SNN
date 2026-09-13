@@ -1,0 +1,1906 @@
+ .../cells/67_14/cnn-raw.pt                         |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/67_14/cnn-trained.pt                     |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/67_14/inner-lr-0.0003.pt                 |    Bin [31m0[m -> [32m35427[m bytes
+ .../cells/67_14/inner-lr-0.001.pt                  |    Bin [31m0[m -> [32m33357[m bytes
+ .../cells/67_14/results.json                       |   1165 [32m+[m
+ .../cells/67_14/validation-predictions.pt          |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/67_21/cnn-raw.pt                         |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/67_21/cnn-trained.pt                     |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/67_21/inner-lr-0.0003.pt                 |    Bin [31m0[m -> [32m36003[m bytes
+ .../cells/67_21/inner-lr-0.001.pt                  |    Bin [31m0[m -> [32m32717[m bytes
+ .../cells/67_21/results.json                       |   1159 [32m+[m
+ .../cells/67_21/validation-predictions.pt          |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/67_26/cnn-raw.pt                         |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/67_26/cnn-trained.pt                     |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/67_26/inner-lr-0.0003.pt                 |    Bin [31m0[m -> [32m34787[m bytes
+ .../cells/67_26/inner-lr-0.001.pt                  |    Bin [31m0[m -> [32m32141[m bytes
+ .../cells/67_26/results.json                       |    962 [32m+[m
+ .../cells/67_26/validation-predictions.pt          |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/67_33/cnn-raw.pt                         |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/67_33/cnn-trained.pt                     |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/67_33/inner-lr-0.0003.pt                 |    Bin [31m0[m -> [32m32931[m bytes
+ .../cells/67_33/inner-lr-0.001.pt                  |    Bin [31m0[m -> [32m33357[m bytes
+ .../cells/67_33/results.json                       |    891 [32m+[m
+ .../cells/67_33/validation-predictions.pt          |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/67_34/cnn-raw.pt                         |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/67_34/cnn-trained.pt                     |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/67_34/inner-lr-0.0003.pt                 |    Bin [31m0[m -> [32m35299[m bytes
+ .../cells/67_34/inner-lr-0.001.pt                  |    Bin [31m0[m -> [32m32717[m bytes
+ .../cells/67_34/results.json                       |   1080 [32m+[m
+ .../cells/67_34/validation-predictions.pt          |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/67_4/cnn-raw.pt                          |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/67_4/cnn-trained.pt                      |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/67_4/inner-lr-0.0003.pt                  |    Bin [31m0[m -> [32m33059[m bytes
+ .../cells/67_4/inner-lr-0.001.pt                   |    Bin [31m0[m -> [32m31885[m bytes
+ .../cells/67_4/results.json                        |    697 [32m+[m
+ .../cells/67_4/validation-predictions.pt           |    Bin [31m0[m -> [32m10547[m bytes
+ .../cells/67_6/cnn-raw.pt                          |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/67_6/cnn-trained.pt                      |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/67_6/inner-lr-0.0003.pt                  |    Bin [31m0[m -> [32m35363[m bytes
+ .../cells/67_6/inner-lr-0.001.pt                   |    Bin [31m0[m -> [32m33997[m bytes
+ .../cells/67_6/results.json                        |   1232 [32m+[m
+ .../cells/67_6/validation-predictions.pt           |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/67_7/cnn-raw.pt                          |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/67_7/cnn-trained.pt                      |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/67_7/inner-lr-0.0003.pt                  |    Bin [31m0[m -> [32m33443[m bytes
+ .../cells/67_7/inner-lr-0.001.pt                   |    Bin [31m0[m -> [32m32397[m bytes
+ .../cells/67_7/results.json                        |    841 [32m+[m
+ .../cells/67_7/validation-predictions.pt           |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/68_10/cnn-raw.pt                         |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/68_10/cnn-trained.pt                     |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/68_10/inner-lr-0.0003.pt                 |    Bin [31m0[m -> [32m34083[m bytes
+ .../cells/68_10/inner-lr-0.001.pt                  |    Bin [31m0[m -> [32m32269[m bytes
+ .../cells/68_10/results.json                       |    854 [32m+[m
+ .../cells/68_10/validation-predictions.pt          |    Bin [31m0[m -> [32m10547[m bytes
+ .../cells/68_11/cnn-raw.pt                         |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/68_11/cnn-trained.pt                     |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/68_11/inner-lr-0.0003.pt                 |    Bin [31m0[m -> [32m34787[m bytes
+ .../cells/68_11/inner-lr-0.001.pt                  |    Bin [31m0[m -> [32m33293[m bytes
+ .../cells/68_11/results.json                       |   1085 [32m+[m
+ .../cells/68_11/validation-predictions.pt          |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/68_3/cnn-raw.pt                          |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/68_3/cnn-trained.pt                      |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/68_3/inner-lr-0.0003.pt                  |    Bin [31m0[m -> [32m35107[m bytes
+ .../cells/68_3/inner-lr-0.001.pt                   |    Bin [31m0[m -> [32m33933[m bytes
+ .../cells/68_3/results.json                        |   1194 [32m+[m
+ .../cells/68_3/validation-predictions.pt           |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/68_4/cnn-raw.pt                          |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/68_4/cnn-trained.pt                      |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/68_4/inner-lr-0.0003.pt                  |    Bin [31m0[m -> [32m32867[m bytes
+ .../cells/68_4/inner-lr-0.001.pt                   |    Bin [31m0[m -> [32m32077[m bytes
+ .../cells/68_4/results.json                        |    729 [32m+[m
+ .../cells/68_4/validation-predictions.pt           |    Bin [31m0[m -> [32m50675[m bytes
+ .../cells/68_7/cnn-raw.pt                          |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/68_7/cnn-trained.pt                      |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/68_7/inner-lr-0.0003.pt                  |    Bin [31m0[m -> [32m37027[m bytes
+ .../cells/68_7/inner-lr-0.001.pt                   |    Bin [31m0[m -> [32m34189[m bytes
+ .../cells/68_7/results.json                        |   1442 [32m+[m
+ .../cells/68_7/validation-predictions.pt           |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/69_21/cnn-raw.pt                         |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/69_21/cnn-trained.pt                     |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/69_21/inner-lr-0.0003.pt                 |    Bin [31m0[m -> [32m34083[m bytes
+ .../cells/69_21/inner-lr-0.001.pt                  |    Bin [31m0[m -> [32m32397[m bytes
+ .../cells/69_21/results.json                       |    907 [32m+[m
+ .../cells/69_21/validation-predictions.pt          |    Bin [31m0[m -> [32m50675[m bytes
+ .../cells/69_3/cnn-raw.pt                          |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/69_3/cnn-trained.pt                      |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/69_3/inner-lr-0.0003.pt                  |    Bin [31m0[m -> [32m33891[m bytes
+ .../cells/69_3/inner-lr-0.001.pt                   |    Bin [31m0[m -> [32m32461[m bytes
+ .../cells/69_3/results.json                        |    898 [32m+[m
+ .../cells/69_3/validation-predictions.pt           |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/69_4/cnn-raw.pt                          |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/69_4/cnn-trained.pt                      |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/69_4/inner-lr-0.0003.pt                  |    Bin [31m0[m -> [32m32995[m bytes
+ .../cells/69_4/inner-lr-0.001.pt                   |    Bin [31m0[m -> [32m32141[m bytes
+ .../cells/69_4/results.json                        |    757 [32m+[m
+ .../cells/69_4/validation-predictions.pt           |    Bin [31m0[m -> [32m50675[m bytes
+ .../cells/69_6/cnn-raw.pt                          |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/69_6/cnn-trained.pt                      |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/69_6/inner-lr-0.0003.pt                  |    Bin [31m0[m -> [32m34275[m bytes
+ .../cells/69_6/inner-lr-0.001.pt                   |    Bin [31m0[m -> [32m32589[m bytes
+ .../cells/69_6/results.json                        |    950 [32m+[m
+ .../cells/69_6/validation-predictions.pt           |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/69_7/cnn-raw.pt                          |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/69_7/cnn-trained.pt                      |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/69_7/inner-lr-0.0003.pt                  |    Bin [31m0[m -> [32m32675[m bytes
+ .../cells/69_7/inner-lr-0.001.pt                   |    Bin [31m0[m -> [32m32397[m bytes
+ .../cells/69_7/results.json                        |    761 [32m+[m
+ .../cells/69_7/validation-predictions.pt           |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/70_1/cnn-raw.pt                          |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/70_1/cnn-trained.pt                      |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/70_1/inner-lr-0.0003.pt                  |    Bin [31m0[m -> [32m32803[m bytes
+ .../cells/70_1/inner-lr-0.001.pt                   |    Bin [31m0[m -> [32m31821[m bytes
+ .../cells/70_1/results.json                        |    698 [32m+[m
+ .../cells/70_1/validation-predictions.pt           |    Bin [31m0[m -> [32m50675[m bytes
+ .../cells/70_15/cnn-raw.pt                         |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/70_15/cnn-trained.pt                     |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/70_15/inner-lr-0.0003.pt                 |    Bin [31m0[m -> [32m34275[m bytes
+ .../cells/70_15/inner-lr-0.001.pt                  |    Bin [31m0[m -> [32m32013[m bytes
+ .../cells/70_15/results.json                       |    881 [32m+[m
+ .../cells/70_15/validation-predictions.pt          |    Bin [31m0[m -> [32m50675[m bytes
+ .../cells/70_34/cnn-raw.pt                         |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/70_34/cnn-trained.pt                     |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/70_34/inner-lr-0.0003.pt                 |    Bin [31m0[m -> [32m38627[m bytes
+ .../cells/70_34/inner-lr-0.001.pt                  |    Bin [31m0[m -> [32m32653[m bytes
+ .../cells/70_34/results.json                       |   1443 [32m+[m
+ .../cells/70_34/validation-predictions.pt          |    Bin [31m0[m -> [32m58611[m bytes
+ .../cells/70_7/cnn-raw.pt                          |    Bin [31m0[m -> [32m17741[m bytes
+ .../cells/70_7/cnn-trained.pt                      |    Bin [31m0[m -> [32m17925[m bytes
+ .../cells/70_7/inner-lr-0.0003.pt                  |    Bin [31m0[m -> [32m32867[m bytes
+ .../cells/70_7/inner-lr-0.001.pt                   |    Bin [31m0[m -> [32m32205[m bytes
+ .../cells/70_7/results.json                        |    757 [32m+[m
+ .../cells/70_7/validation-predictions.pt           |    Bin [31m0[m -> [32m58611[m bytes
+ .../compact_causal_cnn_baseline/group_summary.csv  |      6 [32m+[m
+ .../compact_causal_cnn_baseline/per_cell.csv       |     23 [32m+[m
+ .../compact_causal_cnn_baseline/preflight.json     |   2175 [32m+[m
+ .../preflight_before_provenance_completion.json    |   2171 [32m+[m
+ .../compact_causal_cnn_baseline/prepare.py         |    128 [32m+[m
+ .../evidence/compact_causal_cnn_baseline/report.py |    109 [32m+[m
+ .../compact_causal_cnn_baseline/results.json       |    752 [32m+[m
+ .../compact_causal_cnn_baseline/runtime.json       |     12 [32m+[m
+ .../compact_causal_cnn_baseline/summary.md         |     62 [32m+[m
+ .omo/evidence/compact_causal_cnn_baseline/train.py |    122 [32m+[m
+ .../training_complete.json                         |      7 [32m+[m
+ .../compact_causal_cnn_baseline/verification.md    |     63 [32m+[m
+ .omo/evidence/final_prediction_results/README.md   |     39 [32m+[m
+ .../final_prediction_results/analysis.json         |    435 [32m+[m
+ .../bootstrap_resamples.npz                        |    Bin [31m0[m -> [32m1583430[m bytes
+ .../final_prediction_results/build_package.py      |    211 [32m+[m
+ .../final_prediction_results/check_statistics.py   |     33 [32m+[m
+ .../figures/main_prediction_paired.pdf             |    Bin [31m0[m -> [32m30437[m bytes
+ .../figures/main_prediction_paired.png             |    Bin [31m0[m -> [32m255741[m bytes
+ .../figures/main_prediction_paired.svg             |    967 [32m+[m
+ .../figures/per_cell_paired_differences.pdf        |    Bin [31m0[m -> [32m21410[m bytes
+ .../figures/per_cell_paired_differences.png        |    Bin [31m0[m -> [32m196580[m bytes
+ .../figures/per_cell_paired_differences.svg        |   1661 [32m+[m
+ .../figures/supplement_sc_adapted.pdf              |    Bin [31m0[m -> [32m17737[m bytes
+ .../figures/supplement_sc_adapted.png              |    Bin [31m0[m -> [32m117649[m bytes
+ .../figures/supplement_sc_adapted.svg              |    698 [32m+[m
+ .../final_prediction_results/group_descriptive.csv |     26 [32m+[m
+ .../final_prediction_results/main_parameters.csv   |      5 [32m+[m
+ .../paired_comparisons.csv                         |      4 [32m+[m
+ .../final_prediction_results/per_cell_nll.csv      |     23 [32m+[m
+ .../final_prediction_results/render_figures.py     |    114 [32m+[m
+ .../final_prediction_results/results_draft.md      |     25 [32m+[m
+ .../final_prediction_results/source_manifest.json  |    114 [32m+[m
+ .../final_prediction_results/supplement.md         |     42 [32m+[m
+ .../supplement_sc_parameters.csv                   |      2 [32m+[m
+ .omo/evidence/final_prediction_results/tables.md   |     69 [32m+[m
+ .../final_prediction_results/verification.md       |     28 [32m+[m
+ .../aggregation_check/aggregation_core.py          |     55 [32m+[m
+ .../aggregation_check/aggregation_manifest.json    |     16 [32m+[m
+ .../aggregation_surface_curves.csv                 |    919 [32m+[m
+ .../aggregation_check/cohort_reversal_audit.csv    |    241 [32m+[m
+ .../aggregation_check/conclusion_metrics.json      |     33 [32m+[m
+ .../aggregation_check/effect_sign_cell_audit.csv   |     67 [32m+[m
+ .../aggregation_check/effect_sign_point_audit.csv  |     81 [32m+[m
+ .../group_normal_acoff_curves.png                  |    Bin [31m0[m -> [32m456765[m bytes
+ .../aggregation_check/group_surface_curves.csv     |   1225 [32m+[m
+ .../aggregation_check/labeled_surfaces.csv         |   2245 [32m+[m
+ .../mach_ac_interaction_by_group.png               |    Bin [31m0[m -> [32m111782[m bytes
+ .../mach_control_subtracted_aggregations.csv       |    541 [32m+[m
+ .../mach_control_subtracted_groups.csv             |    721 [32m+[m
+ .../mach_control_subtracted_per_cell.csv           |   1321 [32m+[m
+ .../mach_interaction_direction_summary.csv         |    201 [32m+[m
+ .../aggregation_check/plot_aggregation.py          |     95 [32m+[m
+ .../aggregation_check/run_aggregation.py           |    230 [32m+[m
+ .../aggregation_check/summarize_aggregation.py     |    229 [32m+[m
+ .../aggregation_check/summary.md                   |     93 [32m+[m
+ .../aggregation_check/test_aggregation_contract.py |     55 [32m+[m
+ .../aggregation_check/verification.json            |     21 [32m+[m
+ .../analysis_contract.json                         |     13 [32m+[m
+ .../analyze_input_range.py                         |    101 [32m+[m
+ .../analyze_responses.py                           |    159 [32m+[m
+ .../artifact_manifest.json                         |     75 [32m+[m
+ .../clamp_difference_cell_alignment.csv            |    199 [32m+[m
+ .../clamp_difference_summary.csv                   |     10 [32m+[m
+ .../cohort_clamp_differences.csv                   |    307 [32m+[m
+ .../cohort_curves.csv                              |    613 [32m+[m
+ .../cohort_model_differences.csv                   |    307 [32m+[m
+ .../cohort_monotonicity.csv                        |    211 [32m+[m
+ .../parametric_illusion_benchmark/contract.py      |    112 [32m+[m
+ .../parametric_illusion_benchmark/figures.py       |    125 [32m+[m
+ .../figures/canonical_mach_clamp_surfaces.png      |    Bin [31m0[m -> [32m130510[m bytes
+ .../figures/canonical_sbc_clamp_surfaces.png       |    Bin [31m0[m -> [32m76673[m bytes
+ .../figures/cohort_mach_normal.png                 |    Bin [31m0[m -> [32m316864[m bytes
+ .../figures/cohort_sbc_normal.png                  |    Bin [31m0[m -> [32m160725[m bytes
+ .../figures/per_cell/67_14.png                     |    Bin [31m0[m -> [32m115478[m bytes
+ .../figures/per_cell/67_21.png                     |    Bin [31m0[m -> [32m116130[m bytes
+ .../figures/per_cell/67_26.png                     |    Bin [31m0[m -> [32m116811[m bytes
+ .../figures/per_cell/67_33.png                     |    Bin [31m0[m -> [32m117234[m bytes
+ .../figures/per_cell/67_34.png                     |    Bin [31m0[m -> [32m115372[m bytes
+ .../figures/per_cell/67_4.png                      |    Bin [31m0[m -> [32m116515[m bytes
+ .../figures/per_cell/67_6.png                      |    Bin [31m0[m -> [32m115473[m bytes
+ .../figures/per_cell/67_7.png                      |    Bin [31m0[m -> [32m115067[m bytes
+ .../figures/per_cell/68_10.png                     |    Bin [31m0[m -> [32m115776[m bytes
+ .../figures/per_cell/68_11.png                     |    Bin [31m0[m -> [32m117065[m bytes
+ .../figures/per_cell/68_3.png                      |    Bin [31m0[m -> [32m115654[m bytes
+ .../figures/per_cell/68_4.png                      |    Bin [31m0[m -> [32m116441[m bytes
+ .../figures/per_cell/68_7.png                      |    Bin [31m0[m -> [32m116155[m bytes
+ .../figures/per_cell/69_21.png                     |    Bin [31m0[m -> [32m115434[m bytes
+ .../figures/per_cell/69_3.png                      |    Bin [31m0[m -> [32m115463[m bytes
+ .../figures/per_cell/69_4.png                      |    Bin [31m0[m -> [32m115745[m bytes
+ .../figures/per_cell/69_6.png                      |    Bin [31m0[m -> [32m115179[m bytes
+ .../figures/per_cell/69_7.png                      |    Bin [31m0[m -> [32m115764[m bytes
+ .../figures/per_cell/70_1.png                      |    Bin [31m0[m -> [32m116123[m bytes
+ .../figures/per_cell/70_15.png                     |    Bin [31m0[m -> [32m116125[m bytes
+ .../figures/per_cell/70_34.png                     |    Bin [31m0[m -> [32m115393[m bytes
+ .../figures/per_cell/70_7.png                      |    Bin [31m0[m -> [32m115711[m bytes
+ .../inference_manifest.json                        |    925 [32m+[m
+ .../model_difference_cell_alignment.csv            |    199 [32m+[m
+ .../model_difference_summary.csv                   |     10 [32m+[m
+ .../monotonicity_summary.csv                       |     37 [32m+[m
+ .../natural_training_range.json                    |     75 [32m+[m
+ .../natural_training_sources.csv                   |      4 [32m+[m
+ .../per_cell_clamp_differences.csv                 |   6733 [32m+[m
+ .../per_cell_curves.csv                            |  13465 [32m+[m
+ .../per_cell_model_differences.csv                 |   6733 [32m+[m
+ .../per_cell_monotonicity.csv                      |   4621 [32m+[m
+ .../probe_input_position.csv                       |    167 [32m+[m
+ .../probe_scalar_levels.csv                        |     70 [32m+[m
+ .../parametric_illusion_benchmark/protocol.json    |     36 [32m+[m
+ .../parametric_illusion_benchmark/responses.pt     |    Bin [31m0[m -> [32m13195322[m bytes
+ .../parametric_illusion_benchmark/run_inference.py |    143 [32m+[m
+ .../parametric_illusion_benchmark/stimuli.pt       |    Bin [31m0[m -> [32m29086484[m bytes
+ .../summarize_surfaces.py                          |    122 [32m+[m
+ .../parametric_illusion_benchmark/summary.md       |     75 [32m+[m
+ .../summary_metrics.json                           |    241 [32m+[m
+ .../parametric_illusion_benchmark/test_contract.py |     79 [32m+[m
+ .../test_frozen_loaders.py                         |     21 [32m+[m
+ .../verification.json                              |     11 [32m+[m
+ .../parametric_illusion_benchmark/verify.py        |     87 [32m+[m
+ .omo/evidence/prediction_baseline_inventory.md     |     33 [32m+[m
+ .../aggregate_81.py                                |    162 [32m+[m
+ .../aggregate_81_combinations.csv                  |     82 [32m+[m
+ .../aggregate_summary.md                           |     42 [32m+[m
+ .../fits/67_4/fresh_1/evaluation.pt                |    Bin [31m0[m -> [32m102180[m bytes
+ .../fits/67_4/fresh_1/inner-trajectory.csv         |    347 [32m+[m
+ .../fits/67_4/fresh_1/model-inner-best.pt          |    Bin [31m0[m -> [32m219070[m bytes
+ .../fits/67_4/fresh_1/model-raw.pt                 |    Bin [31m0[m -> [32m218216[m bytes
+ .../fits/67_4/fresh_1/model-trained.pt             |    Bin [31m0[m -> [32m218896[m bytes
+ .../fits/67_4/fresh_1/refit-trajectory.csv         |    146 [32m+[m
+ .../fits/67_4/fresh_1/results.json                 |     15 [32m+[m
+ .../fits/67_4/fresh_1/training.json                |     46 [32m+[m
+ .../fits/67_4/fresh_2/evaluation.pt                |    Bin [31m0[m -> [32m102180[m bytes
+ .../fits/67_4/fresh_2/inner-trajectory.csv         |    400 [32m+[m
+ .../fits/67_4/fresh_2/model-inner-best.pt          |    Bin [31m0[m -> [32m219070[m bytes
+ .../fits/67_4/fresh_2/model-raw.pt                 |    Bin [31m0[m -> [32m218216[m bytes
+ .../fits/67_4/fresh_2/model-trained.pt             |    Bin [31m0[m -> [32m218896[m bytes
+ .../fits/67_4/fresh_2/refit-trajectory.csv         |    199 [32m+[m
+ .../fits/67_4/fresh_2/results.json                 |     15 [32m+[m
+ .../fits/67_4/fresh_2/training.json                |     46 [32m+[m
+ .../fits/67_4/primary/evaluation.pt                |    Bin [31m0[m -> [32m102180[m bytes
+ .../fits/67_4/primary/results.json                 |     15 [32m+[m
+ .../fits/67_6/fresh_1/evaluation.pt                |    Bin [31m0[m -> [32m178980[m bytes
+ .../fits/67_6/fresh_1/inner-trajectory.csv         |    410 [32m+[m
+ .../fits/67_6/fresh_1/model-inner-best.pt          |    Bin [31m0[m -> [32m219134[m bytes
+ .../fits/67_6/fresh_1/model-raw.pt                 |    Bin [31m0[m -> [32m218280[m bytes
+ .../fits/67_6/fresh_1/model-trained.pt             |    Bin [31m0[m -> [32m218960[m bytes
+ .../fits/67_6/fresh_1/refit-trajectory.csv         |    209 [32m+[m
+ .../fits/67_6/fresh_1/results.json                 |     15 [32m+[m
+ .../fits/67_6/fresh_1/training.json                |     46 [32m+[m
+ .../fits/67_6/fresh_2/evaluation.pt                |    Bin [31m0[m -> [32m178980[m bytes
+ .../fits/67_6/fresh_2/inner-trajectory.csv         |    753 [32m+[m
+ .../fits/67_6/fresh_2/model-inner-best.pt          |    Bin [31m0[m -> [32m219134[m bytes
+ .../fits/67_6/fresh_2/model-raw.pt                 |    Bin [31m0[m -> [32m218280[m bytes
+ .../fits/67_6/fresh_2/model-trained.pt             |    Bin [31m0[m -> [32m218960[m bytes
+ .../fits/67_6/fresh_2/refit-trajectory.csv         |    552 [32m+[m
+ .../fits/67_6/fresh_2/results.json                 |     15 [32m+[m
+ .../fits/67_6/fresh_2/training.json                |     46 [32m+[m
+ .../fits/67_6/primary/evaluation.pt                |    Bin [31m0[m -> [32m178980[m bytes
+ .../fits/67_6/primary/results.json                 |     15 [32m+[m
+ .../fits/68_4/fresh_1/evaluation.pt                |    Bin [31m0[m -> [32m166372[m bytes
+ .../fits/68_4/fresh_1/inner-trajectory.csv         |    373 [32m+[m
+ .../fits/68_4/fresh_1/model-inner-best.pt          |    Bin [31m0[m -> [32m219070[m bytes
+ .../fits/68_4/fresh_1/model-raw.pt                 |    Bin [31m0[m -> [32m218216[m bytes
+ .../fits/68_4/fresh_1/model-trained.pt             |    Bin [31m0[m -> [32m218896[m bytes
+ .../fits/68_4/fresh_1/refit-trajectory.csv         |    172 [32m+[m
+ .../fits/68_4/fresh_1/results.json                 |     15 [32m+[m
+ .../fits/68_4/fresh_1/training.json                |     46 [32m+[m
+ .../fits/68_4/fresh_2/evaluation.pt                |    Bin [31m0[m -> [32m166372[m bytes
+ .../fits/68_4/fresh_2/inner-trajectory.csv         |    383 [32m+[m
+ .../fits/68_4/fresh_2/model-inner-best.pt          |    Bin [31m0[m -> [32m219070[m bytes
+ .../fits/68_4/fresh_2/model-raw.pt                 |    Bin [31m0[m -> [32m218216[m bytes
+ .../fits/68_4/fresh_2/model-trained.pt             |    Bin [31m0[m -> [32m218896[m bytes
+ .../fits/68_4/fresh_2/refit-trajectory.csv         |    182 [32m+[m
+ .../fits/68_4/fresh_2/results.json                 |     15 [32m+[m
+ .../fits/68_4/fresh_2/training.json                |     46 [32m+[m
+ .../fits/68_4/primary/evaluation.pt                |    Bin [31m0[m -> [32m166372[m bytes
+ .../fits/68_4/primary/results.json                 |     15 [32m+[m
+ .../fits/69_4/fresh_1/evaluation.pt                |    Bin [31m0[m -> [32m166372[m bytes
+ .../fits/69_4/fresh_1/inner-trajectory.csv         |    326 [32m+[m
+ .../fits/69_4/fresh_1/model-inner-best.pt          |    Bin [31m0[m -> [32m219070[m bytes
+ .../fits/69_4/fresh_1/model-raw.pt                 |    Bin [31m0[m -> [32m218216[m bytes
+ .../fits/69_4/fresh_1/model-trained.pt             |    Bin [31m0[m -> [32m218896[m bytes
+ .../fits/69_4/fresh_1/refit-trajectory.csv         |    125 [32m+[m
+ .../fits/69_4/fresh_1/results.json                 |     15 [32m+[m
+ .../fits/69_4/fresh_1/training.json                |     46 [32m+[m
+ .../fits/69_4/fresh_2/evaluation.pt                |    Bin [31m0[m -> [32m166372[m bytes
+ .../fits/69_4/fresh_2/inner-trajectory.csv         |    356 [32m+[m
+ .../fits/69_4/fresh_2/model-inner-best.pt          |    Bin [31m0[m -> [32m219070[m bytes
+ .../fits/69_4/fresh_2/model-raw.pt                 |    Bin [31m0[m -> [32m218216[m bytes
+ .../fits/69_4/fresh_2/model-trained.pt             |    Bin [31m0[m -> [32m218896[m bytes
+ .../fits/69_4/fresh_2/refit-trajectory.csv         |    155 [32m+[m
+ .../fits/69_4/fresh_2/results.json                 |     15 [32m+[m
+ .../fits/69_4/fresh_2/training.json                |     46 [32m+[m
+ .../fits/69_4/primary/evaluation.pt                |    Bin [31m0[m -> [32m166372[m bytes
+ .../fits/69_4/primary/results.json                 |     15 [32m+[m
+ .../illusion_paired_logits.csv                     |    121 [32m+[m
+ .../mechanism_disagreement.json                    |      7 [32m+[m
+ .../pairwise_comparison.csv                        |     61 [32m+[m
+ .../real_data_independent_seed_sanity/per_fit.csv  |     13 [32m+[m
+ .../preflight.json                                 |    396 [32m+[m
+ .../real_data_independent_seed_sanity/prepare.py   |    108 [32m+[m
+ .../provenance.json                                |    409 [32m+[m
+ .../real_data_independent_seed_sanity/replay.py    |     94 [32m+[m
+ .../run-manifest.json                              |    345 [32m+[m
+ .../real_data_independent_seed_sanity/run.py       |    122 [32m+[m
+ .../selection.json                                 |    674 [32m+[m
+ .../real_data_independent_seed_sanity/source.py    |    105 [32m+[m
+ .../real_data_independent_seed_sanity/summarize.py |    107 [32m+[m
+ .../real_data_independent_seed_sanity/summary.md   |     54 [32m+[m
+ .../verification.json                              |    465 [32m+[m
+ .../compute.py                                     |    229 [32m+[m
+ .../group_summary.csv                              |     13 [32m+[m
+ .../per_cell.csv                                   |     67 [32m+[m
+ .../production_target_consistency.json             |    657 [32m+[m
+ .../summary.md                                     |     42 [32m+[m
+ .../audio-first16p2s.s16le                         |    Bin [31m0[m -> [32m1036800[m bytes
+ .../audio-frames-first16s.json                     |   3693 [32m+[m
+ .../schottdorf_lee_frame_zero/first16s-frames.json |  17183 [32m+[m
+ .../frames745-755-ffmpeg.bgr                       |      7 [32m+[m
+ .../schottdorf_lee_frame_zero/streams.json         |    123 [32m+[m
+ .../video-packets-first16s.json                    |   7991 [32m+[m
+ .../schottdorf_lee_frame_zero_resolution.md        |    260 [32m+[m
+ .../inputs.py                                      |    154 [32m+[m
+ .../pathway_effects.csv                            |    199 [32m+[m
+ .../per_cell.csv                                   |     67 [32m+[m
+ .../population.csv                                 |      4 [32m+[m
+ .../population_pathways.csv                        |     10 [32m+[m
+ .../report.py                                      |     72 [32m+[m
+ .../run.py                                         |    193 [32m+[m
+ .../summary.md                                     |     76 [32m+[m
+ .../verification.json                              |   1072 [32m+[m
+ .../schottdorf_lee_timing_contract_final_check.md  |    249 [32m+[m
+ .../cells/67_14/matched_w0-validation.npz          |    Bin [31m0[m -> [32m11997[m bytes
+ .../cells/67_14/matched_w0.json                    |     42 [32m+[m
+ .../cells/67_14/sc_adapted-validation.npz          |    Bin [31m0[m -> [32m12002[m bytes
+ .../cells/67_14/sc_adapted.json                    |     45 [32m+[m
+ .../cells/67_21/matched_w0-validation.npz          |    Bin [31m0[m -> [32m11788[m bytes
+ .../cells/67_21/matched_w0.json                    |     42 [32m+[m
+ .../cells/67_21/sc_adapted-validation.npz          |    Bin [31m0[m -> [32m11810[m bytes
+ .../cells/67_21/sc_adapted.json                    |     45 [32m+[m
+ .../cells/67_26/matched_w0-validation.npz          |    Bin [31m0[m -> [32m12148[m bytes
+ .../cells/67_26/matched_w0.json                    |     42 [32m+[m
+ .../cells/67_26/sc_adapted-validation.npz          |    Bin [31m0[m -> [32m12135[m bytes
+ .../cells/67_26/sc_adapted.json                    |     45 [32m+[m
+ .../cells/67_33/matched_w0-validation.npz          |    Bin [31m0[m -> [32m11927[m bytes
+ .../cells/67_33/matched_w0.json                    |     42 [32m+[m
+ .../cells/67_33/sc_adapted-validation.npz          |    Bin [31m0[m -> [32m11955[m bytes
+ .../cells/67_33/sc_adapted.json                    |     45 [32m+[m
+ .../cells/67_34/matched_w0-validation.npz          |    Bin [31m0[m -> [32m11985[m bytes
+ .../cells/67_34/matched_w0.json                    |     42 [32m+[m
+ .../cells/67_34/sc_adapted-validation.npz          |    Bin [31m0[m -> [32m12011[m bytes
+ .../cells/67_34/sc_adapted.json                    |     45 [32m+[m
+ .../cells/67_4/matched_w0-validation.npz           |    Bin [31m0[m -> [32m10577[m bytes
+ .../cells/67_4/matched_w0.json                     |     42 [32m+[m
+ .../cells/67_4/sc_adapted-validation.npz           |    Bin [31m0[m -> [32m10599[m bytes
+ .../cells/67_4/sc_adapted.json                     |     45 [32m+[m
+ .../cells/67_6/matched_w0-validation.npz           |    Bin [31m0[m -> [32m11967[m bytes
+ .../cells/67_6/matched_w0.json                     |     42 [32m+[m
+ .../cells/67_6/sc_adapted-validation.npz           |    Bin [31m0[m -> [32m11984[m bytes
+ .../cells/67_6/sc_adapted.json                     |     45 [32m+[m
+ .../cells/67_7/matched_w0-validation.npz           |    Bin [31m0[m -> [32m11990[m bytes
+ .../cells/67_7/matched_w0.json                     |     42 [32m+[m
+ .../cells/67_7/sc_adapted-validation.npz           |    Bin [31m0[m -> [32m12007[m bytes
+ .../cells/67_7/sc_adapted.json                     |     45 [32m+[m
+ .../cells/68_10/matched_w0-validation.npz          |    Bin [31m0[m -> [32m10574[m bytes
+ .../cells/68_10/matched_w0.json                    |     42 [32m+[m
+ .../cells/68_10/sc_adapted-validation.npz          |    Bin [31m0[m -> [32m10560[m bytes
+ .../cells/68_10/sc_adapted.json                    |     45 [32m+[m
+ .../cells/68_11/matched_w0-validation.npz          |    Bin [31m0[m -> [32m11881[m bytes
+ .../cells/68_11/matched_w0.json                    |     42 [32m+[m
+ .../cells/68_11/sc_adapted-validation.npz          |    Bin [31m0[m -> [32m11942[m bytes
+ .../cells/68_11/sc_adapted.json                    |     45 [32m+[m
+ .../cells/68_3/matched_w0-validation.npz           |    Bin [31m0[m -> [32m12073[m bytes
+ .../cells/68_3/matched_w0.json                     |     42 [32m+[m
+ .../cells/68_3/sc_adapted-validation.npz           |    Bin [31m0[m -> [32m12098[m bytes
+ .../cells/68_3/sc_adapted.json                     |     45 [32m+[m
+ .../cells/68_4/matched_w0-validation.npz           |    Bin [31m0[m -> [32m11737[m bytes
+ .../cells/68_4/matched_w0.json                     |     42 [32m+[m
+ .../cells/68_4/sc_adapted-validation.npz           |    Bin [31m0[m -> [32m11739[m bytes
+ .../cells/68_4/sc_adapted.json                     |     45 [32m+[m
+ .../cells/68_7/matched_w0-validation.npz           |    Bin [31m0[m -> [32m11969[m bytes
+ .../cells/68_7/matched_w0.json                     |     42 [32m+[m
+ .../cells/68_7/sc_adapted-validation.npz           |    Bin [31m0[m -> [32m11970[m bytes
+ .../cells/68_7/sc_adapted.json                     |     45 [32m+[m
+ .../cells/69_21/matched_w0-validation.npz          |    Bin [31m0[m -> [32m11734[m bytes
+ .../cells/69_21/matched_w0.json                    |     42 [32m+[m
+ .../cells/69_21/sc_adapted-validation.npz          |    Bin [31m0[m -> [32m11737[m bytes
+ .../cells/69_21/sc_adapted.json                    |     45 [32m+[m
+ .../cells/69_3/matched_w0-validation.npz           |    Bin [31m0[m -> [32m12195[m bytes
+ .../cells/69_3/matched_w0.json                     |     42 [32m+[m
+ .../cells/69_3/sc_adapted-validation.npz           |    Bin [31m0[m -> [32m12208[m bytes
+ .../cells/69_3/sc_adapted.json                     |     45 [32m+[m
+ .../cells/69_4/matched_w0-validation.npz           |    Bin [31m0[m -> [32m11725[m bytes
+ .../cells/69_4/matched_w0.json                     |     42 [32m+[m
+ .../cells/69_4/sc_adapted-validation.npz           |    Bin [31m0[m -> [32m11728[m bytes
+ .../cells/69_4/sc_adapted.json                     |     45 [32m+[m
+ .../cells/69_6/matched_w0-validation.npz           |    Bin [31m0[m -> [32m11957[m bytes
+ .../cells/69_6/matched_w0.json                     |     42 [32m+[m
+ .../cells/69_6/sc_adapted-validation.npz           |    Bin [31m0[m -> [32m11951[m bytes
+ .../cells/69_6/sc_adapted.json                     |     45 [32m+[m
+ .../cells/69_7/matched_w0-validation.npz           |    Bin [31m0[m -> [32m12001[m bytes
+ .../cells/69_7/matched_w0.json                     |     42 [32m+[m
+ .../cells/69_7/sc_adapted-validation.npz           |    Bin [31m0[m -> [32m12025[m bytes
+ .../cells/69_7/sc_adapted.json                     |     45 [32m+[m
+ .../cells/70_1/matched_w0-validation.npz           |    Bin [31m0[m -> [32m11785[m bytes
+ .../cells/70_1/matched_w0.json                     |     42 [32m+[m
+ .../cells/70_1/sc_adapted-validation.npz           |    Bin [31m0[m -> [32m11800[m bytes
+ .../cells/70_1/sc_adapted.json                     |     45 [32m+[m
+ .../cells/70_15/matched_w0-validation.npz          |    Bin [31m0[m -> [32m11691[m bytes
+ .../cells/70_15/matched_w0.json                    |     42 [32m+[m
+ .../cells/70_15/sc_adapted-validation.npz          |    Bin [31m0[m -> [32m11673[m bytes
+ .../cells/70_15/sc_adapted.json                    |     45 [32m+[m
+ .../cells/70_34/matched_w0-validation.npz          |    Bin [31m0[m -> [32m11876[m bytes
+ .../cells/70_34/matched_w0.json                    |     42 [32m+[m
+ .../cells/70_34/sc_adapted-validation.npz          |    Bin [31m0[m -> [32m11888[m bytes
+ .../cells/70_34/sc_adapted.json                    |     45 [32m+[m
+ .../cells/70_7/matched_w0-validation.npz           |    Bin [31m0[m -> [32m12115[m bytes
+ .../cells/70_7/matched_w0.json                     |     42 [32m+[m
+ .../cells/70_7/sc_adapted-validation.npz           |    Bin [31m0[m -> [32m12110[m bytes
+ .../cells/70_7/sc_adapted.json                     |     45 [32m+[m
+ .../correction_69_6_a0_4/69_21_read_only.json      |     34 [32m+[m
+ .../before/cells/69_6/matched_w0-validation.npz    |    Bin [31m0[m -> [32m11966[m bytes
+ .../before/cells/69_6/matched_w0.json              |     42 [32m+[m
+ .../before/cells/69_6/sc_adapted-validation.npz    |    Bin [31m0[m -> [32m11965[m bytes
+ .../before/cells/69_6/sc_adapted.json              |     45 [32m+[m
+ .../correction_69_6_a0_4/before/group_summary.csv  |      6 [32m+[m
+ .../before/initialization_count_check.json         |    137 [32m+[m
+ .../before/output_verification.json                |    516 [32m+[m
+ .../correction_69_6_a0_4/before/per_cell.csv       |     23 [32m+[m
+ .../correction_69_6_a0_4/before/results.json       |    541 [32m+[m
+ .../correction_69_6_a0_4/before/summary.md         |    103 [32m+[m
+ .../correction_69_6_a0_4/before/verification.json  |     47 [32m+[m
+ .../correction_69_6_a0_4/correction.json           |    397 [32m+[m
+ .../replacement_verification.json                  |     28 [32m+[m
+ .../executed_source/run.py.txt                     |    193 [32m+[m
+ .../spatial_contrast_adapted.py.txt                |    164 [32m+[m
+ .../test_spatial_contrast_adapted.py.txt           |    111 [32m+[m
+ .../spatial_contrast_adapted/filters/67_14.npz     |    Bin [31m0[m -> [32m4732[m bytes
+ .../spatial_contrast_adapted/filters/67_21.npz     |    Bin [31m0[m -> [32m4664[m bytes
+ .../spatial_contrast_adapted/filters/67_26.npz     |    Bin [31m0[m -> [32m4597[m bytes
+ .../spatial_contrast_adapted/filters/67_33.npz     |    Bin [31m0[m -> [32m4707[m bytes
+ .../spatial_contrast_adapted/filters/67_34.npz     |    Bin [31m0[m -> [32m4639[m bytes
+ .../spatial_contrast_adapted/filters/67_4.npz      |    Bin [31m0[m -> [32m4623[m bytes
+ .../spatial_contrast_adapted/filters/67_6.npz      |    Bin [31m0[m -> [32m4730[m bytes
+ .../spatial_contrast_adapted/filters/67_7.npz      |    Bin [31m0[m -> [32m4705[m bytes
+ .../spatial_contrast_adapted/filters/68_10.npz     |    Bin [31m0[m -> [32m4639[m bytes
+ .../spatial_contrast_adapted/filters/68_11.npz     |    Bin [31m0[m -> [32m4641[m bytes
+ .../spatial_contrast_adapted/filters/68_3.npz      |    Bin [31m0[m -> [32m4722[m bytes
+ .../spatial_contrast_adapted/filters/68_4.npz      |    Bin [31m0[m -> [32m3568[m bytes
+ .../spatial_contrast_adapted/filters/68_7.npz      |    Bin [31m0[m -> [32m4702[m bytes
+ .../spatial_contrast_adapted/filters/69_21.npz     |    Bin [31m0[m -> [32m4614[m bytes
+ .../spatial_contrast_adapted/filters/69_3.npz      |    Bin [31m0[m -> [32m3031[m bytes
+ .../spatial_contrast_adapted/filters/69_4.npz      |    Bin [31m0[m -> [32m4712[m bytes
+ .../spatial_contrast_adapted/filters/69_6.npz      |    Bin [31m0[m -> [32m4580[m bytes
+ .../spatial_contrast_adapted/filters/69_7.npz      |    Bin [31m0[m -> [32m4770[m bytes
+ .../spatial_contrast_adapted/filters/70_1.npz      |    Bin [31m0[m -> [32m4645[m bytes
+ .../spatial_contrast_adapted/filters/70_15.npz     |    Bin [31m0[m -> [32m4633[m bytes
+ .../spatial_contrast_adapted/filters/70_34.npz     |    Bin [31m0[m -> [32m4643[m bytes
+ .../spatial_contrast_adapted/filters/70_7.npz      |    Bin [31m0[m -> [32m4744[m bytes
+ .../spatial_contrast_adapted/group_summary.csv     |      6 [32m+[m
+ .../initialization_count_check.json                |    140 [32m+[m
+ .../output_verification.json                       |    519 [32m+[m
+ .../evidence/spatial_contrast_adapted/per_cell.csv |     23 [32m+[m
+ .../spatial_contrast_adapted/preflight.json        |    632 [32m+[m
+ .../spatial_contrast_adapted/rerun_69_6.py         |    185 [32m+[m
+ .../evidence/spatial_contrast_adapted/results.json |    547 [32m+[m
+ .omo/evidence/spatial_contrast_adapted/run.py      |    193 [32m+[m
+ .omo/evidence/spatial_contrast_adapted/runtime.md  |      9 [32m+[m
+ .omo/evidence/spatial_contrast_adapted/summary.md  |    124 [32m+[m
+ .../spatial_contrast_adapted/verification.json     |     51 [32m+[m
+ .../snapshot_verification.json                     |     58 [32m+[m
+ .../spatial_contrast_baseline/source_manifest.json |     77 [32m+[m
+ .../spatial_contrast_baseline/sources/LICENSE.txt  |     21 [32m+[m
+ .../sources/sc_model__models__sc_model.py.txt      |    212 [32m+[m
+ .../sources/sc_model__scripts__run_sc_model.py.txt |    193 [32m+[m
+ .../sources/sc_model__utils__convolutions.py.txt   |    280 [32m+[m
+ .../sources/sc_model__utils__minimization.py.txt   |    172 [32m+[m
+ .../sources/sc_model__utils__nonlinearities.py.txt |     34 [32m+[m
+ .../sc_model__utils__receptive_fields.py.txt       |    220 [32m+[m
+ .omo/evidence/spatial_contrast_baseline/summary.md |    100 [32m+[m
+ AUDIT_INDEX.md                                     |     54 [32m+[m
+ CURRENT_STATE.md                                   |     33 [32m+[m
+ agents.md                                          |     29 [32m+[m
+ audit/DATA_AVAILABILITY.md                         |     45 [32m+[m
+ audit/PRO_AUDIT_PROMPT_ZH.md                       |     30 [32m+[m
+ audit/cleanup_20260905/README.md                   |     80 [32m+[m
+ audit/cleanup_20260905/archived_files.csv          |    880 [32m+[m
+ audit/cleanup_20260905/backup_verification.json    |      7 [32m+[m
+ audit/cleanup_20260905/cleanup_result.json         |      6 [32m+[m
+ audit/cleanup_20260905/focused_tests.txt           |      4 [32m+[m
+ audit/cleanup_20260905/focused_tests.xml           |      1 [32m+[m
+ audit/cleanup_20260905/git_branch_before.txt       |      1 [32m+[m
+ audit/cleanup_20260905/git_head_before.txt         |      1 [32m+[m
+ audit/cleanup_20260905/inaccessible_retained.txt   |      5 [32m+[m
+ audit/cleanup_20260905/local_only_artifacts.csv    |   1730 [32m+[m
+ audit/cleanup_20260905/primary_bundles.txt         |     20 [32m+[m
+ .../cleanup_20260905/publication_verification.json |     20 [32m+[m
+ audit/cleanup_20260905/publish_manifest.csv        |   2089 [32m+[m
+ audit/cleanup_20260905/retained_bundles.txt        |     72 [32m+[m
+ audit/cleanup_20260905/retained_dependencies.csv   |     53 [32m+[m
+ audit/cleanup_20260905/source_before.csv           |    432 [32m+[m
+ baselines/center_surround_ln.py                    |     89 [32m+[m
+ baselines/compact_causal_cnn.py                    |     49 [32m+[m
+ baselines/graph_tcn.py                             |    133 [32m+[m
+ baselines/lnln_subunit.py                          |    158 [32m+[m
+ baselines/local_point_process_glm.py               |    161 [32m+[m
+ baselines/spatial_contrast_LICENSE.txt             |     21 [32m+[m
+ baselines/spatial_contrast_adapted.py              |    164 [32m+[m
+ baselines/spatial_contrast_official.py             |    181 [32m+[m
+ configs/mechanism_identifiability.yaml             |     25 [32m+[m
+ configs/model_comparison_sample_efficiency_t2.yaml |      7 [32m+[m
+ configs/model_comparison_t2.yaml                   |     32 [32m+[m
+ data/karamanlis_2024.py                            |    245 [32m+[m
+ data/karamanlis_cells.py                           |    106 [32m+[m
+ data/karamanlis_projection.py                      |    107 [32m+[m
+ data/karamanlis_rf_artifact.py                     |    176 [32m+[m
+ data/karamanlis_rf_population.py                   |    215 [32m+[m
+ data/karamanlis_spikes.py                          |     26 [32m+[m
+ data/retinal_recording.py                          |     18 [32m+[m
+ data/schottdorf_lee_2021.py                        |    269 [32m+[m
+ data/schottdorf_lee_catalog.py                     |    135 [32m+[m
+ data/schottdorf_lee_multirecording.py              |    250 [32m+[m
+ data/schottdorf_lee_spikes.py                      |    142 [32m+[m
+ .../mechanism_identifiable_retina_formulas_zh.tex  |   1146 [32m+[m
+ evaluation/candidate0_likelihood_math.py           |    138 [32m+[m
+ evaluation/candidate0_projection_solver.py         |    158 [32m+[m
+ evaluation/direct_readout_paths.py                 |    166 [32m+[m
+ evaluation/json_types.py                           |      8 [32m+[m
+ evaluation/mechanistic_retina/__init__.py          |     23 [32m+[m
+ evaluation/mechanistic_retina/ac_circuit_inputs.py |     83 [32m+[m
+ .../mechanistic_retina/ac_circuit_lineage.py       |     29 [32m+[m
+ .../mechanistic_retina/ac_circuit_perturbation.py  |    253 [32m+[m
+ .../mechanistic_retina/ac_circuit_support.py       |    263 [32m+[m
+ .../mechanistic_retina/ac_temporal_lineage.py      |    119 [32m+[m
+ .../mechanistic_retina/ac_temporal_perturbation.py |    253 [32m+[m
+ evaluation/mechanistic_retina/ac_temporal_probe.py |    132 [32m+[m
+ .../mechanistic_retina/ac_temporal_support.py      |    221 [32m+[m
+ evaluation/mechanistic_retina/artifacts.py         |     29 [32m+[m
+ evaluation/mechanistic_retina/atomic_artifacts.py  |     20 [32m+[m
+ .../mechanistic_retina/clean_sampled_artifacts.py  |     42 [32m+[m
+ .../mechanistic_retina/clean_sampled_benchmark.py  |    312 [32m+[m
+ .../mechanistic_retina/clean_sampled_data.py       |    288 [32m+[m
+ .../mechanistic_retina/clean_sampled_reporting.py  |    346 [32m+[m
+ .../mechanistic_retina/clean_sampled_teacher.py    |     51 [32m+[m
+ .../mechanistic_retina/clean_sampled_training.py   |    186 [32m+[m
+ evaluation/mechanistic_retina/direct_metrics.py    |    130 [32m+[m
+ evaluation/mechanistic_retina/direct_model_eval.py |    198 [32m+[m
+ .../mechanistic_retina/factorized_ln_split.py      |     77 [32m+[m
+ .../mechanistic_retina/gollisch_white_noise.py     |     99 [32m+[m
+ evaluation/mechanistic_retina/h1_teachers.py       |    146 [32m+[m
+ .../karamanlis_baseline_reporting.py               |    222 [32m+[m
+ .../mechanistic_retina/karamanlis_baseline_run.py  |    235 [32m+[m
+ .../mechanistic_retina/karamanlis_glm_math.py      |     79 [32m+[m
+ .../karamanlis_locality_artifacts.py               |    165 [32m+[m
+ .../karamanlis_locality_graph.py                   |    219 [32m+[m
+ .../mechanistic_retina/karamanlis_locality_io.py   |    199 [32m+[m
+ .../karamanlis_prediction_baselines.py             |    253 [32m+[m
+ .../mechanistic_retina/karamanlis_real_run.py      |    259 [32m+[m
+ .../mechanistic_retina/karamanlis_rf_centers.py    |    252 [32m+[m
+ .../mechanistic_retina/karamanlis_rf_checkpoint.py |     37 [32m+[m
+ .../karamanlis_rf_population_run.py                |    266 [32m+[m
+ .../mechanistic_retina/karamanlis_running_sta.py   |     87 [32m+[m
+ .../karamanlis_v1_ac_artifacts.py                  |    267 [32m+[m
+ .../mechanistic_retina/karamanlis_v1_ac_metrics.py |    142 [32m+[m
+ .../mechanistic_retina/karamanlis_v1_ac_payload.py |     94 [32m+[m
+ .../karamanlis_v1_ac_perturbation.py               |    259 [32m+[m
+ .../karamanlis_v1_ac_reporting.py                  |    161 [32m+[m
+ .../mechanistic_retina/karamanlis_v1_ac_runtime.py |    172 [32m+[m
+ .../karamanlis_v1_rf_artifacts.py                  |    251 [32m+[m
+ .../mechanistic_retina/karamanlis_v1_rf_metrics.py |    210 [32m+[m
+ .../karamanlis_v1_rf_validation.py                 |    252 [32m+[m
+ .../karamanlis_v1_rf_validation_math.py            |    148 [32m+[m
+ .../mechanistic_retina/mechanism_artifacts.py      |    157 [32m+[m
+ .../mechanistic_retina/mechanism_checkpoints.py    |    152 [32m+[m
+ .../mechanism_decision_report.py                   |     67 [32m+[m
+ .../mechanistic_retina/mechanism_diagnosis.py      |    211 [32m+[m
+ .../mechanism_diagnosis_support.py                 |     83 [32m+[m
+ .../mechanistic_retina/mechanism_false_positive.py |    154 [32m+[m
+ evaluation/mechanistic_retina/mechanism_heldout.py |     69 [32m+[m
+ .../mechanism_heldout_artifacts.py                 |    253 [32m+[m
+ .../mechanism_heldout_metrics.py                   |    282 [32m+[m
+ .../mechanism_identifiability.py                   |    229 [32m+[m
+ .../mechanistic_retina/mechanism_protocol.py       |    210 [32m+[m
+ .../mechanistic_retina/mechanism_protocol_runs.py  |    104 [32m+[m
+ .../mechanism_replay_artifacts.py                  |     89 [32m+[m
+ .../mechanism_replay_identity.py                   |    251 [32m+[m
+ .../mechanism_replay_protocol.py                   |    178 [32m+[m
+ .../mechanistic_retina/mechanism_replay_runs.py    |    270 [32m+[m
+ .../mechanistic_retina/mechanism_replay_types.py   |     78 [32m+[m
+ .../mechanistic_retina/mechanism_run_data.py       |     97 [32m+[m
+ .../mechanistic_retina/mechanism_run_types.py      |     83 [32m+[m
+ evaluation/mechanistic_retina/mechanism_runs.py    |    188 [32m+[m
+ evaluation/mechanistic_retina/mechanism_runtime.py |    145 [32m+[m
+ evaluation/mechanistic_retina/mechanism_scoring.py |    146 [32m+[m
+ .../mechanism_teacher_support.py                   |    135 [32m+[m
+ evaluation/mechanistic_retina/metrics.py           |    235 [32m+[m
+ .../mechanistic_retina/natural_exploratory.py      |    174 [32m+[m
+ .../mechanistic_retina/nested_spike_budget.py      |    231 [32m+[m
+ .../mechanistic_retina/noise_free_recovery.py      |    214 [32m+[m
+ .../noise_free_recovery_metrics.py                 |    153 [32m+[m
+ .../mechanistic_retina/pathway_decomposition.py    |     90 [32m+[m
+ evaluation/mechanistic_retina/rf_base.py           |     26 [32m+[m
+ evaluation/mechanistic_retina/rf_effective.py      |     33 [32m+[m
+ .../mechanistic_retina/sampled_robustness.py       |    226 [32m+[m
+ .../sampled_robustness_metrics.py                  |    129 [32m+[m
+ .../mechanistic_retina/schottdorf_baseline_cell.py |    225 [32m+[m
+ .../schottdorf_baseline_reporting.py               |    141 [32m+[m
+ .../mechanistic_retina/schottdorf_baseline_run.py  |    174 [32m+[m
+ .../schottdorf_baseline_types.py                   |     84 [32m+[m
+ .../schottdorf_center_surround_ln.py               |    128 [32m+[m
+ .../schottdorf_final_benchmark_cell.py             |    249 [32m+[m
+ .../schottdorf_final_benchmark_reporting.py        |    101 [32m+[m
+ .../schottdorf_final_benchmark_run.py              |    173 [32m+[m
+ .../schottdorf_final_benchmark_types.py            |     32 [32m+[m
+ .../schottdorf_fresh_evaluation.py                 |    273 [32m+[m
+ .../mechanistic_retina/schottdorf_ln_source.py     |    100 [32m+[m
+ .../schottdorf_multirecording_fit.py               |    199 [32m+[m
+ .../schottdorf_multirecording_reporting.py         |    172 [32m+[m
+ .../schottdorf_multirecording_run.py               |    163 [32m+[m
+ .../schottdorf_multirecording_types.py             |    127 [32m+[m
+ .../schottdorf_neural_baseline.py                  |    193 [32m+[m
+ .../schottdorf_prediction_baselines.py             |    195 [32m+[m
+ .../schottdorf_r4_development.py                   |    150 [32m+[m
+ .../mechanistic_retina/schottdorf_real_run.py      |    239 [32m+[m
+ .../schottdorf_temporal_center_surround.py         |    205 [32m+[m
+ .../mechanistic_retina/spatial_contrast_source.py  |    164 [32m+[m
+ evaluation/mechanistic_retina/spike_banks.py       |    117 [32m+[m
+ .../mechanistic_retina/structural_ablation.py      |    227 [32m+[m
+ evaluation/mechanistic_retina/subspace_overlap.py  |    136 [32m+[m
+ .../mechanistic_retina/temporal_center_surround.py |    208 [32m+[m
+ .../temporal_center_surround_plots.py              |    114 [32m+[m
+ .../temporal_center_surround_reporting.py          |    201 [32m+[m
+ evaluation/model_comparison/__init__.py            |      0
+ evaluation/model_comparison/artifacts.py           |    105 [32m+[m
+ evaluation/model_comparison/baseline_runs.py       |    244 [32m+[m
+ evaluation/model_comparison/config.py              |     72 [32m+[m
+ evaluation/model_comparison/experiment.py          |    246 [32m+[m
+ evaluation/model_comparison/mechanistic_run.py     |    204 [32m+[m
+ evaluation/model_comparison/model_eval.py          |     94 [32m+[m
+ evaluation/model_comparison/parameters.py          |    118 [32m+[m
+ evaluation/model_comparison/prediction.py          |    101 [32m+[m
+ evaluation/model_comparison/presentation.py        |     88 [32m+[m
+ evaluation/model_comparison/reporting.py           |    216 [32m+[m
+ evaluation/model_comparison/rf.py                  |    117 [32m+[m
+ evaluation/model_comparison/run_data.py            |     33 [32m+[m
+ evaluation/model_comparison/runner_support.py      |     60 [32m+[m
+ .../sample_efficiency_experiment.py                |    290 [32m+[m
+ .../sample_efficiency_presentation.py              |    255 [32m+[m
+ .../model_comparison/sample_efficiency_profiles.py |    292 [32m+[m
+ .../model_comparison/sample_efficiency_protocol.py |    259 [32m+[m
+ .../sample_efficiency_reporting.py                 |    251 [32m+[m
+ .../model_comparison/sample_efficiency_reuse.py    |    308 [32m+[m
+ .../model_comparison/sample_efficiency_rows.py     |    346 [32m+[m
+ .../model_comparison/sample_efficiency_runner.py   |    300 [32m+[m
+ .../model_comparison/sample_efficiency_state.py    |    172 [32m+[m
+ evaluation/model_comparison/stability.py           |    162 [32m+[m
+ evaluation/model_comparison/summary.py             |    154 [32m+[m
+ evaluation/model_comparison/training.py            |    165 [32m+[m
+ evaluation/model_comparison/types.py               |     45 [32m+[m
+ evaluation/phase1_benchmark.py                     |    178 [32m+[m
+ evaluation/phase1_data.py                          |    262 [32m+[m
+ evaluation/phase1_metrics.py                       |    232 [32m+[m
+ evaluation/response_calibration.py                 |    258 [32m+[m
+ evaluation/response_predictions.py                 |    155 [32m+[m
+ evaluation/rf_geometry_metrics.py                  |    157 [32m+[m
+ evaluation/static_teacher.py                       |    253 [32m+[m
+ evaluation/static_teacher_preflight.py             |    119 [32m+[m
+ evaluation/v3_watchdog.py                          |    256 [32m+[m
+ evaluation/v4_group_endpoint.py                    |    248 [32m+[m
+ evaluation/v4_group_scoring.py                     |    156 [32m+[m
+ evaluation/v4_identity_endpoint.py                 |    212 [32m+[m
+ models/mechanistic_retina/__init__.py              |     17 [32m+[m
+ models/mechanistic_retina/amacrine_pathways.py     |    104 [32m+[m
+ models/mechanistic_retina/bipolar_subunits.py      |    270 [32m+[m
+ models/mechanistic_retina/canonical_contract.py    |     20 [32m+[m
+ models/mechanistic_retina/causal_contract.py       |     42 [32m+[m
+ models/mechanistic_retina/cell_specific_gains.py   |    121 [32m+[m
+ models/mechanistic_retina/contracts.py             |    279 [32m+[m
+ models/mechanistic_retina/delay_parameters.py      |     40 [32m+[m
+ models/mechanistic_retina/graph.py                 |     64 [32m+[m
+ models/mechanistic_retina/h1_pathway.py            |     90 [32m+[m
+ models/mechanistic_retina/model.py                 |    251 [32m+[m
+ models/mechanistic_retina/neural_operators.py      |     39 [32m+[m
+ models/mechanistic_retina/pathway_gates.py         |    112 [32m+[m
+ models/mechanistic_retina/pathway_rf.py            |     70 [32m+[m
+ .../mechanistic_retina/pathway_spatial_geometry.py |     79 [32m+[m
+ models/mechanistic_retina/pathway_temporal.py      |     33 [32m+[m
+ models/mechanistic_retina/phase1_run_contract.py   |     48 [32m+[m
+ models/mechanistic_retina/rgc_state.py             |     87 [32m+[m
+ models/mechanistic_retina/shared_subunits.py       |    127 [32m+[m
+ models/mechanistic_retina/spatial_contract.py      |     92 [32m+[m
+ models/mechanistic_retina/state.py                 |    107 [32m+[m
+ models/mechanistic_retina/support_partition.py     |     83 [32m+[m
+ models/mechanistic_retina/temporal_parameters.py   |    116 [32m+[m
+ .../FINAL_ARTIFACT_MANIFEST.json                   |    118 [32m+[m
+ .../GOAL_ALIGNMENT.md                              |     39 [32m+[m
+ output/architecture_conformance_20260831/REPORT.md |    215 [32m+[m
+ .../capture_observations.py                        |     30 [32m+[m
+ .../capture_run_results.json                       |    673 [32m+[m
+ .../captured_tensors.npz                           |    Bin [31m0[m -> [32m928074[m bytes
+ .../identity_edges_probe.py                        |     73 [32m+[m
+ .../identity_edges_results.json                    |    178 [32m+[m
+ .../illusion_literature.md                         |     21 [32m+[m
+ .../legacy/legacy_in_memory_probe.sh               |     71 [32m+[m
+ .../legacy/legacy_in_memory_stdout.json            |     41 [32m+[m
+ .../legacy/ownership_legacy_source_memo.md         |    127 [32m+[m
+ .../physiology.md                                  |     24 [32m+[m
+ .../rf/RF_AUDIT_MEMO.md                            |     76 [32m+[m
+ .../rf/artifact_manifest.json                      |     17 [32m+[m
+ .../rf/basis_observed.json                         |     94 [32m+[m
+ .../rf/basis_probe.py                              |     61 [32m+[m
+ .../rf/basis_raw_result.json                       |      9 [32m+[m
+ .../rf/basis_tool_event.json                       |     39 [32m+[m
+ .../rf/initial_state_sha256_by_key.json            |     52 [32m+[m
+ .../rf/primary_observed.json                       |   1337 [32m+[m
+ .../rf/primary_probe.py                            |    131 [32m+[m
+ .../rf/primary_raw_result.json                     |      9 [32m+[m
+ .../rf/primary_tool_event.json                     |     39 [32m+[m
+ .../rf/source_hashes.json                          |     28 [32m+[m
+ .../runtime_probe.py                               |     74 [32m+[m
+ .../runtime_results.json                           |    674 [32m+[m
+ .../source_manifest.json                           |    145 [32m+[m
+ .../spatial_dead_parameters_probe.py               |     30 [32m+[m
+ .../spatial_dead_parameters_results.json           |     80 [32m+[m
+ .../verification.json                              |    296 [32m+[m
+ .../FINAL_MANIFEST.json                            |    282 [32m+[m
+ .../FINAL_VERIFICATION.json                        |     23 [32m+[m
+ .../PATCH_PROTOCOL.md                              |     21 [32m+[m
+ .../REPORT.md                                      |     99 [32m+[m
+ .../circuit_after.xml                              |      1 [32m+[m
+ .../correctness_patch.diff                         |    747 [32m+[m
+ .../entry/REPORT.md                                |     40 [32m+[m
+ .../entry/artifact_manifest.json                   |     10 [32m+[m
+ .../entry/checkpoint_config_identity.json          |    185 [32m+[m
+ .../entry/geometry_load_red_tool_result.json       |      9 [32m+[m
+ .../entry/green_tool_result.json                   |      9 [32m+[m
+ .../entry/intermediate_green_tool_result.json      |      9 [32m+[m
+ .../entry/red_reference.json                       |     26 [32m+[m
+ .../entry/review.json                              |     14 [32m+[m
+ .../entry/source_checks.json                       |     38 [32m+[m
+ .../existing_before.xml                            |      1 [32m+[m
+ .../lineage/README.md                              |     24 [32m+[m
+ .../lineage/SUMMARY.json                           |    285 [32m+[m
+ .../lineage/artifact_manifest.json                 |    101 [32m+[m
+ .../lineage/candidate/67_14.json                   |   1472 [32m+[m
+ .../lineage/candidate/67_21.json                   |   1472 [32m+[m
+ .../lineage/candidate/67_26.json                   |   1472 [32m+[m
+ .../lineage/candidate/67_33.json                   |   1472 [32m+[m
+ .../lineage/candidate/67_34.json                   |   1472 [32m+[m
+ .../lineage/candidate/67_4.json                    |   1472 [32m+[m
+ .../lineage/candidate/67_6.json                    |   1472 [32m+[m
+ .../lineage/candidate/67_7.json                    |   1472 [32m+[m
+ .../lineage/candidate/68_10.json                   |   1472 [32m+[m
+ .../lineage/candidate/68_11.json                   |   1472 [32m+[m
+ .../lineage/candidate/68_3.json                    |   1472 [32m+[m
+ .../lineage/candidate/68_4.json                    |   1472 [32m+[m
+ .../lineage/candidate/68_7.json                    |   1472 [32m+[m
+ .../lineage/candidate/69_21.json                   |   1472 [32m+[m
+ .../lineage/candidate/69_3.json                    |   1472 [32m+[m
+ .../lineage/candidate/69_4.json                    |   1472 [32m+[m
+ .../lineage/candidate/69_6.json                    |   1472 [32m+[m
+ .../lineage/candidate/69_7.json                    |   1472 [32m+[m
+ .../lineage/candidate/70_1.json                    |   1472 [32m+[m
+ .../lineage/candidate/70_15.json                   |   1472 [32m+[m
+ .../lineage/candidate/70_34.json                   |   1472 [32m+[m
+ .../lineage/candidate/70_7.json                    |   1472 [32m+[m
+ .../lineage/candidate/integrity_0_11.json          |    142 [32m+[m
+ .../lineage/candidate/integrity_11_22.json         |    142 [32m+[m
+ .../lineage/capture_reference_trainability.py      |     66 [32m+[m
+ .../lineage/compare_lineage.py                     |    166 [32m+[m
+ .../lineage/reference/67_14.json                   |   1130 [32m+[m
+ .../lineage/reference/67_21.json                   |   1130 [32m+[m
+ .../lineage/reference/67_26.json                   |   1130 [32m+[m
+ .../lineage/reference/67_33.json                   |   1130 [32m+[m
+ .../lineage/reference/67_34.json                   |   1130 [32m+[m
+ .../lineage/reference/67_4.json                    |   1130 [32m+[m
+ .../lineage/reference/67_6.json                    |   1130 [32m+[m
+ .../lineage/reference/67_7.json                    |   1130 [32m+[m
+ .../lineage/reference/68_10.json                   |   1130 [32m+[m
+ .../lineage/reference/68_11.json                   |   1130 [32m+[m
+ .../lineage/reference/68_3.json                    |   1130 [32m+[m
+ .../lineage/reference/68_4.json                    |   1130 [32m+[m
+ .../lineage/reference/68_7.json                    |   1130 [32m+[m
+ .../lineage/reference/69_21.json                   |   1130 [32m+[m
+ .../lineage/reference/69_3.json                    |   1130 [32m+[m
+ .../lineage/reference/69_4.json                    |   1130 [32m+[m
+ .../lineage/reference/69_6.json                    |   1130 [32m+[m
+ .../lineage/reference/69_7.json                    |   1130 [32m+[m
+ .../lineage/reference/70_1.json                    |   1130 [32m+[m
+ .../lineage/reference/70_15.json                   |   1130 [32m+[m
+ .../lineage/reference/70_34.json                   |   1130 [32m+[m
+ .../lineage/reference/70_7.json                    |   1130 [32m+[m
+ .../lineage/reference/integrity_0_1.json           |    130 [32m+[m
+ .../lineage/reference/integrity_1_22.json          |    150 [32m+[m
+ .../lineage/reference_manifest.json                |     68 [32m+[m
+ .../lineage/reference_trainability.json            |    451 [32m+[m
+ .../lineage/summarize_lineage.py                   |    104 [32m+[m
+ .../mixing_edge_order_red.txt                      |     33 [32m+[m
+ .../mixing_green.txt                               |      2 [32m+[m
+ .../mixing_parameter_counts.json                   |     84 [32m+[m
+ .../mixing_parameter_probe.py                      |    105 [32m+[m
+ .../mixing_red.txt                                 |    231 [32m+[m
+ .../original_runtime_after.json                    |    661 [32m+[m
+ .../patched_source_manifest.json                   |     13 [32m+[m
+ .../regression_final.xml                           |      1 [32m+[m
+ .../review_code.md                                 |     41 [32m+[m
+ .../review_context.md                              |     37 [32m+[m
+ .../review_goal.md                                 |     20 [32m+[m
+ .../review_qa.md                                   |     51 [32m+[m
+ .../review_qa_pytest.xml                           |      1 [32m+[m
+ .../review_qa_test_hashes.json                     |     14 [32m+[m
+ .../review_security.md                             |     29 [32m+[m
+ .../evaluation/mechanistic_retina/__init__.py      |     23 [32m+[m
+ .../mechanistic_retina/ac_circuit_inputs.py        |     83 [32m+[m
+ .../mechanistic_retina/ac_circuit_lineage.py       |     29 [32m+[m
+ .../mechanistic_retina/ac_circuit_perturbation.py  |    253 [32m+[m
+ .../mechanistic_retina/ac_circuit_support.py       |    263 [32m+[m
+ .../mechanistic_retina/ac_temporal_lineage.py      |    119 [32m+[m
+ .../mechanistic_retina/ac_temporal_perturbation.py |    253 [32m+[m
+ .../mechanistic_retina/ac_temporal_probe.py        |    132 [32m+[m
+ .../mechanistic_retina/ac_temporal_support.py      |    221 [32m+[m
+ .../evaluation/mechanistic_retina/artifacts.py     |     29 [32m+[m
+ .../mechanistic_retina/atomic_artifacts.py         |     20 [32m+[m
+ .../mechanistic_retina/clean_sampled_artifacts.py  |     42 [32m+[m
+ .../mechanistic_retina/clean_sampled_benchmark.py  |    312 [32m+[m
+ .../mechanistic_retina/clean_sampled_data.py       |    288 [32m+[m
+ .../mechanistic_retina/clean_sampled_reporting.py  |    346 [32m+[m
+ .../mechanistic_retina/clean_sampled_teacher.py    |     51 [32m+[m
+ .../mechanistic_retina/clean_sampled_training.py   |    186 [32m+[m
+ .../mechanistic_retina/direct_metrics.py           |    130 [32m+[m
+ .../mechanistic_retina/direct_model_eval.py        |    198 [32m+[m
+ .../mechanistic_retina/factorized_ln_split.py      |     77 [32m+[m
+ .../mechanistic_retina/gollisch_white_noise.py     |     99 [32m+[m
+ .../evaluation/mechanistic_retina/h1_teachers.py   |    146 [32m+[m
+ .../karamanlis_baseline_reporting.py               |    222 [32m+[m
+ .../mechanistic_retina/karamanlis_baseline_run.py  |    235 [32m+[m
+ .../mechanistic_retina/karamanlis_glm_math.py      |     79 [32m+[m
+ .../karamanlis_locality_artifacts.py               |    165 [32m+[m
+ .../karamanlis_locality_graph.py                   |    219 [32m+[m
+ .../mechanistic_retina/karamanlis_locality_io.py   |    199 [32m+[m
+ .../karamanlis_prediction_baselines.py             |    253 [32m+[m
+ .../mechanistic_retina/karamanlis_real_run.py      |    259 [32m+[m
+ .../mechanistic_retina/karamanlis_rf_centers.py    |    252 [32m+[m
+ .../mechanistic_retina/karamanlis_rf_checkpoint.py |     37 [32m+[m
+ .../karamanlis_rf_population_run.py                |    266 [32m+[m
+ .../mechanistic_retina/karamanlis_running_sta.py   |     87 [32m+[m
+ .../karamanlis_v1_ac_artifacts.py                  |    267 [32m+[m
+ .../mechanistic_retina/karamanlis_v1_ac_metrics.py |    142 [32m+[m
+ .../mechanistic_retina/karamanlis_v1_ac_payload.py |     94 [32m+[m
+ .../karamanlis_v1_ac_perturbation.py               |    259 [32m+[m
+ .../karamanlis_v1_ac_reporting.py                  |    161 [32m+[m
+ .../mechanistic_retina/karamanlis_v1_ac_runtime.py |    172 [32m+[m
+ .../karamanlis_v1_rf_artifacts.py                  |    251 [32m+[m
+ .../mechanistic_retina/karamanlis_v1_rf_metrics.py |    210 [32m+[m
+ .../karamanlis_v1_rf_validation.py                 |    229 [32m+[m
+ .../karamanlis_v1_rf_validation_math.py            |    148 [32m+[m
+ .../mechanistic_retina/mechanism_artifacts.py      |    157 [32m+[m
+ .../mechanistic_retina/mechanism_checkpoints.py    |    152 [32m+[m
+ .../mechanism_decision_report.py                   |     67 [32m+[m
+ .../mechanistic_retina/mechanism_diagnosis.py      |    211 [32m+[m
+ .../mechanism_diagnosis_support.py                 |     83 [32m+[m
+ .../mechanistic_retina/mechanism_false_positive.py |    154 [32m+[m
+ .../mechanistic_retina/mechanism_heldout.py        |     69 [32m+[m
+ .../mechanism_heldout_artifacts.py                 |    253 [32m+[m
+ .../mechanism_heldout_metrics.py                   |    282 [32m+[m
+ .../mechanism_identifiability.py                   |    229 [32m+[m
+ .../mechanistic_retina/mechanism_protocol.py       |    210 [32m+[m
+ .../mechanistic_retina/mechanism_protocol_runs.py  |    104 [32m+[m
+ .../mechanism_replay_artifacts.py                  |     89 [32m+[m
+ .../mechanism_replay_identity.py                   |    251 [32m+[m
+ .../mechanism_replay_protocol.py                   |    178 [32m+[m
+ .../mechanistic_retina/mechanism_replay_runs.py    |    270 [32m+[m
+ .../mechanistic_retina/mechanism_replay_types.py   |     78 [32m+[m
+ .../mechanistic_retina/mechanism_run_data.py       |     97 [32m+[m
+ .../mechanistic_retina/mechanism_run_types.py      |     83 [32m+[m
+ .../mechanistic_retina/mechanism_runs.py           |    188 [32m+[m
+ .../mechanistic_retina/mechanism_runtime.py        |    145 [32m+[m
+ .../mechanistic_retina/mechanism_scoring.py        |    146 [32m+[m
+ .../mechanism_teacher_support.py                   |    135 [32m+[m
+ .../evaluation/mechanistic_retina/metrics.py       |    235 [32m+[m
+ .../mechanistic_retina/natural_exploratory.py      |    174 [32m+[m
+ .../mechanistic_retina/nested_spike_budget.py      |    231 [32m+[m
+ .../mechanistic_retina/noise_free_recovery.py      |    214 [32m+[m
+ .../noise_free_recovery_metrics.py                 |    153 [32m+[m
+ .../mechanistic_retina/pathway_decomposition.py    |     90 [32m+[m
+ .../evaluation/mechanistic_retina/rf_base.py       |     26 [32m+[m
+ .../evaluation/mechanistic_retina/rf_effective.py  |     33 [32m+[m
+ .../mechanistic_retina/sampled_robustness.py       |    226 [32m+[m
+ .../sampled_robustness_metrics.py                  |    129 [32m+[m
+ .../mechanistic_retina/schottdorf_baseline_cell.py |    225 [32m+[m
+ .../schottdorf_baseline_reporting.py               |    141 [32m+[m
+ .../mechanistic_retina/schottdorf_baseline_run.py  |    174 [32m+[m
+ .../schottdorf_baseline_types.py                   |     84 [32m+[m
+ .../schottdorf_center_surround_ln.py               |    128 [32m+[m
+ .../schottdorf_final_benchmark_cell.py             |    249 [32m+[m
+ .../schottdorf_final_benchmark_reporting.py        |    101 [32m+[m
+ .../schottdorf_final_benchmark_run.py              |    173 [32m+[m
+ .../schottdorf_final_benchmark_types.py            |     32 [32m+[m
+ .../schottdorf_fresh_evaluation.py                 |    273 [32m+[m
+ .../mechanistic_retina/schottdorf_ln_source.py     |    100 [32m+[m
+ .../schottdorf_multirecording_fit.py               |    199 [32m+[m
+ .../schottdorf_multirecording_reporting.py         |    172 [32m+[m
+ .../schottdorf_multirecording_run.py               |    163 [32m+[m
+ .../schottdorf_multirecording_types.py             |    127 [32m+[m
+ .../schottdorf_neural_baseline.py                  |    193 [32m+[m
+ .../schottdorf_prediction_baselines.py             |    195 [32m+[m
+ .../schottdorf_r4_development.py                   |    150 [32m+[m
+ .../mechanistic_retina/schottdorf_real_run.py      |    239 [32m+[m
+ .../schottdorf_temporal_center_surround.py         |    205 [32m+[m
+ .../evaluation/mechanistic_retina/spike_banks.py   |    117 [32m+[m
+ .../mechanistic_retina/structural_ablation.py      |    227 [32m+[m
+ .../mechanistic_retina/subspace_overlap.py         |    136 [32m+[m
+ .../mechanistic_retina/temporal_center_surround.py |    208 [32m+[m
+ .../temporal_center_surround_plots.py              |    114 [32m+[m
+ .../temporal_center_surround_reporting.py          |    201 [32m+[m
+ .../models/mechanistic_retina/__init__.py          |     17 [32m+[m
+ .../models/mechanistic_retina/amacrine_pathways.py |    104 [32m+[m
+ .../models/mechanistic_retina/bipolar_subunits.py  |    266 [32m+[m
+ .../models/mechanistic_retina/causal_contract.py   |     42 [32m+[m
+ .../mechanistic_retina/cell_specific_gains.py      |    121 [32m+[m
+ .../models/mechanistic_retina/contracts.py         |    279 [32m+[m
+ .../models/mechanistic_retina/delay_parameters.py  |     40 [32m+[m
+ .../models/mechanistic_retina/graph.py             |     64 [32m+[m
+ .../models/mechanistic_retina/h1_pathway.py        |     90 [32m+[m
+ .../models/mechanistic_retina/model.py             |    249 [32m+[m
+ .../models/mechanistic_retina/neural_operators.py  |     39 [32m+[m
+ .../models/mechanistic_retina/pathway_gates.py     |    112 [32m+[m
+ .../models/mechanistic_retina/pathway_rf.py        |     70 [32m+[m
+ .../mechanistic_retina/pathway_spatial_geometry.py |     69 [32m+[m
+ .../models/mechanistic_retina/pathway_temporal.py  |     33 [32m+[m
+ .../mechanistic_retina/phase1_run_contract.py      |     48 [32m+[m
+ .../models/mechanistic_retina/rgc_state.py         |     87 [32m+[m
+ .../models/mechanistic_retina/shared_subunits.py   |    117 [32m+[m
+ .../models/mechanistic_retina/spatial_contract.py  |     51 [32m+[m
+ .../models/mechanistic_retina/state.py             |    107 [32m+[m
+ .../models/mechanistic_retina/support_partition.py |     78 [32m+[m
+ .../mechanistic_retina/temporal_parameters.py      |    116 [32m+[m
+ .../tests/test_causal_pathway_contract.py          |    240 [32m+[m
+ .../test_clean_sampled_mechanistic_benchmark.py    |    245 [32m+[m
+ .../tests/test_mechanism_identifiable_model.py     |    202 [32m+[m
+ .../tests/test_mechanistic_retina_contract.py      |    176 [32m+[m
+ .../tests/test_mechanistic_retina_direct.py        |    130 [32m+[m
+ .../tests/test_mechanistic_retina_evaluation.py    |     81 [32m+[m
+ .../tests/test_mechanistic_retina_operator.py      |     78 [32m+[m
+ .../tests/test_mechanistic_retina_training.py      |    222 [32m+[m
+ .../tests/test_mechanistic_temporal_parameters.py  |    221 [32m+[m
+ .../tests/test_rf_math_readout_contract.py         |    151 [32m+[m
+ .../tests/test_spatial_checkpoint_contract.py      |     95 [32m+[m
+ .../tests/test_spatial_pathway_contract.py         |    201 [32m+[m
+ .../training/mechanistic_retina/__init__.py        |     11 [32m+[m
+ .../mechanistic_retina/center_surround_ln.py       |    190 [32m+[m
+ .../training/mechanistic_retina/gain_audit.py      |     22 [32m+[m
+ .../training/mechanistic_retina/losses.py          |     31 [32m+[m
+ .../training/mechanistic_retina/optimizer.py       |     44 [32m+[m
+ .../training/mechanistic_retina/r4_development.py  |    126 [32m+[m
+ .../mechanistic_retina/real_early_stopping.py      |    240 [32m+[m
+ .../training/mechanistic_retina/real_sampled.py    |    199 [32m+[m
+ .../training/mechanistic_retina/sampled.py         |    152 [32m+[m
+ .../training/mechanistic_retina/stages.py          |    264 [32m+[m
+ .../training/mechanistic_retina/trainer.py         |    238 [32m+[m
+ .../source_before_manifest.json                    |    150 [32m+[m
+ .../REPORT.md                                      |    176 [32m+[m
+ .../actual-mask-vs-full-disk.csv                   |     23 [32m+[m
+ .../checkpoint-identity.csv                        |     23 [32m+[m
+ .../delivery-verification.json                     |    119 [32m+[m
+ .../effective-support-derivatives.csv              |     23 [32m+[m
+ .../historical-source-integrity.json               |   1584 [32m+[m
+ .../integrity-after.json                           |    507 [32m+[m
+ .../integrity-before.json                          |    508 [32m+[m
+ .../integrity-comparison.json                      |     24 [32m+[m
+ .../integrity_snapshot.py                          |     21 [32m+[m
+ .../method-review.txt                              |      1 [32m+[m
+ .../mixer-audit.json                               |    390 [32m+[m
+ .../mixer_audit.py                                 |     70 [32m+[m
+ .../runtime-audit.json                             |  25478 [32m++[m
+ .../runtime_audit.py                               |    206 [32m+[m
+ .../67_14_checks.json                              |    139 [32m+[m
+ .../67_14_pairs.csv                                |    561 [32m+[m
+ .../67_21_checks.json                              |    139 [32m+[m
+ .../67_21_pairs.csv                                |    561 [32m+[m
+ .../67_26_checks.json                              |    139 [32m+[m
+ .../67_26_pairs.csv                                |    561 [32m+[m
+ .../67_33_checks.json                              |    267 [32m+[m
+ .../67_33_pairs.csv                                |   1121 [32m+[m
+ .../67_34_checks.json                              |    139 [32m+[m
+ .../67_34_pairs.csv                                |    561 [32m+[m
+ .../67_4_checks.json                               |    387 [32m+[m
+ .../67_4_pairs.csv                                 |   1121 [32m+[m
+ .../67_6_checks.json                               |    139 [32m+[m
+ .../67_6_pairs.csv                                 |    561 [32m+[m
+ .../67_7_checks.json                               |    267 [32m+[m
+ .../67_7_pairs.csv                                 |   1121 [32m+[m
+ .../68_10_checks.json                              |    139 [32m+[m
+ .../68_10_pairs.csv                                |    561 [32m+[m
+ .../68_11_checks.json                              |    139 [32m+[m
+ .../68_11_pairs.csv                                |    561 [32m+[m
+ .../68_3_checks.json                               |    139 [32m+[m
+ .../68_3_pairs.csv                                 |    561 [32m+[m
+ .../68_4_checks.json                               |    199 [32m+[m
+ .../68_4_pairs.csv                                 |    561 [32m+[m
+ .../68_7_checks.json                               |    199 [32m+[m
+ .../68_7_pairs.csv                                 |    561 [32m+[m
+ .../69_21_checks.json                              |    199 [32m+[m
+ .../69_21_pairs.csv                                |    561 [32m+[m
+ .../69_3_checks.json                               |    199 [32m+[m
+ .../69_3_pairs.csv                                 |    561 [32m+[m
+ .../69_4_checks.json                               |    199 [32m+[m
+ .../69_4_pairs.csv                                 |    561 [32m+[m
+ .../69_6_checks.json                               |    199 [32m+[m
+ .../69_6_pairs.csv                                 |    561 [32m+[m
+ .../69_7_checks.json                               |    199 [32m+[m
+ .../69_7_pairs.csv                                 |    561 [32m+[m
+ .../70_15_checks.json                              |    199 [32m+[m
+ .../70_15_pairs.csv                                |    561 [32m+[m
+ .../70_1_checks.json                               |    199 [32m+[m
+ .../70_1_pairs.csv                                 |    561 [32m+[m
+ .../70_34_checks.json                              |    199 [32m+[m
+ .../70_34_pairs.csv                                |    561 [32m+[m
+ .../70_7_checks.json                               |    409 [32m+[m
+ .../70_7_pairs.csv                                 |   1121 [32m+[m
+ .../ARTIFACT_MANIFEST.json                         |     80 [32m+[m
+ .../PROBE_REVIEW_NOTE.md                           |      1 [32m+[m
+ .../PROTOCOL.md                                    |     21 [32m+[m
+ .../illusion_history_semantics_20260831/REPORT.md  |    124 [32m+[m
+ .../SUMMARY.json                                   |    151 [32m+[m
+ .../audit_runtime.py                               |    146 [32m+[m
+ .../checkpoint_identity.json                       |    178 [32m+[m
+ .../dod_recomputed.json                            |   1406 [32m+[m
+ .../history_metrics.py                             |     38 [32m+[m
+ .../integrity_after.json                           |    200 [32m+[m
+ .../integrity_before.json                          |    196 [32m+[m
+ .../numerical_category_changes.json                |    502 [32m+[m
+ .../summarize.py                                   |     99 [32m+[m
+ .../results.json                                   |    434 [32m+[m
+ .../results.json                                   |    357 [32m+[m
+ .../results.json                                   |    133 [32m+[m
+ .../results.json                                   |    272 [32m+[m
+ .../locality_graph.npz                             |    Bin [31m0[m -> [32m73144[m bytes
+ .../results.json                                   |    979 [32m+[m
+ .../results.json                                   |   3403 [32m+[m
+ .../rf_maps.npz                                    |    Bin [31m0[m -> [32m13724877[m bytes
+ .../results.json                                   |    706 [32m+[m
+ .../results.json                                   |    984 [32m+[m
+ .../results.json                                   |   1115 [32m+[m
+ .../karamanlis_2024_population_v1/results.json     |   1139 [32m+[m
+ .../results.json                                   |   1588 [32m+[m
+ .../results.json                                   |   2568 [32m+[m
+ .../rf_validation_arrays.npz                       |    Bin [31m0[m -> [32m6327395[m bytes
+ .../RESULTS.md                                     |     50 [32m+[m
+ .../group-summary.csv                              |    211 [32m+[m
+ .../per-cell.csv                                   |    925 [32m+[m
+ .../per-event-onset-offset.csv                     |  18217 [32m+[m
+ .../probe.py                                       |     93 [32m+[m
+ .../protocol.json                                  |    809 [32m+[m
+ .../report.py                                      |    181 [32m+[m
+ .../results.json                                   |  25299 [32m++[m
+ .../run.py                                         |    131 [32m+[m
+ .../stimulus-statistics.csv                        |     29 [32m+[m
+ .../verification.json                              |    235 [32m+[m
+ .../RESULTS.md                                     |    129 [32m+[m
+ .../analyze.py                                     |    178 [32m+[m
+ .../cells/67_14/inner-trajectory.csv               |   1002 [32m+[m
+ .../cells/67_14/refit-trajectory.csv               |    818 [32m+[m
+ .../cells/67_14/results.json                       |    261 [32m+[m
+ .../cells/67_21/inner-trajectory.csv               |    767 [32m+[m
+ .../cells/67_21/refit-trajectory.csv               |    566 [32m+[m
+ .../cells/67_21/results.json                       |    261 [32m+[m
+ .../cells/67_26/inner-trajectory.csv               |    465 [32m+[m
+ .../cells/67_26/refit-trajectory.csv               |    264 [32m+[m
+ .../cells/67_26/results.json                       |    261 [32m+[m
+ .../cells/67_33/inner-trajectory.csv               |    783 [32m+[m
+ .../cells/67_33/refit-trajectory.csv               |    582 [32m+[m
+ .../cells/67_33/results.json                       |    261 [32m+[m
+ .../cells/67_34/inner-trajectory.csv               |    584 [32m+[m
+ .../cells/67_34/refit-trajectory.csv               |    383 [32m+[m
+ .../cells/67_34/results.json                       |    261 [32m+[m
+ .../cells/67_4/inner-trajectory.csv                |    339 [32m+[m
+ .../cells/67_4/refit-trajectory.csv                |    138 [32m+[m
+ .../cells/67_4/results.json                        |    218 [32m+[m
+ .../cells/67_6/inner-trajectory.csv                |    572 [32m+[m
+ .../cells/67_6/refit-trajectory.csv                |    371 [32m+[m
+ .../cells/67_6/results.json                        |    261 [32m+[m
+ .../cells/67_7/inner-trajectory.csv                |    478 [32m+[m
+ .../cells/67_7/refit-trajectory.csv                |    277 [32m+[m
+ .../cells/67_7/results.json                        |    261 [32m+[m
+ .../cells/68_10/inner-trajectory.csv               |    527 [32m+[m
+ .../cells/68_10/refit-trajectory.csv               |    326 [32m+[m
+ .../cells/68_10/results.json                       |    218 [32m+[m
+ .../cells/68_11/inner-trajectory.csv               |    534 [32m+[m
+ .../cells/68_11/refit-trajectory.csv               |    333 [32m+[m
+ .../cells/68_11/results.json                       |    261 [32m+[m
+ .../cells/68_3/inner-trajectory.csv                |    533 [32m+[m
+ .../cells/68_3/refit-trajectory.csv                |    332 [32m+[m
+ .../cells/68_3/results.json                        |    261 [32m+[m
+ .../cells/68_4/inner-trajectory.csv                |   1002 [32m+[m
+ .../cells/68_4/refit-trajectory.csv                |    907 [32m+[m
+ .../cells/68_4/results.json                        |    253 [32m+[m
+ .../cells/68_7/inner-trajectory.csv                |    371 [32m+[m
+ .../cells/68_7/refit-trajectory.csv                |    170 [32m+[m
+ .../cells/68_7/results.json                        |    261 [32m+[m
+ .../cells/69_21/inner-trajectory.csv               |    453 [32m+[m
+ .../cells/69_21/refit-trajectory.csv               |    252 [32m+[m
+ .../cells/69_21/results.json                       |    253 [32m+[m
+ .../cells/69_3/inner-trajectory.csv                |    737 [32m+[m
+ .../cells/69_3/refit-trajectory.csv                |    536 [32m+[m
+ .../cells/69_3/results.json                        |    261 [32m+[m
+ .../cells/69_4/inner-trajectory.csv                |    395 [32m+[m
+ .../cells/69_4/refit-trajectory.csv                |    194 [32m+[m
+ .../cells/69_4/results.json                        |    253 [32m+[m
+ .../cells/69_6/inner-trajectory.csv                |    722 [32m+[m
+ .../cells/69_6/refit-trajectory.csv                |    521 [32m+[m
+ .../cells/69_6/results.json                        |    261 [32m+[m
+ .../cells/69_7/inner-trajectory.csv                |    480 [32m+[m
+ .../cells/69_7/refit-trajectory.csv                |    279 [32m+[m
+ .../cells/69_7/results.json                        |    261 [32m+[m
+ .../cells/70_1/inner-trajectory.csv                |    604 [32m+[m
+ .../cells/70_1/refit-trajectory.csv                |    403 [32m+[m
+ .../cells/70_1/results.json                        |    253 [32m+[m
+ .../cells/70_15/inner-trajectory.csv               |    308 [32m+[m
+ .../cells/70_15/refit-trajectory.csv               |    107 [32m+[m
+ .../cells/70_15/results.json                       |    253 [32m+[m
+ .../cells/70_34/inner-trajectory.csv               |    427 [32m+[m
+ .../cells/70_34/refit-trajectory.csv               |    226 [32m+[m
+ .../cells/70_34/results.json                       |    261 [32m+[m
+ .../cells/70_7/inner-trajectory.csv                |    450 [32m+[m
+ .../cells/70_7/refit-trajectory.csv                |    249 [32m+[m
+ .../cells/70_7/results.json                        |    261 [32m+[m
+ .../comparison.json                                |   3254 [32m+[m
+ .../group-comparison.csv                           |      6 [32m+[m
+ .../per-cell-comparison.csv                        |     23 [32m+[m
+ .../results.json                                   |   5653 [32m+[m
+ .../run-manifest.json                              |    357 [32m+[m
+ .../run.py                                         |    153 [32m+[m
+ .../spatial-mode-weights.csv                       |    177 [32m+[m
+ .../group-comparisons.csv                          |   1171 [32m+[m
+ .../group-responses.csv                            |   6421 [32m+[m
+ .../mach-boundary-extrema.csv                      |    529 [32m+[m
+ .../per-cell-comparisons.csv                       |   5149 [32m+[m
+ .../per-cell-responses.csv                         |  28249 [32m++[m
+ .../replay.py                                      |    173 [32m+[m
+ .../results.json                                   | 144454 [32m++++++[m
+ .../verification.json                              |    279 [32m+[m
+ .../RESULTS.md                                     |    322 [32m+[m
+ .../analyze.py                                     |    178 [32m+[m
+ .../causal_replay.py                               |    118 [32m+[m
+ .../cells/67_14/analysis.json                      |    105 [32m+[m
+ .../cells/67_14/inner-trajectory.csv               |    452 [32m+[m
+ .../cells/67_14/model-inner-best.pt                |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/67_14/model-raw.pt                       |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/67_14/model-trained.pt                   |    Bin [31m0[m -> [32m219088[m bytes
+ .../cells/67_14/refit-trajectory.csv               |    251 [32m+[m
+ .../cells/67_14/results.json                       |    240 [32m+[m
+ .../cells/67_14/validation-predictions.pt          |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/67_21/analysis.json                      |    105 [32m+[m
+ .../cells/67_21/inner-trajectory.csv               |    634 [32m+[m
+ .../cells/67_21/model-inner-best.pt                |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/67_21/model-raw.pt                       |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/67_21/model-trained.pt                   |    Bin [31m0[m -> [32m219088[m bytes
+ .../cells/67_21/refit-trajectory.csv               |    433 [32m+[m
+ .../cells/67_21/results.json                       |    240 [32m+[m
+ .../cells/67_21/validation-predictions.pt          |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/67_26/analysis.json                      |    105 [32m+[m
+ .../cells/67_26/inner-trajectory.csv               |    466 [32m+[m
+ .../cells/67_26/model-inner-best.pt                |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/67_26/model-raw.pt                       |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/67_26/model-trained.pt                   |    Bin [31m0[m -> [32m219088[m bytes
+ .../cells/67_26/refit-trajectory.csv               |    265 [32m+[m
+ .../cells/67_26/results.json                       |    240 [32m+[m
+ .../cells/67_26/validation-predictions.pt          |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/67_33/analysis.json                      |    105 [32m+[m
+ .../cells/67_33/inner-trajectory.csv               |    783 [32m+[m
+ .../cells/67_33/model-inner-best.pt                |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/67_33/model-raw.pt                       |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/67_33/model-trained.pt                   |    Bin [31m0[m -> [32m219088[m bytes
+ .../cells/67_33/refit-trajectory.csv               |    582 [32m+[m
+ .../cells/67_33/results.json                       |    240 [32m+[m
+ .../cells/67_33/validation-predictions.pt          |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/67_34/analysis.json                      |    105 [32m+[m
+ .../cells/67_34/inner-trajectory.csv               |    586 [32m+[m
+ .../cells/67_34/model-inner-best.pt                |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/67_34/model-raw.pt                       |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/67_34/model-trained.pt                   |    Bin [31m0[m -> [32m219088[m bytes
+ .../cells/67_34/refit-trajectory.csv               |    385 [32m+[m
+ .../cells/67_34/results.json                       |    240 [32m+[m
+ .../cells/67_34/validation-predictions.pt          |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/67_4/analysis.json                       |    105 [32m+[m
+ .../cells/67_4/inner-trajectory.csv                |    342 [32m+[m
+ .../cells/67_4/model-inner-best.pt                 |    Bin [31m0[m -> [32m219198[m bytes
+ .../cells/67_4/model-raw.pt                        |    Bin [31m0[m -> [32m218344[m bytes
+ .../cells/67_4/model-trained.pt                    |    Bin [31m0[m -> [32m219024[m bytes
+ .../cells/67_4/refit-trajectory.csv                |    141 [32m+[m
+ .../cells/67_4/results.json                        |    197 [32m+[m
+ .../cells/67_4/validation-predictions.pt           |    Bin [31m0[m -> [32m12819[m bytes
+ .../cells/67_6/analysis.json                       |    105 [32m+[m
+ .../cells/67_6/inner-trajectory.csv                |    571 [32m+[m
+ .../cells/67_6/model-inner-best.pt                 |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/67_6/model-raw.pt                        |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/67_6/model-trained.pt                    |    Bin [31m0[m -> [32m219088[m bytes
+ .../cells/67_6/refit-trajectory.csv                |    370 [32m+[m
+ .../cells/67_6/results.json                        |    240 [32m+[m
+ .../cells/67_6/validation-predictions.pt           |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/67_7/analysis.json                       |    105 [32m+[m
+ .../cells/67_7/inner-trajectory.csv                |    478 [32m+[m
+ .../cells/67_7/model-inner-best.pt                 |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/67_7/model-raw.pt                        |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/67_7/model-trained.pt                    |    Bin [31m0[m -> [32m219088[m bytes
+ .../cells/67_7/refit-trajectory.csv                |    277 [32m+[m
+ .../cells/67_7/results.json                        |    240 [32m+[m
+ .../cells/67_7/validation-predictions.pt           |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/68_10/analysis.json                      |    105 [32m+[m
+ .../cells/68_10/inner-trajectory.csv               |    413 [32m+[m
+ .../cells/68_10/model-inner-best.pt                |    Bin [31m0[m -> [32m219198[m bytes
+ .../cells/68_10/model-raw.pt                       |    Bin [31m0[m -> [32m218344[m bytes
+ .../cells/68_10/model-trained.pt                   |    Bin [31m0[m -> [32m219024[m bytes
+ .../cells/68_10/refit-trajectory.csv               |    212 [32m+[m
+ .../cells/68_10/results.json                       |    197 [32m+[m
+ .../cells/68_10/validation-predictions.pt          |    Bin [31m0[m -> [32m12819[m bytes
+ .../cells/68_11/analysis.json                      |    105 [32m+[m
+ .../cells/68_11/inner-trajectory.csv               |    353 [32m+[m
+ .../cells/68_11/model-inner-best.pt                |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/68_11/model-raw.pt                       |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/68_11/model-trained.pt                   |    Bin [31m0[m -> [32m219088[m bytes
+ .../cells/68_11/refit-trajectory.csv               |    152 [32m+[m
+ .../cells/68_11/results.json                       |    240 [32m+[m
+ .../cells/68_11/validation-predictions.pt          |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/68_3/analysis.json                       |    105 [32m+[m
+ .../cells/68_3/inner-trajectory.csv                |    342 [32m+[m
+ .../cells/68_3/model-inner-best.pt                 |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/68_3/model-raw.pt                        |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/68_3/model-trained.pt                    |    Bin [31m0[m -> [32m219088[m bytes
+ .../cells/68_3/refit-trajectory.csv                |    141 [32m+[m
+ .../cells/68_3/results.json                        |    240 [32m+[m
+ .../cells/68_3/validation-predictions.pt           |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/68_4/analysis.json                       |    105 [32m+[m
+ .../cells/68_4/inner-trajectory.csv                |    395 [32m+[m
+ .../cells/68_4/model-inner-best.pt                 |    Bin [31m0[m -> [32m219198[m bytes
+ .../cells/68_4/model-raw.pt                        |    Bin [31m0[m -> [32m218344[m bytes
+ .../cells/68_4/model-trained.pt                    |    Bin [31m0[m -> [32m219024[m bytes
+ .../cells/68_4/refit-trajectory.csv                |    194 [32m+[m
+ .../cells/68_4/results.json                        |    232 [32m+[m
+ .../cells/68_4/validation-predictions.pt           |    Bin [31m0[m -> [32m64979[m bytes
+ .../cells/68_7/analysis.json                       |    105 [32m+[m
+ .../cells/68_7/inner-trajectory.csv                |    281 [32m+[m
+ .../cells/68_7/model-inner-best.pt                 |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/68_7/model-raw.pt                        |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/68_7/model-trained.pt                    |    Bin [31m0[m -> [32m219024[m bytes
+ .../cells/68_7/refit-trajectory.csv                |     80 [32m+[m
+ .../cells/68_7/results.json                        |    240 [32m+[m
+ .../cells/68_7/validation-predictions.pt           |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/69_21/analysis.json                      |    105 [32m+[m
+ .../cells/69_21/inner-trajectory.csv               |    454 [32m+[m
+ .../cells/69_21/model-inner-best.pt                |    Bin [31m0[m -> [32m219198[m bytes
+ .../cells/69_21/model-raw.pt                       |    Bin [31m0[m -> [32m218344[m bytes
+ .../cells/69_21/model-trained.pt                   |    Bin [31m0[m -> [32m219024[m bytes
+ .../cells/69_21/refit-trajectory.csv               |    253 [32m+[m
+ .../cells/69_21/results.json                       |    232 [32m+[m
+ .../cells/69_21/validation-predictions.pt          |    Bin [31m0[m -> [32m64979[m bytes
+ .../cells/69_3/analysis.json                       |    105 [32m+[m
+ .../cells/69_3/inner-trajectory.csv                |    775 [32m+[m
+ .../cells/69_3/model-inner-best.pt                 |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/69_3/model-raw.pt                        |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/69_3/model-trained.pt                    |    Bin [31m0[m -> [32m219088[m bytes
+ .../cells/69_3/refit-trajectory.csv                |    574 [32m+[m
+ .../cells/69_3/results.json                        |    240 [32m+[m
+ .../cells/69_3/validation-predictions.pt           |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/69_4/analysis.json                       |    105 [32m+[m
+ .../cells/69_4/inner-trajectory.csv                |    335 [32m+[m
+ .../cells/69_4/model-inner-best.pt                 |    Bin [31m0[m -> [32m219198[m bytes
+ .../cells/69_4/model-raw.pt                        |    Bin [31m0[m -> [32m218344[m bytes
+ .../cells/69_4/model-trained.pt                    |    Bin [31m0[m -> [32m219024[m bytes
+ .../cells/69_4/refit-trajectory.csv                |    134 [32m+[m
+ .../cells/69_4/results.json                        |    232 [32m+[m
+ .../cells/69_4/validation-predictions.pt           |    Bin [31m0[m -> [32m64979[m bytes
+ .../cells/69_6/analysis.json                       |    105 [32m+[m
+ .../cells/69_6/inner-trajectory.csv                |    490 [32m+[m
+ .../cells/69_6/model-inner-best.pt                 |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/69_6/model-raw.pt                        |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/69_6/model-trained.pt                    |    Bin [31m0[m -> [32m219088[m bytes
+ .../cells/69_6/refit-trajectory.csv                |    289 [32m+[m
+ .../cells/69_6/results.json                        |    240 [32m+[m
+ .../cells/69_6/validation-predictions.pt           |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/69_7/analysis.json                       |    105 [32m+[m
+ .../cells/69_7/inner-trajectory.csv                |    409 [32m+[m
+ .../cells/69_7/model-inner-best.pt                 |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/69_7/model-raw.pt                        |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/69_7/model-trained.pt                    |    Bin [31m0[m -> [32m219088[m bytes
+ .../cells/69_7/refit-trajectory.csv                |    208 [32m+[m
+ .../cells/69_7/results.json                        |    240 [32m+[m
+ .../cells/69_7/validation-predictions.pt           |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/70_1/analysis.json                       |    105 [32m+[m
+ .../cells/70_1/inner-trajectory.csv                |    615 [32m+[m
+ .../cells/70_1/model-inner-best.pt                 |    Bin [31m0[m -> [32m219198[m bytes
+ .../cells/70_1/model-raw.pt                        |    Bin [31m0[m -> [32m218344[m bytes
+ .../cells/70_1/model-trained.pt                    |    Bin [31m0[m -> [32m219024[m bytes
+ .../cells/70_1/refit-trajectory.csv                |    414 [32m+[m
+ .../cells/70_1/results.json                        |    232 [32m+[m
+ .../cells/70_1/validation-predictions.pt           |    Bin [31m0[m -> [32m64979[m bytes
+ .../cells/70_15/analysis.json                      |    105 [32m+[m
+ .../cells/70_15/inner-trajectory.csv               |    259 [32m+[m
+ .../cells/70_15/model-inner-best.pt                |    Bin [31m0[m -> [32m219198[m bytes
+ .../cells/70_15/model-raw.pt                       |    Bin [31m0[m -> [32m218344[m bytes
+ .../cells/70_15/model-trained.pt                   |    Bin [31m0[m -> [32m219024[m bytes
+ .../cells/70_15/refit-trajectory.csv               |     58 [32m+[m
+ .../cells/70_15/results.json                       |    232 [32m+[m
+ .../cells/70_15/validation-predictions.pt          |    Bin [31m0[m -> [32m64979[m bytes
+ .../cells/70_34/analysis.json                      |    105 [32m+[m
+ .../cells/70_34/inner-trajectory.csv               |    373 [32m+[m
+ .../cells/70_34/model-inner-best.pt                |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/70_34/model-raw.pt                       |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/70_34/model-trained.pt                   |    Bin [31m0[m -> [32m219088[m bytes
+ .../cells/70_34/refit-trajectory.csv               |    172 [32m+[m
+ .../cells/70_34/results.json                       |    240 [32m+[m
+ .../cells/70_34/validation-predictions.pt          |    Bin [31m0[m -> [32m75219[m bytes
+ .../cells/70_7/analysis.json                       |    105 [32m+[m
+ .../cells/70_7/inner-trajectory.csv                |    424 [32m+[m
+ .../cells/70_7/model-inner-best.pt                 |    Bin [31m0[m -> [32m219262[m bytes
+ .../cells/70_7/model-raw.pt                        |    Bin [31m0[m -> [32m218408[m bytes
+ .../cells/70_7/model-trained.pt                    |    Bin [31m0[m -> [32m219024[m bytes
+ .../cells/70_7/refit-trajectory.csv                |    223 [32m+[m
+ .../cells/70_7/results.json                        |    240 [32m+[m
+ .../cells/70_7/validation-predictions.pt           |    Bin [31m0[m -> [32m75219[m bytes
+ .../comparison.json                                |   2910 [32m+[m
+ .../effective-parameters.pt                        |    Bin [31m0[m -> [32m104454[m bytes
+ .../group-comparison.csv                           |      6 [32m+[m
+ .../learned-pathway-quantities.csv                 |     23 [32m+[m
+ .../per-cell-comparison.csv                        |     23 [32m+[m
+ .../perturbation-tensors.pt                        |    Bin [31m0[m -> [32m2012434[m bytes
+ .../results.json                                   |   5192 [32m+[m
+ .../rf-tensors.pt                                  |    Bin [31m0[m -> [32m1660140[m bytes
+ .../run-manifest.json                              |    359 [32m+[m
+ .../run.py                                         |    165 [32m+[m
+ .../RESULTS.md                                     |    347 [32m+[m
+ .../common.py                                      |    108 [32m+[m
+ .../figures.py                                     |    107 [32m+[m
+ .../illusion/group-comparisons.csv                 |   1451 [32m+[m
+ .../illusion/group-metric-differences.csv          |   6421 [32m+[m
+ .../illusion/group-responses.csv                   |   8561 [32m+[m
+ .../illusion/mach-boundary-differences.csv         |    529 [32m+[m
+ .../illusion/mach-boundary-extrema.csv             |    705 [32m+[m
+ .../illusion/mach-boundary-group-differences.csv   |    121 [32m+[m
+ .../illusion/mach-boundary-group.csv               |    161 [32m+[m
+ .../illusion/per-cell-comparisons.csv              |   6381 [32m+[m
+ .../illusion/per-cell-metric-differences.csv       |  28249 [32m++[m
+ .../illusion/per-cell-responses.csv                |  37665 [32m++[m
+ .../illusion/results.json                          | 190713 [32m++++++++[m
+ .../illusion_replay.py                             |    115 [32m+[m
+ .../input-manifest.json                            |     76 [32m+[m
+ .../report-manifest.json                           |     31 [32m+[m
+ .../report_results.py                              |    152 [32m+[m
+ .../run.py                                         |     63 [32m+[m
+ .../temporal/RESULTS.md                            |     50 [32m+[m
+ .../temporal/comparison.json                       |  59438 [32m+++[m
+ .../temporal/figures/67_14.png                     |    Bin [31m0[m -> [32m648197[m bytes
+ .../temporal/figures/67_21.png                     |    Bin [31m0[m -> [32m587281[m bytes
+ .../temporal/figures/67_26.png                     |    Bin [31m0[m -> [32m626044[m bytes
+ .../temporal/figures/67_33.png                     |    Bin [31m0[m -> [32m660381[m bytes
+ .../temporal/figures/67_34.png                     |    Bin [31m0[m -> [32m617778[m bytes
+ .../temporal/figures/67_4.png                      |    Bin [31m0[m -> [32m543301[m bytes
+ .../temporal/figures/67_6.png                      |    Bin [31m0[m -> [32m698549[m bytes
+ .../temporal/figures/67_7.png                      |    Bin [31m0[m -> [32m680796[m bytes
+ .../temporal/figures/68_10.png                     |    Bin [31m0[m -> [32m596576[m bytes
+ .../temporal/figures/68_11.png                     |    Bin [31m0[m -> [32m567057[m bytes
+ .../temporal/figures/68_3.png                      |    Bin [31m0[m -> [32m621512[m bytes
+ .../temporal/figures/68_4.png                      |    Bin [31m0[m -> [32m671267[m bytes
+ .../temporal/figures/68_7.png                      |    Bin [31m0[m -> [32m613416[m bytes
+ .../temporal/figures/69_21.png                     |    Bin [31m0[m -> [32m588149[m bytes
+ .../temporal/figures/69_3.png                      |    Bin [31m0[m -> [32m613900[m bytes
+ .../temporal/figures/69_4.png                      |    Bin [31m0[m -> [32m628489[m bytes
+ .../temporal/figures/69_6.png                      |    Bin [31m0[m -> [32m689926[m bytes
+ .../temporal/figures/69_7.png                      |    Bin [31m0[m -> [32m667969[m bytes
+ .../temporal/figures/70_1.png                      |    Bin [31m0[m -> [32m598159[m bytes
+ .../temporal/figures/70_15.png                     |    Bin [31m0[m -> [32m610190[m bytes
+ .../temporal/figures/70_34.png                     |    Bin [31m0[m -> [32m661632[m bytes
+ .../temporal/figures/70_7.png                      |    Bin [31m0[m -> [32m637881[m bytes
+ .../temporal/figures/MC_OFF.png                    |    Bin [31m0[m -> [32m671349[m bytes
+ .../temporal/figures/MC_ON.png                     |    Bin [31m0[m -> [32m646661[m bytes
+ .../temporal/figures/PC_OFF.png                    |    Bin [31m0[m -> [32m587900[m bytes
+ .../temporal/figures/PC_ON.png                     |    Bin [31m0[m -> [32m609331[m bytes
+ .../temporal/figures/all.png                       |    Bin [31m0[m -> [32m638437[m bytes
+ .../temporal/figures/effect-magnitude.png          |    Bin [31m0[m -> [32m76325[m bytes
+ .../temporal/figures/stimulus-waveforms.png        |    Bin [31m0[m -> [32m155339[m bytes
+ .../temporal/group-summary.csv                     |    281 [32m+[m
+ .../temporal/group-vs-overlapping.csv              |    211 [32m+[m
+ .../temporal/per-cell-vs-overlapping.csv           |    925 [32m+[m
+ .../temporal/per-cell.csv                          |   1233 [32m+[m
+ .../temporal/per-event-onset-offset.csv            |  24289 [32m+[m
+ .../temporal/per-event-vs-overlapping.csv          |  18217 [32m+[m
+ .../temporal/protocol.json                         |    814 [32m+[m
+ .../temporal/results.json                          |  33615 [32m++[m
+ .../temporal/stimulus-statistics.csv               |     29 [32m+[m
+ .../temporal_replay.py                             |     68 [32m+[m
+ .../verification.json                              |   1052 [32m+[m
+ .../cells/67_14/inner-lambda-0.0001.pt             |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/67_14/inner-lambda-0.001.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_14/inner-lambda-0.01.pt               |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/67_14/inner-lambda-1e-05.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_14/ln-raw.pt                          |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/67_14/ln-trained.pt                      |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/67_14/results.json                       |   4284 [32m+[m
+ .../cells/67_14/validation-predictions.pt          |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/67_21/inner-lambda-0.0001.pt             |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/67_21/inner-lambda-0.001.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_21/inner-lambda-0.01.pt               |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/67_21/inner-lambda-1e-05.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_21/ln-raw.pt                          |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/67_21/ln-trained.pt                      |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/67_21/results.json                       |   4284 [32m+[m
+ .../cells/67_21/validation-predictions.pt          |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/67_26/inner-lambda-0.0001.pt             |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/67_26/inner-lambda-0.001.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_26/inner-lambda-0.01.pt               |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/67_26/inner-lambda-1e-05.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_26/ln-raw.pt                          |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/67_26/ln-trained.pt                      |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/67_26/results.json                       |   4284 [32m+[m
+ .../cells/67_26/validation-predictions.pt          |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/67_33/inner-lambda-0.0001.pt             |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/67_33/inner-lambda-0.001.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_33/inner-lambda-0.01.pt               |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/67_33/inner-lambda-1e-05.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_33/ln-raw.pt                          |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/67_33/ln-trained.pt                      |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/67_33/results.json                       |   4284 [32m+[m
+ .../cells/67_33/validation-predictions.pt          |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/67_34/inner-lambda-0.0001.pt             |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/67_34/inner-lambda-0.001.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_34/inner-lambda-0.01.pt               |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/67_34/inner-lambda-1e-05.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_34/ln-raw.pt                          |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/67_34/ln-trained.pt                      |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/67_34/results.json                       |   4284 [32m+[m
+ .../cells/67_34/validation-predictions.pt          |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/67_4/inner-lambda-0.0001.pt              |    Bin [31m0[m -> [32m16662[m bytes
+ .../cells/67_4/inner-lambda-0.001.pt               |    Bin [31m0[m -> [32m16642[m bytes
+ .../cells/67_4/inner-lambda-0.01.pt                |    Bin [31m0[m -> [32m16622[m bytes
+ .../cells/67_4/inner-lambda-1e-05.pt               |    Bin [31m0[m -> [32m16642[m bytes
+ .../cells/67_4/ln-raw.pt                           |    Bin [31m0[m -> [32m6836[m bytes
+ .../cells/67_4/ln-trained.pt                       |    Bin [31m0[m -> [32m6948[m bytes
+ .../cells/67_4/results.json                        |   2780 [32m+[m
+ .../cells/67_4/validation-predictions.pt           |    Bin [31m0[m -> [32m15454[m bytes
+ .../cells/67_6/inner-lambda-0.0001.pt              |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/67_6/inner-lambda-0.001.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_6/inner-lambda-0.01.pt                |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/67_6/inner-lambda-1e-05.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_6/ln-raw.pt                           |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/67_6/ln-trained.pt                       |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/67_6/results.json                        |   4284 [32m+[m
+ .../cells/67_6/validation-predictions.pt           |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/67_7/inner-lambda-0.0001.pt              |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/67_7/inner-lambda-0.001.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_7/inner-lambda-0.01.pt                |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/67_7/inner-lambda-1e-05.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/67_7/ln-raw.pt                           |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/67_7/ln-trained.pt                       |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/67_7/results.json                        |   4284 [32m+[m
+ .../cells/67_7/validation-predictions.pt           |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/68_10/inner-lambda-0.0001.pt             |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/68_10/inner-lambda-0.001.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/68_10/inner-lambda-0.01.pt               |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/68_10/inner-lambda-1e-05.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/68_10/ln-raw.pt                          |    Bin [31m0[m -> [32m6836[m bytes
+ .../cells/68_10/ln-trained.pt                      |    Bin [31m0[m -> [32m6948[m bytes
+ .../cells/68_10/results.json                       |   4240 [32m+[m
+ .../cells/68_10/validation-predictions.pt          |    Bin [31m0[m -> [32m15454[m bytes
+ .../cells/68_11/inner-lambda-0.0001.pt             |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/68_11/inner-lambda-0.001.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/68_11/inner-lambda-0.01.pt               |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/68_11/inner-lambda-1e-05.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/68_11/ln-raw.pt                          |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/68_11/ln-trained.pt                      |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/68_11/results.json                       |   4284 [32m+[m
+ .../cells/68_11/validation-predictions.pt          |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/68_3/inner-lambda-0.0001.pt              |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/68_3/inner-lambda-0.001.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/68_3/inner-lambda-0.01.pt                |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/68_3/inner-lambda-1e-05.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/68_3/ln-raw.pt                           |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/68_3/ln-trained.pt                       |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/68_3/results.json                        |   4284 [32m+[m
+ .../cells/68_3/validation-predictions.pt           |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/68_4/inner-lambda-0.0001.pt              |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/68_4/inner-lambda-0.001.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/68_4/inner-lambda-0.01.pt                |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/68_4/inner-lambda-1e-05.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/68_4/ln-raw.pt                           |    Bin [31m0[m -> [32m6836[m bytes
+ .../cells/68_4/ln-trained.pt                       |    Bin [31m0[m -> [32m6948[m bytes
+ .../cells/68_4/results.json                        |   4275 [32m+[m
+ .../cells/68_4/validation-predictions.pt           |    Bin [31m0[m -> [32m79646[m bytes
+ .../cells/68_7/inner-lambda-0.0001.pt              |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/68_7/inner-lambda-0.001.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/68_7/inner-lambda-0.01.pt                |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/68_7/inner-lambda-1e-05.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/68_7/ln-raw.pt                           |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/68_7/ln-trained.pt                       |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/68_7/results.json                        |   4284 [32m+[m
+ .../cells/68_7/validation-predictions.pt           |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/69_21/inner-lambda-0.0001.pt             |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/69_21/inner-lambda-0.001.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/69_21/inner-lambda-0.01.pt               |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/69_21/inner-lambda-1e-05.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/69_21/ln-raw.pt                          |    Bin [31m0[m -> [32m6836[m bytes
+ .../cells/69_21/ln-trained.pt                      |    Bin [31m0[m -> [32m6948[m bytes
+ .../cells/69_21/results.json                       |   4275 [32m+[m
+ .../cells/69_21/validation-predictions.pt          |    Bin [31m0[m -> [32m79646[m bytes
+ .../cells/69_3/inner-lambda-0.0001.pt              |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/69_3/inner-lambda-0.001.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/69_3/inner-lambda-0.01.pt                |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/69_3/inner-lambda-1e-05.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/69_3/ln-raw.pt                           |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/69_3/ln-trained.pt                       |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/69_3/results.json                        |   4284 [32m+[m
+ .../cells/69_3/validation-predictions.pt           |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/69_4/inner-lambda-0.0001.pt              |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/69_4/inner-lambda-0.001.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/69_4/inner-lambda-0.01.pt                |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/69_4/inner-lambda-1e-05.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/69_4/ln-raw.pt                           |    Bin [31m0[m -> [32m6836[m bytes
+ .../cells/69_4/ln-trained.pt                       |    Bin [31m0[m -> [32m6948[m bytes
+ .../cells/69_4/results.json                        |   4275 [32m+[m
+ .../cells/69_4/validation-predictions.pt           |    Bin [31m0[m -> [32m79646[m bytes
+ .../cells/69_6/inner-lambda-0.0001.pt              |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/69_6/inner-lambda-0.001.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/69_6/inner-lambda-0.01.pt                |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/69_6/inner-lambda-1e-05.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/69_6/ln-raw.pt                           |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/69_6/ln-trained.pt                       |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/69_6/results.json                        |   4284 [32m+[m
+ .../cells/69_6/validation-predictions.pt           |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/69_7/inner-lambda-0.0001.pt              |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/69_7/inner-lambda-0.001.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/69_7/inner-lambda-0.01.pt                |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/69_7/inner-lambda-1e-05.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/69_7/ln-raw.pt                           |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/69_7/ln-trained.pt                       |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/69_7/results.json                        |   4284 [32m+[m
+ .../cells/69_7/validation-predictions.pt           |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/70_1/inner-lambda-0.0001.pt              |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/70_1/inner-lambda-0.001.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/70_1/inner-lambda-0.01.pt                |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/70_1/inner-lambda-1e-05.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/70_1/ln-raw.pt                           |    Bin [31m0[m -> [32m6836[m bytes
+ .../cells/70_1/ln-trained.pt                       |    Bin [31m0[m -> [32m6948[m bytes
+ .../cells/70_1/results.json                        |   4275 [32m+[m
+ .../cells/70_1/validation-predictions.pt           |    Bin [31m0[m -> [32m79646[m bytes
+ .../cells/70_15/inner-lambda-0.0001.pt             |    Bin [31m0[m -> [32m17878[m bytes
+ .../cells/70_15/inner-lambda-0.001.pt              |    Bin [31m0[m -> [32m17858[m bytes
+ .../cells/70_15/inner-lambda-0.01.pt               |    Bin [31m0[m -> [32m17838[m bytes
+ .../cells/70_15/inner-lambda-1e-05.pt              |    Bin [31m0[m -> [32m17858[m bytes
+ .../cells/70_15/ln-raw.pt                          |    Bin [31m0[m -> [32m6836[m bytes
+ .../cells/70_15/ln-trained.pt                      |    Bin [31m0[m -> [32m6948[m bytes
+ .../cells/70_15/results.json                       |   3331 [32m+[m
+ .../cells/70_15/validation-predictions.pt          |    Bin [31m0[m -> [32m79646[m bytes
+ .../cells/70_34/inner-lambda-0.0001.pt             |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/70_34/inner-lambda-0.001.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/70_34/inner-lambda-0.01.pt               |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/70_34/inner-lambda-1e-05.pt              |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/70_34/ln-raw.pt                          |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/70_34/ln-trained.pt                      |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/70_34/results.json                       |   4284 [32m+[m
+ .../cells/70_34/validation-predictions.pt          |    Bin [31m0[m -> [32m92254[m bytes
+ .../cells/70_7/inner-lambda-0.0001.pt              |    Bin [31m0[m -> [32m19990[m bytes
+ .../cells/70_7/inner-lambda-0.001.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/70_7/inner-lambda-0.01.pt                |    Bin [31m0[m -> [32m19950[m bytes
+ .../cells/70_7/inner-lambda-1e-05.pt               |    Bin [31m0[m -> [32m19970[m bytes
+ .../cells/70_7/ln-raw.pt                           |    Bin [31m0[m -> [32m7028[m bytes
+ .../cells/70_7/ln-trained.pt                       |    Bin [31m0[m -> [32m7140[m bytes
+ .../cells/70_7/results.json                        |   4284 [32m+[m
+ .../cells/70_7/validation-predictions.pt           |    Bin [31m0[m -> [32m92254[m bytes
+ .../per-cell.csv                                   |     23 [32m+[m
+ .../reference-comparison.json                      |    404 [32m+[m
+ .../results.json                                   |    779 [32m+[m
+ .../run-complete.json                              |      7 [32m+[m
+ .../run-manifest.json                              |    112 [32m+[m
+ .../results.json                                   |   2780 [32m+[m
+ .../cells/67_14/results.json                       |     94 [32m+[m
+ .../cells/67_21/results.json                       |     94 [32m+[m
+ .../cells/67_26/results.json                       |     94 [32m+[m
+ .../cells/67_33/results.json                       |     94 [32m+[m
+ .../cells/67_34/results.json                       |     94 [32m+[m
+ .../cells/67_4/results.json                        |     80 [32m+[m
+ .../cells/67_6/results.json                        |     94 [32m+[m
+ .../cells/67_7/results.json                        |     94 [32m+[m
+ .../cells/68_10/results.json                       |     80 [32m+[m
+ .../cells/68_11/results.json                       |     94 [32m+[m
+ .../cells/68_3/results.json                        |     94 [32m+[m
+ .../cells/68_4/results.json                        |     80 [32m+[m
+ .../cells/68_7/results.json                        |     94 [32m+[m
+ .../cells/69_21/results.json                       |     80 [32m+[m
+ .../cells/69_3/results.json                        |     94 [32m+[m
+ .../cells/69_4/results.json                        |     80 [32m+[m
+ .../cells/69_6/results.json                        |     94 [32m+[m
+ .../cells/69_7/results.json                        |     94 [32m+[m
+ .../cells/70_1/results.json                        |     80 [32m+[m
+ .../cells/70_15/results.json                       |     80 [32m+[m
+ .../cells/70_34/results.json                       |     94 [32m+[m
+ .../cells/70_7/results.json                        |     94 [32m+[m
+ .../evaluation/h1-strength.json                    |    303 [32m+[m
+ .../evaluation/report-summary.json                 |    448 [32m+[m
+ .../evaluation/results.json                        | 413661 [32m++++++++++++++++++[m
+ .../per_cell_results.csv                           |     23 [32m+[m
+ .../results.json                                   |   2078 [32m+[m
+ .../spatial_rf_ac_h1_analysis/per_cell_metrics.csv |     67 [32m+[m
+ .../spatial_rf_ac_h1_analysis/results.json         |   4081 [32m+[m
+ .../group_summary.csv                              |     85 [32m+[m
+ .../per_cell_metrics.csv                           |    463 [32m+[m
+ .../results.json                                   |  11454 [32m+[m
+ .../per_cell_results.csv                           |     23 [32m+[m
+ .../results.json                                   |   1616 [32m+[m
+ .../per_cell_results.csv                           |     23 [32m+[m
+ .../results.json                                   |   1313 [32m+[m
+ .../cells/67_14/results.json                       |     94 [32m+[m
+ .../cells/67_21/results.json                       |     94 [32m+[m
+ .../cells/67_26/results.json                       |     94 [32m+[m
+ .../cells/67_33/results.json                       |     94 [32m+[m
+ .../cells/67_34/results.json                       |     94 [32m+[m
+ .../cells/67_4/results.json                        |     80 [32m+[m
+ .../cells/67_6/results.json                        |     94 [32m+[m
+ .../cells/67_7/results.json                        |     94 [32m+[m
+ .../cells/68_10/results.json                       |     80 [32m+[m
+ .../cells/68_11/results.json                       |     94 [32m+[m
+ .../cells/68_3/results.json                        |     94 [32m+[m
+ .../cells/68_4/results.json                        |     80 [32m+[m
+ .../cells/68_7/results.json                        |     94 [32m+[m
+ .../cells/69_21/results.json                       |     80 [32m+[m
+ .../cells/69_3/results.json                        |     94 [32m+[m
+ .../cells/69_4/results.json                        |     80 [32m+[m
+ .../cells/69_6/results.json                        |     94 [32m+[m
+ .../cells/69_7/results.json                        |     94 [32m+[m
+ .../cells/70_1/results.json                        |     80 [32m+[m
+ .../cells/70_15/results.json                       |     80 [32m+[m
+ .../cells/70_34/results.json                       |     94 [32m+[m
+ .../cells/70_7/results.json                        |     94 [32m+[m
+ .../per_cell_results.csv                           |     23 [32m+[m
+ .../results.json                                   |   2078 [32m+[m
+ .../MACH_RESULTS.md                                |     88 [32m+[m
+ .../QA.md                                          |     21 [32m+[m
+ .../RESULTS.md                                     |    105 [32m+[m
+ .../annular-luminance.csv                          |     41 [32m+[m
+ .../diagnostic_stimuli.py                          |    129 [32m+[m
+ .../group-comparisons.csv                          |   1481 [32m+[m
+ .../group-responses.csv                            |   8561 [32m+[m
+ .../mach-boundary-extrema.csv                      |    705 [32m+[m
+ .../mach-supplement-provenance.json                |      7 [32m+[m
+ .../mach_time_report.py                            |     76 [32m+[m
+ .../per-cell-comparisons.csv                       |   6513 [32m+[m
+ .../per-cell-responses.csv                         |  37665 [32m++[m
+ .../per-cell-spatial-support-statistics.csv        |    177 [32m+[m
+ .../protocol.json                                  |    323 [32m+[m
+ .../replay.py                                      |    146 [32m+[m
+ .../report.py                                      |    134 [32m+[m
+ .../test_contract.py                               |     38 [32m+[m
+ .../verification.json                              |    261 [32m+[m
+ .../RESULTS.md                                     |     72 [32m+[m
+ .../compare.py                                     |    122 [32m+[m
+ .../comparison.json                                |   6790 [32m+[m
+ .../group_summary.csv                              |     85 [32m+[m
+ .../per_cell_metrics.csv                           |    463 [32m+[m
+ .../perturbation-comparison.csv                    |     67 [32m+[m
+ .../perturbation-group-comparison.csv              |     16 [32m+[m
+ .../replay-results.json                            |  12224 [32m+[m
+ .../replay.py                                      |    193 [32m+[m
+ .../rf-comparison.csv                              |    111 [32m+[m
+ .../rf-group-comparison.csv                        |     26 [32m+[m
+ .../temporal-comparison.csv                        |    463 [32m+[m
+ .../temporal-group-comparison.csv                  |    106 [32m+[m
+ .../verification.json                              |     32 [32m+[m
+ .../QA.md                                          |     25 [32m+[m
+ .../RESULTS.md                                     |     91 [32m+[m
+ .../figures.py                                     |    159 [32m+[m
+ .../group-responses.csv                            |   5641 [32m+[m
+ .../mach-boundary-extrema.csv                      |    529 [32m+[m
+ .../metrics.py                                     |    101 [32m+[m
+ .../per-cell-responses.csv                         |  24817 [32m++[m
+ .../results.json                                   | 115016 [32m+++++[m
+ .../run.py                                         |    112 [32m+[m
+ .../stimuli.py                                     |    117 [32m+[m
+ .../stimulus-contract.json                         |    407 [32m+[m
+ .../test_contract.py                               |     40 [32m+[m
+ .../verification.json                              |    257 [32m+[m
+ .../run-manifest.json                              |    102 [32m+[m
+ .../status.json                                    |     12 [32m+[m
+ .../cells/67_14/inner-trajectory.csv               |    673 [32m+[m
+ .../cells/67_14/refit-trajectory.csv               |    472 [32m+[m
+ .../cells/67_14/results.json                       |   3639 [32m+[m
+ .../cells/67_21/inner-trajectory.csv               |    625 [32m+[m
+ .../cells/67_21/refit-trajectory.csv               |    424 [32m+[m
+ .../cells/67_21/results.json                       |   3399 [32m+[m
+ .../cells/67_26/inner-trajectory.csv               |    465 [32m+[m
+ .../cells/67_26/refit-trajectory.csv               |    264 [32m+[m
+ .../cells/67_26/results.json                       |   2599 [32m+[m
+ .../cells/67_33/inner-trajectory.csv               |   1002 [32m+[m
+ .../cells/67_33/refit-trajectory.csv               |    908 [32m+[m
+ .../cells/67_33/results.json                       |   5284 [32m+[m
+ .../cells/67_34/inner-trajectory.csv               |    586 [32m+[m
+ .../cells/67_34/refit-trajectory.csv               |    385 [32m+[m
+ .../cells/67_34/results.json                       |   3204 [32m+[m
+ .../cells/67_4/inner-trajectory.csv                |    734 [32m+[m
+ .../cells/67_4/refit-trajectory.csv                |    533 [32m+[m
+ .../cells/67_4/results.json                        |   3900 [32m+[m
+ .../cells/67_6/inner-trajectory.csv                |    529 [32m+[m
+ .../cells/67_6/refit-trajectory.csv                |    328 [32m+[m
+ .../cells/67_6/results.json                        |   2919 [32m+[m
+ .../cells/67_7/inner-trajectory.csv                |    571 [32m+[m
+ .../cells/67_7/refit-trajectory.csv                |    370 [32m+[m
+ .../cells/67_7/results.json                        |   3129 [32m+[m
+ .../cells/68_10/inner-trajectory.csv               |    627 [32m+[m
+ .../cells/68_10/refit-trajectory.csv               |    426 [32m+[m
+ .../cells/68_10/results.json                       |   3365 [32m+[m
+ .../cells/68_11/inner-trajectory.csv               |    534 [32m+[m
+ .../cells/68_11/refit-trajectory.csv               |    333 [32m+[m
+ .../cells/68_11/results.json                       |   2944 [32m+[m
+ .../cells/68_3/inner-trajectory.csv                |    342 [32m+[m
+ .../cells/68_3/refit-trajectory.csv                |    141 [32m+[m
+ .../cells/68_3/results.json                        |   1984 [32m+[m
+ .../cells/68_4/inner-trajectory.csv                |   1002 [32m+[m
+ .../cells/68_4/refit-trajectory.csv                |    919 [32m+[m
+ .../cells/68_4/results.json                        |   5275 [32m+[m
+ .../cells/68_7/inner-trajectory.csv                |    372 [32m+[m
+ .../cells/68_7/refit-trajectory.csv                |    171 [32m+[m
+ .../cells/68_7/results.json                        |   2134 [32m+[m
+ .../cells/69_21/inner-trajectory.csv               |    805 [32m+[m
+ .../cells/69_21/refit-trajectory.csv               |    604 [32m+[m
+ .../cells/69_21/results.json                       |   4290 [32m+[m
+ .../cells/69_3/inner-trajectory.csv                |    737 [32m+[m
+ .../cells/69_3/refit-trajectory.csv                |    536 [32m+[m
+ .../cells/69_3/results.json                        |   3959 [32m+[m
+ .../cells/69_4/inner-trajectory.csv                |    847 [32m+[m
+ .../cells/69_4/refit-trajectory.csv                |    646 [32m+[m
+ .../cells/69_4/results.json                        |   4500 [32m+[m
+ .../cells/69_6/inner-trajectory.csv                |    765 [32m+[m
+ .../cells/69_6/refit-trajectory.csv                |    564 [32m+[m
+ .../cells/69_6/results.json                        |   4099 [32m+[m
+ .../cells/69_7/inner-trajectory.csv                |    644 [32m+[m
+ .../cells/69_7/refit-trajectory.csv                |    443 [32m+[m
+ .../cells/69_7/results.json                        |   3494 [32m+[m
+ .../cells/70_1/inner-trajectory.csv                |    612 [32m+[m
+ .../cells/70_1/refit-trajectory.csv                |    411 [32m+[m
+ .../cells/70_1/results.json                        |   3325 [32m+[m
+ .../cells/70_15/inner-trajectory.csv               |   1002 [32m+[m
+ .../cells/70_15/refit-trajectory.csv               |    971 [32m+[m
+ .../cells/70_15/results.json                       |   5275 [32m+[m
+ .../cells/70_34/inner-trajectory.csv               |    424 [32m+[m
+ .../cells/70_34/refit-trajectory.csv               |    223 [32m+[m
+ .../cells/70_34/results.json                       |   2394 [32m+[m
+ .../cells/70_7/inner-trajectory.csv                |    465 [32m+[m
+ .../cells/70_7/refit-trajectory.csv                |    264 [32m+[m
+ .../cells/70_7/results.json                        |   2599 [32m+[m
+ .../per-cell.csv                                   |     23 [32m+[m
+ .../results.json                                   |    672 [32m+[m
+ .../run-manifest.json                              |    103 [32m+[m
+ .../summarize.py                                   |    145 [32m+[m
+ .../causal-replay-tensors.pt                       |    Bin [31m0[m -> [32m5538350[m bytes
+ .../causal_replay.py                               |    114 [32m+[m
+ .../counterfactual-tensors.pt                      |    Bin [31m0[m -> [32m797506[m bytes
+ .../results.json                                   |    490 [32m+[m
+ .../rf-tensors.pt                                  |    Bin [31m0[m -> [32m467170[m bytes
+ .../run_sanity.py                                  |    161 [32m+[m
+ .../seed-53001-results.json                        |     92 [32m+[m
+ .../seed-53002-results.json                        |     92 [32m+[m
+ .../seed-53003-results.json                        |     92 [32m+[m
+ .../stimulus-and-probabilities.pt                  |    Bin [31m0[m -> [32m272409[m bytes
+ .../student-seed-53001-raw.pt                      |    Bin [31m0[m -> [32m32154[m bytes
+ .../student-seed-53001-trained.pt                  |    Bin [31m0[m -> [32m32514[m bytes
+ .../student-seed-53002-raw.pt                      |    Bin [31m0[m -> [32m32154[m bytes
+ .../student-seed-53002-trained.pt                  |    Bin [31m0[m -> [32m32514[m bytes
+ .../student-seed-53003-raw.pt                      |    Bin [31m0[m -> [32m32154[m bytes
+ .../student-seed-53003-trained.pt                  |    Bin [31m0[m -> [32m32514[m bytes
+ .../teacher.pt                                     |    Bin [31m0[m -> [32m30900[m bytes
+ scripts/build_pro_audit_manifest.ps1               |     62 [32m+[m
+ scripts/prepare_pro_audit_cleanup.ps1              |    140 [32m+[m
+ scripts/run_ac_circuit_perturbation.py             |     46 [32m+[m
+ scripts/run_ac_temporal_circuit_perturbation.py    |     47 [32m+[m
+ scripts/run_calibration_audit.py                   |    260 [32m+[m
+ scripts/run_clean_sampled_mechanistic_benchmark.py |     39 [32m+[m
+ scripts/run_karamanlis_locality_graph.py           |     42 [32m+[m
+ scripts/run_karamanlis_pathway_mixture_v2.py       |     40 [32m+[m
+ scripts/run_karamanlis_rf_centers.py               |    245 [32m+[m
+ scripts/run_karamanlis_rf_population_training.py   |     37 [32m+[m
+ scripts/run_karamanlis_v1_ac_perturbation.py       |     50 [32m+[m
+ scripts/run_karamanlis_v1_rf_validation.py         |     48 [32m+[m
+ scripts/run_mechanism_checkpoint_replay.py         |    172 [32m+[m
+ scripts/run_mechanism_identifiability.py           |    132 [32m+[m
+ scripts/run_model_comparison.py                    |    103 [32m+[m
+ scripts/run_sample_efficiency.py                   |     66 [32m+[m
+ .../run_schottdorf_final_prediction_benchmark.py   |     75 [32m+[m
+ scripts/run_schottdorf_multirecording_training.py  |     45 [32m+[m
+ tests/calibration_fixture.py                       |    100 [32m+[m
+ tests/sample_efficiency_cli_helpers.py             |    123 [32m+[m
+ tests/test_ac_circuit_perturbation.py              |    195 [32m+[m
+ tests/test_ac_temporal_circuit_perturbation.py     |    242 [32m+[m
+ tests/test_calibration_audit_cli.py                |     40 [32m+[m
+ tests/test_candidate0_likelihood_math.py           |     62 [32m+[m
+ tests/test_candidate0_projection_math.py           |     79 [32m+[m
+ tests/test_candidate_teacher_contract.py           |    159 [32m+[m
+ tests/test_canonical_geometry_entry_correctness.py |    216 [32m+[m
+ tests/test_canonical_mixing_correctness.py         |    202 [32m+[m
+ tests/test_causal_pathway_contract.py              |    240 [32m+[m
+ tests/test_cell_specific_pathway_mixture_v2.py     |    163 [32m+[m
+ tests/test_cell_specific_physiological_gains.py    |    189 [32m+[m
+ tests/test_center_surround_ln.py                   |    120 [32m+[m
+ tests/test_center_surround_ln_training.py          |     93 [32m+[m
+ tests/test_clean_sampled_mechanistic_benchmark.py  |    245 [32m+[m
+ tests/test_compact_causal_cnn.py                   |    110 [32m+[m
+ tests/test_factorized_ln_protocol.py               |     88 [32m+[m
+ tests/test_glm_calibration_modes.py                |     77 [32m+[m
+ tests/test_karamanlis_locality_graph.py            |    185 [32m+[m
+ tests/test_karamanlis_marmoset_adapter.py          |    156 [32m+[m
+ tests/test_karamanlis_population_training.py       |     97 [32m+[m
+ tests/test_karamanlis_prediction_baselines.py      |    155 [32m+[m
+ tests/test_karamanlis_rf_centers.py                |    104 [32m+[m
+ tests/test_karamanlis_rf_geometry_training.py      |    249 [32m+[m
+ tests/test_karamanlis_rf_glm_baseline_run.py       |     88 [32m+[m
+ tests/test_karamanlis_v1_ac_perturbation.py        |    262 [32m+[m
+ tests/test_karamanlis_v1_rf_validation.py          |    165 [32m+[m
+ tests/test_mechanism_checkpoint_replay.py          |    242 [32m+[m
+ tests/test_mechanism_identifiability_protocol.py   |    159 [32m+[m
+ tests/test_mechanism_identifiable_model.py         |    202 [32m+[m
+ tests/test_mechanistic_retina_contract.py          |    176 [32m+[m
+ tests/test_mechanistic_retina_direct.py            |    130 [32m+[m
+ tests/test_mechanistic_retina_evaluation.py        |     81 [32m+[m
+ tests/test_mechanistic_retina_operator.py          |     78 [32m+[m
+ tests/test_mechanistic_retina_training.py          |    222 [32m+[m
+ tests/test_mechanistic_temporal_parameters.py      |    221 [32m+[m
+ tests/test_model_comparison.py                     |    225 [32m+[m
+ tests/test_parameter_contract_cleanup.py           |    112 [32m+[m
+ tests/test_pathway_strength_parameterization.py    |    246 [32m+[m
+ tests/test_r4_development.py                       |    132 [32m+[m
+ tests/test_r4_development_run.py                   |     36 [32m+[m
+ tests/test_response_calibration.py                 |    380 [32m+[m
+ tests/test_response_prediction_collection.py       |     66 [32m+[m
+ tests/test_response_readout_calibration.py         |    296 [32m+[m
+ tests/test_response_readout_checkpoint_audit.py    |    112 [32m+[m
+ tests/test_retina_audit_corrections.py             |    210 [32m+[m
+ tests/test_rf_audit_diagnostics.py                 |    117 [32m+[m
+ tests/test_rf_identifiability_artifacts.py         |    111 [32m+[m
+ tests/test_rf_identifiability_audit.py             |    171 [32m+[m
+ tests/test_rf_math_readout_contract.py             |    151 [32m+[m
+ tests/test_sample_efficiency_cli.py                |    204 [32m+[m
+ tests/test_sample_efficiency_cli_execution.py      |    147 [32m+[m
+ tests/test_sample_efficiency_profiles.py           |    193 [32m+[m
+ tests/test_sample_efficiency_protocol.py           |    244 [32m+[m
+ tests/test_sample_efficiency_reporting.py          |    403 [32m+[m
+ tests/test_sample_efficiency_reuse.py              |    233 [32m+[m
+ tests/test_sampled_spike_robustness.py             |     91 [32m+[m
+ tests/test_schottdorf_factorized_ln.py             |     46 [32m+[m
+ tests/test_schottdorf_final_benchmark.py           |    130 [32m+[m
+ tests/test_schottdorf_macaque_adapter.py           |    159 [32m+[m
+ tests/test_schottdorf_multirecording.py            |    248 [32m+[m
+ tests/test_schottdorf_prediction_baselines.py      |    151 [32m+[m
+ tests/test_schottdorf_spike_parser.py              |    120 [32m+[m
+ tests/test_spatial_checkpoint_contract.py          |     95 [32m+[m
+ tests/test_spatial_contrast_adapted.py             |    111 [32m+[m
+ tests/test_spatial_pathway_contract.py             |    201 [32m+[m
+ tests/test_static_teacher_preflight.py             |     42 [32m+[m
+ tests/test_temporal_center_surround.py             |     84 [32m+[m
+ tests/test_v3_watchdog.py                          |    130 [32m+[m
+ tests/test_v4_group_endpoint.py                    |     96 [32m+[m
+ tests/test_v4_identity_endpoint.py                 |     72 [32m+[m
+ training/mechanistic_retina/__init__.py            |     11 [32m+[m
+ training/mechanistic_retina/center_surround_ln.py  |    190 [32m+[m
+ training/mechanistic_retina/compact_causal_cnn.py  |    153 [32m+[m
+ training/mechanistic_retina/gain_audit.py          |     22 [32m+[m
+ training/mechanistic_retina/losses.py              |     31 [32m+[m
+ training/mechanistic_retina/optimizer.py           |     44 [32m+[m
+ training/mechanistic_retina/r4_development.py      |    126 [32m+[m
+ training/mechanistic_retina/real_early_stopping.py |    240 [32m+[m
+ training/mechanistic_retina/real_sampled.py        |    199 [32m+[m
+ training/mechanistic_retina/sampled.py             |    152 [32m+[m
+ training/mechanistic_retina/stages.py              |    264 [32m+[m
+ training/mechanistic_retina/trainer.py             |    238 [32m+[m
+ training/response_config_types.py                  |     91 [32m+[m
+ training/response_optimizer.py                     |     67 [32m+[m
+ training/response_readout_calibration.py           |    221 [32m+[m
+ 1905 files changed, 1922037 insertions(+)

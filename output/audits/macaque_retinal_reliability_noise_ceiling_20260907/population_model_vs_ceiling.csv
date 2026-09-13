@@ -1,0 +1,2 @@
+model,prediction_contract,n_scored,mean,median,difference_ci_low,difference_ci_high,status,exclusion_reason
+,,0,,,,,NOT_RUN_OFFICIAL_PROTOCOL_UNVERIFIED,No metrics computed after prerequisite STOP

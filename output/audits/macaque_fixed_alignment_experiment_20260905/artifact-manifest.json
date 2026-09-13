@@ -1,0 +1,1267 @@
+{
+  "frozen_inputs_checked": 571,
+  "frozen_inputs_unchanged": true,
+  "artifact_count": 315,
+  "artifacts": {
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\alignment_vs_improvement.csv": {
+      "sha256": "deffe2aeeef0f6788a9b43b1070add48c903e8c87cd1d5b3a4d3f3e2d9a135b9",
+      "bytes": 1664
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\analysis-code-freeze.json": {
+      "sha256": "9c5fbc639adf6a8553aba695b36d02a7ed713295329644fd129c84f0db6616df",
+      "bytes": 1141
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\analysis-manifest.json": {
+      "sha256": "fc31ac103127b3ca6192ef18a65441bcc6e89d54e44da8eae90287563bd25897",
+      "bytes": 20879
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\analysis.log": {
+      "sha256": "f0cd99a95778c06874aa9fbaf21acb3e2ed048be7de6d786c606db153c888fe2",
+      "bytes": 3213
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\coordinate_mapping.json": {
+      "sha256": "582e490e4640fd6ca2acbb44584d455b6bd0c0a027f324ca2011f7d6a6f6f66d",
+      "bytes": 6994
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\EXECUTION_NOTES.md": {
+      "sha256": "e23322ddd731879b39c6cf540df10818bfbc672d59351c2cc3b624fd12b468c5",
+      "bytes": 2762
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\git-state-final.json": {
+      "sha256": "0c1bfac79db684a5c1a915865f8d14e2834a7d4c179021407cf2e328cce700ef",
+      "bytes": 3258
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\group_prediction.csv": {
+      "sha256": "04c981c5a8c534e52c2b153c7d7f2fbe0f166396e5f100098d49b5101a4fff8e",
+      "bytes": 151
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\manifest.json": {
+      "sha256": "a2fa29135d08873de2b527789e294904b2c27288856a8163f0ef9b2275086ae3",
+      "bytes": 86789
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\mechanism_comparison.csv": {
+      "sha256": "30deb9e6cb60b16f00ebf7542c5663f205e2acb60e2cc4561232e22363a662d3",
+      "bytes": 90308
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\mechanism_summary.csv": {
+      "sha256": "eb3e3a689be2037153f9aeceed7dcc6c11fd7733ef66ccdb1fc3bf838180f3f6",
+      "bytes": 4835
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\paired_prediction.csv": {
+      "sha256": "1611377b8e0ab54f5c11541dbfa0811d8be14c3fb0ac4ee8f2d691a49a6e36d8",
+      "bytes": 7099
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\per_cell_results.csv": {
+      "sha256": "1611377b8e0ab54f5c11541dbfa0811d8be14c3fb0ac4ee8f2d691a49a6e36d8",
+      "bytes": 7099
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\preflight.json": {
+      "sha256": "4c1a8fc4b236b02f6d925e9d21981dd272ded51310efa6a1a7ce7796129f29de",
+      "bytes": 36640
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\preflight.log": {
+      "sha256": "ac2e65df133b874ce2b1c244efa2758a034de151ce33916254f6faf5b847f95f",
+      "bytes": 2126
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\PROTOCOL.md": {
+      "sha256": "31bf610be2217913ace3ec265a57becca8fb17a24ddfe771d2ddea64654cf3ab",
+      "bytes": 10035
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\REPORT.md": {
+      "sha256": "8b64001f10a8ef3f25c03ab5489ef13d73676693438c756ef49f2c860d6979f8",
+      "bytes": 10231
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\rf_comparison.csv": {
+      "sha256": "ca3f3ece7f678aa9dff85582df2fc7eb5596dd1c1550fccbec15ba1ffad49ed3",
+      "bytes": 18586
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\summary.json": {
+      "sha256": "eb5b56aaf8aa616c96086551ee298e20c2819af9040065dca358f07dd3626de6",
+      "bytes": 2748
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\training.log": {
+      "sha256": "f5d3215787c73ab2033d6a050861dbc5f9eb0bbbd7f9ed0b714b5fc4c5627090",
+      "bytes": 28938
+    },
+    "output\\audits\\macaque_fixed_alignment_experiment_20260905\\verification.json": {
+      "sha256": "150ef7710081bf3250324582c988d5d490e69b349677f311e7b6e7eff42dc27b",
+      "bytes": 69168
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\67_14-initial-trainable.pt": {
+      "sha256": "94893c1d75a38e0f5515ced1c09136cd4ee5155bcfbcfb2437573d6383ef0653",
+      "bytes": 4940
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\67_21-initial-trainable.pt": {
+      "sha256": "f18872f756a156574797c7065bcaa2e1d3e98ad7cae4e6ed9fad314bc3a9e6ed",
+      "bytes": 4940
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\67_26-initial-trainable.pt": {
+      "sha256": "eb0a76d8056e69210466d835b7bbb3ceae3d5757612df870cd4e589487bf556c",
+      "bytes": 4940
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\67_33-initial-trainable.pt": {
+      "sha256": "7cfb4742a10f5db12298452655db4af42cdcbfb9e8db87b43cec217fd7832619",
+      "bytes": 4940
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\67_34-initial-trainable.pt": {
+      "sha256": "690961d4304a4ba4e6da271b171a9a83c8d5c86724d57a8e811088dd610d38ce",
+      "bytes": 4940
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\67_4-initial-trainable.pt": {
+      "sha256": "a27430878e03ce6195ca3904bd3bbfc9de09305aa6214d250f520e10cbd2599a",
+      "bytes": 4922
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\67_6-initial-trainable.pt": {
+      "sha256": "91c230aed632d3de9a9c9660bc498ba44b3b4fef0872689bd517944b1e2645af",
+      "bytes": 4922
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\67_7-initial-trainable.pt": {
+      "sha256": "f83e38c05d9c843a714f10d8c5fb7129949fccfa7e2ba808cd7254e3c9005a6e",
+      "bytes": 4922
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\68_10-initial-trainable.pt": {
+      "sha256": "45ad562b39e32e227fd237829b7152f39c19cb5dd72d0de85eafd98128ce2592",
+      "bytes": 4940
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\68_11-initial-trainable.pt": {
+      "sha256": "033b67d5989d04e2efafa588fa9aaff41d10a28face382926122cb5d4c945591",
+      "bytes": 4940
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\68_3-initial-trainable.pt": {
+      "sha256": "0095469cb676b63d54db920e2533ce14f24092c90fa7b71387db5434790a9ceb",
+      "bytes": 4922
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\68_4-initial-trainable.pt": {
+      "sha256": "05381aabc924bf0afb67ec48b75f498765acae89e16e665c4b03f54925a6163d",
+      "bytes": 4922
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\68_7-initial-trainable.pt": {
+      "sha256": "71333bc01331e2d2b1921f4b85736c526ebeb01ceeae7407d348ba47f9d89dc6",
+      "bytes": 4922
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\69_21-initial-trainable.pt": {
+      "sha256": "583495dd6dec3786df6cbba4b49aef91b5f83fd95e7e0ac4288e5a8705e6c4ac",
+      "bytes": 4940
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\69_3-initial-trainable.pt": {
+      "sha256": "f849b68ca9441a259ce41ea5615b0f1087d8e57f54caf04c26b3d11ddec47b8f",
+      "bytes": 4922
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\69_4-initial-trainable.pt": {
+      "sha256": "3cc477bdd57cfeff369d6c5ea6b5be813243082acfb097ae2b033929b179e71e",
+      "bytes": 4922
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\69_6-initial-trainable.pt": {
+      "sha256": "1df53221b0518f3a9e9862ba98363e5f01e0caa277182dc7a4ad70b7950d1f7c",
+      "bytes": 4922
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\69_7-initial-trainable.pt": {
+      "sha256": "a1a985e62af77954ac0a3fd9222699b0d1da024e3b80a96e5e8405f5f39a93c7",
+      "bytes": 4922
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\70_1-initial-trainable.pt": {
+      "sha256": "e995cee0b227382fe2bf5b5f28335f5829b4609683c1a1903c69696ccce8576e",
+      "bytes": 4922
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\70_15-initial-trainable.pt": {
+      "sha256": "59030aa47c4457a1ee115daf609b835382a6ec0c6e1212c680a6ba4b00374a60",
+      "bytes": 4940
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\70_34-initial-trainable.pt": {
+      "sha256": "c71b8ad79d7030aec6683f63b5f5bf79331da08396c50a656eca471394c66214",
+      "bytes": 4940
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\70_7-initial-trainable.pt": {
+      "sha256": "0323125509cbbef6e7d91490cbc0cb43e3cdd66c1083aa66be1244956bab82cd",
+      "bytes": 4922
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\analyze.py": {
+      "sha256": "4f20ee6a77d1bc53a125d8c49267c72359e33981e2872c10f9bec6b87f516ec0",
+      "bytes": 16834
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_14\\aligned-causal-verification.json": {
+      "sha256": "0f1d14120dc0750ff79ebb5634581addb3876bf4a46a3a44ec687d0071545c7a",
+      "bytes": 1194
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_14\\analysis.json": {
+      "sha256": "7e75367eb9052e860609171372d418de2596bddde666285a6206d7020d8ca95a",
+      "bytes": 2874
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_14\\causal-replay-tensors.pt": {
+      "sha256": "a639ff4f525478520bec485681bccca54e7542a3116ca0506c2c095fbc051aa1",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_14\\inner-trajectory.csv": {
+      "sha256": "73169fdcbf0250b2bb20ed491afa4d7a9aa34a7a695066a4593bb606596dc749",
+      "bytes": 21523
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_14\\metadata.json": {
+      "sha256": "cf752ba2fb360e133f1bbadb58edd2eff166c67f1a64f6f1271da2c5aacdb11e",
+      "bytes": 22573
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_14\\model-inner-best.pt": {
+      "sha256": "001742e3fe1c2bb48239a23ec3a0962626b51fd8952340fdc63a490930002c53",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_14\\model-raw.pt": {
+      "sha256": "a26580346a568de533120eca459597f1a2b58988861e78faf4e5136d883c5a4e",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_14\\model-trained.pt": {
+      "sha256": "1c16bdee5da8bb0c68cd5cff2df6feacbe385684ae51919f877ec973026a54b4",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_14\\refit-trajectory.csv": {
+      "sha256": "c2fc6acbc3c98f68b92ac343c07cb460f732a0b38be108eff0c18c15f7cbd342",
+      "bytes": 7369
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_14\\results.json": {
+      "sha256": "4b60ed3ae2adb40f2b5340057a8138a71dde323d8e38498843d00899ed2a8319",
+      "bytes": 5154
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_14\\validation-predictions.pt": {
+      "sha256": "0d47f675d62de8688c45c3af4f6d9ccb8ae423f2063fd6582c8e89d38fabc03c",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_14\\zero-causal-verification.json": {
+      "sha256": "ab8769bdd80b11111d9b5cf89934f37a070093b49cf4a702b7e39cfe1dc404ff",
+      "bytes": 1194
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_21\\aligned-causal-verification.json": {
+      "sha256": "7adb7be74915e98be42e2898fc211c09f06ae094771d8004c68803ea09767f7b",
+      "bytes": 1193
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_21\\analysis.json": {
+      "sha256": "00136763d6ba20e054fe17447c42484cc6ec893f291c3e069f4c911114442f8c",
+      "bytes": 2872
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_21\\causal-replay-tensors.pt": {
+      "sha256": "5f65cc17d48839128e02dc04af81c977f494ea0531d973d4081bfdef004fc5f4",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_21\\inner-trajectory.csv": {
+      "sha256": "e553b7dca736bd422e28e1d6dd73257a46a0122129b463608841b6ce4835d6c7",
+      "bytes": 33482
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_21\\metadata.json": {
+      "sha256": "e5b63e68ef16b48542aaca6cfce9fb974b9f2ad723bd04d1bbc12926f33e8c2f",
+      "bytes": 22572
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_21\\model-inner-best.pt": {
+      "sha256": "85f470cf1e57dcdf2132417a4c6a5250e3c530fab4ee81f47784b29ab6be89aa",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_21\\model-raw.pt": {
+      "sha256": "65a498f6c8d028945552c87bab701d976f86324430319fb04d8607ed7ee0f3d7",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_21\\model-trained.pt": {
+      "sha256": "f26388ebeaea00d2c789b12c78be30d774cb9b66724355c00c9bf252ca967441",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_21\\refit-trajectory.csv": {
+      "sha256": "c5ea6ef43fcf80b60d35802a2c70cb742170d6147a9a98ab2f80803f28b35579",
+      "bytes": 14267
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_21\\results.json": {
+      "sha256": "d4d60d508db1e7e7e4d063993156c659b3ec171bb079b2fd41f478f151528402",
+      "bytes": 5154
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_21\\validation-predictions.pt": {
+      "sha256": "cc218fcf2fabfad0a54e8362758eeb85ad445a76ed96216b14076fa1cbbdc72a",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_21\\zero-causal-verification.json": {
+      "sha256": "da25a42bc2e4a18449ed229ec93435af7c1bfb541ef465be108c39ae33a7423b",
+      "bytes": 1193
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_26\\aligned-causal-verification.json": {
+      "sha256": "21cdb6944248bf8e2a350a3d373d79baebc0bb6e5dcb5d174d28dcc5a8845a23",
+      "bytes": 1192
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_26\\analysis.json": {
+      "sha256": "d45d67d643fb892924973019745d39e7e6ff4e45675e502335f0c32100ed5158",
+      "bytes": 2874
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_26\\causal-replay-tensors.pt": {
+      "sha256": "b855282050ee6b671669d69e035c1c5f8b94791ba4374f3c06faf92f9769cd99",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_26\\inner-trajectory.csv": {
+      "sha256": "861fa7c4e0cdf4b441fdb6b2655c314f32dc228f09c205b110f8c2a2b2934003",
+      "bytes": 20090
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_26\\metadata.json": {
+      "sha256": "a27f310b9b6004053e5849094f1a78a7551ed64258e57df911f4ebdaa776a9cb",
+      "bytes": 22575
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_26\\model-inner-best.pt": {
+      "sha256": "e3bc1f40b0891d2e2f2c89f85027a241e5d2cc5b25a0c8a312a56eeffe486312",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_26\\model-raw.pt": {
+      "sha256": "ed0881c9f3fc6fb7e119924ecb20fc5bf70b9b01f3c07fec8bdbae7b5eba2aff",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_26\\model-trained.pt": {
+      "sha256": "2527011617bbb9571967b3278162c9ada84f255741511effd42e2edf9bcc862a",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_26\\refit-trajectory.csv": {
+      "sha256": "524439c45012c8b20dbfabd67923339c77a34366c154a634911848f46f142ec8",
+      "bytes": 6563
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_26\\results.json": {
+      "sha256": "4c5417e25c7e083af23067324f01f66e166a5d8ea2813b5ae30b940f8ba542ce",
+      "bytes": 5157
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_26\\validation-predictions.pt": {
+      "sha256": "16be98360cac86275aacffcef99a8c06f9a74e8db4f8d0c65809ff70f42269e4",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_26\\zero-causal-verification.json": {
+      "sha256": "5cf4e812e7f268e71253495d78727dc03a8ef395b595095cb315a34b951cbdf1",
+      "bytes": 1196
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_33\\aligned-causal-verification.json": {
+      "sha256": "23efd15bf31a6e7f6e004339e3fb62e964c2cd1c5bd6a7ce2d44c5fc386bb10e",
+      "bytes": 1198
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_33\\analysis.json": {
+      "sha256": "715fe9ca06dfd739d369e09d3ad84d9f48b7f601bc5020bb1f4341d55a21241c",
+      "bytes": 2876
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_33\\causal-replay-tensors.pt": {
+      "sha256": "00ceb7757cabb9cf677bdd6abd5a9fd26b7c877db55857d791fda756720da287",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_33\\inner-trajectory.csv": {
+      "sha256": "4a283db0aceab827179ab725804d2a732c5d1904c8eb1c39c82c1953b9a54cf7",
+      "bytes": 34130
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_33\\metadata.json": {
+      "sha256": "34b08115fd051b2a0993b2a912becf615bbc4fd0c5260c8d427972b2bc777960",
+      "bytes": 22576
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_33\\model-inner-best.pt": {
+      "sha256": "dd65289951afb0832586ba0d693af57ac05954a2ea30c0783eac3a01025c7956",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_33\\model-raw.pt": {
+      "sha256": "a752e92d2040ee69c02140aee43981437ff14312993020a62b4b5de05cb8bb2a",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_33\\model-trained.pt": {
+      "sha256": "694088ebc1ebf82fa53803ca651aa997a2088a9aafe59899e51d5bf68bfa57d3",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_33\\refit-trajectory.csv": {
+      "sha256": "7095dbef3e38afae7e070bdf3ef8c43fc921a0224ec67001e14e9c337c1a565c",
+      "bytes": 14698
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_33\\results.json": {
+      "sha256": "9a7934bd14c2f8448e67ea6918dcb8f7461ab7bd128291001fff5022da01982e",
+      "bytes": 5158
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_33\\validation-predictions.pt": {
+      "sha256": "8670c0a816465d0314cee686a2574ba8c35cac67f8dcb1a2814f795b8ba8350b",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_33\\zero-causal-verification.json": {
+      "sha256": "adf1cce2a5d030cf8b744c806518ea084d5ff1eda3cb2371bf8ed058605d91ec",
+      "bytes": 1192
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_34\\aligned-causal-verification.json": {
+      "sha256": "4262f9a1d52fa93a9443f904d17fa75cf5ccdc9d68f7c9a32330ed067d78f895",
+      "bytes": 1193
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_34\\analysis.json": {
+      "sha256": "d3b6c594162a162ed31e83e8304d5fcc395cf1f2db5ee423bcdcdf3c7ffa6620",
+      "bytes": 2874
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_34\\causal-replay-tensors.pt": {
+      "sha256": "e44b534414dcf3f5c3201fdbadde3b31cbb797bafa686c1e45ff9a5b0818b8a8",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_34\\inner-trajectory.csv": {
+      "sha256": "bf5e09806024e847a1fde6ab026d24c229fd900e056db72b6420e3e6cd0af312",
+      "bytes": 25420
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_34\\metadata.json": {
+      "sha256": "60d892664bc0a353e51a13f6d4f57235cacea1fe69f77d049a6c6217c47c4281",
+      "bytes": 22574
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_34\\model-inner-best.pt": {
+      "sha256": "98bf6749d00d77a84c8fc428680ea011b4af5bc234adbf405577362819672fc8",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_34\\model-raw.pt": {
+      "sha256": "ddaffbaebc88211f72894166e1af712edb8378b8b25a86348af922f18c5e29c4",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_34\\model-trained.pt": {
+      "sha256": "9234cbffacef782ded31236e5c3ca664075603dee54f9d51edfcee72989c074d",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_34\\refit-trajectory.csv": {
+      "sha256": "6df1e3bf803e41af843324cbce42920a2b7b6c2c0f37e5206a16830df60cd985",
+      "bytes": 9625
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_34\\results.json": {
+      "sha256": "3e3d4e5333ea0a484ea7295e387eb29e1ce2891db58764a293b851c035f098ff",
+      "bytes": 5157
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_34\\validation-predictions.pt": {
+      "sha256": "5890c0ccd3aa35c3df2b0a19bd3b9bd8b2c3654436bb73c57596be7b34072cf9",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_34\\zero-causal-verification.json": {
+      "sha256": "3b512d1c68272fd04626acfbb334240ae775bee2a20120a58e01c2f22c157422",
+      "bytes": 1195
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_4\\aligned-causal-verification.json": {
+      "sha256": "47ecf4723d6d02b2ad20f9fccb2693080aad93744966bb5b9f9c6ef8dd7b9a3b",
+      "bytes": 1198
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_4\\analysis.json": {
+      "sha256": "23d7e7dbd4dc41933fea8c7c00d495ba3f93213e28f3b5dd96e25b8e899efe5f",
+      "bytes": 2881
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_4\\causal-replay-tensors.pt": {
+      "sha256": "8584d233ef5c21fee3660aa1d2cf06deba4c4a0985fd557b6ac9d25561b8be05",
+      "bytes": 5674542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_4\\inner-trajectory.csv": {
+      "sha256": "33eeffed27c83e752267be397bd111d48e129ce8e0860d2aa95e67148fc3e512",
+      "bytes": 11836
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_4\\metadata.json": {
+      "sha256": "589a5094feb55c86e55c99ba87d593f80e30518d9c645b3bce20f83c622d6dce",
+      "bytes": 22555
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_4\\model-inner-best.pt": {
+      "sha256": "33e2676810c5a5d14b3e68c0d3b74f7b48441026c55b2e93c4941527de49bb5f",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_4\\model-raw.pt": {
+      "sha256": "5324055c2a3556a48854174bcbe788998087c5a60570f1e7844a921f7025359e",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_4\\model-trained.pt": {
+      "sha256": "a3f35c33ed09895f9367d5271eb7d3fbab49462f409b6d3c3626a57671b4498c",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_4\\refit-trajectory.csv": {
+      "sha256": "92d3902dcd76c6fab0dcd4eabbcf69fac647e2dea8471b2284f0c5bcfa2241e2",
+      "bytes": 1840
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_4\\results.json": {
+      "sha256": "7aa6033ff9952500ceb5d3f6073507a0a502793844baa0e5b11d6efc5820fac3",
+      "bytes": 4265
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_4\\validation-predictions.pt": {
+      "sha256": "1b8ac917828f079877c8e0dbab37834aa979c6b1ad64aa79516a909bdfaa7d70",
+      "bytes": 12819
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_4\\zero-causal-verification.json": {
+      "sha256": "451bf3349c095bc05d109210f70fcee634ab95f94bc930acf4558f355eb11d4f",
+      "bytes": 1198
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_6\\aligned-causal-verification.json": {
+      "sha256": "9d3778ca26537437e8383f56c18d5f399ca6f1887f44772f76c6e1f5669f8364",
+      "bytes": 1193
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_6\\analysis.json": {
+      "sha256": "205203990d26780c9c60fd17ab124dbed05c592176fb6d5e22a02f3d22f6286f",
+      "bytes": 2872
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_6\\causal-replay-tensors.pt": {
+      "sha256": "1e98cd44f137b6a02f2d4e444c0813703f800afd9b789393fb6746da804432f2",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_6\\inner-trajectory.csv": {
+      "sha256": "cd0ff84a5a1c18b0992a259d1199f3a80ea09ac9f7067487066f511bd76d0e68",
+      "bytes": 35898
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_6\\metadata.json": {
+      "sha256": "c074e0ca3d27148ef9b85e3a448ce6b61a6828fa89c49638b1b82c53d5e7c0fc",
+      "bytes": 22575
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_6\\model-inner-best.pt": {
+      "sha256": "d8d29c93d2430a03a70ecad039943b703a72e46c9c9f37f7322ef96c92b2bd83",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_6\\model-raw.pt": {
+      "sha256": "bed8eb85f7cf862234c9a8e13463359b8509982e813c978178684c761409fed6",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_6\\model-trained.pt": {
+      "sha256": "dfe6325eb77f08d261e732ee94e5da74b440eeeff3d6b2feab5f8cd2d79729a8",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_6\\refit-trajectory.csv": {
+      "sha256": "fb0d8e156f42e6bf4b5d4c02ea57486e4909810fcc3756a712444a02c11b833d",
+      "bytes": 15717
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_6\\results.json": {
+      "sha256": "4dde3ea269fa459798f17ac6327ed465a851200691edeb6e39df4a0c77a10428",
+      "bytes": 5157
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_6\\validation-predictions.pt": {
+      "sha256": "02b5ef4f1a316f36593762aab78993d7e01e87dc98411eb7cd11d5bd4a8059de",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_6\\zero-causal-verification.json": {
+      "sha256": "f930b877c5c4b6644965f6ed3a5c0fbfe8650913c799e3ac03be9f955cc965cb",
+      "bytes": 1194
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_7\\aligned-causal-verification.json": {
+      "sha256": "e7cadc95f45b2434af27634e3721d3b459424ab9d6047d4e20a9a3f3bd3bc3e7",
+      "bytes": 1193
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_7\\analysis.json": {
+      "sha256": "fc9d344059bd8b323781c87d3b6eb7205147bea36b70e5aef37547154cc2d4a0",
+      "bytes": 2867
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_7\\causal-replay-tensors.pt": {
+      "sha256": "87aa7d0a87047059094ee23207dc6ff0304eec9919f3513bf61220fb7daf8d95",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_7\\inner-trajectory.csv": {
+      "sha256": "1a46f880e677b4c8bc2c273e09dff59582d4a2ebb7d3de8a50638950849766c4",
+      "bytes": 19655
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_7\\metadata.json": {
+      "sha256": "4fa571e70f7fa676eb7ad27476513d8c7ccc490ecc25e51f875f4aa964363b29",
+      "bytes": 22573
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_7\\model-inner-best.pt": {
+      "sha256": "7b853992bc1083fa87342aec54f3070b8ca7487a51d0e4d8cf265b4fa350b2e2",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_7\\model-raw.pt": {
+      "sha256": "52aaed07cdfe96da5d9982c194c0b4cc7efbe8c80796d8c252c7d5e43ee25f8f",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_7\\model-trained.pt": {
+      "sha256": "3477e2aa5afe082c482b176088fd83c6d31231e537224aca4c4041e9c5876cfd",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_7\\refit-trajectory.csv": {
+      "sha256": "f90486c55a5cb811c855aa6b78037ae656ad8996a64eedb7a5a02c6fa00e7bfc",
+      "bytes": 6304
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_7\\results.json": {
+      "sha256": "0697b31fee18a03f626e17a5cea379e3eee9ca61fd311f5061dec30aa903e394",
+      "bytes": 5155
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_7\\validation-predictions.pt": {
+      "sha256": "0a0f220479b1c990e7cd0628f2c4ecd2a90a91637681132de6936a7de1a66f29",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\67_7\\zero-causal-verification.json": {
+      "sha256": "6b3ca0cda4af22f493722535175c118987ef133b6992709d72204fb8c411359e",
+      "bytes": 1189
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_10\\aligned-causal-verification.json": {
+      "sha256": "eb1a78a7424d5a14e886052cecdad6fc9ee0b8016bed1ca2c3bdb5e16bb9da41",
+      "bytes": 1192
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_10\\analysis.json": {
+      "sha256": "9076c60210d8f92f895fe855a74900c562010273dfa3ed6271f4f7db7ce11b47",
+      "bytes": 2874
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_10\\causal-replay-tensors.pt": {
+      "sha256": "e386fdeb576a1b97e11d12b5db4a04693689d2f50e9b0728b370706189712cb4",
+      "bytes": 5674542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_10\\inner-trajectory.csv": {
+      "sha256": "3b6f3e4a8015c2466480c6d1f861e3972ae9a9c88103da4713b90e6ea1638870",
+      "bytes": 29210
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_10\\metadata.json": {
+      "sha256": "b820c09a3d98b2939328ffb09b553b9887b586e0fa75821737961cacf7961dcf",
+      "bytes": 22557
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_10\\model-inner-best.pt": {
+      "sha256": "95dd99ca215a60912fe48ef151e15151f5da7e257f87c3d343279fd70347d74e",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_10\\model-raw.pt": {
+      "sha256": "8604d4f486332a1523dd8a16e994e7e3618a720a7b513d68381b711defbda8f6",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_10\\model-trained.pt": {
+      "sha256": "c653a2568747a37ccb55cbefd589a91383fb75a0685c46016c44e9577917f0e5",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_10\\refit-trajectory.csv": {
+      "sha256": "1d05d333c095192070d2e926a4d4c664e77329d0d0a783a7b10bc7ecffbdb112",
+      "bytes": 11842
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_10\\results.json": {
+      "sha256": "3742dbd04b26bbce5acc85202147b22d340dcef8b188c493eac05e1b01f95e85",
+      "bytes": 4282
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_10\\validation-predictions.pt": {
+      "sha256": "754695f8d36323db533f84f709600a875ae5fabe38dddf73b7823791b8286fd5",
+      "bytes": 12819
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_10\\zero-causal-verification.json": {
+      "sha256": "3209e7707879fc2cafa4601a141e9b8fb15e8237585a55b0205539239f8a0c22",
+      "bytes": 1196
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_11\\aligned-causal-verification.json": {
+      "sha256": "9fd04f7eefcd0fbbbba1f453bcbf03e48956e32206e9868c34daee59d8ee7fea",
+      "bytes": 1196
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_11\\analysis.json": {
+      "sha256": "9becdf166d05195cd7e7be57bd1631b6e8f5da4b68e68bf9549b162854a72bec",
+      "bytes": 2878
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_11\\causal-replay-tensors.pt": {
+      "sha256": "c2d9f08438ba8029e3ec7af1ad4de0ca6e4bc6bb8715f3805772985e9a909102",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_11\\inner-trajectory.csv": {
+      "sha256": "23267c73624cf78499263289dfd5a352be763115da37fcafc0da2039100e81c0",
+      "bytes": 23060
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_11\\metadata.json": {
+      "sha256": "4ab5731663451d41e0a64d8be957530b12a9d55c415b608038086e29d89c9d1d",
+      "bytes": 22575
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_11\\model-inner-best.pt": {
+      "sha256": "8ef60cad9b001354af644a6bdf08235f2fe98c66ebd2712a0c95ead5db3809d1",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_11\\model-raw.pt": {
+      "sha256": "4c3d8e3e44407e6f4816a0d2c95fad12055d1130410a8d8e65fee2479bbd52b3",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_11\\model-trained.pt": {
+      "sha256": "55aca24cbe4d3d845e25b0f605d5ec72d7d10666680b568622d89b2d3d3769c7",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_11\\refit-trajectory.csv": {
+      "sha256": "0040da1832fcd9003982bde8c4683c903dd8b628832ed15ff1a899de80371238",
+      "bytes": 8273
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_11\\results.json": {
+      "sha256": "16a078dfb1e2130d04a7e7fb7179228eb041790554ca1fd37273e525db0df19f",
+      "bytes": 5158
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_11\\validation-predictions.pt": {
+      "sha256": "0752936838b62bcdd13313d86b5f93b9b83d1b29e77d13d48102714815704024",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_11\\zero-causal-verification.json": {
+      "sha256": "1f294f20d73a2082aa1d922736b1272a9e4903f04770a6745a7aa66088fc26ad",
+      "bytes": 1196
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_3\\aligned-causal-verification.json": {
+      "sha256": "5abdac2728ba80b4b59f5e0d50c9553793e4834a7ea2b8121dd8f35e5761ced2",
+      "bytes": 1194
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_3\\analysis.json": {
+      "sha256": "44a013f1cbe762a988056d51bfe9e05a99c5e2070de3d5bcfa4566b0a8cd44f3",
+      "bytes": 2870
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_3\\causal-replay-tensors.pt": {
+      "sha256": "0583ddb13831684aae749da7be5dbfbc1eda452a2db990186c3c928bab81ea18",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_3\\inner-trajectory.csv": {
+      "sha256": "3bbc181fff17617ade8f7d980c5749509633fded71344e4b61903edc6c717e18",
+      "bytes": 24446
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_3\\metadata.json": {
+      "sha256": "72e8fd1bda889bc4e9d1e234621dd6d86c12e32512e65f1a6cc1a9c3483eaf51",
+      "bytes": 22574
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_3\\model-inner-best.pt": {
+      "sha256": "e1eb3f43f020402859d6d9b1975286af4f2ad315afb936ab9e7336e6357e547c",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_3\\model-raw.pt": {
+      "sha256": "cee3d24fd61b824903e77be680344f26a41073d18a23e885995c47b7c5a7231f",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_3\\model-trained.pt": {
+      "sha256": "ac16440d2c1856853610816f73ead5ae3f1abf5bd5eb3741caf2060f1a6ad80a",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_3\\refit-trajectory.csv": {
+      "sha256": "75cd7213511c04a1dab6708dc0471f0768107c95f2c2ae0ae5153c48b09fc2d5",
+      "bytes": 9065
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_3\\results.json": {
+      "sha256": "9a36234f2e3601909b78e5cb092f9b53279217dd592d11fc3de7b3462e3f0bed",
+      "bytes": 5153
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_3\\validation-predictions.pt": {
+      "sha256": "feeeafa1264db6b37b7c0a1dc2b422a3a8eb1d6fad2b958e5819a6cbc524ec0b",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_3\\zero-causal-verification.json": {
+      "sha256": "7fc2c253d10fb1a7b9b5085c415e49190c0e712c1ebf286b5160cf74328fe36d",
+      "bytes": 1191
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_4\\aligned-causal-verification.json": {
+      "sha256": "dc50a164f44a59897b3963a5d3bae5195e77c30416203b12b395e7377f494955",
+      "bytes": 1193
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_4\\analysis.json": {
+      "sha256": "cd11f94ec95a886e725271bac2910e04d327c3c193d5becb63836f87f9a103c5",
+      "bytes": 2870
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_4\\causal-replay-tensors.pt": {
+      "sha256": "860d403fd226dec8b2fc098f38bb0c4d0f88a5bdc461a89a862e582fba8fb005",
+      "bytes": 33995054
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_4\\inner-trajectory.csv": {
+      "sha256": "0617e864d700e5b206fa090c934835b67fb12feacb2302b0a6194ba15452efce",
+      "bytes": 17234
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_4\\metadata.json": {
+      "sha256": "657a963474eda1710154f5239d43ee59e649b6bc3c24fc52a48daa11cde4e188",
+      "bytes": 22556
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_4\\model-inner-best.pt": {
+      "sha256": "6dd72f20c42de3255a1c8a962a67bbde6ee5411399ae00be61658dc9ea6b2533",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_4\\model-raw.pt": {
+      "sha256": "3fa7cd1c8f2ce85a8f6080cb61cad9a4c630c0c5409cdbf3eabf8cc28edcf992",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_4\\model-trained.pt": {
+      "sha256": "b4060f3e142d30c671a06a1c824e10f770aba2f092adbbe8e13bf96c7f1e5484",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_4\\refit-trajectory.csv": {
+      "sha256": "761f486331f5db7cf3ac408e00f3f324f360570d5ab620394e0326af2f9a36b2",
+      "bytes": 4874
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_4\\results.json": {
+      "sha256": "a3b10eaf69835dbf2f7a25d6e301ba7bc642de7f14c3d62e36a196cd1ffabcd4",
+      "bytes": 4997
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_4\\validation-predictions.pt": {
+      "sha256": "945a8789a9928fc130929fe44f92eefb530e222d0c0048b258fa7b85f551bc22",
+      "bytes": 64979
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_4\\zero-causal-verification.json": {
+      "sha256": "b0dd25ac5efdc7521bd171c29f787426fa53d5729e37559b7542949d78c7a16b",
+      "bytes": 1192
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_7\\aligned-causal-verification.json": {
+      "sha256": "2d4a1470de03596edc6968781e9a36b7f24cfc26998e2ed59638ab4398d42a04",
+      "bytes": 1194
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_7\\analysis.json": {
+      "sha256": "e2a3120501c4bca31c3f9b06994a3bd57bc9b7ad39fb75ef76134ff935dc6f5f",
+      "bytes": 2874
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_7\\causal-replay-tensors.pt": {
+      "sha256": "71576a25251bfa5b9c3fd1d440d0d64cb51af72b205a775a139741df9f25f966",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_7\\inner-trajectory.csv": {
+      "sha256": "48dcb3038e50e59f1368238ba3697622c27b93304f67a6deb48a183cac37820a",
+      "bytes": 18803
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_7\\metadata.json": {
+      "sha256": "a602cebdd3ef193a650d92c6715e0d16381c4bcf82c90517de305d18a8078e3c",
+      "bytes": 22571
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_7\\model-inner-best.pt": {
+      "sha256": "5143bca991d0ef849c2b552093e42fc0b2ce8617b03ed4846513a36b333bc21a",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_7\\model-raw.pt": {
+      "sha256": "83aa5049903fa78136aa54462e109c8fce40907368a359134eb5de2bde3b04e3",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_7\\model-trained.pt": {
+      "sha256": "7282a5402e7f76db91c3df98aacae40f651e806fb2b29c437e7523c4e077adfe",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_7\\refit-trajectory.csv": {
+      "sha256": "5bf83f29870eed8cc4217b21a71c34f521617c18702ad7001490f3f76d14f935",
+      "bytes": 5791
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_7\\results.json": {
+      "sha256": "b4a2a5b059ddc615a0cf6fd81c9f19dabe0e333a37bd8f7d1959a39089821570",
+      "bytes": 5150
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_7\\validation-predictions.pt": {
+      "sha256": "1cf76732d77647777ea564b54f61f44317c77f347aa1a13164bcfb9428f226af",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\68_7\\zero-causal-verification.json": {
+      "sha256": "02721a140d2bd2e0eeb86a7046a76871911bd8b1b7c685232fd21d03d6704c62",
+      "bytes": 1195
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_21\\aligned-causal-verification.json": {
+      "sha256": "d8f6a214cec67c55a63bcc5421a68ce2920aadc73cbb386af0c5cfe8b6832dc8",
+      "bytes": 1194
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_21\\analysis.json": {
+      "sha256": "3507a76bdae4b17fbb258a22b6c025cd5d106cb5e2e429d365689c79661d5b02",
+      "bytes": 2875
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_21\\causal-replay-tensors.pt": {
+      "sha256": "ef2996df8c38179e6e1c40349d977f0857ad8cbc655448c89793b42ba45fd496",
+      "bytes": 33995054
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_21\\inner-trajectory.csv": {
+      "sha256": "5608ef8e808ba5a41f9b41975cc9162660c12550a2db54cb83c8160d7abb04d6",
+      "bytes": 32249
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_21\\metadata.json": {
+      "sha256": "91400a258a4e2e03c63b53f1208b117b2c4f01c2a00e535b71e682b1d271f3d0",
+      "bytes": 22557
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_21\\model-inner-best.pt": {
+      "sha256": "b0ea3c4c897ad1b3cd269a802543d1d41bf3b210055fd02baec7a414b8ab87af",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_21\\model-raw.pt": {
+      "sha256": "3839ae8e9ab775b1af0e74dbc9e3b6c5bdbf8d420d5396b9cc3306a3ebc384cd",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_21\\model-trained.pt": {
+      "sha256": "c1d3e9fcbe79570a4c541688389b52c8a01e5452b913a100950e51e6272576ad",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_21\\refit-trajectory.csv": {
+      "sha256": "3f7c3e2d0a65be93f828c15676bec254df4fbb698b07b4191fb44936bb5f44af",
+      "bytes": 13746
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_21\\results.json": {
+      "sha256": "a54a9ccb5791c03d0812fa3e97d23bca7c4033bc73c96ed81263c9680c0b9395",
+      "bytes": 4995
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_21\\validation-predictions.pt": {
+      "sha256": "44c3f6015dd73da0b20fab416dc16a8a29c2452684f30e101ca26751d75fa635",
+      "bytes": 64979
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_21\\zero-causal-verification.json": {
+      "sha256": "e247efd9d654f7c711811d344b18057962c04f0f99e10eec3fd383e713c60534",
+      "bytes": 1195
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_3\\aligned-causal-verification.json": {
+      "sha256": "1aa5c04d03c5791360f247005a440901c2f726d21ad7a1241c16f9a481d2f683",
+      "bytes": 1195
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_3\\analysis.json": {
+      "sha256": "3721b1a6595e60c1f405e2c49171ff41270e8caf23caba5d091f2d8e8206cec3",
+      "bytes": 2873
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_3\\causal-replay-tensors.pt": {
+      "sha256": "8791963d3eed66e2193251c8835c09a17fb3129e52efe67f95a032493f7f6848",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_3\\inner-trajectory.csv": {
+      "sha256": "fcab86aba4f238f374019d53f4804e97a38c189c791a42c1a2fa94227f41e866",
+      "bytes": 42960
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_3\\metadata.json": {
+      "sha256": "131cbd6cad4711127852251f594bb83187998facd1bc26b8dfbf31428ff9f081",
+      "bytes": 22574
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_3\\model-inner-best.pt": {
+      "sha256": "d45a3c1b312e3fa76e4149ec6dcafb46e22c2f65102830271a0b88e5df472cb0",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_3\\model-raw.pt": {
+      "sha256": "3774d09b8219cf7d4d83cecd12709298ef4917e1ba53b0cc6bd2ed930fb2e9f5",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_3\\model-trained.pt": {
+      "sha256": "02a70d200b7400e3c2d3239212494bcfd08c9ce42516a0792bd29919a32ad54f",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_3\\refit-trajectory.csv": {
+      "sha256": "a5289a68e28dd89416c112636a31dfbfa744d1990db782b26b14efc598a4eeea",
+      "bytes": 21106
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_3\\results.json": {
+      "sha256": "d1015a870c44b2022d708772cd82f5d1156dcf14da83e710aef6493fbcfd686f",
+      "bytes": 5156
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_3\\validation-predictions.pt": {
+      "sha256": "eb08286c87a770d66ccd832c3989e0e87c137cc1b714898a621a7e33997f876b",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_3\\zero-causal-verification.json": {
+      "sha256": "baa1dc7c913e4ff3a82a08a069d860a61d2bd3b47d39c61dfe734c9364e4d96d",
+      "bytes": 1193
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_4\\aligned-causal-verification.json": {
+      "sha256": "bd17fb355ece2cc260d95328a81973b474b15de10a405f29f1d679b0c42c23a9",
+      "bytes": 1195
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_4\\analysis.json": {
+      "sha256": "4995a43e9fee6e572cfb2cda170cd462584821ae9472d8522ba5de3d763d3479",
+      "bytes": 2875
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_4\\causal-replay-tensors.pt": {
+      "sha256": "0d737aaaedaace4a4359d3a2423dc603d6f9123d667353bda51cccc3ef6ab682",
+      "bytes": 33995054
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_4\\inner-trajectory.csv": {
+      "sha256": "b76985ab225f74b5ed92108b576a7312c692a6a4a329e0bfab519d4ccc4b8922",
+      "bytes": 14416
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_4\\metadata.json": {
+      "sha256": "e9b59d5e00ee08d1af1ac56d7860ced2a42a7beaa492b43b4caa0e3410b70094",
+      "bytes": 22556
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_4\\model-inner-best.pt": {
+      "sha256": "c6f8e416cbcae2605681e6eb551a2f650d478c0657cb3182f9f9cbbb55ded959",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_4\\model-raw.pt": {
+      "sha256": "26422b9fbb183945f184dc384957e65c5da48a64505ca0f0c06c2340193fe707",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_4\\model-trained.pt": {
+      "sha256": "b57c2a2268dddd9e1852e19129d569d82035c6606d72c8ce53837a296b03ce3b",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_4\\refit-trajectory.csv": {
+      "sha256": "42cb005243c00ccf421101dbaa946e4c1705171631af8c7ad88d6bf9d18b61b8",
+      "bytes": 3239
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_4\\results.json": {
+      "sha256": "7c515b21d3208b351753dd6a3ede576c499a2ffaa2b1189efc0f301413511685",
+      "bytes": 4993
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_4\\validation-predictions.pt": {
+      "sha256": "dba59b21c98bad4e19ad1e4ca96bff612b184a233697c5cedae61d5867257fce",
+      "bytes": 64979
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_4\\zero-causal-verification.json": {
+      "sha256": "dee6feff4bc7a6676dc4463e15981948b3261a8399ce7ced2dfad112c47f2ba8",
+      "bytes": 1195
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_6\\aligned-causal-verification.json": {
+      "sha256": "e66b8af79a4b027335eb51de27e73eed3d32f22a30f8090ba5e8e6de628ebe4f",
+      "bytes": 1194
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_6\\analysis.json": {
+      "sha256": "67ebe470886fc7e6b5f2f69a13b86dd6765e7269fcf0ac92457f8ea3c4629769",
+      "bytes": 2870
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_6\\causal-replay-tensors.pt": {
+      "sha256": "487f95c1432405044d27a6216f617ea7f2a35390f88ea4e5a2443601675c55ee",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_6\\inner-trajectory.csv": {
+      "sha256": "a365b5579515b3a48e2f6be04d28b104d29ea7ee9734ea6822a0180f83669a2a",
+      "bytes": 21291
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_6\\metadata.json": {
+      "sha256": "fc7608f14f4b88539746cb7d7718c6f58eb54d969b81e257fe2572abf1654729",
+      "bytes": 22574
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_6\\model-inner-best.pt": {
+      "sha256": "c1e1f76399f49200bf8c1db5f2ef2ff874d5784b307e5cdfe25eb707a58145fc",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_6\\model-raw.pt": {
+      "sha256": "1b50bacee904f8223ab920c278736d1436789870c9b586c040fdf7bf2a6bd80b",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_6\\model-trained.pt": {
+      "sha256": "8ea57815c07f420a712f125979c762a3881f5e27ba24463d382ca75b2b419446",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_6\\refit-trajectory.csv": {
+      "sha256": "9c13483bc8c3e6e4585913ebc71369bab25d827cdd99d148a9fe8ef69158de26",
+      "bytes": 7239
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_6\\results.json": {
+      "sha256": "1f53bfa548d7c7c6195b1e537976940111f3364c64d3599fcf2a49a88955bd68",
+      "bytes": 5154
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_6\\validation-predictions.pt": {
+      "sha256": "c5c3e6da83b678ccdb95bb6fdb5f1de1ad2ac95df6928b02b6ee3aa31bffca2d",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_6\\zero-causal-verification.json": {
+      "sha256": "37d8242054943a431c327f8345ae92d74147290fe433b8155a0fb262f914a62b",
+      "bytes": 1191
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_7\\aligned-causal-verification.json": {
+      "sha256": "a029b4d8e4467fb0f3f4c3253fa942e53d6fa22c345d8382c2b5dd3b55448c21",
+      "bytes": 1192
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_7\\analysis.json": {
+      "sha256": "d43784c3622771785eece43fd70888fb667e5c5e72ad98d119620d935260ee8a",
+      "bytes": 2870
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_7\\causal-replay-tensors.pt": {
+      "sha256": "5bb79d47ef540013e6f670fe6b0e5d95ba6ad6fc0b6512e134b9edbe0d7d26c1",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_7\\inner-trajectory.csv": {
+      "sha256": "8c2e5c593a0581021b02109fce78143ccf010700055ebea03b357cd7371f8d6a",
+      "bytes": 32830
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_7\\metadata.json": {
+      "sha256": "58f3520b40afde1aeda79681619582f527cc36b2c26434c7315b1ae1c7be8602",
+      "bytes": 22574
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_7\\model-inner-best.pt": {
+      "sha256": "20d49227310c6e3dc0f6914e89ea0d7c781e58acd6755c3b720a9013438711ad",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_7\\model-raw.pt": {
+      "sha256": "7d853284e7bcfc7ec3d5f667ae7a9772d7f5cb8a9e33be966279307910aa9a8a",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_7\\model-trained.pt": {
+      "sha256": "bcbca4142c8a6fdee5d489dce9e2d80392b30be1ca145fc14bfd8b46031ac056",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_7\\refit-trajectory.csv": {
+      "sha256": "edfd8d7088de0e48285238ca0453e5287a005664ab1b7a4157a85e0031d32a89",
+      "bytes": 13906
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_7\\results.json": {
+      "sha256": "fec51fdf6bfb173a1464f02546e5b59f32c34fde4e29254a1a37f10787f753ba",
+      "bytes": 5157
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_7\\validation-predictions.pt": {
+      "sha256": "c0e3f3b487d67f209307c19832d2f36c5e5510dd1c8957cb56a6ed42a6cf1309",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\69_7\\zero-causal-verification.json": {
+      "sha256": "44a4a7822d2f92bb48d03744ba2e7db942e190dc2df68026b48c4d5aca2a4088",
+      "bytes": 1193
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_1\\aligned-causal-verification.json": {
+      "sha256": "3b5a6d144849667ef40ccde18298f2481a74a3af949cd41636226a2237df6795",
+      "bytes": 1193
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_1\\analysis.json": {
+      "sha256": "50023f46dc417529853de6dc58b024dcfb8a627719f73c9d45c4824dac52498b",
+      "bytes": 2872
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_1\\causal-replay-tensors.pt": {
+      "sha256": "1232df478526629f19acac8156c9221fd50362e73736a25fbd9a86b59be66afc",
+      "bytes": 33995054
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_1\\inner-trajectory.csv": {
+      "sha256": "9994a9d57b27c491a16daf3468ad35b16aff17edca3bce3b073a0b40b3a8dd69",
+      "bytes": 38901
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_1\\metadata.json": {
+      "sha256": "5e5b707f6ebb4e99ab10e8977c392fe65d798cf8a34982999f12e3c5fe065a75",
+      "bytes": 22556
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_1\\model-inner-best.pt": {
+      "sha256": "655740ae4c5a39138cf85ff1cb007e7031eb3212149fc3356d4c94f8fe2d92fb",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_1\\model-raw.pt": {
+      "sha256": "f4c5273e3615c4027d0ed6c6b9b55865f75574546fb9d4e70cff8cc27f990ba5",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_1\\model-trained.pt": {
+      "sha256": "5bffcb9a625874236889d5e765abc5200678f63cc094baf920818b85676650db",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_1\\refit-trajectory.csv": {
+      "sha256": "017b93887fe83419e34b2c161df8fb7463f2c81d913362b8e69d1bbb0c274f74",
+      "bytes": 17671
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_1\\results.json": {
+      "sha256": "fc5d10b4e8f7c065c806a3b343c6d76e1d9f9ebb3e92966c7c720e5441c3bad8",
+      "bytes": 4994
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_1\\validation-predictions.pt": {
+      "sha256": "35e04b93bd7e44a7a0f84adac26c75f57922a31ea554cbcf04f67988a3488e48",
+      "bytes": 64979
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_1\\zero-causal-verification.json": {
+      "sha256": "f014f1add608b84c27816f71356bfa473b3c072d4012dd9c167ef6efc469a0c8",
+      "bytes": 1194
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_15\\aligned-causal-verification.json": {
+      "sha256": "541924736211c6b64fcad2f83efd54a841ce673f49449ccd3a8f9e2bb8d09b1b",
+      "bytes": 1190
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_15\\analysis.json": {
+      "sha256": "7cddcc124170770148d9cbd5d99b344ffba83643f69fcb123de4c3df0fe6e8da",
+      "bytes": 2870
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_15\\causal-replay-tensors.pt": {
+      "sha256": "6686983b66e2eddfab47b35059c8ba6a4b6e6a97ca4fdebeca48a29615d2d5df",
+      "bytes": 33995054
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_15\\inner-trajectory.csv": {
+      "sha256": "687841ae63dbb29183bb02357956c4c1ef0cf4acf7e49a473c480a6b4f43e26f",
+      "bytes": 27706
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_15\\metadata.json": {
+      "sha256": "fa1db70161cd521e6f123ea71e8b4a06c452dedce72958f95f48d7d4f05a242f",
+      "bytes": 22556
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_15\\model-inner-best.pt": {
+      "sha256": "5a774b35f4f55b2522ba6b11da3dfc777893e435ec06d5ad52df8cd143568c3f",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_15\\model-raw.pt": {
+      "sha256": "9967a850e30bacb0393f4f704cc0456e09640f362d353012a0ecdcd4fef517d6",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_15\\model-trained.pt": {
+      "sha256": "716a79810367f7a951b19cbd57baa78777d2c2c99b43593b7c74372db51cf084",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_15\\refit-trajectory.csv": {
+      "sha256": "490cf90a6b92877df6508735cfc64ca5739725f1b00bfbdd106224792cfe48e4",
+      "bytes": 10949
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_15\\results.json": {
+      "sha256": "cd4b30c3ab56fd4591445031751a9200232e190d54656c223cbdcf6ba23c3f2d",
+      "bytes": 4993
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_15\\validation-predictions.pt": {
+      "sha256": "baddaa69b883b01fcabdedeb5f5c3751f3d889047762740872c18493b8bf141c",
+      "bytes": 64979
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_15\\zero-causal-verification.json": {
+      "sha256": "6464e83773f4dc32689cf83294fc3f07c422ce39325f1f61d53ce24e00525c78",
+      "bytes": 1194
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_34\\aligned-causal-verification.json": {
+      "sha256": "a53e5ad335d2fd33ff9af6f07624ab39a55cde79c12de83db96cc4db2c27fb61",
+      "bytes": 1195
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_34\\analysis.json": {
+      "sha256": "400a42e632335264cf0f719b915451cf2b02f1e5c974708f0eac8160322c0b59",
+      "bytes": 2868
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_34\\causal-replay-tensors.pt": {
+      "sha256": "caaa718b8083cc706aa246ee33b1f04700023b6551f52c5c5f84b2ae51c1ba23",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_34\\inner-trajectory.csv": {
+      "sha256": "c3b8bc07c22232f59be9aba2d1416318825fdd1615dd61bd07f7e3cda2d2fdc9",
+      "bytes": 18593
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_34\\metadata.json": {
+      "sha256": "7f013266dffaf62fb8cbf3621e7288d6e1fb4884740289470591f6678b88b4d4",
+      "bytes": 22573
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_34\\model-inner-best.pt": {
+      "sha256": "a14ea5b5e783fab04d02f2f16be42d3466e1d3eba4306d93c1bf8a8814b39ca4",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_34\\model-raw.pt": {
+      "sha256": "7ccf2c0be6f354980e4a6db9922622d071e48ef1d5574da2ff2744df99e3611d",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_34\\model-trained.pt": {
+      "sha256": "b03271cca201d0e395cc7de0f08480dea9605abe3197b49dc62a0ec18f4a8893",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_34\\refit-trajectory.csv": {
+      "sha256": "19d5c12302ca16c820b4a48dfa285981fe8cf15940dcd4a83668e0356bd54873",
+      "bytes": 5669
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_34\\results.json": {
+      "sha256": "1504df00e4e439fbd2717eb0d269c8ee04f7da5fe8e0d12b55a5de05e89226de",
+      "bytes": 5152
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_34\\validation-predictions.pt": {
+      "sha256": "9e850a421d67fc768e69a53b7c6eabd60a5a04bb997eb243834f2b54ebc10663",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_34\\zero-causal-verification.json": {
+      "sha256": "2735f5d410b4a98a50abe05040596cd7280beb43e5f4cc0edb19dff8550dd889",
+      "bytes": 1187
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_7\\aligned-causal-verification.json": {
+      "sha256": "03a8fb7aebe0d6d3870de37ae473b83ff9ec526cd0bec29935cb617d5f3be6a4",
+      "bytes": 1193
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_7\\analysis.json": {
+      "sha256": "9a0a6808b45e23e324a1ce7eb2cb2f2086c15af46edd1b878d4011fd3563198f",
+      "bytes": 2869
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_7\\causal-replay-tensors.pt": {
+      "sha256": "f19bfe141f8d535263727a9bf7db1d19c37a96cd712d981ed0c4cfc2d6e233c2",
+      "bytes": 39658542
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_7\\inner-trajectory.csv": {
+      "sha256": "ac28fcffd32a652d0049d3b235138a10b493e9f06f1f462b60c45617756a26b8",
+      "bytes": 19982
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_7\\metadata.json": {
+      "sha256": "b2998544c6ada539cc322f6ded36c49400cd741cd457c905fa3f3a8f75131871",
+      "bytes": 22572
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_7\\model-inner-best.pt": {
+      "sha256": "f57740c609e05cf302ae7990f09f3b648e7ad386a20112be4c6a0448924b049e",
+      "bytes": 219716
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_7\\model-raw.pt": {
+      "sha256": "f2b8f948c50b638d7d518f69f686b944e6b535520156ecceb13fd4a125af6f08",
+      "bytes": 218855
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_7\\model-trained.pt": {
+      "sha256": "131122ae22eda0ebb97cc01f254214ccf3f930a4cdef68826700d9b02a963179",
+      "bytes": 219539
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_7\\refit-trajectory.csv": {
+      "sha256": "470aeb4fd3cbf81ee47c2cea0f9a058e9418a47121eee68b82a860c68c20e444",
+      "bytes": 6480
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_7\\results.json": {
+      "sha256": "dbb62f50738d7c7f6b811b1d67c4bdad00218f5643d75629de67c0a7f6ba031a",
+      "bytes": 5153
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_7\\validation-predictions.pt": {
+      "sha256": "5553f40bde743bb501570801b476e52dc26d4a0db8df1b39964d8b248a6f0799",
+      "bytes": 75219
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\cells\\70_7\\zero-causal-verification.json": {
+      "sha256": "19da104e7189021c574f308f91e70966452c35a792b8a5e4ec00846f5c673c4b",
+      "bytes": 1191
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\effective-parameters.pt": {
+      "sha256": "d9f5a1d360910a85bcbab9891cc0c4d102fdd2d5c636cfa84616bf9f0f2da0cb",
+      "bytes": 208742
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\perturbation-tensors.pt": {
+      "sha256": "9bf79322afd74edbdb84276f0a5e650743bd6ca0864afad6efab7326b9b9df09",
+      "bytes": 2011666
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\preflight.py": {
+      "sha256": "4ff789c5a3e3dd24b811c8728315dcb8cff06595f1c7571b8a762aaf14a70350",
+      "bytes": 12697
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\results.json": {
+      "sha256": "a7c8399bc647a25694deb20c66bf12957552c98b4a602959cf06482fed77f329",
+      "bytes": 131712
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\rf-tensors.pt": {
+      "sha256": "bba3f59687318590d763fe6a1a714aa0b2845ff4a4d3a5362c2fa03f13bb0310",
+      "bytes": 3320154
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\run-manifest.json": {
+      "sha256": "84274753dbcb21c18bcab9a5cc3d4033e54676c43fc31973d7aafb5693339b39",
+      "bytes": 730
+    },
+    "output\\real_data\\schottdorf_canonical_v1_fixed_ln_center_22cell_20260905\\run.py": {
+      "sha256": "aa819db48f925339e101e6f26461680b12df7b3631cbf574b4f132ef8b657b20",
+      "bytes": 9432
+    }
+  }
+}

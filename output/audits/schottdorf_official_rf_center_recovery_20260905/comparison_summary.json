@@ -1,0 +1,56 @@
+{
+  "outcome": "FUNCTIONAL ALIGNMENT SUPPORTED, BIOLOGICAL CENTER UNRESOLVED",
+  "usable_author_cell_count": 0,
+  "frozen_cell_count": 22,
+  "direction_and_magnitude_comparisons": "UNVERIFIED_NO_USABLE_AUTHOR_CENTER",
+  "official_offset_vs_improvement": {
+    "n": 0,
+    "pearson": null,
+    "spearman": null
+  },
+  "center_error_vs_improvement": {
+    "n": 0,
+    "pearson": null,
+    "spearman": null
+  },
+  "LN_offset_vs_improvement": {
+    "n": 22,
+    "pearson": 0.8622918658209708,
+    "spearman": 0.8464144551101073,
+    "method": "Recomputed from frozen paired table only; no training or new prediction."
+  },
+  "mean_improvement": 0.014916610988703642,
+  "improved_cells": 18,
+  "groups": {
+    "MC_ON": {
+      "frozen_n": 5,
+      "usable_official_n": 0,
+      "comparison_status": "UNVERIFIED"
+    },
+    "MC_OFF": {
+      "frozen_n": 4,
+      "usable_official_n": 0,
+      "comparison_status": "UNVERIFIED"
+    },
+    "PC_ON": {
+      "frozen_n": 9,
+      "usable_official_n": 0,
+      "comparison_status": "UNVERIFIED"
+    },
+    "PC_OFF": {
+      "frozen_n": 4,
+      "usable_official_n": 0,
+      "comparison_status": "UNVERIFIED"
+    },
+    "MC": {
+      "frozen_n": 9,
+      "usable_official_n": 0,
+      "comparison_status": "UNVERIFIED"
+    },
+    "PC": {
+      "frozen_n": 13,
+      "usable_official_n": 0,
+      "comparison_status": "UNVERIFIED"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "inference_inputs.pt": "8d01853610d788b015ea3463c2f41bc29b33040e2d2756a288f988e9b36ef1cf",
+  "input_lock.json": "eb8a18cfc4ca7a8aea26782d546535f10e046470dbc6d56c58cdceddda6a170d",
+  "official_code_provenance_scan.md": "afd6962fbd57d2ae55d7d7c65673189d6e3dbeda3d2ec94308faf36205d45a83",
+  "official_scan_evidence.json": "556688037fef52bef7f77f84b524466c74c3fef9aee74ec6879d26e5e9d56aef",
+  "preflight.json": "a2a0506dea85ef3a3220d900adc6cad2dfe03019ec353d5d134e88d76a002216",
+  "prepare_targets.py": "1b774622decac81114d445d5aebdfbf8554df64b48af34cd8489c72a6a7330c8",
+  "PROTOCOL.md": "e132b11799544e0b9e6eac081b2d8454f13e8ebf0a58442bb6d42fb156f3113f",
+  "protocol_hash.json": "0dbc563cea6cd213e27cfb24202a42a2c07453266df79d46fc5674ae01ed409c",
+  "provenance_scan.py": "565f8d96dde62180bd280155ccedfc930c1d0acffdecee188af5600160675875",
+  "raw_to_target_exact_replay.csv": "6d350efb8862b11eeb656beec6d474ad24e95f418f53c404b79d73c4b9b22228",
+  "repeat_counts_150hz.parquet": "fef732968eb53e22d77857c4f771429378db5f15d8f1f40514da02c8e4c64dc7",
+  "repeat_occupancy_150hz.parquet": "7d2b02795ccf0452a25a95bfe2fd987e0a51cfd7df77b1e5cbb2ed7c026a7b51",
+  "split_half_partitions.json": "2c6b1bb5112885c179d28085a49fb46a54948005f56d4d9c166a82c944fd5073",
+  "target_artifact_lock.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

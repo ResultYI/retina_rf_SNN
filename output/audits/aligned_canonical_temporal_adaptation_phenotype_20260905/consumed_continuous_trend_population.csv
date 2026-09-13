@@ -1,0 +1,5 @@
+split,comparator,feature,cells,available,mean,median,positive,negative,zero
+consumed,LN,A,22,True,-0.04505827694114141,-0.055804113789512305,6,16,0
+consumed,LN,C,22,True,-0.0213412226304926,-0.020227290846324616,6,16,0
+consumed,CNN,A,22,True,-0.11760757078592908,-0.11570819633993615,0,22,0
+consumed,CNN,C,22,True,-0.11065886639897776,-0.11895658605239068,1,21,0

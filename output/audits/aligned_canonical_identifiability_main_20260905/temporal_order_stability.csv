@@ -1,0 +1,9 @@
+cell_id,quantity,primary_order,fresh_1_order,fresh_2_order,rank_order_stable,constraint
+67#4,tau_BC_sustained_basis,"(0, 1, 2)","(0, 1, 2)","(0, 1, 2)",True,within-family order not enforced
+67#4,tau_BC_transient_basis,"(0, 1, 2)","(0, 1, 2)","(0, 1, 2)",True,within-family order not enforced
+67#6,tau_BC_sustained_basis,"(0, 1, 2)","(0, 1, 2)","(0, 1, 2)",True,within-family order not enforced
+67#6,tau_BC_transient_basis,"(0, 1, 2)","(0, 1, 2)","(0, 1, 2)",True,within-family order not enforced
+68#4,tau_BC_sustained_basis,"(0, 1, 2)","(0, 1, 2)","(0, 1, 2)",True,within-family order not enforced
+68#4,tau_BC_transient_basis,"(0, 1, 2)","(0, 1, 2)","(0, 1, 2)",True,within-family order not enforced
+69#4,tau_BC_sustained_basis,"(0, 1, 2)","(0, 1, 2)","(0, 1, 2)",True,within-family order not enforced
+69#4,tau_BC_transient_basis,"(0, 1, 2)","(0, 1, 2)","(0, 1, 2)",True,within-family order not enforced

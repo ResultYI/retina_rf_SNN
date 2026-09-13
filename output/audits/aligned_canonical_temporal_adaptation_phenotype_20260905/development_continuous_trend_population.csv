@@ -1,0 +1,5 @@
+split,comparator,feature,cells,available,mean,median,positive,negative,zero
+development,LN,A,22,True,-0.033921202194233106,-0.025763722711770912,8,14,0
+development,LN,C,22,True,-0.00011361718613339898,-0.011648379618891064,10,12,0
+development,CNN,A,22,True,-0.06423698140871172,-0.0633099686442329,4,18,0
+development,CNN,C,22,True,-0.08802199786266117,-0.10207192862871253,3,19,0

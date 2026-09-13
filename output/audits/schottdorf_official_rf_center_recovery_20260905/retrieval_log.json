@@ -1,0 +1,105 @@
+[
+  {
+    "name": "paper.html",
+    "requested_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8998785/",
+    "tls_certificate_verified": false,
+    "reason": "Public unauthenticated evidence retrieval; local proxy certificate chain could not be verified; no persistent TLS settings changed.",
+    "status": 200,
+    "final_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8998785/",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 332403,
+    "sha256": "244e89288430fe989e8fff924223186017668765d279b50bb83e90d850ffdd07"
+  },
+  {
+    "name": "paper_bioc.xml",
+    "requested_url": "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC8998785/unicode",
+    "tls_certificate_verified": false,
+    "reason": "Public unauthenticated evidence retrieval; local proxy certificate chain could not be verified; no persistent TLS settings changed.",
+    "status": 200,
+    "final_url": "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC8998785/unicode",
+    "content_type": "text/xml",
+    "bytes": 184511,
+    "sha256": "4ced77e8bb10e3c61c70c050c0271a6267cba47bf00286800751132ac232a367"
+  },
+  {
+    "name": "Statistical_Summary_Document.xlsx",
+    "requested_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8998785/bin/NIHMS1782518-supplement-Statistical_Summary_Document.xlsx",
+    "tls_certificate_verified": false,
+    "reason": "Public unauthenticated evidence retrieval; local proxy certificate chain could not be verified; no persistent TLS settings changed.",
+    "error_type": "HTTPError",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "name": "Fig2publication.xlsx",
+    "requested_url": "https://gin.g-node.org/Manuel/Macaque-ganglion-cells/raw/master/exampleRFs/Fig2publication.xlsx",
+    "tls_certificate_verified": false,
+    "reason": "Public unauthenticated evidence retrieval; local proxy certificate chain could not be verified; no persistent TLS settings changed.",
+    "status": 200,
+    "final_url": "https://gin.g-node.org/Manuel/Macaque-ganglion-cells/raw/master/exampleRFs/Fig2publication.xlsx",
+    "content_type": "application/zip",
+    "bytes": 20606799,
+    "sha256": "adfed0e6a534ab0a3b2b4a883306e1b4e948ec66a2f2bf98bf6e1f0cbed953d6"
+  },
+  {
+    "name": "Statistical_Summary_Document.xlsx",
+    "requested_url": "https://pmc.ncbi.nlm.nih.gov/articles/instance/8998785/bin/NIHMS1782518-supplement-Statistical_Summary_Document.xlsx",
+    "tls_certificate_verified": false,
+    "status": 200,
+    "final_url": "https://pmc.ncbi.nlm.nih.gov/articles/instance/8998785/bin/NIHMS1782518-supplement-Statistical_Summary_Document.xlsx",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 1817,
+    "sha256": "705a311fb72ba31cee4d45aaf40913d682f6fdab0a12a7c9af592d41b635b463"
+  },
+  {
+    "name": "official_repository.html",
+    "requested_url": "https://gin.g-node.org/Manuel/Macaque-ganglion-cells",
+    "tls_certificate_verified": false,
+    "status": 200,
+    "final_url": "https://gin.g-node.org/Manuel/Macaque-ganglion-cells",
+    "content_type": "text/html; charset=UTF-8",
+    "bytes": 39309,
+    "sha256": "8a26eb2fcdc395de867f73444a30f7afe39ca19346baf38e2346fa47078db52e"
+  },
+  {
+    "name": "official_archive.html",
+    "requested_url": "https://gin.g-node.org/doi/Macaque-ganglion-cells",
+    "tls_certificate_verified": false,
+    "status": 200,
+    "final_url": "https://gin.g-node.org/doi/Macaque-ganglion-cells",
+    "content_type": "text/html; charset=UTF-8",
+    "bytes": 38764,
+    "sha256": "81f0d12a3ddc319d21e14f59d6413c6bc41d2aecbfa81158b36830a88ee839fc"
+  },
+  {
+    "name": "statistical_wiley.xlsx",
+    "requested_url": "https://physoc.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1113%2FJP281200&file=tjp14666-sup-0006-s08.xlsx",
+    "tls_certificate_verified": false,
+    "error_type": "HTTPError",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "statistical_epmc.zip",
+    "requested_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8998785/supplementaryFiles",
+    "tls_certificate_verified": false,
+    "status": 200,
+    "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8998785/supplementaryFiles",
+    "content_type": "application/xml",
+    "bytes": 164,
+    "sha256": "8ac3dd2526b03432acfa7abe640c3a9cd9a9eba71336cc6525f9e28d37c4b710"
+  },
+  {
+    "name": "official_git_tree.json",
+    "requested_url": "https://gin.g-node.org/api/v1/repos/Manuel/Macaque-ganglion-cells/git/trees/master?recursive=true",
+    "tls_certificate_verified": false,
+    "error_type": "HTTPError",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "source": "Codex browser",
+    "requested_url": "https://pmc.ncbi.nlm.nih.gov/articles/instance/8998785/bin/NIHMS1782518-supplement-Statistical_Summary_Document.xlsx",
+    "initial_observed_page": "reCAPTCHA browser check",
+    "later_observed_page": "about:blank",
+    "workbook_obtained": false,
+    "manual_CAPTCHA_solved": false
+  }
+]

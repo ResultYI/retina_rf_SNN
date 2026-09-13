@@ -1,0 +1,109 @@
+{
+  "protocol_sha256": "740349691eb4247f2ab1990531b802aca2c57a2e954f35948dbb5913dafecfe2",
+  "pathways": [
+    {
+      "pathway": "H1",
+      "cells": 22,
+      "raw_mean_delta_nll": 0.002824355398026461,
+      "recal_mean_delta_nll": 0.002699809486394942,
+      "raw_median_delta_nll": 0.0010919242324220202,
+      "recal_median_delta_nll": 0.00073832080450556,
+      "absolute_reduction": 0.00012454591163151875,
+      "relative_reduction": 0.04409711034190178,
+      "recal_mean_ci_lower": 0.0011968231759206351,
+      "recal_mean_ci_upper": 0.004484532773477866,
+      "recal_median_ci_lower": 0.000219200208397774,
+      "recal_median_ci_upper": 0.004378322432693371,
+      "recal_positive_count": 16,
+      "recal_negative_count": 6,
+      "recal_zero_count": 0,
+      "bootstrap_seed": 2026090502,
+      "bootstrap_draws": 100000,
+      "verdict": "MIXED",
+      "protocol_sha256": "740349691eb4247f2ab1990531b802aca2c57a2e954f35948dbb5913dafecfe2"
+    },
+    {
+      "pathway": "direct-BC",
+      "cells": 22,
+      "raw_mean_delta_nll": 0.3051925583886201,
+      "recal_mean_delta_nll": 0.3040534562681185,
+      "raw_median_delta_nll": 0.28074493734371275,
+      "recal_median_delta_nll": 0.2938478402891612,
+      "absolute_reduction": 0.0011391021205015561,
+      "relative_reduction": 0.0037324046382909426,
+      "recal_mean_ci_lower": 0.26042464194994364,
+      "recal_mean_ci_upper": 0.3471319609359073,
+      "recal_median_ci_lower": 0.26253906707759433,
+      "recal_median_ci_upper": 0.33147769065923827,
+      "recal_positive_count": 22,
+      "recal_negative_count": 0,
+      "recal_zero_count": 0,
+      "bootstrap_seed": 2026090502,
+      "bootstrap_draws": 100000,
+      "verdict": "STIMULUS-DEPENDENT PREDICTIVE CONTRIBUTION SUPPORTED",
+      "protocol_sha256": "740349691eb4247f2ab1990531b802aca2c57a2e954f35948dbb5913dafecfe2"
+    },
+    {
+      "pathway": "AC",
+      "cells": 22,
+      "raw_mean_delta_nll": 0.22670478143177455,
+      "recal_mean_delta_nll": 0.19597970742980128,
+      "raw_median_delta_nll": 0.19903525386252005,
+      "recal_median_delta_nll": 0.16089651703598706,
+      "absolute_reduction": 0.030725074001973274,
+      "relative_reduction": 0.13552900740745866,
+      "recal_mean_ci_lower": 0.15284326239922374,
+      "recal_mean_ci_upper": 0.24178528122833925,
+      "recal_median_ci_lower": 0.1503799990271461,
+      "recal_median_ci_upper": 0.20113947087166312,
+      "recal_positive_count": 22,
+      "recal_negative_count": 0,
+      "recal_zero_count": 0,
+      "bootstrap_seed": 2026090502,
+      "bootstrap_draws": 100000,
+      "verdict": "STIMULUS-DEPENDENT PREDICTIVE CONTRIBUTION SUPPORTED",
+      "protocol_sha256": "740349691eb4247f2ab1990531b802aca2c57a2e954f35948dbb5913dafecfe2"
+    }
+  ],
+  "normal_sanity": {
+    "mean_bias": 0.01030712775379982,
+    "median_bias": 0.014531747332134162,
+    "min_bias": -0.11576677520498196,
+    "max_bias": 0.11805110940975583,
+    "train_mean_before": 0.42945635170734175,
+    "train_mean_after": 0.42924911115247366,
+    "test_mean_before": 0.4298741690468658,
+    "test_mean_after": 0.42983031238805247,
+    "mean_test_delta": -4.38566588133031e-05,
+    "median_test_delta": 4.2002238453076046e-05,
+    "test_improved_cells": 10,
+    "test_worsened_cells": 12,
+    "test_tied_cells": 0
+  },
+  "solver": {
+    "scalars": 88,
+    "max_abs_mean_rate_residual": 9.970357872646218e-13,
+    "max_iterations": 41,
+    "min_iterations": 34,
+    "max_train_nll_change": -8.620256508606872e-08
+  },
+  "centered_logit_descriptive": {
+    "H1": {
+      "median_abs_mean_shift": 0.008585901286098218,
+      "median_centered_std": 0.08233100927126408
+    },
+    "direct-BC": {
+      "median_abs_mean_shift": 0.8697940472327172,
+      "median_centered_std": 2.4285809153959974
+    },
+    "AC": {
+      "median_abs_mean_shift": 0.734208148214966,
+      "median_centered_std": 1.954627657314231
+    }
+  },
+  "raw_float64_vs_prior_float32_max_abs_nll": 7.644463728695428e-08,
+  "bootstrap_index_sha256": "1202c559aa73a42663a9a35ccce678d7ee23f676c05904cd9d283ab1ed024232",
+  "bias_fit_hash_unchanged": true,
+  "evidence_level": "predefined follow-up analysis on an already consumed confirmatory set",
+  "model_training": 0
+}

@@ -1,0 +1,7 @@
+feature,comparator,estimate,development_mean,consumed_descriptive_mean,mean_direction_consistent,sign_consistent_cells,available_cells,total_cells,independent_confirmation,verdict_unchanged
+A,LN,raw_E,-0.02666424402644544,-0.024040485450573038,True,18,22,22,False,True
+A,LN,matched_E,-0.02537657674017727,-0.03026591412380594,True,18,22,22,False,True
+A,CNN,raw_E,-0.0054980148627208235,-0.06805885112244499,True,13,22,22,False,True
+A,CNN,matched_E,-0.009579616504406379,-0.0720493521632468,True,14,22,22,False,True
+C,LN,raw_E,-0.015367903842345217,-0.011657086525647113,True,16,22,22,False,True
+C,CNN,raw_E,-0.04173309322677495,-0.06547413963596656,True,18,22,22,False,True

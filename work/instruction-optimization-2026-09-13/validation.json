@@ -1,0 +1,126 @@
+{
+  "scope": "Static checks of proposals only; no live application or model behavior test",
+  "files": [
+    {
+      "key": "project-agents",
+      "live_source_unchanged": true,
+      "bytes_before": 1520,
+      "bytes_proposed": 2064
+    },
+    {
+      "key": "hephaestus",
+      "live_source_unchanged": true,
+      "bytes_before": 18242,
+      "bytes_proposed": 4377
+    },
+    {
+      "key": "programming",
+      "live_source_unchanged": true,
+      "bytes_before": 34966,
+      "bytes_proposed": 2944,
+      "validator_exit": 0,
+      "validator_output": "Skill is valid!",
+      "description_chars_before": 855,
+      "description_chars_proposed": 129
+    },
+    {
+      "key": "debugging",
+      "live_source_unchanged": true,
+      "bytes_before": 12116,
+      "bytes_proposed": 2904,
+      "validator_exit": 0,
+      "validator_output": "Skill is valid!",
+      "description_chars_before": 985,
+      "description_chars_proposed": 128
+    },
+    {
+      "key": "ulw-plan",
+      "live_source_unchanged": true,
+      "bytes_before": 10048,
+      "bytes_proposed": 3122,
+      "validator_exit": 0,
+      "validator_output": "Skill is valid!",
+      "description_chars_before": 586,
+      "description_chars_proposed": 130
+    },
+    {
+      "key": "review-work",
+      "live_source_unchanged": true,
+      "bytes_before": 28892,
+      "bytes_proposed": 2990,
+      "validator_exit": 0,
+      "validator_output": "Skill is valid!",
+      "description_chars_before": 534,
+      "description_chars_proposed": 127
+    },
+    {
+      "key": "frontend",
+      "live_source_unchanged": true,
+      "bytes_before": 10244,
+      "bytes_proposed": 2487,
+      "validator_exit": 0,
+      "validator_output": "Skill is valid!",
+      "description_chars_before": 328,
+      "description_chars_proposed": 120
+    },
+    {
+      "key": "visual-qa",
+      "live_source_unchanged": true,
+      "bytes_before": 16331,
+      "bytes_proposed": 2876,
+      "validator_exit": 0,
+      "validator_output": "Skill is valid!",
+      "description_chars_before": 990,
+      "description_chars_proposed": 124
+    },
+    {
+      "key": "ponytail",
+      "live_source_unchanged": true,
+      "bytes_before": 6757,
+      "bytes_proposed": 2180,
+      "validator_exit": 1,
+      "validator_output": "Unexpected key(s) in SKILL.md frontmatter: argument-hint. Allowed properties are: allowed-tools, description, license, metadata, name",
+      "description_chars_before": 826,
+      "description_chars_proposed": 121
+    },
+    {
+      "key": "paper-reading-zh",
+      "live_source_unchanged": true,
+      "bytes_before": 2346,
+      "bytes_proposed": 1538,
+      "validator_exit": 0,
+      "validator_output": "Skill is valid!",
+      "description_chars_before": 58,
+      "description_chars_proposed": 49
+    },
+    {
+      "key": "study",
+      "live_source_unchanged": true,
+      "bytes_before": 10429,
+      "bytes_proposed": 4066,
+      "validator_exit": 0,
+      "validator_output": "Skill is valid!",
+      "description_chars_before": 268,
+      "description_chars_proposed": 132
+    },
+    {
+      "key": "paper-full-review",
+      "live_source_unchanged": true,
+      "bytes_before": 5673,
+      "bytes_proposed": 5855
+    },
+    {
+      "key": "remove-ai-slops",
+      "live_source_unchanged": true,
+      "bytes_before": 21659,
+      "bytes_proposed": 20942,
+      "validator_exit": 0,
+      "validator_output": "Skill is valid!",
+      "description_chars_before": 786,
+      "description_chars_proposed": 97
+    }
+  ],
+  "missing_local_markdown_links": [],
+  "all_live_sources_unchanged": true,
+  "ponytail_original_validator_same_error": true
+}

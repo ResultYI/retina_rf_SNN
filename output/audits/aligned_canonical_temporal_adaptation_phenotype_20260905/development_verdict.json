@@ -1,0 +1,97 @@
+{
+  "verdict": "NO-GO \u2014 NO TEMPORAL/ADAPTATION-SPECIFIC DEFICIT",
+  "criteria": [
+    {
+      "comparator": "LN",
+      "checks": {
+        "raw_mean_ci_positive": false,
+        "after_deletion_positive": false,
+        "matched_mean_ci_positive": false,
+        "substantial_retention": false
+      },
+      "go": false,
+      "mixed_candidate": false
+    },
+    {
+      "comparator": "CNN",
+      "checks": {
+        "raw_mean_ci_positive": false,
+        "after_deletion_positive": false,
+        "matched_mean_ci_positive": false,
+        "substantial_retention": false
+      },
+      "go": false,
+      "mixed_candidate": false
+    }
+  ],
+  "population": [
+    {
+      "split": "development",
+      "comparator": "LN",
+      "estimate": "raw",
+      "cells": 22,
+      "available": true,
+      "mean": -0.02666424402644544,
+      "median": -0.018704113692887502,
+      "positive": 5,
+      "negative": 17,
+      "zero": 0,
+      "mean_ci_low": -0.04188313314267458,
+      "mean_ci_high": -0.0126501468452542,
+      "median_ci_low": -0.04114324692716934,
+      "median_ci_high": -0.007697768393454123
+    },
+    {
+      "split": "development",
+      "comparator": "LN",
+      "estimate": "U_matched",
+      "cells": 22,
+      "available": true,
+      "mean": -0.02537657674017727,
+      "median": -0.02257377461819087,
+      "positive": 4,
+      "negative": 18,
+      "zero": 0,
+      "mean_ci_low": -0.03945505334186403,
+      "mean_ci_high": -0.012175465947608382,
+      "median_ci_low": -0.035412488186603586,
+      "median_ci_high": -0.009141719975427691
+    },
+    {
+      "split": "development",
+      "comparator": "CNN",
+      "estimate": "raw",
+      "cells": 22,
+      "available": true,
+      "mean": -0.0054980148627208235,
+      "median": -0.01103245988489981,
+      "positive": 10,
+      "negative": 12,
+      "zero": 0,
+      "mean_ci_low": -0.02622141957791531,
+      "mean_ci_high": 0.01517181458721052,
+      "median_ci_low": -0.028846215299028907,
+      "median_ci_high": 0.006890976270040018
+    },
+    {
+      "split": "development",
+      "comparator": "CNN",
+      "estimate": "U_matched",
+      "cells": 22,
+      "available": true,
+      "mean": -0.009579616504406379,
+      "median": -0.009556134202737435,
+      "positive": 8,
+      "negative": 14,
+      "zero": 0,
+      "mean_ci_low": -0.02842544096688638,
+      "mean_ci_high": 0.009353502515923807,
+      "median_ci_low": -0.02852656519376058,
+      "median_ci_high": 0.00886914828938796
+    }
+  ],
+  "decision_data": "development [16,20) only",
+  "consumed_analysis_started": false,
+  "utc": "2026-09-05T11:52:51.739715+00:00",
+  "protocol_sha256": "b9396c5a9070ee4468a897eff78dcdc4d2016b50c6a44e1600ee3eb736ef5f64"
+}

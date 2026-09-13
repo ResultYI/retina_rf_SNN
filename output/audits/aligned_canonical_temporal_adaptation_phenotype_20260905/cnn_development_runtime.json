@@ -1,0 +1,10 @@
+{
+  "torch": "2.10.0+cu126",
+  "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+  "cells": 22,
+  "dtype": "float32",
+  "amp": false,
+  "tf32": false,
+  "deterministic_algorithms": true,
+  "cudnn_benchmark": false
+}

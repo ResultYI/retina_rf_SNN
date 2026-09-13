@@ -1,0 +1,10 @@
+{
+  "sha256": "740349691eb4247f2ab1990531b802aca2c57a2e954f35948dbb5913dafecfe2",
+  "timestamp_utc": "2026-09-05T10:52:38.062127+00:00",
+  "bootstrap_seed": 2026090502,
+  "solver_rate_tolerance": 1e-12,
+  "solver_width_tolerance": 1e-12,
+  "solver_max_iterations": 200,
+  "before_new_inference": true,
+  "before_bias_fitting": true
+}

@@ -1,0 +1,48 @@
+Cell List
+
+File | Cell Type | Record type | Cell key
+
+Lss01071.txt | - | M+Loff | 10 min | 67#4
+Lss01078.txt | MC off | 6x1min | 67#6
+Lss01079.txt | MC off | 10min | 67#6
+Lss01086.txt | MC on | 6x1min | 67#7
+Lss01087.txt | MC on | 10min | 67#7
+Lss01110.txt | +L-Mon | 6x1min | 67#14
+Lss0 | 1112.txt | +L-Mon | 10min | 67#14
+Lss01130.txt | +M-Lon | 6x1 | min | 67#21
+L | ss01131.txt | +M-Lon | 10min | 67#21
+Lss01141.txt | +M-Lon | 6x1min | 67#26
+Lss01142.txt | +M-Lon | 10min | 67#26
+Lss01159.txt | MC off | 6x1min | 67#33
+Lss01160 | .txt | MC off | 10min | 67#33
+Lss01167.txt | +L-Mon | 6x1min | 67#34
+Lss01168.txt | +L-Mon | 10min | 67#34
+Lss01178.txt | S on | 6x1min | 68#1
+Lss01180 | .txt | S on | 10 | min | 68#1
+Lss01181.txt | MC off | 6x1 | min | 68#3
+Lss01183.txt | MC off | 10min  | 68#3
+Lss01184.txt | +L-Mon | 10min  | 68#4
+Lss01221.txt | MC on | 10 min | 68#10
+Lss01225.txt | - | M+Loff | 6x1 min | 68#11
+Lss01227.txt | - | M+Loff | 10 min | 68#11
+Lss01229.txt | S on | 6x1 min | 68#12
+Lss01231 | .txt | S on | 10 min | 68#12
+Lss01251.txt | +M- | Loff | 6x1 min | 69#3
+Lss01252.txt | +M- | Loff | 10 min | 69#3
+Lss01254.txt | MC on | 6x1 min | 69#4
+Lss01256.txt | M off | 6x1 min | 69#6
+Lss01257.txt | M off | 10 min | 69#6
+Lss01258.txt | M on | 6x1 min | 69#7
+Lss01259.txt | M on | 10 min | 69#7
+Lss01270.txt | - | L+Moff | 6x1 min | 69#21
+Lss01278.txt | +M-Lon | 6x1 min | 70#1
+Lss01284.txt | +M-Lon | 6x1 min | 70 | #7
+Lss01285.txt | +M-Lon | 10 min | 70 | #7
+Lss01287.txt | +M-Lon | 6x1 min | 70#15
+Lss01299.txt | MC on | 6x1 min | 70#34
+Lss01300.txt | MC on | 10 min | 70#34
+Lss01302.txt | S on | 6x1 min | 71#9
+Lss01303.txt | S on | 10 |  min | 71#9
+
+
+

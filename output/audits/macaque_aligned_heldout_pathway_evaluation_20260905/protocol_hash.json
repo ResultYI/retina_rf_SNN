@@ -1,0 +1,8 @@
+{
+  "path": "output/audits/macaque_aligned_heldout_pathway_evaluation_20260905/TEST_PROTOCOL.md",
+  "sha256": "3652c48aa4293f2c3503e15099b40657f6d3b396f4a06f4434c4f0e27167bb08",
+  "frozen_utc": "2026-09-05T10:13:33.233014+00:00",
+  "data_usage_gate_sha256": "2e57bb70b64aa4e9630834858df7d590e582448308db15a71c6cf781f4d40aab",
+  "data_usage_inventory_sha256": "70593bfc0340d93d8858bd260baa780acad93b15c9fd841f997ef58e31207bf1",
+  "new_model_outputs_before_freeze": 0
+}

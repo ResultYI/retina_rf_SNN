@@ -1,0 +1,326 @@
+{
+  "mapping": "x_deg=x_LN*(3*4.6/256); y_deg=-y_LN*(3*4.6/256); same crop origin, no extra half-pixel shift",
+  "pixel_pitch_degree": 0.053906249999999996,
+  "tests": [
+    {
+      "ln_center_pixels": [
+        0.0,
+        0.0
+      ],
+      "canonical_center_degree": [
+        0.0,
+        -0.0
+      ],
+      "cell_type": "midget",
+      "ln_peak_degree": [
+        0.0,
+        -0.0
+      ],
+      "ln_centroid_degree": [
+        9.313225746154785e-10,
+        1.4901161193847656e-08
+      ],
+      "canonical_basis_peak_degree": [
+        0.0,
+        -0.0
+      ],
+      "bc_support_centroid_degree": [
+        0.0,
+        0.0
+      ],
+      "ac_support_centroid_degree": [
+        0.0,
+        2.838316470743507e-09
+      ],
+      "passed": true
+    },
+    {
+      "ln_center_pixels": [
+        0.0,
+        0.0
+      ],
+      "canonical_center_degree": [
+        0.0,
+        -0.0
+      ],
+      "cell_type": "parasol",
+      "ln_peak_degree": [
+        0.0,
+        -0.0
+      ],
+      "ln_centroid_degree": [
+        9.313225746154785e-10,
+        1.4901161193847656e-08
+      ],
+      "canonical_basis_peak_degree": [
+        0.0,
+        -0.0
+      ],
+      "bc_support_centroid_degree": [
+        0.0,
+        0.0
+      ],
+      "ac_support_centroid_degree": [
+        0.0,
+        2.838316470743507e-09
+      ],
+      "passed": true
+    },
+    {
+      "ln_center_pixels": [
+        1.0,
+        0.0
+      ],
+      "canonical_center_degree": [
+        0.05390625074505806,
+        -0.0
+      ],
+      "cell_type": "midget",
+      "ln_peak_degree": [
+        0.05390624701976776,
+        -0.0
+      ],
+      "ln_centroid_degree": [
+        0.05390617996454239,
+        1.30385160446167e-08
+      ],
+      "canonical_basis_peak_degree": [
+        0.05390624701976776,
+        -0.0
+      ],
+      "bc_support_centroid_degree": [
+        0.05390625074505806,
+        0.0
+      ],
+      "ac_support_centroid_degree": [
+        0.05390624701976776,
+        2.838316470743507e-09
+      ],
+      "passed": true
+    },
+    {
+      "ln_center_pixels": [
+        1.0,
+        0.0
+      ],
+      "canonical_center_degree": [
+        0.05390625074505806,
+        -0.0
+      ],
+      "cell_type": "parasol",
+      "ln_peak_degree": [
+        0.05390624701976776,
+        -0.0
+      ],
+      "ln_centroid_degree": [
+        0.05390617996454239,
+        1.30385160446167e-08
+      ],
+      "canonical_basis_peak_degree": [
+        0.05390624701976776,
+        -0.0
+      ],
+      "bc_support_centroid_degree": [
+        0.05390624701976776,
+        0.0
+      ],
+      "ac_support_centroid_degree": [
+        0.05390624701976776,
+        2.838316470743507e-09
+      ],
+      "passed": true
+    },
+    {
+      "ln_center_pixels": [
+        -1.0,
+        0.0
+      ],
+      "canonical_center_degree": [
+        -0.05390625074505806,
+        -0.0
+      ],
+      "cell_type": "midget",
+      "ln_peak_degree": [
+        -0.05390624701976776,
+        -0.0
+      ],
+      "ln_centroid_degree": [
+        -0.05390617251396179,
+        1.30385160446167e-08
+      ],
+      "canonical_basis_peak_degree": [
+        -0.05390624701976776,
+        -0.0
+      ],
+      "bc_support_centroid_degree": [
+        -0.05390625074505806,
+        0.0
+      ],
+      "ac_support_centroid_degree": [
+        -0.05390624701976776,
+        2.838316470743507e-09
+      ],
+      "passed": true
+    },
+    {
+      "ln_center_pixels": [
+        -1.0,
+        0.0
+      ],
+      "canonical_center_degree": [
+        -0.05390625074505806,
+        -0.0
+      ],
+      "cell_type": "parasol",
+      "ln_peak_degree": [
+        -0.05390624701976776,
+        -0.0
+      ],
+      "ln_centroid_degree": [
+        -0.05390617251396179,
+        1.30385160446167e-08
+      ],
+      "canonical_basis_peak_degree": [
+        -0.05390624701976776,
+        -0.0
+      ],
+      "bc_support_centroid_degree": [
+        -0.05390624701976776,
+        0.0
+      ],
+      "ac_support_centroid_degree": [
+        -0.05390624701976776,
+        2.838316470743507e-09
+      ],
+      "passed": true
+    },
+    {
+      "ln_center_pixels": [
+        0.0,
+        1.0
+      ],
+      "canonical_center_degree": [
+        0.0,
+        -0.05390625074505806
+      ],
+      "cell_type": "midget",
+      "ln_peak_degree": [
+        0.0,
+        -0.05390624701976776
+      ],
+      "ln_centroid_degree": [
+        4.656612873077393e-10,
+        -0.053906138986349106
+      ],
+      "canonical_basis_peak_degree": [
+        0.0,
+        -0.05390624701976776
+      ],
+      "bc_support_centroid_degree": [
+        0.0,
+        -0.05390625074505806
+      ],
+      "ac_support_centroid_degree": [
+        0.0,
+        -0.05390624701976776
+      ],
+      "passed": true
+    },
+    {
+      "ln_center_pixels": [
+        0.0,
+        1.0
+      ],
+      "canonical_center_degree": [
+        0.0,
+        -0.05390625074505806
+      ],
+      "cell_type": "parasol",
+      "ln_peak_degree": [
+        0.0,
+        -0.05390624701976776
+      ],
+      "ln_centroid_degree": [
+        4.656612873077393e-10,
+        -0.053906138986349106
+      ],
+      "canonical_basis_peak_degree": [
+        0.0,
+        -0.05390624701976776
+      ],
+      "bc_support_centroid_degree": [
+        0.0,
+        -0.05390624701976776
+      ],
+      "ac_support_centroid_degree": [
+        0.0,
+        -0.05390624701976776
+      ],
+      "passed": true
+    },
+    {
+      "ln_center_pixels": [
+        0.0,
+        -1.0
+      ],
+      "canonical_center_degree": [
+        0.0,
+        0.05390625074505806
+      ],
+      "cell_type": "midget",
+      "ln_peak_degree": [
+        0.0,
+        0.05390624701976776
+      ],
+      "ln_centroid_degree": [
+        4.656612873077393e-10,
+        0.053906168788671494
+      ],
+      "canonical_basis_peak_degree": [
+        0.0,
+        0.05390624701976776
+      ],
+      "bc_support_centroid_degree": [
+        0.0,
+        0.05390625074505806
+      ],
+      "ac_support_centroid_degree": [
+        0.0,
+        0.05390624329447746
+      ],
+      "passed": true
+    },
+    {
+      "ln_center_pixels": [
+        0.0,
+        -1.0
+      ],
+      "canonical_center_degree": [
+        0.0,
+        0.05390625074505806
+      ],
+      "cell_type": "parasol",
+      "ln_peak_degree": [
+        0.0,
+        0.05390624701976776
+      ],
+      "ln_centroid_degree": [
+        4.656612873077393e-10,
+        0.053906168788671494
+      ],
+      "canonical_basis_peak_degree": [
+        0.0,
+        0.05390624701976776
+      ],
+      "bc_support_centroid_degree": [
+        0.0,
+        0.05390624701976776
+      ],
+      "ac_support_centroid_degree": [
+        0.0,
+        0.05390624329447746
+      ],
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "frozen_input_count": 1278,
+  "all_frozen_inputs_unchanged": true,
+  "primary_exact_replay": "PASS_22_OF_22",
+  "real_inference_diagnostics": "PASS",
+  "historical_synthetic_current_reconstruction": "PASS_EXACT",
+  "synthetic_current_full_forward": "FAIL_NOT_EXACT_SOURCE_DRIFT",
+  "independent_numerical_checks": "PASS",
+  "report_local_links_and_table_structure": "PASS",
+  "new_training_runs": 0,
+  "optimizer_steps": 0,
+  "new_illusion_runs": 0,
+  "existing_git_status_preserved": true,
+  "new_files_only_in_requested_output": true,
+  "outside_output_changes": [],
+  "row_counts": {
+    "RF": 160,
+    "pathway": 132,
+    "temporal": 1952,
+    "pairs": 37
+  }
+}

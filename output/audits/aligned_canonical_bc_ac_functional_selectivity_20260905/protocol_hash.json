@@ -1,0 +1,7 @@
+{
+  "sha256": "1a7d70347c62a955bc4ad10138e1971c04fd58eb9eeb38a10fef799e2f03523a",
+  "frozen_utc": "2026-09-05T12:36:25.277810+00:00",
+  "prior_full_protocol_existed": false,
+  "selectivity_results_read_before_freeze": false,
+  "review": "CLEAR; heldout_protocol_review"
+}

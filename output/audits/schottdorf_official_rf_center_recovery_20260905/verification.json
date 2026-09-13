@@ -1,0 +1,40 @@
+{
+  "frozen_inputs_checked": 967,
+  "frozen_input_changes": [],
+  "branch_unchanged": true,
+  "HEAD_unchanged": true,
+  "git_status_outside_new_audit_unchanged": true,
+  "git_status_after": "?? \"earch code and final audit evidence\\357\\200\\242\"\n?? output/audits/macaque_fixed_alignment_experiment_20260905/EXECUTION_NOTES.md\n?? output/audits/macaque_fixed_alignment_experiment_20260905/PROTOCOL.md\n?? output/audits/macaque_fixed_alignment_experiment_20260905/REPORT.md\n?? output/audits/macaque_fixed_alignment_experiment_20260905/alignment_vs_improvement.csv\n?? output/audits/macaque_fixed_alignment_experiment_20260905/analysis-code-freeze.json\n?? output/audits/macaque_fixed_alignment_experiment_20260905/analysis-manifest.json\n?? output/audits/macaque_fixed_alignment_experiment_20260905/artifact-manifest.json\n?? output/audits/macaque_fixed_alignment_experiment_20260905/coordinate_mapping.json\n?? output/audits/macaque_fixed_alignment_experiment_20260905/git-state-final.json\n?? output/audits/macaque_fixed_alignment_experiment_20260905/group_prediction.csv\n?? output/audits/macaque_fixed_alignment_experiment_20260905/manifest.json\n?? output/audits/macaque_fixed_alignment_experiment_20260905/mechanism_comparison.csv\n?? output/audits/macaque_fixed_alignment_experiment_20260905/mechanism_summary.csv\n?? output/audits/macaque_fixed_alignment_experiment_20260905/paired_prediction.csv\n?? output/audits/macaque_fixed_alignment_experiment_20260905/per_cell_results.csv\n?? output/audits/macaque_fixed_alignment_experiment_20260905/preflight.json\n?? output/audits/macaque_fixed_alignment_experiment_20260905/rf_comparison.csv\n?? output/audits/macaque_fixed_alignment_experiment_20260905/summary.json\n?? output/audits/macaque_fixed_alignment_experiment_20260905/verification.json\n?? output/audits/macaque_spatial_alignment_20260905/REPORT.md\n?? output/audits/macaque_spatial_alignment_20260905/alignment_vs_prediction.csv\n?? output/audits/macaque_spatial_alignment_20260905/audit.py\n?? output/audits/macaque_spatial_alignment_20260905/evidence_manifest.json\n?? output/audits/macaque_spatial_alignment_20260905/frozen_inner_center_consistency.csv\n?? output/audits/macaque_spatial_alignment_20260905/independent_evidence.json\n?? output/audits/macaque_spatial_alignment_20260905/official_model_centers.csv\n?? output/audits/macaque_spatial_alignment_20260905/per_cell_alignment.csv\n?? \"output/audits/schottdorf_official_rf_center_recovery_20260905/Cell List.txt\"\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/CellsList.txt\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/Fig2publication.xlsx\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/REPORT.md\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/SEARCH_SCOPE.md\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/Statistical_Summary_Document.xlsx.response.html\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/alignment_prediction_relation.csv\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/assemble_evidence.py\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/comparison_summary.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/coordinate_verification.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/evidence_manifest.initial.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/evidence_manifest.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/excluded_notebook_model_centers.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/external_link_summary.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/freeze_inputs.py\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/inventory_sources.py\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/ln_vs_official_centers.csv\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/official_archive.html\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/official_repository.html\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/official_saved_example_extrema.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/paper.html\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/paper_bioc.xml\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/paper_blocks.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/pmc_access_engine.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/reproduction_gate.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/retrieval_log.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/search_summary.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/source_inventory.csv\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/source_search_evidence.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/statistical_epmc.zip.response.html\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/workbook_inventory.json\n?? output/audits/schottdorf_official_rf_center_recovery_20260905/workbook_relationships.json\n",
+  "CSV_checks": {
+    "ln_vs_official_centers.csv": {
+      "rows": 22,
+      "recordings": 37,
+      "official_values_all_missing": true,
+      "cell_order_matches_frozen_lineage": true
+    },
+    "alignment_prediction_relation.csv": {
+      "rows": 22,
+      "recordings": 37,
+      "official_values_all_missing": true,
+      "cell_order_matches_frozen_lineage": true
+    }
+  },
+  "official_repository_inventory_files": 116,
+  "source_inventory_rows": 123,
+  "source_access_status_counts": {
+    "READ": 105,
+    "BINARY_NOT_COORDINATE_TABLE": 8,
+    "ANNEX_POINTER_ONLY": 7,
+    "UNVERIFIED_ACCESS_BLOCKED": 1,
+    "UNVERIFIED_HTTP_403": 1,
+    "UNAVAILABLE_VIA_THIS_API": 1
+  },
+  "new_training_runs": 0,
+  "new_RF_estimation_runs": 0,
+  "new_checkpoints": 0,
+  "statistical_summary_payload": "UNVERIFIED_NOT_RETRIEVED",
+  "author_coordinate_orientation": "UNVERIFIED",
+  "frame_750_751_center_sensitivity": "UNVERIFIED_NOT_RECOMPUTED",
+  "audit_conclusion": "B",
+  "verification_scope": "Input integrity, lineage/table completeness, missing-value semantics, recomputed frozen-table correlations and audit-script syntax. No training or model execution."
+}

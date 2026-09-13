@@ -1,0 +1,21 @@
+{
+  "checked_utc": "2026-09-07T03:26:53.927691+00:00",
+  "status": "VERIFIED DERIVATION INPUTS",
+  "existing_locked_outputs_checked": 95,
+  "existing_locked_output_hash_changes": [],
+  "original_manifest_inputs_checked": 2328,
+  "scientific_input_hash_changes": [],
+  "post_completion_non_scientific_change": {
+    "path": "AGENTS.md",
+    "reason": "Separately user-authorized Codex instruction optimization after M1 completion",
+    "original_backup": "C:\\Users\\win11-pc\\.codex\\backups\\context-instructions-20260907T032037Z-843cecc2\\2-AGENTS.md",
+    "backup_matches_original_manifest": true,
+    "current_sha256": "e28dc5fb84e1a51ed97b7b63d6fa4fac13ca30e748a1529a727d160b21c91926"
+  },
+  "historical_manifest_modified": false,
+  "derivation_rerun": false,
+  "bias_fitting": false,
+  "model_inference_rerun_this_check": false,
+  "verdict": "MIXED — FUNCTIONAL SELECTIVITY WEAK OR NONSPECIFIC",
+  "M2": false
+}

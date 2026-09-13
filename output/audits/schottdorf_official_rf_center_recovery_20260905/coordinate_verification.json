@@ -1,0 +1,48 @@
+{
+  "LN": {
+    "raw_unit": "pooled pixel",
+    "raw_x_positive": "image column right",
+    "raw_y_positive": "image row down",
+    "common_x_positive": "right",
+    "common_y_positive": "up",
+    "degree_per_pooled_pixel": 0.053906249999999996,
+    "transform": "x_degree=x_LN*3*4.6/256; y_degree=-y_LN*3*4.6/256",
+    "sources": [
+      "baselines/center_surround_ln.py:39-41",
+      "data/schottdorf_lee_2021.py:220-229",
+      "output/audits/macaque_fixed_alignment_experiment_20260905/coordinate_mapping.json"
+    ],
+    "all_22_checkpoint_to_frozen_table_centers_match": true
+  },
+  "official": {
+    "usable_target_centers": 0,
+    "orientation_status": "UNVERIFIED",
+    "transform_applied": false,
+    "coordinate_sign_selected_using_LN": false,
+    "example_raw_fields": [
+      "MxFr",
+      "MxX",
+      "MxY",
+      "Max"
+    ],
+    "example_index_origin": "UNVERIFIED",
+    "example_y_axis": "UNVERIFIED",
+    "native_nominal_degree_per_pixel": 0.01796875,
+    "nominal_scale_is_not_a_verified_example_coordinate_transform": true,
+    "author_prediction_model_grid": "linspace(-128,128,256), step 256/255; not evidence for RC-map index origin",
+    "near_zero_vector_angles": "None computed; no eligible pairs. No threshold selected from LN agreement."
+  },
+  "frame_750_751": {
+    "status": "UNVERIFIED_NOT_RECOMPUTED",
+    "current_contract": "_LIVE_START_FRAME=751; acquisition zero remains unresolved in CURRENT_STATE.md:22",
+    "author_readme": "751 blank frames, live starts at frame 752 in one-based notation",
+    "author_notebook_timing_is_prediction_fitting_not_RC_sync": true,
+    "conditional_analysis": "A uniform temporal lag translation can preserve a spatial peak only with unchanged boundaries, lag coverage and peak selection. These conditions are not verified for the author estimator.",
+    "material_spatial_sensitivity_ruled_out": false,
+    "two_alignment_displacement_degree": null,
+    "why_no_two_alignment_run": "Author RF-estimation reproduction gate not met; running an invented estimator twice would not answer sensitivity of the author method.",
+    "production_frame_zero_modified": false
+  },
+  "new_training_runs": 0,
+  "RF_estimation_reproduction_runs": 0
+}

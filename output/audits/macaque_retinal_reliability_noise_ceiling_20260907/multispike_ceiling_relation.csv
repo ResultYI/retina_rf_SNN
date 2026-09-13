@@ -1,0 +1,2 @@
+model,covariate,n_scored,pearson,spearman,status,exclusion_reason
+,,0,,,NOT_RUN_OFFICIAL_PROTOCOL_UNVERIFIED,No metrics computed after prerequisite STOP

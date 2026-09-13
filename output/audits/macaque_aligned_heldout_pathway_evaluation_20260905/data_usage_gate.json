@@ -1,0 +1,26 @@
+{
+  "status": "CLEAN_FOR_CONFIRMATORY_EVALUATION",
+  "timestamp_utc": "2026-09-05T10:13:33.223510+00:00",
+  "candidate_live_seconds": [
+    20,
+    60
+  ],
+  "candidate_live_frames": [
+    3000,
+    9000
+  ],
+  "cells": 22,
+  "recordings": 37,
+  "trials": 137,
+  "unique_text_paths": 8994,
+  "unique_binary_paths": 1074,
+  "unique_source_ID_rows": 6824,
+  "merged_config_rows": 69,
+  "merged_range_hits": 24911,
+  "post20_executed_configs": 0,
+  "post20_saved_source_IDs": 0,
+  "overlapping_inaccessible_directories": [],
+  "scope": "Operational no-evidence criterion inside current repository, recoverable archives and temporary artifacts; not proof about undocumented actions outside this evidence boundary.",
+  "new_model_outputs_before_protocol": 0,
+  "source_validation_is_not_model_development": true
+}

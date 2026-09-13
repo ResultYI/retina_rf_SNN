@@ -1,0 +1,3 @@
+split,mean_aligned_minus_zero,aligned_wins,pearson_offset_improvement,spearman_offset_improvement
+development,-0.014916610988703642,18,0.8622918658209707,0.8464144551101074
+held-out,-0.016701797192746944,19,0.871005211026309,0.7865612648221344

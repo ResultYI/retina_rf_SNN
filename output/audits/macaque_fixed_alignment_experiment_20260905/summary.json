@@ -1,0 +1,105 @@
+{
+  "outcome": "SUPPORTED: centering materially limits current Canonical",
+  "development_evidence": true,
+  "cell_count": 22,
+  "mean_zero_nll": 0.43895614553581586,
+  "mean_aligned_nll": 0.4240395345471122,
+  "mean_delta_nll": -0.014916610988703642,
+  "median_delta_nll": -0.00814296305179596,
+  "aligned_wins": 18,
+  "zero_wins": 4,
+  "ties": 0,
+  "paired_bootstrap_95_ci": [
+    -0.024541495672681116,
+    -0.007502861456437545
+  ],
+  "bootstrap_seed": 20260905,
+  "bootstrap_replicates": 100000,
+  "pearson_offset_improvement": 0.8622918658209707,
+  "spearman_offset_improvement": 0.8464144551101074,
+  "low_offset_mean_improvement": 0.002523042938926003,
+  "high_offset_mean_improvement": 0.027310179038481278,
+  "low_offset_cells": [
+    "68#4",
+    "70#7",
+    "69#3",
+    "67#26",
+    "68#11",
+    "69#4",
+    "67#14",
+    "67#21",
+    "69#7",
+    "69#6",
+    "67#34"
+  ],
+  "high_offset_cells": [
+    "70#34",
+    "67#7",
+    "67#4",
+    "67#33",
+    "67#6",
+    "68#7",
+    "70#15",
+    "68#3",
+    "69#21",
+    "70#1",
+    "68#10"
+  ],
+  "mean_delta_without_68_10": -0.011225623743874686,
+  "groups": [
+    {
+      "group": "MC_ON",
+      "n": 5,
+      "mean_delta_nll": -0.027197283506393433
+    },
+    {
+      "group": "MC_OFF",
+      "n": 4,
+      "mean_delta_nll": -0.018430806696414948
+    },
+    {
+      "group": "PC_ON",
+      "n": 9,
+      "mean_delta_nll": -0.010523309310277304
+    },
+    {
+      "group": "PC_OFF",
+      "n": 4,
+      "mean_delta_nll": -0.0059365034103393555
+    }
+  ],
+  "gap_eligible_cells": 16,
+  "mean_descriptive_recovery": 0.8796505553002915,
+  "median_descriptive_recovery": 0.917567824115408,
+  "gap_weighted_descriptive_recovery": 0.943525083382962,
+  "all_cell_mean_original_gap": 0.012958201495083895,
+  "all_cell_mean_remaining_gap": -0.0019584094936197453,
+  "prediction_supported": true,
+  "offset_supported": true,
+  "rf_summary": [
+    {
+      "pathway": "global",
+      "median_relative_l2": 1.3835637779076015,
+      "median_cosine": 0.25727220437400855,
+      "median_centroid_shift_degree": 0.08677779025166699
+    },
+    {
+      "pathway": "H1",
+      "median_relative_l2": 1.3558253554771915,
+      "median_cosine": 0.8702646199992827,
+      "median_centroid_shift_degree": 0.08607616384361443
+    },
+    {
+      "pathway": "direct_BC",
+      "median_relative_l2": 1.3269096579838329,
+      "median_cosine": 0.3149108156716312,
+      "median_centroid_shift_degree": 0.08647721157563462
+    },
+    {
+      "pathway": "AC",
+      "median_relative_l2": 0.8724549709064044,
+      "median_cosine": 0.6653789460262798,
+      "median_centroid_shift_degree": 0.08751573792508023
+    }
+  ]
+}

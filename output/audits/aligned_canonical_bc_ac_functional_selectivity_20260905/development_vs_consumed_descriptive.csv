@@ -1,0 +1,4 @@
+quantity,development_mean,consumed_descriptive_mean,population_direction_consistent,sign_consistent_cells,defined_pairs,total_cells,independent_confirmation,verdict_unchanged
+E_AC,0.0013821307226930882,0.20955137693662962,True,12,22,22,False,True
+E_BC,0.016126738633874056,0.14417302805506196,True,10,22,22,False,True
+D,-0.1473674259002342,0.46489346513713065,False,8,22,22,False,True

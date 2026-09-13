@@ -1,0 +1,270 @@
+{
+  "checks": [
+    {
+      "cell_id": "67#4",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#4",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#6",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#6",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#7",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#7",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#14",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#14",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#21",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#21",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#26",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#26",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#33",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#33",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#34",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "67#34",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "68#3",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "68#3",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "68#4",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "68#4",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "68#7",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "68#7",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "68#10",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "68#10",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "68#11",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "68#11",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "69#3",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "69#3",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "69#4",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "69#4",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "69#6",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "69#6",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "69#7",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "69#7",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "69#21",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "69#21",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "70#1",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "70#1",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "70#7",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "70#7",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "70#15",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "70#15",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "70#34",
+      "pathway": "BC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    },
+    {
+      "cell_id": "70#34",
+      "pathway": "AC",
+      "recalibrated_nll_exact": true,
+      "normal_nll_exact": true
+    }
+  ],
+  "all_passed": true,
+  "model_inference_rerun": false
+}

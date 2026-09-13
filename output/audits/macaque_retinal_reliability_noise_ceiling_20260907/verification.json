@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "inputs_checked": 184,
+  "input_hash_changes": [],
+  "independent_raw_repeat_arrays_exact": 120,
+  "protocol_hash_exact": true,
+  "prior_original_paper_hashes_exact": true,
+  "report_questions": 10,
+  "model_score_calculation": false
+}

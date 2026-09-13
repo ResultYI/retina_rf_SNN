@@ -1,0 +1,159 @@
+T | he  | 6x | 1 min segments were all in |  on | e  | file |  bu | t |  the up to 6 10 min runs are separate files
+
+ER67U | 1  | goff | 6x1 | 48
+6x1 | 53 | LL | RR | corr
+Repeat centered | 6x | 1 | 0 | 54-59 | LL | RR
+ER67 | U | 3 | ron | 1 min | 61 | C | LL | RR | corr
+Lost bad | 1 | x10 | 65 | LL | RR
+ER67 | U4 | goff | 6x1 | 69 | C | LL | RR | poor
+bad | ML | resp | 6x10 | 70-75 | LL | RR
+6x1 128 | 77
+er67u6 | moff | 6x1 | 78 | C | LL | RR
+6x10 | 79-84 | LL | RR
+ER67U8 | mon | 6x1 | 86 | C | LL | RR
+6x10 | 87-92 | LL | RR
+6x1 | 94 | C | LL | RR
+128x128 | 6x1 | 95
+256x256 | ,1 | /2 | 6x1 | 96
+128x128 | ,1 | /2 | 6x1 | 97
+256x256 | ,1nd | 6x1 | 98
+repeat | 99
+ER67U9 | ron | 6x1 | 100 | C | LL | RR
+1x10 | 101 | LL | RR
+1ND | 6x1 | 102
+only |  103 ok | 6x10 | 103 | LL | RR
+ER67U14 | ron | 6x1 | 110 | C | LL | RR
+Cts |  also | 6x10 | 111-116 | LL | RR
+ER67U15 | Ron? | 6x1 | 118 | C | LL | RR
+1x10 | 119 | LL | RR
+ER67U12 | Mon | dirt? | 6x1 | 120 | C | LL | RR
+ER67U18 | Mon | 6x1 | 121 | C | LL | RR
+1x10 | 122 | LL | RR
+6x10 | 123-128 | LL | RR
+ER67U21 | Gon | 6x1 | 130 |   | C | LL | RR
+Last 2-3 |  odd | 6x10 | 131-136 | LL | RR
+ER67U23 | Ron | 6x1 | 138 | C | LL | RR
+2x10 | 139-140 | LL | RR
+ER67U26 | Gon | 6x1 | 141 | C | LL | RR
+14 | 4, | 5 dirty | 3x10 | 142-144  | LL | RR
+128x128 | 6x1 | 147
+1nd | 6x1 | 148
+2nd | 6x1 | 149
+2 | nd |   | rpt | 6x1 | 150
+ER67U28 | Mon | 6x1 | 151 | C | LL | RR
+Cts |  also | 6x10 | 152-157 | LL | RR
+ER67U33 | Moff | 6x1 | 159      | C | LL | RR
+cts |  also | 1x10 | 160 | LL | RR
+nd1 | 6x1 | 161
+nd2 | 6x1 | 162
+nd2 | 1x10 | 163
+nd2 | 1x10 | 164
+6x1 min | 165 | C | LR | RR
+128x128 | 6x1 min | 166
+ER67U34 | Ron | 6x1 | 167 | C | LR | RR
+1x10 | 168 | LL | RR
+1nd | 6x1 | 169
+2nd | 6x1 | 170
+4x10 | 171-174 | LR | RR
+ER68U2 | Bon | 6x1 | 178 | C | LR | RR | BAR | ,BNR
+6x1time | 179 | C
+1x10 | 180 | LR | SR
+ER68U3 | Moff | 6x1 | 181 | C | LR | RR
+6x1time | 182 | C
+1x10 | 183 | LR | RR
+ER68U4 | Ron | 6x1 | 184 | C | LR | RR |   poor
+dirtend | 6x1time | 185
+6x1 | 186 | C | LR | RR |  poor
+ER68U5 | Goff | 1x10 | 188 | LR | RR
+6x1 | 189 | C | LR | RR |  poor
+ER68U6 | Bon | 6x1 | 190 | C | LR | RR | BAR | ,BNR
+6x1time | 191 | C
+gating |  bad | 1x10 | 192
+lum |  poor | 1x10 | 193 | LR | Sabs
+ER68U7 | Ron | 6x1 | 194 | C | LR | RR
+6x1 | time | 195 | C
+1x10 | 196 | LR | RR
+6x10 | 197-202 | LR | RR
+ER68U8 | Bon | 6x1 | 204 | C | LR | RR | BAR | ,BN
+Not Bon | Lost after 2 repeats
+Boff |  or Goff | N | ogood | -- | 1x10 | 205
+6x1time | 206 | C
+211bad | 5x10 | 207-211 | LR
+ER68U9 | Roff | 6x1 | 212 | C | LR | RR |  poor
+Poor  | chr |   | resp | 1x10 | 213 | LR | RR
+Scrub cell | 6x1 | time | 214 | C
+also |  poor | 3x10 | 215-217 | LR | RR
+ER68U10 | Mon | 6x1 | 218 | C | LR | RR
+6x1time | 220 | C
+4x10 | 221-224 | LR | RR
+ER68U11 | Goff |  poor | 6x1 | 225 | C | LR | RR |   poor
+Bad  | resp | 6x1time | 226 | C
+2x10 | 227-228 | LR | RR
+ER68U12 | Bon | 6x1 | 229 | C | LR | RR | BAR
+Not good | 6x1time | 230 | C
+1x10 | 231 | LR | SC
+ER68U13 | Ron | 6x1 | 232 | C | LR | RR
+Run 4 bad
+6x1time | 233 | C
+1x10 | 234 | LR | RR
+ER68U18 | gon | NG | 6x1 | 235 | C | LR | RR
+6x1time | 236 | C
+NG | 1x10 | 237 | LR | RR
+ER68U19 | Ron | 6x1 | 238 | C | LR | RR
+6x1time | 239 | C
+4x10 | 240-243 | LR | CR
+ER68U20 | Ron | weak | 6x1 | 244 | C | LR | RR
+6x1time | 245 | C
+1x10 | 246 | LR | RR
+ER69U1 | Moff | poor | 6x1 | 247 | C | LR | RR
+First run poor
+1x10 | 248 | LR | RR
+ER69U2 | Goff | 6x1 | 249 | C | LR | RR
+Few spikes
+dirty | ? | 1x10 | 250 | LR | RR
+ER69U3 | Roff | 6x1 | 251 | C | LR | RR
+????? | 1x10 | 252 | LR | RR
+6x1time | 253 | C
+ER69U4 | Mon | 6x1 | 254 | C | LR | RR
+also |   | cts | 6x1time | 255   | C
+ER69U6 | Moff | 6x1 | 256 | C | LR | RR
+1x10 | 257 | LR | RR
+ER69U7 | Mon | 6x1 | 258 | C | LR | RR
+also |   | cts | 1x10 | 259 | LR | RR
+ER69U10 | Mon |  3rpts | 6x1 | 260-262 | C | LR | RR
+3NDs? | 6x1time | 263 | C
+also |   | cts | 3x10 | 264-266 | LR | RR
+
+
+ER69U21 | Roff | 6x1 | 267 | C | LR | RR |  poor  | chr
+Or  | ron | ? | 1x10 | 269 | LR | RR
+
+repeat | 6x1 | 270 | C | LR | RR |  better
+low |  correlation
+ER69U22 | Goff | 6x1 | 271 | C | LR | RR
+Low correlation
+
+1x10 | 272 | LR | RR
+ER69U26 | Ron | poor | 6x1 | 273 | C | LR | RR
+dirty | 1x10 | 274 | LR | RR
+ER70 | U1 | Gon | 6x1 | 278 | C | LR | RR
+ER70U5 | Roff | poor | 6x1 | 281 | C | LR | RR
+poor | 2x10 | 282-283 | LR | RR
+ER70U7 | Gon | 6x1 | 284 | C | LR | RR
+2x10 | 285-286 | LR | RR
+ER70U13 | Gon | 6x1 | 287 | C | LR | RR
+1x10 | 288 | ?
+ER70U | 17 | Gon | 6x1 | 288 | LR | RR
+Poor correlation
+2x10 | 289-290 | LR | RR
+ER70U24 | Gon | 6x1 | 291 | C | LR | RR
+ER70U25 | Gon | ? | 1x10 | 292 | LR | RR
+6x1 | 293 | C | LL | RR
+poor |  correlation
+ER70U27 | Moff | 6x1 | 297 | C | LL | RR
+1x10 | 298 | LL | RR
+ER70U34 | Mon | 6x1 | 299 | C | LL | RR
+5 | th |  run  | bad
+1x10 | 300 | LL | RR
+ER71U9 | Bon | 6x1 | 302 | C | LL | RR | BAR | , BNR
+2 | nd |  bad | 2x10 | 303-304 | LL | RR

@@ -1,0 +1,275 @@
+[
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/retinatools/library.py",
+    "sha256": "92fc28ac16177bd314910254c41e346334adec374e60b2f3cc369f8ccfb0a50f",
+    "unit_kind": "line",
+    "matches": [
+      {
+        "unit": 5,
+        "text": "def SimpleLowpass(signal, dt, RC):"
+      },
+      {
+        "unit": 239,
+        "text": "    rC = SimpleLowpass(fitparameters['lum_factor']*rates_center, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 240,
+        "text": "    rC = SimpleLowpass(rC, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 241,
+        "text": "    rC = SimpleLowpass(rC, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 244,
+        "text": "    rS = SimpleLowpass(fitparameters['lum_factor']*rates_surround, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 245,
+        "text": "    rS = SimpleLowpass(rS, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 246,
+        "text": "    rS = SimpleLowpass(rS, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 269,
+        "text": "    signalM = SimpleLowpass(fitparameters['lum_factor']*lum_signalM, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 270,
+        "text": "    signalM = SimpleLowpass(signalM, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 271,
+        "text": "    signalM = SimpleLowpass(signalM, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 274,
+        "text": "    signalL = SimpleLowpass(fitparameters['lum_factor']*lum_signalL, fitparameters['dt'], fitparameters['tau1']) "
+      },
+      {
+        "unit": 275,
+        "text": "    signalL = SimpleLowpass(signalL, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 276,
+        "text": "    signalL = SimpleLowpass(signalL, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 295,
+        "text": "    signalM = SimpleLowpass(lum_signalM, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 296,
+        "text": "    signalM = SimpleLowpass(signalM, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 297,
+        "text": "    signalM = SimpleLowpass(signalM, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 301,
+        "text": "    signalL = SimpleLowpass(lum_signalL, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 302,
+        "text": "    signalL = SimpleLowpass(signalL, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 303,
+        "text": "    signalL = SimpleLowpass(signalL, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 310,
+        "text": "    signalB = SimpleLowpass(lum_signalB, fitparameters['dt'], fitparameters['tau1']) "
+      },
+      {
+        "unit": 311,
+        "text": "    signalB = SimpleLowpass(signalB, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 312,
+        "text": "    signalB = SimpleLowpass(signalB, fitparameters['dt'], fitparameters['tau1'])"
+      },
+      {
+        "unit": 331,
+        "text": "    r = np.corrcoef(cell, model)"
+      }
+    ]
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/retinatools/__init__.py",
+    "sha256": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+    "unit_kind": "line",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/BlueOn.ipynb",
+    "sha256": "173482f0dd5fcc53adbd490c11e8798392a04d8f99d4e393a9f1ed0313a7d99e",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/MC_off.ipynb",
+    "sha256": "8a8c5a5c22f569060b6cfb561387d2bb3e7ad9e51d178a6df0c7d8bcfb5bf598",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/MC_on.ipynb",
+    "sha256": "b50214c03d2ac540c1b6f1facdc1812c9dda8f390ffe378c97a2e2871227e023",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/PC_Gon.ipynb",
+    "sha256": "383488c4a4f794ac08d2c2ecce201fc990351e951e95a420cb22754e5105e51c",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/PC_off.ipynb",
+    "sha256": "f723c51b697c4bdcb435c05dcdd912d9ab0e3aa6d83faa42a1fb9b363f1803cb",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": [
+      {
+        "unit": 1,
+        "text": "import numpy as np\nimport pylab as pl\nfrom scipy.optimize import minimize\n\nfrom retinatools.library import filter_video_PC, SimpleLowpass, LuminanceGainControl, nltan, rec, SimpleHighpass, compare_to_file"
+      },
+      {
+        "unit": 4,
+        "text": "signalM = SimpleLowpass(fitparameters['lum_factor']*lum_signalM, fitparameters['dt'], fitparameters['tau1'])\nsignalM = SimpleLowpass(signalM, fitparameters['dt'], fitparameters['tau1'])\nsignalM = SimpleLowpass(signalM, fitparameters['dt'], fitparameters['tau1'])\nsignalM = LuminanceGainControl(signalM, fitparameters['dt'], fitparameters['tau2'])\n\nsignalL = SimpleLowpass(fitparameters['lum_factor']*lum_signalL, fitparameters['dt'], fitparameters['tau1']) \nsignalL = SimpleLowpass(signalL, fitparameters['dt'], fitparameters['tau1'])\nsignalL = SimpleLowpass(signalL, fitparameters['dt'], fitparameters['tau1'])\nsignalL = LuminanceGainControl(signalL, fitparameters['dt'], fitparameters['tau2'])\n\nbM = nltan(signalM, fitparameters['k1'])\nbL = nltan(signalL, fitparameters['k1'])\nout = rec( bM - fitparameters['alpha']*bL )\n\nout = SimpleHighpass(out, fitparameters['dt'], fitparameters['tau3'])\nRpc = rec(fitparameters['k2']*out + fitparameters['o1'])"
+      }
+    ]
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/PC_Ron.ipynb",
+    "sha256": "bf97ebd99a2cbb9384d7c7eba9f537aa6e82cfbf4318657e53fd6c271ebf9b4a",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/Piecharts.ipynb",
+    "sha256": "0b6dd9c2a458484d47f80b31baedf4d8c50db72eae1d93c8da93ec12cbcf881c",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": [
+      {
+        "unit": 2,
+        "text": "# Note: all reliabilities rounded to 2 significant digits, and rounded up"
+      },
+      {
+        "unit": 3,
+        "text": "pl.rcParams['figure.figsize'] = [15, 4]\ndef make_plots(cell_name, RpcF, RpfS, filename, dt, shift, column, retinal_reliability): \n    \n    # Calculate the R^2 values / variaces explained\n    rF = compare_to_file(filename, RpcF, dt, column, shift)    \n    rS = compare_to_file(filename, RpcS, dt, column, shift)\n    spatial_factors = rS**2\n    temporal_factors = rF**2 - rS**2\n    missing_in_model = retinal_reliability - rF**2\n    \n    #Get the data for the plot\n    cell_activity = np.loadtxt(filename)\n    time_cell = np.arange(0, len(cell_activity))*dt + 5000 - shift*6.66 \n    time_model = np.arange(0, len(RpcS)*dt, dt)\n\n    #Make the plot\n    pl.figure()\n    pl.subplot(1,2,1)\n    pl.plot(time_model, RpcS/np.std(RpcS), label=\"Model without surround\")\n    pl.plot(time_model, RpcF/np.std(RpcF), label = \"Full model\")\n    pl.plot(time_cell, cell_activity[:,column]/np.std(cell_activity[:,column]), label=\"Cell data\")\n    pl.xlim([10000,11500])\n    pl.ylim([0,8])\n    pl.xlabel(\"Time [ms]\")\n    pl.ylabel(\"Activity [Z-scored]\")\n    pl.legend();\n    pl.title(\"r_model=\" + str(rF))\n    pl.subplot(1,2,2)\n    labels = 'Center-contribution', '\"Surround\"-Contribution', 'Missing in Model', 'Individual variations'\n    sizes = [spatial_factors, temporal_factors, missing_in_model, 1-retinal_reliability]\n    explode = (0.1, 0.1, 0.1, 0.1)\n    pl.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=-60)\n    pl.axis('equal')\n    pl.title(\"Cell: \" +  cell_name);\n\n    #Save figure + data\n    pl.savefig(\"./\"+ cell_name + \".pdf\")\n    \n    # Select data for cell and model, and save it\n    t0 = 5000\n    time_cell = np.arange(0, len(cell_activity))*dt + 5000 - shift*6.66\n    cell = cell_activity[(time_cell>t0) * (time_cell<64980), column]\n    time = np.arange(0, len(RpcF)*dt, dt) \n    model = RpcF[(time>=t0) * (time<64980)]\n    time_file = time[(time>=t0) * (time<64980)]\n    model_data_save = np.transpose([time_file, cell/np.std(cell), model/np.std(model)])\n    np.savetxt(\"./\"+ cell_name + '_time_cell_fit.csv', model_data_save, fmt='%1.5f', delimiter=', ', newline='\\n', header='time [ms], cell, model', footer='', comments = '', encoding=None)\n\n    pl.close()"
+      },
+      {
+        "unit": 5,
+        "text": "for cell in [\"110Ron\", \"130Gon\"]:\n    \n    if cell == \"110Ron\":\n        fitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\\n                         'lum_factor': 1200, 'tau1': 6.9, 'tau2': 60, 'k1': 0.017, 'tau3': 400,\\\n                         'alpha': 0.68, 'k2': 4, 'o1': 0.07, 'dt': 1000/150.}\n        filename = './data/File110Ron.txt'\n        celltype = \"Ron\"\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rcenterM'] = fitparameters_s['rcenterL']\n        retinal_reliability = 0.91**2 # From Barry for 110Ron\n\n    elif cell == \"130Gon\":\n        fitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\\n                         'lum_factor': 290, 'tau1': 7.8, 'tau2': 100, 'k1': 0.018, 'tau3': 2000,\\\n                         'alpha': 0.71, 'k2': 3.0, 'o1': 0.06, 'dt': 1000/150.}\n        filename = './data/File130Gn.txt'\n        celltype = \"Gon\"\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rcenterL'] = fitparameters_s['rcenterM']\n        retinal_reliability = 0.80**2 # From Barry for 130Gon\n\n\n    # full model\n    lum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\n    RpcF = get_PC_response(lum_signalM, lum_signalL, fitparameters, celltype)\n\n    # no-surround model\n    lum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\n    RpcS = get_PC_response(lum_signalM, lum_signalL, fitparameters_s, celltype)\n    \n    make_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 1, column = 0, retinal_reliability = retinal_reliability)"
+      },
+      {
+        "unit": 8,
+        "text": "for cell in [\"299Mon\", \"078Moff\"]:\n    \n    if cell == \"299Mon\":\n        fitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\\n                         'lum_factor': 60, 'tau1': 7.3, 'tau2': 38, 'k1': 0.019, 'c1': 0.016, 'tauplus': 110, \\\n                         'tauA': 20, 'k2': 50, 'dt': 1000/150.}\n        filename = './data/File299Mon.txt'\n        celltype = 'on-cell'\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rsurr'] = fitparameters_s['rcenter']\n        retinal_reliability = 0.92**2 # From 299 MC on cell\n\n    elif cell == \"078Moff\":\n        fitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\\n                         'lum_factor': 1000, 'tau1': 5.0, 'tau2': 16, 'k1': 0.00048, 'c1': 0.0024, 'tauplus': 22, \\\n                         'tauA': 33, 'k2': 560, 'dt': 1000/150.}\n        filename = './data/File078Moff.txt'\n        celltype = 'off-cell'\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rsurr'] = fitparameters_s['rcenter']\n        retinal_reliability = 0.89**2 # From 78 MC off cell\n\n\n    # full model\n    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\n    RpcF = get_MC_response(rates_center, rates_surround, fitparameters, type = celltype)\n\n    # no-surround model\n    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\n    RpcS = get_MC_response(rates_center, rates_surround, fitparameters_s, type = celltype)\n    \n    make_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 2, column = 0, retinal_reliability = retinal_reliability)"
+      },
+      {
+        "unit": 11,
+        "text": "cell = \"178Bon\"\n\nfitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\\n                 'tau1': 10.2, 'tau2': 86, 'delay': 29, 'beta': 0.0, 'alpha': 4.9,  \\\n                 'tau3': 280, 'kL': 0.01, 'kM': 0.051, 'kB': 0.12, 'offset': 0.025, 'dt': 1000/150.}\n\nfilename = './data/File178Bon.txt'\nfitparameters_s = fitparameters.copy()\nfitparameters_s['rcenterY'] = fitparameters_s['rcenterB']\nretinal_reliability = 0.91**2 # From barry 178 Bon cell\n\n\n# full model\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpcF = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters)\n\n# no-surround model\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\nRpcS = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters_s)\n\nmake_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 2, column = 0, retinal_reliability = retinal_reliability)"
+      }
+    ]
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model_HPC/make_movie_BO.py",
+    "sha256": "fb84bd881de39f4f2995129525077f722c39c4370e8d218dfb7493ec98fbcd49",
+    "unit_kind": "line",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model_HPC/make_movie_from_files.ipynb",
+    "sha256": "5755efd38ec3890f8c72915fbdbfa9926e29def60736d8c2fb48cda11f80e3e7",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model_HPC/make_movie_MC.py",
+    "sha256": "0cb28385b91f0072354d54ef0b320ab6ea6dc844d69a0dc9e7aae722b7228077",
+    "unit_kind": "line",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model_HPC/make_movie_PC.py",
+    "sha256": "9c682e05dace8d0cd24f316835f7a33d5f0d79e2cc2b65e19b652932d1545076",
+    "unit_kind": "line",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/.ipynb_checkpoints/BlueOn-checkpoint.ipynb",
+    "sha256": "173482f0dd5fcc53adbd490c11e8798392a04d8f99d4e393a9f1ed0313a7d99e",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/.ipynb_checkpoints/MC_off-checkpoint.ipynb",
+    "sha256": "91e5e3ca9d37dd6c73f76a3ab1d3ef604f233c5caaed485a551e5678cd057940",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/.ipynb_checkpoints/MC_on-checkpoint.ipynb",
+    "sha256": "81c6be4465f663da5039081af054eb550f7fb031e19d7a427b28f3453e2b7785",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/.ipynb_checkpoints/PC_Gon-checkpoint.ipynb",
+    "sha256": "383488c4a4f794ac08d2c2ecce201fc990351e951e95a420cb22754e5105e51c",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/.ipynb_checkpoints/PC_off-checkpoint.ipynb",
+    "sha256": "8479a33938bd4c5c8a2beed47ca8b1ec91fdb9a9727f47b40d64fdb46948b8c9",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": [
+      {
+        "unit": 1,
+        "text": "import numpy as np\nimport pylab as pl\nfrom scipy.optimize import minimize\n\nfrom retinatools.library import filter_video_PC, SimpleLowpass, LuminanceGainControl, nltan, rec, SimpleHighpass, compare_to_file"
+      },
+      {
+        "unit": 4,
+        "text": "signalM = SimpleLowpass(fitparameters['lum_factor']*lum_signalM, fitparameters['dt'], fitparameters['tau1'])\nsignalM = SimpleLowpass(signalM, fitparameters['dt'], fitparameters['tau1'])\nsignalM = SimpleLowpass(signalM, fitparameters['dt'], fitparameters['tau1'])\nsignalM = LuminanceGainControl(signalM, fitparameters['dt'], fitparameters['tau2'])\n\nsignalL = SimpleLowpass(fitparameters['lum_factor']*lum_signalL, fitparameters['dt'], fitparameters['tau1']) \nsignalL = SimpleLowpass(signalL, fitparameters['dt'], fitparameters['tau1'])\nsignalL = SimpleLowpass(signalL, fitparameters['dt'], fitparameters['tau1'])\nsignalL = LuminanceGainControl(signalL, fitparameters['dt'], fitparameters['tau2'])\n\nbM = nltan(signalM, fitparameters['k1'])\nbL = nltan(signalL, fitparameters['k1'])\nout = rec( bM - fitparameters['alpha']*bL )\n\nout = SimpleHighpass(out, fitparameters['dt'], fitparameters['tau3'])\nRpc = rec(fitparameters['k2']*out + fitparameters['o1'])"
+      }
+    ]
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/.ipynb_checkpoints/PC_Ron-checkpoint.ipynb",
+    "sha256": "bf97ebd99a2cbb9384d7c7eba9f537aa6e82cfbf4318657e53fd6c271ebf9b4a",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": []
+  },
+  {
+    "path": "data/real/schottdorf_lee_2021_repository/run_model/.ipynb_checkpoints/Piecharts-checkpoint.ipynb",
+    "sha256": "0b6dd9c2a458484d47f80b31baedf4d8c50db72eae1d93c8da93ec12cbcf881c",
+    "unit_kind": "zero_based_notebook_code_cell",
+    "matches": [
+      {
+        "unit": 2,
+        "text": "# Note: all reliabilities rounded to 2 significant digits, and rounded up"
+      },
+      {
+        "unit": 3,
+        "text": "pl.rcParams['figure.figsize'] = [15, 4]\ndef make_plots(cell_name, RpcF, RpfS, filename, dt, shift, column, retinal_reliability): \n    \n    # Calculate the R^2 values / variaces explained\n    rF = compare_to_file(filename, RpcF, dt, column, shift)    \n    rS = compare_to_file(filename, RpcS, dt, column, shift)\n    spatial_factors = rS**2\n    temporal_factors = rF**2 - rS**2\n    missing_in_model = retinal_reliability - rF**2\n    \n    #Get the data for the plot\n    cell_activity = np.loadtxt(filename)\n    time_cell = np.arange(0, len(cell_activity))*dt + 5000 - shift*6.66 \n    time_model = np.arange(0, len(RpcS)*dt, dt)\n\n    #Make the plot\n    pl.figure()\n    pl.subplot(1,2,1)\n    pl.plot(time_model, RpcS/np.std(RpcS), label=\"Model without surround\")\n    pl.plot(time_model, RpcF/np.std(RpcF), label = \"Full model\")\n    pl.plot(time_cell, cell_activity[:,column]/np.std(cell_activity[:,column]), label=\"Cell data\")\n    pl.xlim([10000,11500])\n    pl.ylim([0,8])\n    pl.xlabel(\"Time [ms]\")\n    pl.ylabel(\"Activity [Z-scored]\")\n    pl.legend();\n    pl.title(\"r_model=\" + str(rF))\n    pl.subplot(1,2,2)\n    labels = 'Center-contribution', '\"Surround\"-Contribution', 'Missing in Model', 'Individual variations'\n    sizes = [spatial_factors, temporal_factors, missing_in_model, 1-retinal_reliability]\n    explode = (0.1, 0.1, 0.1, 0.1)\n    pl.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=-60)\n    pl.axis('equal')\n    pl.title(\"Cell: \" +  cell_name);\n\n    #Save figure + data\n    pl.savefig(\"./\"+ cell_name + \".pdf\")\n    \n    # Select data for cell and model, and save it\n    t0 = 5000\n    time_cell = np.arange(0, len(cell_activity))*dt + 5000 - shift*6.66\n    cell = cell_activity[(time_cell>t0) * (time_cell<64980), column]\n    time = np.arange(0, len(RpcF)*dt, dt) \n    model = RpcF[(time>=t0) * (time<64980)]\n    time_file = time[(time>=t0) * (time<64980)]\n    model_data_save = np.transpose([time_file, cell/np.std(cell), model/np.std(model)])\n    np.savetxt(\"./\"+ cell_name + '_time_cell_fit.csv', model_data_save, fmt='%1.5f', delimiter=', ', newline='\\n', header='time [ms], cell, model', footer='', comments = '', encoding=None)\n\n    pl.close()"
+      },
+      {
+        "unit": 5,
+        "text": "for cell in [\"110Ron\", \"130Gon\"]:\n    \n    if cell == \"110Ron\":\n        fitparameters = {'xoff': 2.9, 'yoff': -1.8, 'rcenterM': 20, 'rcenterL': 5.0, \\\n                         'lum_factor': 1200, 'tau1': 6.9, 'tau2': 60, 'k1': 0.017, 'tau3': 400,\\\n                         'alpha': 0.68, 'k2': 4, 'o1': 0.07, 'dt': 1000/150.}\n        filename = './data/File110Ron.txt'\n        celltype = \"Ron\"\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rcenterM'] = fitparameters_s['rcenterL']\n        retinal_reliability = 0.91**2 # From Barry for 110Ron\n\n    elif cell == \"130Gon\":\n        fitparameters = {'xoff': 2.9, 'yoff': -2.2, 'rcenterM': 4.9, 'rcenterL': 32, \\\n                         'lum_factor': 290, 'tau1': 7.8, 'tau2': 100, 'k1': 0.018, 'tau3': 2000,\\\n                         'alpha': 0.71, 'k2': 3.0, 'o1': 0.06, 'dt': 1000/150.}\n        filename = './data/File130Gn.txt'\n        celltype = \"Gon\"\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rcenterL'] = fitparameters_s['rcenterM']\n        retinal_reliability = 0.80**2 # From Barry for 130Gon\n\n\n    # full model\n    lum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters)\n    RpcF = get_PC_response(lum_signalM, lum_signalL, fitparameters, celltype)\n\n    # no-surround model\n    lum_signalM, lum_signalL = filter_video_PC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\n    RpcS = get_PC_response(lum_signalM, lum_signalL, fitparameters_s, celltype)\n    \n    make_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 1, column = 0, retinal_reliability = retinal_reliability)"
+      },
+      {
+        "unit": 8,
+        "text": "for cell in [\"299Mon\", \"078Moff\"]:\n    \n    if cell == \"299Mon\":\n        fitparameters = {'xoff': -2.5, 'yoff': -5.5, 'rcenter': 4.0, 'rsurr': 13.0, 'ksurr': 0.45, 'surround_delay': 3, \\\n                         'lum_factor': 60, 'tau1': 7.3, 'tau2': 38, 'k1': 0.019, 'c1': 0.016, 'tauplus': 110, \\\n                         'tauA': 20, 'k2': 50, 'dt': 1000/150.}\n        filename = './data/File299Mon.txt'\n        celltype = 'on-cell'\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rsurr'] = fitparameters_s['rcenter']\n        retinal_reliability = 0.92**2 # From 299 MC on cell\n\n    elif cell == \"078Moff\":\n        fitparameters = {'xoff': -8.4, 'yoff': 2.5, 'rcenter': 4.5, 'rsurr': 20, 'ksurr': 0.34, 'surround_delay': 8, \\\n                         'lum_factor': 1000, 'tau1': 5.0, 'tau2': 16, 'k1': 0.00048, 'c1': 0.0024, 'tauplus': 22, \\\n                         'tauA': 33, 'k2': 560, 'dt': 1000/150.}\n        filename = './data/File078Moff.txt'\n        celltype = 'off-cell'\n        fitparameters_s = fitparameters.copy()\n        fitparameters_s['rsurr'] = fitparameters_s['rcenter']\n        retinal_reliability = 0.89**2 # From 78 MC off cell\n\n\n    # full model\n    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters)\n    RpcF = get_MC_response(rates_center, rates_surround, fitparameters, type = celltype)\n\n    # no-surround model\n    rates_center, rates_surround = filter_video_MC('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\n    RpcS = get_MC_response(rates_center, rates_surround, fitparameters_s, type = celltype)\n    \n    make_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 2, column = 0, retinal_reliability = retinal_reliability)"
+      },
+      {
+        "unit": 11,
+        "text": "cell = \"178Bon\"\n\nfitparameters = {'xoff': -7.6, 'yoff': 9.5, 'rcenterB': 10.0, 'rcenterY': 14.0,\\\n                 'tau1': 10.2, 'tau2': 86, 'delay': 29, 'beta': 0.0, 'alpha': 4.9,  \\\n                 'tau3': 280, 'kL': 0.01, 'kM': 0.051, 'kB': 0.12, 'offset': 0.025, 'dt': 1000/150.}\n\nfilename = './data/File178Bon.txt'\nfitparameters_s = fitparameters.copy()\nfitparameters_s['rcenterY'] = fitparameters_s['rcenterB']\nretinal_reliability = 0.91**2 # From barry 178 Bon cell\n\n\n# full model\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters)\nRpcF = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters)\n\n# no-surround model\nlum_signalL, lum_signalM, lum_signalB = filter_video_BO('../stimuli/1x10_256.mpg', 9750, fitparameters_s)\nRpcS = get_BO_response(lum_signalB, lum_signalM, lum_signalL, fitparameters_s)\n\nmake_plots(cell, RpcF, RpcS, filename, dt = fitparameters['dt'], shift = 2, column = 0, retinal_reliability = retinal_reliability)"
+      }
+    ]
+  }
+]
