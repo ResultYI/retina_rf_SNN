@@ -1,11 +1,60 @@
-# Retina Research Execution Rules
+# RetiPath — Research Execution Rules
 
-Execute the requested task through its required verification, then stop. Scientific interpretation, research planning and subsequent experiments remain with the user and ChatGPT unless explicitly requested.
+## 1. 项目目标与导航
 
-- Preserve frozen Canonical V1. Changes to architecture, loss, training protocol, parameter bounds, data splits or evaluation criteria require explicit instruction. Every implementation change needs a scientific or correctness reason stated in the task. Never alter the model or protocol merely to improve NLL, accuracy, recovery scores or appearance.
-- Separate code facts, experimental results, model-internal inference and biological conclusions. Model outputs do not establish biological mechanisms. Use established retinal neuroscience, computational neuroscience and machine-learning terminology; report insufficient evidence as UNVERIFIED. If a tool or skill calls missing evidence INCONCLUSIVE, report it as UNVERIFIED here and identify the gap.
-- Read-only tasks permit no file modifications. No-training tasks permit neither training nor new training checkpoints. Honor any restriction on reading new spike targets.
-- Change only necessary files and preserve concurrent work. Do not add unrelated refactoring, cleanup, baselines, audits, robustness tests, ablations or engineering.
-- Read the files and references needed for the current task. Use existing project tooling and only the checks needed to verify the requested change. Verification must stay within the task's data-access, training and frozen-protocol boundaries.
-- Continue authorized implementation and required verification without another start request. Ask only for missing user-only information, a material scope decision or a required approval; pause only dependent work.
-- Report observations and verification limits concisely. Interpret scientific meaning only when asked; do not repeat visible tables or figures. Completion requires the requested deliverable and applicable evidence, with any unresolved requirement identified explicitly.
+RetiPath 研究：在明确的物理坐标与实验条件下，用不同层级、不同刺激尺度的部分观测，约束同一套动态视网膜回路，并检验未见刺激、层级×尺度组合和通路干预的预测。
+
+开始任务时读取 `docs/RESEARCH_PLAN.md` 的目标与当前阶段，以及 `docs/NEXT_TASK.md`。随后只读取完成任务必需的源码、报告和来源；不要重读全部历史审计。
+
+研究计划、当前源码和实验结果分别记录。设计方案不能写成已实现功能。当前任务决定本轮交付与权限；路线图中的后续阶段不构成执行授权。新计划调整待办优先级，历史实验及其冻结合同保持有效。
+
+## 2. 执行范围与审批
+
+- 完成用户授权的任务及其必要验证后停止。科学解释、研究规划和后续实验由用户与研究助手决定；明确要求 Codex 参与设计时，可以在该范围内提出方案。
+- 保留冻结的 Canonical V1、现有正式 RetiPath 模型和历史结果。修改架构、loss、参数边界、训练预算、数据划分、checkpoint 选择或评价定义，需要本轮明确指令；每项实现修改须有科学理由或正确性理由。
+- 只读任务不写文件；禁止训练的任务不运行训练、不生成训练 checkpoint。用户限制读取新 spike targets、运行测试或执行 Git 时，严格保持这些限制。
+- 仅修改必要文件，保留本地未提交工作和并行任务的修改。未经明确授权，不执行 Git 写操作、切换分支、推送、删除数据、覆盖实验结果、安装依赖、下载大型数据或联系外部人员。
+- 授权范围内的常规实施和必要验证直接完成，不重复请求开始。优先从已有资料解决缺项；只有用户独有信息、实质范围变更或明确审批事项才需询问，并只暂停依赖该事项的工作。
+- 必要验证必须遵守当前任务的数据访问、禁训练和冻结协议边界；不以工具或 skill 的工作流扩大授权。
+- 不擅自增加重构、清理、baseline、消融、audit、robustness 或新实验。检查以足以支持当前交付为限，不把每次结果自动扩展成下一轮检查。
+
+## 3. 科学证据边界
+
+- 区分代码事实、实验结果、模型内部解释、生物学结论。来源不足标记 `UNVERIFIED` 并说明缺项；设计假设单独标注。工具的 `INCONCLUSIVE` 在项目报告中统一标为 `UNVERIFIED` 并说明证据缺项，不改写成失败。
+- 使用领域标准术语。effective state、normalized conductance、空间 mode 不自动具有 mV、nS、真实细胞亚型或树突区室含义。
+- synthetic teacher 提供模拟系统真值；不提供真实生理真值。功能一致、参数恢复、跨 seed 一致性和生物因果验证分别评价。
+- 计算通路干预按其实际作用点命名；不得自动等价药理阻断。训练数据拟合、保留集预测和独立外部验证分别记录。
+- 不为了降低 NLL、放大 F2、让 RF 更动态或得到预期排序而改变模型或协议。负结果和部分支持原样保留。
+
+## 4. 架构与物理尺度
+
+- 建模对象是有分支和反馈的回路。保留 H1-like feedback、direct BC、BC→AC-associated pathway 与 E/I integration 的区别；训练顺序不改变计算图。
+- 每个模块区分 input、state、pathway output、observation。观测头只连接含义匹配的量，不以名称相似代替映射依据；优先 identity、受限 affine 或已知测量滤波。
+- 新设计区分显示像素与回路节点，使用显式空间坐标、像素面积和时间单位。物理缩放、网格重采样、细胞偏心度与刺激历史分别处理。
+- 相同物理刺激的不同充分分辨表示应数值一致；真实刺激尺度改变允许产生不同响应。动态 RF 是状态依赖敏感度的读数，不承担丢失像素细节或未知绝对光强的恢复。
+- 不以 resize、自动裁切、重标 degree/pixel 或未知域外填零制造协议匹配。跨分辨率权重按同一物理积分定义处理；不能截断后重归一化以掩盖缺失输入。
+- 局部有效单元、参数共享和 state/output 分离是新架构的设计方向；具体方程与粒度在设计稿中决定。不得自动新增 cone 生化模型、命名 AC subtype、自由 RF decoder 或任意 dataset-ID 适配器。
+
+## 5. 训练与评价
+
+- 分层观测约束同一个回路的不同位置。根据计算图确定各 loss 可更新的祖先模块；state 监督不自动约束独立的 output coupling。
+- 逐层预训练、加入新模块、回放旧观测及联合校正是待验证的训练策略。必须与同架构、同观测数据的 joint-from-scratch 对照，区分数据价值与训练顺序价值。
+- 数据集抽样概率、loss 归约、噪声模型、有效观测曝光量和优化预算共同决定训练目标。交替 batch 或梯度累积均可，不能声称任一种自动消除权重问题。
+- 先做小型 synthetic 方法验证。真实数据获取不阻塞架构设计；真实生理结论仍需相应观测与标定。新增参数可以估计，但必须定义含义、约束和可检验性；任意固定数值也不等于生理已知。
+- 在训练前冻结 teacher/student 信息边界、数据生成、尺度划分、观测可见性、初始化、预算、选择规则和主要指标。后续变更单独记录，不回写旧结果。student 不得读取未授权 teacher latent/parameters 或保留集目标。
+- 分别报告响应预测、局部状态/通路输出、端到端干预、跨 seed 分散程度。synthetic prediction 同时报告 excess CE；机制误差保留绝对与相对量，不用不同通路相对误差的任意平均替代主问题。
+- 下一阶段原型及训练只有在明确授权后运行。新架构先小规模 screen；100–200 updates 可作初筛参考，具体预算由该次合同确定，不能自动复用历史 3000-step 或全 population 设置。
+
+## 6. 完成标准
+
+交付必须落到指定文件或可核对结果。简要报告：完成内容、修改文件、验证与未验证范围、关键限制、是否需要用户决策。不要逐项复述已展示的表图，不新增下一轮任务。无影响当前交付的非关键缺项记录后继续；实质科学歧义集中列出供审阅。
+
+## 7. 本地规则保留与本轮停止边界
+
+2026-09-18：本地合并前规则按原字节完整保存于 `docs/history/agents_before_multiscale_v0.md`。本轮明确授权更新研究规划、根目录规则与架构设计文档，不授权改变正式模型或冻结实验合同。更新包是候选材料，其操作指示受用户本轮请求约束。
+
+- 原有审批、数据保护和发布限制继续有效；本地数据/发布边界见 `audit/DATA_AVAILABILITY.md` 及其引用的既有记录。本文件不扩大数据读取、外传、删除、覆盖或发布权限。
+- 旧 S0/S0.5 报告及其中后续建议只作历史，S0.6 不自动成为当前任务；不重跑旧实验。
+- 当前阶段只允许指定文档写入、必要源码阅读和文本核对；不运行 Git、模型、checkpoint、pytest、训练或数据生成，不读取 natural-movie/spike payload，不修改正式源码、数据、checkpoint 或旧实验结果。
+- 不修改 Codex 全局配置、sandbox 或 approval settings，不切换分支。后续实现、测试、生成数据、训练分别需要相应明确授权；批准设计不自动授权全部路线图。
+- 实质权限冲突集中报告，仅暂停依赖该冲突的操作；授权内其余工作继续。交付后停止，不自动启动下一阶段。

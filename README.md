@@ -43,3 +43,7 @@ See [data availability](audit/DATA_AVAILABILITY.md) for raw data, local-only ten
 The 2026-09-05 cleanup archived superseded unreferenced experiments and old reports with verified hashes. Model, training, loader, baseline and test Python sources remain unchanged. Some legacy modules/results remain because of imports, CLI defaults or artifact provenance; their presence does not make them current evidence.
 
 See the [cleanup record](audit/cleanup_20260905/README.md) and [Pro audit prompt](audit/PRO_AUDIT_PROMPT_ZH.md).
+
+## 当前研究入口（2026-09-18）
+
+当前研究计划见 [docs/RESEARCH_PLAN.md](docs/RESEARCH_PLAN.md)；当前任务见 [docs/NEXT_TASK.md](docs/NEXT_TASK.md)。

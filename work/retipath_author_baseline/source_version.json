@@ -1,0 +1,32 @@
+{
+  "repository": "https://github.com/open-retina/open-retina",
+  "sha": "7b7750d167ed965e068770874f42895bc61dc415",
+  "commit": {
+    "author": {
+      "name": "thomasZen",
+      "email": "thomas.zenkel@gmail.com",
+      "date": "2026-09-11T10:06:13Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2026-09-11T10:06:13Z"
+    },
+    "message": "Copy weights in TimeIndependentConv3D before plotting (#196)",
+    "tree": {
+      "sha": "276419a9e2fc0ccc65048890ed2d95c71f95f232",
+      "url": "https://api.github.com/repos/open-retina/open-retina/git/trees/276419a9e2fc0ccc65048890ed2d95c71f95f232"
+    },
+    "url": "https://api.github.com/repos/open-retina/open-retina/git/commits/7b7750d167ed965e068770874f42895bc61dc415",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqo9KVCRC1aQ7uu5UhlAAA5TsQACQXHW8w4lP04YRS14951HS9\nUVO/Nm8pNAxnHJ+grIavlvkBvwhvb9s5cTEDOPUDTUNJhsuVmf8+l8/yNmog9Dwc\nrJI0QSgbhOWOf1vNhbCDboQeo0k7DzlvoHnBo3t+adJWdUgYGKqfSVjocERVgD5P\nD9L6TPQ1nTRzliRFhJLWLLn780BdnJVUOBHYjP8Glr02rO6mXFacKCk7BAM3ZFs0\nEItBE1r/f3RspUDxA/u84QfpI2p2qLdfBN0La59g2E+DcVM+UfILe7dhQqAbNwb/\nkYif4f81kGnNcyUFgLWBZEZxdCvTbU61SHWvu6g3POARfAkQUFY8exoqLpFYKzUX\nqGv3nb2m47tuYP/F3Ghjmw84rkesyQ3vnAkE6MkaScyexT7ttFHuuVGNfdA4unY9\n9F/jHiJsNaK7g4TYQi52tl9E8RR4ik+mbLa7U2tS8rHC1mZsa773AFFPovlrwl8Y\nILf9K1dXqM+J0PnIIIVlW7r67vBRHHWijug4bS/PSxjcLZ2EsyQFIinn5tnEB5px\nM4cg3trxqozDCktEYAK6pHHPppcA4PWthyVyetqlALLzvZ7M5KQxJZu8JhOurWfI\naEyBT15MjPEFKdEXq3AjbJHwL5e1hioKZXQGLkz/zy+0gwNlld1E3TzfJ2YFWnEx\naToy2bGB1xoG7o816u9/\n=DOPP\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 276419a9e2fc0ccc65048890ed2d95c71f95f232\nparent a1859a77aa6b5772ad1224edfadecbd917da6815\nauthor thomasZen <thomas.zenkel@gmail.com> 1789121173 +0200\ncommitter GitHub <noreply@github.com> 1789121173 +0200\n\nCopy weights in TimeIndependentConv3D before plotting (#196)",
+      "verified_at": "2026-09-11T10:06:13Z"
+    }
+  },
+  "archive_path": "work\\retipath_author_baseline\\open-retina-7b7750d167ed965e068770874f42895bc61dc415",
+  "source_transport": "requests with certifi TLS verification enabled"
+}

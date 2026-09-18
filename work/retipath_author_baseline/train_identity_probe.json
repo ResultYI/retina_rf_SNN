@@ -1,0 +1,259 @@
+[
+  {
+    "cell": "67#14",
+    "trials": 7,
+    "recordings": [
+      "lSS01110",
+      "lSS01112"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "67#21",
+    "trials": 7,
+    "recordings": [
+      "lSS01130",
+      "lSS01131"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "67#26",
+    "trials": 7,
+    "recordings": [
+      "lSS01141",
+      "lSS01142"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "67#33",
+    "trials": 7,
+    "recordings": [
+      "lSS01159",
+      "lSS01160"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "67#34",
+    "trials": 7,
+    "recordings": [
+      "lSS01167",
+      "lSS01168"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "67#4",
+    "trials": 1,
+    "recordings": [
+      "lSS01071"
+    ],
+    "innerfit_sequences": 13,
+    "innerdev_sequences": 4,
+    "innerfit_scored_bins": 1470,
+    "innerdev_scored_bins": 390
+  },
+  {
+    "cell": "67#6",
+    "trials": 7,
+    "recordings": [
+      "lSS01078",
+      "lSS01079"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "67#7",
+    "trials": 7,
+    "recordings": [
+      "lSS01086",
+      "lSS01087"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "68#10",
+    "trials": 1,
+    "recordings": [
+      "lSS01221"
+    ],
+    "innerfit_sequences": 13,
+    "innerdev_sequences": 4,
+    "innerfit_scored_bins": 1470,
+    "innerdev_scored_bins": 390
+  },
+  {
+    "cell": "68#11",
+    "trials": 7,
+    "recordings": [
+      "lSS01225",
+      "lSS01227"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "68#3",
+    "trials": 7,
+    "recordings": [
+      "lSS01181",
+      "lSS01183"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "68#4",
+    "trials": 6,
+    "recordings": [
+      "lSS01184"
+    ],
+    "innerfit_sequences": 78,
+    "innerdev_sequences": 24,
+    "innerfit_scored_bins": 8820,
+    "innerdev_scored_bins": 2340
+  },
+  {
+    "cell": "68#7",
+    "trials": 7,
+    "recordings": [
+      "lSS01194",
+      "lSS01196"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "69#21",
+    "trials": 6,
+    "recordings": [
+      "lSS01270"
+    ],
+    "innerfit_sequences": 78,
+    "innerdev_sequences": 24,
+    "innerfit_scored_bins": 8820,
+    "innerdev_scored_bins": 2340
+  },
+  {
+    "cell": "69#3",
+    "trials": 7,
+    "recordings": [
+      "lSS01251",
+      "lSS01252"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "69#4",
+    "trials": 6,
+    "recordings": [
+      "lSS01254"
+    ],
+    "innerfit_sequences": 78,
+    "innerdev_sequences": 24,
+    "innerfit_scored_bins": 8820,
+    "innerdev_scored_bins": 2340
+  },
+  {
+    "cell": "69#6",
+    "trials": 7,
+    "recordings": [
+      "lSS01256",
+      "lSS01257"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "69#7",
+    "trials": 7,
+    "recordings": [
+      "lSS01258",
+      "lSS01259"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "70#1",
+    "trials": 6,
+    "recordings": [
+      "lSS01278"
+    ],
+    "innerfit_sequences": 78,
+    "innerdev_sequences": 24,
+    "innerfit_scored_bins": 8820,
+    "innerdev_scored_bins": 2340
+  },
+  {
+    "cell": "70#15",
+    "trials": 6,
+    "recordings": [
+      "lSS01287"
+    ],
+    "innerfit_sequences": 78,
+    "innerdev_sequences": 24,
+    "innerfit_scored_bins": 8820,
+    "innerdev_scored_bins": 2340
+  },
+  {
+    "cell": "70#34",
+    "trials": 7,
+    "recordings": [
+      "lSS01299",
+      "lSS01300"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  },
+  {
+    "cell": "70#7",
+    "trials": 7,
+    "recordings": [
+      "lSS01284",
+      "lSS01285"
+    ],
+    "innerfit_sequences": 91,
+    "innerdev_sequences": 28,
+    "innerfit_scored_bins": 10290,
+    "innerdev_scored_bins": 2730
+  }
+]

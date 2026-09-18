@@ -1,0 +1,107 @@
+{
+  "schema": "retipath_g2_multilevel_multiscale_v1",
+  "date": "2026-09-18",
+  "conditions": {
+    "A": "RGC_ONLY",
+    "B": "MULTILEVEL_NARROW",
+    "C": "MULTILEVEL_MULTISCALE_JOINT",
+    "D": "MULTILEVEL_MULTISCALE_PROGRESSIVE",
+    "E": "EXTRA_RGC_MULTISCALE"
+  },
+  "authorization_changes_from_G0": [
+    "User explicitly requests five conditions instead of the G0 three conditions; G1 architecture and losses remain unchanged.",
+    "Primary is RGC-logit direct-BC intervention error, superseding G0 probability intervention error.",
+    "All conditions have 180 optimizer steps and 480 microbatches; A repeats base RGC data to match exposure; E uses independent extra RGC data in those slots.",
+    "B uses the same 72 distinct base waveform families and visibility slots as C, with every physical sigma set to 0.30. C assigns 24 distinct families to each training scale. No duplicate common-scale waveform is counted as new data.",
+    "RF secondary uses five physical-scale histories and the same prespecified spatial impulse bank, rather than G0 two contrast histories and one central impulse. RF is evaluation only."
+  ],
+  "source_hashes": {
+    "experiments/retipath_multiscale_v0/contracts.py": "eb7a8bbf04a352fbf0bbfd1520745be14f40abd2539e0023ef739e3cd3c39e85",
+    "experiments/retipath_multiscale_v0/circuit.py": "fe31b115b87ce4d4ab4a69b50f3615e9ef5054959ec434a68a640ed427594f46",
+    "experiments/retipath_multiscale_v0/test_contract.py": "b81644e9954973c7ca1d4f11e95cc510ea3f6eceb239892e9b78c6b99773312b",
+    "models/mechanistic_retina/state.py": "fb20576fa7c277deb01261d0ad7f743211a7aab2643986d8bffd2ba47b3e486b",
+    "models/mechanistic_retina/retipath_spatial_ei.py": "a0a1c4301bf04eddd40d5561bb63d5242873f0687970f3116505edb99ef5de9c",
+    "docs/RETIPATH_ARCHITECTURE_V0.md": "53be0d730754129e1e829aa5c9a907865806c323e7cdbad0e6882c1ff3fdac9c"
+  },
+  "teacher": {
+    "family": "frozen realizable LocalRetipathV0",
+    "physical_parameters": {
+      "tau_h": 35.0, "a_h": 0.20, "tau_f": 15.0, "tau_s": 75.0,
+      "alpha": 0.25, "tau_a1": 40.0, "tau_a2": 110.0,
+      "g_e": 2.0, "delta_e": 0.4, "g_i": 1.2, "delta_i": -0.3, "bias": -2.0
+    },
+    "student_may_load_teacher_checkpoint": false
+  },
+  "student_seeds": [2026091801, 2026091802, 2026091803],
+  "master_seed": 2026091810,
+  "runtime": {"device": "cpu", "dtype": "float32", "reduction_dtype": "float64", "threads_per_process": 1, "deterministic_algorithms": true},
+  "stimulus": {
+    "grid": [32, 32], "field_deg": [-1.0, 1.0, -1.0, 1.0],
+    "dt_ms": 6.666666666666667, "T": 300, "warmup": 60,
+    "frequencies_hz": [0.5, 1.5, 3.0, 6.0], "contrast": 0.4,
+    "center_choices_deg": [-0.1, 0.0, 0.1],
+    "definition": "Gaussian spatial field pixel-area average times mean of four sinusoids; bin-midpoint time samples; known independent zero initial states",
+    "train_scales_deg": [0.15, 0.30, 0.60], "common_scale_deg": 0.30,
+    "heldout_scales_deg": [0.225, 0.45], "test_scales_deg": [0.15, 0.225, 0.30, 0.45, 0.60]
+  },
+  "data": {
+    "train_per_scale": 24, "development_per_scale": 8, "test_per_scale": 8,
+    "extra_train_per_scale": 40,
+    "family_assignment": "Each split/pool/logical-scale/row gets a distinct family ID before stimulus or target creation; B is a narrow counterfactual of C sharing the same family, center, phases and random draws. All variants remain within their family split.",
+    "H_visible_logical_scales": [0.30, 0.60], "BC_visible_logical_scales": [0.15, 0.30],
+    "H_nodes": [12, 10, 14, 2, 22], "BC_nodes": [12, 6, 8, 16, 18],
+    "continuous_noise_sigma": 0.03,
+    "continuous_noise": "iid Gaussian, sampled once and fixed; identical base noise across paired B/C waveforms",
+    "RGC_noise": "causal Bernoulli with teacher-generated strictly-past events; common uniforms for paired B/C",
+    "training_visibility": "Separate H/BC/R files contain only permitted labels; H/BC use zero history. Training never loads teacher/evaluator tensors, development or test.",
+    "E": "180 base-R batches plus 300 independent extra-R batches. 72 base plus 120 new physical sequences, no heldout-scale labels. Exposure matched, NOT information matched."
+  },
+  "optimization": {
+    "optimizer": "Adam", "lr": 0.01, "betas": [0.9, 0.999], "eps": 1e-8,
+    "weight_decay": 0.0, "clip_grad_norm": 1.0, "steps": 180, "microbatch_size": 4,
+    "microbatches_per_fit": 480, "sequence_exposures_per_fit": 1920,
+    "loss_coefficients": {"H": 0.4, "BC": 0.4, "R": 0.3333333333333333},
+    "loss": "Unmodified G1 observation_loss; H/BC Gaussian sigma=.03; R Bernoulli; equal sequence means of valid scalar means; score bins 60..299; accumulate without division by microbatch count",
+    "joint_schedule": "6-step cycles: H at positions1..5; BC at2..6; R every step. Totals150/150/180. A/E replace H/BC slots with R repeats/extra, each with unchanged R coefficient 1/3.",
+    "progressive_schedule": "D steps1..30 H only/tau_h;31..60 BC only/a_h,tau_f,tau_s,alpha;61..180 H+BC each and R once on odd phase step/twice on even; all parameters active. Totals150/150/180.",
+    "C_D_pairing": "Identical ordered per-observation streams, data and seed-specific initial states; only timing/freezing differs",
+    "A_E_pairing": "Same 180 base-R batches as C/D; 300 supplement slots repeat base data in A, independent extra data in E",
+    "coefficient_totals": {"A_R": 160.0, "B_C_D_each_H_BC_R": 60.0, "E_R": 160.0},
+    "fairness_limit": "Equal microbatch/sequence/time exposure is not equal scalar-label count, information, accumulated loss coefficient, FLOPs or backward work. Preserve original coefficients rather than reweight losses.",
+    "selection": "final step only; no early stopping, hyperparameter selection, retries from new seeds, restarts to rescue results, additional steps or condition changes",
+    "nonfinite": "Stop affected fit and report failure; do not change loss, model or budget"
+  },
+  "evaluation": {
+    "primary": "Per-sequence RMSE[(ell_block-ell_normal)_student-(ell_block-ell_normal)_teacher], mean sequences within scale then equal mean over heldout scales0.225/0.45",
+    "history": "Same normal teacher sampled event sequence for student/teacher and normal/block; conditional intervention, not free-running spike or biological intervention",
+    "intervention": "BLOCK_DIRECT_BC_DRIVE; whole sequence; tonic gE=1 and BC/AC/history preserved; recompute downstream from V0",
+    "secondary_metrics": ["sampled RGC NLL", "excess CE with evaluator-only teacher conditional p", "H1 h RMSE", "BC s_B RMSE", "BC o_B RMSE", "local d_E intervention RMSE", "relative intervention error with teacher RMS denominator"],
+    "strata": ["all", "heldout_scales", "seen_scales", "each_scale", "H@0.15 and BC@0.60 unseen layer-scale combinations", "observed and unobserved node groups"],
+    "ambiguity": "Pairwise seed RMS distance of direct-block logit effects, conditional probabilities, H1 h, BC s_B and o_B; reported alongside truth error, not posterior inference",
+    "paired_comparisons": ["B-A", "C-B", "D-C", "E-A", "C-E"],
+    "test_access": "Freeze all15 final checkpoint hashes before first student test evaluation; write TEST_CONSUMED.json before opening test targets; one evaluation, any replay labelled verification of consumed test",
+    "development": "Final descriptive evaluation only; visible observations by original matrix; never used to select models or budgets"
+  },
+  "rf": {
+    "role": "secondary evaluation only; never a training loss",
+    "history_scales_deg": [0.15, 0.225, 0.30, 0.45, 0.60],
+    "history": "First test common-scale family supplies same center/phases at every history scale; contrast0.4 for bins0..59; zero background thereafter; common all-zero conditioning events",
+    "common_probe": "Identical bank of 25 square0.10deg apertures at fixed BC-node positions; each independently perturbed +/-0.01 at bin60, pixel-area averaged; same bank under all scale histories",
+    "response_bins": [61, 90],
+    "definition": "R[position,lag]=(ell_plus-ell_minus)/0.02; lag1..30; store full signed25x30 matrix",
+    "gain": "sqrt(mean(R^2))",
+    "spatial_profile": "S=mean_lag(R), normalized by its L2 norm; signed projection onto a fixed uniform temporal vector",
+    "temporal_profile": "T=mean_position(R), normalized by its L2 norm; signed projection onto a fixed uniform spatial vector",
+    "undefined_norm_below": 1e-12,
+    "metrics": ["absolute and relative gain error", "normalized spatial-profile L2 and cosine", "normalized temporal-profile L2 and cosine", "full RF RMSE", "gain/profile changes relative to common-scale history"],
+    "limit": "Profiles are fixed projections and may cancel; undefined norms are reported, never replaced by a result-selected profile; finite perturbation sensitivity is not a biological RF"
+  },
+  "verification": [
+    "Verify frozen G1/dependency/design hashes; run existing G1 unit suite without modifying it",
+    "Pre-target protocol/manifest/schedule lock and disjoint waveform families; no duplicate narrow samples counted as distinct",
+    "Teacher event sampler probabilities agree with unmodified circuit conditional forward and sampled decisions; teacher frozen",
+    "All5x3 fits have exactly180 steps,480 batches; C/D streams and B/C counts match; paired seed initial tensors identical; no forbidden labels in loaded training files",
+    "Finite final checkpoints, actual parameter changes, replay saved heldout traces and recompute aggregate CSV/JSON from per-sequence records; test replay explicitly consumed",
+    "RF common probe and histories remain frozen; all15 students plus teacher evaluated, no RF loss or result-dependent profile"
+  ]
+}

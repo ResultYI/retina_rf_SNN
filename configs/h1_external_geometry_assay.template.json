@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "provenance": {
+    "geometry": "REQUIRED",
+    "registration": "REQUIRED",
+    "contrast": "REQUIRED",
+    "timing": "REQUIRED",
+    "history": "REQUIRED",
+    "response_metric": "REQUIRED"
+  },
+  "sample_rate_hz": 150,
+  "geometry": {
+    "center_deg": "REQUIRED",
+    "spot_radii_deg": ["REQUIRED"],
+    "annulus": null
+  },
+  "contrast_weber": "REQUIRED",
+  "polarity": ["REQUIRED"],
+  "temporal_ms": {
+    "onset": "REQUIRED",
+    "duration": "REQUIRED",
+    "recovery": "REQUIRED"
+  },
+  "history": {
+    "condition": "REQUIRED",
+    "occupancy": null
+  },
+  "measurement": {
+    "window_ms": ["REQUIRED", "REQUIRED"],
+    "reference_spot_index": "REQUIRED",
+    "large_spot_index": "REQUIRED"
+  }
+}

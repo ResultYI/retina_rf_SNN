@@ -31,3 +31,7 @@ Tau, explicit pathway delay (ms), RF lag window (bins) and strictly-past RGC his
 10. Historical architecture/applicability audits predate a correctness patch. Read their source hashes and subsequent verification together; do not promote a historical PASS/FAIL to a universal current assertion.
 
 Use [AUDIT_INDEX.md](AUDIT_INDEX.md) for evidence. Cleanup changes navigation, publication rules and superseded artifacts only. It does not choose an architecture or claim publication readiness; that judgment is requested in `audit/PRO_AUDIT_PROMPT_ZH.md`.
+
+## 当前研究入口（2026-09-18）
+
+当前研究计划见 [docs/RESEARCH_PLAN.md](docs/RESEARCH_PLAN.md)；当前任务见 [docs/NEXT_TASK.md](docs/NEXT_TASK.md)。

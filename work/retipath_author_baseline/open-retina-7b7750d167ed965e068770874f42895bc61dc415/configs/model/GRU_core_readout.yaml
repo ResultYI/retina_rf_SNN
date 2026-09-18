@@ -1,0 +1,47 @@
+# Core and data
+hidden_channels: [32, 64]
+in_shape: ??? # Required at top-level config
+n_neurons_dict: ??? # Set dynamically (e.g., in training script after loading sessions)
+
+core:
+  _target_: openretina.modules.core.gru_core.ConvGRUCore
+  _convert_: object
+  temporal_kernel_sizes: [21, 11, 11]
+  spatial_kernel_sizes: [11, 5, 5]
+  gamma_hidden: 0.0
+  gamma_input: 0.3
+  gamma_in_sparse: 1.0
+  gamma_temporal: 40.0
+  bias: true
+  input_padding: 0
+  hidden_padding: [0, 2, 2]
+  use_gru: false
+  use_projections: true
+  batch_adaptation: false
+  convolution_type: "custom_separable"
+  channels: ??? # set dynamically based on input channels
+  gru_kwargs:
+    rec_channels: 64
+    input_kern: 4
+    rec_kern: 4
+    groups: 1
+    gamma_rec: 1
+    pad_input: true
+
+readout:
+  _target_: openretina.modules.readout.multi_readout.MultiGaussianMaskReadout
+  _convert_: object
+  in_shape: ???
+  scale: true
+  bias: true
+  gaussian_mean_scale: 6.0
+  gaussian_var_scale: 4.0
+  positive: true
+  mask_l1_reg: 1.0
+  feature_weights_l1_reg: 1.0
+  readout_reg_avg: false
+
+# training
+learning_rate: 0.01
+optimizer: ${optimizer} # References the optimizer from defaults
+lr_scheduler: ${lr_scheduler} # References the scheduler from defaults
