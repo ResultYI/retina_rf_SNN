@@ -1,3 +1,37 @@
+# 当前主线：Population RetiPath real-data integration
+
+日期：2026-09-20。状态：**真实多层数据接入合同 v0 已完成；本轮仅文档，完成后停止。**
+
+当前交付：[RETIPATH_REAL_DATA_INTEGRATION_V0.md](RETIPATH_REAL_DATA_INTEGRATION_V0.md)。逐 dataset 记录实际测量量、模型端口、低容量 observation adapter、物理/时间/单位标定、覆盖和参数所有权。当前没有已闭合合同的 READY 真实多层训练组合；已有 raw availability 不自动等于可立即训练。
+
+## 主线与阶段定位
+
+| 阶段 | 当前定位 |
+|---|---|
+| [Population Stage A](RETIPATH_POPULATION_STAGE_A.md) | Correctness 已完成；对进入真实数据接口阶段，方法学验证已足够，不继续扩展 |
+| [Population Stage A.5](RETIPATH_POPULATION_STAGE_A5_MIGRATION.md) | Migration bridge 已完成；保留原 PRESERVED / CHANGED_BUT_EXPLAINED 结论，方法学验证已足够 |
+| [Population Stage B](RETIPATH_POPULATION_STAGE_B.md) | Heterogeneous population 方法学验证已足够；保留原状态/通路/预测的不同结果，不提升为生理验证 |
+| [Stage B diagnosis](RETIPATH_POPULATION_STAGE_B_DIAGNOSIS.md)、[B.1](RETIPATH_POPULATION_STAGE_B1.md)、[B.2](RETIPATH_POPULATION_STAGE_B2.md) | 仅保留为诊断；不继续扩展 synthetic 优化，不自动迁入 loss/prior/预算改动 |
+| Real-data integration | **下一主线**；本轮数据→模型接口设计已完成，接入实施和真实训练尚未开始 |
+
+“方法学验证已足够”是本轮用户指定的推进边界，不是所有参数可辨识、真实机制成立或历史负结果被消除。旧协议、checkpoint、test 消费记录与原始结论保持。
+
+## 后续接入的明确门槛（本轮不执行）
+
+- Schottdorf–Lee：闭合已有帧零点问题、cell/type/retina crosswalk、物理支持与已消费数据划分；不以训练结果选择时钟。
+- 多层数据：优先可标定的 parasol E/I current 与同 cell spike 关系；HC voltage 仅为 h_H 候选；BC input current 不作为 s_B/delta_r_B。
+- 真实数据保留各自 retina instance；未经证据和事前合同，不硬共享不同动物的个体参数，不拼成真实 synaptic chain。
+- 原型架构与 LegacyPReLU 保持；不增加 decoder、BC coupling、AC→BC、outer nonlinearity 或 Stage C。
+
+## 本轮停止边界
+
+仅新增接入合同并更新本文件；未实现 adapter/trainer、未读取新 spike/movie payload、未重新评价 test、未训练或生成数据。后续取得/核对 raw、实现和训练需要各自明确授权；本导航不自动授权执行。完成后停止。
+
+下方原样保留先前 NEXT_TASK 正文，仅作历史，不再作为当前任务。
+
+<details>
+<summary>历史任务原文：G3 及其 G2/G1/G0 历史</summary>
+
 # 当前单任务：RetiPath G3 synthetic robustness benchmark
 
 状态：**G3 五个 world × 五条件 × 三 seeds 已完成，必要核验 VERIFIED；完成后停止，不自动启动后续任务。**
@@ -156,6 +190,8 @@ A=RGC-only；B=全部观测 joint-from-scratch；C=逐层预训练→新增模�
 给出具体方程、维度、参数路由、三条件日程、尺度划分和有限验收；不以概念综述结束。采用短段落、紧凑表格和少量伪代码，不生成图片或PPT。
 
 交付后将本文件状态更新为“设计稿已完成，待用户批准实施”，保留原任务范围。最终只报告设计文件、主要选择、最多三项决策、未运行事项。完成后停止；不要自动创建 trainer、跑新S0或进入下一阶段。
+
+</details>
 
 </details>
 
